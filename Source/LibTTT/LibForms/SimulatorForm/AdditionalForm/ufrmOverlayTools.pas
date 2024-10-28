@@ -375,10 +375,11 @@ type
     Bevel16: TBevel;
     rbRed: TRadioButton;
     rbBlue: TRadioButton;
+    grpNone: TGroupBox;
+    Label72: TLabel;
 
     procedure btnOutlineClick(Sender: TObject);
     procedure btnHandleShape(Sender: TObject);
-    procedure LoadNormalButtonImage;
 
   private
     { Private declarations }
@@ -421,10 +422,8 @@ procedure TfrmOverlayTools.btnHandleShape(Sender: TObject);
 var
   isDynamic: Boolean;
 begin
-  LoadNormalButtonImage;
+//  LoadNormalButtonImage;
   btnDelete.Enabled := false;
-  // if btnPan.Down = True then
-  // btnPan.Down := False;
 
   RefreshMousePointer;
   ClearFlagPoint;
@@ -432,44 +431,22 @@ begin
   Canceled;
   IdAction := 1;
 
-  case FTipeOverlay of
-
-{$REGION ' Dynamic Section '}
-    osDynamic:
-      begin
-        pnlDynamic.Visible := True;
-        cbbWeightPen.Text := '1';
-        cbbDashesPen.Text := 'Solid';
-        cbbTextSize.Text := '11';
-        isDynamic := True;
-      end;
-{$ENDREGION}
-{$REGION ' Static Section '}
-    osStatic:
-      begin
-        pnlStatic.Visible := True;
-        isDynamic := false;
-      end
-{$ENDREGION}
-  end;
-
   ShapeType := TImage(Sender).Tag;
+
   case ShapeType of
     0: { Select }
       begin
-        btnSelect.Picture.LoadFromFile
-          ('data\Image DBEditor\Interface\Button\btnCursor_Select.PNG');
-        lblShape.Caption := '---';
+        btnSelect.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnCursor_Select.PNG');
         grpNone.BringToFront;
 
         { merubah cursor }
         FMapCursor := mcEdit;
 
-{$REGION ' Button Handle '}
+        {$REGION ' Button Handle '}
         btnOutline.Visible := false;
         btnFill.Visible := false;
         pnlPenEditing.Visible := false;
-{$ENDREGION}
+        {$ENDREGION}
       end;
     ovText:
       LoadPanelText;
@@ -522,18 +499,9 @@ begin
   edtTextPosLong.Text := '';
   edtTextField.Text := 'None';
 
-//  edtTextRange.Text := '0';
-//  edtTextBearing.Text := '0';
-//  edtTextFieldD.Text := 'None';
-
   SpeedButton.Down := false;
 
   { Line }
-//  edtLineStartRange.Text := '0';
-//  edtLineStartBearing.Text := '0';
-//  edtLineEndRange.Text := '0';
-//  edtLineEndBearing.Text := '0';
-
   edtLineStartPosLong.Text := '';
   edtLineStartPosLat.Text := '';
   edtLineEndPosLong.Text := '';
@@ -543,11 +511,6 @@ begin
 //  SpeedButton2.Down := false;
 
   { Rectangle }
-//  edtRecStartRange.Text := '0';
-//  edtRecStartBearing.Text := '0';
-//  edtRecEndRange.Text := '0';
-//  edtRecEndBearing.Text := '0';
-
   edtRectStartPosLong.Text := '';
   edtRectStartPosLat.Text := '';
   edtRectEndPosLong.Text := '';
@@ -557,10 +520,6 @@ begin
 //  SpeedButton4.Down := false;
 
   { Circle }
-//  edtCircleRange.Text := '0';
-//  edtCircleBearing.Text := '0';
-//  edtCircleRadiusD.Text := '1';
-
   edtCircleRadius.Text := '1';
   edtCirclePosLong.Text := '';
   edtCirclePosLat.Text := '';
@@ -568,11 +527,6 @@ begin
 //  SpeedButton5.Down := false;
 
   { Ellipse }
-//  edtEllipseRange.Text := '0';
-//  edtEllipseBearing.Text := '0';
-//  edtEllipseHorizontalD.Text := '1';
-//  edtEllipseVerticalD.Text := '1';
-
   edtHorizontal.Text := '1';
   edtVertical.Text := '1';
   edtEllipsePosLong.Text := '';
@@ -581,12 +535,6 @@ begin
 //  SpeedButton6.Down := false;
 
   { Arc }
-//  edtArcRange.Text := '0';
-//  edtArcBearing.Text := '0';
-//  edtArcRadiusD.Text := '1';
-//  edtArcStartAngleD.Text := '0';
-//  edtArcEndAngleD.Text := '0';
-
   edtArcRadius.Text := '1';
   edtArcPosLong.Text := '';
   edtArcPosLat.Text := '';
@@ -596,13 +544,6 @@ begin
 //  SpeedButton7.Down := false;
 
   { Sector }
-//  edtSectorRange.Text := '0';
-//  edtSectorBearing.Text := '0';
-//  edtSectorInnerD.Text := '1';
-//  edtSectorOuterD.Text := '1';
-//  edtSectorStartAngleD.Text := '0';
-//  edtSectorEndAngleD.Text := '0';
-
   edtSectorInner.Text := '1';
   edtSectorOuter.Text := '1';
   edtSectorPosLong.Text := '';
@@ -613,14 +554,6 @@ begin
 //  SpeedButton8.Down := false;
 
   { Grid }
-//  edtTableRange.Text := '0';
-//  edtTableBearing.Text := '0';
-//  edtTableHeightD.Text := '1';
-//  edtTableColumnD.Text := '1';
-//  edtTableWidthD.Text := '1';
-//  edtTableRowD.Text := '1';
-//  edtRotationAngleD.Text := '0';
-
   edtTableHeight.Text := '1';
   edtTableWidth.Text := '1';
   edtTablePosLong.Text := '';
@@ -632,16 +565,13 @@ begin
 //  SpeedButton9.Down := false;
 
   { Polygon }
-//  edtPolygonRange.Text := '0';
-//  edtPolygonBearing.Text := '0';
+
   edtPolyPosLat.Text := '';
   edtPolyPosLong.Text := '';
-//  lvPolyVertexD.Clear;
   lvPolyVertex.Clear;
 
 //  SpeedButton10.Down := false;
 
-//  pnlWarning.Visible := false;
 end;
 
 procedure TfrmOverlayTools.ClearFlagPoint;
@@ -651,36 +581,20 @@ begin
 //  Map1.Repaint;
 end;
 
-procedure TfrmOverlayTools.LoadNormalButtonImage;
-begin
-  btnZoom.ImageIndex := 2;
-  btnPan.ImageIndex := 3;
-  btnout.ImageIndex := 7;
-  btnGameArea.ImageIndex := 9;
-  btnRuller.ImageIndex := 11;
-end;
-
 procedure TfrmOverlayTools.LoadPanelArc;
 begin
-  lblShape.Caption := 'Arc';
-  btnArc.Picture.LoadFromFile
-    ('data\Image DBEditor\Interface\Button\btnArc_Select.PNG');
+  btnArc.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnArc_Select.PNG');
 
-{$REGION ' Dynamic Handle '}
-  grpArcD.BringToFront;
-  grpArcD.Visible := True;
-{$ENDREGION}
-{$REGION ' Static Handle '}
   grpArc.BringToFront;
-  grpArc.Visible := True;
-{$ENDREGION}
-{$REGION ' Button Handle '}
+
+  {$REGION ' Button Handle '}
   btnOutline.Visible := True;
   btnFill.Visible := False;
   pnlPenEditing.Visible := True;
   SetNoFill(True);
   btnOutlineClick(nil);
-{$ENDREGION}
+  {$ENDREGION}
+
 end;
 
 procedure TfrmOverlayTools.LoadPanelCircle;
@@ -823,25 +737,17 @@ end;
 
 procedure TfrmOverlayTools.LoadPanelSector;
 begin
-  lblShape.Caption := 'Sector';
-  btnSector.Picture.LoadFromFile
-    ('data\Image DBEditor\Interface\Button\btnSector_Select.PNG');
+  btnSector.Picture.LoadFromFile ('data\Image DBEditor\Interface\Button\btnSector_Select.PNG');
 
-{$REGION ' Dynamic Handle '}
-//  grpSectorD.BringToFront;
-//  grpSectorD.Visible := True;
-{$ENDREGION}
-{$REGION ' Static Handle '}
   grpSector.BringToFront;
-  grpSector.Visible := True;
-{$ENDREGION}
-{$REGION ' Button Handle '}
+
+  {$REGION ' Button Handle '}
   btnOutline.Visible := True;
   btnFill.Visible := True;
   pnlPenEditing.Visible := True;
   SetNoFill(True);
   btnOutlineClick(nil);
-{$ENDREGION}
+  {$ENDREGION}
 end;
 
 procedure TfrmOverlayTools.LoadPanelText;

@@ -530,8 +530,7 @@ begin
           if TSpeedButton(Components[i]).Tag = tagTemp then
           begin
             TSpeedButton(Components[i]).Width := widthTemp;
-            TSpeedButton(Components[i]).Caption := SimManager.SimTabProperties.GetCaptionTab(simMgrClient.MyConsoleData.
-              UserRoleData.UserRoleIndex, tagTemp);
+            TSpeedButton(Components[i]).Caption := SimManager.SimTabProperties.GetCaptionTab(simMgrClient.MyConsoleData.UserRoleData.UserRoleIndex, tagTemp);
           end;
 
           inc(tagTemp);
