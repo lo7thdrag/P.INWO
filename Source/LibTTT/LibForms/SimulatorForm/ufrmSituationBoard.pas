@@ -10,7 +10,7 @@ uses
 
   {Project Uses}
   MapXLib_TLB, uCoordConvertor, uLibSetting, uT3SimManager, uSimMgr_Client, uRecordData, uNetBaseSocket, uClassData, ufrmCreateTab,
-  ufrmImageInsert;
+  ufrmImageInsert, ufrmOverlayTools;
 
 type
   E_OverlayMapCursor = (mcSelect, mcAdd, mcEdit, mcRulerStart, mcRulerEnd);
@@ -57,6 +57,7 @@ type
     btnGameArea: TToolButton;
     btnRuller: TToolButton;
     ImageList1: TImageList;
+    btnOverlayTools: TToolButton;
 
     procedure FormShow(Sender: TObject);
     procedure Button1Click(Sender: TObject);
@@ -82,6 +83,7 @@ type
     procedure Map1MouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
     procedure Map1MouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
+    procedure btnOverlayToolsClick(Sender: TObject);
 //    procedure Map1DrawUserLayer(Sender: TObject);
 
 
@@ -302,21 +304,34 @@ end;
 
 procedure TfrmSituationBoard.btnoutClick(Sender: TObject);
 begin
-  // if btnZoom.Down then
-  // btnZoom.Down := False;
+  if btnZoom.Down then
+    btnZoom.Down := False;
+
   btnout.Down := not btnout.Down;
   btnPan.Down := false;
 
   FMapCursor := mcSelect;
-//  LoadNormalButtonImage;
+  //  LoadNormalButtonImage;
 
   Map1.CurrentTool := miZoomoutTool;
   Map1.MousePointer := miZoomoutCursor;
 
-//  btnSelect.Picture.LoadFromFile
-//    ('data\Image DBEditor\Interface\Button\btnCursor_Normal.PNG');
-//  pnlStatic.Visible := false;
+  //  btnSelect.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnCursor_Normal.PNG');
+
   btnout.ImageIndex := 8;
+end;
+
+procedure TfrmSituationBoard.btnOverlayToolsClick(Sender: TObject);
+begin
+  frmOverlayTools := TfrmOverlayTools.Create(Self);
+  try
+    with frmOverlayTools do
+    begin
+      ShowModal;
+    end;
+  finally
+    frmOverlayTools.Free;
+  end;
 end;
 
 procedure TfrmSituationBoard.btnPanClick(Sender: TObject);
@@ -330,9 +345,7 @@ begin
   Map1.CurrentTool := miPanTool;
   Map1.MousePointer := miPanCursor;
 
-//  btnSelect.Picture.LoadFromFile
-//    ('data\Image DBEditor\Interface\Button\btnCursor_Normal.PNG');
-//  pnlStatic.Visible := false;
+//  btnSelect.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnCursor_Normal.PNG');
   btnPan.ImageIndex := 6;
 end;
 
@@ -403,10 +416,7 @@ begin
 end;
 
 procedure TfrmSituationBoard.Map1DrawUserLayer(ASender: TObject;
-//  const Layer: IDispatch; hOutputDC, hAttributeDC: Integer; const RectFull,
-//  RectInvalid: IDispatch);
-  const Layer: IDispatch; hOutputDC, hAttributeDC: Integer;
-  const RectFull, RectInvalid: IDispatch);
+  const Layer: IDispatch; hOutputDC, hAttributeDC: Integer; const RectFull, RectInvalid: IDispatch);
   var
   sx, sy, ex, ey: Integer;
 //  itemStart, itemEnd  : TFlagPoint;
@@ -450,6 +460,7 @@ begin
 //  end;
 //  {$ENDREGION}
 end;
+
 procedure TfrmSituationBoard.Map1MapViewChanged(Sender: TObject);
 var
   tempZoom: Double;

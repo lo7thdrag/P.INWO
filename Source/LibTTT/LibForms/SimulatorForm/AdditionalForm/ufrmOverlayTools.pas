@@ -8,9 +8,6 @@ uses
   Vcl.ComCtrls, Vcl.Buttons, Vcl.ColorGrd, Vcl.Imaging.pngimage;
 
 const
-  osDynamic   = 0;
-  osStatic    = 1;
-
   ovText      = 1;
   ovLine      = 2;
   ovRectangle = 3;
@@ -377,9 +374,14 @@ type
     rbBlue: TRadioButton;
     grpNone: TGroupBox;
     Label72: TLabel;
+    grpBase: TGroupBox;
+    Label68: TLabel;
+    grpLogistic: TGroupBox;
+    Label15: TLabel;
 
     procedure btnOutlineClick(Sender: TObject);
     procedure btnHandleShape(Sender: TObject);
+    procedure cbbTypeToolsChange(Sender: TObject);
 
   private
     { Private declarations }
@@ -488,6 +490,14 @@ begin
 //  end;
 //
 //  Map1.Repaint;
+end;
+
+procedure TfrmOverlayTools.cbbTypeToolsChange(Sender: TObject);
+begin
+  if cbbTypeTools.ItemIndex = 0 then
+    pnlShape.BringToFront
+  else if cbbTypeTools.ItemIndex = 1 then
+    pnlObject.BringToFront;
 end;
 
 procedure TfrmOverlayTools.ClearEditText;
