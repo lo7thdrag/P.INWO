@@ -13,6 +13,8 @@ uses
   ufrmImageInsert;
 
 type
+  E_OverlayMapCursor = (mcSelect, mcAdd, mcEdit, mcRulerStart, mcRulerEnd);
+
   TfrmSituationBoard = class(TForm)
     pnlHome: TPanel;
     pnlHeaderSituationBoard: TPanel;
@@ -63,16 +65,37 @@ type
     procedure FormResize(Sender: TObject);
     procedure pnlCloseClick(Sender: TObject);
     procedure btnEditImageAddressClick(Sender: TObject);
+    procedure btnDecreaseClick(Sender: TObject);
+    procedure cbSetScaleChange(Sender: TObject);
+    procedure btnIncreaseClick(Sender: TObject);
+    procedure btnPanClick(Sender: TObject);
+    procedure btnGameCenterClick(Sender: TObject);
+    procedure btnZoomClick(Sender: TObject);
+    procedure btnoutClick(Sender: TObject);
+    procedure btnGameAreaClick(Sender: TObject);
+    procedure btnRullerClick(Sender: TObject);
+    procedure Map1DrawUserLayer(ASender: TObject; const Layer: IDispatch;
+      hOutputDC, hAttributeDC: Integer; const RectFull, RectInvalid: IDispatch);
+    procedure Map1MapViewChanged(Sender: TObject);
+    procedure Map1MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure Map1MouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
+    procedure Map1MouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+//    procedure Map1DrawUserLayer(Sender: TObject);
 
 
   private
     FLyrDraw: CMapXLayer;
     FConverter: TCoordConverter;
+    FMapCursor: E_OverlayMapCursor;
+
 
     procedure RoundCornerOf(Control: TWinControl; val1, val2: Integer);
 
   public
     SelectedTabProperties : TTabProperties;
+    centLong, centLatt: Double;
 
     procedure LoadTabMap;
     procedure LoadTabImage;
@@ -132,6 +155,25 @@ begin
   RefreshTab;
 end;
 
+procedure TfrmSituationBoard.btnZoomClick(Sender: TObject);
+begin
+  // if btnZoom.Down then
+  // btnZoom.Down := False;
+  btnZoom.Down := not btnZoom.Down;
+  btnPan.Down := false;
+
+  FMapCursor := mcSelect;
+//  LoadNormalButtonImage;
+
+  Map1.CurrentTool := miZoomInTool;
+  Map1.MousePointer := miZoomInCursor;
+
+//  btnSelect.Picture.LoadFromFile
+//    ('data\Image DBEditor\Interface\Button\btnCursor_Normal.PNG');
+//  pnlStatic.Visible := false;
+  btnZoom.ImageIndex := 5;
+end;
+
 procedure TfrmSituationBoard.Button1Click(Sender: TObject);
 var
   ipTemp : string ;
@@ -157,6 +199,31 @@ begin
 //  simMgrClient.netSend_CmdRemote(rec);
 end;
 
+procedure TfrmSituationBoard.cbSetScaleChange(Sender: TObject);
+var
+  z: Double;
+  s: string;
+begin
+  Map1.OnMapViewChanged := nil;
+
+  if cbSetScale.ItemIndex < 0 then
+    Exit;
+
+  if (cbSetScale.ItemIndex <= 16) then
+  begin
+    s := cbSetScale.Items[cbSetScale.ItemIndex];
+    try
+      z := StrToFloat(s);
+      Map1.ZoomTo(z, Map1.CenterX, Map1.CenterY);
+    finally
+
+    end;
+  end
+  else
+    cbSetScale.ItemIndex := cbSetScale.ItemIndex - 1;
+
+  Map1.OnMapViewChanged := Map1MapViewChanged;
+end;
 procedure TfrmSituationBoard.FormResize(Sender: TObject);
 begin
   RoundCornerOf(pnlEditImage, 15, 15);
@@ -173,6 +240,15 @@ begin
   RefreshTab;
 end;
 
+procedure TfrmSituationBoard.btnDecreaseClick(Sender: TObject);
+begin
+  if cbSetScale.ItemIndex = 16 then
+    Exit;
+
+  cbSetScale.ItemIndex := cbSetScale.ItemIndex + 1;
+  cbSetScaleChange(cbSetScale);
+end;
+
 procedure TfrmSituationBoard.btnEditImageAddressClick(Sender: TObject);
 begin
   frmImageInsert := TfrmImageInsert.Create(Self);
@@ -186,6 +262,99 @@ begin
   finally
     frmImageInsert.Free;
   end;
+end;
+
+procedure TfrmSituationBoard.btnGameAreaClick(Sender: TObject);
+begin
+//  frmGameAreaPickList := TfrmGameAreaPickList.Create(Self);
+//  btnGameArea.ImageIndex := 10;
+//  try
+//    with frmGameAreaPickList do
+//    begin
+//      ShowModal;
+//      LoadMap('D:\Map\GST_GAME\AOTC\'+ SelectedGameAreaName +'\' + SelectedGameAreaName +'.gst');
+//    end;
+//
+//  finally
+//    frmGameAreaPickList.Free;
+//  end;
+end;
+
+procedure TfrmSituationBoard.btnGameCenterClick(Sender: TObject);
+begin
+  Map1.CenterX := centLong;
+  Map1.CenterY := centLatt;
+
+//  LoadNormalButtonImage;
+//  pnlStatic.Visible := false;
+//
+//  RefreshMousePointer;
+end;
+
+procedure TfrmSituationBoard.btnIncreaseClick(Sender: TObject);
+begin
+  if cbSetScale.ItemIndex = 0 then
+    Exit;
+
+  cbSetScale.ItemIndex := cbSetScale.ItemIndex - 1;
+  cbSetScaleChange(cbSetScale);
+end;
+
+procedure TfrmSituationBoard.btnoutClick(Sender: TObject);
+begin
+  // if btnZoom.Down then
+  // btnZoom.Down := False;
+  btnout.Down := not btnout.Down;
+  btnPan.Down := false;
+
+  FMapCursor := mcSelect;
+//  LoadNormalButtonImage;
+
+  Map1.CurrentTool := miZoomoutTool;
+  Map1.MousePointer := miZoomoutCursor;
+
+//  btnSelect.Picture.LoadFromFile
+//    ('data\Image DBEditor\Interface\Button\btnCursor_Normal.PNG');
+//  pnlStatic.Visible := false;
+  btnout.ImageIndex := 8;
+end;
+
+procedure TfrmSituationBoard.btnPanClick(Sender: TObject);
+begin
+  btnPan.Down := not btnPan.Down;
+  btnZoom.Down := false;
+
+  FMapCursor := mcSelect;
+//  LoadNormalButtonImage;
+
+  Map1.CurrentTool := miPanTool;
+  Map1.MousePointer := miPanCursor;
+
+//  btnSelect.Picture.LoadFromFile
+//    ('data\Image DBEditor\Interface\Button\btnCursor_Normal.PNG');
+//  pnlStatic.Visible := false;
+  btnPan.ImageIndex := 6;
+end;
+
+procedure TfrmSituationBoard.btnRullerClick(Sender: TObject);
+begin
+//  btnRuller.Down := not btnRuller.Down;
+//
+//  if btnRuller.Down then
+//  begin
+//    btnRuller.ImageIndex := 12;
+//    with frmRuler do
+//    begin
+//      IDForm := 1;
+//      Show;
+//    end;
+//  end
+//  else
+//  begin
+//    btnRuller.ImageIndex := 11;
+//    frmRuler.Hide;
+//    Map1.Repaint;
+//  end;
 end;
 
 procedure TfrmSituationBoard.LoadMap(Geoset: String);
@@ -231,6 +400,90 @@ procedure TfrmSituationBoard.LoadTabMap;
 begin
   pnlAlignToolBar.Width := round((pnlToolBar.Width - 433) / 2);
   LoadMap(vMapSetting.MapGSTGame + SelectedTabProperties.AddressTab);
+end;
+
+procedure TfrmSituationBoard.Map1DrawUserLayer(ASender: TObject;
+//  const Layer: IDispatch; hOutputDC, hAttributeDC: Integer; const RectFull,
+//  RectInvalid: IDispatch);
+  const Layer: IDispatch; hOutputDC, hAttributeDC: Integer;
+  const RectFull, RectInvalid: IDispatch);
+  var
+  sx, sy, ex, ey: Integer;
+//  itemStart, itemEnd  : TFlagPoint;
+begin
+//  if not Assigned(FCanvas) then
+//    Exit;
+//  FCanvas.Handle := hOutputDC;
+//
+//  DrawOverlay.drawAll(FCanvas, Map1);
+//  DrawFlagPoint.Draw(FCanvas);
+//
+//  if Assigned(DrawOverlay.FSelectedDraw) then
+//  begin
+//    DrawOverlay.FSelectedDraw.isSelected := True;
+//    DrawOverlay.FSelectedDraw.Draw(FCanvas, Map1);
+//  end;
+//
+//  {$REGION ' Menggambar Ruler '}
+//  if frmRuler.isShow  then
+//  begin
+//    DrawFlagPoint.Draw(FCanvas);
+//
+//    if DrawFlagPoint.FList.Count = 2 then
+//    begin
+//      itemStart := DrawFlagPoint.FList[0];
+//      itemEnd := DrawFlagPoint.FList[1];
+//
+//      FConverter.ConvertToScreen(itemStart.Post.X, itemStart.Post.Y, sx, sy);
+//      FConverter.ConvertToScreen(itemEnd.Post.X, itemEnd.Post.Y, ex, ey);
+//
+//      with FCanvas do
+//      begin
+//        Brush.Style := bsClear;
+//        Pen.Color := clRed;
+//        Pen.Width := 2;
+//
+//        MoveTo(sx, sy);
+//        LineTo(ex, ey);
+//      end;
+//    end;
+//  end;
+//  {$ENDREGION}
+end;
+procedure TfrmSituationBoard.Map1MapViewChanged(Sender: TObject);
+var
+  tempZoom: Double;
+begin
+  if Map1.CurrentTool = miZoomInTool then
+  begin
+    if Map1.Zoom <= 0.125 then
+      tempZoom := 0.125;
+    if (Map1.Zoom > 0.125) AND (Map1.Zoom < 1) then
+      tempZoom := Map1.Zoom;
+    if (Map1.Zoom >= 1) AND (Map1.Zoom <= 2500) then
+      tempZoom := round(Map1.Zoom);
+    if Map1.Zoom > 2500 then
+      tempZoom := 2500;
+
+    Map1.OnMapViewChanged := nil;
+    Map1.ZoomTo(tempZoom, Map1.CenterX, Map1.CenterY);
+
+    // if (Map1.Zoom > 0.125) AND (Map1.Zoom < 0.25) then
+    // begin
+    // cbSetScale.text := FormatFloat('0.000', tempZoom);
+    // end
+    // else if (Map1.Zoom >= 0.25) AND (Map1.Zoom < 0.5) then
+    // begin
+    // cbSetScale.text := FormatFloat('0.00', tempZoom);
+    // end
+    // else if (Map1.Zoom >= 0.5) AND (Map1.Zoom < 1) then
+    // begin
+    // cbSetScale.text := FormatFloat('0.0', tempZoom);
+    // end
+    // else
+    // cbSetScale.text := floattostr(tempZoom);
+    Map1.OnMapViewChanged := Map1MapViewChanged;
+  end;
 end;
 
 procedure TfrmSituationBoard.pnlCloseClick(Sender: TObject);
@@ -286,6 +539,156 @@ begin
       end;
     end;
   end;
+end;
+
+procedure TfrmSituationBoard.Map1MouseDown(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+var
+  pos: TPoint;
+begin
+//  FConverter.ConvertToMap(X, Y, mx, my);
+//{$REGION ' Klik Kiri '}
+//  if Button = mbLeft then
+//  begin
+//    { Untuk kebutuhan overlay }
+//    if FMapCursor = mcEdit then
+//    begin
+//      FConverter.ConvertToScreen(mx, my, pos.X, pos.Y);
+//      SelectShape(pos);
+//    end
+//    else if  FMapCursor = mcRulerStart then
+//    begin
+//      OnAddRuller(mx,my);
+//      frmRuler.Show;
+//      map1.Repaint;
+//    end
+//    else if  FMapCursor = mcRulerEnd then
+//    begin
+//      OnAddRuller(mx,my);
+//      frmRuler.Show;
+//      map1.Repaint;
+//    end
+//    else if FMapCursor = mcAdd then
+//    begin
+//      GetPosition;
+//
+//      case ShapeType of
+//        ovText, ovCircle, ovEllipse, ovArc, ovSector, ovGrid:
+//          begin
+//            if DrawFlagPoint.FList.Count > 0 then
+//              DrawFlagPoint.FList.Clear;
+//
+//            GbrFlagPoint(mx, my);
+//          end;
+//        ovLine, ovRectangle:
+//          begin
+//            if DrawFlagPoint.FList.Count = 0 then
+//            begin
+//              GbrFlagPoint(0, 0);
+//              GbrFlagPoint(0, 0);
+//            end;
+//            EditFlagPoint(FTagTombolPosition, mx, my)
+//          end;
+//        ovPolygon:
+//          begin
+//            GbrFlagPoint(mx, my);
+//
+//            if SpeedButton10.Down then
+//            begin
+//              if lvPolyVertex.Items.Count > 12 then
+//              begin
+//                ShowMessage('kelebihan bro');
+//                Exit;
+//              end;
+//
+//              with lvPolyVertex.Items.Add do
+//              begin
+//                SubItems.Add(formatDMS_long(mx));
+//                SubItems.Add(formatDMS_latt(my));
+//              end;
+//              RefreshLvPolyVertexList;
+//            end;
+//          end;
+//      end;
+//
+//    end;
+//  end
+//{$ENDREGION}
+//{$REGION ' Klik kanan '}
+//  else if Button = mbRight then
+//  begin
+//    GetCursorPos(pos);
+//
+//    if IdAction = 2 then
+//      pmOverlayEdit.Popup(pos.X, pos.Y);
+//  end;
+//
+//  if isCapturingScreen then
+//  begin
+//    with fscrCapture do
+//    begin
+//      PDown.X := X;
+//      PDown.Y := Y;
+//      PActually.X := X;
+//      PActually.Y := Y;
+//      MouseIsDown := True;
+//      canvas.DrawFocusRect(RECT(X, Y, X, Y));
+//    end;
+//  end;
+//{$ENDREGION}
+end;
+
+procedure TfrmSituationBoard.Map1MouseMove(Sender: TObject; Shift: TShiftState;
+  X, Y: Integer);
+// var
+// xx: Double;
+// yy: Double;
+begin
+//  FConverter.ConvertToMap(X, Y, xx, yy);
+//
+//  lblBearing.Caption := FormatFloat('0.00', CalcBearing(Map1.CenterX,
+//    Map1.CenterY, xx, yy));
+//  lblDistance.Caption := FormatFloat('0.00',
+//    FConverter.Distance_nmi(Map1.CenterX, Map1.CenterY, xx, yy));
+//  getGridCursorPos;
+
+end;
+
+procedure TfrmSituationBoard.Map1MouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+//  if isCapturingScreen then
+//  begin
+//    with fscrCapture do
+//    begin
+//      PActually.X := X;
+//      PActually.Y := Y;
+//      MouseIsDown := True;
+//
+//      // TmpBmp := TBitmap.Create;
+//      //
+//      // with TmpBmp do
+//      // begin
+//      // Width := round(abs(PActually.X - PDown.X));
+//      // Height := round(abs(PActually.Y - PDown.Y));
+//      // BitBlt(TmpBmp.canvas.Handle, 0, 0, Width, Height,
+//      // fscrCapture.Image1.canvas.Handle, Map1.Left + PDown.X, PDown.Y,
+//      // SRCCOPY);
+//      // fCaptureRes.imgCaptureResult.AutoSize := false;
+//      // fCaptureRes.imgCaptureResult.Picture.Bitmap.Assign(TmpBmp);
+//      // fCaptureRes.Width := Width + 10;
+//      // fCaptureRes.Height := Height + fCaptureRes.Panel3.Height + 10;
+//      // fCaptureRes.ShowModal;
+//      //
+//      // if fCaptureRes.recapture then
+//      // fCaptureRes.recapture := false
+//      // else
+//      // isCapturingScreen := false;
+//      // MouseIsDown := false;
+//      // end;
+//    end;
+//  end;
+//  Map1.Repaint; // dimatikan dl, msh coba polygon nya
 end;
 
 end.

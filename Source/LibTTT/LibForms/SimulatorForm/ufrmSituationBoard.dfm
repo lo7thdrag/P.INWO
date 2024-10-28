@@ -45040,9 +45040,13 @@ object frmSituationBoard: TfrmSituationBoard
       ParentColor = False
       Align = alClient
       TabOrder = 0
-      ExplicitTop = 6
-      ExplicitWidth = 882
-      ExplicitHeight = 419
+      OnMouseUp = Map1MouseUp
+      OnMouseMove = Map1MouseMove
+      OnMouseDown = Map1MouseDown
+      OnMapViewChanged = Map1MapViewChanged
+      OnDrawUserLayer = Map1DrawUserLayer
+      ExplicitLeft = 6
+      ExplicitTop = 29
       ControlData = {
         8A1A060021C6000063680000010000000F0000FF0D47656F44696374696F6E61
         727905456D70747900E8030000000000000000000002000E001E000000000000
@@ -45056,7 +45060,7 @@ object frmSituationBoard: TfrmSituationBoard
         0B918FCE119DE300AA004BB851010000009001DC7C010005417269616C000352
         E30B918FCE119DE300AA004BB851010200009001A42C02000B4D61702053796D
         626F6C730000000000000001000100FFFFFF000200FFFFFF0000000000000100
-        000001000118010000A8B6C81101000000DD8AFE761C00000000000000000000
+        00000100011801000098802A050100000050EA97001C00000000000000000000
         0000000000000000000000000000000000000000000000000000000000000000
         0000000000000000000000000000000000000000000000000000000000000000
         0002000000000000000000000000000000000000000000000000000000000000
@@ -45065,15 +45069,15 @@ object frmSituationBoard: TfrmSituationBoard
         0000000000000000000000000000000000000000000000000000000000000000
         0000000000000000000000000000000000000000000000000000000000000000
         00008076C000000000008056C000000000008076400000000000805640010000
-        0018010000A8B6C81101000000DC3302771C0000000000000000000000000000
+        001801000098802A0501000000010000001C0000000000000000000000000000
         0000000000000000000000000000000000000000000000000000000000000000
         0000000000000000000000000000000000000000000000000000000000020000
         0000000000000000000000000000000000000000000000000000000000000000
         0000000000000000000000000000000000000000000000000000000000000000
         0000000000000000000000000000000000000000000000000000000000000000
         0000000000000000000000000000000000000000000000000000000000000000
-        0000000000000000000000000000000000000000000000000010F197004C9DD1
-        50F0F2970048F19700010000002000000002000000B8E7280500000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0002000000BC3DA17124EA970000E61E05306821050100000000000000000000
         0000000088B3400000000000408F400001000001}
     end
     object pnlEditMap: TPanel
@@ -45216,6 +45220,7 @@ object frmSituationBoard: TfrmSituationBoard
           ImageIndex = 1
           ParentShowHint = False
           ShowHint = True
+          OnClick = btnDecreaseClick
         end
         object cbSetScale: TComboBox
           Left = 42
@@ -45226,6 +45231,8 @@ object frmSituationBoard: TfrmSituationBoard
           ParentShowHint = False
           ShowHint = True
           TabOrder = 0
+          OnChange = cbSetScaleChange
+          OnClick = cbSetScaleChange
           Items.Strings = (
             '0.125'
             '0.25'
@@ -45252,6 +45259,7 @@ object frmSituationBoard: TfrmSituationBoard
           ImageIndex = 0
           ParentShowHint = False
           ShowHint = True
+          OnClick = btnIncreaseClick
         end
         object btnPan: TToolButton
           Left = 179
@@ -45261,6 +45269,7 @@ object frmSituationBoard: TfrmSituationBoard
           ImageIndex = 3
           ParentShowHint = False
           ShowHint = True
+          OnClick = btnPanClick
         end
         object btnCenterGame: TToolButton
           Left = 221
@@ -45271,6 +45280,7 @@ object frmSituationBoard: TfrmSituationBoard
           ImageIndex = 4
           ParentShowHint = False
           ShowHint = True
+          OnClick = btnGameCenterClick
         end
         object btnZoom: TToolButton
           Left = 263
@@ -45280,6 +45290,7 @@ object frmSituationBoard: TfrmSituationBoard
           ImageIndex = 2
           ParentShowHint = False
           ShowHint = True
+          OnClick = btnZoomClick
         end
         object btnout: TToolButton
           Left = 305
@@ -45289,6 +45300,7 @@ object frmSituationBoard: TfrmSituationBoard
           ImageIndex = 7
           ParentShowHint = False
           ShowHint = True
+          OnClick = btnoutClick
         end
         object btnGameArea: TToolButton
           Left = 347
@@ -45296,6 +45308,7 @@ object frmSituationBoard: TfrmSituationBoard
           Hint = 'Game Area'
           Caption = 'btnGameArea'
           ImageIndex = 9
+          OnClick = btnGameAreaClick
         end
         object btnRuller: TToolButton
           Left = 389
@@ -45304,6 +45317,7 @@ object frmSituationBoard: TfrmSituationBoard
           ImageIndex = 11
           ParentShowHint = False
           ShowHint = True
+          OnClick = btnRullerClick
         end
       end
     end

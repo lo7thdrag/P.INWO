@@ -685,28 +685,169 @@ end;
 {$REGION ' Referensi '}
 
 function TdmINWO.GetAllReferensi(var aList: TList): Integer;
+var
+  i : Integer;
+  rec : TFile_Data;
 begin
-//
+  Result := -1;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT * FROM File_Refenrensi');
+    Open;
+
+    Result := RecordCount;
+
+    if Assigned(aList) then
+    begin
+      for i := 0 to aList.Count - 1 do
+      begin
+        rec := aList.Items[i];
+        rec.Free;
+      end;
+
+      aList.Clear;
+    end
+    else
+      aList := TList.Create;
+
+    if not IsEmpty then
+    begin
+      First;
+
+      while not Eof do
+      begin
+        rec := TFile_Data.Create;
+
+        with rec.FData do
+        begin
+          ID_File := FieldByName('ID_File').AsInteger;
+          Nama_File := FieldByName('Nama_File').AsString;
+          Directory_Path := FieldByName('Directory_Path').AsString;
+          Encripted_File_Name := FieldByName('Encripted_File_Name').AsString;
+          Tipe_File := FieldByName('Tipe_File').AsString;
+          Modified_Date := FieldByName('Modified_Date').AsString;
+          Modified_By := FieldByName('Modified_By').AsString;
+          id_User := FieldByName('id_User').AsInteger;
+        end;
+
+        aList.Add(rec);
+        Next;
+      end;
+    end;
+  end;
 end;
 
 function TdmINWO.GetSearchReferensi(var rec: TRecFile_Data): Integer;
 begin
-//
+  Result := -1;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT * FROM File_Refenrensi');
+    SQL.Add('WHERE (Nama_File = ' + QuotedStr(rec.Nama_File) + ') ' );
+    Open;
+
+    Result := RecordCount;
+  end;
 end;
 
 function TdmINWO.InsertReferensi(var rec: TRecFile_Data): Boolean;
 begin
-//
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+
+    SQL.Clear;
+
+    SQL.Add('INSERT INTO File_Refenrensi');
+    SQL.Add('(Nama_File, Directory_Path, Encripted_File_Name, Tipe_File, Modified_Date, Modified_By, id_User)');
+    SQL.Add('VALUES (');
+
+    with rec do
+    begin
+      SQL.Add(QuotedStr(Nama_File) + ', ');
+      SQL.Add(QuotedStr(Directory_Path) + ', ');
+      SQL.Add(QuotedStr(Encripted_File_Name) + ', ');
+      SQL.Add(QuotedStr(Tipe_File) + ', ');
+      SQL.Add(QuotedStr(Modified_Date) + ', ');
+      SQL.Add(QuotedStr(Modified_By) + ', ');
+      SQL.Add(IntToStr(id_User) + ')');
+    end;
+    ExecSQL;
+
+//    Result := True;
+
+    {Yg barusan diinput diambil lagi datanya, untuk mengetahui Indexnya}
+    SQL.Clear;
+    SQL.Add('SELECT * FROM File_Directory ');
+    SQL.Add('WHERE Nama_File = ' + QuotedStr(rec.Nama_File) + ' and Modified_Date = ' + QuotedStr(rec.Modified_Date) );
+    Open;
+
+    Result := RecordCount > 0;
+
+    rec.ID_File := FieldByName('ID_File').AsInteger;
+    rec.Encripted_File_Name := FieldByName('ID_File').AsString + FieldByName('Tipe_File').AsString;
+  end;
 end;
 
 function TdmINWO.UpdateReferensi(var rec: TRecFile_Data): Boolean;
 begin
-//
+  if not ZConn.Connected then
+  Exit;
+
+  with ZQ do
+  begin
+    with rec do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Add('UPDATE File_Refenrensi');
+      SQL.Add('SET');
+      SQL.Add('Nama_File=' + QuotedStr(rec.Nama_File)+',');
+      SQL.Add('Directory_Path=' + QuotedStr(rec.Directory_Path)+',');
+      SQL.Add('Encripted_File_Name=' + QuotedStr(rec.Encripted_File_Name)+',');
+      SQL.Add('Tipe_File=' + QuotedStr(rec.Tipe_File)+',');
+      SQL.Add('Modified_Date=' + QuotedStr(rec.Modified_Date)+',');
+      SQL.Add('Modified_By=' + QuotedStr(rec.Modified_By)+',');
+      SQL.Add('id_User=' + IntToStr(rec.id_User));
+      SQL.Add(' WHERE (ID_File =' + IntToStr(rec.ID_File) + ')');
+      ExecSQL;
+    end;
+
+    Result := True;
+  end;
 end;
 
 function TdmINWO.DeleteReferensi(const FileID: Integer): Boolean;
 begin
-//
+  if not ZConn.Connected then
+  Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('DELETE FROM File_Refenrensi');
+    SQL.Add('WHERE (ID_File='+QuotedStr(IntToStr(FileID))+')');
+    ExecSQL;
+    Result := True;
+  end;
 end;
 
 {$ENDREGION}

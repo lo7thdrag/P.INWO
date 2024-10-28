@@ -1034,7 +1034,7 @@ begin
       Modified_By         := simMgrClient.MyConsoleData.UserRoleData.UserRoleIdentifier;
       id_User             := simMgrClient.MyConsoleData.UserRoleData.UserRoleIndex;
 
-      if dmINWO.InsertFile(fileDataTemp) then
+      if dmINWO.InsertReferensi(fileDataTemp) then
       begin
         dmINWO.UpdateFile(fileDataTemp);
         ShowMessage('Data has been saved');
@@ -1067,7 +1067,7 @@ begin
 
       with FSelectedFileReferensi.FData do
       begin
-        if dmINWO.DeleteFile(ID_File) then
+        if dmINWO.DeleteReferensi(ID_File) then
           ShowMessage('Data has been deleted');
       end;
 
