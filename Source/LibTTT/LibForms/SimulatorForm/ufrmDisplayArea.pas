@@ -211,6 +211,7 @@ type
 
     {$REGION ' Simbol Taktis Procedure '}
     procedure SimbolTaktisClick(Sender: TObject);
+    procedure UpdateSimbolTaktis;
     procedure btnAddTacticalSymbolClick(Sender: TObject);
     procedure btnEditTacticalSymbolClick(Sender: TObject);
     procedure btnDeleteTacticalSymbolClick(Sender: TObject);
@@ -307,6 +308,8 @@ type
     FFileReferensiList : TList;
     FUserRoleList : TList;
     FGameAreaList : TList;
+    FTacticalSymbolList : TList;
+
     FSelectedPengguna : TUser_Role;
     FSelectedUserChat : TUser_Role;
     FSelectedFileBeranda : TFile_Data;
@@ -593,7 +596,32 @@ begin
   pnlMenejemenSimbolTaktis.BringToFront;
 end;
 
+procedure TfrmDisplayArea.UpdateSimbolTaktis;
+var
+  i : Integer;
+  TacticalSymbol : TTactical_Symbol;
+  li : TListItem;
+begin
+  lvTacticalSymbol.Items.Clear;
 
+  if flagTable = true then
+     dmINWO.GetSearchTacticalSymbol(ItemSearchIndex, SearchName, FTacticalSymbolList)
+  else
+     dmINWO.GetAllTacticalSymbol(FTacticalSymbolList);
+  for i := 0 to FTacticalSymbolList.Count -1 do
+  begin
+     TacticalSymbol := FTacticalSymbolList.Items[i];
+     li := lvTacticalSymbol.Items.Add;
+     li.Caption := IntToStr(i+1);
+     li.SubItems.Add(IntToStr(TacticalSymbol.FData.Tipe));
+     li.SubItems.Add(IntToStr(TacticalSymbol.FData.Kategori));
+     li.SubItems.Add(TacticalSymbol.FData.Keterangan);
+     li.SubItems.Add(TacticalSymbol.FData.Path_Directori);
+
+     li.Data := TacticalSymbol;
+  end;
+
+end;
 procedure TfrmDisplayArea.btnAddTacticalSymbolClick(Sender: TObject);
 begin
   frmSimbolTaktis := TfrmSimbolTaktis.Create(Self);
@@ -604,14 +632,14 @@ begin
       ShowModal;
     end;
   finally
-
+    frmSimbolTaktis.Free;
   end;
 
 end;
 
 procedure TfrmDisplayArea.btnEditTacticalSymbolClick(Sender: TObject);
 begin
-   if lvTacticalSymbol <> -1 then
+   if lvTacticalSymbol.ItemIndex <> -1 then
    begin
       frmSimbolTaktis := TfrmSimbolTaktis.Create(Self);
       try
@@ -639,9 +667,11 @@ begin
      begin
        with FSelectedTacticalSymbol.FData do
        begin
-         if dmINWO.DeleteTacticalSymbol then
-
+         if dmINWO.DeleteTacticalSymbol(Id_Tactical_Symbol)then
+             ShowMessage('Data has been deleted');
        end;
+
+       UpdateSimbolTaktis;
 
      end;
    end;

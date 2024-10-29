@@ -43369,291 +43369,6 @@ object frmDisplayArea: TfrmDisplayArea
         Color = clBackground
         TabOrder = 0
       end
-      object pnlMenejemenPengguna: TPanel
-        Left = 0
-        Top = 0
-        Width = 1607
-        Height = 930
-        Align = alClient
-        BevelOuter = bvNone
-        TabOrder = 1
-        object pnlCariPengguna: TPanel
-          Left = 0
-          Top = 60
-          Width = 1607
-          Height = 63
-          Align = alTop
-          BevelOuter = bvNone
-          TabOrder = 0
-          DesignSize = (
-            1607
-            63)
-          object btnDelete: TImage
-            Left = 1577
-            Top = 27
-            Width = 30
-            Height = 30
-            Cursor = crHandPoint
-            Hint = 'Delete Data'
-            Anchors = [akTop, akRight]
-            ParentShowHint = False
-            Picture.Data = {
-              0954506E67496D61676589504E470D0A1A0A0000000D494844520000001D0000
-              001D08060000005693670F000000097048597300002E2300002E230178A53F76
-              000002584944415478DABD965D888C611480CF6824960B5ACACF0D6A93FCFF84
-              08118A42E42FAE08456DB8D80B4512C20576293F25171B4552A4144512B217F2
-              736308E566E5A7D4A2DDD078CE9E33E33556E69BEFB56F3DCD37DFCC7CCF7BDE
-              73DEF34EA63ED79A974E1E1995D6D674CB54FA8086E76D3379D90533D24B33C9
-              E6D1906B2D5B5E8E542FF48183E1313C84424A7AC2E7A4F27F49B3700E96059F
-              BC814B300EA6C166389124F272239D042B6139F42FF9E62D9807DFFE78463EDF
-              61CE93E6B48BFF78152C853E7EFF1D9C8553F02C9416230FE4690AA92BCC8515
-              B0187AC10F5FEE93A5D2409E8F55BDDD6181AFC01C180DAF2B950E80E149EC8C
-              1EF0169A2A954E87DB09A53AB4DA2F562AD57DF809BEC33D18017DE10B3C8051
-              500D1FE0094CF64887412E4D4E9FC21DD824B62FF57A1B1C16DB42E78B9189EC
-              832D5228AA14D2D31ECD22B1AEF4CA27705CAC78AE8AEDE3263803236142FB2F
-              534837C2565F32ADD2AF1D4887FA64EEB62FABC8DAB4D2F1701FAAC4BA4E0BD4
-              9548AB7C321F6137D4A795665D3456ACDBBC804381F4824BB5C0B433CD869B69
-              A5E291EE87CB6255DC18488FC210F95564FDE07D0CE9116886036227CC8D40BA
-              53AC90D6C11E090F8494D235304BAC40B4AF3E0AA45A680BE1208C11EBC751A4
-              3562DB61AA58A13407D2251EE515CF795D2CA9BE79E9B9AB15ABE2825427B2DD
-              857B3DDF51A43AAEC36AB1BF2ED5815457E198D89699E84B1F4DAA51685F1D28
-              76786B6EB50DF6166B0A1AADF6EAB698D229FEF0BF1DB4D760FE6F77221DE21B
-              60070C0AEE6964BA85D68B9DA3D1A5C94662E97F1A456967090BE327FF026B2A
-              FAE8FCBF0000000049454E44AE426082}
-            Proportional = True
-            ShowHint = True
-            Stretch = True
-            Transparent = True
-            OnClick = btnDeleteClick
-          end
-          object btnEdit: TImage
-            Left = 1532
-            Top = 27
-            Width = 30
-            Height = 30
-            Cursor = crHandPoint
-            Hint = 'Edit Data'
-            Anchors = [akTop, akRight]
-            ParentShowHint = False
-            Picture.Data = {
-              0954506E67496D61676589504E470D0A1A0A0000000D494844520000001D0000
-              001D08060000005693670F000000097048597300002E2300002E230178A53F76
-              0000019C4944415478DAE5D4CF2B04611CC7F167AE94F5EBA80D719572418983
-              DF925CC4969348FE08F12738919C2807C96F22CE42580E086751A29C08599FA7
-              E7BB358DE779E6997D76E6E2A977EDCC3C3BAF9D6776C699BAFD48B1888743A8
-              63718E2634811AA34403E3D9448DF130505F3C4C54894781FEC1B38136A06954
-              89B6D0307AD5CC4FD9A2CD681DE5B8F625510B7A09036D45AB1ED004CE18E5E0
-              1AFA41B98A39FC786FB6D036BAC20334843650AD64DEBB621502A3ED04EEA13E
-              F489626857025FA26A5BB483C01DD44F607AC4687F3D6DBFD18A1CDBA01CE4F7
-              685B02A6471CDDD3B2F21539529CCB08ED422B68132514603EDA67E259D58146
-              68375A66E2CFC2C12FC99C02022B98F8579FF8AC9A16ED414B040EA06FC99C42
-              02CB99782E4F99FF50A279E89989B74D4203F2C7A68C8937D39901A8456BE857
-              CFA0313ED173BC88AEB094AED014D4A27C3917E9F32C1A75C1C504C6093C0F00
-              6AD17134E9DA9E43232EB084C06440508BCEA341CFBE05544520BF871719805A
-              F410D549BEF0883A2D402D7A879ED015BA4637D48305E68B8639FE211AE9F805
-              6634CC1BA5DBBF090000000049454E44AE426082}
-            Proportional = True
-            ShowHint = True
-            Stretch = True
-            Transparent = True
-            OnClick = btnEditClick
-          end
-          object lblsearch: TLabel
-            Left = 0
-            Top = 5
-            Width = 34
-            Height = 18
-            Caption = 'Cari :'
-            Color = clBackground
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWhite
-            Font.Height = -16
-            Font.Name = 'Berlin Sans FB'
-            Font.Style = []
-            ParentColor = False
-            ParentFont = False
-            Transparent = True
-          end
-          object btnAdd: TImage
-            Left = 1496
-            Top = 27
-            Width = 30
-            Height = 30
-            Cursor = crHandPoint
-            Hint = 'Add Data'
-            Anchors = [akTop, akRight]
-            ParentShowHint = False
-            Picture.Data = {
-              0954506E67496D61676589504E470D0A1A0A0000000D494844520000001D0000
-              001D08060000005693670F000000097048597300002E2300002E230178A53F76
-              000000664944415478DA639C78F3C77F063A0346A8A58C1498E100C40D406C4F
-              4F4B49B69C9A96126D392D2C2568392D2DC569393D2CC5B09C124B61598D54BD
-              FF472D1DB574F85A4A690D84CDDCC16929DE60C263305E7DA3968E5A3A322D25
-              178C5A3A8C2DA52B0000BA8D8D1B420588510000000049454E44AE426082}
-            Proportional = True
-            ShowHint = True
-            Stretch = True
-            Transparent = True
-            OnClick = btnAddClick
-          end
-          object edtSearch: TEdit
-            Left = 159
-            Top = 29
-            Width = 155
-            Height = 25
-            HelpType = htKeyword
-            AutoSize = False
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clBlack
-            Font.Height = -16
-            Font.Name = 'Jefferies'
-            Font.Style = []
-            ParentFont = False
-            ParentShowHint = False
-            ShowHint = False
-            TabOrder = 2
-            TextHint = 'Search Here'
-            OnKeyPress = edtSearchKeyPress
-          end
-          object cbbSearchType: TComboBox
-            Left = 159
-            Top = 29
-            Width = 155
-            Height = 25
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -16
-            Font.Name = 'Jefferies'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 0
-            OnSelect = cbbSearchTypeSelect
-          end
-          object cbbxFilterSearch: TComboBox
-            Left = 0
-            Top = 29
-            Width = 155
-            Height = 25
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -16
-            Font.Name = 'Jefferies'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 1
-            Text = 'ALL'
-            OnSelect = cbbxFilterSearchSelect
-            Items.Strings = (
-              'ALL'
-              'User Role'
-              'Organisasi Tugas'
-              'Komando Tugas')
-          end
-        end
-        object pnlListPengguna: TPanel
-          Left = 0
-          Top = 123
-          Width = 1607
-          Height = 807
-          Align = alClient
-          BevelOuter = bvNone
-          TabOrder = 1
-          object lvUserRole: TListView
-            Left = 0
-            Top = 0
-            Width = 1607
-            Height = 807
-            Align = alClient
-            BevelInner = bvNone
-            BevelOuter = bvNone
-            BorderStyle = bsNone
-            Columns = <
-              item
-                Caption = 'No'
-                Width = 28
-              end
-              item
-                Caption = 'Pengguna'
-                Width = 200
-              end
-              item
-                Alignment = taCenter
-                Caption = 'Organisasi Tugas'
-                Width = 200
-              end
-              item
-                Alignment = taCenter
-                Caption = 'Komando Tugas'
-                Width = 200
-              end
-              item
-                Alignment = taCenter
-                Caption = 'Perencanaan'
-                Width = 150
-              end
-              item
-                Alignment = taCenter
-                Caption = 'Persiapan'
-                Width = 150
-              end
-              item
-                Alignment = taCenter
-                Caption = 'Pelaksanaan'
-                Width = 150
-              end
-              item
-                Alignment = taCenter
-                Caption = 'Pengakhiran'
-                Width = 150
-              end
-              item
-                Alignment = taCenter
-                Caption = 'Catatan'
-                Width = 350
-              end>
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clBlack
-            Font.Height = -16
-            Font.Name = 'Jefferies'
-            Font.Style = []
-            GridLines = True
-            RowSelect = True
-            ParentFont = False
-            TabOrder = 0
-            ViewStyle = vsReport
-            OnSelectItem = lvUserRoleSelectItem
-          end
-        end
-        object pnlHeaderPengguna: TPanel
-          Left = 0
-          Top = 0
-          Width = 1607
-          Height = 60
-          Align = alTop
-          BevelOuter = bvNone
-          TabOrder = 2
-          object Label7: TLabel
-            Tag = 1
-            Left = 0
-            Top = 0
-            Width = 1607
-            Height = 60
-            Cursor = crHandPoint
-            Align = alClient
-            AutoSize = False
-            Caption = 'Pengguna'
-            Font.Charset = ANSI_CHARSET
-            Font.Color = 12826787
-            Font.Height = -32
-            Font.Name = 'Jefferies'
-            Font.Style = [fsBold]
-            ParentFont = False
-            ExplicitTop = 80
-            ExplicitWidth = 358
-            ExplicitHeight = 70
-          end
-        end
-      end
       object pnlMenejemenBeranda: TPanel
         Left = 0
         Top = 0
@@ -45888,6 +45603,291 @@ object frmDisplayArea: TfrmDisplayArea
             ParentFont = False
             TabOrder = 0
             ViewStyle = vsReport
+          end
+        end
+      end
+      object pnlMenejemenPengguna: TPanel
+        Left = 0
+        Top = 0
+        Width = 1607
+        Height = 930
+        Align = alClient
+        BevelOuter = bvNone
+        TabOrder = 1
+        object pnlCariPengguna: TPanel
+          Left = 0
+          Top = 60
+          Width = 1607
+          Height = 63
+          Align = alTop
+          BevelOuter = bvNone
+          TabOrder = 0
+          DesignSize = (
+            1607
+            63)
+          object btnDelete: TImage
+            Left = 1569
+            Top = 27
+            Width = 30
+            Height = 30
+            Cursor = crHandPoint
+            Hint = 'Delete Data'
+            Anchors = [akTop, akRight]
+            ParentShowHint = False
+            Picture.Data = {
+              0954506E67496D61676589504E470D0A1A0A0000000D494844520000001D0000
+              001D08060000005693670F000000097048597300002E2300002E230178A53F76
+              000002584944415478DABD965D888C611480CF6824960B5ACACF0D6A93FCFF84
+              08118A42E42FAE08456DB8D80B4512C20576293F25171B4552A4144512B217F2
+              736308E566E5A7D4A2DDD078CE9E33E33556E69BEFB56F3DCD37DFCC7CCF7BDE
+              73DEF34EA63ED79A974E1E1995D6D674CB54FA8086E76D3379D90533D24B33C9
+              E6D1906B2D5B5E8E542FF48183E1313C84424A7AC2E7A4F27F49B3700E96059F
+              BC814B300EA6C166389124F272239D042B6139F42FF9E62D9807DFFE78463EDF
+              61CE93E6B48BFF78152C853E7EFF1D9C8553F02C9416230FE4690AA92BCC8515
+              B0187AC10F5FEE93A5D2409E8F55BDDD6181AFC01C180DAF2B950E80E149EC8C
+              1EF0169A2A954E87DB09A53AB4DA2F562AD57DF809BEC33D18017DE10B3C8051
+              500D1FE0094CF64887412E4D4E9FC21DD824B62FF57A1B1C16DB42E78B9189EC
+              832D5228AA14D2D31ECD22B1AEF4CA27705CAC78AE8AEDE3263803236142FB2F
+              534837C2565F32ADD2AF1D4887FA64EEB62FABC8DAB4D2F1701FAAC4BA4E0BD4
+              9548AB7C321F6137D4A795665D3456ACDBBC804381F4824BB5C0B433CD869B69
+              A5E291EE87CB6255DC18488FC210F95564FDE07D0CE9116886036227CC8D40BA
+              53AC90D6C11E090F8494D235304BAC40B4AF3E0AA45A680BE1208C11EBC751A4
+              3562DB61AA58A13407D2251EE515CF795D2CA9BE79E9B9AB15ABE2825427B2DD
+              857B3DDF51A43AAEC36AB1BF2ED5815457E198D89699E84B1F4DAA51685F1D28
+              76786B6EB50DF6166B0A1AADF6EAB698D229FEF0BF1DB4D760FE6F77221DE21B
+              60070C0AEE6964BA85D68B9DA3D1A5C94662E97F1A456967090BE327FF026B2A
+              FAE8FCBF0000000049454E44AE426082}
+            Proportional = True
+            ShowHint = True
+            Stretch = True
+            Transparent = True
+            OnClick = btnDeleteClick
+          end
+          object btnEdit: TImage
+            Left = 1532
+            Top = 27
+            Width = 30
+            Height = 30
+            Cursor = crHandPoint
+            Hint = 'Edit Data'
+            Anchors = [akTop, akRight]
+            ParentShowHint = False
+            Picture.Data = {
+              0954506E67496D61676589504E470D0A1A0A0000000D494844520000001D0000
+              001D08060000005693670F000000097048597300002E2300002E230178A53F76
+              0000019C4944415478DAE5D4CF2B04611CC7F167AE94F5EBA80D719572418983
+              DF925CC4969348FE08F12738919C2807C96F22CE42580E086751A29C08599FA7
+              E7BB358DE779E6997D76E6E2A977EDCC3C3BAF9D6776C699BAFD48B1888743A8
+              63718E2634811AA34403E3D9448DF130505F3C4C54894781FEC1B38136A06954
+              89B6D0307AD5CC4FD9A2CD681DE5B8F625510B7A09036D45AB1ED004CE18E5E0
+              1AFA41B98A39FC786FB6D036BAC20334843650AD64DEBB621502A3ED04EEA13E
+              F489626857025FA26A5BB483C01DD44F607AC4687F3D6DBFD18A1CDBA01CE4F7
+              685B02A6471CDDD3B2F21539529CCB08ED422B68132514603EDA67E259D58146
+              68375A66E2CFC2C12FC99C02022B98F8579FF8AC9A16ED414B040EA06FC99C42
+              02CB99782E4F99FF50A279E89989B74D4203F2C7A68C8937D39901A8456BE857
+              CFA0313ED173BC88AEB094AED014D4A27C3917E9F32C1A75C1C504C6093C0F00
+              6AD17134E9DA9E43232EB084C06440508BCEA341CFBE05544520BF871719805A
+              F410D549BEF0883A2D402D7A879ED015BA4637D48305E68B8639FE211AE9F805
+              6634CC1BA5DBBF090000000049454E44AE426082}
+            Proportional = True
+            ShowHint = True
+            Stretch = True
+            Transparent = True
+            OnClick = btnEditClick
+          end
+          object lblsearch: TLabel
+            Left = 0
+            Top = 5
+            Width = 34
+            Height = 18
+            Caption = 'Cari :'
+            Color = clBackground
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWhite
+            Font.Height = -16
+            Font.Name = 'Berlin Sans FB'
+            Font.Style = []
+            ParentColor = False
+            ParentFont = False
+            Transparent = True
+          end
+          object btnAdd: TImage
+            Left = 1496
+            Top = 27
+            Width = 30
+            Height = 30
+            Cursor = crHandPoint
+            Hint = 'Add Data'
+            Anchors = [akTop, akRight]
+            ParentShowHint = False
+            Picture.Data = {
+              0954506E67496D61676589504E470D0A1A0A0000000D494844520000001D0000
+              001D08060000005693670F000000097048597300002E2300002E230178A53F76
+              000000664944415478DA639C78F3C77F063A0346A8A58C1498E100C40D406C4F
+              4F4B49B69C9A96126D392D2C2568392D2DC569393D2CC5B09C124B61598D54BD
+              FF472D1DB574F85A4A690D84CDDCC16929DE60C263305E7DA3968E5A3A322D25
+              178C5A3A8C2DA52B0000BA8D8D1B420588510000000049454E44AE426082}
+            Proportional = True
+            ShowHint = True
+            Stretch = True
+            Transparent = True
+            OnClick = btnAddClick
+          end
+          object edtSearch: TEdit
+            Left = 159
+            Top = 29
+            Width = 155
+            Height = 25
+            HelpType = htKeyword
+            AutoSize = False
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clBlack
+            Font.Height = -16
+            Font.Name = 'Jefferies'
+            Font.Style = []
+            ParentFont = False
+            ParentShowHint = False
+            ShowHint = False
+            TabOrder = 2
+            TextHint = 'Search Here'
+            OnKeyPress = edtSearchKeyPress
+          end
+          object cbbSearchType: TComboBox
+            Left = 159
+            Top = 29
+            Width = 155
+            Height = 25
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -16
+            Font.Name = 'Jefferies'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 0
+            OnSelect = cbbSearchTypeSelect
+          end
+          object cbbxFilterSearch: TComboBox
+            Left = 0
+            Top = 29
+            Width = 155
+            Height = 25
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -16
+            Font.Name = 'Jefferies'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 1
+            Text = 'ALL'
+            OnSelect = cbbxFilterSearchSelect
+            Items.Strings = (
+              'ALL'
+              'User Role'
+              'Organisasi Tugas'
+              'Komando Tugas')
+          end
+        end
+        object pnlListPengguna: TPanel
+          Left = 0
+          Top = 123
+          Width = 1607
+          Height = 807
+          Align = alClient
+          BevelOuter = bvNone
+          TabOrder = 1
+          object lvUserRole: TListView
+            Left = 0
+            Top = 0
+            Width = 1607
+            Height = 807
+            Align = alClient
+            BevelInner = bvNone
+            BevelOuter = bvNone
+            BorderStyle = bsNone
+            Columns = <
+              item
+                Caption = 'No'
+                Width = 28
+              end
+              item
+                Caption = 'Pengguna'
+                Width = 200
+              end
+              item
+                Alignment = taCenter
+                Caption = 'Organisasi Tugas'
+                Width = 200
+              end
+              item
+                Alignment = taCenter
+                Caption = 'Komando Tugas'
+                Width = 200
+              end
+              item
+                Alignment = taCenter
+                Caption = 'Perencanaan'
+                Width = 150
+              end
+              item
+                Alignment = taCenter
+                Caption = 'Persiapan'
+                Width = 150
+              end
+              item
+                Alignment = taCenter
+                Caption = 'Pelaksanaan'
+                Width = 150
+              end
+              item
+                Alignment = taCenter
+                Caption = 'Pengakhiran'
+                Width = 150
+              end
+              item
+                Alignment = taCenter
+                Caption = 'Catatan'
+                Width = 350
+              end>
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clBlack
+            Font.Height = -16
+            Font.Name = 'Jefferies'
+            Font.Style = []
+            GridLines = True
+            RowSelect = True
+            ParentFont = False
+            TabOrder = 0
+            ViewStyle = vsReport
+            OnSelectItem = lvUserRoleSelectItem
+          end
+        end
+        object pnlHeaderPengguna: TPanel
+          Left = 0
+          Top = 0
+          Width = 1607
+          Height = 60
+          Align = alTop
+          BevelOuter = bvNone
+          TabOrder = 2
+          object Label7: TLabel
+            Tag = 1
+            Left = 0
+            Top = 0
+            Width = 1607
+            Height = 60
+            Cursor = crHandPoint
+            Align = alClient
+            AutoSize = False
+            Caption = 'Pengguna'
+            Font.Charset = ANSI_CHARSET
+            Font.Color = 12826787
+            Font.Height = -32
+            Font.Name = 'Jefferies'
+            Font.Style = [fsBold]
+            ParentFont = False
+            ExplicitTop = 80
+            ExplicitWidth = 358
+            ExplicitHeight = 70
           end
         end
       end
