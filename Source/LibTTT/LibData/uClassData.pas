@@ -156,17 +156,12 @@ type
 
   TTactical_Symbol = class
   private
-//    FConsoleIP : string;
-//    FisInUse : Boolean;
 
   public
     FData  : TRecTactical_Symbol;
 
     constructor Create;
     destructor Destroy;override;
-
-//    property ConsoleIP: string read FConsoleIP write FConsoleIP;
-//    property isInUse: Boolean read FisInUse write FisInUse;
   end;
 
 implementation
