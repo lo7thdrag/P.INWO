@@ -81,7 +81,7 @@ uses
   ufrmAvailableUserRole in '..\LibTTT\LibForms\DatabaseEditorForm\ufrmAvailableUserRole.pas' {frmAvailableUserRole},
   UfrmMapEditor in '..\LibTTT\LibForms\DatabaseEditorForm\UfrmMapEditor.pas' {frmMapEditor},
   ufrmOverlayTools in '..\LibTTT\LibForms\SimulatorForm\AdditionalForm\ufrmOverlayTools.pas' {frmOverlayTools},
-  ufrmSimbolTaktis in '..\LibTTT\LibForms\SimulatorForm\ufrmSimbolTaktis.pas' {Form1},
+  ufrmSimbolTaktis in '..\LibTTT\LibForms\SimulatorForm\ufrmSimbolTaktis.pas' {frmSimbolTaktis},
   ufrmMapPreview in '..\LibTTT\LibForms\SimulatorForm\AdditionalForm\ufrmMapPreview.pas' {frmMapPreview};
 
 {$R *.res}
@@ -105,7 +105,7 @@ begin
   Application.CreateForm(TfrmCreateTab, frmCreateTab);
   Application.CreateForm(TfrmImageInsert, frmImageInsert);
   Application.CreateForm(TfrmAvailableUserRole, frmAvailableUserRole);
-//  Application.CreateForm(TfrmMapPreview, frmMapPreview);
+  //  Application.CreateForm(TfrmMapPreview, frmMapPreview);
   //  Application.CreateForm(TfrmMapEditor, frmMapEditor);
   Application.CreateForm(TfrmOverlayTools, frmOverlayTools);
   Application.CreateForm(TfrmImageInsert, frmImageInsert);

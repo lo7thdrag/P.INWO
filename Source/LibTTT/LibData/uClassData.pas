@@ -154,6 +154,21 @@ type
     destructor Destroy;override;
   end;
 
+  TTactical_Symbol = class
+  private
+//    FConsoleIP : string;
+//    FisInUse : Boolean;
+
+  public
+    FData  : TRecTactical_Symbol;
+
+    constructor Create;
+    destructor Destroy;override;
+
+//    property ConsoleIP: string read FConsoleIP write FConsoleIP;
+//    property isInUse: Boolean read FisInUse write FisInUse;
+  end;
+
 implementation
 
 {$REGION ' TUser_Role '}
@@ -472,6 +487,21 @@ begin
 end;
 
 destructor TGame_Area_Definition.Destroy;
+begin
+
+  inherited;
+end;
+
+{$ENDREGION}
+
+{$Region ' TTactical_Symbol ' }
+
+constructor TTactical_Symbol.Create;
+begin
+
+end;
+
+destructor TTactical_Symbol.Destroy;
 begin
 
   inherited;

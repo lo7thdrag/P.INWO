@@ -267,7 +267,7 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\SimulatorForm\ufrmSimbolTaktis.pas">
-            <Form>Form1</Form>
+            <Form>frmSimbolTaktis</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\SimulatorForm\AdditionalForm\ufrmMapPreview.pas">

@@ -425,6 +425,9 @@ type
     {$ENDREGION}
 
     {$REGION ' Tactical Symbol '}
+    function InsertTacticalSymbol(var aRec: TRecTactical_Symbol): Boolean;
+    function UpdateTacticalSymbol(var aRec: TRecTactical_Symbol): Boolean;
+    function DeleteTacticalSymbol(const aTacticalSymbolID: Integer): Boolean;
     {$ENDREGION}
 
     {$REGION ' Additional Section '}
@@ -10117,6 +10120,59 @@ end;
 {$ENDREGION}
 
 {$REGION ' Tactical Symbol '}
+
+function TdmINWO.InsertTacticalSymbol(var aRec: TRecTactical_Symbol): Boolean;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+
+    SQL.Clear;
+
+    SQL.Add('INSERT INTO TacticalSymbol');
+    SQL.Add('(Tipe, Kategori, Keterangan)');
+    SQL.Add('VALUES');
+
+    with aRec do
+    begin
+      SQL.Add(QuotedStr(Tipe) + ',');
+      SQL.Add(QuotedStr(Kategori) + ',');
+      SQL.Add(QuotedStr(Keterangan) + ',');
+    end;
+
+    SQL.Add(')');
+       ExecSQL;
+    Result := True;
+
+    SQL.Clear;
+    SQL.Add('SELECT * FROM TacticalSymbol');
+    SQL.Add('WHERE (Tipe = ' + QuotedStr(aRec.Tipe) + ') and (Kategori = ' + IntToStr(aRec.Kategori) + ') and ');
+    SQL.Add('(Keterangan = ' + IntToStr(aRec.Keterangan) + ')');
+    Open;
+
+  end;
+end;
+
+function TdmINWO.DeleteTacticalSymbol(const aTacticalSymbolID: Integer): Boolean;
+begin
+   if not ZConn.Connected then
+   Exit;
+
+   with ZQ do
+   begin
+     Close;
+     SQL.Add('DELETE FROM TacticalSymbol');
+     SQL.Add('WHERE()' + ')');
+     ExecSQL;
+     Result := True;
+   end;
+end;
+
 {$ENDREGION}
 
 {$REGION ' Additional Section '}

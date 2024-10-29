@@ -952,6 +952,14 @@ type
     Detail_Map               : string[50];
   end;
 
+  TRecTactical_Symbol = record
+    Id_Tactical_Symbol    : Integer;
+    Tipe                  : Integer;
+    Kategori              : Integer;
+    Keterangan            : string[80];
+    Path_Directori        : string[80];
+  end;
+
   {$ENDREGION}
 
 const

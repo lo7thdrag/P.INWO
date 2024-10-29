@@ -10,7 +10,8 @@ uses
 
   {Project Uses}
   uRecordData, uConstantaData, uSimMgr_Client, uT3SimManager, uClassData, ufrmVideoConference, ufrmSituationBoard,
-  ufrmTelegram, uLibSetting, uSimContainers, ufrmSummaryUserRole, ufrmAvailableUserRole , UfrmMapEditor, ufrmMapPreview;
+  ufrmTelegram, uLibSetting, uSimContainers, ufrmSummaryUserRole, ufrmAvailableUserRole , UfrmMapEditor, ufrmSimbolTaktis,
+   ufrmMapPreview;
 
 type
   TfrmDisplayArea = class(TForm)
@@ -132,7 +133,7 @@ type
     ComboBox5: TComboBox;
     ComboBox6: TComboBox;
     pnlListSImbolTaktis: TPanel;
-    ListView3: TListView;
+    lvTacticalSymbol: TListView;
     lblConsoleName: TLabel;
     pnlMdmOrganisasiTugas: TPanel;
     Label12: TLabel;
@@ -177,13 +178,13 @@ type
     btnAddMap: TImage;
     btnEditMap: TImage;
     btnDeleteMap: TImage;
-    Image4: TImage;
-    Image5: TImage;
-    Image6: TImage;
     btnPreview: TImage;
     btnDownloadReferensi: TImage;
     btnUploadReferensi: TImage;
     btnRemoveReferensi: TImage;
+    btnAddTacticalSymbol: TImage;
+    btnEditTacticalSymbol: TImage;
+    btnDeleteTacticalSymbol: TImage;
 
     procedure btnAOTCClick(Sender: TObject);
 
@@ -210,6 +211,9 @@ type
 
     {$REGION ' Simbol Taktis Procedure '}
     procedure SimbolTaktisClick(Sender: TObject);
+    procedure btnAddTacticalSymbolClick(Sender: TObject);
+    procedure btnEditTacticalSymbolClick(Sender: TObject);
+    procedure btnDeleteTacticalSymbolClick(Sender: TObject);
     {$ENDREGION}
 
     {$REGION ' Pengguna Procedure '}
@@ -308,6 +312,7 @@ type
     FSelectedFileBeranda : TFile_Data;
     FSelectedFileReferensi : TFile_Data;
     FSelectedGameArea : TGame_Area_Definition;
+    FSelectedTacticalSymbol : TTactical_Symbol;
 
     procedure RoundCornerOf(Control: TWinControl; val1, val2: Integer);
     procedure AddSearchTypeItems;
@@ -587,6 +592,61 @@ procedure TfrmDisplayArea.SimbolTaktisClick(Sender: TObject);
 begin
   pnlMenejemenSimbolTaktis.BringToFront;
 end;
+
+
+procedure TfrmDisplayArea.btnAddTacticalSymbolClick(Sender: TObject);
+begin
+  frmSimbolTaktis := TfrmSimbolTaktis.Create(Self);
+  try
+    with frmSimbolTaktis do
+    begin
+      SelectedTacticalSymbol := TTactical_Symbol.Create;
+      ShowModal;
+    end;
+  finally
+
+  end;
+
+end;
+
+procedure TfrmDisplayArea.btnEditTacticalSymbolClick(Sender: TObject);
+begin
+   if lvTacticalSymbol <> -1 then
+   begin
+      frmSimbolTaktis := TfrmSimbolTaktis.Create(Self);
+      try
+        with frmSimbolTaktis do
+        begin
+          SelectedTacticalSymbol := FSelectedTacticalSymbol;
+          ShowModal;
+        end;
+      finally
+         frmSimbolTaktis.Free;
+      end;
+   end;
+
+end;
+
+procedure TfrmDisplayArea.btnDeleteTacticalSymbolClick(Sender: TObject);
+var
+  warning: Integer;
+begin
+   if lvTacticalSymbol.ItemIndex <> -1  then
+   begin
+     warning := MessageDlg('ufrmAvailableUserRole you resourcestring Delete this item?', mtConfirmation, mbOKCancel, 0);
+
+     if warning = mrOK then
+     begin
+       with FSelectedTacticalSymbol.FData do
+       begin
+         if dmINWO.DeleteTacticalSymbol then
+
+       end;
+
+     end;
+   end;
+end;
+
 
 {$ENDREGION}
 
