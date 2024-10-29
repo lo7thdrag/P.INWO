@@ -4,7 +4,7 @@ interface
 
 uses
   System.Classes,
-  uRecordData, uConstantaData;
+  uRecordData, uConstantaData, uCoordConvertor;
 
 type
 
@@ -78,6 +78,7 @@ type
   private
     FIdTab : Integer;
     FIdUserRoleTab : Integer;
+    FIdOverlayTab : Integer;
     FCaptionTab : string;
     FActiveTab : Boolean;
     FTypeTab : Byte;
@@ -89,6 +90,7 @@ type
 
     property IdTab: Integer read FIdTab write FIdTab;
     property IdUserRoleTab: Integer read FIdUserRoleTab write FIdUserRoleTab;
+    property IdOverlayTab: Integer read FIdOverlayTab write FIdOverlayTab;
     property CaptionTab: string read FCaptionTab write FCaptionTab;
     property ActiveTab: Boolean read FActiveTab write FActiveTab;
     property TypeTab: Byte read FTypeTab write FTypeTab;
@@ -156,17 +158,66 @@ type
 
   TTactical_Symbol = class
   private
-//    FConsoleIP : string;
-//    FisInUse : Boolean;
 
   public
     FData  : TRecTactical_Symbol;
 
     constructor Create;
     destructor Destroy;override;
+  end;
 
-//    property ConsoleIP: string read FConsoleIP write FConsoleIP;
-//    property isInUse: Boolean read FisInUse write FisInUse;
+  TOverlayTabContainer = class
+  private
+    FTabList : TList;
+    FConverter: TCoordConverter;
+//    procedure SetConverter(const Value: TCoordConverter);
+
+  protected
+
+  public
+//    Action : Byte;
+//    IdSelectObject, IdShape : Integer;
+//    IdSelectedTemplate : Integer;
+
+//    FFormula      : TFormula;
+//    FSelectedDraw : TMainOverlayTemplate;
+//    StateOverlay  : Integer;
+//    NameSelectedTemplate : string;
+//    Editable : Boolean;
+//    isSelected : Boolean;
+//
+//    recShapeStatic : TRecCmd_OverlayStaticShape;
+//    recShapeDynamic : TRecCmd_OverlayDynamicShape;
+//
+//    // variabel unk membantu repos overlay dynamic
+//    pointParent, pointSShape, pointEShape : t2DPoint;
+//    idxOverlay : Integer; //untuk menandai urutan penggambaran overlay di scenario
+//    itemSelected        : TMainDynamicShape;
+//    postStartSelected : tRangeBearingPoint;  //unk mengambil nilai data ()yang akan digeser
+//    postEndSelected : tRangeBearingPoint; //unk mengambil nilai data ()yang akan digeser
+//    postCenterSelected : tRangeBearingPoint;  //unk mengambil nilai data ()yang akan digeser
+//    polyPointSelected : Array of TDotDynamic;
+
+    constructor Create;
+    destructor Destroy; override;
+
+//    function GetOverlayTemplate(IdOverlay: Integer): TMainOverlayTemplate;
+//
+//    procedure Clear;
+//    procedure Draw(FCanvas: TCanvas; Map1: TMap);
+//
+//    procedure AddOverlayTab(OvelayTemplate : TMainOverlayTemplate);
+//    procedure RemoveOverlayTab(OvelayTemplate : TMainOverlayTemplate);
+
+//    procedure FindPoint(postCont: t2DPoint; var postValue : t2DPoint; vd, vi: Double);
+//
+//    // reposisi overlay
+//    procedure reposOverlayDynamic(startMoveX, startMoveY, X, Y: Integer);
+//    function FindParent(iParent: TT3PlatformInstance; var postValue : t2DPoint): Boolean;
+//
+    property Converter : TCoordConverter read FConverter write FConverter;
+    property TabList : TList read FTabList write FTabList;
+
   end;
 
 implementation
@@ -504,6 +555,21 @@ end;
 destructor TTactical_Symbol.Destroy;
 begin
 
+  inherited;
+end;
+
+{$ENDREGION}
+
+{$REGION ' TOverlayContainer '}
+
+constructor TOverlayTabContainer.Create;
+begin
+  FTabList := TList.Create;
+end;
+
+destructor TOverlayTabContainer.Destroy;
+begin
+  FTabList.Free;
   inherited;
 end;
 

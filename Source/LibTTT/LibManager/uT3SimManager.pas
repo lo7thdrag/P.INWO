@@ -7,12 +7,15 @@ uses
   Windows, forms, StrUtils, Math, DateUtils,
 
   MapXLib_TLB, uThreadTimer,  uVirtualTime, uLibSetting, uSimManager , uSimObjects, uT3UnitContainer,
-  uT3EventManager, uT3Listener, uSteppers, uNetBaseSocket, uConsoleData, uClassData, uRecordData;
+  uT3EventManager, uT3Listener, uSteppers, uNetBaseSocket, uConsoleData, uClassData, uRecordData,
+  uCoordConvertor;
 
 type
 
   TT3SimManager = class(TSimManager)
   protected
+
+    FTabSituationBoardID  : Integer;
 
     procedure FGameThread_OnTerminate(sender: TObject);
     procedure FGameThread_OnRunning(const dt: double); virtual;
@@ -26,10 +29,11 @@ type
 
   private
 
-    FReg              : TRegistry;
+    FReg       : TRegistry;
+//    FConverter : TCoordConverter;
 
   protected
-    FSessionID     : integer;
+    FSessionID : integer;
 
     procedure setSessionID(const Value: integer);
 
@@ -42,6 +46,7 @@ type
     SimUserRole : TUserRoleContainer;
     SimTabProperties : TTabPropertiesContainer;
     SimChatting : TChattingContainer;
+    SimOverlay : TOverlayTabContainer;
 
     EventManager    : TT3EventManager;
 
@@ -58,6 +63,8 @@ type
     procedure OnSituationBoardTabPropertiesChange(const rec : TRecTCPSendSituationBoardTabProperties); virtual;
     procedure OnUserRoleChatChange(const rec : TrecTCPSendChatUserRole); virtual;
     {$ENDREGION}
+
+    function GetSerialTabSituationBoardID : Integer;
 
     procedure GameStart; override;
     procedure GamePause; override;
@@ -85,6 +92,8 @@ begin
 
   CreateMapConverter(Map);
 
+  FTabSituationBoardID := 0;
+
   FGameThread.Interval := 10;
   FGameThread.OnRunning   := FGameThread_OnRunning;
   FGameThread.OnTerminate := FGameThread_OnTerminate;
@@ -97,6 +106,9 @@ begin
   SimConsole := TConsoleContainer.Create;
   SimUserRole := TUserRoleContainer.Create;
   SimTabProperties := TTabPropertiesContainer.Create;
+
+  SimOverlay := TOverlayTabContainer.Create;
+//  SimOverlay.Converter := Converter;
 end;
 
 procedure TT3SimManager.CreateMapConverter(Map: TMap);
@@ -192,6 +204,7 @@ begin
       tabPropertiesTemp := TTabProperties.Create;
       tabPropertiesTemp.IdTab := rec.TabId;
       tabPropertiesTemp.IdUserRoleTab := rec.UserRoleId;
+      tabPropertiesTemp.IdOverlayTab := GetSerialTabSituationBoardID;
       tabPropertiesTemp.CaptionTab := rec.TabCaption;
       tabPropertiesTemp.TypeTab := rec.TabType;
       tabPropertiesTemp.ActiveTab := True;
@@ -268,6 +281,12 @@ begin
     Result := True
   else
     Result := False;
+end;
+
+function TT3SimManager.GetSerialTabSituationBoardID: Integer;
+begin
+  Result := FTabSituationBoardID;
+  Inc(FTabSituationBoardID);
 end;
 
 procedure TT3SimManager.StopNetwork;
