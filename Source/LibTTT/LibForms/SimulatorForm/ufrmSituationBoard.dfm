@@ -45060,7 +45060,7 @@ object frmSituationBoard: TfrmSituationBoard
         0B918FCE119DE300AA004BB851010000009001DC7C010005417269616C000352
         E30B918FCE119DE300AA004BB851010200009001A42C02000B4D61702053796D
         626F6C730000000000000001000100FFFFFF000200FFFFFF0000000000000100
-        000001000118010000285D47110100000090EB97001C00000000000000000000
+        000001000118010000E899342D0100000050EA97001C00000000000000000000
         0000000000000000000000000000000000000000000000000000000000000000
         0000000000000000000000000000000000000000000000000000000000000000
         0002000000000000000000000000000000000000000000000000000000000000
@@ -45069,15 +45069,15 @@ object frmSituationBoard: TfrmSituationBoard
         0000000000000000000000000000000000000000000000000000000000000000
         0000000000000000000000000000000000000000000000000000000000000000
         00008076C000000000008056C000000000008076400000000000805640010000
-        0018010000285D4711010000000D0000001C0000000000000000000000000000
+        0018010000E899342D01000000010000001C0000000000000000000000000000
         0000000000000000000000000000000000000000000000000000000000000000
         0000000000000000000000000000000000000000000000000000000000020000
         0000000000000000000000000000000000000000000000000000000000000000
         0000000000000000000000000000000000000000000000000000000000000000
         0000000000000000000000000000000000000000000000000000000000000000
         0000000000000000000000000000000000000000000000000000000000000000
-        000000000000000000000000000000000000000000000000001C137F75F0CDD6
-        6B00800000060D0C00FCFFFFFF0000000008B423110000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0002000000BC3DA17124EA9700C0D61F0510F322050100000000000000000000
         0000000088B3400000000000408F400001000001}
     end
     object pnlEditMap: TPanel
@@ -45215,6 +45215,7 @@ object frmSituationBoard: TfrmSituationBoard
         object btnDecrease: TToolButton
           Left = 0
           Top = 0
+          Cursor = crHandPoint
           Hint = 'Decrease Scale'
           Caption = 'btnDecrease'
           ImageIndex = 1
@@ -45224,9 +45225,10 @@ object frmSituationBoard: TfrmSituationBoard
         end
         object cbSetScale: TComboBox
           Left = 42
-          Top = 7
+          Top = 0
           Width = 95
           Height = 21
+          Cursor = crHandPoint
           Hint = 'Map Scales'
           ParentShowHint = False
           ShowHint = True
@@ -45254,6 +45256,7 @@ object frmSituationBoard: TfrmSituationBoard
         object btnIncrease: TToolButton
           Left = 137
           Top = 0
+          Cursor = crHandPoint
           Hint = 'Increase Scale'
           Caption = 'btnIncrease'
           ImageIndex = 0
@@ -45264,6 +45267,7 @@ object frmSituationBoard: TfrmSituationBoard
         object btnPan: TToolButton
           Left = 179
           Top = 0
+          Cursor = crHandPoint
           Hint = 'Pan'
           Caption = 'btnPan'
           ImageIndex = 3
@@ -45274,6 +45278,7 @@ object frmSituationBoard: TfrmSituationBoard
         object btnCenterGame: TToolButton
           Left = 221
           Top = 0
+          Cursor = crHandPoint
           Hint = 'Center On Game Center'
           AllowAllUp = True
           Caption = 'btnCenterGame'
@@ -45285,6 +45290,7 @@ object frmSituationBoard: TfrmSituationBoard
         object btnZoom: TToolButton
           Left = 263
           Top = 0
+          Cursor = crHandPoint
           Hint = 'Zoom In / Out'
           Caption = 'btnZoom'
           ImageIndex = 2
@@ -45295,6 +45301,7 @@ object frmSituationBoard: TfrmSituationBoard
         object btnout: TToolButton
           Left = 305
           Top = 0
+          Cursor = crHandPoint
           Hint = 'zoom out'
           Caption = 'btnout'
           ImageIndex = 7
@@ -45305,6 +45312,7 @@ object frmSituationBoard: TfrmSituationBoard
         object btnGameArea: TToolButton
           Left = 347
           Top = 0
+          Cursor = crHandPoint
           Hint = 'Game Area'
           Caption = 'btnGameArea'
           ImageIndex = 9
@@ -45313,6 +45321,7 @@ object frmSituationBoard: TfrmSituationBoard
         object btnRuller: TToolButton
           Left = 389
           Top = 0
+          Cursor = crHandPoint
           Hint = 'Ruler'
           ImageIndex = 11
           ParentShowHint = False
@@ -45322,6 +45331,7 @@ object frmSituationBoard: TfrmSituationBoard
         object btnOverlayTools: TToolButton
           Left = 431
           Top = 0
+          Cursor = crHandPoint
           Caption = 'btnOverlayTools'
           ImageIndex = 12
           OnClick = btnOverlayToolsClick

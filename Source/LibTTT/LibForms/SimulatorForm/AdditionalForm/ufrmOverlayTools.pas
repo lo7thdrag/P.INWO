@@ -23,73 +23,6 @@ type
 
   TfrmOverlayTools = class(TForm)
     btnSelect: TImage;
-    pnlArrow: TPanel;
-    Label1: TLabel;
-    Label2: TLabel;
-    lblArrowName: TLabel;
-    Label3: TLabel;
-    Label4: TLabel;
-    btnStartPos: TSpeedButton;
-    Label5: TLabel;
-    Label6: TLabel;
-    btnEndPos: TSpeedButton;
-    edtStartLong: TEdit;
-    edtStartLatt: TEdit;
-    edtEndLong: TEdit;
-    edtEndLatt: TEdit;
-    pnlBase: TPanel;
-    Bevel1: TBevel;
-    Label7: TLabel;
-    Label8: TLabel;
-    lblBaseName: TLabel;
-    Label9: TLabel;
-    Label10: TLabel;
-    btnPosBase: TSpeedButton;
-    Label11: TLabel;
-    Label12: TLabel;
-    Label13: TLabel;
-    Label14: TLabel;
-    lblSymbolTaktis: TLabel;
-    edtLongBase: TEdit;
-    edtLattBase: TEdit;
-    btnEditBase: TButton;
-    btnDeleteBase: TButton;
-    btnClearBase: TButton;
-    btnInsertBase: TButton;
-    lvBase: TListView;
-    edtQty: TEdit;
-    edtPlatform: TEdit;
-    btnplatform: TButton;
-    pnlLogistic: TPanel;
-    Label20: TLabel;
-    Label21: TLabel;
-    lblLogisticName: TLabel;
-    Label22: TLabel;
-    Label23: TLabel;
-    btnPosLog: TSpeedButton;
-    Label24: TLabel;
-    Label25: TLabel;
-    Label26: TLabel;
-    edtLongLog: TEdit;
-    edtLattLog: TEdit;
-    btnEditLog: TButton;
-    btnDeleteLog: TButton;
-    btnClearLog: TButton;
-    btnInsertLog: TButton;
-    lvLogistic: TListView;
-    cbbStatus: TComboBox;
-    edtItemLog: TEdit;
-    pnlRadar: TPanel;
-    Label27: TLabel;
-    Label28: TLabel;
-    Label29: TLabel;
-    Label30: TLabel;
-    btnPosRadar: TSpeedButton;
-    Label31: TLabel;
-    lblRadarName: TLabel;
-    edtLongRadar: TEdit;
-    edtLattRadar: TEdit;
-    edtRadius: TEdit;
     pnlShape: TPanel;
     pnlMainTop: TPanel;
     cbbTypeTools: TComboBox;
@@ -337,20 +270,6 @@ type
     Image10: TImage;
     Image11: TImage;
     Image12: TImage;
-    Label47: TLabel;
-    Label48: TLabel;
-    Label49: TLabel;
-    Label50: TLabel;
-    Label51: TLabel;
-    Label54: TLabel;
-    Label55: TLabel;
-    Label56: TLabel;
-    Label57: TLabel;
-    Label58: TLabel;
-    Label59: TLabel;
-    Label60: TLabel;
-    Label61: TLabel;
-    Label62: TLabel;
     Label63: TLabel;
     pnlMainBottom: TPanel;
     btnApply: TButton;
@@ -374,12 +293,90 @@ type
     rbBlue: TRadioButton;
     grpNone: TGroupBox;
     Label72: TLabel;
-    grpBase: TGroupBox;
+    grpRadar: TGroupBox;
     Label68: TLabel;
-    grpLogistic: TGroupBox;
+    grpArrow: TGroupBox;
     Label15: TLabel;
-
-    procedure btnOutlineClick(Sender: TObject);
+    grplogistik: TGroupBox;
+    Label16: TLabel;
+    Label22: TLabel;
+    Label61: TLabel;
+    edtLongLog: TEdit;
+    Label23: TLabel;
+    Label62: TLabel;
+    edtLattLog: TEdit;
+    btnPosLog: TSpeedButton;
+    Label24: TLabel;
+    lvLogistic: TListView;
+    edtItemLog: TEdit;
+    cbbStatus: TComboBox;
+    Label26: TLabel;
+    Label25: TLabel;
+    btnInsertLog: TButton;
+    btnEditLog: TButton;
+    btnDeleteLog: TButton;
+    btnClearLog: TButton;
+    Label65: TLabel;
+    Bevel13: TBevel;
+    Bevel14: TBevel;
+    grpBase: TGroupBox;
+    Label20: TLabel;
+    Label21: TLabel;
+    Bevel17: TBevel;
+    Label9: TLabel;
+    Label48: TLabel;
+    edtLongBase: TEdit;
+    btnPosBase: TSpeedButton;
+    edtLattBase: TEdit;
+    Label47: TLabel;
+    Label10: TLabel;
+    Label11: TLabel;
+    lvBase: TListView;
+    Label12: TLabel;
+    Label49: TLabel;
+    edtPlatform: TEdit;
+    Label13: TLabel;
+    Label50: TLabel;
+    edtQty: TEdit;
+    Label14: TLabel;
+    Label51: TLabel;
+    lblSymbolTaktis: TLabel;
+    Bevel1: TBevel;
+    btnplatform: TButton;
+    btnInsertBase: TButton;
+    btnEditBase: TButton;
+    btnDeleteBase: TButton;
+    btnClearBase: TButton;
+    Bevel18: TBevel;
+    Label3: TLabel;
+    Label54: TLabel;
+    edtStartLong: TEdit;
+    btnStartPos: TSpeedButton;
+    Label4: TLabel;
+    Label55: TLabel;
+    edtStartLatt: TEdit;
+    Label5: TLabel;
+    Label56: TLabel;
+    Label6: TLabel;
+    Label57: TLabel;
+    edtEndLatt: TEdit;
+    edtEndLong: TEdit;
+    btnEndPos: TSpeedButton;
+    Label1: TLabel;
+    Bevel19: TBevel;
+    Label2: TLabel;
+    Bevel20: TBevel;
+    Label29: TLabel;
+    Label58: TLabel;
+    edtLongRadar: TEdit;
+    btnPosRadar: TSpeedButton;
+    edtLattRadar: TEdit;
+    Label59: TLabel;
+    Label30: TLabel;
+    Label31: TLabel;
+    Label60: TLabel;
+    edtRadius: TEdit;
+    Label7: TLabel;
     procedure btnHandleShape(Sender: TObject);
     procedure cbbTypeToolsChange(Sender: TObject);
 
@@ -407,6 +404,17 @@ type
     procedure LoadPanelGrid;
     procedure LoadPanelPolygon;
     procedure SetNoFill(val: Boolean);
+
+    procedure GbrText;
+    procedure GbrLine;
+    procedure GbrRectangle;
+    procedure GbrCircle;
+    procedure GbrEllipse;
+    procedure GbrArc;
+    procedure GbrSector;
+    procedure GbrGrid;
+    procedure GbrPolygon;
+    procedure GbrFlagPoint(mx, my :Double);
 
   end;
 
@@ -591,6 +599,459 @@ begin
 //  Map1.Repaint;
 end;
 
+procedure TfrmOverlayTools.GbrArc;
+//var
+//  recShapeStatic : TRecCmd_OverlayStaticShape;
+//  recShapeDynamic : TRecCmd_OverlayDynamicShape;
+begin
+//  if CekInput(ovArc) then
+    Exit;
+
+//  if IsEditObject then
+  begin
+      Action := 2;
+//    if not FindIdSelectedShape then
+      Exit;
+  end
+//  else
+//    Action := 1;
+
+//  recShapeStatic.TemplateId := FSelectedOverlay.OverlayIndex;
+//  recShapeStatic.ShapeType := ovArc;
+//  recShapeStatic.IdSelectShape := NoShapeInList;
+//  recShapeStatic.IdAction := Action;
+
+//  recShapeStatic.PostStart.X := dmsToLong(edtArcPosLong.Text);
+//  recShapeStatic.PostStart.Y := dmsToLatt(edtArcPosLat.Text);
+//  recShapeStatic.radius1 := StrToFloat(edtArcRadius.Text);
+//  recShapeStatic.StartAngle := StrToInt(edtArcStartAngle.Text);
+//  recShapeStatic.EndAngle := StrToInt(edtArcEndAngle.Text);
+//  recShapeStatic.color := pnlOutline.Color;
+
+//  recShapeStatic.LineType :=  TPenStyle(cbbDashesPen.ItemIndex);
+//  recShapeStatic.Weight := StrToInt(cbbWeightPen.Text);
+
+  //      if Action = caEdit then
+  //        recShapeStatic.idxDraw := simMgrClient.DrawOverlayTemplate.idxOverlay
+  //      else
+  //        recShapeStatic.idxDraw := idxDrawOverlay;
+
+  {Kirim data disini}
+//  simMgrClient.netSend_CmdOverlayStaticShape(recShapeStatic);
+//  isInputProblem := False;
+end;
+
+procedure TfrmOverlayTools.GbrCircle;
+// var
+//  recShapeStatic : TRecCmd_OverlayStaticShape;
+//  recShapeDynamic : TRecCmd_OverlayDynamicShape;
+//
+begin
+//  if CekInput(ovCircle) then
+//    Exit;
+//
+//  if IsEditObject then
+//    begin
+//      Action := 2;
+//    if not FindIdSelectedShape then
+//      Exit;
+//    end
+//  else
+//    Action := 1;
+//
+//  recShapeStatic.TemplateId := FSelectedOverlay.OverlayIndex;
+//  recShapeStatic.ShapeType := ovCircle;
+//  recShapeStatic.IdSelectShape := NoShapeInList;
+//  recShapeStatic.IdAction := Action;
+//
+//  recShapeStatic.PostStart.X := dmsToLong(edtCirclePosLong.Text);
+//  recShapeStatic.PostStart.Y := dmsToLatt(edtCirclePosLat.Text);
+//  recShapeStatic.Radius1 := StrToFloat(edtCircleRadius.Text);
+//  recShapeStatic.color := pnlOutline.Color;
+//
+//  if FisNoFill  then
+//  recShapeStatic.BrushStyle := bsClear
+//  else
+//  begin
+//  recShapeStatic.BrushStyle := bsSolid;
+//  recShapeStatic.ColorFill := pnlFill.Color;
+//  end;
+//
+//  recShapeStatic.LineType :=  TPenStyle(cbbDashesPen.ItemIndex);
+//  recShapeStatic.Weight := StrToInt(cbbWeightPen.Text);
+//
+//  //      if Action = caEdit then
+//  //        recShapeStatic.idxDraw := simMgrClient.DrawOverlayTemplate.idxOverlay
+//  //      else
+//  //        recShapeStatic.idxDraw := idxDrawOverlay;
+//
+//  {Kirim data disini}
+//  simMgrClient.netSend_CmdOverlayStaticShape(recShapeStatic);
+//  isInputProblem := False;
+end;
+
+procedure TfrmOverlayTools.GbrEllipse;
+//var
+//  recShapeStatic : TRecCmd_OverlayStaticShape;
+//  recShapeDynamic : TRecCmd_OverlayDynamicShape;
+begin
+//  if CekInput(ovEllipse) then
+//    Exit;
+//
+//  if IsEditObject then
+//  begin
+//    Action := 2;
+//
+//    if not FindIdSelectedShape then
+//      Exit;
+//  end
+//  else
+//  Action := 1;
+//
+//  recShapeStatic.TemplateId := FSelectedOverlay.OverlayIndex;
+//  recShapeStatic.ShapeType := ovEllipse;
+//  recShapeStatic.IdSelectShape := NoShapeInList;
+//  recShapeStatic.IdAction := Action;
+//
+//  recShapeStatic.PostStart.X := dmsToLong(edtEllipsePosLong.Text);
+//  recShapeStatic.PostStart.Y := dmsToLatt(edtEllipsePosLat.Text);
+//  recShapeStatic.Radius1 := StrToFloat(edtHorizontal.Text);
+//  recShapeStatic.Radius2 := StrToFloat(edtVertical.Text);
+//  recShapeStatic.color := pnlOutline.Color;
+//
+//  if FisNoFill  then
+//    recShapeStatic.BrushStyle := bsClear
+//  else
+//  begin
+//    recShapeStatic.BrushStyle := bsSolid;
+//    recShapeStatic.ColorFill := pnlFill.Color;
+//  end;
+//
+//  recShapeStatic.LineType :=  TPenStyle(cbbDashesPen.ItemIndex);
+//  recShapeStatic.Weight := StrToInt(cbbWeightPen.Text);
+//
+//  //      if Action = caEdit then
+//  //        recShapeStatic.idxDraw := simMgrClient.DrawOverlayTemplate.idxOverlay
+//  //      else
+//  //        recShapeStatic.idxDraw := idxDrawOverlay;
+//
+//  {Kirim data disini}
+//  simMgrClient.netSend_CmdOverlayStaticShape(recShapeStatic);
+//  isInputProblem := False;
+end;
+
+procedure TfrmOverlayTools.GbrFlagPoint(mx, my: Double);
+//var
+//  ObjectFlagPoint : TFlagPoint;
+begin
+//  ObjectFlagPoint := TFlagPoint.Create(simMgrClient.Converter);
+//  ObjectFlagPoint.Post.X := mx;
+//  ObjectFlagPoint.Post.Y := my;
+//  simMgrClient.DrawFlagPoint.FList.Add(ObjectFlagPoint);
+end;
+
+procedure TfrmOverlayTools.GbrGrid;
+//var
+//  recShapeStatic : TRecCmd_OverlayStaticShape;
+//  recShapeDynamic : TRecCmd_OverlayDynamicShape;
+begin
+//  if CekInput(ovGrid) then
+//    Exit;
+//
+//  if IsEditObject then
+//  begin
+//     Action := 2;
+//    if not FindIdSelectedShape then
+//      Exit;
+//  end
+//  else
+//    Action := 1;
+//
+//  case StateOverlay of
+//
+//  recShapeStatic.TemplateId := FSelectedOverlay.OverlayIndex;
+//  recShapeStatic.ShapeType := ovGrid;
+//  recShapeStatic.IdSelectShape := NoShapeInList;
+//  recShapeStatic.IdAction := Action;
+//
+//  recShapeStatic.PostStart.X := dmsToLong(edtTablePosLong.Text);
+//  recShapeStatic.PostStart.Y := dmsToLatt(edtTablePosLat.Text);
+//  recShapeStatic.Radius1 := StrToFloat(edtTableHeight.Text);
+//  recShapeStatic.Radius2 := StrToFloat(edtTableWidth.Text);
+//  recShapeStatic.Kolom := StrToInt(edtTableColumn.Text);
+//  recShapeStatic.Baris := StrToInt(edtTableRow.Text);
+//  recShapeStatic.Rotasi := StrToInt(edtTableRotationAngle.Text);
+//  recShapeStatic.color := pnlOutline.Color;
+//
+//  if FisNoFill  then
+//    recShapeStatic.BrushStyle := bsClear
+//  else
+//  begin
+//    recShapeStatic.BrushStyle := bsSolid;
+//    recShapeStatic.ColorFill := pnlFill.Color;
+//  end;
+//
+//  recShapeStatic.LineType :=  TPenStyle(cbbDashesPen.ItemIndex);
+//  recShapeStatic.Weight := StrToInt(cbbWeightPen.Text);
+//
+//  //      if Action = caEdit then
+//  //        recShapeStatic.idxDraw := simMgrClient.DrawOverlayTemplate.idxOverlay
+//  //      else
+//  //        recShapeStatic.idxDraw := idxDrawOverlay;;
+//
+//  {Kirim data disini}
+//  simMgrClient.netSend_CmdOverlayStaticShape(recShapeStatic);
+//  isInputProblem := False;
+//end;
+end;
+
+procedure TfrmOverlayTools.GbrLine;
+//var
+//  recShapeStatic : TRecCmd_OverlayStaticShape;
+//  recShapeDynamic : TRecCmd_OverlayDynamicShape;
+
+begin
+//  if CekInput(ovLine) then
+//    Exit;
+//
+//  if IsEditObject then
+//  begin
+//      Action := 2;
+//    if not FindIdSelectedShape then
+//      Exit;
+//  end
+//  else
+//    Action := 1;
+//
+//  recShapeStatic.TemplateId := FSelectedOverlay.OverlayIndex;
+//  recShapeStatic.ShapeType := ovLine;
+//  recShapeStatic.IdSelectShape := NoShapeInList;
+//  recShapeStatic.IdAction := Action;
+//
+//  recShapeStatic.postStart.X := dmsToLong(edtLineStartPosLong.Text);
+//  recShapeStatic.postStart.Y := dmsToLatt(edtLineStartPosLat.Text);
+//  recShapeStatic.postEnd.X := dmsToLong(edtLineEndPosLong.Text);
+//  recShapeStatic.postEnd.Y := dmsToLatt(edtLineEndPosLat.Text);
+//
+//  recShapeStatic.color := pnlOutline.color;
+//  recShapeStatic.lineType :=  TPenStyle(cbbDashesPen.ItemIndex);
+//  recShapeStatic.weight := StrToInt(cbbWeightPen.Text);
+//
+//  //      if Action = caEdit then
+//  //        recShapeStatic.idxDraw := simMgrClient.DrawOverlayTemplate.idxOverlay
+//  //      else
+//  //        recShapeStatic.idxDraw := idxDrawOverlay;
+//
+//  {Kirim data disini}
+//  simMgrClient.netSend_CmdOverlayStaticShape(recShapeStatic);
+//  isInputProblem := False;
+end;
+
+procedure TfrmOverlayTools.GbrPolygon;
+//var
+//  i : Integer;
+//  li : TListItem;
+//  recShapeStatic : TRecCmd_OverlayStaticShape;
+//  recShapeDynamic : TRecCmd_OverlayDynamicShape;
+begin
+//  if CekInput(ovPolygon) then
+//    Exit;
+//
+//  if IsEditObject then
+//  begin
+//    Action := 2;
+//    if not FindIdSelectedShape then
+//      Exit;
+//  end
+//  else
+//    Action := 1;
+//
+//      recShapeStatic.TemplateId := FSelectedOverlay.OverlayIndex;
+//      recShapeStatic.ShapeType := ovPolygon;
+//      recShapeStatic.IdSelectShape := NoShapeInList;
+//      recShapeStatic.IdAction := Action;
+//
+//      recShapeStatic.color := pnlOutline.Color;
+//
+//  if FisNoFill  then
+//  begin
+//  recShapeStatic.BrushStyle := bsClear;
+//  end
+//  else
+//  begin
+//  recShapeStatic.BrushStyle := bsSolid;
+//  recShapeStatic.ColorFill := pnlFill.Color;
+//  end;
+//
+//  recShapeStatic.LineType :=  TPenStyle(cbbDashesPen.ItemIndex);
+//  recShapeStatic.Weight := StrToInt(cbbWeightPen.Text);
+//
+//  //      if Action = caEdit then
+//  //        recShapeStatic.idxDraw := simMgrClient.DrawOverlayTemplate.idxOverlay
+//  //      else
+//  //        recShapeStatic.idxDraw := idxDrawOverlay;
+//
+//  for i := 0 to 12 do
+//  begin
+//  li := lvPolyVertex.Items[i];
+//
+//  recShapeStatic.PolyPoint[i].X := 0;
+//  recShapeStatic.PolyPoint[i].Y := 0;
+//  end;
+
+//  for i := 0 to lvPolyVertex.Items.Count - 1 do
+//  begin
+//  li := lvPolyVertex.Items[i];
+//
+//  recShapeStatic.PolyPoint[i].X := dmsToLong(li.SubItems[0]);
+//  recShapeStatic.PolyPoint[i].Y := dmsToLatt(li.SubItems[1]);
+//  end;
+//
+//  simMgrClient.netSend_CmdOverlayStaticShape(recShapeStatic);
+//
+//  SpeedButton10.Down := False;
+//  isInputProblem := False;
+end;
+
+procedure TfrmOverlayTools.GbrRectangle;
+//var
+//  recShapeStatic : TRecCmd_OverlayStaticShape;
+//  recShapeDynamic : TRecCmd_OverlayDynamicShape;
+begin
+//  if CekInput(ovRectangle) then
+//    Exit;
+//
+//  if IsEditObject then
+//  begin
+//    Action := 2;
+//  if not FindIdSelectedShape then
+//    Exit;
+//  end
+//  else
+//    Action := 1;
+//
+//  case StateOverlay of
+//
+//  recShapeStatic.TemplateId := FSelectedOverlay.OverlayIndex;
+//  recShapeStatic.ShapeType := ovRectangle;
+//  recShapeStatic.IdSelectShape := NoShapeInList;
+//  recShapeStatic.IdAction := Action;
+//
+//  recShapeStatic.postStart.X := dmsToLong(edtRectStartPosLong.Text);
+//  recShapeStatic.postStart.Y := dmsToLatt(edtRectStartPosLat.Text);
+//  recShapeStatic.postEnd.X := dmsToLong(edtRectEndPosLong.Text);
+//  recShapeStatic.postEnd.Y := dmsToLatt(edtRectEndPosLat.Text);
+//
+//  recShapeStatic.color := pnlOutline.Color;
+//
+//  if FisNoFill  then
+//  begin
+//    recShapeStatic.BrushStyle := bsClear;
+//  end
+//  else
+//  begin
+//    recShapeStatic.BrushStyle := bsSolid;
+//    recShapeStatic.ColorFill := pnlFill.Color;
+//  end;
+//
+//  recShapeStatic.LineType :=  TPenStyle(cbbDashesPen.ItemIndex);
+//  recShapeStatic.Weight := StrToInt(cbbWeightPen.Text);
+//
+////      if Action = caEdit then
+////        recShapeStatic.idxDraw := simMgrClient.DrawOverlayTemplate.idxOverlay
+////      else
+////        recShapeStatic.idxDraw := idxDrawOverlay;
+//
+//      {Kirim data disini}
+//  simMgrClient.netSend_CmdOverlayStaticShape(recShapeStatic);
+//  isInputProblem := False;
+end;
+
+procedure TfrmOverlayTools.GbrSector;
+//var
+//  recShapeStatic : TRecCmd_OverlayStaticShape;
+//  recShapeDynamic : TRecCmd_OverlayDynamicShape;
+begin
+//  if CekInput(ovSector) then
+//    Exit;
+//
+//  if IsEditObject then
+//  begin
+//      Action := 2;
+//    if not FindIdSelectedShape then
+//      Exit;
+//  end
+//  else
+//    Action := 1;
+//
+//  recShapeStatic.TemplateId := FSelectedOverlay.OverlayIndex;
+//  recShapeStatic.ShapeType := ovSector;
+//  recShapeStatic.IdSelectShape := NoShapeInList;
+//  recShapeStatic.IdAction := Action;
+//
+//  recShapeStatic.PostStart.X := dmsToLong(edtSectorPosLong.Text);
+//  recShapeStatic.PostStart.Y := dmsToLatt(edtSectorPosLat.Text);
+//  recShapeStatic.Radius1 := StrToFloat(edtSectorOuter.Text);
+//  recShapeStatic.Radius2 := StrToFloat(edtSectorInner.Text);
+//  recShapeStatic.StartAngle := StrToInt(edtSectorStartAngle.Text);
+//  recShapeStatic.EndAngle := StrToInt(edtSectorEndAngle.Text);
+//  recShapeStatic.color := pnlOutline.Color;
+//
+//  recShapeStatic.LineType :=  TPenStyle(cbbDashesPen.ItemIndex);
+//  recShapeStatic.Weight := StrToInt(cbbWeightPen.Text);
+//
+//  //      if Action = caEdit then
+//  //        recShapeStatic.idxDraw := simMgrClient.DrawOverlayTemplate.idxOverlay
+//  //      else
+//  //        recShapeStatic.idxDraw := idxDrawOverlay;
+//
+//  {Kirim data disini}
+//  simMgrClient.netSend_CmdOverlayStaticShape(recShapeStatic);
+//  isInputProblem := False;
+end;
+
+procedure TfrmOverlayTools.GbrText;
+//var
+//  Size : Byte;
+//  recShapeStatic : TRecCmd_OverlayStaticShape;
+//  recShapeDynamic : TRecCmd_OverlayDynamicShape;
+
+begin
+//  if CekInput(ovText) then
+//    Exit;
+//
+//  Size := 10;
+//
+//  if IsEditObject then
+//  begin
+//      Action := caEdit;
+//    if not FindIdSelectedShape then
+//      Exit;
+//  end
+//  else
+//    Action := caAdd;
+//
+//  recShapeStatic.TemplateId := FSelectedOverlay.OverlayIndex;
+//  recShapeStatic.ShapeType := ovText;
+//  recShapeStatic.IdSelectShape := NoShapeInList;
+//  recShapeStatic.IdAction := Action;
+//
+//  recShapeStatic.PostStart.X := dmsToLong(edtTextPosLong.Text);
+//  recShapeStatic.PostStart.Y := dmsToLatt(edtTextPosLat.Text);
+//  recShapeStatic.Size := StrToInt(cbbTextSize.Text);
+//  recShapeStatic.Words := edtTextField.Text;
+//  recShapeStatic.color := pnlOutline.Color;
+//
+//  //      if Action = caEdit then
+//  //        recShapeStatic.idxDraw := simMgrClient.DrawOverlayTemplate.idxOverlay
+//  //      else
+//  //        recShapeStatic.idxDraw := idxDrawOverlay;
+//
+//  {Kirim data disini}
+//  simMgrClient.netSend_CmdOverlayStaticShape(recShapeStatic);
+//  isInputProblem := False;
+end;
+
 procedure TfrmOverlayTools.LoadPanelArc;
 begin
   btnArc.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnArc_Select.PNG');
@@ -602,152 +1063,104 @@ begin
   btnFill.Visible := False;
   pnlPenEditing.Visible := True;
   SetNoFill(True);
-  btnOutlineClick(nil);
+//  btnOutlineClick(nil);
   {$ENDREGION}
 
 end;
 
 procedure TfrmOverlayTools.LoadPanelCircle;
 begin
-  lblShape.Caption := 'Circle';
-  btnCircle.Picture.LoadFromFile
-    ('data\Image DBEditor\Interface\Button\btnCircle_Select.PNG');
+  btnCircle.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnCircle_Select.PNG');
 
-{$REGION ' Dynamic Handle '}
-  grpCircleD.BringToFront;
-  grpCircleD.Visible := True;
-{$ENDREGION}
-{$REGION ' Static Handle '}
   grpCircle.BringToFront;
-  grpCircle.Visible := True;
-{$ENDREGION}
-{$REGION ' Button Handle '}
+
+  {$REGION ' Button Handle '}
   btnOutline.Visible := True;
   btnFill.Visible := True;
   pnlPenEditing.Visible := True;
   SetNoFill(True);
-  btnOutlineClick(nil);
-{$ENDREGION}
+//  btnOutlineClick(nil);
+  {$ENDREGION}
 end;
 
 procedure TfrmOverlayTools.LoadPanelEllipse;
 begin
-  lblShape.Caption := 'Ellipse';
-  btnEllipse.Picture.LoadFromFile
-    ('data\Image DBEditor\Interface\Button\btnEllipse_Select.PNG');
+  btnEllipse.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnEllipse_Select.PNG');
 
-{$REGION ' Dynamic Handle '}
-  grpEllipseD.BringToFront;
-  grpEllipseD.Visible := True;
-{$ENDREGION}
-{$REGION ' Static Handle '}
   grpEllipse.BringToFront;
-  grpEllipse.Visible := True;
-{$ENDREGION}
-{$REGION ' Button Handle '}
+
+  {$REGION ' Button Handle '}
   btnOutline.Visible := True;
   btnFill.Visible := True;
   pnlPenEditing.Visible := True;
   SetNoFill(True);
-  btnOutlineClick(nil);
-{$ENDREGION}
+//  btnOutlineClick(nil);
+  {$ENDREGION}
 end;
 
 procedure TfrmOverlayTools.LoadPanelGrid;
 begin
-  lblShape.Caption := 'Grid';
-  btnGrid.Picture.LoadFromFile
-    ('data\Image DBEditor\Interface\Button\btnGrid_Select.PNG');
+  btnGrid.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnGrid_Select.PNG');
 
-{$REGION ' Dynamic Handle '}
-  grpGridD.BringToFront;
-  grpGridD.Visible := True;
-{$ENDREGION}
-{$REGION ' Static Handle '}
   grpGrid.BringToFront;
-  grpGrid.Visible := True;
-{$ENDREGION}
-{$REGION ' Button Handle '}
+
+  {$REGION ' Button Handle '}
   btnOutline.Visible := True;
   btnFill.Visible := False;
   pnlPenEditing.Visible := True;
   SetNoFill(True);
-  btnOutlineClick(nil);
-{$ENDREGION}
+//  btnOutlineClick(nil);
+  {$ENDREGION}
 end;
 
 procedure TfrmOverlayTools.LoadPanelLine;
 begin
-  lblShape.Caption := 'Line';
-  btnLine.Picture.LoadFromFile
-    ('data\Image DBEditor\Interface\Button\btnLine_Select.PNG');
+  btnLine.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnLine_Select.PNG');
 
-{$REGION ' Dynamic Handle '}
-//  grpLineD.BringToFront;
-//  grpLineD.Visible := True;
-{$ENDREGION}
-{$REGION ' Static Handle '}
   grpLine.BringToFront;
-  grpLine.Visible := True;
-{$ENDREGION}
-{$REGION ' Button Handle '}
+
+  {$REGION ' Button Handle '}
   btnOutline.Visible := True;
   btnFill.Visible := False;
   pnlPenEditing.Visible := True;
   SetNoFill(True);
-  btnOutlineClick(nil);
-{$ENDREGION}
+//  btnOutlineClick(nil);
+  {$ENDREGION}
 end;
 
 procedure TfrmOverlayTools.LoadPanelPolygon;
 begin
-  lblShape.Caption := 'Polygon';
-  btnPolygon.Picture.LoadFromFile
-    ('data\Image DBEditor\Interface\Button\btnPolygon_Select.PNG');
+  btnPolygon.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnPolygon_Select.PNG');
 
-{$REGION ' Dynamic Handle '}
-//  grpPolygonD.BringToFront;
-//  grpPolygonD.Visible := True;
-{$ENDREGION}
-{$REGION ' Static Handle '}
   grpPolygon.BringToFront;
-  grpPolygon.Visible := True;
-{$ENDREGION}
-{$REGION ' Button Handle '}
+
+  {$REGION ' Button Handle '}
   btnOutline.Visible := True;
   btnFill.Visible := True;
   pnlPenEditing.Visible := True;
   SetNoFill(True);
-  btnOutlineClick(nil);
-{$ENDREGION}
+//  btnOutlineClick(nil);
+  {$ENDREGION}
 end;
 
 procedure TfrmOverlayTools.LoadPanelRectangle;
 begin
-  lblShape.Caption := 'Rectangle';
-  btnRectangle.Picture.LoadFromFile
-    ('data\Image DBEditor\Interface\Button\btnRectangle_Select.PNG');
+  btnRectangle.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnRectangle_Select.PNG');
 
-{$REGION ' Dynamic Handle '}
-//  grpRectangleD.BringToFront;
-//  grpRectangleD.Visible := True;
-{$ENDREGION}
-{$REGION ' Static Handle '}
   grpRectangle.BringToFront;
-  grpRectangle.Visible := True;
-{$ENDREGION}
-{$REGION ' Button Handle '}
+
+  {$REGION ' Button Handle '}
   btnOutline.Visible := True;
   btnFill.Visible := True;
   pnlPenEditing.Visible := True;
   SetNoFill(True);
-  btnOutlineClick(nil);
-{$ENDREGION}
+//  btnOutlineClick(nil);
+  {$ENDREGION}
 end;
 
 procedure TfrmOverlayTools.LoadPanelSector;
 begin
-  btnSector.Picture.LoadFromFile ('data\Image DBEditor\Interface\Button\btnSector_Select.PNG');
+  btnSector.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnSector_Select.PNG');
 
   grpSector.BringToFront;
 
@@ -756,31 +1169,23 @@ begin
   btnFill.Visible := True;
   pnlPenEditing.Visible := True;
   SetNoFill(True);
-  btnOutlineClick(nil);
+//  btnOutlineClick(nil);
   {$ENDREGION}
 end;
 
 procedure TfrmOverlayTools.LoadPanelText;
 begin
-  lblShape.Caption := 'Text';
-  btnText.Picture.LoadFromFile
-    ('data\Image DBEditor\Interface\Button\btnText_Select.PNG');
+  btnText.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnText_Select.PNG');
 
-{$REGION ' Dynamic Handle '}
-//  grpTextD.BringToFront;
-//  grpTextD.Visible := false;
-{$ENDREGION}
-{$REGION ' Static Handle '}
   grpText.BringToFront;
-  grpText.Visible := True;
-{$ENDREGION}
-{$REGION ' Button Handle '}
+
+  {$REGION ' Button Handle '}
   btnOutline.Visible := True;
   btnFill.Visible := False;
   pnlPenEditing.Visible := True;
   SetNoFill(True);
-  btnOutlineClick(nil);
-{$ENDREGION}
+//  btnOutlineClick(nil);
+  {$ENDREGION}
 end;
 
 procedure TfrmOverlayTools.RefreshMousePointer;
@@ -810,6 +1215,11 @@ begin
     ('data\Image DBEditor\Interface\Button\btnPolygon_Normal.PNG');
 
 //  FisNoFill := True;
+end;
+
+procedure TfrmOverlayTools.SetNoFill(val: Boolean);
+begin
+
 end;
 
 end.
