@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls,
-  Vcl.ComCtrls, Vcl.Buttons, Vcl.ColorGrd, Vcl.Imaging.pngimage;
+  Vcl.ComCtrls, Vcl.Buttons, Vcl.ColorGrd, Vcl.Imaging.pngimage, RzBmpBtn;
 
 const
   ovText      = 1;
@@ -264,12 +264,7 @@ type
     pnlMain: TPanel;
     grpColorForce: TGroupBox;
     grpObjectSymbol: TGroupBox;
-    Image3: TImage;
-    Image8: TImage;
-    Image9: TImage;
-    Image10: TImage;
     Image11: TImage;
-    Image12: TImage;
     Label63: TLabel;
     pnlMainBottom: TPanel;
     btnApply: TButton;
@@ -377,6 +372,13 @@ type
     Label60: TLabel;
     edtRadius: TEdit;
     Label7: TLabel;
+    grpObjNone: TGroupBox;
+    Label8: TLabel;
+    btnIntelegent: TRzBmpButton;
+    RzBmpButton1: TRzBmpButton;
+    RzBmpButton2: TRzBmpButton;
+    RzBmpButton3: TRzBmpButton;
+    RzBmpButton4: TRzBmpButton;
     procedure btnHandleShape(Sender: TObject);
     procedure cbbTypeToolsChange(Sender: TObject);
 
@@ -1193,26 +1195,16 @@ begin
 //  Map1.CurrentTool := miSelectTool;
 //  Map1.MousePointer := miDefaultCursor;
 
-  btnSelect.Picture.LoadFromFile
-    ('data\Image DBEditor\Interface\Button\btnCursor_Normal.PNG');
-  btnText.Picture.LoadFromFile
-    ('data\Image DBEditor\Interface\Button\btnText_Normal.PNG');
-  btnLine.Picture.LoadFromFile
-    ('data\Image DBEditor\Interface\Button\btnLine_Normal.PNG');
-  btnRectangle.Picture.LoadFromFile
-    ('data\Image DBEditor\Interface\Button\btnRectangle_Normal.PNG');
-  btnCircle.Picture.LoadFromFile
-    ('data\Image DBEditor\Interface\Button\btnCircle_Normal.PNG');
-  btnEllipse.Picture.LoadFromFile
-    ('data\Image DBEditor\Interface\Button\btnEllipse_Normal.PNG');
-  btnArc.Picture.LoadFromFile
-    ('data\Image DBEditor\Interface\Button\btnArc_Normal.PNG');
-  btnSector.Picture.LoadFromFile
-    ('data\Image DBEditor\Interface\Button\btnSector_Normal.PNG');
-  btnGrid.Picture.LoadFromFile
-    ('data\Image DBEditor\Interface\Button\btnGrid_Normal.PNG');
-  btnPolygon.Picture.LoadFromFile
-    ('data\Image DBEditor\Interface\Button\btnPolygon_Normal.PNG');
+  btnSelect.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnCursor_Normal.PNG');
+  btnText.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnText_Normal.PNG');
+  btnLine.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnLine_Normal.PNG');
+  btnRectangle.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnRectangle_Normal.PNG');
+  btnCircle.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnCircle_Normal.PNG');
+  btnEllipse.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnEllipse_Normal.PNG');
+  btnArc.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnArc_Normal.PNG');
+  btnSector.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnSector_Normal.PNG');
+  btnGrid.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnGrid_Normal.PNG');
+  btnPolygon.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnPolygon_Normal.PNG');
 
 //  FisNoFill := True;
 end;

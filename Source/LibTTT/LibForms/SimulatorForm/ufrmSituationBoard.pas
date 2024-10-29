@@ -84,10 +84,13 @@ type
     procedure Map1MouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure btnOverlayToolsClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
 //    procedure Map1DrawUserLayer(Sender: TObject);
 
 
   private
+    FCanvas: TCanvas;
     FLyrDraw: CMapXLayer;
     FConverter: TCoordConverter;
     FMapCursor: E_OverlayMapCursor;
@@ -103,6 +106,7 @@ type
     procedure LoadTabImage;
 
     procedure LoadMap(Geoset: String);
+    procedure LoadOverlay(IdOverlayTab: Integer);
 
     procedure UpdateTab;
     procedure RefreshTab;
@@ -226,6 +230,18 @@ begin
 
   Map1.OnMapViewChanged := Map1MapViewChanged;
 end;
+procedure TfrmSituationBoard.FormCreate(Sender: TObject);
+begin
+  FCanvas := TCanvas.Create;
+  FConverter := TCoordConverter.Create;
+end;
+
+procedure TfrmSituationBoard.FormDestroy(Sender: TObject);
+begin
+  FCanvas.Free;
+  FConverter.Free;
+end;
+
 procedure TfrmSituationBoard.FormResize(Sender: TObject);
 begin
   RoundCornerOf(pnlEditImage, 15, 15);
@@ -404,6 +420,12 @@ begin
   Map1.BackColor := RGB(192, 224, 255);
 end;
 
+procedure TfrmSituationBoard.LoadOverlay(IdOverlayTab: Integer);
+begin
+  Map1.Refresh;
+  Map1.Repaint;
+end;
+
 procedure TfrmSituationBoard.LoadTabImage;
 begin
   Image1.Picture.LoadFromFile(vMapSetting.ImageGame + SelectedTabProperties.AddressTab);
@@ -413,6 +435,7 @@ procedure TfrmSituationBoard.LoadTabMap;
 begin
   pnlAlignToolBar.Width := round((pnlToolBar.Width - 433) / 2);
   LoadMap(vMapSetting.MapGSTGame + SelectedTabProperties.AddressTab);
+  LoadOverlay(SelectedTabProperties.IdOverlayTab);
 end;
 
 procedure TfrmSituationBoard.Map1DrawUserLayer(ASender: TObject;
@@ -421,19 +444,20 @@ procedure TfrmSituationBoard.Map1DrawUserLayer(ASender: TObject;
   sx, sy, ex, ey: Integer;
 //  itemStart, itemEnd  : TFlagPoint;
 begin
-//  if not Assigned(FCanvas) then
-//    Exit;
-//  FCanvas.Handle := hOutputDC;
-//
+  if not Assigned(FCanvas) then
+    Exit;
+  FCanvas.Handle := hOutputDC;
+
+  SimManager.SimOverlay.Draw(FCanvas, Map1, SelectedTabProperties.IdOverlayTab);
 //  DrawOverlay.drawAll(FCanvas, Map1);
 //  DrawFlagPoint.Draw(FCanvas);
-//
+
 //  if Assigned(DrawOverlay.FSelectedDraw) then
 //  begin
 //    DrawOverlay.FSelectedDraw.isSelected := True;
 //    DrawOverlay.FSelectedDraw.Draw(FCanvas, Map1);
 //  end;
-//
+
 //  {$REGION ' Menggambar Ruler '}
 //  if frmRuler.isShow  then
 //  begin

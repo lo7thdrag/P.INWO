@@ -3,8 +3,8 @@ unit uClassData;
 interface
 
 uses
-  System.Classes,
-  uRecordData, uConstantaData, uCoordConvertor;
+  System.Classes, Vcl.Graphics, MapXLib_TLB,
+  uRecordData, uConstantaData, uCoordConvertor, uDataTypes;
 
 type
 
@@ -166,59 +166,200 @@ type
     destructor Destroy;override;
   end;
 
+  TOverlayTab = class
+  private
+    FIdOverlayTab : Integer;
+    FIdUserRole : Integer;
+    FRoleName : string;
+    FMemberList : TList;
+
+  public
+
+    constructor create;
+    destructor Destroy; override;
+
+    procedure Draw(FCanvas: TCanvas); virtual;
+
+    property IdOverlayTab : Integer read FIdOverlayTab write FIdOverlayTab;
+    property IdUserRole : Integer read FIdUserRole write FIdUserRole;
+    property RoleName : string read FRoleName write FRoleName;
+    property MemberList : TList read FMemberList write FMemberList;
+  end;
+
   TOverlayTabContainer = class
   private
     FTabList : TList;
-    FConverter: TCoordConverter;
-//    procedure SetConverter(const Value: TCoordConverter);
-
-  protected
 
   public
-//    Action : Byte;
-//    IdSelectObject, IdShape : Integer;
-//    IdSelectedTemplate : Integer;
-
-//    FFormula      : TFormula;
-//    FSelectedDraw : TMainOverlayTemplate;
-//    StateOverlay  : Integer;
-//    NameSelectedTemplate : string;
-//    Editable : Boolean;
-//    isSelected : Boolean;
-//
-//    recShapeStatic : TRecCmd_OverlayStaticShape;
-//    recShapeDynamic : TRecCmd_OverlayDynamicShape;
-//
-//    // variabel unk membantu repos overlay dynamic
-//    pointParent, pointSShape, pointEShape : t2DPoint;
-//    idxOverlay : Integer; //untuk menandai urutan penggambaran overlay di scenario
-//    itemSelected        : TMainDynamicShape;
-//    postStartSelected : tRangeBearingPoint;  //unk mengambil nilai data ()yang akan digeser
-//    postEndSelected : tRangeBearingPoint; //unk mengambil nilai data ()yang akan digeser
-//    postCenterSelected : tRangeBearingPoint;  //unk mengambil nilai data ()yang akan digeser
-//    polyPointSelected : Array of TDotDynamic;
 
     constructor Create;
     destructor Destroy; override;
 
-//    function GetOverlayTemplate(IdOverlay: Integer): TMainOverlayTemplate;
-//
-//    procedure Clear;
-//    procedure Draw(FCanvas: TCanvas; Map1: TMap);
-//
-//    procedure AddOverlayTab(OvelayTemplate : TMainOverlayTemplate);
-//    procedure RemoveOverlayTab(OvelayTemplate : TMainOverlayTemplate);
+    procedure Draw(FCanvas: TCanvas; Map1: TMap; IdOverlayTab : Integer);
 
-//    procedure FindPoint(postCont: t2DPoint; var postValue : t2DPoint; vd, vi: Double);
-//
-//    // reposisi overlay
-//    procedure reposOverlayDynamic(startMoveX, startMoveY, X, Y: Integer);
-//    function FindParent(iParent: TT3PlatformInstance; var postValue : t2DPoint): Boolean;
-//
-    property Converter : TCoordConverter read FConverter write FConverter;
+    procedure AddOverlayTab(OvelayTab : TOverlayTab);
+    procedure RemoveOverlayTab(OvelayTab : TOverlayTab);
+
     property TabList : TList read FTabList write FTabList;
 
   end;
+
+  TMainShape = class
+  private
+    FColor: Integer;
+    FSelected: Boolean;
+    FConverter: TCoordConverter;
+    FColorFill: Integer;
+    FLineType: TPenStyle;
+    FWeight: Integer;
+    FBrushStyle: TBrushStyle;
+
+  public
+//    FFormula : TFormula;
+
+    constructor Create(cvt : TCoordConverter);
+    destructor Destroy; override;
+
+//    procedure FindPoint(postCont: t2DPoint; var postValue : t2DPoint; vd, vi: Double);
+    procedure Clear;
+    procedure Draw(aCnv: TCanvas); virtual;
+
+    property Color : Integer read FColor write FColor;
+    property isSelected : Boolean read FSelected write FSelected;
+    property Converter : TCoordConverter read FConverter write FConverter;
+    property ColorFill : Integer read FColorFill write FColorFill;
+    property LineType : TPenStyle read FLineType write FLineType;
+    property Weight : Integer read FWeight write FWeight;
+    property BrushStyle : TBrushStyle read FBrushStyle write FBrushStyle;
+
+  end;
+
+  TTextShape = class(TMainShape)
+  public
+    postStart : t2DPoint;
+    size : Integer;
+    words : String;
+
+    procedure Draw(aCnv: TCanvas); override;
+
+    constructor Create(cvt : TCoordConverter);
+    destructor Destroy; override;
+  end;
+
+//  TLineStatic = class(TMainShape)
+//  public
+//    postStart : t2DPoint;
+//    postEnd : t2DPoint;
+//
+//    procedure Draw(aCnv: TCanvas); override;
+//
+//    constructor Create(cvt : TCoordConverter);
+//    destructor Destroy; override;
+//  end;
+//
+//  TRectangleStatic = class(TMainShape)
+//  public
+//    postStart : t2DPoint;
+//    postEnd : t2DPoint;
+//
+//    procedure Draw(aCnv: TCanvas); override;
+//
+//    constructor Create(cvt : TCoordConverter);
+//    destructor Destroy; override;
+//  end;
+//
+//  TCircleStatic = class(TMainShape)
+//  public
+//    postCenter : t2DPoint;
+//    radius : Double;
+//
+//    procedure Draw(aCnv: TCanvas); override;
+//
+//    constructor Create(cvt : TCoordConverter);
+//    destructor Destroy; override;
+//  end;
+//
+//  TEllipseStatic = class(TMainShape)
+//  public
+//    postCenter : t2DPoint;
+//    Hradius, Vradius : Double;
+//
+//    procedure Draw(aCnv: TCanvas); override;
+//
+//    constructor Create(cvt : TCoordConverter);
+//    destructor Destroy; override;
+//  end;
+//
+//  TArcStatic = class(TMainShape)
+//  public
+//    postCenter : t2DPoint;
+//    radius : Double;
+//    StartAngle, EndAngle : Integer;
+//
+//    procedure Draw(aCnv: TCanvas); override;
+//
+//    constructor Create(cvt : TCoordConverter);
+//    destructor Destroy; override;
+//  end;
+//
+//  TSectorStatic = class(TMainShape)
+//  public
+//    postCenter : t2DPoint;
+//    Oradius, Iradius : Double;
+//    StartAngle, EndAngle : Integer;
+//
+//    procedure Draw(aCnv: TCanvas); override;
+//
+//    constructor Create(cvt : TCoordConverter);
+//    destructor Destroy; override;
+//  end;
+//
+//  TGridStatic = class(TMainShape)
+//  public
+//    postCenter : t2DPoint;
+//    HCount, WCount, Rotation : Integer;
+//    Height, Width : Double;
+//
+//    procedure Draw(aCnv: TCanvas); override;
+//
+//    constructor Create(cvt : TCoordConverter);
+//    destructor Destroy; override;
+//  end;
+//
+//  TPolygonStatic = class(TMainShape)
+//  public
+//    polyPoint : Array of TPoint;
+//    polyList : TList;
+//
+//    procedure Draw(aCnv: TCanvas); override;
+//
+//    constructor Create(cvt : TCoordConverter);
+//    destructor Destroy; override;
+//  end;
+//
+//  TDotStatic = class
+//  public
+//    X, Y : Double;
+//    constructor Create;
+//    destructor Destroy; override;
+//  end;
+//
+//  TFlagPoint = class
+//  private
+//    FConverter: TCoordConverter;
+//    procedure SetConverter(const Value: TCoordConverter);
+//
+//  public
+//    Post : t2DPoint;
+//
+//    constructor Create(cvt : TCoordConverter);
+//    destructor Destroy;
+//    procedure Draw(aCnv : TCanvas);
+//
+//    property Converter : TCoordConverter read FConverter write SetConverter;
+//  end;
+
+
 
 implementation
 
@@ -573,6 +714,113 @@ begin
   inherited;
 end;
 
+procedure TOverlayTabContainer.Draw(FCanvas: TCanvas; Map1: TMap; IdOverlayTab : Integer);
+var
+  i : Integer;
+  overlayTabTemp : TOverlayTab;
+
+begin
+  for I := 0 to FTabList.Count - 1 do
+  begin
+    overlayTabTemp := FTabList[I];
+
+    if overlayTabTemp.FIdOverlayTab = IdOverlayTab  then
+      overlayTabTemp.Draw(FCanvas);
+  end;
+end;
+
+procedure TOverlayTabContainer.AddOverlayTab(OvelayTab: TOverlayTab);
+begin
+  FTabList.Add(OvelayTab);
+end;
+
+procedure TOverlayTabContainer.RemoveOverlayTab(OvelayTab: TOverlayTab);
+begin
+  FTabList.Remove(OvelayTab);
+end;
+
 {$ENDREGION}
+
+{$REGION ' TOverlayTab '}
+
+constructor TOverlayTab.create;
+begin
+  FMemberList := TList.Create;
+end;
+
+destructor TOverlayTab.Destroy;
+begin
+  FMemberList.Free;
+  inherited;
+end;
+
+procedure TOverlayTab.Draw(FCanvas: TCanvas);
+begin
+
+end;
+
+{$ENDREGION}
+
+{$REGION ' TMainShape '}
+
+procedure TMainShape.Clear;
+begin
+
+end;
+
+constructor TMainShape.Create(cvt: TCoordConverter);
+begin
+  FConverter := cvt;
+end;
+
+destructor TMainShape.Destroy;
+begin
+
+  inherited;
+end;
+
+procedure TMainShape.Draw(aCnv: TCanvas);
+begin
+
+end;
+{$ENDREGION}
+
+{$REGION ' TTextShape }
+
+constructor TTextShape.Create(cvt: TCoordConverter);
+begin
+  inherited;
+end;
+
+destructor TTextShape.Destroy;
+begin
+
+  inherited;
+end;
+
+procedure TTextShape.Draw(aCnv: TCanvas);
+var
+  sx, sy: Integer;
+begin
+  inherited;
+
+  with aCnv do
+  begin
+    Converter.ConvertToScreen(postStart.X, postStart.Y, sx, sy);
+
+    Brush.Style := bsClear;
+
+    Font.Color := Color;
+    Font.Size := size;
+
+    if isSelected then
+     Font.Color  := clWhite;
+
+    TextOut(sx, sy, words);
+
+    {font dinormalkan lagi}
+    Font.Size := 10;
+  end;
+end;
 
 end.
