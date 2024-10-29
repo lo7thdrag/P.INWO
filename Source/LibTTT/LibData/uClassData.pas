@@ -164,6 +164,7 @@ type
 
     constructor Create;
     destructor Destroy;override;
+<<<<<<< HEAD
   end;
 
   TOverlayTabContainer = class
@@ -218,6 +219,8 @@ type
     property Converter : TCoordConverter read FConverter write FConverter;
     property TabList : TList read FTabList write FTabList;
 
+=======
+>>>>>>> 4a9b5c840c6c9250ee3ca810e88f6b0c7cea57f4
   end;
 
 implementation
