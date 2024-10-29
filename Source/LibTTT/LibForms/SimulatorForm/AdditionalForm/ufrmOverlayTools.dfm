@@ -5782,7 +5782,7 @@ object frmOverlayTools: TfrmOverlayTools
           Left = 21
           Top = 194
           Width = 47
-          Height = 16
+          Height = 14
           Caption = 'End Lat'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWhite
@@ -5795,7 +5795,7 @@ object frmOverlayTools: TfrmOverlayTools
           Left = 95
           Top = 194
           Width = 4
-          Height = 16
+          Height = 14
           Caption = ':'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWhite

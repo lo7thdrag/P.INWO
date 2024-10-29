@@ -609,7 +609,7 @@ begin
 
 //  if IsEditObject then
   begin
-      Action := 2;
+   //   Action := 2;
 //    if not FindIdSelectedShape then
       Exit;
   end

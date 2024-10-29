@@ -130,8 +130,8 @@ type
     lvGameArea: TListView;
     pnlCariSimbolTaktis: TPanel;
     Label10: TLabel;
-    ComboBox5: TComboBox;
-    ComboBox6: TComboBox;
+    cbbSearchTipe: TComboBox;
+    cbbFilterSearch: TComboBox;
     pnlListSImbolTaktis: TPanel;
     lvTacticalSymbol: TListView;
     lblConsoleName: TLabel;
@@ -185,6 +185,7 @@ type
     btnAddTacticalSymbol: TImage;
     btnEditTacticalSymbol: TImage;
     btnDeleteTacticalSymbol: TImage;
+    edtTacticalSearch: TEdit;
 
     procedure btnAOTCClick(Sender: TObject);
 
@@ -211,10 +212,16 @@ type
 
     {$REGION ' Simbol Taktis Procedure '}
     procedure SimbolTaktisClick(Sender: TObject);
-    procedure UpdateSimbolTaktis;
     procedure btnAddTacticalSymbolClick(Sender: TObject);
     procedure btnEditTacticalSymbolClick(Sender: TObject);
     procedure btnDeleteTacticalSymbolClick(Sender: TObject);
+
+    procedure cbbFilterSearchSelect(Sender: TObject);
+    procedure cbbSearchtipeSelect(Sender: TObject);
+    procedure lvTacticalSymbolleSelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);
+
+    procedure pnlSimbolTaktisManajemenShow;
+    procedure UpdateSimbolTaktis;
     {$ENDREGION}
 
     {$REGION ' Pengguna Procedure '}
@@ -319,6 +326,7 @@ type
 
     procedure RoundCornerOf(Control: TWinControl; val1, val2: Integer);
     procedure AddSearchTypeItems;
+    procedure AddSearchTacticalSymbolItems;
 
   public
 
@@ -593,13 +601,68 @@ end;
 
 procedure TfrmDisplayArea.SimbolTaktisClick(Sender: TObject);
 begin
+  pnlSimbolTaktisManajemenShow;
+end;
+
+procedure TfrmDisplayArea.pnlSimbolTaktisManajemenShow;
+begin
   pnlMenejemenSimbolTaktis.BringToFront;
+
+  UpdateSimbolTaktis
+end;
+
+procedure TfrmDisplayArea.AddSearchTacticalSymbolItems;
+begin
+  if cbbFilterSearch.ItemIndex = 2 then
+  begin
+    cbbSearchTipe.Items.Clear;
+    cbbSearchTipe.Items.Add('TAKTIS TNI AL');
+    cbbSearchTipe.Items.Add('TAKTIS TNI AU');
+    cbbSearchTipe.Items.Add('TAKTIS TNI AD');
+  end;
+
+end;
+
+procedure TfrmDisplayArea.cbbSearchtipeSelect(Sender: TObject);
+begin
+  ItemSearchIndex := cbbFilterSearch.ItemIndex;
+  SearchName := IntToStr(cbbSearchTipe.ItemIndex);
+  flagTable := True;
+  UpdateSimbolTaktis;
+end;
+
+procedure TfrmDisplayArea.cbbFilterSearchSelect(Sender: TObject);
+begin
+   cbbSearchTipe.ItemIndex := 0;
+
+   if cbbFilterSearch.ItemIndex = 0 then
+   begin
+     edtTacticalSearch.Clear;
+     flagTable := False;
+     UpdateSimbolTaktis;
+     edtTacticalSearch.BringToFront;
+   end
+   else if cbbFilterSearch.ItemIndex = 1 then
+   begin
+     edtTacticalSearch.BringToFront;
+   end
+   else if cbbFilterSearch.ItemIndex = 2 then
+   begin
+     AddSearchTacticalSymbolItems;
+     edtTacticalSearch.BringToFront;
+   end
+   else if cbbFilterSearch.ItemIndex = 3 then
+   begin
+     AddSearchTacticalSymbolItems;
+     edtTacticalSearch.BringToFront;
+   end
+
 end;
 
 procedure TfrmDisplayArea.UpdateSimbolTaktis;
 var
   i : Integer;
-  TacticalSymbol : TTactical_Symbol;
+  tacticalSymbolTemp : TTactical_Symbol;
   li : TListItem;
 begin
   lvTacticalSymbol.Items.Clear;
@@ -608,20 +671,22 @@ begin
      dmINWO.GetSearchTacticalSymbol(ItemSearchIndex, SearchName, FTacticalSymbolList)
   else
      dmINWO.GetAllTacticalSymbol(FTacticalSymbolList);
+
   for i := 0 to FTacticalSymbolList.Count -1 do
   begin
-     TacticalSymbol := FTacticalSymbolList.Items[i];
+     tacticalSymbolTemp := FTacticalSymbolList.Items[i];
+
      li := lvTacticalSymbol.Items.Add;
      li.Caption := IntToStr(i+1);
-     li.SubItems.Add(IntToStr(TacticalSymbol.FData.Tipe));
-     li.SubItems.Add(IntToStr(TacticalSymbol.FData.Kategori));
-     li.SubItems.Add(TacticalSymbol.FData.Keterangan);
-     li.SubItems.Add(TacticalSymbol.FData.Path_Directori);
+     li.SubItems.Add(tacticalSymbolTemp.FData.Keterangan);
+     li.SubItems.Add(IntToStr(tacticalSymbolTemp.FData.Tipe));
+     li.SubItems.Add(IntToStr(tacticalSymbolTemp.FData.Kategori));
 
-     li.Data := TacticalSymbol;
+     li.Data := tacticalSymbolTemp;
   end;
 
 end;
+
 procedure TfrmDisplayArea.btnAddTacticalSymbolClick(Sender: TObject);
 begin
   frmSimbolTaktis := TfrmSimbolTaktis.Create(Self);
@@ -634,12 +699,23 @@ begin
   finally
     frmSimbolTaktis.Free;
   end;
+    UpdateSimbolTaktis;
+end;
 
+procedure TfrmDisplayArea.lvTacticalSymbolleSelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);
+begin
+  if Selected then
+  begin
+    if (Item = nil) or (Item.Data = nil) then
+      Exit;
+
+      FSelectedTacticalSymbol := TTactical_Symbol(lvTacticalSymbol.Selected.Data);
+  end;
 end;
 
 procedure TfrmDisplayArea.btnEditTacticalSymbolClick(Sender: TObject);
 begin
-   if lvTacticalSymbol.ItemIndex <> -1 then
+   if lvTacticalSymbol.ItemIndex = -1 then
    begin
       frmSimbolTaktis := TfrmSimbolTaktis.Create(Self);
       try

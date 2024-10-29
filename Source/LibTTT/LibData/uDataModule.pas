@@ -10136,7 +10136,7 @@ begin
   begin
     Close;
     SQL.Clear;
-    SQL.Add('SELECT * FROM TacticalSymbol');
+    SQL.Add('SELECT * FROM Simbol_Taktis');
     Open;
 
     Result := RecordCount;
@@ -10168,7 +10168,7 @@ begin
           Tipe               := FieldByName('Tipe').AsInteger;
           Kategori           := FieldByName('Kategori').AsInteger;
           Keterangan         := FieldByName('Keterangan').AsString;
-          Path_Directori     := FieldByName('Path_Directori').AsString;
+          Path_Directori     := FieldByName('Directory_Path').AsString;
         end;
 
         aList.Add(aRec);
@@ -10188,11 +10188,11 @@ begin
    if not ZConn.Connected then
       Exit;
 
-   with ZQ do
-   begin
+  with ZQ do
+  begin
      Close;
      SQL.Clear;
-     SQL.Add('SELECT * FROM TacticalSymbol');
+     SQL.Add('SELECT * FROM Simbol_Taktis');
      if FilterIndex = 1 then
         SQL.Add('WHERE ID_Simbol like' + QuotedStr('%' + SearchContent + '%'))
      else if FilterIndex = 2 then
@@ -10254,30 +10254,31 @@ begin
 
     SQL.Clear;
 
-    SQL.Add('INSERT INTO TacticalSymbol');
-    SQL.Add('(Tipe, Kategori, Keterangan, Path_Directori)');
-    SQL.Add('VALUES');
+    SQL.Add('INSERT INTO Simbol_Taktis');
+    SQL.Add('(Tipe, Kategori, Keterangan, Directory_Path)');
+    SQL.Add('VALUES (');
 
     with aRec do
     begin
       SQL.Add(IntToStr(Tipe) + ',');
       SQL.Add(IntToStr(Kategori) + ',');
       SQL.Add(QuotedStr(Keterangan) + ',');
-      SQL.Add(QuotedStr(Path_Directori) + ',');
+      SQL.Add(QuotedStr(Path_Directori));
     end;
 
     SQL.Add(')');
-       ExecSQL;
+    ExecSQL;
+
     Result := True;
 
-    SQL.Clear;
-    SQL.Add('SELECT * FROM TacticalSymbol');
-    SQL.Add('WHERE (Tipe = ' + IntToStr(aRec.Tipe) + ') and (Kategori = ' + IntToStr(aRec.Kategori) + ') and ');
-    SQL.Add('(Keterangan = ' + QuotedStr(aRec.Keterangan) + ')and');
-    SQL.Add('(Path_Directori = ' + QuotedStr(aRec.Path_Directori) + ') and');
-    Open;
-
-    aRec.Id_Tactical_Symbol := FieldByName('ID_Simbol').AsInteger;
+//    SQL.Clear;
+//    SQL.Add('SELECT * FROM Simbol_Taktis');
+//    SQL.Add('WHERE (Tipe = ' + IntToStr(aRec.Tipe) + ') and (Kategori = ' + IntToStr(aRec.Kategori) + ') and ');
+//    SQL.Add('(Keterangan = ' + QuotedStr(aRec.Keterangan) + ')and');
+//    SQL.Add('(Directory_Path = ' + QuotedStr(aRec.Path_Directori) + ') and');
+//    Open;
+//
+//    aRec.Id_Tactical_Symbol := FieldByName('ID_Simbol').AsInteger;
   end;
 end;
 
@@ -10292,7 +10293,7 @@ begin
     begin
       Close;
       SQL.Clear;
-      SQL.Add('UPDATE TacticalSymbol');
+      SQL.Add('UPDATE Simbol_Taktis');
       SQL.Add('Tipe=' + IntToStr(aRec.Tipe) + ',');
       SQL.Add('Kategori=' + IntToStr(aRec.Kategori) + ',');
       SQL.Add('Keteragan=' + QuotedStr(aRec.Keterangan) + ',');
@@ -10312,7 +10313,7 @@ begin
    with ZQ do
    begin
      Close;
-     SQL.Add('DELETE FROM TacticalSymbol');
+     SQL.Add('DELETE FROM Simbol_Taktis');
      SQL.Add('WHERE(id_simbol=' + QuotedStr(IntToStr(aTacticalSymbolID))+')');
      ExecSQL;
      Result := True;
