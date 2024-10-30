@@ -82,7 +82,8 @@ uses
   UfrmMapEditor in '..\LibTTT\LibForms\DatabaseEditorForm\UfrmMapEditor.pas' {frmMapEditor},
   ufrmOverlayTools in '..\LibTTT\LibForms\SimulatorForm\AdditionalForm\ufrmOverlayTools.pas' {frmOverlayTools},
   ufrmSimbolTaktis in '..\LibTTT\LibForms\SimulatorForm\ufrmSimbolTaktis.pas' {frmSimbolTaktis},
-  ufrmMapPreview in '..\LibTTT\LibForms\SimulatorForm\AdditionalForm\ufrmMapPreview.pas' {frmMapPreview};
+  ufrmMapPreview in '..\LibTTT\LibForms\SimulatorForm\AdditionalForm\ufrmMapPreview.pas' {frmMapPreview},
+  ufrmBrowseMap in '..\LibTTT\LibForms\SimulatorForm\AdditionalForm\ufrmBrowseMap.pas' {frmBrowseMap};
 
 {$R *.res}
 
@@ -102,13 +103,16 @@ begin
   Application.Title := 'SimClient';
   Application.CreateForm(TdmINWO, dmINWO);
   Application.CreateForm(TfrmTacticalDisplay, frmTacticalDisplay);
-  Application.CreateForm(TfrmCreateTab, frmCreateTab);
-  Application.CreateForm(TfrmImageInsert, frmImageInsert);
-  Application.CreateForm(TfrmAvailableUserRole, frmAvailableUserRole);
+  Application.CreateForm(TfrmSituationBoard, frmSituationBoard);
+  Application.CreateForm(TfrmOverlayTools, frmOverlayTools);
+  Application.CreateForm(TfrmBrowseMap, frmBrowseMap);
+  //  Application.CreateForm(TfrmCreateTab, frmCreateTab);
+//  Application.CreateForm(TfrmImageInsert, frmImageInsert);
+//  Application.CreateForm(TfrmAvailableUserRole, frmAvailableUserRole);
   //  Application.CreateForm(TfrmMapPreview, frmMapPreview);
   //  Application.CreateForm(TfrmMapEditor, frmMapEditor);
-  Application.CreateForm(TfrmOverlayTools, frmOverlayTools);
-  Application.CreateForm(TfrmImageInsert, frmImageInsert);
+//  Application.CreateForm(TfrmOverlayTools, frmOverlayTools);
+//  Application.CreateForm(TfrmImageInsert, frmImageInsert);
 //  Application.CreateForm(TForm1, Form1);
   uScriptSimClients.BeginGame;
 

@@ -55,6 +55,7 @@ type
     procedure netRecv_CmdUserState(apRec: PAnsiChar; aSize: Word);
     procedure netRecv_CmdSituationBoardTabProperties(apRec: PAnsiChar; aSize: word);
     procedure netRecv_CmdChatUserRole(apRec: PAnsiChar; aSize: Word);
+    procedure netRecv_CmdOverlayShape(apRec: PAnsiChar; aSize: Word);
 //    procedure netRecv_CmdClientStateInfo(apRec: PAnsiChar; aSize: word);
     {$ENDREGION}
 
@@ -253,8 +254,9 @@ begin
 //  VNetServer.RegisterTCPPacket(CPID_CMD_CLIENT_STATE_INFO, SizeOf(TRecTCP_ClientState_Info), nil);
 //  VNetServer.RegisterTCPPacket(CPID_CMD_GAME_CTRL, SizeOf(TRecCmd_GameCtrl),netRecv_CmdGameControl);
   VNetServer.RegisterTCPPacket(CPID_CMD_USER_STATE, SizeOf(TRecTCP_UserState), netRecv_CmdUserState);
-  VNetServer.RegisterTCPPacket(CPID_SITUATIONBOARD_TAB_PROPERTIES_CMD, SizeOf(TRecTCPSendSituationBoardTabProperties),netRecv_CmdSituationBoardTabProperties);
-  VNetServer.RegisterTCPPacket(CPID_CHAT_USER_ROLE_CMD, SizeOf(TrecTCPSendChatUserRole), netRecv_CmdChatUserRole);
+  VNetServer.RegisterTCPPacket(CPID_CMD_SITUATIONBOARD_TAB_PROPERTIES, SizeOf(TRecTCPSendSituationBoardTabProperties),netRecv_CmdSituationBoardTabProperties);
+  VNetServer.RegisterTCPPacket(CPID_CMD_CHAT_USER_ROLE, SizeOf(TrecTCPSendChatUserRole), netRecv_CmdChatUserRole);
+  VNetServer.RegisterTCPPacket(CPID_CMD_OVERLAYSHAPE, SizeOf(TRecTCPSendOverlayShape), netRecv_CmdOverlayShape);
   {$ENDREGION}
 
   VNetServer.StartListen;
@@ -277,7 +279,21 @@ begin
 
   OnUserRoleChatChange(rec^);
 
-  VNetServer.SendBroadcastCommand(CPID_CHAT_USER_ROLE_CMD, apRec);
+  VNetServer.SendBroadcastCommand(CPID_CMD_CHAT_USER_ROLE, apRec);
+
+end;
+
+procedure TSimMgr_Server.netRecv_CmdOverlayShape(apRec: PAnsiChar; aSize: Word);
+var
+  rec : ^TRecTCPSendOverlayShape;
+  sIP : String;
+begin
+  rec := @apRec^;
+  sIP := LongIp_To_StrIp(rec^.pid.ipSender);
+
+  OnOverlayShape(rec^);
+
+  VNetServer.SendBroadcastCommand(CPID_CMD_OVERLAYSHAPE, apRec);
 
 end;
 
@@ -291,7 +307,7 @@ begin
 
   OnSituationBoardTabPropertiesChange(rec^);
 
-  VNetServer.SendBroadcastCommand(CPID_SITUATIONBOARD_TAB_PROPERTIES_CMD, apRec);
+  VNetServer.SendBroadcastCommand(CPID_CMD_SITUATIONBOARD_TAB_PROPERTIES, apRec);
 
 end;
 

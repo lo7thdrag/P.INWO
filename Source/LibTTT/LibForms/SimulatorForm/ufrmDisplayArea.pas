@@ -1408,16 +1408,17 @@ end;
 
 procedure TfrmDisplayArea.SituationBoardClick(Sender: TObject);
 begin
-  frmSituationBoard := TfrmSituationBoard.Create(Self);
-  try
-    with frmSituationBoard do
-    begin
-      ShowModal;
-    end;
-
-  finally
-    frmSituationBoard.Free;
-  end;
+  frmSituationBoard.Show;
+//  frmSituationBoard := TfrmSituationBoard.Create(Self);
+//  try
+//    with frmSituationBoard do
+//    begin
+//      Show;
+//    end;
+//
+//  finally
+//    frmSituationBoard.Free;
+//  end;
 end;
 
 {$ENDREGION}
@@ -1518,7 +1519,7 @@ end;
 procedure TfrmDisplayArea.btnSendChatClick(Sender: TObject);
 var
 //i : Integer;
-rec : TrecTCPSendChatUserRole;
+rec : TRecTCPSendChatUserRole;
 begin
    rec.OrderID := 0;
    rec.SenderUserRoleId := simMgrClient.MyConsoleData.UserRoleData.UserRoleIndex;

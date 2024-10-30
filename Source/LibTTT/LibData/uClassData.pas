@@ -3,8 +3,8 @@ unit uClassData;
 interface
 
 uses
-  System.Classes, Vcl.Graphics, MapXLib_TLB,
-  uRecordData, uConstantaData, uCoordConvertor, uDataTypes;
+  System.Classes, Vcl.Graphics, MapXLib_TLB, Winapi.Windows,
+  uRecordData, uConstantaData, uCoordConvertor, uDataTypes, uFormula, uBaseCoordSystem;
 
 type
 
@@ -168,46 +168,9 @@ type
     destructor Destroy;override;
   end;
 
-  TOverlayTab = class
-  private
-    FIdOverlayTab : Integer;
-    FIdUserRole : Integer;
-    FRoleName : string;
-    FMemberList : TList;
-
-  public
-
-    constructor create;
-    destructor Destroy; override;
-
-    procedure Draw(FCanvas: TCanvas); virtual;
-
-    property IdOverlayTab : Integer read FIdOverlayTab write FIdOverlayTab;
-    property IdUserRole : Integer read FIdUserRole write FIdUserRole;
-    property RoleName : string read FRoleName write FRoleName;
-    property MemberList : TList read FMemberList write FMemberList;
-  end;
-
-  TOverlayTabContainer = class
-  private
-    FTabList : TList;
-
-  public
-
-    constructor Create;
-    destructor Destroy; override;
-
-    procedure Draw(FCanvas: TCanvas; Map1: TMap; IdOverlayTab : Integer);
-
-    procedure AddOverlayTab(OvelayTab : TOverlayTab);
-    procedure RemoveOverlayTab(OvelayTab : TOverlayTab);
-
-    property TabList : TList read FTabList write FTabList;
-
-  end;
-
   TMainShape = class
   private
+    FShapeId : Integer;
     FColor: Integer;
     FSelected: Boolean;
     FConverter: TCoordConverter;
@@ -217,15 +180,14 @@ type
     FBrushStyle: TBrushStyle;
 
   public
-//    FFormula : TFormula;
 
-    constructor Create(cvt : TCoordConverter);
-    destructor Destroy; override;
+    constructor Create(cvt : TCoordConverter); virtual;
+    destructor Destroy; virtual;
 
-//    procedure FindPoint(postCont: t2DPoint; var postValue : t2DPoint; vd, vi: Double);
     procedure Clear;
     procedure Draw(aCnv: TCanvas); virtual;
 
+    property ShapeId : Integer read FShapeId write FShapeId;
     property Color : Integer read FColor write FColor;
     property isSelected : Boolean read FSelected write FSelected;
     property Converter : TCoordConverter read FConverter write FConverter;
@@ -244,9 +206,53 @@ type
 
     procedure Draw(aCnv: TCanvas); override;
 
-    constructor Create(cvt : TCoordConverter);
+    constructor Create(cvt : TCoordConverter); override;
     destructor Destroy; override;
   end;
+
+  TOverlayTab = class
+  private
+    FIdOverlayTab : Integer;
+    FIdUserRole : Integer;
+    FRoleName : string;
+    FMemberList : TList;
+
+  public
+    Formula : TFormula;
+    constructor create;
+    destructor Destroy; override;
+
+    procedure Draw(FCanvas: TCanvas); virtual;
+
+    function GetShapeById(IdShape : Integer): TMainShape;
+
+    property IdOverlayTab : Integer read FIdOverlayTab write FIdOverlayTab;
+    property IdUserRole : Integer read FIdUserRole write FIdUserRole;
+    property RoleName : string read FRoleName write FRoleName;
+    property MemberList : TList read FMemberList write FMemberList;
+  end;
+
+  TOverlayTabContainer = class
+  private
+    FTabList : TList;
+
+  public
+
+    constructor Create;
+    destructor Destroy; override;
+
+    function GetOverlayTabByID(IdOverlay: Integer): TOverlayTab;
+
+    procedure Draw(FCanvas: TCanvas; Map1: TMap; IdOverlayTab : Integer);
+
+    procedure AddOverlayTab(OvelayTab : TOverlayTab);
+    procedure RemoveOverlayTab(OvelayTab : TOverlayTab);
+
+    property TabList : TList read FTabList write FTabList;
+
+  end;
+
+
 
 //  TLineStatic = class(TMainShape)
 //  public
@@ -731,6 +737,25 @@ begin
   end;
 end;
 
+function TOverlayTabContainer.GetOverlayTabByID(IdOverlay: Integer): TOverlayTab;
+var
+  i : Integer;
+  overlayTabTemp : TOverlayTab;
+
+begin
+  Result := nil;
+
+  for i := 0 to FTabList.Count - 1 do
+  begin
+    overlayTabTemp := TOverlayTab(FTabList.Items[i]);
+
+    if overlayTabTemp.FIdOverlayTab = IdOverlay then
+    begin
+      Result := overlayTabTemp;
+    end;
+  end;
+end;
+
 procedure TOverlayTabContainer.AddOverlayTab(OvelayTab: TOverlayTab);
 begin
   FTabList.Add(OvelayTab);
@@ -757,8 +782,35 @@ begin
 end;
 
 procedure TOverlayTab.Draw(FCanvas: TCanvas);
-begin
+var
+  i : Integer;
+  mainShape : TMainShape;
 
+begin
+  for i := 0 to FMemberList.Count - 1 do
+  begin
+    mainShape := FMemberList[i];
+    mainShape.Draw(FCanvas);
+  end;
+end;
+
+function TOverlayTab.GetShapeById(IdShape: Integer): TMainShape;
+var
+  i : Integer;
+  mainShapeTemp : TMainShape;
+
+begin
+  Result := nil;
+
+  for i := 0 to MemberList.Count - 1 do
+  begin
+    mainShapeTemp := TMainShape(MemberList.Items[i]);
+
+    if mainShapeTemp.ShapeId = IdShape then
+    begin
+      Result := mainShapeTemp;
+    end;
+  end;
 end;
 
 {$ENDREGION}

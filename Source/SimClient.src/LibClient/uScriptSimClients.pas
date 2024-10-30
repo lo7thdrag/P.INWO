@@ -11,7 +11,7 @@ implementation
 uses
    SysUtils, Controls, Forms,
    uScriptCommon, uLibSetting, uSimMgr_Client, uNetHandle_Client, uMapXHandler,
-   ufrmTacticalDisplay, uCoordConvertor, uConstantaData, uT3Listener{, {uGameSetting};
+   ufrmTacticalDisplay, uCoordConvertor, uConstantaData, uT3Listener, ufrmSituationBoard{, {uGameSetting};
 
 procedure BeginGame;
 begin
@@ -21,7 +21,7 @@ begin
   LoadFF_AppSetting(vSettingFile, vAppSetting);
   LoadFF_AppDBSetting('setting.ini' , vGameAreaSetting);
 
-  simMgrClient := TSimMgr_Client.Create(nil);
+  simMgrClient := TSimMgr_Client.Create(frmSituationBoard.Map1);
 
   simMgrClient.LoadConsoleID;
   simMgrClient.LoadDataAsset(vGameDataSetting);

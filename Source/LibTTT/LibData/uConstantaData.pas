@@ -20,6 +20,27 @@ const
   cgOther        = clWhite;
   clrSelected    = clYellow; //TColor($FFFF33);  // Yellow
 
+  /// User Map Tool Constanta
+  mtSelectObject = 100;
+  mtEditOverlay  = 101;
+  mtAddOverlay   = 102;
+
+  /// Overlay Type
+  ovText      = 1;
+  ovLine      = 2;
+  ovRectangle = 3;
+  ovCircle    = 4;
+  ovEllipse   = 5;
+  ovArc       = 6;
+  ovSector    = 7;
+  ovGrid      = 8;
+  ovPolygon   = 9;
+
+  /// Action Type
+  caAdd     = 0;
+  caEdit    = 1;
+  caDelete  = 2;
+
   /// platform Identity (*sesuai id database)
   piPending             = 0;
   piUnknown             = 1;
@@ -250,6 +271,8 @@ type
                          stRadarNoiseJammer);
 
   TTipeTahapan        = (ttPerencanaan, ttPersiapan, ttPelaksanaan, ttPengakhiran);
+
+  TMapCursor          = (mcSelect, mcAdd, mcEdit, mcRulerStart, mcRulerEnd);
 
 //  TWeapoonCategory = (
 //      wcMissileAirToSurfaceSubsurface,

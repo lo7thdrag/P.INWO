@@ -103,7 +103,7 @@ type
   end;
 
   //CPID_CHAT_USER_ROLE_CMD
-  TrecTCPSendChatUserRole = record
+  TRecTCPSendChatUserRole = record
     pid                 : TPacketID;
     SessionID           : Integer;
     OrderID             : Byte;
@@ -112,6 +112,36 @@ type
     ChatMessage         : AnsiString;
     end;
 
+  //CPID_CMD_OVERLAYSHAPE
+  TRecTCPSendOverlayShape = record
+    pid           : TPacketID;
+    SessionID     : Integer;
+    IdUserRole    : Integer;
+    ShapeType     : Byte;
+    TemplateId    : Integer;
+    IdAction      : Byte;       {1: add; 2: Edit; 3: Delete}
+    IdSelectShape : Byte;
+    PostStart     : t2DPoint;   {PostStart/ PostCenter}
+    PostEnd       : t2DPoint;
+    Words         : string[30];
+	  Size          : byte;
+    Radius1       : Double;     {Radius/Inner/Height}
+    Radius2       : Double;     {Outer/ Width}
+    StartAngle    : Integer;
+    EndAngle      : Integer;
+    Rotasi        : Integer;
+    Kolom         : Integer;
+    Baris         : Integer;
+    color         : Integer;
+    lineType      : TPenStyle;
+    weight        : Integer;
+    BrushStyle    : TBrushStyle;
+    ColorFill     : TColor;
+    Editable      : Boolean;
+    PolyPoint     : array[0..12] of t2DPoint;
+    isSelected    : Boolean;
+    role          : Byte;
+  end;
   {$ENDREGION}
 
   {$REGION ' Class Data Record '}
@@ -987,16 +1017,17 @@ const
     CORD_ID_LOGIN = 1;
     CORD_ID_LOGOUT = 2;
   CPID_TCP_REQUEST                        = CPID_TCP + 3;
-  CPID_REMOTE_CMD                         = CPID_TCP + 4;
+  CPID_CMD_REMOTE                         = CPID_TCP + 4;
     REMOTE_STATE_FALSE = 0;
     REMOTE_STATE_TRUE  = 1;
     REMOTE_STATE_READY = 3;
-  CPID_SITUATIONBOARD_TAB_PROPERTIES_CMD  = CPID_TCP + 5;
+  CPID_CMD_SITUATIONBOARD_TAB_PROPERTIES  = CPID_TCP + 5;
     NEW_TAB = 0;
     EDIT_TAB = 1;
-  CPID_CHAT_USER_ROLE_CMD                 = CPID_TCP + 6;
+  CPID_CMD_CHAT_USER_ROLE                 = CPID_TCP + 6;
     SEND_CHAT = 0;
-  CPID_TCP_MAX              	            = CPID_TCP + 7;
+  CPID_CMD_OVERLAYSHAPE                   = CPID_TCP + 7;
+  CPID_TCP_MAX              	            = CPID_TCP + 8;
 
   {$ENDREGION}
 
@@ -1014,17 +1045,16 @@ const
       'CPID_CMD_CLIENT_STATE_INFO'
   );
 
-
  CS_PIDTCP_name : array [CPID_CMD_GAME_CTRL .. CPID_TCP_MAX - 1] of string
   = (
   'CPID_CMD_GAME_CTRL                     ',   // + 1
   'CPID_CMD_LOGIN                         ',   // + 2
   'CPID_TCP_REQUEST                       ',   // + 3
-  'CPID_REMOTE_CMD                        ',   // + 4
-  'CPID_SITUATIONBOARD_TAB_PROPERTIES_CMD ',   // + 5
-  'CPID_CHAT_USER_ROLE_CMD                '    // + 6
+  'CPID_CMD_REMOTE                        ',   // + 4
+  'CPID_CMD_SITUATIONBOARD_TAB_PROPERTIES ',   // + 5
+  'CPID_CMD_CHAT_USER_ROLE                ',   // + 6
+  'CPID_CMD_OVERLAYSHAPE                  '
 );
-
 
 begin
   if (cpid > CPID_TCP) and (cpid < CPID_TCP_MAX) then

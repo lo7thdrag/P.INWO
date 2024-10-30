@@ -3,26 +3,16 @@ unit ufrmOverlayTools;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  MapXLib_TLB, Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls,
-  Vcl.ComCtrls, Vcl.Buttons, Vcl.ColorGrd, Vcl.Imaging.pngimage, RzBmpBtn;
+  Vcl.ComCtrls, Vcl.Buttons, Vcl.ColorGrd, Vcl.Imaging.pngimage, RzBmpBtn,
 
-const
-  ovText      = 1;
-  ovLine      = 2;
-  ovRectangle = 3;
-  ovCircle    = 4;
-  ovEllipse   = 5;
-  ovArc       = 6;
-  ovSector    = 7;
-  ovGrid      = 8;
-  ovPolygon   = 9;
+  uConstantaData, uRecordData, uSimMgr_Client, uBaseCoordSystem, uClassData, uDataTypes, uFormula;
 
 type
-  E_OverlayMapCursor = (mcSelect, mcAdd, mcEdit, mcRulerStart, mcRulerEnd);
+  E_ShapeColor = (scOutline, scFill);
 
   TfrmOverlayTools = class(TForm)
-    btnSelect: TImage;
     pnlShape: TPanel;
     pnlMainTop: TPanel;
     cbbTypeTools: TComboBox;
@@ -212,15 +202,6 @@ type
     edtSectorEndAngle: TEdit;
     edtSectorPosLong: TEdit;
     grpShapeSymbol: TGroupBox;
-    btnRectangle: TImage;
-    btnPolygon: TImage;
-    btnGrid: TImage;
-    btnSector: TImage;
-    btnArc: TImage;
-    btnEllipse: TImage;
-    btnCircle: TImage;
-    btnLine: TImage;
-    btnText: TImage;
     grpColorEditing: TGroupBox;
     btnOutline: TImage;
     btnFill: TImage;
@@ -287,7 +268,6 @@ type
     rbRed: TRadioButton;
     rbBlue: TRadioButton;
     grpNone: TGroupBox;
-    Label72: TLabel;
     grpRadar: TGroupBox;
     Label68: TLabel;
     grpArrow: TGroupBox;
@@ -379,23 +359,50 @@ type
     RzBmpButton2: TRzBmpButton;
     RzBmpButton3: TRzBmpButton;
     RzBmpButton4: TRzBmpButton;
+    btnSelect: TRzBmpButton;
+    btnPolygon: TRzBmpButton;
+    btnGrid: TRzBmpButton;
+    btnSector: TRzBmpButton;
+    btnArc: TRzBmpButton;
+    btnEllipse: TRzBmpButton;
+    btnCircle: TRzBmpButton;
+    btnRectangle: TRzBmpButton;
+    btnLine: TRzBmpButton;
+    btnText: TRzBmpButton;
+    btnOutline1: TRzBmpButton;
+    btnFill1: TRzBmpButton;
     procedure btnHandleShape(Sender: TObject);
     procedure cbbTypeToolsChange(Sender: TObject);
+    procedure btnOutlineClick(Sender: TObject);
+    procedure btnHandleShapePosition(Sender: TObject);
+    procedure btnApplyClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure btnFillClick(Sender: TObject);
 
   private
-    { Private declarations }
-    FTipeOverlay: Integer; { tipe overlay utk kebutuhan tampilan }
-    FMapCursor: E_OverlayMapCursor;
+    FShapeType : Integer;
+    FShapeId : Integer;
+    FisInputProblem : Boolean;
+    FTagTombolPosition : Integer;
+    FShapeColor : E_ShapeColor;
+//    FMapCursor: TMapCursor;
+    FSelectedOverlayTab : TOverlayTab;
+    FAction : Byte;
+
   public
-    { Public declarations }
+    IsEditObject : Boolean;
+    isNoFill : Boolean;
     IdAction: Byte; { 1: add; 2: Edit; 3: Delete }
 
-    ShapeType: Integer;
+//    ShapeType: Integer;
 
-    procedure RefreshMousePointer;
+    procedure Apply;
+    procedure Deleted;
+    procedure Canceled;
+
+//    procedure RefreshMousePointer;
     procedure ClearFlagPoint;
     procedure ClearEditText;
-    procedure Canceled;
     procedure LoadPanelText;
     procedure LoadPanelLine;
     procedure LoadPanelRectangle;
@@ -418,6 +425,14 @@ type
     procedure GbrPolygon;
     procedure GbrFlagPoint(mx, my :Double);
 
+    procedure SelectShape(mx, my :Double);
+    procedure SetPosition(mx, my :Double);
+
+    function FindIdSelectedShape: Boolean;
+    function CekInput(IdObject : Integer): Boolean;
+
+    property SelectedOverlayTab : TOverlayTab read FSelectedOverlayTab write  FSelectedOverlayTab;
+
   end;
 
 var
@@ -425,39 +440,87 @@ var
 
 implementation
 
+uses
+  ufrmSituationBoard, ufrmTacticalDisplay;
 {$R *.dfm}
 
 
 { TfrmOverlayTools }
 
-procedure TfrmOverlayTools.btnHandleShape(Sender: TObject);
-var
-  isDynamic: Boolean;
+procedure TfrmOverlayTools.Apply;
 begin
-//  LoadNormalButtonImage;
-  btnDelete.Enabled := false;
+  case FShapeType of
+    ovText : GbrText;
+    ovLine : GbrLine;
+    ovRectangle : GbrRectangle;
+    ovCircle : GbrCircle;
+    ovEllipse : GbrEllipse;
+    ovArc : GbrArc;
+    ovSector : GbrSector;
+    ovGrid : GbrGrid;
+    ovPolygon : GbrPolygon;
+  end;
+end;
 
-  RefreshMousePointer;
+procedure TfrmOverlayTools.btnApplyClick(Sender: TObject);
+begin
+  case TButton(Sender).Tag of
+    0: {Apply}
+    begin
+      Apply;
+      if FisInputProblem  then
+        Exit
+      else
+        btnHandleShape(btnSelect);
+    end;
+    1: {Delete}
+    begin
+      Deleted;
+      btnHandleShape(btnSelect);
+    end;
+    2: {Cancel}
+    begin
+      Canceled;
+      btnHandleShape(btnSelect);
+    end;
+    3: {Close}
+    begin
+      Canceled;
+//      grpTemplate.Left := 17;
+
+//      UpdateOverlayTemplateList;
+    end;
+  end;
+  ClearEditText;
+  ClearFlagPoint;
+end;
+
+procedure TfrmOverlayTools.btnFillClick(Sender: TObject);
+begin
+  FShapeColor := scFill;
+end;
+
+procedure TfrmOverlayTools.btnHandleShape(Sender: TObject);
+begin
   ClearFlagPoint;
   ClearEditText;
-  Canceled;
-  IdAction := 1;
+  FAction := caAdd;
 
-  ShapeType := TImage(Sender).Tag;
+  FShapeType := TRzBmpButton(Sender).Tag;
 
-  case ShapeType of
+  case FShapeType of
     0: { Select }
       begin
-        btnSelect.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnCursor_Select.PNG');
         grpNone.BringToFront;
 
         { merubah cursor }
-        FMapCursor := mcEdit;
+        frmSituationBoard.MapCursor := mcEdit;
 
         {$REGION ' Button Handle '}
         btnOutline.Visible := false;
         btnFill.Visible := false;
         pnlPenEditing.Visible := false;
+        btnSelect.Down := True;
         {$ENDREGION}
       end;
     ovText:
@@ -479,6 +542,11 @@ begin
     ovPolygon:
       LoadPanelPolygon
   end;
+end;
+
+procedure TfrmOverlayTools.btnOutlineClick(Sender: TObject);
+begin
+  FShapeColor := scOutline;
 end;
 
 procedure TfrmOverlayTools.Canceled;
@@ -510,6 +578,167 @@ begin
     pnlObject.BringToFront;
 end;
 
+function TfrmOverlayTools.CekInput(IdObject: Integer): Boolean;
+begin
+  Result := False;
+
+
+  case IdObject of
+    ovText:{Text}
+    begin
+      if(edtTextPosLong.Text = '') or (edtTextPosLAt.Text= '')or
+        (edtTextField.Text = '')or(cbbTextSize.Text = '')then
+      begin
+        ShowMessage('Data yang dimasukkan tidak lengkap');
+        Result := True;
+      end
+      else if (StrToInt(cbbTextSize.Text) > 72 )or (StrToInt(cbbTextSize.Text) = 0 )then
+      begin
+        ShowMessage('Ukuran tulisan tidak sesuai');
+        Result := True;
+      end;
+    end;
+//    ovLine:{Line}
+//    begin
+//    if (edtLineStartPosLong.Text ='') or (edtLineStartPosLat.Text = '')or
+//    (edtLineEndPosLong.Text = '') or (edtLineEndPosLat.Text = '')then
+//    begin
+//    lblWarning.Caption := 'Incomplete Data Input';
+//    Result := True;
+//    end
+//    else if (edtLineStartPosLong.Text = edtLineEndPosLong.Text) and (edtLineStartPosLat.Text = edtLineEndPosLat.Text)then
+//    begin
+//    lblWarning.Caption := 'Invalid input..., Start and End position can not be identical';
+//    Result := True;
+//    end;;
+//    end;
+    ovRectangle:{Rectangle}
+    begin
+      if (edtRectStartPosLong.Text = '')or(edtRectStartPosLat.Text = '')or
+      (edtRectEndPosLong.Text = '')or (edtRectEndPosLat.Text = '')or
+      (edtRectStartPosLong.Text= '')or (edtRectStartPosLat.Text= '')or
+      (edtRectEndPosLat.Text= '')or(edtRectEndPosLong.Text= '') then
+      begin
+        ShowMessage('Data yang dimasukkan tidak lengkap');
+        Result := True;
+      end
+      else if (edtRectStartPosLong.Text = edtRectEndPosLong.Text ) and (edtRectStartPosLat.Text = edtRectEndPosLat.Text )then
+      begin
+        ShowMessage('Data yang dimasukkan tidak sesuai, Posisi Top-Left dan Bottom-Right tidak boleh sama');
+        Result := True;;
+      end;
+    end;
+//    ovCircle:{Circle}
+//    begin
+//    if (edtCirclePosLong.Text = '')or (edtCirclePosLat.Text = '') or
+//    (edtCircleRadius.Text = '')or(edtCirclePosLong.text='')or
+//    (edtCirclePosLat.Text= '') then
+//    begin
+//    lblWarning.Caption := 'Incomplete Data Input';
+//    Result := True;
+//    end
+//    else if (edtCircleRadius.Text = '0' ) then
+//    begin
+//    lblWarning.Caption := 'Invalid radius input, minimum radius > 0';
+//    Result := True;
+//    end;
+//    end;
+//    ovEllipse:{Ellipse}
+//    begin
+//    if (edtEllipsePosLong.Text = '')or (edtEllipsePosLat.Text = '')
+//    or(edtHorizontal.Text = '') or (edtVertical.Text = '')or
+//    (edtEllipsePosLat.text= '')or
+//    (edtEllipsePosLong.Text= '') then
+//    begin
+//    lblWarning.Caption := 'Incomplete Data Input';
+//    Result := True;
+//    end
+//    else if (edtHorizontal.Text = '0') or (edtVertical.Text = '0')then
+//    begin
+//    lblWarning.Caption := 'Invalid radius input, minimum radius > 0';
+//    Result := True;
+//    end;
+//    end;
+//    ovArc:{Arc}
+//    begin
+//    if (edtArcPosLong.Text = '') or (edtArcPosLat.Text = '')or
+//    (edtArcRadius.Text = '')or(edtArcStartAngle.Text = '')or
+//    (edtArcEndAngle.Text = '')then
+//    begin
+//    lblWarning.Caption := 'Incomplete Data Input';
+//    Result := True;
+//    end
+//    else if (edtArcRadius.Text = '0') then
+//    begin
+//    lblWarning.Caption := 'Invalid radius input, minimum radius > 0';
+//    Result := True;
+//    end
+//    else if (edtArcEndAngle.Text = edtArcStartAngle.Text) then
+//    begin
+//    lblWarning.Caption := 'Invalid input..., Start and End Angle can not be identical';
+//    Result := True;
+//    end;
+//    end;
+//    ovSector:{Sector}
+//    begin
+//    if(edtSectorInner.Text = '') or (edtSectorOuter.Text = '')or
+//    (edtSectorStartAngle.Text = '') or (edtSectorEndAngle.Text = '')or
+//    (edtSectorPosLat.Text = '')or (edtSectorPosLong.Text = '')then
+//    begin
+//    lblWarning.Caption := 'Incomplete Data Input';
+//    Result := True;
+//    end
+//    else if (edtSectorInner.Text = '0')or (edtSectorOuter.Text = '0')then
+//    begin
+//    lblWarning.Caption := 'Invalid radius input, minimum radius > 0';
+//    Result := True;
+//    end
+//    else if (edtSectorStartAngle.Text = edtSectorEndAngle.Text) then
+//    begin
+//    lblWarning.Caption := 'Invalid input..., Start and End Angle can not be identical';
+//    Result := True;
+//    end
+//    else if (edtSectorInner.Text = edtSectorOuter.Text) then
+//    begin
+//    lblWarning.Caption := 'Invalid input..., Inner and Outer Radius can not be identical';
+//    Result := True;
+//    end;
+//    end;
+//    ovGrid:{Grid}
+//    begin
+//    if (edtTablePosLong.Text = '')or (edtTablePosLat.Text ='') or
+//    (edtTableHeight.Text = '')or (edtTableColumn.Text = '') or
+//    (edtTableWidth.Text = '') or (edtTableRow.Text = '')or
+//    (edtTableRotationAngle.Text = '')or(edtTablePosLat.Text ='')
+//    or(edtTablePosLong.Text='') then
+//    begin
+//    lblWarning.Caption := 'Incomplete Data Input';
+//    Result := True;
+//    end
+//
+//    else if (edtTableHeight.Text = '0') or (edtTableColumn.Text = '0') or (edtTableWidth.Text = '0')
+//    or (edtTableRow.Text = '0') then
+//    begin
+//    lblWarning.Caption := 'Invalid input, minimum Col, Row and height > 0';
+//    Result := True;
+//    end;
+//    end;
+//    ovPolygon:{Polygon}
+//    begin
+//    if lvPolyVertex.Items.Count < 1 then
+//    begin
+//    lblWarning.Caption := 'Incomplete Data Input';
+//    Result := True;
+//    end;
+//    end;
+  end;
+
+  if Result then
+  begin
+    FisInputProblem := True;
+  end;
+end;
+
 procedure TfrmOverlayTools.ClearEditText;
 begin
   // reset data & set button buat ambil koordinat down jadi false
@@ -527,32 +756,22 @@ begin
   edtLineEndPosLong.Text := '';
   edtLineEndPosLat.Text := '';
 
-//  SpeedButton1.Down := false;
-//  SpeedButton2.Down := false;
-
   { Rectangle }
   edtRectStartPosLong.Text := '';
   edtRectStartPosLat.Text := '';
   edtRectEndPosLong.Text := '';
   edtRectEndPosLat.Text := '';
 
-//  SpeedButton3.Down := false;
-//  SpeedButton4.Down := false;
-
   { Circle }
   edtCircleRadius.Text := '1';
   edtCirclePosLong.Text := '';
   edtCirclePosLat.Text := '';
-
-//  SpeedButton5.Down := false;
 
   { Ellipse }
   edtHorizontal.Text := '1';
   edtVertical.Text := '1';
   edtEllipsePosLong.Text := '';
   edtEllipsePosLat.Text := '';
-
-//  SpeedButton6.Down := false;
 
   { Arc }
   edtArcRadius.Text := '1';
@@ -561,8 +780,6 @@ begin
   edtArcStartAngle.Text := '0';
   edtArcEndAngle.Text := '0';
 
-//  SpeedButton7.Down := false;
-
   { Sector }
   edtSectorInner.Text := '1';
   edtSectorOuter.Text := '1';
@@ -570,8 +787,6 @@ begin
   edtSectorPosLat.Text := '';
   edtSectorStartAngle.Text := '0';
   edtSectorEndAngle.Text := '0';
-
-//  SpeedButton8.Down := false;
 
   { Grid }
   edtTableHeight.Text := '1';
@@ -582,10 +797,7 @@ begin
   edtTableRow.Text := '1';
   edtTableRotationAngle.Text := '0';
 
-//  SpeedButton9.Down := false;
-
   { Polygon }
-
   edtPolyPosLat.Text := '';
   edtPolyPosLong.Text := '';
   lvPolyVertex.Clear;
@@ -599,6 +811,64 @@ begin
 //  DrawFlagPoint.FList.Clear;
 //  Map1.Refresh;
 //  Map1.Repaint;
+end;
+
+procedure TfrmOverlayTools.Deleted;
+var
+  recShape : TRecTCPSendOverlayShape;
+
+begin
+
+  if not FindIdSelectedShape then
+      Exit;
+
+  if Assigned(FSelectedOverlayTab) then
+  begin
+    recShape.IdAction := caDelete;
+    recShape.TemplateId := FSelectedOverlayTab.IdOverlayTab;
+    recShape.IdSelectShape := FShapeId;
+    recShape.ShapeType := FShapeType;
+
+    simMgrClient.netSend_CmdOverlayShape(recShape);
+  end;
+
+end;
+
+function TfrmOverlayTools.FindIdSelectedShape: Boolean;
+var
+  i : Integer;
+  overlaTabTemp : TOverlayTab;
+  mainShapeTemp : TMainShape;
+
+begin
+  Result := False;
+
+  if Assigned(FSelectedOverlayTab) then
+  begin
+    for I := 0 to FSelectedOverlayTab.MemberList.Count - 1 do
+    begin
+      mainShapeTemp := FSelectedOverlayTab.MemberList[i];
+      if mainShapeTemp.isSelected = True then
+      begin
+        FShapeId := i;
+        Result := True;
+        break;
+      end;
+    end;
+  end;
+
+  if Result = false then
+  begin
+    MessageDlg('Gambar yang anda pilih tidak valid', mtWarning, [mbOK], 0);
+  end;
+
+end;
+
+procedure TfrmOverlayTools.FormShow(Sender: TObject);
+begin
+  cbbTypeTools.ItemIndex := 0;
+  cbbTypeToolsChange(nil);
+  btnHandleShape(btnSelect);
 end;
 
 procedure TfrmOverlayTools.GbrArc;
@@ -1013,51 +1283,44 @@ begin
 end;
 
 procedure TfrmOverlayTools.GbrText;
-//var
-//  Size : Byte;
-//  recShapeStatic : TRecCmd_OverlayStaticShape;
-//  recShapeDynamic : TRecCmd_OverlayDynamicShape;
+var
+  Size : Byte;
+  recShape : TRecTCPSendOverlayShape;
 
 begin
-//  if CekInput(ovText) then
-//    Exit;
-//
-//  Size := 10;
-//
+  if CekInput(ovText) then
+    Exit;
+
+  Size := 10;
+
 //  if IsEditObject then
 //  begin
-//      Action := caEdit;
+//      FAction := caEdit;
 //    if not FindIdSelectedShape then
 //      Exit;
 //  end
 //  else
-//    Action := caAdd;
-//
-//  recShapeStatic.TemplateId := FSelectedOverlay.OverlayIndex;
-//  recShapeStatic.ShapeType := ovText;
-//  recShapeStatic.IdSelectShape := NoShapeInList;
-//  recShapeStatic.IdAction := Action;
-//
-//  recShapeStatic.PostStart.X := dmsToLong(edtTextPosLong.Text);
-//  recShapeStatic.PostStart.Y := dmsToLatt(edtTextPosLat.Text);
-//  recShapeStatic.Size := StrToInt(cbbTextSize.Text);
-//  recShapeStatic.Words := edtTextField.Text;
-//  recShapeStatic.color := pnlOutline.Color;
-//
-//  //      if Action = caEdit then
-//  //        recShapeStatic.idxDraw := simMgrClient.DrawOverlayTemplate.idxOverlay
-//  //      else
-//  //        recShapeStatic.idxDraw := idxDrawOverlay;
-//
-//  {Kirim data disini}
-//  simMgrClient.netSend_CmdOverlayStaticShape(recShapeStatic);
-//  isInputProblem := False;
+//    FAction := caAdd;
+
+  recShape.IdUserRole := FSelectedOverlayTab.IdUserRole;
+  recShape.TemplateId := FSelectedOverlayTab.IdOverlayTab;
+  recShape.ShapeType := ovText;
+  recShape.IdSelectShape := FShapeId;
+  recShape.IdAction := FAction;
+
+  recShape.PostStart.X := dmsToLong(edtTextPosLong.Text);
+  recShape.PostStart.Y := dmsToLatt(edtTextPosLat.Text);
+  recShape.Size := StrToInt(cbbTextSize.Text);
+  recShape.Words := edtTextField.Text;
+  recShape.color := pnlOutline.Color;
+
+  {Kirim data disini}
+  simMgrClient.netSend_CmdOverlayShape(recShape);
+  FisInputProblem := False;
 end;
 
 procedure TfrmOverlayTools.LoadPanelArc;
 begin
-  btnArc.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnArc_Select.PNG');
-
   grpArc.BringToFront;
 
   {$REGION ' Button Handle '}
@@ -1072,8 +1335,6 @@ end;
 
 procedure TfrmOverlayTools.LoadPanelCircle;
 begin
-  btnCircle.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnCircle_Select.PNG');
-
   grpCircle.BringToFront;
 
   {$REGION ' Button Handle '}
@@ -1087,8 +1348,6 @@ end;
 
 procedure TfrmOverlayTools.LoadPanelEllipse;
 begin
-  btnEllipse.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnEllipse_Select.PNG');
-
   grpEllipse.BringToFront;
 
   {$REGION ' Button Handle '}
@@ -1102,8 +1361,6 @@ end;
 
 procedure TfrmOverlayTools.LoadPanelGrid;
 begin
-  btnGrid.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnGrid_Select.PNG');
-
   grpGrid.BringToFront;
 
   {$REGION ' Button Handle '}
@@ -1117,8 +1374,6 @@ end;
 
 procedure TfrmOverlayTools.LoadPanelLine;
 begin
-  btnLine.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnLine_Select.PNG');
-
   grpLine.BringToFront;
 
   {$REGION ' Button Handle '}
@@ -1132,8 +1387,6 @@ end;
 
 procedure TfrmOverlayTools.LoadPanelPolygon;
 begin
-  btnPolygon.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnPolygon_Select.PNG');
-
   grpPolygon.BringToFront;
 
   {$REGION ' Button Handle '}
@@ -1147,8 +1400,6 @@ end;
 
 procedure TfrmOverlayTools.LoadPanelRectangle;
 begin
-  btnRectangle.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnRectangle_Select.PNG');
-
   grpRectangle.BringToFront;
 
   {$REGION ' Button Handle '}
@@ -1162,8 +1413,6 @@ end;
 
 procedure TfrmOverlayTools.LoadPanelSector;
 begin
-  btnSector.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnSector_Select.PNG');
-
   grpSector.BringToFront;
 
   {$REGION ' Button Handle '}
@@ -1177,8 +1426,6 @@ end;
 
 procedure TfrmOverlayTools.LoadPanelText;
 begin
-  btnText.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnText_Select.PNG');
-
   grpText.BringToFront;
 
   {$REGION ' Button Handle '}
@@ -1186,32 +1433,180 @@ begin
   btnFill.Visible := False;
   pnlPenEditing.Visible := True;
   SetNoFill(True);
-//  btnOutlineClick(nil);
+  btnOutlineClick(nil);
+
+  btnDelete.Enabled := FAction = caEdit;
   {$ENDREGION}
 end;
 
-procedure TfrmOverlayTools.RefreshMousePointer;
+procedure TfrmOverlayTools.SelectShape(mx, my :Double);
+var
+  i, j, k, Hr,Vr, r,
+  x1, x2, x3, x4, x5,
+  y1, y2, y3, y4, y5 : Integer;
+
+  Idx, Idy, Odx, Ody,
+  RKiAts, RKaAts, RKiBwh, RKaBwh,
+  BKiAts, BKaAts, BKiBwh, BKaBwh : Double;
+
+  IptS, IptE, OptS, OptE, ptPos : t2DPoint;
+
+  rect1, rect2, rect3, rect4 : TRect;
+
+  mainShapeTemp : TMainShape;
+  textTemp : TTextShape;
+  countList : Integer;
+  pos: TPoint;
+
 begin
-//  Map1.CurrentTool := miSelectTool;
-//  Map1.MousePointer := miDefaultCursor;
+  if Assigned(SelectedOverlayTab) then
+  begin
+    for i := 0 to SelectedOverlayTab.MemberList.Count - 1 do
+    begin
+      mainShapeTemp := SelectedOverlayTab.MemberList[i];
+      mainShapeTemp.isSelected := False;
+    end;
 
-  btnSelect.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnCursor_Normal.PNG');
-  btnText.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnText_Normal.PNG');
-  btnLine.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnLine_Normal.PNG');
-  btnRectangle.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnRectangle_Normal.PNG');
-  btnCircle.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnCircle_Normal.PNG');
-  btnEllipse.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnEllipse_Normal.PNG');
-  btnArc.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnArc_Normal.PNG');
-  btnSector.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnSector_Normal.PNG');
-  btnGrid.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnGrid_Normal.PNG');
-  btnPolygon.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnPolygon_Normal.PNG');
+    for countList := SelectedOverlayTab.MemberList.Count-1 downto 0 do
+    begin
+      mainShapeTemp := SelectedOverlayTab.MemberList[countList];
 
-//  FisNoFill := True;
+
+      if mainShapeTemp is TTextShape then
+      begin
+        {$REGION ' Text Section '}
+        textTemp := TTextShape(mainShapeTemp);
+
+        mainShapeTemp.Converter.ConvertToScreen(mx, my, pos.X, pos.Y);
+        mainShapeTemp.Converter.ConvertToScreen(textTemp.postStart.X, textTemp.postStart.Y, x1, y1);
+        rect1 := SelectedOverlayTab.Formula.checkText(x1, y1, textTemp.Size, textTemp.words);
+        ptPos := SelectedOverlayTab.Formula.PointTo2D(pos.X, pos.Y);
+
+        if ptToArea(rect1, ptPos) then
+        begin
+          FShapeType := ovText;
+          edtTextPosLat.Text  := formatDMS_latt(textTemp.postStart.Y);
+          edtTextPosLong.Text := formatDMS_long(textTemp.postStart.X);
+          cbbTextSize.Text    := IntToStr(textTemp.size);
+          edtTextField.Text   := textTemp.words;
+          pnlOutline.color    := textTemp.Color;
+          textTemp.isSelected := true;
+          FShapeId := textTemp.ShapeId;
+          FAction := caEdit;
+
+          LoadPanelText;
+
+          break;
+        end;
+        {$ENDREGION}
+      end
+      else
+      begin
+        IsEditObject := False;
+      end;
+    end;
+  end;
+
+  Show;
 end;
 
 procedure TfrmOverlayTools.SetNoFill(val: Boolean);
 begin
+  if val then
+  begin
+    isNoFill := True;
+    pnlFill.Caption := 'No Fill';
+    pnlFill.Color := $00383534;
+  end
+  else
+  begin
+    isNoFill := False;
+    pnlFill.Caption := '';
+    pnlFill.Color := $00383534;
+  end;
+end;
 
+procedure TfrmOverlayTools.SetPosition(mx, my: Double);
+begin
+  case FTagTombolPosition of
+    0:
+      begin
+        edtTextPosLAt.Text := formatDMS_latt(my);
+        edtTextPosLong.Text := formatDMS_long(mx);
+      end;
+    1:
+      begin
+        edtLineStartPosLat.Text := formatDMS_latt(my);
+        edtLineStartPosLong.Text := formatDMS_long(mx);
+      end;
+    2:
+      begin
+        edtLineEndPosLat.Text := formatDMS_latt(my);
+        edtLineEndPosLong.Text := formatDMS_long(mx);
+      end;
+    3:
+      begin
+        edtRectStartPosLat.Text := formatDMS_latt(my);
+        edtRectStartPosLong.Text := formatDMS_long(mx);
+      end;
+    4:
+      begin
+        edtRectEndPosLat.Text := formatDMS_latt(my);
+        edtRectEndPosLong.Text := formatDMS_long(mx);
+      end;
+    5:
+      begin
+        edtCirclePosLat.Text := formatDMS_latt(my);
+        edtCirclePosLong.Text := formatDMS_long(mx);
+      end;
+    6:
+      begin
+        edtEllipsePosLat.Text := formatDMS_latt(my);
+        edtEllipsePosLong.Text := formatDMS_long(mx);
+      end;
+    7:
+      begin
+        edtArcPosLat.Text := formatDMS_latt(my);
+        edtArcPosLong.Text := formatDMS_long(mx);
+      end;
+    8:
+      begin
+        edtSectorPosLat.Text := formatDMS_latt(my);
+        edtSectorPosLong.Text := formatDMS_long(mx);
+      end;
+    9:
+      begin
+        edtTablePosLat.Text := formatDMS_latt(my);
+        edtTablePosLong.Text := formatDMS_long(mx);
+      end;
+    10:
+      begin
+        edtPolyPosLat.Text := formatDMS_latt(my);
+        edtPolyPosLong.Text := formatDMS_long(mx);
+      end;
+  end;
+  show
+end;
+
+procedure TfrmOverlayTools.btnHandleShapePosition(Sender: TObject);
+begin
+  if (Sender is TSpeedButton) then
+  begin
+    FTagTombolPosition := TSpeedButton(Sender).Tag;
+
+    if FTagTombolPosition = 10 then
+    begin
+//      if not SpeedButton10.Down then
+//        frmSituationBoard.Map1.CurrentTool := mtSelectObject
+//      else
+//        frmSituationBoard.Map1.CurrentTool := mtAddOverlay;
+    end
+    else
+    begin
+      frmSituationBoard.MapCursor := mcAdd;
+//      frmSituationBoard.Map1.MousePointer := miCrossCursor;
+    end;
+  end;
 end;
 
 end.

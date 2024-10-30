@@ -10,10 +10,9 @@ uses
 
   {Project Uses}
   MapXLib_TLB, uCoordConvertor, uLibSetting, uT3SimManager, uSimMgr_Client, uRecordData, uNetBaseSocket, uClassData, ufrmCreateTab,
-  ufrmImageInsert, ufrmOverlayTools;
+  ufrmImageInsert, ufrmOverlayTools, uConstantaData, ufrmBrowseMap;
 
 type
-  E_OverlayMapCursor = (mcSelect, mcAdd, mcEdit, mcRulerStart, mcRulerEnd);
 
   TfrmSituationBoard = class(TForm)
     pnlHome: TPanel;
@@ -37,12 +36,9 @@ type
     pnlEditImage: TPanel;
     pnlMap: TPanel;
     Map1: TMap;
-    pnlEditMap: TPanel;
     imgBackground: TImage;
     Image3: TImage;
     pnlCloseImage: TPanel;
-    pnlCloseMap: TPanel;
-    Image2: TImage;
     pnlCloseSituationBoard: TPanel;
     pnlToolBar: TPanel;
     pnlAlignToolBar: TPanel;
@@ -58,6 +54,7 @@ type
     btnRuller: TToolButton;
     ImageList1: TImageList;
     btnOverlayTools: TToolButton;
+    pnlMain: TPanel;
 
     procedure FormShow(Sender: TObject);
     procedure Button1Click(Sender: TObject);
@@ -92,14 +89,18 @@ type
   private
     FCanvas: TCanvas;
     FLyrDraw: CMapXLayer;
-    FConverter: TCoordConverter;
-    FMapCursor: E_OverlayMapCursor;
+//    FConverter: TCoordConverter;
+    FMapCursor: TMapCursor;
+    FSelectedOverlayTab : TOverlayTab;
+    FSelectedTabProperties : TTabProperties;
 
+//    Fmx, Fmy: Double;
 
     procedure RoundCornerOf(Control: TWinControl; val1, val2: Integer);
 
   public
-    SelectedTabProperties : TTabProperties;
+//    SelectedTabProperties : TTabProperties;
+//    SelectedOve : TTabProperties;
     centLong, centLatt: Double;
 
     procedure LoadTabMap;
@@ -110,6 +111,8 @@ type
 
     procedure UpdateTab;
     procedure RefreshTab;
+
+    property MapCursor : TMapCursor read FMapCursor write  FMapCursor;
   end;
 
 var
@@ -155,8 +158,7 @@ end;
 
 procedure TfrmSituationBoard.btnTabClick(Sender: TObject);
 begin
-  SelectedTabProperties := SimManager.SimTabProperties.GetTapProperties(simMgrClient.MyConsoleData.UserRoleData.UserRoleIndex,
-  TSpeedButton(Sender).Tag);
+  FSelectedTabProperties := SimManager.SimTabProperties.GetTapProperties(simMgrClient.MyConsoleData.UserRoleData.UserRoleIndex, TSpeedButton(Sender).Tag);
 
   RefreshTab;
 end;
@@ -233,19 +235,16 @@ end;
 procedure TfrmSituationBoard.FormCreate(Sender: TObject);
 begin
   FCanvas := TCanvas.Create;
-  FConverter := TCoordConverter.Create;
 end;
 
 procedure TfrmSituationBoard.FormDestroy(Sender: TObject);
 begin
   FCanvas.Free;
-  FConverter.Free;
 end;
 
 procedure TfrmSituationBoard.FormResize(Sender: TObject);
 begin
   RoundCornerOf(pnlEditImage, 15, 15);
-  RoundCornerOf(pnlEditMap, 15, 15);
   UpdateTab;
   RefreshTab;
 end;
@@ -273,8 +272,8 @@ begin
   try
     with frmImageInsert do
     begin
-      TabId := SelectedTabProperties.IdTab;
-      TabCaption := SelectedTabProperties.CaptionTab;
+      TabId := FSelectedTabProperties.IdTab;
+      TabCaption := FSelectedTabProperties.CaptionTab;
       ShowModal;
     end;
   finally
@@ -284,29 +283,24 @@ end;
 
 procedure TfrmSituationBoard.btnGameAreaClick(Sender: TObject);
 begin
-//  frmGameAreaPickList := TfrmGameAreaPickList.Create(Self);
-//  btnGameArea.ImageIndex := 10;
-//  try
-//    with frmGameAreaPickList do
-//    begin
-//      ShowModal;
-//      LoadMap('D:\Map\GST_GAME\AOTC\'+ SelectedGameAreaName +'\' + SelectedGameAreaName +'.gst');
-//    end;
-//
-//  finally
-//    frmGameAreaPickList.Free;
-//  end;
+  btnGameArea.ImageIndex := 10;
+
+  frmBrowseMap := TfrmBrowseMap.Create(Self);
+  try
+    with frmBrowseMap do
+    begin
+      ShowModal;
+    end;
+
+  finally
+    frmBrowseMap.Free;
+  end;
 end;
 
 procedure TfrmSituationBoard.btnGameCenterClick(Sender: TObject);
 begin
   Map1.CenterX := centLong;
   Map1.CenterY := centLatt;
-
-//  LoadNormalButtonImage;
-//  pnlStatic.Visible := false;
-//
-//  RefreshMousePointer;
 end;
 
 procedure TfrmSituationBoard.btnIncreaseClick(Sender: TObject);
@@ -339,14 +333,10 @@ end;
 
 procedure TfrmSituationBoard.btnOverlayToolsClick(Sender: TObject);
 begin
-  frmOverlayTools := TfrmOverlayTools.Create(Self);
-  try
-    with frmOverlayTools do
-    begin
-      ShowModal;
-    end;
-  finally
-    frmOverlayTools.Free;
+  with frmOverlayTools do
+  begin
+    SelectedOverlayTab := FSelectedOverlayTab;
+    Show;
   end;
 end;
 
@@ -428,14 +418,16 @@ end;
 
 procedure TfrmSituationBoard.LoadTabImage;
 begin
-  Image1.Picture.LoadFromFile(vMapSetting.ImageGame + SelectedTabProperties.AddressTab);
+  Image1.Picture.LoadFromFile(vMapSetting.ImageGame + FSelectedTabProperties.AddressTab);
 end;
 
 procedure TfrmSituationBoard.LoadTabMap;
 begin
   pnlAlignToolBar.Width := round((pnlToolBar.Width - 433) / 2);
-  LoadMap(vMapSetting.MapGSTGame + SelectedTabProperties.AddressTab);
-  LoadOverlay(SelectedTabProperties.IdOverlayTab);
+
+  LoadMap(vMapSetting.MapGSTGame + FSelectedTabProperties.AddressTab);
+  LoadOverlay(FSelectedTabProperties.IdOverlayTab);
+  FSelectedOverlayTab := SimManager.SimOverlay.GetOverlayTabByID(FSelectedTabProperties.IdOverlayTab)
 end;
 
 procedure TfrmSituationBoard.Map1DrawUserLayer(ASender: TObject;
@@ -448,7 +440,7 @@ begin
     Exit;
   FCanvas.Handle := hOutputDC;
 
-  SimManager.SimOverlay.Draw(FCanvas, Map1, SelectedTabProperties.IdOverlayTab);
+  SimManager.SimOverlay.Draw(FCanvas, Map1, FSelectedTabProperties.IdOverlayTab);
 //  DrawOverlay.drawAll(FCanvas, Map1);
 //  DrawFlagPoint.Draw(FCanvas);
 
@@ -528,9 +520,9 @@ end;
 
 procedure TfrmSituationBoard.RefreshTab;
 begin
-  if Assigned(SelectedTabProperties) then
+  if Assigned(FSelectedTabProperties) then
   begin
-    case SelectedTabProperties.TypeTab of
+    case FSelectedTabProperties.TypeTab of
       0 :
       begin
         LoadTabMap;
@@ -575,37 +567,27 @@ begin
   end;
 end;
 
-procedure TfrmSituationBoard.Map1MouseDown(Sender: TObject;
-  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+procedure TfrmSituationBoard.Map1MouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 var
   pos: TPoint;
+  xTemp, yTemp : Double;
+  posXTemp, posYTemp : Integer;
+
 begin
-//  FConverter.ConvertToMap(X, Y, mx, my);
-//{$REGION ' Klik Kiri '}
-//  if Button = mbLeft then
-//  begin
-//    { Untuk kebutuhan overlay }
-//    if FMapCursor = mcEdit then
-//    begin
-//      FConverter.ConvertToScreen(mx, my, pos.X, pos.Y);
-//      SelectShape(pos);
-//    end
-//    else if  FMapCursor = mcRulerStart then
-//    begin
-//      OnAddRuller(mx,my);
-//      frmRuler.Show;
-//      map1.Repaint;
-//    end
-//    else if  FMapCursor = mcRulerEnd then
-//    begin
-//      OnAddRuller(mx,my);
-//      frmRuler.Show;
-//      map1.Repaint;
-//    end
-//    else if FMapCursor = mcAdd then
-//    begin
-//      GetPosition;
-//
+  simMgrClient.Converter.ConvertToMap(X, Y, xTemp, yTemp);
+
+  {$REGION ' Klik Kiri '}
+  if Button = mbLeft then
+  begin
+    { Untuk kebutuhan overlay }
+    if FMapCursor = mcEdit then
+    begin
+      frmOverlayTools.SelectShape(xTemp, yTemp);
+    end
+    else if FMapCursor = mcAdd then
+    begin
+      frmOverlayTools.SetPosition(xTemp, yTemp);
+
 //      case ShapeType of
 //        ovText, ovCircle, ovEllipse, ovArc, ovSector, ovGrid:
 //          begin
@@ -644,10 +626,23 @@ begin
 //            end;
 //          end;
 //      end;
-//
-//    end;
-//  end
-//{$ENDREGION}
+
+    end;
+//    else if  FMapCursor = mcRulerStart then
+//    begin
+//      OnAddRuller(mx,my);
+//      frmRuler.Show;
+//      map1.Repaint;
+//    end
+//    else if  FMapCursor = mcRulerEnd then
+//    begin
+//      OnAddRuller(mx,my);
+//      frmRuler.Show;
+//      map1.Repaint;
+//    end
+
+  end
+{$ENDREGION}
 //{$REGION ' Klik kanan '}
 //  else if Button = mbRight then
 //  begin

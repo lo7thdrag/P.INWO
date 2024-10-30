@@ -201,16 +201,17 @@ begin
 
   simMgrClient.MyConsoleData.assignUserRoleData(userRoleTemp.FData);
 
-  frmSituationBoard := TfrmSituationBoard.Create(Self);
-  try
-    with frmSituationBoard do
-    begin
-      ShowModal;
-    end;
-
-  finally
-    frmSituationBoard.Free;
-  end;
+  frmSituationBoard.Show;
+//  frmSituationBoard := TfrmSituationBoard.Create(Self);
+//  try
+//    with frmSituationBoard do
+//    begin
+//      ShowModal;
+//    end;
+//
+//  finally
+//    frmSituationBoard.Free;
+//  end;
 end;
 
 
