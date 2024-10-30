@@ -186,6 +186,8 @@ type
     btnEditTacticalSymbol: TImage;
     btnDeleteTacticalSymbol: TImage;
     edtTacticalSearch: TEdit;
+    pnlRightTactical: TPanel;
+    imgPreview: TImage;
 
     procedure btnAOTCClick(Sender: TObject);
 
@@ -703,19 +705,35 @@ begin
 end;
 
 procedure TfrmDisplayArea.lvTacticalSymbolleSelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);
+var
+  image : string;
 begin
+  FSelectedTacticalSymbol := nil;
+
   if Selected then
   begin
     if (Item = nil) or (Item.Data = nil) then
       Exit;
 
-      FSelectedTacticalSymbol := TTactical_Symbol(lvTacticalSymbol.Selected.Data);
+
+     FSelectedTacticalSymbol := TTactical_Symbol(lvTacticalSymbol.Selected.Data);
+     image := FSelectedTacticalSymbol.ImagePath;
+    if FileExists(image) then
+    begin
+      imgPreview.Picture.LoadFromFile(image);
+      pnlRightTactical.Visible := True;
+    end
+    else
+    begin
+        ShowMessage('File gambar tidak ditemukan' + image);
+    end;
   end;
+
 end;
 
 procedure TfrmDisplayArea.btnEditTacticalSymbolClick(Sender: TObject);
 begin
-   if lvTacticalSymbol.ItemIndex = -1 then
+   if lvTacticalSymbol.ItemIndex <> -1 then
    begin
       frmSimbolTaktis := TfrmSimbolTaktis.Create(Self);
       try
@@ -729,6 +747,8 @@ begin
       end;
    end;
 
+   UpdateSimbolTaktis;
+
 end;
 
 procedure TfrmDisplayArea.btnDeleteTacticalSymbolClick(Sender: TObject);
@@ -737,7 +757,7 @@ var
 begin
    if lvTacticalSymbol.ItemIndex <> -1  then
    begin
-     warning := MessageDlg('ufrmAvailableUserRole you resourcestring Delete this item?', mtConfirmation, mbOKCancel, 0);
+     warning := MessageDlg('Are you sure delete this item?', mtConfirmation, mbOKCancel, 0);
 
      if warning = mrOK then
      begin

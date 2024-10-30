@@ -36,6 +36,7 @@ type
   private
     FSelectedTacticalSymbol : TTactical_Symbol;
     FPathDirectory : string;
+    function CekInput: Boolean;
 
     procedure AddcbbTipeChange;
     procedure AddcbbkategoriChange;
@@ -43,6 +44,9 @@ type
 
   public
     { Public declarations }
+     isOK : Boolean;
+     AfterClose : Boolean;
+
      property SelectedTacticalSymbol : TTactical_Symbol read FSelectedTacticalSymbol write FSelectedTacticalSymbol;
   end;
 
@@ -78,8 +82,32 @@ begin
   end;
 end;
 
+function TfrmSimbolTaktis.CekInput: Boolean;
+begin
+  Result := False;
+
+  {Data ada yg kosong}
+  if (cbbTipe.Text = '') or (cbbKategori.Text = '') or (edtKeterangan.Text = '') or
+     (UploadImage.FileName = '') then
+  begin
+    ShowMessage('Inputan data tidak lengkap');
+    Exit;
+  end;
+
+  {Data sudah ada}
+  if (dmINWO.GetFilterByTactical(FSelectedTacticalSymbol.FData)>0) and (FSelectedTacticalSymbol.FData.Id_Tactical_Symbol = 0)then
+  begin
+    ShowMessage('Data sudah ada didalam database');
+    Exit;
+  end;
+
+  Result := True;
+end;
+
 procedure TfrmSimbolTaktis.btnUploadClick(Sender: TObject);
 begin
+   UploadImage.Filter := 'Image Files (*.bmp;*.jpg;*.jpeg;*.png;*.gif)|*.bmp;*.jpg;*.jpeg;*.png;*.gif';
+
    if UploadImage.Execute then
    begin
      imgSimbolTaktis.Picture.LoadFromFile(UploadImage.FileName);
@@ -91,8 +119,6 @@ procedure TfrmSimbolTaktis.cbbKategoriChange(Sender: TObject);
 begin
   if cbbKategori.ItemIndex = -1 then
     cbbKategori.ItemIndex := 0;
-//  AddcbbkategoriChange;
-//  cbbKategori.ItemIndex := 0;
 
   btnOk.Enabled := True;
 end;
@@ -101,9 +127,6 @@ procedure TfrmSimbolTaktis.cbbTipeChange(Sender: TObject);
 begin
   if cbbTipe.ItemIndex = -1 then
     cbbTipe.ItemIndex := 0;
-
-//   AddcbbTipeChange;
-//   cbbTipe.ItemIndex := 0;
 
    btnOk.Enabled := True;
 end;
@@ -117,11 +140,11 @@ begin
     Keterangan      := edtKeterangan.Text;
     Path_Directori  := FPathDirectory;
 
-//    if not CekInput then
-//    begin
-//      isOK := False;
-//      Exit;
-//    end;
+    if not CekInput then
+    begin
+      isOK := False;
+      Exit;
+    end;
 
     if Id_Tactical_Symbol = 0 then
     begin
@@ -139,10 +162,10 @@ begin
     end;
   end;
 
-//  isOK := True;
-//  AfterClose := True;
-//  btnApply.Enabled := False;
-//  btnCancel.Enabled := False;
+  isOK := True;
+  AfterClose := True;
+  btnApply.Enabled := False;
+  btnCancel.Enabled := False;
 end;
 
 procedure TfrmSimbolTaktis.btnCancelClick(Sender: TObject);

@@ -158,9 +158,11 @@ type
 
   TTactical_Symbol = class
   private
+   FImagePath: string;
 
   public
     FData  : TRecTactical_Symbol;
+    property ImagePath: string read FImagePath write FImagePath;
 
     constructor Create;
     destructor Destroy;override;

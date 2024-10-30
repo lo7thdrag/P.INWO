@@ -45835,9 +45835,8 @@ object frmDisplayArea: TfrmDisplayArea
             Text = 'ALL'
             Items.Strings = (
               'ALL'
-              'TAKTIS TNI AL'
-              'TAKTIS TNI AU'
-              'TAKTIS TNI AD')
+              'TIPE'
+              'KATEGORI')
           end
         end
         object pnlHeaderSimbolTaktis: TPanel
@@ -45915,7 +45914,21 @@ object frmDisplayArea: TfrmDisplayArea
             ParentFont = False
             TabOrder = 0
             ViewStyle = vsReport
+            OnSelectItem = lvTacticalSymbolleSelectItem
             ExplicitWidth = 1233
+          end
+        end
+        object pnlRightTactical: TPanel
+          Left = 1192
+          Top = 120
+          Width = 417
+          Height = 809
+          TabOrder = 3
+          object imgPreview: TImage
+            Left = 48
+            Top = 88
+            Width = 337
+            Height = 369
           end
         end
       end
