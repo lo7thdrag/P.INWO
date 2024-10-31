@@ -632,7 +632,7 @@ begin
     {Yg barusan diinput diambil lagi datanya, untuk mengetahui Indexnya}
     SQL.Clear;
     SQL.Add('SELECT * FROM File_Directory ');
-    SQL.Add('WHERE Nama_File = ' + QuotedStr(rec.Nama_File) + ' and Modified_Date = ' + QuotedStr(rec.Modified_Date) );
+    SQL.Add('WHERE Nama_File = ' + QuotedStr(rec.Nama_File) + ' and Modified_Date = ' + QuotedStr(rec.Modified_Date));
     Open;
 
     Result := RecordCount > 0;
@@ -10257,8 +10257,11 @@ begin
     SQL.Clear;
     SQL.Add('SELECT * FROM Simbol_Taktis');
     SQL.Add('WHERE (Tipe = ' + IntToStr(aRec.Tipe) + ') and ' +
-         '(Kategori = ' + IntToStr(aRec.Kategori) + ') and (Keterangan = ' + QuotedStr(aRec.Keterangan) + ') and ');
-    SQL.Add('(Directory_Path = ' + QuotedStr(aRec.Path_Directori) + ')');
+        '(ID_Simbol = ' + IntToStr(aRec.Id_Tactical_Symbol) + ') and ' +
+        '(Kategori = ' + IntToStr(aRec.Kategori) + ') and ' +
+        '(Keterangan = ' + QuotedStr(aRec.Keterangan) + ') and ' +
+        '(Directory_Path = ' + QuotedStr(aRec.Path_Directori) + ')');
+
     Open;
 
     Result := RecordCount;
@@ -10280,30 +10283,29 @@ begin
     SQL.Clear;
 
     SQL.Add('INSERT INTO Simbol_Taktis');
-    SQL.Add('(ID_Simbol, Tipe, Kategori, Keterangan, Directory_Path)');
+    SQL.Add('(Tipe, Kategori, Keterangan, Directory_Path)');
     SQL.Add('VALUES (');
 
     with aRec do
     begin
-      SQL.Add(IntToStr(Id_Tactical_Symbol) + ',');
       SQL.Add(IntToStr(Tipe) + ',');
       SQL.Add(IntToStr(Kategori) + ',');
       SQL.Add(QuotedStr(Keterangan) + ',');
       SQL.Add(QuotedStr(Path_Directori) + ')');
     end;
-
-
-    SQL.Add(')');
     ExecSQL;
 
-    Result := True;
+ //   Result := True;
 
     SQL.Clear;
     SQL.Add('SELECT * FROM Simbol_Taktis');
     SQL.Add('WHERE (Tipe = ' + IntToStr(aRec.Tipe) + ') and ' +
-         '(Kategori = ' + IntToStr(aRec.Kategori) + ') and (Keterangan = ' + QuotedStr(aRec.Keterangan) + ') and ' +
-         '(Directory_Path = ' + QuotedStr(aRec.Path_Directori) + ')');
+        '(Kategori = ' + IntToStr(aRec.Kategori) + ') and ' +
+        '(Keterangan = ' + QuotedStr(aRec.Keterangan) + ') and ' +
+        '(Directory_Path = ' + QuotedStr(aRec.Path_Directori) + ')');
     Open;
+
+    Result := RecordCount > 0;
 
     aRec.Id_Tactical_Symbol := FieldByName('ID_Simbol').AsInteger;
   end;
@@ -10321,11 +10323,12 @@ begin
       Close;
       SQL.Clear;
       SQL.Add('UPDATE Simbol_Taktis');
+      SQL.Add('SET');
       SQL.Add('Tipe=' + IntToStr(aRec.Tipe) + ',');
       SQL.Add('Kategori=' + IntToStr(aRec.Kategori) + ',');
       SQL.Add('Keterangan=' + QuotedStr(aRec.Keterangan) + ',');
-      SQL.Add('Directory_Path=' + QuotedStr(aRec.Path_Directori) + ',');
-      SQL.Add('WHERE (ID_Simbol=' + IntToStr(aRec.Id_Tactical_Symbol) + ',');
+      SQL.Add('Directory_Path=' + QuotedStr(aRec.Path_Directori));
+      SQL.Add('WHERE (ID_Simbol=' + IntToStr(aRec.Id_Tactical_Symbol) + ')');
       ExecSQL;
     end;
     Result := True;

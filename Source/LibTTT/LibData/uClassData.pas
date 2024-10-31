@@ -47,6 +47,7 @@ type
     FIpAdrres : string;
     FGroup : TConsoleGroup;
     FUserRoleData : TRecUser_Role;
+//    FTacticalSymbol : TRecTactical_Symbol;
     FTipeTahapan : Byte;
 
   public
@@ -60,6 +61,7 @@ type
     property IpAdrres : string read FIpAdrres write FIpAdrres;
     property Group : TConsoleGroup read FGroup write FGroup;
     property UserRoleData : TRecUser_Role read FUserRoleData write FUserRoleData;
+//    property TacticalSymbolData : TRecTactical_Symbol read FTacticalSymbol write FTacticalSymbol;
     property TipeTahapan : byte read FTipeTahapan write FTipeTahapan;
   end;
 

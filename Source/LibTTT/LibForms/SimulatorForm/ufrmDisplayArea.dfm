@@ -45926,9 +45926,11 @@ object frmDisplayArea: TfrmDisplayArea
           TabOrder = 3
           object imgPreview: TImage
             Left = 48
-            Top = 88
+            Top = 80
             Width = 337
             Height = 369
+            Proportional = True
+            Stretch = True
           end
         end
       end

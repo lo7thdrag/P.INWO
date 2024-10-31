@@ -80,6 +80,7 @@ type
     FormSituationBoard: Boolean;
     FileDirectory : string;
     FileReferensi : string;
+    FileSimbolTaktis : string;
     LocalDirectory : string;
     RemotePort : integer ;
     TacticalScreen : Integer;
@@ -324,6 +325,7 @@ begin
     FormSituationBoard := INIFReadBool(inif, c_map, 'FormSituationBoard', True );
     FileDirectory   := IniFReadstring(inif, c_gdata, 'FileDirectory' , '');
     FileReferensi   := IniFReadstring(inif, c_gdata, 'FileReferensi' , '');
+    FileSimbolTaktis:=  IniFReadstring(inif, c_gdata, 'FileSimbolTaktis' , '');
     LocalDirectory  := IniFReadstring(inif, c_gdata, 'LocalDirectory' , 'D:\');
   end;
   inif.Free;

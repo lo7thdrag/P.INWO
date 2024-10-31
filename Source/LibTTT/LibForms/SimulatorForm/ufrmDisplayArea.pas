@@ -510,7 +510,7 @@ begin
       end;
     end;
 
-    CopyFile(addressTemp, PWideChar(vGameDataSetting.FileDirectory + fileDataTemp.Encripted_File_Name), False);
+    CopyFile(addressTemp, PWideChar(vGameDataSetting.FileDirectory + '\' + fileDataTemp.Encripted_File_Name), False);
   end
   else
     ShowMessage('Save file was cancelled');
@@ -706,7 +706,10 @@ end;
 
 procedure TfrmDisplayArea.lvTacticalSymbolleSelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);
 var
-  image : string;
+  imagepath :  string;
+  serverDirTemp : String;
+  localFileTemp : String;
+
 begin
   FSelectedTacticalSymbol := nil;
 
@@ -715,17 +718,17 @@ begin
     if (Item = nil) or (Item.Data = nil) then
       Exit;
 
+    FSelectedTacticalSymbol := TTactical_Symbol(lvTacticalSymbol.Selected.Data);
 
-     FSelectedTacticalSymbol := TTactical_Symbol(lvTacticalSymbol.Selected.Data);
-     image := FSelectedTacticalSymbol.ImagePath;
-    if FileExists(image) then
+    imagepath := FSelectedTacticalSymbol.FData.Path_Directori + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '.jpeg';
+    if FileExists(imagepath) then
     begin
-      imgPreview.Picture.LoadFromFile(image);
+      imgPreview.Picture.LoadFromFile(imagepath);
       pnlRightTactical.Visible := True;
     end
     else
     begin
-        ShowMessage('File gambar tidak ditemukan' + image);
+        ShowMessage('File gambar tidak ditemukan' + imagepath);
     end;
   end;
 
