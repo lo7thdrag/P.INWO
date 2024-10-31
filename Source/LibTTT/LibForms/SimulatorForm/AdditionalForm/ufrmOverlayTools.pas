@@ -203,8 +203,6 @@ type
     edtSectorPosLong: TEdit;
     grpShapeSymbol: TGroupBox;
     grpColorEditing: TGroupBox;
-    btnOutline: TImage;
-    btnFill: TImage;
     pnlOutline: TPanel;
     pnlFill: TPanel;
     grbColour: TGroupBox;
@@ -369,8 +367,8 @@ type
     btnRectangle: TRzBmpButton;
     btnLine: TRzBmpButton;
     btnText: TRzBmpButton;
-    btnOutline1: TRzBmpButton;
-    btnFill1: TRzBmpButton;
+    btnOutline: TRzBmpButton;
+    btnFill: TRzBmpButton;
     procedure btnHandleShape(Sender: TObject);
     procedure cbbTypeToolsChange(Sender: TObject);
     procedure btnOutlineClick(Sender: TObject);
