@@ -31,3 +31,4 @@ Bin/ntwdblib.dll
 Source/SimClient.src/SimClient.dproj.local
 Source/SimClient.src/SimClient.identcache
 Source/SimServer.src/SimServer.identcache
+Source/SimClient.src/SimClient.identcache
