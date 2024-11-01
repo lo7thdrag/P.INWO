@@ -1051,6 +1051,27 @@ begin
     UpdateGameAreaList;
 end;
 
+procedure TfrmDisplayArea.btnPreviewClick(Sender: TObject);
+begin
+  if lvGameArea.ItemIndex = -1 then
+  begin
+    ShowMessage('Select Game Area !');
+    Exit;
+  end;
+
+  frmMapPreview := TfrmMapPreview.Create(Self);
+  try
+    with frmMapPreview do
+    begin
+      SelectedGameArea := FSelectedGameArea;
+      ShowModal;
+    end;
+  finally
+    frmMapPreview.Free;
+  end;
+
+end;
+
 procedure TfrmDisplayArea.btnDeleteMapClick(Sender: TObject);
 var
   warning : Integer;
@@ -1444,27 +1465,6 @@ begin
   mmoChat.BringToFront;
 end;
 
-procedure TfrmDisplayArea.btnPreviewClick(Sender: TObject);
-begin
-  if lvGameArea.ItemIndex = -1 then
-  begin
-    ShowMessage('Select Game Area !');
-    Exit;
-  end;
-
-  frmMapPreview := TfrmMapPreview.Create(Self);
-  try
-    with frmMapPreview do
-    begin
-      SelectedGameArea := FSelectedGameArea;
-      ShowModal;
-    end;
-  finally
-    frmMapPreview.Free;
-  end;
-
-end;
-
 procedure TfrmDisplayArea.btnUserChatClick(Sender: TObject);
 begin
   lstUserChat.BringToFront;
@@ -1502,8 +1502,8 @@ begin
     end
     else
     begin
-    mmoChat.Font.Color := clBlue;
-    mmoChat.Lines.Add(FSelectedUserChat.FData.UserRoleIdentifier + ' :');
+      mmoChat.Font.Color := clBlue;
+      mmoChat.Lines.Add(FSelectedUserChat.FData.UserRoleIdentifier + ' :');
     end;
 
       mmoChat.Lines.Add('/n');
@@ -1530,7 +1530,6 @@ begin
    rec.ChatMessage := edtChatBox.Text;
 
    simMgrClient.netSend_CmdSendMessage(rec);
-
 end;
 
 procedure TfrmDisplayArea.UpdateClientChatting;
