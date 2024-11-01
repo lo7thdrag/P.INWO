@@ -201,16 +201,16 @@ end;
 procedure TT3SimManager.OnOverlayShape(const rec: TRecTCPSendOverlayShape);
 var
   i, j : Integer;
-//  Point1 : TDotStatic;
+  Point1 : TDotShape;
   TextShape : TTextShape;
-//  LineShape : TLineStatic;
-//  RectangleShape : TRectangleStatic;
-//  CircleShape : TCircleStatic;
-//  EllipseShape : TEllipseStatic;
-//  ArcShape : TArcStatic;
-//  SectorShape : TSectorStatic;
-//  GridShape : TGridStatic;
-//  PolygonShape : TPolygonStatic;
+  LineShape : TLineShape;
+  RectangleShape : TRectangleShape;
+  CircleShape : TCircleShape;
+  EllipseShape : TEllipseShape;
+  ArcShape : TArcShape;
+  SectorShape : TSectorShape;
+  GridShape : TGridShape;
+  PolygonShape : TPolygonShape;
   overlayTabTemp : TOverlayTab;
 
 begin
@@ -236,7 +236,7 @@ begin
             TextShape.postStart := rec.PostStart;
             TextShape.size := rec.Size;
             TextShape.words := rec.Words;
-            TextShape.Color := rec.color;
+            TextShape.ShapeOutline := rec.color;
             TextShape.isSelected := False;
 
             if rec.IdAction = caAdd then
@@ -246,194 +246,215 @@ begin
           ovLine :
           begin
             {$Region' Line '}
-//            if rec.IdAction = caAdd then
-//              LineShape := TLineStatic.Create(Converter)
-//            else
-//              LineShape := OverlayTemplate.StaticList.Items[rec.IdSelectShape];
-//
-//            LineShape.postStart := rec.PostStart;
-//            LineShape.postEnd := rec.PostEnd;
-//            LineShape.color := rec.color;
-//            LineShape.ColorFill := rec.ColorFill;
-//            LineShape.LineType := rec.lineType;
-//            LineShape.Weight := rec.weight;
-//            LineShape.BrushStyle := rec.BrushStyle;
-//            LineShape.isSelected := False;
-//
-//            if rec.IdAction = caAdd then
-//              OverlayTemplate.StaticList.Add(LineShape);
+            if rec.IdAction = caAdd then
+            begin
+              LineShape := TLineShape.Create(Converter);
+              LineShape.ShapeId := GetSerialShapeID
+            end
+            else
+              LineShape := overlayTabTemp.GetShapeById(rec.IdSelectShape) as TLineShape;
+
+            LineShape.postStart := rec.PostStart;
+            LineShape.postEnd := rec.PostEnd;
+            LineShape.ShapeOutline := rec.color;
+            LineShape.ShapeFill := rec.ColorFill;
+            LineShape.LineType := rec.lineType;
+            LineShape.LineWeight := rec.weight;
+            LineShape.BrushStyle := rec.BrushStyle;
+            LineShape.isSelected := False;
+
+            if rec.IdAction = caAdd then
+              overlayTabTemp.MemberList.Add(LineShape);
             {$ENDREGION}
           end;
           ovRectangle :
           begin
             {$Region' Rectangle '}
-//            if rec.IdAction = caAdd then
-//              RectangleShape := TRectangleStatic.Create(Converter)
-//            else
-//              RectangleShape := OverlayTemplate.StaticList.Items[rec.IdSelectShape];
-//
-//            RectangleShape.postStart := rec.PostStart;
-//            RectangleShape.postEnd := rec.PostEnd;
-//            RectangleShape.color := rec.color;
-//            RectangleShape.ColorFill := rec.ColorFill;
-//            RectangleShape.LineType := rec.lineType;
-//            RectangleShape.Weight := rec.weight;
-//            RectangleShape.BrushStyle := rec.BrushStyle;
-//
-//            RectangleShape.isSelected := False;
-//
-//            if rec.IdAction = caAdd then
-//              OverlayTemplate.StaticList.Add(RectangleShape);
+            if rec.IdAction = caAdd then
+            begin
+              RectangleShape := TRectangleShape.Create(Converter);
+              RectangleShape.ShapeId := GetSerialShapeID
+            end
+            else
+              RectangleShape := overlayTabTemp.GetShapeById(rec.IdSelectShape) as TRectangleShape;
+
+            RectangleShape.postStart := rec.PostStart;
+            RectangleShape.postEnd := rec.PostEnd;
+            RectangleShape.ShapeOutline := rec.color;
+            RectangleShape.ShapeFill := rec.ColorFill;
+            RectangleShape.LineType := rec.lineType;
+            RectangleShape.LineWeight := rec.weight;
+            RectangleShape.BrushStyle := rec.BrushStyle;
+            RectangleShape.isSelected := False;
+
+            if rec.IdAction = caAdd then
+              overlayTabTemp.MemberList.Add(RectangleShape);
             {$ENDREGION}
           end;
           ovCircle :
           begin
             {$Region' Circle '}
-//            if rec.IdAction = caAdd then
-//              CircleShape := TCircleStatic.Create(Converter)
-//            else
-//              CircleShape := OverlayTemplate.StaticList.Items[rec.IdSelectShape];
-//
-//            CircleShape.postCenter := rec.PostStart;
-//            CircleShape.radius := rec.Radius1;
-//            CircleShape.Color := rec.color;
-//            CircleShape.ColorFill := rec.ColorFill;
-//            CircleShape.LineType := rec.lineType;
-//            CircleShape.Weight := rec.weight;
-//            CircleShape.BrushStyle := rec.BrushStyle;
-//            CircleShape.isSelected := False;
-//
-//            if rec.IdAction = caAdd then
-//              OverlayTemplate.StaticList.Add(CircleShape);
+            if rec.IdAction = caAdd then
+            begin
+              CircleShape := TCircleShape.Create(Converter);
+              CircleShape.ShapeId := GetSerialShapeID
+            end
+            else
+              CircleShape := overlayTabTemp.GetShapeById(rec.IdSelectShape) as TCircleShape;
+
+            CircleShape.postCenter := rec.PostStart;
+            CircleShape.radius := rec.Radius1;
+            CircleShape.ShapeOutline := rec.color;
+            CircleShape.ShapeFill := rec.ColorFill;
+            CircleShape.LineType := rec.lineType;
+            CircleShape.LineWeight := rec.weight;
+            CircleShape.BrushStyle := rec.BrushStyle;
+            CircleShape.isSelected := False;
+
+            if rec.IdAction = caAdd then
+             overlayTabTemp.MemberList.Add(CircleShape);
             {$ENDREGION}
           end;
           ovEllipse :
           begin
             {$Region' Ellipse '}
-//            if rec.IdAction = caAdd then
-//              EllipseShape := TEllipseStatic.Create(Converter)
-//            else
-//              EllipseShape := OverlayTemplate.StaticList.Items[rec.IdSelectShape];
-//
-//            EllipseShape.postCenter := rec.PostStart;
-//            EllipseShape.Hradius := rec.Radius1;
-//            EllipseShape.Vradius := rec.Radius2;
-//            EllipseShape.Color := rec.color;
-//            EllipseShape.ColorFill := rec.ColorFill;
-//            EllipseShape.LineType := rec.lineType;
-//            EllipseShape.Weight := rec.weight;
-//            EllipseShape.BrushStyle := rec.BrushStyle;
-//            EllipseShape.isSelected := False;
-//
-//            if rec.IdAction = caAdd then
-//              OverlayTemplate.StaticList.Add(EllipseShape);
+            if rec.IdAction = caAdd then
+            begin
+              EllipseShape := TEllipseShape.Create(Converter);
+              EllipseShape.ShapeId := GetSerialShapeID
+            end
+            else
+             EllipseShape := overlayTabTemp.GetShapeById(rec.IdSelectShape) as TEllipseShape;
+
+            EllipseShape.postCenter := rec.PostStart;
+            EllipseShape.Hradius := rec.Radius1;
+            EllipseShape.Vradius := rec.Radius2;
+            EllipseShape.ShapeOutline := rec.color;
+            EllipseShape.ShapeFill := rec.ColorFill;
+            EllipseShape.LineType := rec.lineType;
+            EllipseShape.LineWeight := rec.weight;
+            EllipseShape.BrushStyle := rec.BrushStyle;
+            EllipseShape.isSelected := False;
+
+            if rec.IdAction = caAdd then
+              overlayTabTemp.MemberList.Add(EllipseShape);
             {$ENDREGION}
           end;
           ovArc :
           begin
             {$Region' Arc '}
-//            if rec.IdAction = caAdd then
-//              ArcShape := TArcStatic.Create(Converter)
-//            else
-//              ArcShape := OverlayTemplate.StaticList.Items[rec.IdSelectShape];
-//
-//            ArcShape.postCenter := rec.PostStart;
-//            ArcShape.radius := rec.Radius1;
-//            ArcShape.StartAngle := rec.StartAngle;
-//            ArcShape.EndAngle := rec.EndAngle;
-//            ArcShape.Color := rec.color;
-//            ArcShape.LineType := rec.lineType;
-//            ArcShape.Weight := rec.weight;
-//            ArcShape.BrushStyle := rec.BrushStyle;
-//            ArcShape.isSelected := False;
-//
-//            if rec.IdAction = caAdd then
-//              OverlayTemplate.StaticList.Add(ArcShape);
+            if rec.IdAction = caAdd then
+            begin
+              ArcShape := TArcShape.Create(Converter);
+              ArcShape.ShapeId := GetSerialShapeID
+            end
+            else
+              ArcShape := overlayTabTemp.GetShapeById(rec.IdSelectShape) as TArcShape;
+
+            ArcShape.postCenter := rec.PostStart;
+            ArcShape.radius := rec.Radius1;
+            ArcShape.StartAngle := rec.StartAngle;
+            ArcShape.EndAngle := rec.EndAngle;
+            ArcShape.ShapeOutline := rec.color;
+            ArcShape.LineType := rec.lineType;
+            ArcShape.LineWeight := rec.weight;
+            ArcShape.BrushStyle := rec.BrushStyle;
+            ArcShape.isSelected := False;
+
+            if rec.IdAction = caAdd then
+              overlayTabTemp.MemberList.Add(ArcShape);
             {$ENDREGION}
           end;
           ovSector :
           begin
             {$Region' Sector '}
-//            if rec.IdAction = caAdd then
-//              SectorShape := TSectorStatic.Create(Converter)
-//            else
-//              SectorShape := OverlayTemplate.StaticList.Items[rec.IdSelectShape];
-//
-//            SectorShape.postCenter := rec.PostStart;
-//            SectorShape.Oradius := rec.Radius1;
-//            SectorShape.Iradius := rec.Radius2;
-//            SectorShape.StartAngle := rec.StartAngle;
-//            SectorShape.EndAngle := rec.EndAngle;
-//            SectorShape.Color := rec.color;
-//            SectorShape.LineType := rec.lineType;
-//            SectorShape.Weight := rec.weight;
-//            SectorShape.BrushStyle := rec.BrushStyle;
-//            SectorShape.isSelected := False;
-//
-//            if rec.IdAction = caAdd then
-//              OverlayTemplate.StaticList.Add(SectorShape);
+            if rec.IdAction = caAdd then
+            begin
+              SectorShape := TSectorShape.Create(Converter);
+              SectorShape.ShapeId := GetSerialShapeID
+            end
+            else
+              SectorShape := overlayTabTemp.GetShapeById(rec.IdSelectShape) as TSectorShape;
+
+            SectorShape.postCenter := rec.PostStart;
+            SectorShape.Oradius := rec.Radius1;
+            SectorShape.Iradius := rec.Radius2;
+            SectorShape.StartAngle := rec.StartAngle;
+            SectorShape.EndAngle := rec.EndAngle;
+            SectorShape.ShapeOutline := rec.color;
+            SectorShape.LineType := rec.lineType;
+            SectorShape.LineWeight := rec.weight;
+            SectorShape.BrushStyle := rec.BrushStyle;
+            SectorShape.isSelected := False;
+
+            if rec.IdAction = caAdd then
+              overlayTabTemp.MemberList.Add(SectorShape);
             {$ENDREGION}
           end;
           ovGrid :
           begin
-            {$Region' Sector '}
-//            if rec.IdAction = caAdd then
-//              GridShape := TGridStatic.Create(Converter)
-//            else
-//              GridShape := OverlayTemplate.StaticList.Items[rec.IdSelectShape];
-//
-//            GridShape.postCenter := rec.PostStart;
-//            GridShape.Height := rec.Radius1;
-//            GridShape.Width := rec.Radius2;
-//            GridShape.HCount := rec.Kolom;
-//            GridShape.WCount := rec.Baris;
-//            GridShape.Rotation := rec.Rotasi;
-//            GridShape.Color := rec.color;
-//            GridShape.ColorFill := rec.ColorFill;
-//            GridShape.LineType := rec.lineType;
-//            GridShape.Weight := rec.weight;
-//            GridShape.BrushStyle := rec.BrushStyle;
-//            GridShape.isSelected := False;
-//
-//            if rec.IdAction = caAdd then
-//              OverlayTemplate.StaticList.Add(GridShape);
+            {$Region' Grid '}
+            if rec.IdAction = caAdd then
+            begin
+              GridShape := TGridShape.Create(Converter);
+              GridShape.ShapeId := GetSerialShapeID
+            end
+            else
+              GridShape := overlayTabTemp.GetShapeById(rec.IdSelectShape) as TGridShape;
+
+            GridShape.postCenter := rec.PostStart;
+            GridShape.Height := rec.Radius1;
+            GridShape.Width := rec.Radius2;
+            GridShape.HCount := rec.Kolom;
+            GridShape.WCount := rec.Baris;
+            GridShape.Rotation := rec.Rotasi;
+            GridShape.ShapeOutline := rec.color;
+            GridShape.ShapeFill := rec.ColorFill;
+            GridShape.LineType := rec.lineType;
+            GridShape.LineWeight := rec.weight;
+            GridShape.BrushStyle := rec.BrushStyle;
+            GridShape.isSelected := False;
+
+            if rec.IdAction = caAdd then
+              overlayTabTemp.MemberList.Add(GridShape);
             {$ENDREGION}
           end;
           ovPolygon  :
           begin
             {$Region' Polygon '}
-//            case rec.IdAction of
-//              caAdd :
-//              begin
-//                PolygonShape := TPolygonStatic.Create(Converter);
-//              end;
-//              caEdit :
-//              begin
-//                PolygonShape := OverlayTemplate.StaticList.Items[rec.IdSelectShape];
-//                PolygonShape.polyList.Clear;
-//              end;
-//            end;
-//
-//            PolygonShape.Color := rec.color;
-//            PolygonShape.ColorFill := rec.ColorFill;
-//            PolygonShape.LineType := rec.lineType;
-//            PolygonShape.Weight := rec.weight;
-//            PolygonShape.BrushStyle := rec.BrushStyle;
-//            PolygonShape.isSelected := False;
-//
-//            for i := 0 to 12 do
-//            begin
-//              if (rec.polyPoint[i].X = 0) and (rec.polyPoint[i].Y = 0) then
-//                Continue;
-//
-//              Point1 := TDotStatic.Create;
-//              Point1.X := rec.polyPoint[i].X;
-//              Point1.Y := rec.polyPoint[i].Y;
-//              PolygonShape.polyList.Add(Point1);
-//            end;
-//
-//            if rec.IdAction = caAdd then
-//              OverlayTemplate.StaticList.Add(PolygonShape);
+            case rec.IdAction of
+              caAdd :
+              begin
+                PolygonShape := TPolygonShape.Create(Converter);
+                PolygonShape.ShapeId := GetSerialShapeID
+              end;
+              caEdit :
+              begin
+                PolygonShape := overlayTabTemp.GetShapeById(rec.IdSelectShape) as TPolygonShape;
+                PolygonShape.polyList.Clear;
+              end;
+            end;
+
+            PolygonShape.ShapeOutline := rec.color;
+            PolygonShape.ShapeFill := rec.ColorFill;
+            PolygonShape.LineType := rec.lineType;
+            PolygonShape.LineWeight := rec.weight;
+            PolygonShape.BrushStyle := rec.BrushStyle;
+            PolygonShape.isSelected := False;
+
+            for i := 0 to 12 do
+            begin
+              if (rec.polyPoint[i].X = 0) and (rec.polyPoint[i].Y = 0) then
+                Continue;
+
+              Point1 := TDotShape.Create;
+              Point1.X := rec.polyPoint[i].X;
+              Point1.Y := rec.polyPoint[i].Y;
+              PolygonShape.polyList.Add(Point1);
+            end;
+
+            if rec.IdAction = caAdd then
+              overlayTabTemp.MemberList.Add(PolygonShape);
             {$ENDREGION}
           end;
         end;

@@ -104,13 +104,8 @@ type
     btn4: TSpeedButton;
     lbl32: TLabel;
     lbl33: TLabel;
-    lbl115: TLabel;
-    lbl116: TLabel;
     lbl117: TLabel;
     lbl118: TLabel;
-    lbl119: TLabel;
-    lbl120: TLabel;
-    lbl121: TLabel;
     lbl37: TLabel;
     bvl7: TBevel;
     lbl38: TLabel;
@@ -376,6 +371,7 @@ type
     procedure btnApplyClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnFillClick(Sender: TObject);
+    procedure btnCloseClick(Sender: TObject);
 
   private
     FShapeType : Integer;
@@ -492,6 +488,11 @@ begin
   end;
   ClearEditText;
   ClearFlagPoint;
+end;
+
+procedure TfrmOverlayTools.btnCloseClick(Sender: TObject);
+begin
+  Close;
 end;
 
 procedure TfrmOverlayTools.btnFillClick(Sender: TObject);
@@ -1410,7 +1411,7 @@ begin
           edtTextPosLong.Text := formatDMS_long(textTemp.postStart.X);
           cbbTextSize.Text    := IntToStr(textTemp.size);
           edtTextField.Text   := textTemp.words;
-          pnlOutline.color    := textTemp.Color;
+          pnlOutline.color    := textTemp.ShapeOutline;
           textTemp.isSelected := true;
           LoadPanelText;
 
@@ -1438,9 +1439,9 @@ begin
           edtLineStartPosLong.Text := formatDMS_long(lineTemp.postStart.X);
           edtLineEndPosLat.Text := formatDMS_latt(lineTemp.postEnd.Y);
           edtLineEndPosLong.Text := formatDMS_long(lineTemp.postEnd.X);
-          pnlOutline.Color := lineTemp.Color;
+          pnlOutline.Color := lineTemp.ShapeOutline;
           cbbDashesPen.ItemIndex :=  SetLineType(rectangleTemp.LineType);
-          cbbWeightPen.Text := IntToStr(lineTemp.weight);
+          cbbWeightPen.Text := IntToStr(lineTemp.LineWeight);
           lineTemp.isSelected := true;
           LoadPanelLine;
 
@@ -1472,9 +1473,9 @@ begin
           edtRectStartPosLat.Text   := formatDMS_latt(rectangleTemp.postStart.Y);
           edtRectEndPosLong.Text    := formatDMS_long(rectangleTemp.postEnd.X);
           edtRectEndPosLat.Text     := formatDMS_latt(rectangleTemp.postEnd.Y);
-          pnlOutline.Color      := rectangleTemp.Color;
+          pnlOutline.Color      := rectangleTemp.ShapeOutline;
           cbbDashesPen.ItemIndex :=  SetLineType(rectangleTemp.LineType);
-          cbbWeightPen.Text := IntToStr(rectangleTemp.weight);
+          cbbWeightPen.Text := IntToStr(rectangleTemp.LineWeight);
 
           if rectangleTemp.BrushStyle = bsClear then
           begin
@@ -1483,7 +1484,7 @@ begin
           else
           begin
             SetNoFill(False);
-            PnlFill.Color := rectangleTemp.ColorFill;
+            PnlFill.Color := rectangleTemp.ShapeFill;
           end;
 
           rectangleTemp.isSelected := true;
@@ -1508,9 +1509,9 @@ begin
           edtCirclePosLong.Text := formatDMS_long(circleTemp.postCenter.X);
           edtCirclePosLat.Text := formatDMS_latt(circleTemp.postCenter.Y);
           edtCircleRadius.Text := FloatToStr(circleTemp.radius);
-          pnlOutline.Color := circleTemp.Color;
+          pnlOutline.Color := circleTemp.ShapeOutline;
           cbbDashesPen.ItemIndex :=  SetLineType(circleTemp.LineType);
-          cbbWeightPen.Text := IntToStr(circleTemp.Weight);
+          cbbWeightPen.Text := IntToStr(circleTemp.LineWeight);
 
           if circleTemp.BrushStyle = bsClear then
           begin
@@ -1519,7 +1520,7 @@ begin
           else
           begin
             SetNoFill(False);
-            pnlFill.Color := circleTemp.ColorFill;
+            pnlFill.Color := circleTemp.ShapeFill;
           end;
 
           circleTemp.isSelected := true;
@@ -1559,10 +1560,10 @@ begin
           edtEllipsePosLat.Text   := formatDMS_latt(ellipseTemp.postCenter.Y);
           edtHorizontal.Text      := FloatToStr(ellipseTemp.Hradius);
           edtVertical.Text        := FloatToStr(ellipseTemp.Vradius);
-          pnlOutline.Color    := ellipseTemp.Color;
+          pnlOutline.Color    := ellipseTemp.ShapeOutline;
 
           cbbDashesPen.ItemIndex :=  SetLineType(ellipseTemp.LineType);
-          cbbWeightPen.Text := IntToStr(ellipseTemp.weight);
+          cbbWeightPen.Text := IntToStr(ellipseTemp.LineWeight);
 
           if ellipseTemp.BrushStyle = bsClear then
           begin
@@ -1571,7 +1572,7 @@ begin
           else
           begin
             SetNoFill(False);
-            pnlFill.Color := ellipseTemp.ColorFill;
+            pnlFill.Color := ellipseTemp.ShapeFill;
           end;
 
           ellipseTemp.isSelected := true;
@@ -1598,9 +1599,9 @@ begin
           edtArcRadius.Text := FloatToStr(arcTemp.radius);
           edtArcStartAngle.Text := IntToStr(arcTemp.StartAngle);
           edtArcEndAngle.Text := IntToStr(arcTemp.EndAngle);
-          pnlOutline.Color := arcTemp.Color;
+          pnlOutline.Color := arcTemp.ShapeOutline;
           cbbDashesPen.ItemIndex :=  SetLineType(arcTemp.LineType);
-          cbbWeightPen.Text := IntToStr(arcTemp.weight);
+          cbbWeightPen.Text := IntToStr(arcTemp.LineWeight);
 
           arcTemp.isSelected  := true;
           LoadPanelArc;
@@ -1627,10 +1628,10 @@ begin
           edtSectorOuter.Text       := FloatToStr(sectorTemp.Oradius);
           edtSectorStartAngle.Text  := IntToStr(sectorTemp.StartAngle);
           edtSectorEndAngle.Text    := IntToStr(sectorTemp.EndAngle);
-          pnlOutline.Color      := sectorTemp.Color;
+          pnlOutline.Color      := sectorTemp.ShapeOutline;
 
           cbbDashesPen.ItemIndex :=  SetLineType(sectorTemp.LineType);
-          cbbWeightPen.Text := IntToStr(sectorTemp.weight);
+          cbbWeightPen.Text := IntToStr(sectorTemp.LineWeight);
 
           sectorTemp.isSelected  := true;
           LoadPanelSector;
@@ -1704,10 +1705,10 @@ begin
           edtTableWidth.Text          := FloatToStr(gridTemp.Width);
           edtTableHeight.Text         := FloatToStr(gridTemp.Height);
           edtTableRotationAngle.Text  := IntToStr(gridTemp.Rotation);
-          pnlOutline.Color        := gridTemp.Color;
+          pnlOutline.Color        := gridTemp.ShapeOutline;
 
           cbbDashesPen.ItemIndex :=  SetLineType(gridTemp.LineType);
-          cbbWeightPen.Text := IntToStr(gridTemp.weight);
+          cbbWeightPen.Text := IntToStr(gridTemp.LineWeight);
 
           gridTemp.isSelected := true;
           LoadPanelGrid;
@@ -1761,10 +1762,10 @@ begin
             finally
               lvPolyVertex.Items.EndUpdate;
             end;
-            pnlOutline.Color := polygonTemp.Color;
+            pnlOutline.Color := polygonTemp.ShapeOutline;
 
             cbbDashesPen.ItemIndex := SetLineType(polygonTemp.LineType);
-            cbbWeightPen.Text := IntToStr(polygonTemp.weight);
+            cbbWeightPen.Text := IntToStr(polygonTemp.LineWeight);
 
             if polygonTemp.BrushStyle = bsClear then
             begin
@@ -1773,7 +1774,7 @@ begin
             else
             begin
               SetNoFill(False);
-              pnlFill.Color := polygonTemp.ColorFill;
+              pnlFill.Color := polygonTemp.ShapeFill;
             end;
 
             polygonTemp.isSelected := true;
@@ -1785,6 +1786,8 @@ begin
       {$ENDREGION}
       end;
     end;
+
+    frmSituationBoard.LoadOverlay(SelectedOverlayTab.IdOverlayTab);
   end
   else
   begin

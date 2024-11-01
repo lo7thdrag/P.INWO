@@ -35,6 +35,11 @@ const
   ovSector    = 7;
   ovGrid      = 8;
   ovPolygon   = 9;
+  ovIntelijen = 10;
+  ovLogistic  = 11;
+  ovRadar     = 12;
+  ovPangkalan = 13;
+  ovPanah     = 14;
 
   /// Action Type
   caAdd     = 0;
