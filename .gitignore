@@ -28,3 +28,6 @@ Bin/ntwdblib.dll
 /Source/LibTTT/LibForms/DatabaseEditorForm/Countermeasure/__history
 /Source/DBEditor.src/__history
 /Source/LibTTT/LibForms/SimulatorForm/AdditionalForm/__history
+Source/SimClient.src/SimClient.dproj.local
+Source/SimClient.src/SimClient.identcache
+Source/SimServer.src/SimServer.identcache
