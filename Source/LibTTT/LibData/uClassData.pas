@@ -231,6 +231,8 @@ type
     procedure Clear;
     procedure Draw(aCnv: TCanvas); virtual;
 
+    procedure Normalized(aCnv : TCanvas);
+
     property Identifier : string read FIdentifier write FIdentifier;
     property ShapeId : Integer read FShapeId write FShapeId;
     property ShapeOutline : Integer read FShapeOutline write FShapeOutline;
@@ -1002,6 +1004,16 @@ begin
   end;
 end;
 
+procedure TMainShape.Normalized(aCnv: TCanvas);
+begin
+  with aCnv do
+  begin
+    Pen.Color := clBlack;
+    Pen.Width := 1;
+    Pen.Style := psSolid;
+  end;
+end;
+
 function TMainShape.PackingInfo(OldStatus: string): string;
 var
   s, i : Integer;
@@ -1175,7 +1187,7 @@ begin
     MoveTo(sx, sy);
     LineTo(ex, ey);
   end;
-//  normalized(aCnv);
+  Normalized(aCnv);
 end;
 
 {$ENDREGION}
@@ -1221,7 +1233,7 @@ begin
 
     Rectangle(sx, sy, ex, ey);
   end;
-//  normalized(aCnv);
+  Normalized(aCnv);
 end;
 
 {$ENDREGION}

@@ -372,6 +372,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure btnFillClick(Sender: TObject);
     procedure btnCloseClick(Sender: TObject);
+    procedure colorChooseChange(Sender: TObject);
 
   private
     FShapeType : Integer;
@@ -406,6 +407,12 @@ type
     procedure LoadPanelSector;
     procedure LoadPanelGrid;
     procedure LoadPanelPolygon;
+    procedure LoadPanelIntelijen;
+    procedure LoadPanelLogistic;
+    procedure LoadPanelRadar;
+    procedure LoadPanelPangkalan;
+    procedure LoadPanelPanah;
+
     procedure SetNoFill(val: Boolean);
 
     procedure GbrText;
@@ -481,9 +488,6 @@ begin
     3: {Close}
     begin
       Canceled;
-//      grpTemplate.Left := 17;
-
-//      UpdateOverlayTemplateList;
     end;
   end;
   ClearEditText;
@@ -540,7 +544,17 @@ begin
     ovGrid:
       LoadPanelGrid;
     ovPolygon:
-      LoadPanelPolygon
+      LoadPanelPolygon;
+    ovIntelijen:
+      LoadPanelIntelijen;
+    ovLogistic:
+      LoadPanelLogistic;
+    ovRadar :
+      LoadPanelRadar;
+    ovPangkalan :
+      LoadPanelPangkalan;
+    ovPanah :
+      LoadPanelPanah;
   end;
 end;
 
@@ -573,9 +587,15 @@ end;
 procedure TfrmOverlayTools.cbbTypeToolsChange(Sender: TObject);
 begin
   if cbbTypeTools.ItemIndex = 0 then
-    pnlShape.BringToFront
+  begin
+    pnlShape.BringToFront;
+    grpNone.BringToFront;
+  end
   else if cbbTypeTools.ItemIndex = 1 then
+  begin
     pnlObject.BringToFront;
+    grpObjNone.BringToFront;
+  end;
 end;
 
 function TfrmOverlayTools.CekInput(IdObject: Integer): Boolean;
@@ -586,6 +606,7 @@ begin
   case IdObject of
     ovText:{Text}
     begin
+      {$REGION ' Text '}
       if(edtTextPosLong.Text = '') or (edtTextPosLAt.Text= '')or
         (edtTextField.Text = '')or(cbbTextSize.Text = '')then
       begin
@@ -597,23 +618,27 @@ begin
         ShowMessage('Ukuran tulisan tidak sesuai');
         Result := True;
       end;
+      {$ENDREGION}
     end;
-//    ovLine:{Line}
-//    begin
-//    if (edtLineStartPosLong.Text ='') or (edtLineStartPosLat.Text = '')or
-//    (edtLineEndPosLong.Text = '') or (edtLineEndPosLat.Text = '')then
-//    begin
-//    lblWarning.Caption := 'Incomplete Data Input';
-//    Result := True;
-//    end
-//    else if (edtLineStartPosLong.Text = edtLineEndPosLong.Text) and (edtLineStartPosLat.Text = edtLineEndPosLat.Text)then
-//    begin
-//    lblWarning.Caption := 'Invalid input..., Start and End position can not be identical';
-//    Result := True;
-//    end;;
-//    end;
+    ovLine:{Line}
+    begin
+      {$REGION ' Line '}
+      if (edtLineStartPosLong.Text ='') or (edtLineStartPosLat.Text = '')or
+      (edtLineEndPosLong.Text = '') or (edtLineEndPosLat.Text = '')then
+      begin
+        ShowMessage('Data yang dimasukkan tidak lengkap');
+        Result := True;
+      end
+      else if (edtLineStartPosLong.Text = edtLineEndPosLong.Text) and (edtLineStartPosLat.Text = edtLineEndPosLat.Text)then
+      begin
+        ShowMessage('Data yang dimasukkan tidak sesuai, Posisi Start dan End tidak boleh sama');
+        Result := True;
+      end;
+      {$ENDREGION}
+    end;
     ovRectangle:{Rectangle}
     begin
+      {$REGION ' Rectangle '}
       if (edtRectStartPosLong.Text = '')or(edtRectStartPosLat.Text = '')or
       (edtRectEndPosLong.Text = '')or (edtRectEndPosLat.Text = '')or
       (edtRectStartPosLong.Text= '')or (edtRectStartPosLat.Text= '')or
@@ -627,110 +652,122 @@ begin
         ShowMessage('Data yang dimasukkan tidak sesuai, Posisi Top-Left dan Bottom-Right tidak boleh sama');
         Result := True;;
       end;
+      {$ENDREGION}
     end;
-//    ovCircle:{Circle}
-//    begin
-//    if (edtCirclePosLong.Text = '')or (edtCirclePosLat.Text = '') or
-//    (edtCircleRadius.Text = '')or(edtCirclePosLong.text='')or
-//    (edtCirclePosLat.Text= '') then
-//    begin
-//    lblWarning.Caption := 'Incomplete Data Input';
-//    Result := True;
-//    end
-//    else if (edtCircleRadius.Text = '0' ) then
-//    begin
-//    lblWarning.Caption := 'Invalid radius input, minimum radius > 0';
-//    Result := True;
-//    end;
-//    end;
-//    ovEllipse:{Ellipse}
-//    begin
-//    if (edtEllipsePosLong.Text = '')or (edtEllipsePosLat.Text = '')
-//    or(edtHorizontal.Text = '') or (edtVertical.Text = '')or
-//    (edtEllipsePosLat.text= '')or
-//    (edtEllipsePosLong.Text= '') then
-//    begin
-//    lblWarning.Caption := 'Incomplete Data Input';
-//    Result := True;
-//    end
-//    else if (edtHorizontal.Text = '0') or (edtVertical.Text = '0')then
-//    begin
-//    lblWarning.Caption := 'Invalid radius input, minimum radius > 0';
-//    Result := True;
-//    end;
-//    end;
-//    ovArc:{Arc}
-//    begin
-//    if (edtArcPosLong.Text = '') or (edtArcPosLat.Text = '')or
-//    (edtArcRadius.Text = '')or(edtArcStartAngle.Text = '')or
-//    (edtArcEndAngle.Text = '')then
-//    begin
-//    lblWarning.Caption := 'Incomplete Data Input';
-//    Result := True;
-//    end
-//    else if (edtArcRadius.Text = '0') then
-//    begin
-//    lblWarning.Caption := 'Invalid radius input, minimum radius > 0';
-//    Result := True;
-//    end
-//    else if (edtArcEndAngle.Text = edtArcStartAngle.Text) then
-//    begin
-//    lblWarning.Caption := 'Invalid input..., Start and End Angle can not be identical';
-//    Result := True;
-//    end;
-//    end;
-//    ovSector:{Sector}
-//    begin
-//    if(edtSectorInner.Text = '') or (edtSectorOuter.Text = '')or
-//    (edtSectorStartAngle.Text = '') or (edtSectorEndAngle.Text = '')or
-//    (edtSectorPosLat.Text = '')or (edtSectorPosLong.Text = '')then
-//    begin
-//    lblWarning.Caption := 'Incomplete Data Input';
-//    Result := True;
-//    end
-//    else if (edtSectorInner.Text = '0')or (edtSectorOuter.Text = '0')then
-//    begin
-//    lblWarning.Caption := 'Invalid radius input, minimum radius > 0';
-//    Result := True;
-//    end
-//    else if (edtSectorStartAngle.Text = edtSectorEndAngle.Text) then
-//    begin
-//    lblWarning.Caption := 'Invalid input..., Start and End Angle can not be identical';
-//    Result := True;
-//    end
-//    else if (edtSectorInner.Text = edtSectorOuter.Text) then
-//    begin
-//    lblWarning.Caption := 'Invalid input..., Inner and Outer Radius can not be identical';
-//    Result := True;
-//    end;
-//    end;
-//    ovGrid:{Grid}
-//    begin
-//    if (edtTablePosLong.Text = '')or (edtTablePosLat.Text ='') or
-//    (edtTableHeight.Text = '')or (edtTableColumn.Text = '') or
-//    (edtTableWidth.Text = '') or (edtTableRow.Text = '')or
-//    (edtTableRotationAngle.Text = '')or(edtTablePosLat.Text ='')
-//    or(edtTablePosLong.Text='') then
-//    begin
-//    lblWarning.Caption := 'Incomplete Data Input';
-//    Result := True;
-//    end
-//
-//    else if (edtTableHeight.Text = '0') or (edtTableColumn.Text = '0') or (edtTableWidth.Text = '0')
-//    or (edtTableRow.Text = '0') then
-//    begin
-//    lblWarning.Caption := 'Invalid input, minimum Col, Row and height > 0';
-//    Result := True;
-//    end;
-//    end;
-//    ovPolygon:{Polygon}
-//    begin
-//    if lvPolyVertex.Items.Count < 1 then
-//    begin
-//    lblWarning.Caption := 'Incomplete Data Input';
-//    Result := True;
-//    end;
-//    end;
+    ovCircle:{Circle}
+    begin
+      {$REGION ' Circle '}
+      if (edtCirclePosLong.Text = '')or (edtCirclePosLat.Text = '') or
+      (edtCircleRadius.Text = '')or(edtCirclePosLong.text='')or
+      (edtCirclePosLat.Text= '') then
+      begin
+        ShowMessage('Data yang dimasukan tidak lengkap');
+        Result := True;
+      end
+      else if (edtCircleRadius.Text = '0' ) then
+      begin
+        ShowMessage('Data radius yang dimasukan tidak sesuai, radius minimum > 0');
+        Result := True;
+      end;
+      {$ENDREGION}
+    end;
+    ovEllipse:{Ellipse}
+    begin
+      {$REGION ' Ellipse '
+      if (edtEllipsePosLong.Text = '')or (edtEllipsePosLat.Text = '')
+      or(edtHorizontal.Text = '') or (edtVertical.Text = '')or
+      (edtEllipsePosLat.text= '')or
+      (edtEllipsePosLong.Text= '') then
+      begin
+        ShowMessage ('Data yang dimasukan tidak lengkap');
+        Result := True;
+      end
+      else if (edtHorizontal.Text = '0') or (edtVertical.Text = '0')then
+      begin
+        ShowMessage ('Data radius yang dimasukan tidak sesuai, radius minimum > 0');
+        Result := True;
+      end;
+      {$ENDREGION}
+    end;
+    ovArc:{Arc}
+    begin
+      if (edtArcPosLong.Text = '') or (edtArcPosLat.Text = '')or
+      (edtArcRadius.Text = '')or(edtArcStartAngle.Text = '')or
+      (edtArcEndAngle.Text = '')then
+      begin
+        ShowMessage ('Data yang dimasukan tidak lengkap');
+        Result := True;
+      end
+      else if (edtArcRadius.Text = '0') then
+      begin
+        ShowMessage ('Data radius yang dimasukan tidak sesuai, radius minimum > 0');
+        Result := True;
+      end
+      else if (edtArcEndAngle.Text = edtArcStartAngle.Text) then
+      begin
+        ShowMessage ('Data yang dimasukkan tidak sesuai, Posisi Start dan End Angle tidak boleh sama');
+        Result := True;
+      end;
+      {$ENDREGION}
+    end;
+    ovSector:{Sector}
+    begin
+      {$REGION ' Sector '}
+      if(edtSectorInner.Text = '') or (edtSectorOuter.Text = '')or
+      (edtSectorStartAngle.Text = '') or (edtSectorEndAngle.Text = '')or
+      (edtSectorPosLat.Text = '')or (edtSectorPosLong.Text = '')then
+      begin
+        ShowMessage ('Data yang dimasukan tidak lengkap');
+        Result := True;
+      end
+      else if (edtSectorInner.Text = '0')or (edtSectorOuter.Text = '0')then
+      begin
+        ShowMessage ('Data radius yang dimasukan tidak sesuai, radius minimum > 0');
+        Result := True;
+      end
+      else if (edtSectorStartAngle.Text = edtSectorEndAngle.Text) then
+      begin
+        ShowMessage('Data yang dimasukkan tidak sesuai, Posisi Start dan End Angle tidak boleh sama');
+        Result := True;
+      end
+      else if (edtSectorInner.Text = edtSectorOuter.Text) then
+      begin
+        ShowMessage ('Data Inner, Outer atau Radius yang dimasukan tidak sesuai');
+        Result := True;
+      end;
+      {$ENDREGION}
+    end;
+    ovGrid:{Grid}
+    begin
+      {$REGION ' Grid '}
+      if (edtTablePosLong.Text = '')or (edtTablePosLat.Text ='') or
+      (edtTableHeight.Text = '')or (edtTableColumn.Text = '') or
+      (edtTableWidth.Text = '') or (edtTableRow.Text = '')or
+      (edtTableRotationAngle.Text = '')or(edtTablePosLat.Text ='')
+      or(edtTablePosLong.Text='') then
+      begin
+        ShowMessage ('Data yang dimasukan tidak lengkap');
+        Result := True;
+      end
+
+      else if (edtTableHeight.Text = '0') or (edtTableColumn.Text = '0') or (edtTableWidth.Text = '0')
+      or (edtTableRow.Text = '0') then
+      begin
+        ShowMessage ('Data Col, Row atau Height yang dimasukan tidak sesuai');
+        Result := True;
+      end;
+      {$ENDREGION}
+    end;
+    ovPolygon:{Polygon}
+    begin
+      {$REGION ' Polygon '}
+      if lvPolyVertex.Items.Count < 1 then
+      begin
+        ShowMessage ('Data yang dimasukan tidak lengkap');
+        Result := True;
+      end;
+      {$ENDREGION}
+    end;
   end;
 
   if Result then
@@ -811,6 +848,20 @@ begin
 //  DrawFlagPoint.FList.Clear;
 //  Map1.Refresh;
 //  Map1.Repaint;
+end;
+
+procedure TfrmOverlayTools.colorChooseChange(Sender: TObject);
+begin
+  if FShapeColor = scOutline then
+  begin
+    pnlOutline.Color := colorChoose.ForegroundColor;
+  end
+  else
+  begin
+    isNoFill := False;
+    pnlFill.Caption := '';
+    pnlFill.Color := colorChoose.ForegroundColor;
+  end;
 end;
 
 procedure TfrmOverlayTools.Deleted;
@@ -1272,6 +1323,24 @@ begin
   {$ENDREGION}
 end;
 
+procedure TfrmOverlayTools.LoadPanelIntelijen;
+begin
+  grpIntelegent.BringToFront;
+
+  {$REGION ' Button Handle '}
+  btnDelete.Enabled := FAction = caEdit;
+  {$ENDREGION}
+end;
+
+procedure TfrmOverlayTools.LoadPanelLogistic;
+begin
+   grplogistik.BringToFront;
+
+  {$REGION ' Button Handle '}
+  btnDelete.Enabled := FAction = caEdit;
+  {$ENDREGION}
+end;
+
 procedure TfrmOverlayTools.LoadPanelLine;
 begin
   grpLine.BringToFront;
@@ -1287,6 +1356,24 @@ begin
   {$ENDREGION}
 end;
 
+procedure TfrmOverlayTools.LoadPanelPanah;
+begin
+  grpArrow.BringToFront;
+
+  {$REGION ' Button Handle '}
+  btnDelete.Enabled := FAction = caEdit;
+  {$ENDREGION}
+end;
+
+procedure TfrmOverlayTools.LoadPanelPangkalan;
+begin
+  grpBase.BringToFront;
+
+  {$REGION ' Button Handle '}
+  btnDelete.Enabled := FAction = caEdit;
+  {$ENDREGION}
+end;
+
 procedure TfrmOverlayTools.LoadPanelPolygon;
 begin
   grpPolygon.BringToFront;
@@ -1298,6 +1385,15 @@ begin
   SetNoFill(True);
   btnOutlineClick(nil);
 
+  btnDelete.Enabled := FAction = caEdit;
+  {$ENDREGION}
+end;
+
+procedure TfrmOverlayTools.LoadPanelRadar;
+begin
+  grpRadar.BringToFront;
+
+  {$REGION ' Button Handle '}
   btnDelete.Enabled := FAction = caEdit;
   {$ENDREGION}
 end;
@@ -1391,16 +1487,17 @@ begin
     begin
       mainShapeTemp := SelectedOverlayTab.MemberList[countList];
 
+      simMgrClient.Converter.ConvertToScreen(mx, my, pos.X, pos.Y);
+      ptPos := SelectedOverlayTab.Formula.PointTo2D(pos.X, pos.Y);
+
       if mainShapeTemp is TTextShape then
       begin
         {$REGION ' Text Section '}
         textTemp := TTextShape(mainShapeTemp);
 
-        simMgrClient.Converter.ConvertToScreen(mx, my, pos.X, pos.Y);
         simMgrClient.Converter.ConvertToScreen(textTemp.postStart.X, textTemp.postStart.Y, x1, y1);
 
         rect1 := SelectedOverlayTab.Formula.checkText(x1, y1, textTemp.Size, textTemp.words);
-        ptPos := SelectedOverlayTab.Formula.PointTo2D(pos.X, pos.Y);
 
         if ptToArea(rect1, ptPos) then
         begin
@@ -1440,7 +1537,7 @@ begin
           edtLineEndPosLat.Text := formatDMS_latt(lineTemp.postEnd.Y);
           edtLineEndPosLong.Text := formatDMS_long(lineTemp.postEnd.X);
           pnlOutline.Color := lineTemp.ShapeOutline;
-          cbbDashesPen.ItemIndex :=  SetLineType(rectangleTemp.LineType);
+          cbbDashesPen.ItemIndex :=  SetLineType(lineTemp.LineType);
           cbbWeightPen.Text := IntToStr(lineTemp.LineWeight);
           lineTemp.isSelected := true;
           LoadPanelLine;
