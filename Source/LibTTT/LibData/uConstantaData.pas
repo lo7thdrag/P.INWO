@@ -316,6 +316,8 @@ type
   function SetTipeTahapanToString(aValue : TTipeTahapan) : String;
   function SetTipeTahapanToEnum(aValue : String) : TTipeTahapan;
 
+  function SetLineType(linetype :TPenStyle): Integer;
+
 implementation
 
 function SetOrganisasiTugasToString(aValue : TOrganisasiTugas) : String;
@@ -493,6 +495,17 @@ begin
   else if aValue = 'Pengakhiran' then
   begin
     result := ttPengakhiran;
+  end;
+end;
+
+function SetLineType(linetype: TPenStyle): Integer;
+begin
+  case linetype of
+    TPenStyle(psSolid): Result := 0;
+    TPenStyle(psDash) : Result := 1;
+    TPenStyle(psDot)  : Result := 2;
+    TPenStyle(psDashDot): Result := 3;
+    TPenStyle(psDashDotDot): Result := 4;
   end;
 end;
 

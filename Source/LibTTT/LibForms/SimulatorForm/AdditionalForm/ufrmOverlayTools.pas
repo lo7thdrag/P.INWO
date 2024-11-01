@@ -243,7 +243,6 @@ type
     pnlMain: TPanel;
     grpColorForce: TGroupBox;
     grpObjectSymbol: TGroupBox;
-    Image11: TImage;
     Label63: TLabel;
     pnlMainBottom: TPanel;
     btnApply: TButton;
@@ -353,10 +352,9 @@ type
     grpObjNone: TGroupBox;
     Label8: TLabel;
     btnIntelegent: TRzBmpButton;
-    RzBmpButton1: TRzBmpButton;
-    RzBmpButton2: TRzBmpButton;
-    RzBmpButton3: TRzBmpButton;
-    RzBmpButton4: TRzBmpButton;
+    btnLogistik: TRzBmpButton;
+    btnBase: TRzBmpButton;
+    btnArrow: TRzBmpButton;
     btnSelect: TRzBmpButton;
     btnPolygon: TRzBmpButton;
     btnGrid: TRzBmpButton;
@@ -369,6 +367,8 @@ type
     btnText: TRzBmpButton;
     btnOutline: TRzBmpButton;
     btnFill: TRzBmpButton;
+    btnNone: TRzBmpButton;
+    btnRadar: TRzBmpButton;
     procedure btnHandleShape(Sender: TObject);
     procedure cbbTypeToolsChange(Sender: TObject);
     procedure btnOutlineClick(Sender: TObject);
@@ -427,10 +427,11 @@ type
     procedure SetPosition(mx, my :Double);
 
     function FindIdSelectedShape: Boolean;
+//    function lineTypeChoice (linetype :TPenStyle): String;
     function CekInput(IdObject : Integer): Boolean;
 
     property SelectedOverlayTab : TOverlayTab read FSelectedOverlayTab write  FSelectedOverlayTab;
-
+    property ShapeType : Integer read FShapeType write  FShapeType;
   end;
 
 var
@@ -870,56 +871,42 @@ begin
 end;
 
 procedure TfrmOverlayTools.GbrArc;
-//var
-//  recShapeStatic : TRecCmd_OverlayStaticShape;
-//  recShapeDynamic : TRecCmd_OverlayDynamicShape;
+var
+  recShape : TRecTCPSendOverlayShape;
+
 begin
-//  if CekInput(ovArc) then
+  if CekInput(ovArc) then
     Exit;
 
-//  if IsEditObject then
-  begin
-   //   Action := 2;
-//    if not FindIdSelectedShape then
-      Exit;
-  end
-//  else
-//    Action := 1;
+  recShape.IdUserRole := FSelectedOverlayTab.IdUserRole;
+  recShape.TemplateId := FSelectedOverlayTab.IdOverlayTab;
+  recShape.ShapeType := ovArc;
+  recShape.IdSelectShape := FShapeId;
+  recShape.IdAction := FAction;
 
-//  recShapeStatic.TemplateId := FSelectedOverlay.OverlayIndex;
-//  recShapeStatic.ShapeType := ovArc;
-//  recShapeStatic.IdSelectShape := NoShapeInList;
-//  recShapeStatic.IdAction := Action;
+  recShape.PostStart.X := dmsToLong(edtArcPosLong.Text);
+  recShape.PostStart.Y := dmsToLatt(edtArcPosLat.Text);
+  recShape.radius1 := StrToFloat(edtArcRadius.Text);
+  recShape.StartAngle := StrToInt(edtArcStartAngle.Text);
+  recShape.EndAngle := StrToInt(edtArcEndAngle.Text);
+  recShape.color := pnlOutline.Color;
 
-//  recShapeStatic.PostStart.X := dmsToLong(edtArcPosLong.Text);
-//  recShapeStatic.PostStart.Y := dmsToLatt(edtArcPosLat.Text);
-//  recShapeStatic.radius1 := StrToFloat(edtArcRadius.Text);
-//  recShapeStatic.StartAngle := StrToInt(edtArcStartAngle.Text);
-//  recShapeStatic.EndAngle := StrToInt(edtArcEndAngle.Text);
-//  recShapeStatic.color := pnlOutline.Color;
-
-//  recShapeStatic.LineType :=  TPenStyle(cbbDashesPen.ItemIndex);
-//  recShapeStatic.Weight := StrToInt(cbbWeightPen.Text);
-
-  //      if Action = caEdit then
-  //        recShapeStatic.idxDraw := simMgrClient.DrawOverlayTemplate.idxOverlay
-  //      else
-  //        recShapeStatic.idxDraw := idxDrawOverlay;
+  recShape.LineType :=  TPenStyle(cbbDashesPen.ItemIndex);
+  recShape.Weight := StrToInt(cbbWeightPen.Text);
 
   {Kirim data disini}
-//  simMgrClient.netSend_CmdOverlayStaticShape(recShapeStatic);
-//  isInputProblem := False;
+  simMgrClient.netSend_CmdOverlayShape(recShape);
+  FisInputProblem := False;
 end;
 
 procedure TfrmOverlayTools.GbrCircle;
-// var
-//  recShapeStatic : TRecCmd_OverlayStaticShape;
-//  recShapeDynamic : TRecCmd_OverlayDynamicShape;
-//
+var
+  recShape : TRecTCPSendOverlayShape;
+
 begin
-//  if CekInput(ovCircle) then
-//    Exit;
-//
+  if CekInput(ovCircle) then
+    Exit;
+
 //  if IsEditObject then
 //    begin
 //      Action := 2;
@@ -927,87 +914,68 @@ begin
 //      Exit;
 //    end
 //  else
-//    Action := 1;
-//
-//  recShapeStatic.TemplateId := FSelectedOverlay.OverlayIndex;
-//  recShapeStatic.ShapeType := ovCircle;
-//  recShapeStatic.IdSelectShape := NoShapeInList;
-//  recShapeStatic.IdAction := Action;
-//
-//  recShapeStatic.PostStart.X := dmsToLong(edtCirclePosLong.Text);
-//  recShapeStatic.PostStart.Y := dmsToLatt(edtCirclePosLat.Text);
-//  recShapeStatic.Radius1 := StrToFloat(edtCircleRadius.Text);
-//  recShapeStatic.color := pnlOutline.Color;
-//
-//  if FisNoFill  then
-//  recShapeStatic.BrushStyle := bsClear
-//  else
-//  begin
-//  recShapeStatic.BrushStyle := bsSolid;
-//  recShapeStatic.ColorFill := pnlFill.Color;
-//  end;
-//
-//  recShapeStatic.LineType :=  TPenStyle(cbbDashesPen.ItemIndex);
-//  recShapeStatic.Weight := StrToInt(cbbWeightPen.Text);
-//
-//  //      if Action = caEdit then
-//  //        recShapeStatic.idxDraw := simMgrClient.DrawOverlayTemplate.idxOverlay
-//  //      else
-//  //        recShapeStatic.idxDraw := idxDrawOverlay;
-//
-//  {Kirim data disini}
-//  simMgrClient.netSend_CmdOverlayStaticShape(recShapeStatic);
-//  isInputProblem := False;
+//    FAction := 1;
+
+  recShape.IdUserRole := FSelectedOverlayTab.IdUserRole;
+  recShape.TemplateId := FSelectedOverlayTab.IdOverlayTab;
+  recShape.ShapeType := ovCircle;
+  recShape.IdSelectShape := FShapeId;
+  recShape.IdAction := FAction;
+
+  recShape.PostStart.X := dmsToLong(edtCirclePosLong.Text);
+  recShape.PostStart.Y := dmsToLatt(edtCirclePosLat.Text);
+  recShape.Radius1 := StrToFloat(edtCircleRadius.Text);
+  recShape.color := pnlOutline.Color;
+
+  if isNoFill  then
+    recShape.BrushStyle := bsClear
+  else
+  begin
+    recShape.BrushStyle := bsSolid;
+    recShape.ColorFill := pnlFill.Color;
+  end;
+
+  recShape.LineType :=  TPenStyle(cbbDashesPen.ItemIndex);
+  recShape.Weight := StrToInt(cbbWeightPen.Text);
+
+  {Kirim data disini}
+  simMgrClient.netSend_CmdOverlayShape(recShape);
+  FisInputProblem := False;
 end;
 
 procedure TfrmOverlayTools.GbrEllipse;
-//var
-//  recShapeStatic : TRecCmd_OverlayStaticShape;
-//  recShapeDynamic : TRecCmd_OverlayDynamicShape;
+var
+  recShape : TRecTCPSendOverlayShape;
 begin
-//  if CekInput(ovEllipse) then
-//    Exit;
-//
-//  if IsEditObject then
-//  begin
-//    Action := 2;
-//
-//    if not FindIdSelectedShape then
-//      Exit;
-//  end
-//  else
-//  Action := 1;
-//
-//  recShapeStatic.TemplateId := FSelectedOverlay.OverlayIndex;
-//  recShapeStatic.ShapeType := ovEllipse;
-//  recShapeStatic.IdSelectShape := NoShapeInList;
-//  recShapeStatic.IdAction := Action;
-//
-//  recShapeStatic.PostStart.X := dmsToLong(edtEllipsePosLong.Text);
-//  recShapeStatic.PostStart.Y := dmsToLatt(edtEllipsePosLat.Text);
-//  recShapeStatic.Radius1 := StrToFloat(edtHorizontal.Text);
-//  recShapeStatic.Radius2 := StrToFloat(edtVertical.Text);
-//  recShapeStatic.color := pnlOutline.Color;
-//
-//  if FisNoFill  then
-//    recShapeStatic.BrushStyle := bsClear
-//  else
-//  begin
-//    recShapeStatic.BrushStyle := bsSolid;
-//    recShapeStatic.ColorFill := pnlFill.Color;
-//  end;
-//
-//  recShapeStatic.LineType :=  TPenStyle(cbbDashesPen.ItemIndex);
-//  recShapeStatic.Weight := StrToInt(cbbWeightPen.Text);
-//
-//  //      if Action = caEdit then
-//  //        recShapeStatic.idxDraw := simMgrClient.DrawOverlayTemplate.idxOverlay
-//  //      else
-//  //        recShapeStatic.idxDraw := idxDrawOverlay;
-//
-//  {Kirim data disini}
-//  simMgrClient.netSend_CmdOverlayStaticShape(recShapeStatic);
-//  isInputProblem := False;
+  if CekInput(ovEllipse) then
+    Exit;
+
+  recShape.IdUserRole := FSelectedOverlayTab.IdUserRole;
+  recShape.TemplateId := FSelectedOverlayTab.IdOverlayTab;
+  recShape.ShapeType := ovEllipse;
+  recShape.IdSelectShape := FShapeId;
+  recShape.IdAction := FAction;
+
+  recShape.PostStart.X := dmsToLong(edtEllipsePosLong.Text);
+  recShape.PostStart.Y := dmsToLatt(edtEllipsePosLat.Text);
+  recShape.Radius1 := StrToFloat(edtHorizontal.Text);
+  recShape.Radius2 := StrToFloat(edtVertical.Text);
+  recShape.color := pnlOutline.Color;
+
+  if isNoFill  then
+    recShape.BrushStyle := bsClear
+  else
+  begin
+    recShape.BrushStyle := bsSolid;
+    recShape.ColorFill := pnlFill.Color;
+  end;
+
+  recShape.LineType :=  TPenStyle(cbbDashesPen.ItemIndex);
+  recShape.Weight := StrToInt(cbbWeightPen.Text);
+
+  {Kirim data disini}
+  simMgrClient.netSend_CmdOverlayShape(recShape);
+  FisInputProblem := False;
 end;
 
 procedure TfrmOverlayTools.GbrFlagPoint(mx, my: Double);
@@ -1021,69 +989,52 @@ begin
 end;
 
 procedure TfrmOverlayTools.GbrGrid;
-//var
-//  recShapeStatic : TRecCmd_OverlayStaticShape;
-//  recShapeDynamic : TRecCmd_OverlayDynamicShape;
+var
+  recShape : TRecTCPSendOverlayShape;
+
 begin
-//  if CekInput(ovGrid) then
-//    Exit;
-//
-//  if IsEditObject then
-//  begin
-//     Action := 2;
-//    if not FindIdSelectedShape then
-//      Exit;
-//  end
-//  else
-//    Action := 1;
-//
-//  case StateOverlay of
-//
-//  recShapeStatic.TemplateId := FSelectedOverlay.OverlayIndex;
-//  recShapeStatic.ShapeType := ovGrid;
-//  recShapeStatic.IdSelectShape := NoShapeInList;
-//  recShapeStatic.IdAction := Action;
-//
-//  recShapeStatic.PostStart.X := dmsToLong(edtTablePosLong.Text);
-//  recShapeStatic.PostStart.Y := dmsToLatt(edtTablePosLat.Text);
-//  recShapeStatic.Radius1 := StrToFloat(edtTableHeight.Text);
-//  recShapeStatic.Radius2 := StrToFloat(edtTableWidth.Text);
-//  recShapeStatic.Kolom := StrToInt(edtTableColumn.Text);
-//  recShapeStatic.Baris := StrToInt(edtTableRow.Text);
-//  recShapeStatic.Rotasi := StrToInt(edtTableRotationAngle.Text);
-//  recShapeStatic.color := pnlOutline.Color;
-//
-//  if FisNoFill  then
-//    recShapeStatic.BrushStyle := bsClear
-//  else
-//  begin
-//    recShapeStatic.BrushStyle := bsSolid;
-//    recShapeStatic.ColorFill := pnlFill.Color;
-//  end;
-//
-//  recShapeStatic.LineType :=  TPenStyle(cbbDashesPen.ItemIndex);
-//  recShapeStatic.Weight := StrToInt(cbbWeightPen.Text);
-//
-//  //      if Action = caEdit then
-//  //        recShapeStatic.idxDraw := simMgrClient.DrawOverlayTemplate.idxOverlay
-//  //      else
-//  //        recShapeStatic.idxDraw := idxDrawOverlay;;
-//
-//  {Kirim data disini}
-//  simMgrClient.netSend_CmdOverlayStaticShape(recShapeStatic);
-//  isInputProblem := False;
-//end;
+  if CekInput(ovGrid) then
+    Exit;
+
+  recShape.IdUserRole := FSelectedOverlayTab.IdUserRole;
+  recShape.TemplateId := FSelectedOverlayTab.IdOverlayTab;
+  recShape.ShapeType := ovGrid;
+  recShape.IdSelectShape := FShapeId;
+  recShape.IdAction := FAction;
+
+  recShape.PostStart.X := dmsToLong(edtTablePosLong.Text);
+  recShape.PostStart.Y := dmsToLatt(edtTablePosLat.Text);
+  recShape.Radius1 := StrToFloat(edtTableHeight.Text);
+  recShape.Radius2 := StrToFloat(edtTableWidth.Text);
+  recShape.Kolom := StrToInt(edtTableColumn.Text);
+  recShape.Baris := StrToInt(edtTableRow.Text);
+  recShape.Rotasi := StrToInt(edtTableRotationAngle.Text);
+  recShape.color := pnlOutline.Color;
+
+  if isNoFill  then
+    recShape.BrushStyle := bsClear
+  else
+  begin
+    recShape.BrushStyle := bsSolid;
+    recShape.ColorFill := pnlFill.Color;
+  end;
+
+  recShape.LineType :=  TPenStyle(cbbDashesPen.ItemIndex);
+  recShape.Weight := StrToInt(cbbWeightPen.Text);
+
+  {Kirim data disini}
+  simMgrClient.netSend_CmdOverlayShape(recShape);
+  FisInputProblem := False;
 end;
 
 procedure TfrmOverlayTools.GbrLine;
-//var
-//  recShapeStatic : TRecCmd_OverlayStaticShape;
-//  recShapeDynamic : TRecCmd_OverlayDynamicShape;
+var
+  recShape : TRecTCPSendOverlayShape;
 
 begin
-//  if CekInput(ovLine) then
-//    Exit;
-//
+  if CekInput(ovLine) then
+    Exit;
+
 //  if IsEditObject then
 //  begin
 //      Action := 2;
@@ -1092,192 +1043,144 @@ begin
 //  end
 //  else
 //    Action := 1;
-//
-//  recShapeStatic.TemplateId := FSelectedOverlay.OverlayIndex;
-//  recShapeStatic.ShapeType := ovLine;
-//  recShapeStatic.IdSelectShape := NoShapeInList;
-//  recShapeStatic.IdAction := Action;
-//
-//  recShapeStatic.postStart.X := dmsToLong(edtLineStartPosLong.Text);
-//  recShapeStatic.postStart.Y := dmsToLatt(edtLineStartPosLat.Text);
-//  recShapeStatic.postEnd.X := dmsToLong(edtLineEndPosLong.Text);
-//  recShapeStatic.postEnd.Y := dmsToLatt(edtLineEndPosLat.Text);
-//
-//  recShapeStatic.color := pnlOutline.color;
-//  recShapeStatic.lineType :=  TPenStyle(cbbDashesPen.ItemIndex);
-//  recShapeStatic.weight := StrToInt(cbbWeightPen.Text);
-//
-//  //      if Action = caEdit then
-//  //        recShapeStatic.idxDraw := simMgrClient.DrawOverlayTemplate.idxOverlay
-//  //      else
-//  //        recShapeStatic.idxDraw := idxDrawOverlay;
-//
-//  {Kirim data disini}
-//  simMgrClient.netSend_CmdOverlayStaticShape(recShapeStatic);
-//  isInputProblem := False;
+
+  recShape.IdUserRole := FSelectedOverlayTab.IdUserRole;
+  recShape.TemplateId := FSelectedOverlayTab.IdOverlayTab;
+  recShape.ShapeType := ovLine;
+  recShape.IdSelectShape := FShapeId;
+  recShape.IdAction := FAction;
+
+  recShape.postStart.X := dmsToLong(edtLineStartPosLong.Text);
+  recShape.postStart.Y := dmsToLatt(edtLineStartPosLat.Text);
+  recShape.postEnd.X := dmsToLong(edtLineEndPosLong.Text);
+  recShape.postEnd.Y := dmsToLatt(edtLineEndPosLat.Text);
+
+  recShape.color := pnlOutline.color;
+  recShape.lineType :=  TPenStyle(cbbDashesPen.ItemIndex);
+  recShape.weight := StrToInt(cbbWeightPen.Text);
+
+  {Kirim data disini}
+  simMgrClient.netSend_CmdOverlayShape(recShape);
+  FisInputProblem := False;
 end;
 
 procedure TfrmOverlayTools.GbrPolygon;
-//var
-//  i : Integer;
-//  li : TListItem;
-//  recShapeStatic : TRecCmd_OverlayStaticShape;
-//  recShapeDynamic : TRecCmd_OverlayDynamicShape;
-begin
-//  if CekInput(ovPolygon) then
-//    Exit;
-//
-//  if IsEditObject then
-//  begin
-//    Action := 2;
-//    if not FindIdSelectedShape then
-//      Exit;
-//  end
-//  else
-//    Action := 1;
-//
-//      recShapeStatic.TemplateId := FSelectedOverlay.OverlayIndex;
-//      recShapeStatic.ShapeType := ovPolygon;
-//      recShapeStatic.IdSelectShape := NoShapeInList;
-//      recShapeStatic.IdAction := Action;
-//
-//      recShapeStatic.color := pnlOutline.Color;
-//
-//  if FisNoFill  then
-//  begin
-//  recShapeStatic.BrushStyle := bsClear;
-//  end
-//  else
-//  begin
-//  recShapeStatic.BrushStyle := bsSolid;
-//  recShapeStatic.ColorFill := pnlFill.Color;
-//  end;
-//
-//  recShapeStatic.LineType :=  TPenStyle(cbbDashesPen.ItemIndex);
-//  recShapeStatic.Weight := StrToInt(cbbWeightPen.Text);
-//
-//  //      if Action = caEdit then
-//  //        recShapeStatic.idxDraw := simMgrClient.DrawOverlayTemplate.idxOverlay
-//  //      else
-//  //        recShapeStatic.idxDraw := idxDrawOverlay;
-//
-//  for i := 0 to 12 do
-//  begin
-//  li := lvPolyVertex.Items[i];
-//
-//  recShapeStatic.PolyPoint[i].X := 0;
-//  recShapeStatic.PolyPoint[i].Y := 0;
-//  end;
+var
+  i : Integer;
+  li : TListItem;
+  recShape : TRecTCPSendOverlayShape;
 
-//  for i := 0 to lvPolyVertex.Items.Count - 1 do
-//  begin
-//  li := lvPolyVertex.Items[i];
-//
-//  recShapeStatic.PolyPoint[i].X := dmsToLong(li.SubItems[0]);
-//  recShapeStatic.PolyPoint[i].Y := dmsToLatt(li.SubItems[1]);
-//  end;
-//
-//  simMgrClient.netSend_CmdOverlayStaticShape(recShapeStatic);
-//
-//  SpeedButton10.Down := False;
-//  isInputProblem := False;
+begin
+  if CekInput(ovPolygon) then
+    Exit;
+
+  recShape.IdUserRole := FSelectedOverlayTab.IdUserRole;
+  recShape.TemplateId := FSelectedOverlayTab.IdOverlayTab;
+  recShape.ShapeType := ovPolygon;
+  recShape.IdSelectShape := FShapeId;
+  recShape.IdAction := FAction;
+  recShape.color := pnlOutline.Color;
+
+  if isNoFill  then
+  begin
+    recShape.BrushStyle := bsClear;
+  end
+  else
+  begin
+    recShape.BrushStyle := bsSolid;
+    recShape.ColorFill := pnlFill.Color;
+  end;
+
+  recShape.LineType :=  TPenStyle(cbbDashesPen.ItemIndex);
+  recShape.Weight := StrToInt(cbbWeightPen.Text);
+
+  for i := 0 to 12 do
+  begin
+    li := lvPolyVertex.Items[i];
+
+    recShape.PolyPoint[i].X := 0;
+    recShape.PolyPoint[i].Y := 0;
+  end;
+
+  for i := 0 to lvPolyVertex.Items.Count - 1 do
+  begin
+    li := lvPolyVertex.Items[i];
+
+    recShape.PolyPoint[i].X := dmsToLong(li.SubItems[0]);
+    recShape.PolyPoint[i].Y := dmsToLatt(li.SubItems[1]);
+  end;
+
+  simMgrClient.netSend_CmdOverlayShape(recShape);
+  FisInputProblem := False;
 end;
 
 procedure TfrmOverlayTools.GbrRectangle;
-//var
-//  recShapeStatic : TRecCmd_OverlayStaticShape;
-//  recShapeDynamic : TRecCmd_OverlayDynamicShape;
+var
+  recShape : TRecTCPSendOverlayShape;
+
 begin
-//  if CekInput(ovRectangle) then
-//    Exit;
-//
-//  if IsEditObject then
-//  begin
-//    Action := 2;
-//  if not FindIdSelectedShape then
-//    Exit;
-//  end
-//  else
-//    Action := 1;
-//
-//  case StateOverlay of
-//
-//  recShapeStatic.TemplateId := FSelectedOverlay.OverlayIndex;
-//  recShapeStatic.ShapeType := ovRectangle;
-//  recShapeStatic.IdSelectShape := NoShapeInList;
-//  recShapeStatic.IdAction := Action;
-//
-//  recShapeStatic.postStart.X := dmsToLong(edtRectStartPosLong.Text);
-//  recShapeStatic.postStart.Y := dmsToLatt(edtRectStartPosLat.Text);
-//  recShapeStatic.postEnd.X := dmsToLong(edtRectEndPosLong.Text);
-//  recShapeStatic.postEnd.Y := dmsToLatt(edtRectEndPosLat.Text);
-//
-//  recShapeStatic.color := pnlOutline.Color;
-//
-//  if FisNoFill  then
-//  begin
-//    recShapeStatic.BrushStyle := bsClear;
-//  end
-//  else
-//  begin
-//    recShapeStatic.BrushStyle := bsSolid;
-//    recShapeStatic.ColorFill := pnlFill.Color;
-//  end;
-//
-//  recShapeStatic.LineType :=  TPenStyle(cbbDashesPen.ItemIndex);
-//  recShapeStatic.Weight := StrToInt(cbbWeightPen.Text);
-//
-////      if Action = caEdit then
-////        recShapeStatic.idxDraw := simMgrClient.DrawOverlayTemplate.idxOverlay
-////      else
-////        recShapeStatic.idxDraw := idxDrawOverlay;
-//
-//      {Kirim data disini}
-//  simMgrClient.netSend_CmdOverlayStaticShape(recShapeStatic);
-//  isInputProblem := False;
+  if CekInput(ovRectangle) then
+    Exit;
+
+  recShape.IdUserRole := FSelectedOverlayTab.IdUserRole;
+  recShape.TemplateId := FSelectedOverlayTab.IdOverlayTab;
+  recShape.ShapeType := ovRectangle;
+  recShape.IdSelectShape := FShapeId;
+  recShape.IdAction := FAction;
+
+  recShape.postStart.X := dmsToLong(edtRectStartPosLong.Text);
+  recShape.postStart.Y := dmsToLatt(edtRectStartPosLat.Text);
+  recShape.postEnd.X := dmsToLong(edtRectEndPosLong.Text);
+  recShape.postEnd.Y := dmsToLatt(edtRectEndPosLat.Text);
+
+  recShape.color := pnlOutline.Color;
+
+  if isNoFill  then
+  begin
+    recShape.BrushStyle := bsClear;
+  end
+  else
+  begin
+    recShape.BrushStyle := bsSolid;
+    recShape.ColorFill := pnlFill.Color;
+  end;
+
+  recShape.LineType :=  TPenStyle(cbbDashesPen.ItemIndex);
+  recShape.Weight := StrToInt(cbbWeightPen.Text);
+
+  {Kirim data disini}
+  simMgrClient.netSend_CmdOverlayShape(recShape);
+  FisInputProblem := False;
 end;
 
 procedure TfrmOverlayTools.GbrSector;
-//var
-//  recShapeStatic : TRecCmd_OverlayStaticShape;
-//  recShapeDynamic : TRecCmd_OverlayDynamicShape;
+var
+  recShape : TRecTCPSendOverlayShape;
+
 begin
-//  if CekInput(ovSector) then
-//    Exit;
-//
-//  if IsEditObject then
-//  begin
-//      Action := 2;
-//    if not FindIdSelectedShape then
-//      Exit;
-//  end
-//  else
-//    Action := 1;
-//
-//  recShapeStatic.TemplateId := FSelectedOverlay.OverlayIndex;
-//  recShapeStatic.ShapeType := ovSector;
-//  recShapeStatic.IdSelectShape := NoShapeInList;
-//  recShapeStatic.IdAction := Action;
-//
-//  recShapeStatic.PostStart.X := dmsToLong(edtSectorPosLong.Text);
-//  recShapeStatic.PostStart.Y := dmsToLatt(edtSectorPosLat.Text);
-//  recShapeStatic.Radius1 := StrToFloat(edtSectorOuter.Text);
-//  recShapeStatic.Radius2 := StrToFloat(edtSectorInner.Text);
-//  recShapeStatic.StartAngle := StrToInt(edtSectorStartAngle.Text);
-//  recShapeStatic.EndAngle := StrToInt(edtSectorEndAngle.Text);
-//  recShapeStatic.color := pnlOutline.Color;
-//
-//  recShapeStatic.LineType :=  TPenStyle(cbbDashesPen.ItemIndex);
-//  recShapeStatic.Weight := StrToInt(cbbWeightPen.Text);
-//
-//  //      if Action = caEdit then
-//  //        recShapeStatic.idxDraw := simMgrClient.DrawOverlayTemplate.idxOverlay
-//  //      else
-//  //        recShapeStatic.idxDraw := idxDrawOverlay;
-//
-//  {Kirim data disini}
-//  simMgrClient.netSend_CmdOverlayStaticShape(recShapeStatic);
-//  isInputProblem := False;
+  if CekInput(ovSector) then
+    Exit;
+
+  recShape.IdUserRole := FSelectedOverlayTab.IdUserRole;
+  recShape.TemplateId := FSelectedOverlayTab.IdOverlayTab;
+  recShape.ShapeType := ovSector;
+  recShape.IdSelectShape := FShapeId;
+  recShape.IdAction := FAction;
+
+  recShape.PostStart.X := dmsToLong(edtSectorPosLong.Text);
+  recShape.PostStart.Y := dmsToLatt(edtSectorPosLat.Text);
+  recShape.Radius1 := StrToFloat(edtSectorOuter.Text);
+  recShape.Radius2 := StrToFloat(edtSectorInner.Text);
+  recShape.StartAngle := StrToInt(edtSectorStartAngle.Text);
+  recShape.EndAngle := StrToInt(edtSectorEndAngle.Text);
+  recShape.color := pnlOutline.Color;
+
+  recShape.LineType :=  TPenStyle(cbbDashesPen.ItemIndex);
+  recShape.Weight := StrToInt(cbbWeightPen.Text);
+
+  {Kirim data disini}
+  simMgrClient.netSend_CmdOverlayShape(recShape);
+  FisInputProblem := False;
 end;
 
 procedure TfrmOverlayTools.GbrText;
@@ -1290,15 +1193,6 @@ begin
     Exit;
 
   Size := 10;
-
-//  if IsEditObject then
-//  begin
-//      FAction := caEdit;
-//    if not FindIdSelectedShape then
-//      Exit;
-//  end
-//  else
-//    FAction := caAdd;
 
   recShape.IdUserRole := FSelectedOverlayTab.IdUserRole;
   recShape.TemplateId := FSelectedOverlayTab.IdOverlayTab;
@@ -1326,9 +1220,10 @@ begin
   btnFill.Visible := False;
   pnlPenEditing.Visible := True;
   SetNoFill(True);
-//  btnOutlineClick(nil);
-  {$ENDREGION}
+  btnOutlineClick(nil);
 
+  btnDelete.Enabled := FAction = caEdit;
+  {$ENDREGION}
 end;
 
 procedure TfrmOverlayTools.LoadPanelCircle;
@@ -1340,7 +1235,9 @@ begin
   btnFill.Visible := True;
   pnlPenEditing.Visible := True;
   SetNoFill(True);
-//  btnOutlineClick(nil);
+  btnOutlineClick(nil);
+
+  btnDelete.Enabled := FAction = caEdit;
   {$ENDREGION}
 end;
 
@@ -1353,7 +1250,9 @@ begin
   btnFill.Visible := True;
   pnlPenEditing.Visible := True;
   SetNoFill(True);
-//  btnOutlineClick(nil);
+  btnOutlineClick(nil);
+
+  btnDelete.Enabled := FAction = caEdit;
   {$ENDREGION}
 end;
 
@@ -1366,7 +1265,9 @@ begin
   btnFill.Visible := False;
   pnlPenEditing.Visible := True;
   SetNoFill(True);
-//  btnOutlineClick(nil);
+  btnOutlineClick(nil);
+
+  btnDelete.Enabled := FAction = caEdit;
   {$ENDREGION}
 end;
 
@@ -1379,7 +1280,9 @@ begin
   btnFill.Visible := False;
   pnlPenEditing.Visible := True;
   SetNoFill(True);
-//  btnOutlineClick(nil);
+  btnOutlineClick(nil);
+
+  btnDelete.Enabled := FAction = caEdit;
   {$ENDREGION}
 end;
 
@@ -1392,7 +1295,9 @@ begin
   btnFill.Visible := True;
   pnlPenEditing.Visible := True;
   SetNoFill(True);
-//  btnOutlineClick(nil);
+  btnOutlineClick(nil);
+
+  btnDelete.Enabled := FAction = caEdit;
   {$ENDREGION}
 end;
 
@@ -1405,7 +1310,9 @@ begin
   btnFill.Visible := True;
   pnlPenEditing.Visible := True;
   SetNoFill(True);
-//  btnOutlineClick(nil);
+  btnOutlineClick(nil);
+
+  btnDelete.Enabled := FAction = caEdit;
   {$ENDREGION}
 end;
 
@@ -1418,7 +1325,9 @@ begin
   btnFill.Visible := True;
   pnlPenEditing.Visible := True;
   SetNoFill(True);
-//  btnOutlineClick(nil);
+  btnOutlineClick(nil);
+
+  btnDelete.Enabled := FAction = caEdit;
   {$ENDREGION}
 end;
 
@@ -1453,6 +1362,18 @@ var
 
   mainShapeTemp : TMainShape;
   textTemp : TTextShape;
+  lineTemp       : TLineShape;
+  rectangleTemp  : TRectangleShape;
+  circleTemp     : TCircleShape;
+  ellipseTemp    : TEllipseShape;
+  arcTemp        : TArcShape;
+  sectorTemp     : TSectorShape;
+  gridTemp       : TGridShape;
+  polygonTemp    : TPolygonShape;
+
+  polyPoint : Array of TPoint;
+  point : TDotShape;
+
   countList : Integer;
   pos: TPoint;
 
@@ -1469,42 +1390,406 @@ begin
     begin
       mainShapeTemp := SelectedOverlayTab.MemberList[countList];
 
-
       if mainShapeTemp is TTextShape then
       begin
         {$REGION ' Text Section '}
         textTemp := TTextShape(mainShapeTemp);
 
-        mainShapeTemp.Converter.ConvertToScreen(mx, my, pos.X, pos.Y);
-        mainShapeTemp.Converter.ConvertToScreen(textTemp.postStart.X, textTemp.postStart.Y, x1, y1);
+        simMgrClient.Converter.ConvertToScreen(mx, my, pos.X, pos.Y);
+        simMgrClient.Converter.ConvertToScreen(textTemp.postStart.X, textTemp.postStart.Y, x1, y1);
+
         rect1 := SelectedOverlayTab.Formula.checkText(x1, y1, textTemp.Size, textTemp.words);
         ptPos := SelectedOverlayTab.Formula.PointTo2D(pos.X, pos.Y);
 
         if ptToArea(rect1, ptPos) then
         begin
           FShapeType := ovText;
+          FShapeId := textTemp.ShapeId;
+          FAction := caEdit;
           edtTextPosLat.Text  := formatDMS_latt(textTemp.postStart.Y);
           edtTextPosLong.Text := formatDMS_long(textTemp.postStart.X);
           cbbTextSize.Text    := IntToStr(textTemp.size);
           edtTextField.Text   := textTemp.words;
           pnlOutline.color    := textTemp.Color;
           textTemp.isSelected := true;
-          FShapeId := textTemp.ShapeId;
-          FAction := caEdit;
-
           LoadPanelText;
 
           break;
         end;
         {$ENDREGION}
       end
-      else
+      else if mainShapeTemp is TLineShape then
       begin
-        IsEditObject := False;
+        {$REGION ' Line Section '}
+        lineTemp := TLineShape(mainShapeTemp);
+
+        simMgrClient.Converter.ConvertToScreen(lineTemp.postStart.X, lineTemp.postStart.Y, x1, y1);
+        simMgrClient.Converter.ConvertToScreen(lineTemp.postEnd.X, lineTemp.postEnd.Y, x2, y2 );
+
+        IptS  := SelectedOverlayTab.Formula.PointTo2D(x1, y1);
+        IptE  := SelectedOverlayTab.Formula.PointTo2D(x2, y2);
+
+        if ptToLine(IptS,IptE,ptPos) then
+        begin
+          FShapeType:= ovLine;
+          FShapeId := lineTemp.ShapeId;
+          FAction := caEdit;
+          edtLineStartPosLat.Text := formatDMS_latt(lineTemp.postStart.Y);
+          edtLineStartPosLong.Text := formatDMS_long(lineTemp.postStart.X);
+          edtLineEndPosLat.Text := formatDMS_latt(lineTemp.postEnd.Y);
+          edtLineEndPosLong.Text := formatDMS_long(lineTemp.postEnd.X);
+          pnlOutline.Color := lineTemp.Color;
+          cbbDashesPen.ItemIndex :=  SetLineType(rectangleTemp.LineType);
+          cbbWeightPen.Text := IntToStr(lineTemp.weight);
+          lineTemp.isSelected := true;
+          LoadPanelLine;
+
+          break;
+        end;
+        {$ENDREGION}
+      end
+      else if mainShapeTemp is TRectangleShape then
+      begin
+        {$REGION ' Rectangle Section '}
+        rectangleTemp := TRectangleShape(mainShapeTemp);
+
+        simMgrClient.Converter.ConvertToScreen(rectangleTemp.postStart.X, rectangleTemp.postStart.Y, x1, y1);
+        simMgrClient.Converter.ConvertToScreen(rectangleTemp.postEnd.X, rectangleTemp.postEnd.Y, x2, y2 );
+
+        rect1.Left    := x1;
+        rect1.Top     := Y1;
+        rect1.Right   := x2;
+        rect1.Bottom  := Y2;
+
+        rect2 := SelectedOverlayTab.Formula.checkXYPosition(rect1.Left, rect1.Top, rect1.Right, rect1.Bottom);
+
+        if ptToArea(rect2, ptPos) then
+        begin
+          FShapeType := ovRectangle;
+          FShapeId := rectangleTemp.ShapeId;
+          FAction := caEdit;
+          edtRectStartPosLong.Text  := formatDMS_long(rectangleTemp.postStart.X);
+          edtRectStartPosLat.Text   := formatDMS_latt(rectangleTemp.postStart.Y);
+          edtRectEndPosLong.Text    := formatDMS_long(rectangleTemp.postEnd.X);
+          edtRectEndPosLat.Text     := formatDMS_latt(rectangleTemp.postEnd.Y);
+          pnlOutline.Color      := rectangleTemp.Color;
+          cbbDashesPen.ItemIndex :=  SetLineType(rectangleTemp.LineType);
+          cbbWeightPen.Text := IntToStr(rectangleTemp.weight);
+
+          if rectangleTemp.BrushStyle = bsClear then
+          begin
+            SetNoFill(True);
+          end
+          else
+          begin
+            SetNoFill(False);
+            PnlFill.Color := rectangleTemp.ColorFill;
+          end;
+
+          rectangleTemp.isSelected := true;
+          LoadPanelRectangle;
+
+          break;
+        end;
+        {$ENDREGION}
+      end
+      else if mainShapeTemp is TCircleShape then
+      begin
+        {$REGION ' Circle Section '}
+        circleTemp := TCircleShape(mainShapeTemp);
+
+        simMgrClient.Converter.ConvertToMap(pos.X, pos.Y, ptPos.X, ptPos.Y);
+
+        if ptToCircle(circleTemp.postCenter, ptPos, circleTemp.radius) then
+        begin
+          FShapeType := ovCircle;
+          FShapeId := circleTemp.ShapeId;
+          FAction := caEdit;
+          edtCirclePosLong.Text := formatDMS_long(circleTemp.postCenter.X);
+          edtCirclePosLat.Text := formatDMS_latt(circleTemp.postCenter.Y);
+          edtCircleRadius.Text := FloatToStr(circleTemp.radius);
+          pnlOutline.Color := circleTemp.Color;
+          cbbDashesPen.ItemIndex :=  SetLineType(circleTemp.LineType);
+          cbbWeightPen.Text := IntToStr(circleTemp.Weight);
+
+          if circleTemp.BrushStyle = bsClear then
+          begin
+            SetNoFill(True);
+          end
+          else
+          begin
+            SetNoFill(False);
+            pnlFill.Color := circleTemp.ColorFill;
+          end;
+
+          circleTemp.isSelected := true;
+          LoadPanelCircle;
+
+          break;
+        end;
+        {$ENDREGION}
+      end
+      else if mainShapeTemp is TEllipseShape then
+      begin
+        {$REGION ' Ellipse Section '}
+        ellipseTemp := TEllipseShape(mainShapeTemp);
+
+        Idx := ellipseTemp.postCenter.X + ellipseTemp.Hradius/60;
+        Idy := ellipseTemp.postCenter.Y + ellipseTemp.Vradius/60;
+
+        simMgrClient.Converter.ConvertToScreen(ellipseTemp.postCenter.X, ellipseTemp.postCenter.Y, x1, y1);
+        simMgrClient.Converter.ConvertToScreen(Idx, Idy, x2, y2);
+
+        Hr := Abs(x1 - x2);
+        Vr := Abs(y1 - y2);
+
+        rect1.Left    := x1 - Hr;
+        rect1.Top     := Y1 - Vr;
+        rect1.Right   := x1 + Hr;
+        rect1.Bottom  := Y1 + Vr;
+
+        rect2 := SelectedOverlayTab.Formula.checkXYPosition(rect1.Left, rect1.Top, rect1.Right, rect1.Bottom);
+
+        if ptToArea(rect2, ptPos) then
+        begin
+          FShapeType := ovEllipse;
+          FShapeId := ellipseTemp.ShapeId;
+          FAction := caEdit;
+          edtEllipsePosLong.Text  := formatDMS_long(ellipseTemp.postCenter.X);
+          edtEllipsePosLat.Text   := formatDMS_latt(ellipseTemp.postCenter.Y);
+          edtHorizontal.Text      := FloatToStr(ellipseTemp.Hradius);
+          edtVertical.Text        := FloatToStr(ellipseTemp.Vradius);
+          pnlOutline.Color    := ellipseTemp.Color;
+
+          cbbDashesPen.ItemIndex :=  SetLineType(ellipseTemp.LineType);
+          cbbWeightPen.Text := IntToStr(ellipseTemp.weight);
+
+          if ellipseTemp.BrushStyle = bsClear then
+          begin
+            SetNoFill(True);
+          end
+          else
+          begin
+            SetNoFill(False);
+            pnlFill.Color := ellipseTemp.ColorFill;
+          end;
+
+          ellipseTemp.isSelected := true;
+          LoadPanelEllipse;
+
+          break;
+        end;
+         {$ENDREGION}
+      end
+      else if mainShapeTemp is TArcShape then
+      begin
+        {$REGION ' Arc Section '}
+        arcTemp := TArcShape(mainShapeTemp);
+
+        simMgrClient.Converter.ConvertToMap(pos.X, pos.Y, ptPos.X, ptPos.Y);
+
+        if ptToArc(arcTemp.postCenter, ptPos, arcTemp.radius, arcTemp.radius, arcTemp.StartAngle, arcTemp.EndAngle, 1) then
+        begin
+          FShapeType := ovArc;
+          FShapeId := arcTemp.ShapeId;
+          FAction := caEdit;
+          edtArcPosLong.Text := formatDMS_long(arcTemp.postCenter.X);
+          edtArcPosLat.Text := formatDMS_latt(arcTemp.postCenter.Y);
+          edtArcRadius.Text := FloatToStr(arcTemp.radius);
+          edtArcStartAngle.Text := IntToStr(arcTemp.StartAngle);
+          edtArcEndAngle.Text := IntToStr(arcTemp.EndAngle);
+          pnlOutline.Color := arcTemp.Color;
+          cbbDashesPen.ItemIndex :=  SetLineType(arcTemp.LineType);
+          cbbWeightPen.Text := IntToStr(arcTemp.weight);
+
+          arcTemp.isSelected  := true;
+          LoadPanelArc;
+
+          break;
+        end;
+        {$ENDREGION}
+      end
+      else if mainShapeTemp is TSectorShape then
+      begin
+        {$REGION ' Sector Section '}
+        sectorTemp := TSectorShape(mainShapeTemp);
+
+        simMgrClient.Converter.ConvertToMap(pos.X, pos.Y, ptPos.X, ptPos.Y);
+
+        if ptToArc(sectorTemp.postCenter, ptPos, sectorTemp.Iradius, sectorTemp.Oradius, sectorTemp.StartAngle, sectorTemp.EndAngle, 2) then
+        begin
+          FShapeType := ovSector;
+          FShapeId := sectorTemp.ShapeId;
+          FAction := caEdit;
+          edtSectorPosLong.Text     := formatDMS_long(sectorTemp.postCenter.X);
+          edtSectorPosLat.Text      := formatDMS_latt(sectorTemp.postCenter.Y);
+          edtSectorInner.Text       := FloatToStr(sectorTemp.Iradius);
+          edtSectorOuter.Text       := FloatToStr(sectorTemp.Oradius);
+          edtSectorStartAngle.Text  := IntToStr(sectorTemp.StartAngle);
+          edtSectorEndAngle.Text    := IntToStr(sectorTemp.EndAngle);
+          pnlOutline.Color      := sectorTemp.Color;
+
+          cbbDashesPen.ItemIndex :=  SetLineType(sectorTemp.LineType);
+          cbbWeightPen.Text := IntToStr(sectorTemp.weight);
+
+          sectorTemp.isSelected  := true;
+          LoadPanelSector;
+
+          break;
+        end;
+        {$ENDREGION}
+      end
+      else if mainShapeTemp is TGridShape then
+      begin
+        {$REGION ' Grid Section '}
+        gridTemp := TGridShape(mainShapeTemp);
+
+        //Point Kiri Atas
+        IptS.X := gridTemp.postCenter.X - ((gridTemp.Width/60)*(gridTemp.WCount/2));
+        IptS.Y := gridTemp.postCenter.Y + ((gridTemp.Height/60)*(gridTemp.HCount)/2);
+
+        //Point Kanan Atas
+        IptE.X := gridTemp.postCenter.X + ((gridTemp.Width/60)*(gridTemp.WCount/2));
+        IptE.Y := gridTemp.postCenter.Y + ((gridTemp.Height/60)*(gridTemp.HCount)/2);
+
+        //Point Kanan Bawah
+        OptS.X := gridTemp.postCenter.X + ((gridTemp.Width/60)*(gridTemp.WCount/2));
+        OptS.Y := gridTemp.postCenter.Y - ((gridTemp.Height/60)*(gridTemp.HCount)/2);
+
+        //Point Kiri Bawah
+        OptE.X := gridTemp.postCenter.X - ((gridTemp.Width/60)*(gridTemp.WCount/2));
+        OptE.Y := gridTemp.postCenter.Y - ((gridTemp.Height/60)*(gridTemp.HCount)/2);
+
+        BKiAts   := CalcBearing(gridTemp.postCenter.X, gridTemp.postCenter.Y, IptS.X, IptS.Y);
+        BKaAts  := CalcBearing(gridTemp.postCenter.X, gridTemp.postCenter.Y, IptE.X, IptE.Y);
+        BKaBwh := CalcBearing(gridTemp.postCenter.X, gridTemp.postCenter.Y, OptS.X, OptS.Y);
+        BKiBwh  := CalcBearing(gridTemp.postCenter.X, gridTemp.postCenter.Y, OptE.X, OptE.Y);
+
+        RKiAts     := CalcRange(gridTemp.postCenter.X, gridTemp.postCenter.Y, IptS.X, IptS.Y);
+        RKaAts    := CalcRange(gridTemp.postCenter.X, gridTemp.postCenter.Y, IptE.X, IptE.Y);
+        RKaBwh   := CalcRange(gridTemp.postCenter.X, gridTemp.postCenter.Y, OptS.X, OptS.Y);
+        RKiBwh    := CalcRange(gridTemp.postCenter.X, gridTemp.postCenter.Y, OptE.X, OptE.Y);
+
+        FindPoint(gridTemp.postCenter, IptS, RKiAts, BKiAts + gridTemp.Rotation);
+        FindPoint(gridTemp.postCenter, IptE, RKaAts, BKaAts + gridTemp.Rotation);
+        FindPoint(gridTemp.postCenter, OptS, RKaBwh, BKaBwh + gridTemp.Rotation);
+        FindPoint(gridTemp.postCenter, OptE, RKiBwh, BKiBwh + gridTemp.Rotation);
+
+        simMgrClient.Converter.ConvertToScreen(IptS.X, IptS.Y, x1, y1);
+        simMgrClient.Converter.ConvertToScreen(IptE.X, IptE.Y, x2, y2);
+        simMgrClient.Converter.ConvertToScreen(OptS.X, OptS.Y, x3, y3);
+        simMgrClient.Converter.ConvertToScreen(OptE.X, OptE.Y, x4, y4);
+
+        rect1 := SelectedOverlayTab.Formula.assignRect(x1, y1);
+        rect2 := SelectedOverlayTab.Formula.assignRect(x2, y2);
+        rect3 := SelectedOverlayTab.Formula.assignRect(x3, y3);
+        rect4 := SelectedOverlayTab.Formula.assignRect(x4, y4);
+
+        rect1.Left    := x1;
+        rect1.Top     := Y1;
+        rect1.Right   := x3;
+        rect1.Bottom  := Y3;
+
+        rect2 := SelectedOverlayTab.Formula.checkXYPosition(rect1.Left, rect1.Top, rect1.Right, rect1.Bottom);
+
+        if ptToArea(rect2, ptPos) then
+        begin
+          FShapeType := ovGrid;
+          FShapeId := gridTemp.ShapeId;
+          FAction := caEdit;
+          edtTablePosLong.Text        := formatDMS_long(gridTemp.postCenter.X);
+          edtTablePosLat.Text         := formatDMS_latt(gridTemp.postCenter.Y);
+          edtTableColumn.Text         := IntToStr(gridTemp.HCount);
+          edtTableRow.Text            := IntToStr(gridTemp.WCount);
+          edtTableWidth.Text          := FloatToStr(gridTemp.Width);
+          edtTableHeight.Text         := FloatToStr(gridTemp.Height);
+          edtTableRotationAngle.Text  := IntToStr(gridTemp.Rotation);
+          pnlOutline.Color        := gridTemp.Color;
+
+          cbbDashesPen.ItemIndex :=  SetLineType(gridTemp.LineType);
+          cbbWeightPen.Text := IntToStr(gridTemp.weight);
+
+          gridTemp.isSelected := true;
+          LoadPanelGrid;
+
+          break;
+        end;
+        {$ENDREGION}
+      end
+      else if mainShapeTemp is TPolygonShape then
+      begin
+        {$REGION ' Polygon Section '}
+        polygonTemp := TPolygonShape(mainShapeTemp);
+
+        SetLength(polyPoint, polygonTemp.polyList.Count);
+
+        for j := 0 to polygonTemp.polyList.Count - 1 do
+        begin
+          point := polygonTemp.polyList.Items[j];
+
+          simMgrClient.Converter.ConvertToScreen(point.X, point.Y, x1, y1);
+          polyPoint[j].x := x1;
+          polyPoint[j].y := y1;
+        end;
+
+        for j := 0 to polygonTemp.polyList.Count - 1 do
+        begin
+          rect1 := SelectedOverlayTab.Formula.assignRect(polyPoint[j].x, polyPoint[j].y);
+
+          if ptToArea(rect1, ptPos) then
+          begin
+
+            lvPolyVertex.Clear;
+
+            ShapeType := ovPolygon;
+
+            for k := 0 to polygonTemp.polyList.Count - 1 do
+            begin
+              point := polygonTemp.polyList.Items[k];
+
+              with lvPolyVertex.Items.Add do
+              begin
+                SubItems.Add(formatDMS_long(point.X));
+                SubItems.Add(formatDMS_latt(point.Y));
+              end;
+            end;
+
+            lvPolyVertex.Items.BeginUpdate;
+            try
+             for k := 0 to lvPolyVertex.Items.Count-1 do
+               lvPolyVertex.Items.Item[k].Caption:=IntToStr(k+1);
+            finally
+              lvPolyVertex.Items.EndUpdate;
+            end;
+            pnlOutline.Color := polygonTemp.Color;
+
+            cbbDashesPen.ItemIndex := SetLineType(polygonTemp.LineType);
+            cbbWeightPen.Text := IntToStr(polygonTemp.weight);
+
+            if polygonTemp.BrushStyle = bsClear then
+            begin
+              SetNoFill(True);
+            end
+            else
+            begin
+              SetNoFill(False);
+              pnlFill.Color := polygonTemp.ColorFill;
+            end;
+
+            polygonTemp.isSelected := true;
+            LoadPanelPolygon;
+
+            break;
+          end;
+        end;
+      {$ENDREGION}
       end;
     end;
+  end
+  else
+  begin
+    IsEditObject := False;
   end;
-
   Show;
 end;
 
