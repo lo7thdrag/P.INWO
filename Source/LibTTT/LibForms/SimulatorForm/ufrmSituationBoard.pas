@@ -437,7 +437,7 @@ begin
 
   SimManager.SimOverlay.Draw(FCanvas, Map1, FSelectedTabProperties.IdOverlayTab);
 //  DrawOverlay.drawAll(FCanvas, Map1);
-//  DrawFlagPoint.Draw(FCanvas);
+  simMgrClient.DrawFlagPoint.Draw(FCanvas);
 
 //  if Assigned(DrawOverlay.FSelectedDraw) then
 //  begin
@@ -586,7 +586,7 @@ begin
       with frmOverlayTools do
       begin
         case ShapeType of
-          ovText, ovCircle, ovEllipse, ovArc, ovSector, ovGrid:
+          ovText, ovCircle, ovEllipse, ovArc, ovSector, ovGrid, ovIntelijen, ovRadar, ovLogistic, ovPangkalan:
           begin
             if simMgrClient.DrawFlagPoint.FlagList.Count > 0 then
               simMgrClient.DrawFlagPoint.FlagList.Clear;
@@ -625,7 +625,8 @@ begin
         end;
       end;
 
-
+      Map1.Refresh;
+      Map1.Repaint;
     end;
 //    else if  FMapCursor = mcRulerStart then
 //    begin

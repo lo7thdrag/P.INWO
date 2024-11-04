@@ -923,9 +923,9 @@ end;
 
 procedure TfrmOverlayTools.ClearFlagPoint;
 begin
-//  DrawFlagPoint.FList.Clear;
-//  Map1.Refresh;
-//  Map1.Repaint;
+  simMgrClient.DrawFlagPoint.FlagList.Clear;
+  frmSituationBoard.Map1.Refresh;
+  frmSituationBoard.Map1.Repaint;
 end;
 
 procedure TfrmOverlayTools.colorChooseChange(Sender: TObject);
