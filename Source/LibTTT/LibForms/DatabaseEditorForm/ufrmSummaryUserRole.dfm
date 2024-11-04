@@ -4,7 +4,7 @@ object frmSummaryUserRole: TfrmSummaryUserRole
   BorderStyle = bsNone
   Caption = 'frmSummaryUserRole'
   ClientHeight = 360
-  ClientWidth = 661
+  ClientWidth = 663
   Color = 1119507
   TransparentColor = True
   TransparentColorValue = 1119507
@@ -21,7 +21,7 @@ object frmSummaryUserRole: TfrmSummaryUserRole
   object ImgBackgroundForm: TImage
     Left = 0
     Top = 0
-    Width = 661
+    Width = 663
     Height = 360
     Align = alClient
     Picture.Data = {
@@ -4399,8 +4399,8 @@ object frmSummaryUserRole: TfrmSummaryUserRole
       00907BFB4D341F1CD6C224CBB6110000000049454E44AE426082}
     Stretch = True
     Transparent = True
-    ExplicitWidth = 725
-    ExplicitHeight = 380
+    ExplicitWidth = 665
+    ExplicitHeight = 353
   end
   object lblPlatform: TLabel
     Left = 8
@@ -4658,7 +4658,7 @@ object frmSummaryUserRole: TfrmSummaryUserRole
   object Panel1: TPanel
     Left = 54
     Top = 36
-    Width = 571
+    Width = 579
     Height = 266
     BevelOuter = bvNone
     Color = 5186054
@@ -4961,7 +4961,7 @@ object frmSummaryUserRole: TfrmSummaryUserRole
       Caption = 'Pelaksanaan'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWhite
-      Font.Height = -13
+      Font.Height = -15
       Font.Name = 'Berlin Sans FB'
       Font.Style = []
       ParentFont = False
@@ -4976,7 +4976,7 @@ object frmSummaryUserRole: TfrmSummaryUserRole
       Caption = 'Pengakhiran'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWhite
-      Font.Height = -13
+      Font.Height = -15
       Font.Name = 'Berlin Sans FB'
       Font.Style = []
       ParentFont = False
@@ -4991,7 +4991,7 @@ object frmSummaryUserRole: TfrmSummaryUserRole
       Caption = 'Perencanaan'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWhite
-      Font.Height = -13
+      Font.Height = -15
       Font.Name = 'Berlin Sans FB'
       Font.Style = []
       ParentFont = False
@@ -5006,7 +5006,7 @@ object frmSummaryUserRole: TfrmSummaryUserRole
       Caption = 'Persiapan'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWhite
-      Font.Height = -13
+      Font.Height = -15
       Font.Name = 'Berlin Sans FB'
       Font.Style = []
       ParentFont = False

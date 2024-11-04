@@ -43345,32 +43345,32 @@ object frmDisplayArea: TfrmDisplayArea
     object pnlCenter: TPanel
       Left = 280
       Top = 120
-      Width = 1207
+      Width = 1607
       Height = 930
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 2
-      ExplicitWidth = 1607
+      ExplicitWidth = 1207
       object pnlMenejemenAsset: TPanel
         Left = 0
         Top = 0
-        Width = 1207
+        Width = 1607
         Height = 930
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 2
-        ExplicitWidth = 1607
+        ExplicitWidth = 1207
       end
       object pnlMainCenter: TPanel
         Left = 0
         Top = 0
-        Width = 1207
+        Width = 1607
         Height = 930
         Align = alClient
         BevelOuter = bvNone
         Color = clBackground
         TabOrder = 0
-        ExplicitWidth = 1607
+        ExplicitWidth = 1207
       end
       object pnlMenejemenPeta: TPanel
         Left = 0
@@ -43671,21 +43671,21 @@ object frmDisplayArea: TfrmDisplayArea
       object pnlMenejemenReferensi: TPanel
         Left = 0
         Top = 0
-        Width = 1207
+        Width = 1607
         Height = 930
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 5
-        ExplicitWidth = 1607
+        ExplicitWidth = 1207
         object pnlCariReferensi: TPanel
           Left = 0
           Top = 60
-          Width = 1207
+          Width = 1607
           Height = 63
           Align = alTop
           BevelOuter = bvNone
           TabOrder = 0
-          ExplicitWidth = 1607
+          ExplicitWidth = 1207
           object Label4: TLabel
             Left = 0
             Top = 5
@@ -44297,16 +44297,16 @@ object frmDisplayArea: TfrmDisplayArea
         object pnlListReferensi: TPanel
           Left = 0
           Top = 123
-          Width = 1207
+          Width = 1607
           Height = 807
           Align = alClient
           BevelOuter = bvNone
           TabOrder = 1
-          ExplicitWidth = 1607
+          ExplicitWidth = 1207
           object lvReferensi: TListView
             Left = 0
             Top = 0
-            Width = 1207
+            Width = 1607
             Height = 807
             Align = alClient
             BevelInner = bvNone
@@ -44348,23 +44348,23 @@ object frmDisplayArea: TfrmDisplayArea
             TabOrder = 0
             ViewStyle = vsReport
             OnSelectItem = lvReferensiSelectItem
-            ExplicitWidth = 1607
+            ExplicitWidth = 1207
           end
         end
         object pnlHeaderReferensi: TPanel
           Left = 0
           Top = 0
-          Width = 1207
+          Width = 1607
           Height = 60
           Align = alTop
           BevelOuter = bvNone
           TabOrder = 2
-          ExplicitWidth = 1607
+          ExplicitWidth = 1207
           object Label13: TLabel
             Tag = 1
             Left = 0
             Top = 0
-            Width = 1207
+            Width = 1607
             Height = 60
             Cursor = crHandPoint
             Align = alClient
@@ -44385,26 +44385,26 @@ object frmDisplayArea: TfrmDisplayArea
       object pnlMenejemenPengguna: TPanel
         Left = 0
         Top = 0
-        Width = 1207
+        Width = 1607
         Height = 930
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 1
-        ExplicitWidth = 1607
+        ExplicitWidth = 1207
         object pnlCariPengguna: TPanel
           Left = 0
           Top = 60
-          Width = 1207
+          Width = 1607
           Height = 63
           Align = alTop
           BevelOuter = bvNone
           TabOrder = 0
-          ExplicitWidth = 1607
+          ExplicitWidth = 1207
           DesignSize = (
-            1207
+            1607
             63)
           object btnDelete: TImage
-            Left = 1169
+            Left = 1569
             Top = 27
             Width = 30
             Height = 30
@@ -44440,10 +44440,9 @@ object frmDisplayArea: TfrmDisplayArea
             Stretch = True
             Transparent = True
             OnClick = btnAddClick
-            ExplicitLeft = 1569
           end
           object btnEdit: TImage
-            Left = 1132
+            Left = 1532
             Top = 27
             Width = 30
             Height = 30
@@ -44473,7 +44472,6 @@ object frmDisplayArea: TfrmDisplayArea
             Stretch = True
             Transparent = True
             OnClick = btnAddClick
-            ExplicitLeft = 1532
           end
           object lblsearch: TLabel
             Left = 0
@@ -44492,7 +44490,7 @@ object frmDisplayArea: TfrmDisplayArea
             Transparent = True
           end
           object btnAdd: TImage
-            Left = 1096
+            Left = 1496
             Top = 27
             Width = 30
             Height = 30
@@ -44512,7 +44510,6 @@ object frmDisplayArea: TfrmDisplayArea
             Stretch = True
             Transparent = True
             OnClick = btnAddClick
-            ExplicitLeft = 1496
           end
           object edtSearch: TEdit
             Left = 159
@@ -44571,16 +44568,16 @@ object frmDisplayArea: TfrmDisplayArea
         object pnlListPengguna: TPanel
           Left = 0
           Top = 123
-          Width = 1207
+          Width = 1607
           Height = 807
           Align = alClient
           BevelOuter = bvNone
           TabOrder = 1
-          ExplicitWidth = 1607
+          ExplicitWidth = 1207
           object lvUserRole: TListView
             Left = 0
             Top = 0
-            Width = 1207
+            Width = 1607
             Height = 807
             Align = alClient
             BevelInner = bvNone
@@ -44641,23 +44638,23 @@ object frmDisplayArea: TfrmDisplayArea
             TabOrder = 0
             ViewStyle = vsReport
             OnSelectItem = lvUserRoleSelectItem
-            ExplicitWidth = 1607
+            ExplicitWidth = 1207
           end
         end
         object pnlHeaderPengguna: TPanel
           Left = 0
           Top = 0
-          Width = 1207
+          Width = 1607
           Height = 60
           Align = alTop
           BevelOuter = bvNone
           TabOrder = 2
-          ExplicitWidth = 1607
+          ExplicitWidth = 1207
           object Label7: TLabel
             Tag = 1
             Left = 0
             Top = 0
-            Width = 1207
+            Width = 1607
             Height = 60
             Cursor = crHandPoint
             Align = alClient
@@ -44678,12 +44675,12 @@ object frmDisplayArea: TfrmDisplayArea
       object pnlMenejemenBeranda: TPanel
         Left = 0
         Top = 0
-        Width = 1207
+        Width = 1607
         Height = 930
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 6
-        ExplicitWidth = 1607
+        ExplicitWidth = 1207
         object pnlMdmMainLeft: TPanel
           Left = 0
           Top = 60
@@ -45543,7 +45540,7 @@ object frmDisplayArea: TfrmDisplayArea
         object pnlMdmTools: TPanel
           Left = 1130
           Top = 60
-          Width = 77
+          Width = 477
           Height = 870
           Align = alClient
           BevelOuter = bvNone
@@ -45551,11 +45548,11 @@ object frmDisplayArea: TfrmDisplayArea
           Color = 3287589
           ParentBackground = False
           TabOrder = 1
-          ExplicitWidth = 477
+          ExplicitWidth = 77
           object AdvWatch1: TAdvWatch
             Left = 20
             Top = 300
-            Width = 37
+            Width = 437
             Height = 250
             Align = alTop
             Appearance.AMPMFont.Charset = ANSI_CHARSET
@@ -45579,12 +45576,12 @@ object frmDisplayArea: TfrmDisplayArea
             Settings.Auto = True
             Time = 45535.058385011570000000
             Version = '1.2.1.1'
-            ExplicitWidth = 437
+            ExplicitWidth = 37
           end
           object CalendarView1: TCalendarView
             Left = 20
             Top = 20
-            Width = 37
+            Width = 437
             Height = 250
             Align = alTop
             BorderColor = clWhite
@@ -45607,32 +45604,32 @@ object frmDisplayArea: TfrmDisplayArea
             HeaderInfo.Font.Style = []
             ParentFont = False
             TabOrder = 1
-            ExplicitWidth = 437
+            ExplicitWidth = 37
           end
           object Panel22: TPanel
             Left = 20
             Top = 270
-            Width = 37
+            Width = 437
             Height = 30
             Align = alTop
             BevelOuter = bvNone
             TabOrder = 2
-            ExplicitWidth = 437
+            ExplicitWidth = 37
           end
           object Panel23: TPanel
             Left = 20
             Top = 550
-            Width = 37
+            Width = 437
             Height = 30
             Align = alTop
             BevelOuter = bvNone
             TabOrder = 3
-            ExplicitWidth = 437
+            ExplicitWidth = 37
           end
           object Memo1: TMemo
             Left = 20
             Top = 580
-            Width = 37
+            Width = 437
             Height = 270
             Align = alClient
             Font.Charset = DEFAULT_CHARSET
@@ -45642,7 +45639,7 @@ object frmDisplayArea: TfrmDisplayArea
             Font.Style = []
             ParentFont = False
             TabOrder = 4
-            ExplicitWidth = 437
+            ExplicitWidth = 37
           end
         end
         object pnlSparMdm: TPanel
@@ -45657,17 +45654,17 @@ object frmDisplayArea: TfrmDisplayArea
         object pnlHeaderBeranda: TPanel
           Left = 0
           Top = 0
-          Width = 1207
+          Width = 1607
           Height = 60
           Align = alTop
           BevelOuter = bvNone
           TabOrder = 3
-          ExplicitWidth = 1607
+          ExplicitWidth = 1207
           object Label6: TLabel
             Tag = 1
             Left = 0
             Top = 0
-            Width = 1207
+            Width = 1607
             Height = 60
             Cursor = crHandPoint
             Align = alClient
@@ -45688,23 +45685,23 @@ object frmDisplayArea: TfrmDisplayArea
       object pnlMenejemenSimbolTaktis: TPanel
         Left = 0
         Top = 0
-        Width = 1207
+        Width = 1607
         Height = 930
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 3
-        ExplicitWidth = 1607
+        ExplicitWidth = 1207
         object pnlCariSimbolTaktis: TPanel
           Left = 0
           Top = 60
-          Width = 1207
+          Width = 1607
           Height = 63
           Align = alTop
           BevelOuter = bvNone
           TabOrder = 0
-          ExplicitWidth = 1607
+          ExplicitWidth = 1207
           DesignSize = (
-            1207
+            1607
             63)
           object Label10: TLabel
             Left = 0
@@ -45723,7 +45720,7 @@ object frmDisplayArea: TfrmDisplayArea
             Transparent = True
           end
           object btnAddTacticalSymbol: TImage
-            Left = 1100
+            Left = 1500
             Top = 25
             Width = 30
             Height = 30
@@ -45743,10 +45740,9 @@ object frmDisplayArea: TfrmDisplayArea
             Stretch = True
             Transparent = True
             OnClick = btnAddTacticalSymbolClick
-            ExplicitLeft = 1500
           end
           object btnEditTacticalSymbol: TImage
-            Left = 1136
+            Left = 1536
             Top = 25
             Width = 30
             Height = 30
@@ -45776,10 +45772,9 @@ object frmDisplayArea: TfrmDisplayArea
             Stretch = True
             Transparent = True
             OnClick = btnEditTacticalSymbolClick
-            ExplicitLeft = 1536
           end
           object btnDeleteTacticalSymbol: TImage
-            Left = 1169
+            Left = 1569
             Top = 25
             Width = 30
             Height = 30
@@ -45815,7 +45810,6 @@ object frmDisplayArea: TfrmDisplayArea
             Stretch = True
             Transparent = True
             OnClick = btnDeleteTacticalSymbolClick
-            ExplicitLeft = 1569
           end
           object edtTacticalSearch: TEdit
             Left = 159
@@ -45871,17 +45865,17 @@ object frmDisplayArea: TfrmDisplayArea
         object pnlHeaderSimbolTaktis: TPanel
           Left = 0
           Top = 0
-          Width = 1207
+          Width = 1607
           Height = 60
           Align = alTop
           BevelOuter = bvNone
           TabOrder = 2
-          ExplicitWidth = 1607
+          ExplicitWidth = 1207
           object Label15: TLabel
             Tag = 1
             Left = 0
             Top = 0
-            Width = 1207
+            Width = 1607
             Height = 60
             Cursor = crHandPoint
             Align = alClient
@@ -45901,16 +45895,16 @@ object frmDisplayArea: TfrmDisplayArea
         object pnlListSImbolTaktis: TPanel
           Left = 0
           Top = 123
-          Width = 1207
+          Width = 1607
           Height = 807
           Align = alClient
           BevelOuter = bvNone
           TabOrder = 1
-          ExplicitWidth = 1607
+          ExplicitWidth = 1207
           object lvTacticalSymbol: TListView
             Left = 0
             Top = 0
-            Width = 1207
+            Width = 1607
             Height = 807
             Align = alClient
             BevelInner = bvNone
@@ -45946,7 +45940,7 @@ object frmDisplayArea: TfrmDisplayArea
             TabOrder = 0
             ViewStyle = vsReport
             OnSelectItem = lvTacticalSymbolleSelectItem
-            ExplicitWidth = 1607
+            ExplicitWidth = 1207
           end
         end
         object pnlRightTactical: TPanel
@@ -45985,19 +45979,19 @@ object frmDisplayArea: TfrmDisplayArea
       TabOrder = 5
     end
     object pnlSparRight: TPanel
-      Left = 1487
+      Left = 1887
       Top = 120
       Width = 30
       Height = 930
       Align = alRight
       BevelOuter = bvNone
       TabOrder = 6
-      ExplicitLeft = 1887
+      ExplicitLeft = 1487
     end
     object pnlRight: TPanel
-      Left = 1517
+      Left = 1887
       Top = 120
-      Width = 400
+      Width = 0
       Height = 930
       Align = alRight
       BevelOuter = bvNone
@@ -46006,14 +46000,14 @@ object frmDisplayArea: TfrmDisplayArea
       object pnlMainOfficeEditor: TPanel
         Left = 0
         Top = 0
-        Width = 400
+        Width = 0
         Height = 930
         Align = alClient
         BevelOuter = bvNone
         Color = clBlack
         ParentBackground = False
         TabOrder = 1
-        ExplicitWidth = 0
+        ExplicitWidth = 400
         object imgMsWord: TImage
           Left = 15
           Top = 66
@@ -47739,7 +47733,7 @@ object frmDisplayArea: TfrmDisplayArea
       object pnlMainChatting: TPanel
         Left = 0
         Top = 0
-        Width = 400
+        Width = 0
         Height = 930
         Align = alClient
         BevelOuter = bvNone
@@ -47747,7 +47741,7 @@ object frmDisplayArea: TfrmDisplayArea
         Color = 15979925
         ParentBackground = False
         TabOrder = 0
-        ExplicitWidth = 0
+        ExplicitWidth = 400
         object pnlSparatorchat: TPanel
           Left = 8
           Top = 873
@@ -47757,7 +47751,6 @@ object frmDisplayArea: TfrmDisplayArea
           BevelOuter = bvNone
           Color = clBackground
           TabOrder = 1
-          ExplicitWidth = 284
         end
         object pnlBottomChat: TPanel
           Left = 8
@@ -47768,7 +47761,6 @@ object frmDisplayArea: TfrmDisplayArea
           BevelOuter = bvNone
           Color = clBackground
           TabOrder = 2
-          ExplicitWidth = 284
           object edtChatBox: TEdit
             Left = 5
             Top = 3
@@ -47802,7 +47794,6 @@ object frmDisplayArea: TfrmDisplayArea
           Color = 5918252
           ParentBackground = False
           TabOrder = 3
-          ExplicitWidth = 284
           object btnMessageChat: TSpeedButton
             Tag = 4
             Left = 48
@@ -47971,7 +47962,6 @@ object frmDisplayArea: TfrmDisplayArea
           Font.Style = []
           ParentFont = False
           TabOrder = 0
-          ExplicitWidth = 284
         end
         object lstUserChat: TListBox
           Left = 8
@@ -47992,7 +47982,6 @@ object frmDisplayArea: TfrmDisplayArea
           ParentFont = False
           TabOrder = 4
           OnDblClick = lstUserChatDblClick
-          ExplicitWidth = 284
         end
       end
     end

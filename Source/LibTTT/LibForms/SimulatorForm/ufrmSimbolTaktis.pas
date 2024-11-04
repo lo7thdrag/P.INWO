@@ -26,6 +26,8 @@ type
     btnOk: TImage;
     btnApply: TImage;
     btnCancel: TImage;
+    Label2: TLabel;
+    lblPlatform: TLabel;
     procedure btnOkClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
     procedure btnUploadClick(Sender: TObject);
@@ -95,13 +97,7 @@ begin
     Kategori            := cbbKategori.ItemIndex;
     Keterangan          := edtKeterangan.Text;
     Path_Directori      := vGameDataSetting.FileSimbolTaktis;
-
-    if dmINWO.InsertTacticalSymbol(fileDataTemp) then
-    begin
-      ShowMessage('Data has been saved');
-    end;
   end;
-
 
   {Data sudah ada}
   if (dmINWO.GetFilterByTactical(FSelectedTacticalSymbol.FData)>0) and (FSelectedTacticalSymbol.FData.Id_Tactical_Symbol = 0)then
@@ -124,8 +120,8 @@ var
 begin
   UploadImage := TSaveDialog.Create(self);
   UploadImage.InitialDir := GetCurrentDir;
-  UploadImage.Filter := 'Image Files|*.jpg';
-//  UploadImage.Filter := 'Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif;
+  UploadImage.Filter := 'Image Files(*.jpg)|*.jpg';
+//  UploadImage.Filter := 'Image Files|*.jpg;*.jpeg;*.png;*.bmp';
   UploadImage.DefaultExt := 'jpg';
   UploadImage.FilterIndex := 1;
 
@@ -134,8 +130,18 @@ begin
     addressTemp := PWideChar(UploadImage.FileName);
     fileNameTemp := ExtractFileName(UploadImage.FileName);
 
-    btnApply.Enabled;
-    btnOk.Enabled;
+    with fileDataTemp do
+    begin
+      Tipe                := cbbTipe.ItemIndex;
+      Kategori            := cbbKategori.ItemIndex;
+      Keterangan          := edtKeterangan.Text;
+      Path_Directori      := vGameDataSetting.FileSimbolTaktis;
+
+      if dmINWO.InsertTacticalSymbol(fileDataTemp) then
+      begin
+     //    ShowMessage('Data has been saved');
+      end;
+    end;
 
     CopyFile(addressTemp, PWideChar(vGameDataSetting.FileSimbolTaktis + '\'+ IntToStr(fileDataTemp.Id_Tactical_Symbol) + '.jpg'), False);
   end
@@ -155,7 +161,7 @@ end;
 
 procedure TfrmSimbolTaktis.cbbTipeChange(Sender: TObject);
 begin
-  if cbbTipe.ItemIndex = -1 then
+  if cbbTipe.ItemIndex = 0 then
     cbbTipe.ItemIndex := 0;
 
    btnOk.Enabled := True;
@@ -164,7 +170,9 @@ end;
 procedure TfrmSimbolTaktis.btnApplyClick(Sender: TObject);
 var
   filedataTemp : TRecTactical_Symbol;
+  addressTemp  : PWideChar;
 begin
+
   with fileDataTemp do
   begin
     Tipe            := cbbTipe.ItemIndex;
@@ -178,21 +186,19 @@ begin
       Exit;
     end;
 
-    if Id_Tactical_Symbol = 0 then
+    if dmINWO.InsertTacticalSymbol(fileDataTemp) then
     begin
-      if dmINWO.InsertTacticalSymbol(fileDataTemp) then
+      ShowMessage('Data has been saved');
+    end
+    else
+    begin
+      if dmINWO.UpdateTacticalSymbol(fileDataTemp) then
       begin
-          ShowMessage('Data has been saved');
-      end
-      else
-      begin
-        if dmINWO.UpdateTacticalSymbol(fileDataTemp) then
-        begin
-          ShowMessage('Data has been updated');
-        end;
+        ShowMessage('Data has been updated');
       end;
     end;
   end;
+
   isOK := True;
   AfterClose := True;
   btnApply.Enabled := False;
@@ -207,7 +213,7 @@ end;
 procedure TfrmSimbolTaktis.btnOkClick(Sender: TObject);
 begin
   if btnApply.Enabled then
-    btnApply.OnClick(nil);
+    btnApplyClick(btnApply);
 
   if isOk then
     Close;

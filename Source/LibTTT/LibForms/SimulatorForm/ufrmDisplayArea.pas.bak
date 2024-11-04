@@ -217,7 +217,6 @@ type
     procedure btnAddTacticalSymbolClick(Sender: TObject);
     procedure btnEditTacticalSymbolClick(Sender: TObject);
     procedure btnDeleteTacticalSymbolClick(Sender: TObject);
-    procedure edtSearchKeyPressTactical(Sender: TObject; var Key: Char);
 
     procedure cbbFilterSearchSelect(Sender: TObject);
     procedure cbbSearchtipeSelect(Sender: TObject);
@@ -616,20 +615,14 @@ end;
 
 procedure TfrmDisplayArea.AddSearchTacticalSymbolItems;
 begin
-  if cbbFilterSearch.ItemIndex = 1 then
+  if cbbFilterSearch.ItemIndex = 2 then
   begin
     cbbSearchTipe.Items.Clear;
     cbbSearchTipe.Items.Add('TAKTIS TNI AL');
     cbbSearchTipe.Items.Add('TAKTIS TNI AU');
     cbbSearchTipe.Items.Add('TAKTIS TNI AD');
-  end
-  else if cbbFilterSearch.ItemIndex = 2 then
-  begin
-    cbbSearchTipe.Items.Clear;
-    cbbSearchTipe.Items.Add('PANGKALAN TNI AL');
-    cbbSearchTipe.Items.Add('PANGKALAN TNI AU');
-    cbbSearchTipe.Items.Add('PANGKALAN TNI AD');
   end;
+
 end;
 
 procedure TfrmDisplayArea.cbbSearchtipeSelect(Sender: TObject);
@@ -653,14 +646,19 @@ begin
    end
    else if cbbFilterSearch.ItemIndex = 1 then
    begin
-     AddSearchTacticalSymbolItems;
-     cbbSearchTipe.BringToFront;
+     edtTacticalSearch.BringToFront;
    end
    else if cbbFilterSearch.ItemIndex = 2 then
    begin
      AddSearchTacticalSymbolItems;
-     cbbSearchTipe.BringToFront;
-   end;
+     edtTacticalSearch.BringToFront;
+   end
+   else if cbbFilterSearch.ItemIndex = 3 then
+   begin
+     AddSearchTacticalSymbolItems;
+     edtTacticalSearch.BringToFront;
+   end
+
 end;
 
 procedure TfrmDisplayArea.UpdateSimbolTaktis;
@@ -722,7 +720,7 @@ begin
 
     FSelectedTacticalSymbol := TTactical_Symbol(lvTacticalSymbol.Selected.Data);
 
-    imagepath := FSelectedTacticalSymbol.FData.Path_Directori + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '.jpg';
+    imagepath := FSelectedTacticalSymbol.FData.Path_Directori + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '.jpeg';
     if FileExists(imagepath) then
     begin
       imgPreview.Picture.LoadFromFile(imagepath);
@@ -778,24 +776,6 @@ begin
    end;
 end;
 
-procedure TfrmDisplayArea.edtSearchKeyPressTactical(Sender: TObject; var Key: Char);
-begin
-  if Key = #13 then
-  begin
-    if (edtTacticalSearch.Text <> '') and (cbbFilterSearch.ItemIndex > 0) then
-    begin
-      ItemSearchIndex := cbbFilterSearch.ItemIndex;
-      SearchName := edtTacticalSearch.Text;
-      flagTable := true;
-      UpdateSimbolTaktis;
-    end
-    else if edtTacticalSearch.Text = '' then
-    begin
-      flagTable := false;
-      UpdateSimbolTaktis;
-    end;
-  end;
-end;
 
 {$ENDREGION}
 
