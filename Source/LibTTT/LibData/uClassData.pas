@@ -452,8 +452,8 @@ type
 
   TFlagPoint = class
   private
+    FPointId : Integer;
     FConverter: TCoordConverter;
-    procedure SetConverter(const Value: TCoordConverter);
 
   public
     Post : t2DPoint;
@@ -462,9 +462,48 @@ type
     destructor Destroy;
     procedure Draw(aCnv : TCanvas);
 
-    property Converter : TCoordConverter read FConverter write SetConverter;
+    property PointId : Integer read FPointId write FPointId;
+    property Converter : TCoordConverter read FConverter write FConverter;
   end;
 
+  TFlagPointbContainer = class
+  private
+    FConverter: TCoordConverter;
+    FFlagList : TList;
+
+  public
+
+    constructor Create;
+    destructor Destroy; override;
+
+    procedure Clear;
+    procedure Draw(FCanvas: TCanvas);
+
+    function GetFlagPoint(FlagPointId : Integer): TFlagPoint;
+
+    property FlagList : TList read FFlagList write FFlagList;
+    property Converter : TCoordConverter read FConverter write FConverter;
+
+  end;
+
+  TRuler = class
+  private
+    FConverter: TCoordConverter;
+
+  protected
+
+  public
+    postStart : t2DPoint;
+    postEnd : t2DPoint;
+    IsVisible : Boolean;
+
+    constructor Create(cvt : TCoordConverter);
+    destructor Destroy; override;
+
+    procedure Draw(FCanvas: TCanvas);
+
+    property Converter : TCoordConverter read FConverter write FConverter;
+  end;
 implementation
 
 {$REGION ' TUser_Role '}
@@ -944,10 +983,12 @@ end;
 constructor TMainShape.Create(cvt: TCoordConverter);
 begin
   FConverter := cvt;
+  TempHuruf := TFont.Create;
 end;
 
 destructor TMainShape.Destroy;
 begin
+  TempHuruf.Free;
 
   inherited;
 end;
@@ -972,17 +1013,17 @@ begin
     {draw lambang}
     bmp := TBitmap.Create;
     case id of
-      0, 1:
+      ovIntelijen, ovLogistic :
       begin
         bmp.Transparent := true;
-        bmp.LoadFromFile(vSymbolSetting.ImgPath + pctLogisticPoint + '.bmp');
+        bmp.LoadFromFile(vGameDataSetting.ImgPath + pctLogisticPoint + '.bmp');
       end;
-      2: bmp.LoadFromFile(vSymbolSetting.ImgPath + pctBaseRadar + '.bmp');
-      3: bmp.LoadFromFile(vSymbolSetting.ImgPath + pctBaseAL + '.bmp');
-      4:
+      ovRadar: bmp.LoadFromFile(vGameDataSetting.ImgPath + pctBaseRadar + '.bmp');
+      ovPangkalan: bmp.LoadFromFile(vGameDataSetting.ImgPath + pctBaseAL + '.bmp');
+      ovPanah:
       begin
         bmp.Transparent := true;
-        bmp.LoadFromFile(vSymbolSetting.ImgPath + pctPanah + '.bmp');
+        bmp.LoadFromFile(vGameDataSetting.ImgPath + pctPanah + '.bmp');
       end;
     end;
     changeBitmapColor(bmp, ShapeOutline);
@@ -1277,7 +1318,7 @@ begin
 
     bmp := TBitmap.Create;
     bmp.Transparent := true;
-//    bmp.LoadFromFile(vSymbolSetting.ImgPath + pctFlagPoint + '.bmp');
+    bmp.LoadFromFile(vGameDataSetting.ImgPath + pctFlagPoint + '.bmp');
 
     cx := cx - (bmp.Width div 2);
     cy := cy - (bmp.Height div 2);
@@ -1353,7 +1394,7 @@ begin
 
     bmp := TBitmap.Create;
     bmp.Transparent := true;
-//    bmp.LoadFromFile(vSymbolSetting.ImgPath + pctFlagPoint + '.bmp');
+    bmp.LoadFromFile(vGameDataSetting.ImgPath + pctFlagPoint + '.bmp');
 
     cx := cx - (bmp.Width div 2);
     cy := cy - (bmp.Height div 2);
@@ -1434,7 +1475,7 @@ begin
 
     bmp := TBitmap.Create;
     bmp.Transparent := true;
-//    bmp.LoadFromFile(vSymbolSetting.ImgPath + pctFlagPoint + '.bmp');
+    bmp.LoadFromFile(vGameDataSetting.ImgPath + pctFlagPoint + '.bmp');
 
     cx := cx - (bmp.Width div 2);
     cy := cy - (bmp.Height div 2);
@@ -1525,7 +1566,7 @@ begin
 
     bmp := TBitmap.Create;
     bmp.Transparent := true;
-//    bmp.LoadFromFile(vSymbolSetting.ImgPath + pctFlagPoint + '.bmp');
+    bmp.LoadFromFile(vGameDataSetting.ImgPath + pctFlagPoint + '.bmp');
 
     cx := cx - (bmp.Width div 2);
     cy := cy - (bmp.Height div 2);
@@ -1802,7 +1843,7 @@ end;
 
 constructor TFlagPoint.Create(cvt: TCoordConverter);
 begin
-//  inherited;
+  FConverter := cvt;
 end;
 
 destructor TFlagPoint.Destroy;
@@ -1824,7 +1865,7 @@ begin
 
     bmp := TBitmap.Create;
     bmp.Transparent := true;
-//    bmp.LoadFromFile(vSymbolSetting.ImgPath + pctFlagPoint + '.bmp');
+    bmp.LoadFromFile(vGameDataSetting.ImgPath + pctFlagPoint + '.bmp');
 
     x := x - (bmp.Width div 2);
     y := y - (bmp.Height div 2);
@@ -1835,11 +1876,6 @@ begin
     {untuk menormalkan pen yg tidak diset}
     Pen.Width:=1;
   end;
-end;
-
-procedure TFlagPoint.SetConverter(const Value: TCoordConverter);
-begin
-  inherited;
 end;
 
 {$ENDREGION}
@@ -2226,7 +2262,7 @@ begin
       {draw lambang}
       bmp := TBitmap.Create;
       bmp.Transparent := true;
-      bmp.LoadFromFile(vSymbolSetting.ImgPath + pctPanah + '.bmp');
+      bmp.LoadFromFile(vGameDataSetting.ImgPath + pctPanah + '.bmp');
       changeBitmapColor(bmp, ShapeOutline);
 
       xe := x5 - (bmp.Width div 2);
@@ -2285,5 +2321,96 @@ begin
 end;
 
 {$ENDREGION}
+
+{$REGION ' TFlagPointbContainer '}
+
+procedure TFlagPointbContainer.Clear;
+begin
+  FFlagList.Clear;
+end;
+
+constructor TFlagPointbContainer.Create;
+begin
+  FFlagList := TList.Create;
+end;
+
+destructor TFlagPointbContainer.Destroy;
+begin
+  FFlagList.Free;
+
+  inherited;
+end;
+
+procedure TFlagPointbContainer.Draw(FCanvas: TCanvas);
+var
+  i : Integer;
+  item : TFlagPoint;
+begin
+  for i := 0 to FFlagList.Count - 1 do
+  begin
+    item := FFlagList[i];
+    item.Draw(FCanvas);
+  end;
+end;
+
+function TFlagPointbContainer.GetFlagPoint(FlagPointId: Integer): TFlagPoint;
+var
+  i : Integer;
+  item : TFlagPoint;
+begin
+  Result := nil;
+  for i := 0 to FFlagList.Count - 1 do
+  begin
+    item := FFlagList[i];
+
+    if item.PointId = FlagPointId then
+    begin
+      Result := item;
+      Exit;
+    end;
+  end;
+end;
+
+{$ENDREGION}
+
+{ TRuler }
+
+constructor TRuler.Create(cvt: TCoordConverter);
+begin
+  FConverter := cvt;
+end;
+
+destructor TRuler.Destroy;
+begin
+
+  inherited;
+end;
+
+procedure TRuler.Draw(FCanvas: TCanvas);
+var
+  sx, sy, ex, ey: Integer;
+begin
+  inherited;
+
+  Converter.ConvertToScreen(postStart.X, postStart.Y, sx, sy);
+  Converter.ConvertToScreen(postEnd.X, postEnd.Y, ex, ey);
+
+  with FCanvas do
+  begin
+    Brush.Style := bsClear;
+
+    Pen.Style := psDash;
+    Pen.Width := 2;
+    Pen.color := clYellow;
+    if not IsVisible then
+      Exit;
+    MoveTo(sx, sy);
+    LineTo(ex, ey);
+    Pen.Color := clGreen;
+    Rectangle(sx-1,sy-1,sx+1,sy+1);
+    Pen.Color := clRed;
+    Rectangle(ex-1,ey-1,ex+1,ey+1);
+  end;
+end;
 
 end.

@@ -119,6 +119,7 @@ type
     IdUserRole    : Integer;
     ShapeType     : Byte;
     TemplateId    : Integer;
+    OverlayName   : string[20];
     IdAction      : Byte;       {1: add; 2: Edit; 3: Delete}
     IdSelectShape : Byte;
     PostStart     : t2DPoint;   {PostStart/ PostCenter}
@@ -139,6 +140,10 @@ type
     ColorFill     : TColor;
     Editable      : Boolean;
     PolyPoint     : array[0..12] of t2DPoint;
+    Data          : array[0..12] of string[50];
+    Status        : array[0..12] of string[7];
+    Simbol        : array[0..12] of string[1];
+    Quantity      : array[0..12] of Integer;
     isSelected    : Boolean;
     role          : Byte;
   end;

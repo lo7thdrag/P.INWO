@@ -267,7 +267,6 @@ type
     grplogistik: TGroupBox;
     Label16: TLabel;
     Label22: TLabel;
-    Label61: TLabel;
     edtLongLog: TEdit;
     Label23: TLabel;
     Label62: TLabel;
@@ -298,17 +297,12 @@ type
     Label47: TLabel;
     Label10: TLabel;
     Label11: TLabel;
-    lvBase: TListView;
+    lvEmbark: TListView;
     Label12: TLabel;
-    Label49: TLabel;
     edtPlatform: TEdit;
     Label13: TLabel;
-    Label50: TLabel;
     edtQty: TEdit;
-    Label14: TLabel;
-    Label51: TLabel;
     lblSymbolTaktis: TLabel;
-    Bevel1: TBevel;
     btnplatform: TButton;
     btnInsertBase: TButton;
     btnEditBase: TButton;
@@ -317,11 +311,11 @@ type
     Bevel18: TBevel;
     Label3: TLabel;
     Label54: TLabel;
-    edtStartLong: TEdit;
+    edtStartLatt: TEdit;
     btnStartPos: TSpeedButton;
     Label4: TLabel;
     Label55: TLabel;
-    edtStartLatt: TEdit;
+    edtStartLong: TEdit;
     Label5: TLabel;
     Label56: TLabel;
     Label6: TLabel;
@@ -341,7 +335,6 @@ type
     Label59: TLabel;
     Label30: TLabel;
     Label31: TLabel;
-    Label60: TLabel;
     edtRadius: TEdit;
     Label7: TLabel;
     grpObjNone: TGroupBox;
@@ -362,8 +355,27 @@ type
     btnText: TRzBmpButton;
     btnOutline: TRzBmpButton;
     btnFill: TRzBmpButton;
-    btnNone: TRzBmpButton;
+    btnSelectObj: TRzBmpButton;
     btnRadar: TRzBmpButton;
+    Label27: TLabel;
+    Label28: TLabel;
+    Bevel21: TBevel;
+    edtIntelIdentifier: TEdit;
+    Label66: TLabel;
+    Label67: TLabel;
+    Bevel1: TBevel;
+    Label61: TLabel;
+    edtLogIdentifier: TEdit;
+    Label69: TLabel;
+    Bevel22: TBevel;
+    Label14: TLabel;
+    edtBaseIdentifier: TEdit;
+    Bevel23: TBevel;
+    Label49: TLabel;
+    Label50: TLabel;
+    Bevel24: TBevel;
+    edtRadarIdentifier: TEdit;
+    Label51: TLabel;
     procedure btnHandleShape(Sender: TObject);
     procedure cbbTypeToolsChange(Sender: TObject);
     procedure btnOutlineClick(Sender: TObject);
@@ -373,6 +385,7 @@ type
     procedure btnFillClick(Sender: TObject);
     procedure btnCloseClick(Sender: TObject);
     procedure colorChooseChange(Sender: TObject);
+    procedure btnPlatformHandle(Sender: TObject);
 
   private
     FShapeType : Integer;
@@ -388,8 +401,6 @@ type
     IsEditObject : Boolean;
     isNoFill : Boolean;
     IdAction: Byte; { 1: add; 2: Edit; 3: Delete }
-
-//    ShapeType: Integer;
 
     procedure Apply;
     procedure Deleted;
@@ -424,12 +435,18 @@ type
     procedure GbrSector;
     procedure GbrGrid;
     procedure GbrPolygon;
+    procedure GbrIntelejen;
+    procedure GbrLogistic;
+    procedure GbrRadar;
+    procedure GbrPangkalan;
+    procedure GbrPanah;
     procedure GbrFlagPoint(mx, my :Double);
 
     procedure SelectShape(mx, my :Double);
     procedure SetPosition(mx, my :Double);
 
     function FindIdSelectedShape: Boolean;
+    function GetPlottingColor:Integer;
 //    function lineTypeChoice (linetype :TPenStyle): String;
     function CekInput(IdObject : Integer): Boolean;
 
@@ -461,6 +478,11 @@ begin
     ovSector : GbrSector;
     ovGrid : GbrGrid;
     ovPolygon : GbrPolygon;
+    ovIntelijen : GbrIntelejen;
+    ovLogistic : GbrLogistic;
+    ovRadar : GbrRadar;
+    ovPangkalan : GbrPangkalan;
+    ovPanah : GbrPanah;
   end;
 end;
 
@@ -473,7 +495,10 @@ begin
       if FisInputProblem  then
         Exit
       else
+      begin
         btnHandleShape(btnSelect);
+        btnHandleShape(btnSelectObj);
+      end;
     end;
     1: {Delete}
     begin
@@ -516,6 +541,7 @@ begin
     0: { Select }
       begin
         grpNone.BringToFront;
+        grpObjNone.BringToFront;
 
         { merubah cursor }
         frmSituationBoard.MapCursor := mcEdit;
@@ -525,6 +551,7 @@ begin
         btnFill.Visible := false;
         pnlPenEditing.Visible := false;
         btnSelect.Down := True;
+        btnSelectObj.Down := True;
         {$ENDREGION}
       end;
     ovText:
@@ -673,7 +700,7 @@ begin
     end;
     ovEllipse:{Ellipse}
     begin
-      {$REGION ' Ellipse '
+      {$REGION ' Ellipse '}
       if (edtEllipsePosLong.Text = '')or (edtEllipsePosLat.Text = '')
       or(edtHorizontal.Text = '') or (edtVertical.Text = '')or
       (edtEllipsePosLat.text= '')or
@@ -691,6 +718,7 @@ begin
     end;
     ovArc:{Arc}
     begin
+      {$REGION ' Arc '}
       if (edtArcPosLong.Text = '') or (edtArcPosLat.Text = '')or
       (edtArcRadius.Text = '')or(edtArcStartAngle.Text = '')or
       (edtArcEndAngle.Text = '')then
@@ -749,7 +777,6 @@ begin
         ShowMessage ('Data yang dimasukan tidak lengkap');
         Result := True;
       end
-
       else if (edtTableHeight.Text = '0') or (edtTableColumn.Text = '0') or (edtTableWidth.Text = '0')
       or (edtTableRow.Text = '0') then
       begin
@@ -762,6 +789,56 @@ begin
     begin
       {$REGION ' Polygon '}
       if lvPolyVertex.Items.Count < 1 then
+      begin
+        ShowMessage ('Data yang dimasukan tidak lengkap');
+        Result := True;
+      end;
+      {$ENDREGION}
+    end;
+    ovIntelijen:
+    begin
+      {$REGION ' Intelijen '}
+      if (edtLattIntel.Text = '') or (edtLongIntel.Text = '') or (mmoInfo.Text = '') or (edtIntelIdentifier.Text = '')then
+      begin
+        ShowMessage ('Data yang dimasukan tidak lengkap');
+        Result := True;
+      end;
+      {$ENDREGION}
+    end;
+    ovLogistic:
+    begin
+      {$REGION ' Logistic '}
+      if (edtLattLog.Text = '') or (edtLongLog.Text = '') or (lvLogistic.Items.Count < 1) then
+      begin
+        ShowMessage ('Data yang dimasukan tidak lengkap');
+        Result := True;
+      end;
+      {$ENDREGION}
+    end;
+    ovRadar:
+    begin
+      {$REGION ' Radar '}
+      if (edtLattRadar.Text = '') or (edtLongRadar.Text = '') or (edtRadius.Text = '') then
+      begin
+        ShowMessage ('Data yang dimasukan tidak lengkap');
+        Result := True;
+      end;
+      {$ENDREGION}
+    end;
+    ovPangkalan:
+    begin
+      {$REGION ' Pangkalan '}
+      if (edtLattBase.Text = '') or (edtLongBase.Text = '') or (lvEmbark.Items.Count < 1) then
+      begin
+        ShowMessage ('Data yang dimasukan tidak lengkap');
+        Result := True;
+      end;
+      {$ENDREGION}
+    end;
+    ovPanah:
+    begin
+      {$REGION ' Panah '}
+      if (edtStartLatt.Text = '') or (edtStartLong.Text = '') or (edtEndLatt.Text = '') or (edtEndLong.Text = '') then
       begin
         ShowMessage ('Data yang dimasukan tidak lengkap');
         Result := True;
@@ -784,8 +861,6 @@ begin
   edtTextPosLAt.Text := '';
   edtTextPosLong.Text := '';
   edtTextField.Text := 'None';
-
-  SpeedButton.Down := false;
 
   { Line }
   edtLineStartPosLong.Text := '';
@@ -922,26 +997,103 @@ begin
   btnHandleShape(btnSelect);
 end;
 
-procedure TfrmOverlayTools.GbrArc;
+{$REGION ' Procedure Gbr '}
+
+procedure TfrmOverlayTools.GbrText;
+var
+  Size : Byte;
+  recShape : TRecTCPSendOverlayShape;
+
+begin
+  if CekInput(ovText) then
+    Exit;
+
+  Size := 10;
+
+  recShape.IdUserRole := FSelectedOverlayTab.IdUserRole;
+  recShape.TemplateId := FSelectedOverlayTab.IdOverlayTab;
+  recShape.ShapeType := ovText;
+  recShape.IdSelectShape := FShapeId;
+  recShape.IdAction := FAction;
+
+  recShape.PostStart.X := dmsToLong(edtTextPosLong.Text);
+  recShape.PostStart.Y := dmsToLatt(edtTextPosLat.Text);
+  recShape.Size := StrToInt(cbbTextSize.Text);
+  recShape.Words := edtTextField.Text;
+  recShape.color := pnlOutline.Color;
+
+  {Kirim data disini}
+  simMgrClient.netSend_CmdOverlayShape(recShape);
+  FisInputProblem := False;
+end;
+
+procedure TfrmOverlayTools.GbrLine;
 var
   recShape : TRecTCPSendOverlayShape;
 
 begin
-  if CekInput(ovArc) then
+  if CekInput(ovLine) then
+    Exit;
+
+//  if IsEditObject then
+//  begin
+//      Action := 2;
+//    if not FindIdSelectedShape then
+//      Exit;
+//  end
+//  else
+//    Action := 1;
+
+  recShape.IdUserRole := FSelectedOverlayTab.IdUserRole;
+  recShape.TemplateId := FSelectedOverlayTab.IdOverlayTab;
+  recShape.ShapeType := ovLine;
+  recShape.IdSelectShape := FShapeId;
+  recShape.IdAction := FAction;
+
+  recShape.postStart.X := dmsToLong(edtLineStartPosLong.Text);
+  recShape.postStart.Y := dmsToLatt(edtLineStartPosLat.Text);
+  recShape.postEnd.X := dmsToLong(edtLineEndPosLong.Text);
+  recShape.postEnd.Y := dmsToLatt(edtLineEndPosLat.Text);
+
+  recShape.color := pnlOutline.color;
+  recShape.lineType :=  TPenStyle(cbbDashesPen.ItemIndex);
+  recShape.weight := StrToInt(cbbWeightPen.Text);
+
+  {Kirim data disini}
+  simMgrClient.netSend_CmdOverlayShape(recShape);
+  FisInputProblem := False;
+end;
+
+procedure TfrmOverlayTools.GbrRectangle;
+var
+  recShape : TRecTCPSendOverlayShape;
+
+begin
+  if CekInput(ovRectangle) then
     Exit;
 
   recShape.IdUserRole := FSelectedOverlayTab.IdUserRole;
   recShape.TemplateId := FSelectedOverlayTab.IdOverlayTab;
-  recShape.ShapeType := ovArc;
+  recShape.ShapeType := ovRectangle;
   recShape.IdSelectShape := FShapeId;
   recShape.IdAction := FAction;
 
-  recShape.PostStart.X := dmsToLong(edtArcPosLong.Text);
-  recShape.PostStart.Y := dmsToLatt(edtArcPosLat.Text);
-  recShape.radius1 := StrToFloat(edtArcRadius.Text);
-  recShape.StartAngle := StrToInt(edtArcStartAngle.Text);
-  recShape.EndAngle := StrToInt(edtArcEndAngle.Text);
+  recShape.postStart.X := dmsToLong(edtRectStartPosLong.Text);
+  recShape.postStart.Y := dmsToLatt(edtRectStartPosLat.Text);
+  recShape.postEnd.X := dmsToLong(edtRectEndPosLong.Text);
+  recShape.postEnd.Y := dmsToLatt(edtRectEndPosLat.Text);
+
   recShape.color := pnlOutline.Color;
+
+  if isNoFill  then
+  begin
+    recShape.BrushStyle := bsClear;
+  end
+  else
+  begin
+    recShape.BrushStyle := bsSolid;
+    recShape.ColorFill := pnlFill.Color;
+  end;
 
   recShape.LineType :=  TPenStyle(cbbDashesPen.ItemIndex);
   recShape.Weight := StrToInt(cbbWeightPen.Text);
@@ -1030,14 +1182,63 @@ begin
   FisInputProblem := False;
 end;
 
-procedure TfrmOverlayTools.GbrFlagPoint(mx, my: Double);
-//var
-//  ObjectFlagPoint : TFlagPoint;
+procedure TfrmOverlayTools.GbrArc;
+var
+  recShape : TRecTCPSendOverlayShape;
+
 begin
-//  ObjectFlagPoint := TFlagPoint.Create(simMgrClient.Converter);
-//  ObjectFlagPoint.Post.X := mx;
-//  ObjectFlagPoint.Post.Y := my;
-//  simMgrClient.DrawFlagPoint.FList.Add(ObjectFlagPoint);
+  if CekInput(ovArc) then
+    Exit;
+
+  recShape.IdUserRole := FSelectedOverlayTab.IdUserRole;
+  recShape.TemplateId := FSelectedOverlayTab.IdOverlayTab;
+  recShape.ShapeType := ovArc;
+  recShape.IdSelectShape := FShapeId;
+  recShape.IdAction := FAction;
+
+  recShape.PostStart.X := dmsToLong(edtArcPosLong.Text);
+  recShape.PostStart.Y := dmsToLatt(edtArcPosLat.Text);
+  recShape.radius1 := StrToFloat(edtArcRadius.Text);
+  recShape.StartAngle := StrToInt(edtArcStartAngle.Text);
+  recShape.EndAngle := StrToInt(edtArcEndAngle.Text);
+  recShape.color := pnlOutline.Color;
+
+  recShape.LineType :=  TPenStyle(cbbDashesPen.ItemIndex);
+  recShape.Weight := StrToInt(cbbWeightPen.Text);
+
+  {Kirim data disini}
+  simMgrClient.netSend_CmdOverlayShape(recShape);
+  FisInputProblem := False;
+end;
+
+procedure TfrmOverlayTools.GbrSector;
+var
+  recShape : TRecTCPSendOverlayShape;
+
+begin
+  if CekInput(ovSector) then
+    Exit;
+
+  recShape.IdUserRole := FSelectedOverlayTab.IdUserRole;
+  recShape.TemplateId := FSelectedOverlayTab.IdOverlayTab;
+  recShape.ShapeType := ovSector;
+  recShape.IdSelectShape := FShapeId;
+  recShape.IdAction := FAction;
+
+  recShape.PostStart.X := dmsToLong(edtSectorPosLong.Text);
+  recShape.PostStart.Y := dmsToLatt(edtSectorPosLat.Text);
+  recShape.Radius1 := StrToFloat(edtSectorOuter.Text);
+  recShape.Radius2 := StrToFloat(edtSectorInner.Text);
+  recShape.StartAngle := StrToInt(edtSectorStartAngle.Text);
+  recShape.EndAngle := StrToInt(edtSectorEndAngle.Text);
+  recShape.color := pnlOutline.Color;
+
+  recShape.LineType :=  TPenStyle(cbbDashesPen.ItemIndex);
+  recShape.Weight := StrToInt(cbbWeightPen.Text);
+
+  {Kirim data disini}
+  simMgrClient.netSend_CmdOverlayShape(recShape);
+  FisInputProblem := False;
 end;
 
 procedure TfrmOverlayTools.GbrGrid;
@@ -1073,43 +1274,6 @@ begin
 
   recShape.LineType :=  TPenStyle(cbbDashesPen.ItemIndex);
   recShape.Weight := StrToInt(cbbWeightPen.Text);
-
-  {Kirim data disini}
-  simMgrClient.netSend_CmdOverlayShape(recShape);
-  FisInputProblem := False;
-end;
-
-procedure TfrmOverlayTools.GbrLine;
-var
-  recShape : TRecTCPSendOverlayShape;
-
-begin
-  if CekInput(ovLine) then
-    Exit;
-
-//  if IsEditObject then
-//  begin
-//      Action := 2;
-//    if not FindIdSelectedShape then
-//      Exit;
-//  end
-//  else
-//    Action := 1;
-
-  recShape.IdUserRole := FSelectedOverlayTab.IdUserRole;
-  recShape.TemplateId := FSelectedOverlayTab.IdOverlayTab;
-  recShape.ShapeType := ovLine;
-  recShape.IdSelectShape := FShapeId;
-  recShape.IdAction := FAction;
-
-  recShape.postStart.X := dmsToLong(edtLineStartPosLong.Text);
-  recShape.postStart.Y := dmsToLatt(edtLineStartPosLat.Text);
-  recShape.postEnd.X := dmsToLong(edtLineEndPosLong.Text);
-  recShape.postEnd.Y := dmsToLatt(edtLineEndPosLat.Text);
-
-  recShape.color := pnlOutline.color;
-  recShape.lineType :=  TPenStyle(cbbDashesPen.ItemIndex);
-  recShape.weight := StrToInt(cbbWeightPen.Text);
 
   {Kirim data disini}
   simMgrClient.netSend_CmdOverlayShape(recShape);
@@ -1166,102 +1330,198 @@ begin
   FisInputProblem := False;
 end;
 
-procedure TfrmOverlayTools.GbrRectangle;
+procedure TfrmOverlayTools.GbrIntelejen;
 var
+  i : Integer;
   recShape : TRecTCPSendOverlayShape;
 
 begin
-  if CekInput(ovRectangle) then
+  if CekInput(ovIntelijen) then
     Exit;
 
-  recShape.IdUserRole := FSelectedOverlayTab.IdUserRole;
-  recShape.TemplateId := FSelectedOverlayTab.IdOverlayTab;
-  recShape.ShapeType := ovRectangle;
-  recShape.IdSelectShape := FShapeId;
-  recShape.IdAction := FAction;
+  recShape.IdUserRole   := FSelectedOverlayTab.IdUserRole;
+  recShape.TemplateId   := FSelectedOverlayTab.IdOverlayTab;
+  recShape.ShapeType    := ovIntelijen;
+  recShape.OverlayName  := edtIntelIdentifier.Text;
+  recShape.PostStart.X  := dmsToLong(edtLongIntel.Text);
+  recShape.PostStart.Y  := dmsToLatt(edtLattIntel.Text);
+  recShape.IdSelectShape:= FShapeId;
+  recShape.IdAction     := FAction;
+  recShape.color        := GetPlottingColor;
 
-  recShape.postStart.X := dmsToLong(edtRectStartPosLong.Text);
-  recShape.postStart.Y := dmsToLatt(edtRectStartPosLat.Text);
-  recShape.postEnd.X := dmsToLong(edtRectEndPosLong.Text);
-  recShape.postEnd.Y := dmsToLatt(edtRectEndPosLat.Text);
-
-  recShape.color := pnlOutline.Color;
-
-  if isNoFill  then
+  for i := 0 to 12 do
   begin
-    recShape.BrushStyle := bsClear;
-  end
-  else
-  begin
-    recShape.BrushStyle := bsSolid;
-    recShape.ColorFill := pnlFill.Color;
+    recShape.Data[i] := '';
+    recShape.Status[i] := '';
+    recShape.Simbol[i] := '';
+    recShape.Quantity[i] := 0;
   end;
 
-  recShape.LineType :=  TPenStyle(cbbDashesPen.ItemIndex);
-  recShape.Weight := StrToInt(cbbWeightPen.Text);
+  for I := 0 to mmoInfo.Lines.Count - 1 do
+  begin
+    recShape.Data[i] := mmoInfo.Lines.Strings[i];
+  end;
 
-  {Kirim data disini}
   simMgrClient.netSend_CmdOverlayShape(recShape);
   FisInputProblem := False;
 end;
 
-procedure TfrmOverlayTools.GbrSector;
+procedure TfrmOverlayTools.GbrLogistic;
 var
+  i : Integer;
+  li : TListItem;
   recShape : TRecTCPSendOverlayShape;
 
 begin
-  if CekInput(ovSector) then
+  if CekInput(ovLogistic) then
     Exit;
 
-  recShape.IdUserRole := FSelectedOverlayTab.IdUserRole;
-  recShape.TemplateId := FSelectedOverlayTab.IdOverlayTab;
-  recShape.ShapeType := ovSector;
-  recShape.IdSelectShape := FShapeId;
-  recShape.IdAction := FAction;
+  recShape.IdUserRole   := FSelectedOverlayTab.IdUserRole;
+  recShape.TemplateId   := FSelectedOverlayTab.IdOverlayTab;
+  recShape.OverlayName  := edtLogIdentifier.Text;
+  recShape.PostStart.X  := dmsToLong(edtLongLog.Text);
+  recShape.PostStart.Y  := dmsToLatt(edtLattLog.Text);
+  recShape.IdSelectShape:= FShapeId;
+  recShape.IdAction     := FAction;
+  recShape.color        := GetPlottingColor;
 
-  recShape.PostStart.X := dmsToLong(edtSectorPosLong.Text);
-  recShape.PostStart.Y := dmsToLatt(edtSectorPosLat.Text);
-  recShape.Radius1 := StrToFloat(edtSectorOuter.Text);
-  recShape.Radius2 := StrToFloat(edtSectorInner.Text);
-  recShape.StartAngle := StrToInt(edtSectorStartAngle.Text);
-  recShape.EndAngle := StrToInt(edtSectorEndAngle.Text);
-  recShape.color := pnlOutline.Color;
+  for i := 0 to 12 do
+  begin
+    recShape.Data[i] := '';
+    recShape.Status[i] := '';
+    recShape.Simbol[i] := '';
+    recShape.Quantity[i] := 0;
+  end;
 
-  recShape.LineType :=  TPenStyle(cbbDashesPen.ItemIndex);
-  recShape.Weight := StrToInt(cbbWeightPen.Text);
+  for i := 0 to lvLogistic.Items.Count - 1 do
+  begin
+    li := lvLogistic.Items[i];
+    recShape.Data[i] := li.Caption;
+    recShape.Status[i] := li.SubItems[0];
+  end;
 
-  {Kirim data disini}
   simMgrClient.netSend_CmdOverlayShape(recShape);
   FisInputProblem := False;
 end;
 
-procedure TfrmOverlayTools.GbrText;
+procedure TfrmOverlayTools.GbrPangkalan;
 var
-  Size : Byte;
+  i : Integer;
+  li : TListItem;
   recShape : TRecTCPSendOverlayShape;
 
 begin
-  if CekInput(ovText) then
+  if CekInput(ovPangkalan) then
     Exit;
 
-  Size := 10;
+  recShape.IdUserRole   := FSelectedOverlayTab.IdUserRole;
+  recShape.TemplateId   := FSelectedOverlayTab.IdOverlayTab;
+  recShape.ShapeType    := ovPangkalan;
+  recShape.OverlayName  := edtBaseIdentifier.Text;
+  recShape.PostStart.X  := dmsToLong(edtLongBase.Text);
+  recShape.PostStart.Y  := dmsToLatt(edtLattBase.Text);
+  recShape.IdSelectShape:= FShapeId;
+  recShape.IdAction     := FAction;
+  recShape.color        := GetPlottingColor;
 
-  recShape.IdUserRole := FSelectedOverlayTab.IdUserRole;
-  recShape.TemplateId := FSelectedOverlayTab.IdOverlayTab;
-  recShape.ShapeType := ovText;
-  recShape.IdSelectShape := FShapeId;
-  recShape.IdAction := FAction;
+  for i := 0 to 12 do
+  begin
+    recShape.Data[i] := '';
+    recShape.Status[i] := '';
+    recShape.Simbol[i] := '';
+    recShape.Quantity[i] := 0;
+  end;
 
-  recShape.PostStart.X := dmsToLong(edtTextPosLong.Text);
-  recShape.PostStart.Y := dmsToLatt(edtTextPosLat.Text);
-  recShape.Size := StrToInt(cbbTextSize.Text);
-  recShape.Words := edtTextField.Text;
-  recShape.color := pnlOutline.Color;
+  for i := 0 to lvEmbark.Items.Count - 1 do
+  begin
+    li := lvEmbark.Items[i];
+    recShape.Data[i] := li.Caption;
+    recShape.Quantity[i] := StrToInt(li.SubItems[0]);
+    recShape.Simbol[i] := li.SubItems[1];
+  end;
 
-  {Kirim data disini}
   simMgrClient.netSend_CmdOverlayShape(recShape);
   FisInputProblem := False;
 end;
+
+procedure TfrmOverlayTools.GbrRadar;
+var
+  i : Integer;
+  recShape : TRecTCPSendOverlayShape;
+
+begin
+  if CekInput(ovRadar) then
+    Exit;
+
+  recShape.IdUserRole   := FSelectedOverlayTab.IdUserRole;
+  recShape.TemplateId   := FSelectedOverlayTab.IdOverlayTab;
+  recShape.ShapeType    := ovRadar;
+  recShape.OverlayName  := edtRadarIdentifier.Text;
+  recShape.PostStart.X  := dmsToLong(edtLongRadar.Text);
+  recShape.PostStart.Y  := dmsToLatt(edtLattRadar.Text);
+  recShape.IdSelectShape:= FShapeId;
+  recShape.IdAction     := FAction;
+  recShape.color        := GetPlottingColor;
+
+  for i := 0 to 12 do
+  begin
+    recShape.Data[i] := '';
+    recShape.Status[i] := '';
+    recShape.Simbol[i] := '';
+    recShape.Quantity[i] := 0;
+  end;
+
+  recShape.Radius1 := StrToFloat(edtRadius.Text);
+
+  simMgrClient.netSend_CmdOverlayShape(recShape);
+  FisInputProblem := False;
+end;
+
+procedure TfrmOverlayTools.GbrPanah;
+var
+  i : Integer;
+  recShape : TRecTCPSendOverlayShape;
+
+begin
+  if CekInput(ovPanah) then
+    Exit;
+
+  recShape.IdUserRole   := FSelectedOverlayTab.IdUserRole;
+  recShape.TemplateId   := FSelectedOverlayTab.IdOverlayTab;
+  recShape.ShapeType    := ovPanah;
+  recShape.OverlayName  := edtRadarIdentifier.Text;
+  recShape.PostStart.X  := dmsToLong(edtLongRadar.Text);
+  recShape.PostStart.Y  := dmsToLatt(edtLattRadar.Text);
+  recShape.PostEnd.X    := dmsToLong(edtEndLong.Text);
+  recShape.PostEnd.Y    := dmsToLatt(edtEndLatt.Text);
+  recShape.IdSelectShape:= FShapeId;
+  recShape.IdAction     := FAction;
+  recShape.color        := GetPlottingColor;
+
+  for i := 0 to 12 do
+  begin
+    recShape.Data[i] := '';
+    recShape.Status[i] := '';
+    recShape.Simbol[i] := '';
+    recShape.Quantity[i] := 0;
+  end;
+
+  simMgrClient.netSend_CmdOverlayShape(recShape);
+  FisInputProblem := False;
+end;
+
+
+procedure TfrmOverlayTools.GbrFlagPoint(mx, my: Double);
+var
+  flagPointTemp : TFlagPoint;
+begin
+  flagPointTemp := TFlagPoint.Create(simMgrClient.Converter);
+  flagPointTemp.Post.X := mx;
+  flagPointTemp.Post.Y := my;
+  simMgrClient.DrawFlagPoint.FlagList.Add(flagPointTemp);
+end;
+
+{$ENDREGION}
 
 procedure TfrmOverlayTools.LoadPanelArc;
 begin
@@ -1441,6 +1701,14 @@ begin
 
   btnDelete.Enabled := FAction = caEdit;
   {$ENDREGION}
+end;
+
+function TfrmOverlayTools.GetPlottingColor: Integer;
+begin
+  if rbBlue.Checked then
+    Result := clBlue
+  else
+    Result := clRed;
 end;
 
 procedure TfrmOverlayTools.SelectShape(mx, my :Double);
@@ -1967,6 +2235,36 @@ begin
         edtPolyPosLat.Text := formatDMS_latt(my);
         edtPolyPosLong.Text := formatDMS_long(mx);
       end;
+    11:
+      begin
+        edtLattIntel.Text := formatDMS_latt(my);
+        edtLongIntel.Text := formatDMS_long(mx);
+      end;
+    12:
+      begin
+        edtLattRadar.Text := formatDMS_latt(my);
+        edtLongRadar.Text := formatDMS_long(mx);
+      end;
+    13:
+      begin
+        edtStartLatt.Text := formatDMS_latt(my);
+        edtStartLong.Text := formatDMS_long(mx);
+      end;
+    14:
+      begin
+        edtEndLatt.Text := formatDMS_latt(my);
+        edtEndLong.Text := formatDMS_long(mx);
+      end;
+    15:
+      begin
+        edtLattLog.Text := formatDMS_latt(my);
+        edtLongLog.Text := formatDMS_long(mx);
+      end;
+    16:
+      begin
+        edtLattBase.Text := formatDMS_latt(my);
+        edtLongBase.Text := formatDMS_long(mx);
+      end;
   end;
   show
 end;
@@ -1990,6 +2288,46 @@ begin
 //      frmSituationBoard.Map1.MousePointer := miCrossCursor;
     end;
   end;
+end;
+
+procedure TfrmOverlayTools.btnPlatformHandle(Sender: TObject);
+begin
+//  if (edtNamePlatform.Text = '') or (edtQtyPlatform.Text = '') and
+//     (TSpeedButton(Sender).Tag <> 4) then
+//  begin
+//    ShowMessage('Incomplete data input');
+//    Exit;
+//  end;
+//
+//  case TSpeedButton(Sender).Tag of
+//    1: {Add}
+//    begin
+//      with lvEmbark.Items.Add do
+//      begin
+//        Caption := edtNamePlatform.Text;
+//        SubItems.Add(edtQtyPlatform.Text);
+//        SubItems.Add(lblFontTaktis.Caption);
+//      end;
+//    end;
+//    2:{Edit}
+//    begin
+//      with lvEmbark.Items[IdSelectedEmbark] do
+//      begin
+//        Caption := edtNamePlatform.Text;
+//        SubItems[0] := edtQtyPlatform.Text;
+//        SubItems[1] := lblFontTaktis.Caption;
+//      end;
+//    end;
+//    3:{Delete}
+//    begin
+//      lvEmbark.Items.Delete(IdSelectedEmbark);
+//    end;
+//    4:{Clear}
+//    begin
+//      lvEmbark.Items.Clear;
+//    end;
+//  end;
+//  RefreshLEmbark;
 end;
 
 end.
