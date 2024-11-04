@@ -137,7 +137,7 @@ type
     edtLineEndPosLong: TEdit;
     grpPolygon: TGroupBox;
     lbl49: TLabel;
-    btn7: TSpeedButton;
+    SpeedButton10: TSpeedButton;
     lbl50: TLabel;
     lbl51: TLabel;
     lbl122: TLabel;
@@ -441,17 +441,20 @@ type
     procedure GbrPangkalan;
     procedure GbrPanah;
     procedure GbrFlagPoint(mx, my :Double);
+    procedure EditFlagPoint(id: Integer; mx, my: Double);
 
     procedure SelectShape(mx, my :Double);
     procedure SetPosition(mx, my :Double);
 
     function FindIdSelectedShape: Boolean;
     function GetPlottingColor:Integer;
-//    function lineTypeChoice (linetype :TPenStyle): String;
     function CekInput(IdObject : Integer): Boolean;
+    procedure RefreshLvPolyVertexList;
 
     property SelectedOverlayTab : TOverlayTab read FSelectedOverlayTab write  FSelectedOverlayTab;
     property ShapeType : Integer read FShapeType write  FShapeType;
+    property TagTombolPosition : Integer read FTagTombolPosition write  FTagTombolPosition;
+
   end;
 
 var
@@ -1510,7 +1513,6 @@ begin
   FisInputProblem := False;
 end;
 
-
 procedure TfrmOverlayTools.GbrFlagPoint(mx, my: Double);
 var
   flagPointTemp : TFlagPoint;
@@ -1519,6 +1521,53 @@ begin
   flagPointTemp.Post.X := mx;
   flagPointTemp.Post.Y := my;
   simMgrClient.DrawFlagPoint.FlagList.Add(flagPointTemp);
+end;
+
+procedure TfrmOverlayTools.EditFlagPoint(id: Integer; mx, my: Double);
+var
+  flagPointTemp: TFlagPoint;
+begin
+  flagPointTemp := TFlagPoint.Create(simMgrClient.Converter);
+  flagPointTemp.Post.X := mx;
+  flagPointTemp.Post.Y := my;
+
+  if (id = 1) or (id = 3) then
+  begin
+    simMgrClient.DrawFlagPoint.FlagList.Delete(0);
+    simMgrClient.DrawFlagPoint.FlagList.Insert(0, flagPointTemp);
+  end
+  else
+  begin
+    simMgrClient.DrawFlagPoint.FlagList.Delete(1);
+    simMgrClient.DrawFlagPoint.FlagList.Insert(1, flagPointTemp);
+  end;
+end;
+
+procedure TfrmOverlayTools.RefreshLvPolyVertexList;
+var
+  j: Integer;
+  flagPointTemp: TFlagPoint;
+  li: TListItem;
+begin
+  lvPolyVertex.Items.BeginUpdate;
+  try
+    simMgrClient.DrawFlagPoint.FlagList.Clear;
+
+    for j := 0 to lvPolyVertex.Items.Count - 1 do
+    begin
+      lvPolyVertex.Items.Item[j].Caption := IntToStr(j + 1);
+
+      li := lvPolyVertex.Items[j];
+
+      flagPointTemp := TFlagPoint.Create(simMgrClient.Converter);
+      flagPointTemp.Post.X := dmsToLong(li.SubItems[0]);
+      flagPointTemp.Post.Y := dmsToLatt(li.SubItems[1]);
+
+      simMgrClient.DrawFlagPoint.FlagList.Add(flagPointTemp);
+    end;
+  finally
+    lvPolyVertex.Items.EndUpdate;
+  end;
 end;
 
 {$ENDREGION}

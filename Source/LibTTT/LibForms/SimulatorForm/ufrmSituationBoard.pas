@@ -10,7 +10,7 @@ uses
 
   {Project Uses}
   MapXLib_TLB, uCoordConvertor, uLibSetting, uT3SimManager, uSimMgr_Client, uRecordData, uNetBaseSocket, uClassData, ufrmCreateTab,
-  ufrmImageInsert, ufrmOverlayTools, uConstantaData, ufrmBrowseMap;
+  ufrmImageInsert, ufrmOverlayTools, uConstantaData, ufrmBrowseMap, uBaseCoordSystem;
 
 type
 
@@ -585,7 +585,7 @@ begin
 
       with frmOverlayTools do
       begin
-        case frmOverlayTools.ShapeType of
+        case ShapeType of
           ovText, ovCircle, ovEllipse, ovArc, ovSector, ovGrid:
           begin
             if simMgrClient.DrawFlagPoint.FlagList.Count > 0 then
@@ -600,27 +600,27 @@ begin
               GbrFlagPoint(0, 0);
               GbrFlagPoint(0, 0);
             end;
-//            EditFlagPoint(FTagTombolPosition, xTemp, yTemp)
+            EditFlagPoint(TagTombolPosition, xTemp, yTemp)
           end;
           ovPolygon:
           begin
             GbrFlagPoint(xTemp, yTemp);
 
-//            if SpeedButton10.Down then
-//            begin
-//              if lvPolyVertex.Items.Count > 12 then
-//              begin
-//                ShowMessage('kelebihan bro');
-//                Exit;
-//              end;
-//
-//              with lvPolyVertex.Items.Add do
-//              begin
-//                SubItems.Add(formatDMS_long(xTemp));
-//                SubItems.Add(formatDMS_latt(yTemp));
-//              end;
-//              RefreshLvPolyVertexList;
-//            end;
+            if SpeedButton10.Down then
+            begin
+              if lvPolyVertex.Items.Count > 12 then
+              begin
+                ShowMessage('kelebihan bro');
+                Exit;
+              end;
+
+              with lvPolyVertex.Items.Add do
+              begin
+                SubItems.Add(formatDMS_long(xTemp));
+                SubItems.Add(formatDMS_latt(yTemp));
+              end;
+              RefreshLvPolyVertexList;
+            end;
           end;
         end;
       end;
