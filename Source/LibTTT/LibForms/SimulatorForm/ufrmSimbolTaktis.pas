@@ -66,9 +66,7 @@ begin
 
   if cbbTipe.Text = 'Tipe' then
   begin
-    cbbTipe.Items.Add('TNI AL');
-    cbbTipe.Items.Add('TNI AU');
-    cbbTipe.Items.Add('TNI AD');
+    cbbTipe.Items.Add('TAKTIS TNI AL');
   end;
 
 end;
@@ -79,9 +77,18 @@ begin
 
   if cbbKategori.Text = 'Kategori' then
   begin
-    cbbKategori.Items.Add('TAKTIS TNI AL');
-    cbbKategori.Items.Add('TAKTIS TNI AU');
-    cbbKategori.Items.Add('TAKTIS TNI AD');
+    cbbKategori.Items.Add('PESAWAT TERBANG SAYAP PUTAR');
+    cbbKategori.Items.Add('TANDA TAKTIS ALAT KENDALI OPS');
+    cbbKategori.Items.Add('TANDA TAKTIS ANGK LAIN');
+    cbbKategori.Items.Add('TANDA TAKTIS KAPAL');
+    cbbKategori.Items.Add('TANDA TAKTIS KEGIATAN-MANUVERA');
+    cbbKategori.Items.Add('TANDA TAKTIS KOMANDO');
+    cbbKategori.Items.Add('TANDA TAKTIS KOMANDO OPERASIONAL');
+    cbbKategori.Items.Add('TANDA TAKTIS LAINNYA');
+    cbbKategori.Items.Add('TANDA TAKTIS MARINIR');
+    cbbKategori.Items.Add('TANDA TAKTIS MEDAN');
+    cbbKategori.Items.Add('TANDA TAKTIS PANGKALAN');
+    cbbKategori.Items.Add('TANDA TAKTIS PESAWAT TERBANG SAYAP TETAP');
   end;
 end;
 
@@ -157,7 +164,7 @@ begin
   if cbbKategori.ItemIndex = 0 then
     cbbKategori.ItemIndex := 0;
 
-  btnOk.Enabled := True;
+  btnApply.Enabled := True;
 end;
 
 procedure TfrmSimbolTaktis.cbbTipeChange(Sender: TObject);
@@ -165,7 +172,7 @@ begin
   if cbbTipe.ItemIndex = 0 then
     cbbTipe.ItemIndex := 0;
 
-   btnOk.Enabled := True;
+  btnApply.Enabled := True;
 end;
 
 procedure TfrmSimbolTaktis.btnApplyClick(Sender: TObject);

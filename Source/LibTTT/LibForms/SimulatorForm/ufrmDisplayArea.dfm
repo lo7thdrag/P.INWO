@@ -48303,8 +48303,8 @@ object frmDisplayArea: TfrmDisplayArea
           object edtTacticalSearch: TEdit
             Left = 159
             Top = 29
-            Width = 155
-            Height = 25
+            Width = 306
+            Height = 20
             HelpType = htKeyword
             AutoSize = False
             Font.Charset = ANSI_CHARSET
@@ -48322,7 +48322,7 @@ object frmDisplayArea: TfrmDisplayArea
           object cbbSearchTipe: TComboBox
             Left = 159
             Top = 29
-            Width = 155
+            Width = 306
             Height = 25
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText

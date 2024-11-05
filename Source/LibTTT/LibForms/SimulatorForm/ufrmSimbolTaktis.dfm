@@ -3,8 +3,8 @@ object frmSimbolTaktis: TfrmSimbolTaktis
   Top = 0
   BorderStyle = bsNone
   Caption = 'frmSimbolTaktis'
-  ClientHeight = 507
-  ClientWidth = 648
+  ClientHeight = 534
+  ClientWidth = 830
   Color = 1119507
   TransparentColor = True
   TransparentColorValue = 1119507
@@ -20,18 +20,20 @@ object frmSimbolTaktis: TfrmSimbolTaktis
   object pnlMain: TPanel
     Left = 0
     Top = 0
-    Width = 648
-    Height = 507
+    Width = 830
+    Height = 534
     Align = alClient
     BevelOuter = bvNone
     Color = 1119507
     ParentBackground = False
     TabOrder = 0
+    ExplicitWidth = 648
+    ExplicitHeight = 507
     object ImgBackgroundForm: TImage
       Left = 0
       Top = 0
-      Width = 648
-      Height = 507
+      Width = 830
+      Height = 534
       Align = alClient
       Picture.Data = {
         0954506E67496D61676589504E470D0A1A0A0000000D49484452000004930000
@@ -14152,6 +14154,7 @@ object frmSimbolTaktis: TfrmSimbolTaktis
         2F88F2FF03BA682A148F9ACFEF0000000049454E44AE426082}
       Stretch = True
       Transparent = True
+      ExplicitWidth = 648
       ExplicitHeight = 489
     end
     object lblPlatform: TLabel
@@ -14172,8 +14175,8 @@ object frmSimbolTaktis: TfrmSimbolTaktis
       Transparent = True
     end
     object btnApply: TImage
-      Left = 408
-      Top = 456
+      Left = 584
+      Top = 464
       Width = 100
       Height = 30
       Cursor = crHandPoint
@@ -14220,8 +14223,8 @@ object frmSimbolTaktis: TfrmSimbolTaktis
       OnClick = btnApplyClick
     end
     object btnCancel: TImage
-      Left = 512
-      Top = 456
+      Left = 688
+      Top = 464
       Width = 100
       Height = 30
       Cursor = crHandPoint
@@ -14259,8 +14262,8 @@ object frmSimbolTaktis: TfrmSimbolTaktis
       OnClick = btnCancelClick
     end
     object btnOk: TImage
-      Left = 304
-      Top = 456
+      Left = 480
+      Top = 464
       Width = 100
       Height = 30
       Cursor = crHandPoint
@@ -14296,15 +14299,15 @@ object frmSimbolTaktis: TfrmSimbolTaktis
     object Panel1: TPanel
       Left = 64
       Top = 48
-      Width = 545
-      Height = 369
+      Width = 729
+      Height = 401
       BevelOuter = bvNone
       Color = 2235405
       ParentBackground = False
       TabOrder = 0
       object btnUpload: TImage
-        Left = 248
-        Top = 315
+        Left = 312
+        Top = 307
         Width = 90
         Height = 30
         Cursor = crHandPoint
@@ -14346,8 +14349,8 @@ object frmSimbolTaktis: TfrmSimbolTaktis
         OnClick = btnUploadClick
       end
       object imgSimbolTaktis: TImage
-        Left = 224
-        Top = 144
+        Left = 288
+        Top = 136
         Width = 137
         Height = 137
         ParentShowHint = False
@@ -14776,8 +14779,8 @@ object frmSimbolTaktis: TfrmSimbolTaktis
         ParentFont = False
       end
       object Label2: TLabel
-        Left = 200
-        Top = 288
+        Left = 264
+        Top = 280
         Width = 179
         Height = 15
         Caption = 'File dalam bentuk gambar (.bmp)'
@@ -14789,7 +14792,7 @@ object frmSimbolTaktis: TfrmSimbolTaktis
         ParentFont = False
       end
       object Label3: TLabel
-        Left = 309
+        Left = 261
         Top = 30
         Width = 64
         Height = 18
@@ -14822,7 +14825,7 @@ object frmSimbolTaktis: TfrmSimbolTaktis
         Tag = 4
         Left = 13
         Top = 92
-        Width = 518
+        Width = 700
         Height = 26
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -14846,14 +14849,12 @@ object frmSimbolTaktis: TfrmSimbolTaktis
         TabOrder = 1
         OnChange = cbbTipeChange
         Items.Strings = (
-          'TAKTIS TNI AL'
-          'TAKTIS TNI AU'
-          'TAKTIS TNI AD')
+          'TAKTIS TNI AL')
       end
       object cbbKategori: TComboBox
-        Left = 384
+        Left = 336
         Top = 26
-        Width = 145
+        Width = 377
         Height = 26
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -14864,14 +14865,23 @@ object frmSimbolTaktis: TfrmSimbolTaktis
         TabOrder = 2
         OnChange = cbbKategoriChange
         Items.Strings = (
-          'PANGKALAN TNI AL'
-          'PANGKALAN TNI AU'
-          'PANGKALAN TNI AD')
+          'PESAWAT TERBANG SAYAP PUTAR'
+          'TANDA TAKTIS ALAT KENDALI OPS'
+          'TANDA TAKTIS ANGK LAIN'
+          'TANDA TAKTIS KAPAL'
+          'TANDA TAKTIS KEGIATAN-MANUVERA'
+          'TANDA TAKTIS KOMANDO'
+          'TANDA TAKTIS KOMANDO OPERASIONAL'
+          'TANDA TAKTIS LAINNYA'
+          'TANDA TAKTIS MARINIR'
+          'TANDA TAKTIS MEDAN'
+          'TANDA TAKTIS PANGKALAN'
+          'TANDA TAKTIS PESAWAT TERBANG SAYAP TETAP')
       end
     end
   end
   object UploadImage: TOpenDialog
-    Left = 56
-    Top = 448
+    Left = 64
+    Top = 472
   end
 end

@@ -675,15 +675,21 @@ begin
   begin
     cbbSearchTipe.Items.Clear;
     cbbSearchTipe.Items.Add('TAKTIS TNI AL');
-    cbbSearchTipe.Items.Add('TAKTIS TNI AU');
-    cbbSearchTipe.Items.Add('TAKTIS TNI AD');
   end
   else if cbbFilterSearch.ItemIndex = 2 then
   begin
-    cbbSearchTipe.Items.Clear;
-    cbbSearchTipe.Items.Add('PANGKALAN TNI AL');
-    cbbSearchTipe.Items.Add('PANGKALAN TNI AU');
-    cbbSearchTipe.Items.Add('PANGKALAN TNI AD');
+    cbbSearchTipe.Items.Add('PESAWAT TERBANG SAYAP PUTAR');
+    cbbSearchTipe.Items.Add('TANDA TAKTIS ALAT KENDALI OPS');
+    cbbSearchTipe.Items.Add('TANDA TAKTIS ANGK LAIN');
+    cbbSearchTipe.Items.Add('TANDA TAKTIS KAPAL');
+    cbbSearchTipe.Items.Add('TANDA TAKTIS KEGIATAN-MANUVERA');
+    cbbSearchTipe.Items.Add('TANDA TAKTIS KOMANDO');
+    cbbSearchTipe.Items.Add('TANDA TAKTIS KOMANDO OPERASIONAL');
+    cbbSearchTipe.Items.Add('TANDA TAKTIS LAINNYA');
+    cbbSearchTipe.Items.Add('TANDA TAKTIS MARINIR');
+    cbbSearchTipe.Items.Add('TANDA TAKTIS MEDAN');
+    cbbSearchTipe.Items.Add('TANDA TAKTIS PANGKALAN');
+    cbbSearchTipe.Items.Add('TANDA TAKTIS PESAWAT TERBANG SAYAP TETAP');
   end;
 end;
 
