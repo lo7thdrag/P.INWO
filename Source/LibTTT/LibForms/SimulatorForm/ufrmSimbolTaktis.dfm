@@ -14776,11 +14776,11 @@ object frmSimbolTaktis: TfrmSimbolTaktis
         ParentFont = False
       end
       object Label2: TLabel
-        Left = 216
+        Left = 200
         Top = 288
-        Width = 171
+        Width = 179
         Height = 15
-        Caption = 'File dalam bentuk gambar (.jpg)'
+        Caption = 'File dalam bentuk gambar (.bmp)'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWhite
         Font.Height = -13
@@ -14844,7 +14844,6 @@ object frmSimbolTaktis: TfrmSimbolTaktis
         Font.Style = []
         ParentFont = False
         TabOrder = 1
-        Text = 'TAKTIS TNI AL'
         OnChange = cbbTipeChange
         Items.Strings = (
           'TAKTIS TNI AL'
@@ -14863,7 +14862,6 @@ object frmSimbolTaktis: TfrmSimbolTaktis
         Font.Style = []
         ParentFont = False
         TabOrder = 2
-        Text = 'PANGKALAN TNI AL'
         OnChange = cbbKategoriChange
         Items.Strings = (
           'PANGKALAN TNI AL'

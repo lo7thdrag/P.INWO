@@ -121,7 +121,7 @@ var
 begin
   UploadImage := TSaveDialog.Create(self);
   UploadImage.InitialDir := GetCurrentDir;
-  UploadImage.Filter := 'Image Files(*.jpg)|*.jpg';
+  UploadImage.Filter := 'Image Files(*.bmp)|*.bmp';
 //  UploadImage.Filter := 'Image Files|*.jpg;*.jpeg;*.png;*.bmp';
   UploadImage.DefaultExt := 'jpg';
   UploadImage.FilterIndex := 1;
@@ -144,7 +144,7 @@ begin
       end;
     end;
 
-    CopyFile(addressTemp, PWideChar(vGameDataSetting.FileSimbolTaktis + '\'+ IntToStr(fileDataTemp.Id_Tactical_Symbol) + '.jpg'), False);
+    CopyFile(addressTemp, PWideChar(vGameDataSetting.FileSimbolTaktis + '\'+ IntToStr(fileDataTemp.Id_Tactical_Symbol) + '.bmp'), False);
   end
   else
     ShowMessage('Save file was cancelled');
@@ -154,7 +154,7 @@ end;
 
 procedure TfrmSimbolTaktis.cbbKategoriChange(Sender: TObject);
 begin
-  if cbbKategori.ItemIndex = -1 then
+  if cbbKategori.ItemIndex = 0 then
     cbbKategori.ItemIndex := 0;
 
   btnOk.Enabled := True;
@@ -162,7 +162,7 @@ end;
 
 procedure TfrmSimbolTaktis.cbbTipeChange(Sender: TObject);
 begin
-  if cbbTipe.ItemIndex = -1 then
+  if cbbTipe.ItemIndex = 0 then
     cbbTipe.ItemIndex := 0;
 
    btnOk.Enabled := True;

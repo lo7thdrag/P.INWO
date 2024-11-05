@@ -171,10 +171,6 @@ type
     imgHapus: TImage;
     edtSearch: TEdit;
     edtSearchMap: TEdit;
-    btnAddMap: TImage;
-    btnEditMap: TImage;
-    btnDeleteMap: TImage;
-    btnPreview: TImage;
     btnDownloadReferensi: TImage;
     btnUploadReferensi: TImage;
     btnRemoveReferensi: TImage;
@@ -209,6 +205,11 @@ type
     cbbFilterCari: TComboBox;
     pnlListAsset: TPanel;
     lvAsset: TListView;
+    Image7: TImage;
+    Image8: TImage;
+    btnPreview: TImage;
+    Image9: TImage;
+    Image6: TImage;
 
     procedure btnAOTCClick(Sender: TObject);
 
@@ -776,7 +777,7 @@ begin
 
     FSelectedTacticalSymbol := TTactical_Symbol(lvTacticalSymbol.Selected.Data);
 
-    imagepath := FSelectedTacticalSymbol.FData.Path_Directori + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '.jpg';
+    imagepath := FSelectedTacticalSymbol.FData.Path_Directori + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '.bmp';
     if FileExists(imagepath) then
     begin
       imgPreview.Picture.LoadFromFile(imagepath);
@@ -787,7 +788,7 @@ begin
         ShowMessage('File gambar tidak ditemukan' + imagepath);
     end;
 
-    lblNamaGambar.Caption := 'Nama Gambar: ' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '.jpg';
+    lblNamaGambar.Caption := 'Nama Gambar: ' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '.bmp';
     lblKeterangan.Caption := 'Keterangan: ' + Item.SubItems[0];
     lblTipe.Caption       := 'Tipe: ' + Item.SubItems[1];
     lblKategori.Caption   := 'Kategori: ' + Item.SubItems[2];
