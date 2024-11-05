@@ -82,6 +82,7 @@ type
     FileReferensi : string;
     FileSimbolTaktis : string;
     LocalDirectory : string;
+    ImgPath : string;
     RemotePort : integer ;
     TacticalScreen : Integer;
     DemoMode : Boolean;
@@ -325,8 +326,9 @@ begin
     FormSituationBoard := INIFReadBool(inif, c_map, 'FormSituationBoard', True );
     FileDirectory   := IniFReadstring(inif, c_gdata, 'FileDirectory' , '');
     FileReferensi   := IniFReadstring(inif, c_gdata, 'FileReferensi' , '');
-    FileSimbolTaktis:=  IniFReadstring(inif, c_gdata, 'FileSimbolTaktis' , '');
+    FileSimbolTaktis:= IniFReadstring(inif, c_gdata, 'FileSimbolTaktis' , '');
     LocalDirectory  := IniFReadstring(inif, c_gdata, 'LocalDirectory' , 'D:\');
+    ImgPath         := IniFReadstring(inif, c_gdata, 'ImgPath' , '.\data\bitmap\');
   end;
   inif.Free;
 

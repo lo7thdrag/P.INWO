@@ -10,7 +10,7 @@ uses
 
   {Project Uses}
   MapXLib_TLB, uCoordConvertor, uLibSetting, uT3SimManager, uSimMgr_Client, uRecordData, uNetBaseSocket, uClassData, ufrmCreateTab,
-  ufrmImageInsert, ufrmOverlayTools, uConstantaData, ufrmBrowseMap;
+  ufrmImageInsert, ufrmOverlayTools, uConstantaData, ufrmBrowseMap, uBaseCoordSystem;
 
 type
 
@@ -321,12 +321,9 @@ begin
   btnPan.Down := false;
 
   FMapCursor := mcSelect;
-  //  LoadNormalButtonImage;
 
   Map1.CurrentTool := miZoomoutTool;
   Map1.MousePointer := miZoomoutCursor;
-
-  //  btnSelect.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnCursor_Normal.PNG');
 
   btnout.ImageIndex := 8;
 end;
@@ -346,12 +343,10 @@ begin
   btnZoom.Down := false;
 
   FMapCursor := mcSelect;
-//  LoadNormalButtonImage;
 
   Map1.CurrentTool := miPanTool;
   Map1.MousePointer := miPanCursor;
 
-//  btnSelect.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnCursor_Normal.PNG');
   btnPan.ImageIndex := 6;
 end;
 
@@ -442,7 +437,7 @@ begin
 
   SimManager.SimOverlay.Draw(FCanvas, Map1, FSelectedTabProperties.IdOverlayTab);
 //  DrawOverlay.drawAll(FCanvas, Map1);
-//  DrawFlagPoint.Draw(FCanvas);
+  simMgrClient.DrawFlagPoint.Draw(FCanvas);
 
 //  if Assigned(DrawOverlay.FSelectedDraw) then
 //  begin
@@ -588,45 +583,50 @@ begin
     begin
       frmOverlayTools.SetPosition(xTemp, yTemp);
 
-//      case ShapeType of
-//        ovText, ovCircle, ovEllipse, ovArc, ovSector, ovGrid:
-//          begin
-//            if DrawFlagPoint.FList.Count > 0 then
-//              DrawFlagPoint.FList.Clear;
-//
-//            GbrFlagPoint(mx, my);
-//          end;
-//        ovLine, ovRectangle:
-//          begin
-//            if DrawFlagPoint.FList.Count = 0 then
-//            begin
-//              GbrFlagPoint(0, 0);
-//              GbrFlagPoint(0, 0);
-//            end;
-//            EditFlagPoint(FTagTombolPosition, mx, my)
-//          end;
-//        ovPolygon:
-//          begin
-//            GbrFlagPoint(mx, my);
-//
-//            if SpeedButton10.Down then
-//            begin
-//              if lvPolyVertex.Items.Count > 12 then
-//              begin
-//                ShowMessage('kelebihan bro');
-//                Exit;
-//              end;
-//
-//              with lvPolyVertex.Items.Add do
-//              begin
-//                SubItems.Add(formatDMS_long(mx));
-//                SubItems.Add(formatDMS_latt(my));
-//              end;
-//              RefreshLvPolyVertexList;
-//            end;
-//          end;
-//      end;
+      with frmOverlayTools do
+      begin
+        case ShapeType of
+          ovText, ovCircle, ovEllipse, ovArc, ovSector, ovGrid, ovIntelijen, ovRadar, ovLogistic, ovPangkalan:
+          begin
+            if simMgrClient.DrawFlagPoint.FlagList.Count > 0 then
+              simMgrClient.DrawFlagPoint.FlagList.Clear;
 
+            GbrFlagPoint(xTemp, yTemp);
+          end;
+          ovLine, ovRectangle:
+          begin
+            if simMgrClient.DrawFlagPoint.FlagList.Count = 0 then
+            begin
+              GbrFlagPoint(0, 0);
+              GbrFlagPoint(0, 0);
+            end;
+            EditFlagPoint(TagTombolPosition, xTemp, yTemp)
+          end;
+          ovPolygon:
+          begin
+            GbrFlagPoint(xTemp, yTemp);
+
+            if SpeedButton10.Down then
+            begin
+              if lvPolyVertex.Items.Count > 12 then
+              begin
+                ShowMessage('kelebihan bro');
+                Exit;
+              end;
+
+              with lvPolyVertex.Items.Add do
+              begin
+                SubItems.Add(formatDMS_long(xTemp));
+                SubItems.Add(formatDMS_latt(yTemp));
+              end;
+              RefreshLvPolyVertexList;
+            end;
+          end;
+        end;
+      end;
+
+      Map1.Refresh;
+      Map1.Repaint;
     end;
 //    else if  FMapCursor = mcRulerStart then
 //    begin

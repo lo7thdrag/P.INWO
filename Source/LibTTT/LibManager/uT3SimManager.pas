@@ -213,6 +213,16 @@ var
   PolygonShape : TPolygonShape;
   overlayTabTemp : TOverlayTab;
 
+  shipDataTemp  : TVehicleOnBase;
+  logDataTemp : TLogisticOnBase;
+  intelDataTemp : TIntelijenInfo;
+
+  IntelijenShape : TIntelijenShape;
+  LogisticShape : TLogisticShape;
+  RadarShape : TRadarShape;
+  BaseShape : TPangkalanShape;
+  ArrowShape : TPanahShape;
+
 begin
   overlayTabTemp := SimOverlay.GetOverlayTabByID(rec.TemplateId);
 
@@ -312,7 +322,7 @@ begin
             CircleShape.isSelected := False;
 
             if rec.IdAction = caAdd then
-             overlayTabTemp.MemberList.Add(CircleShape);
+              overlayTabTemp.MemberList.Add(CircleShape);
             {$ENDREGION}
           end;
           ovEllipse :
@@ -455,6 +465,158 @@ begin
 
             if rec.IdAction = caAdd then
               overlayTabTemp.MemberList.Add(PolygonShape);
+            {$ENDREGION}
+          end;
+          ovIntelijen:
+          begin
+            {$REGION ' Intelijen '}
+            if rec.IdAction = caAdd then
+            begin
+              IntelijenShape := TIntelijenShape.Create(Converter);
+              IntelijenShape.ShapeId := GetSerialShapeID;
+            end
+            else
+              IntelijenShape := overlayTabTemp.GetShapeById(rec.IdSelectShape) as TIntelijenShape;
+
+            IntelijenShape.Identifier := rec.OverlayName;
+            IntelijenShape.postCenter := rec.PostStart;
+            IntelijenShape.TableProp := rec.PostStart;
+            IntelijenShape.ShapeOutline := rec.color;
+            IntelijenShape.isShow := True;
+
+            if IntelijenShape.InfoList.Count > 0 then
+              IntelijenShape.InfoList.Clear;
+
+            for i := 0 to 12 do
+            begin
+              if (rec.Data[i] = '') then
+                Continue;
+
+              intelDataTemp := TIntelijenInfo.create;
+              intelDataTemp.Info := rec.Data[i];
+              IntelijenShape.InfoList.Add(intelDataTemp);
+            end;
+
+            if rec.IdAction = caAdd then
+              overlayTabTemp.MemberList.Add(IntelijenShape);
+
+            {$ENDREGION}
+          end;
+          ovLogistic:
+          begin
+            {$REGION ' Logistic '}
+            if rec.IdAction = caAdd then
+            begin
+              LogisticShape := TLogisticShape.Create(Converter);
+              LogisticShape.ShapeId := GetSerialShapeID;
+            end
+            else
+              LogisticShape := overlayTabTemp.GetShapeById(rec.IdSelectShape) as TLogisticShape;
+
+            LogisticShape.Identifier := rec.OverlayName;
+            LogisticShape.postCenter := rec.PostStart;
+            LogisticShape.TableProp := rec.PostStart;
+            LogisticShape.ShapeOutline := rec.color;
+            LogisticShape.isShow := True;
+
+            if LogisticShape.LogisticList.Count > 0 then
+              LogisticShape.LogisticList.Clear;
+
+            for i := 0 to 12 do
+            begin
+              if (rec.Data[i] = '') then
+                Continue;
+
+              logDataTemp := TLogisticOnBase.create;
+              logDataTemp.Name := rec.Data[i];
+              logDataTemp.Status := rec.Status[i];
+              LogisticShape.LogisticList.Add(logDataTemp);
+            end;
+
+            if rec.IdAction = caAdd then
+              overlayTabTemp.MemberList.Add(LogisticShape);
+            {$ENDREGION}
+          end;
+          ovRadar:
+          begin
+            {$REGION ' Radar '}
+            if rec.IdAction = caAdd then
+            begin
+              RadarShape := TRadarShape.Create(Converter);
+              RadarShape.ShapeId := GetSerialShapeID;
+            end
+            else
+              RadarShape := overlayTabTemp.GetShapeById(rec.IdSelectShape) as TRadarShape;
+
+            RadarShape.Identifier := rec.OverlayName;
+            RadarShape.postCenter := rec.PostStart;
+            RadarShape.TableProp := rec.PostStart;
+            RadarShape.Radius := rec.Radius1;
+            RadarShape.ShapeOutline := rec.color;
+            RadarShape.isShow := True;
+
+            if rec.IdAction = caAdd then
+              overlayTabTemp.MemberList.Add(RadarShape);
+
+            {$ENDREGION}
+          end;
+          ovPangkalan:
+          begin
+            {$REGION ' Pangkalan '}
+            if rec.IdAction = caAdd then
+            begin
+              BaseShape := TPangkalanShape.Create(Converter);
+              BaseShape.ShapeId := GetSerialShapeID;
+            end
+            else
+              BaseShape := overlayTabTemp.GetShapeById(rec.IdSelectShape) as TPangkalanShape;
+
+            BaseShape.Identifier := rec.OverlayName;
+            BaseShape.postCenter := rec.PostStart;
+            BaseShape.TableProp := rec.PostStart;
+            BaseShape.ShapeOutline := rec.color;
+            BaseShape.isShow := True;
+
+            if BaseShape.VehiclesList.Count > 0 then
+              BaseShape.VehiclesList.Clear;
+
+            for i := 0 to 12 do
+            begin
+              if (rec.Data[i] = '') then
+                Continue;
+
+              shipDataTemp := TVehicleOnBase.create;
+              shipDataTemp.Name := rec.Data[i];
+              shipDataTemp.Quantity := rec.Quantity[i];
+              shipDataTemp.Simbol := rec.Simbol[i];
+              BaseShape.VehiclesList.Add(shipDataTemp);
+            end;
+
+            if rec.IdAction = caAdd then
+               overlayTabTemp.MemberList.Add(BaseShape);
+
+            {$ENDREGION}
+          end;
+          ovPanah:
+          begin
+            {$REGION ' Panah '}
+            if rec.IdAction = caAdd then
+            begin
+              ArrowShape := TPanahShape.Create(Converter);
+              ArrowShape.ShapeId := GetSerialShapeID;
+            end
+            else
+              ArrowShape := overlayTabTemp.GetShapeById(rec.IdSelectShape) as TPanahShape;
+
+            ArrowShape.Identifier := rec.OverlayName;
+            ArrowShape.postCenter := rec.PostStart;
+            ArrowShape.postEnd := rec.PostEnd;
+            ArrowShape.ShapeOutline := rec.color;
+            ArrowShape.isShow := True;
+
+            if rec.IdAction = caAdd then
+              overlayTabTemp.MemberList.Add(ArrowShape);
+
             {$ENDREGION}
           end;
         end;

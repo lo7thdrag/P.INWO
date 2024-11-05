@@ -61,6 +61,8 @@ type
     FOnUpdateTime: TNotifyEvent;
 
   public
+    DrawFlagPoint : TFlagPointbContainer;
+    DrawRuler : TRuler;
 
     constructor Create(Map : TMap);
     destructor Destroy; override;
@@ -128,6 +130,9 @@ begin
 
   FConsoleData := TConsoleData.Create;
   EventManager := TT3ClientEventManager.Create;
+
+  DrawFlagPoint := TFlagPointbContainer.Create;
+  DrawRuler := TRuler.Create(Converter);
 
   SimManager := Self;
 end;
