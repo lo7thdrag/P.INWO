@@ -83,7 +83,8 @@ uses
   ufrmOverlayTools in '..\LibTTT\LibForms\SimulatorForm\AdditionalForm\ufrmOverlayTools.pas' {frmOverlayTools},
   ufrmSimbolTaktis in '..\LibTTT\LibForms\SimulatorForm\ufrmSimbolTaktis.pas' {frmSimbolTaktis},
   ufrmMapPreview in '..\LibTTT\LibForms\SimulatorForm\AdditionalForm\ufrmMapPreview.pas' {frmMapPreview},
-  ufrmBrowseMap in '..\LibTTT\LibForms\SimulatorForm\AdditionalForm\ufrmBrowseMap.pas' {frmBrowseMap};
+  ufrmBrowseMap in '..\LibTTT\LibForms\SimulatorForm\AdditionalForm\ufrmBrowseMap.pas' {frmBrowseMap},
+  ufrmAsset in '..\LibTTT\LibForms\SimulatorForm\ufrmAsset.pas' {frmAsset};
 
 {$R *.res}
 
@@ -106,6 +107,7 @@ begin
   Application.CreateForm(TfrmSituationBoard, frmSituationBoard);
   Application.CreateForm(TfrmOverlayTools, frmOverlayTools);
   Application.CreateForm(TfrmBrowseMap, frmBrowseMap);
+  Application.CreateForm(TfrmAsset, frmAsset);
   //  Application.CreateForm(TfrmCreateTab, frmCreateTab);
 //  Application.CreateForm(TfrmImageInsert, frmImageInsert);
 //  Application.CreateForm(TfrmAvailableUserRole, frmAvailableUserRole);

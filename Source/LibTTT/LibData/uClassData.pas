@@ -173,6 +173,9 @@ type
   TAsset = class
   public
     FData : TRecVehicle_Definition;
+
+    constructor Create;
+    destructor Destroy;override;
   end;
 
   TVehicleOnBase = class
