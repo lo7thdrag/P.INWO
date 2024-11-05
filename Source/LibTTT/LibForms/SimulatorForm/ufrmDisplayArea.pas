@@ -20,7 +20,6 @@ type
     pnlCenter: TPanel;
     pnlMainCenter: TPanel;
     pnlMenejemenPengguna: TPanel;
-    pnlMenejemenAsset: TPanel;
     pnlMenejemenSimbolTaktis: TPanel;
     pnlMenejemenPeta: TPanel;
     pnlMenejemenReferensi: TPanel;
@@ -197,6 +196,19 @@ type
     Image3: TImage;
     Image4: TImage;
     Image5: TImage;
+    pnlMenejemenAsset: TPanel;
+    pnlHeaderAsset: TPanel;
+    Label18: TLabel;
+    pnlCariAsset: TPanel;
+    Label19: TLabel;
+    btnAddAsset: TImage;
+    btnEditAsset: TImage;
+    btnDeleteAsset: TImage;
+    editSearch: TEdit;
+    cbbCariTipe: TComboBox;
+    cbbFilterCari: TComboBox;
+    pnlListAsset: TPanel;
+    lvAsset: TListView;
 
     procedure btnAOTCClick(Sender: TObject);
 
@@ -219,6 +231,8 @@ type
 
     {$REGION ' Asset Procedure '}
     procedure AssetClick(Sender: TObject);
+    procedure pnlAsetManajemenShow;
+    procedure UpdateDataAset;
     {$ENDREGION}
 
     {$REGION ' Simbol Taktis Procedure '}
@@ -328,6 +342,7 @@ type
     FUserRoleList : TList;
     FGameAreaList : TList;
     FTacticalSymbolList : TList;
+    FAssetList : TList;
 
     FSelectedPengguna : TUser_Role;
     FSelectedUserChat : TUser_Role;
@@ -606,6 +621,36 @@ procedure TfrmDisplayArea.AssetClick(Sender: TObject);
 begin
   pnlMenejemenAsset.BringToFront;
 end;
+
+procedure TfrmDisplayArea.pnlAsetManajemenShow;
+begin
+  pnlMenejemenAsset.BringToFront;
+  UpdateDataAset
+end;
+
+procedure TfrmDisplayArea.UpdateDataAset;
+var
+  i : Integer;
+  AssetTemp : TAsset;
+  li: TListItem;
+begin
+  lvAsset.Items.Clear;
+
+  if flagTable = true then
+    dmINWO.GetAllVehicleDef(FAssetList);
+
+  for i := 0 to FAssetList.Count - 1 do
+  begin
+    AssetTemp := FAssetList.Items[i];
+
+    li := lvAsset.Items.Add;
+    li.Caption := IntToStr(i+1);
+    li.SubItems.Add(AssetTemp.FData.Vehicle_Identifier);
+    li.SubItems.Add(IntToStr(AssetTemp.FData.Platform_Domain));
+    li.SubItems.Add(IntToStr(AssetTemp.FData.Platform_Category));
+  end;
+end;
+
 
 {$ENDREGION}
 

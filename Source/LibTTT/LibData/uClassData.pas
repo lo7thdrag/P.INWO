@@ -170,6 +170,11 @@ type
     destructor Destroy;override;
   end;
 
+  TAsset = class
+  public
+    FData : TRecVehicle_Definition;
+  end;
+
   TVehicleOnBase = class
   public
     Name : string;
