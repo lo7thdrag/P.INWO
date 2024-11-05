@@ -111,9 +111,6 @@ type
     ilClientStateColor: TImageList;
     pnlCariPengguna: TPanel;
     pnlListPengguna: TPanel;
-    btnAdd: TImage;
-    btnDelete: TImage;
-    btnEdit: TImage;
     cbbSearchType: TComboBox;
     cbbxFilterSearch: TComboBox;
     lblsearch: TLabel;
@@ -195,9 +192,11 @@ type
     lblKeterangan: TLabel;
     lblTipe: TLabel;
     lblKategori: TLabel;
-    lblFile: TLabel;
     Image2: TImage;
     lblNamaGambar: TLabel;
+    Image3: TImage;
+    Image4: TImage;
+    Image5: TImage;
 
     procedure btnAOTCClick(Sender: TObject);
 
@@ -747,7 +746,6 @@ begin
     lblKeterangan.Caption := 'Keterangan: ' + Item.SubItems[0];
     lblTipe.Caption       := 'Tipe: ' + Item.SubItems[1];
     lblKategori.Caption   := 'Kategori: ' + Item.SubItems[2];
-    lblFile.Caption       := 'Lokasi Gambar: ' + imagepath;
   end;
 end;
 

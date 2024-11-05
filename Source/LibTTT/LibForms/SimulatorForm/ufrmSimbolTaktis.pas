@@ -28,6 +28,7 @@ type
     btnOk: TImage;
     btnApply: TImage;
     btnCancel: TImage;
+    Panel1: TPanel;
     procedure btnOkClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
     procedure btnUploadClick(Sender: TObject);

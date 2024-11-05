@@ -14164,9 +14164,9 @@ object frmSummaryUserRole: TfrmSummaryUserRole
     Transparent = True
   end
   object btnOk: TImage
-    Left = 376
+    Left = 368
     Top = 330
-    Width = 90
+    Width = 100
     Height = 30
     Cursor = crHandPoint
     Hint = 'Copy Data'
@@ -14199,9 +14199,9 @@ object frmSummaryUserRole: TfrmSummaryUserRole
     OnClick = btnOkClick
   end
   object btnApply: TImage
-    Left = 476
+    Left = 472
     Top = 330
-    Width = 90
+    Width = 100
     Height = 30
     Cursor = crHandPoint
     Hint = 'Add Data'
@@ -14249,7 +14249,7 @@ object frmSummaryUserRole: TfrmSummaryUserRole
   object btnCancel: TImage
     Left = 576
     Top = 330
-    Width = 90
+    Width = 100
     Height = 30
     Cursor = crHandPoint
     Hint = 'Edit Data'
@@ -14286,9 +14286,9 @@ object frmSummaryUserRole: TfrmSummaryUserRole
     OnClick = btnCancelClick
   end
   object Panel1: TPanel
-    Left = 86
+    Left = 62
     Top = 44
-    Width = 579
+    Width = 603
     Height = 266
     BevelOuter = bvNone
     Color = 2235405
