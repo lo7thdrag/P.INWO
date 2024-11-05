@@ -41,8 +41,6 @@ type
     FPathDirectory : string;
     function CekInput: Boolean;
 
-    procedure AddcbbTipeChange;
-    procedure AddcbbkategoriChange;
     procedure UpdateTacticalSymbol;
 
   public
@@ -60,38 +58,6 @@ implementation
 
 {$R *.dfm}
 
-procedure TfrmSimbolTaktis.AddcbbTipeChange;
-begin
-  cbbTipe.Items.Clear;
-
-  if cbbTipe.Text = 'Tipe' then
-  begin
-    cbbTipe.Items.Add('TAKTIS TNI AL');
-  end;
-
-end;
-
-procedure TfrmSimbolTaktis.AddcbbkategoriChange;
-begin
-  cbbKategori.Items.Clear;
-
-  if cbbKategori.Text = 'Kategori' then
-  begin
-    cbbKategori.Items.Add('PESAWAT TERBANG SAYAP PUTAR');
-    cbbKategori.Items.Add('TANDA TAKTIS ALAT KENDALI OPS');
-    cbbKategori.Items.Add('TANDA TAKTIS ANGK LAIN');
-    cbbKategori.Items.Add('TANDA TAKTIS KAPAL');
-    cbbKategori.Items.Add('TANDA TAKTIS KEGIATAN-MANUVERA');
-    cbbKategori.Items.Add('TANDA TAKTIS KOMANDO');
-    cbbKategori.Items.Add('TANDA TAKTIS KOMANDO OPERASIONAL');
-    cbbKategori.Items.Add('TANDA TAKTIS LAINNYA');
-    cbbKategori.Items.Add('TANDA TAKTIS MARINIR');
-    cbbKategori.Items.Add('TANDA TAKTIS MEDAN');
-    cbbKategori.Items.Add('TANDA TAKTIS PANGKALAN');
-    cbbKategori.Items.Add('TANDA TAKTIS PESAWAT TERBANG SAYAP TETAP');
-  end;
-end;
-
 function TfrmSimbolTaktis.CekInput: Boolean;
 var
   fileDataTemp : TRecTactical_Symbol;
@@ -104,7 +70,7 @@ begin
     Tipe                := cbbTipe.ItemIndex;
     Kategori            := cbbKategori.ItemIndex;
     Keterangan          := edtKeterangan.Text;
-    Path_Directori      := vGameDataSetting.FileSimbolTaktis;
+    Path_Directori      := UploadImage.FileName;
   end;
 
   {Data sudah ada}
@@ -231,8 +197,8 @@ procedure TfrmSimbolTaktis.UpdateTacticalSymbol;
 begin
   with FSelectedTacticalSymbol do
   begin
-    AddcbbTipeChange;
-    AddcbbkategoriChange;
+    cbbTipe.ItemIndex;
+    cbbKategori.ItemIndex;
   end;
 end;
 
