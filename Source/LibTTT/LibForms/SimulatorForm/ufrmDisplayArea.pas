@@ -11,7 +11,7 @@ uses
   {Project Uses}
   uRecordData, uConstantaData, uSimMgr_Client, uT3SimManager, uClassData, ufrmVideoConference, ufrmSituationBoard,
   ufrmTelegram, uLibSetting, uSimContainers, ufrmSummaryUserRole, ufrmAvailableUserRole , UfrmMapEditor, ufrmSimbolTaktis,
-   ufrmMapPreview;
+  ufrmAsset, ufrmMapPreview;
 
 type
   TfrmDisplayArea = class(TForm)
@@ -197,9 +197,6 @@ type
     Label18: TLabel;
     pnlCariAsset: TPanel;
     Label19: TLabel;
-    btnAddAsset: TImage;
-    btnEditAsset: TImage;
-    btnDeleteAsset: TImage;
     editSearch: TEdit;
     cbbCariTipe: TComboBox;
     cbbFilterCari: TComboBox;
@@ -210,6 +207,9 @@ type
     btnPreview: TImage;
     Image9: TImage;
     Image6: TImage;
+    btnAddAsset: TImage;
+    btnEditAsset: TImage;
+    btnDeleteAsset: TImage;
 
     procedure btnAOTCClick(Sender: TObject);
 
@@ -328,6 +328,7 @@ type
     procedure lvReferensiSelectItem(Sender: TObject; Item: TListItem;
       Selected: Boolean);
     procedure btnRemoveReferensiClick(Sender: TObject);
+    procedure btnAddAssetClick(Sender: TObject);
 //    procedure LlvFileDataSelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);
 
   private
@@ -652,6 +653,21 @@ begin
   end;
 end;
 
+procedure TfrmDisplayArea.btnAddAssetClick(Sender: TObject);
+begin
+  frmAsset := TfrmAsset.Create(Self);
+  try
+    with frmAsset do
+    begin
+      SelectedAsset := TAsset.Create;
+      ShowModal;
+    end;
+  finally
+    frmAsset.Free;
+  end;
+    UpdateDataAset;
+end;
+
 
 {$ENDREGION}
 
@@ -952,6 +968,7 @@ begin
     cbbSearchType.Items.Add('SATGASDUK');
   end;
 end;
+
 
 procedure TfrmDisplayArea.btnAddClick(Sender: TObject);
 begin

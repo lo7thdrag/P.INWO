@@ -365,7 +365,6 @@ begin
 
   if isOK then
     Close;
-
 end;
 
 end.
