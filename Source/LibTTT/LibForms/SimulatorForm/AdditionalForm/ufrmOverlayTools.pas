@@ -274,14 +274,14 @@ type
     btnPosLog: TSpeedButton;
     Label24: TLabel;
     lvLogistic: TListView;
-    edtItemLog: TEdit;
-    cbbStatus: TComboBox;
+    edtNameLogistic: TEdit;
+    cbbStatusLogistic: TComboBox;
     Label26: TLabel;
     Label25: TLabel;
-    btnInsertLog: TButton;
-    btnEditLog: TButton;
-    btnDeleteLog: TButton;
-    btnClearLog: TButton;
+    btnAddLogistic: TButton;
+    btnEditLogistic: TButton;
+    btnDeleteLogistic: TButton;
+    btnClearLogistic: TButton;
     Label65: TLabel;
     Bevel13: TBevel;
     Bevel14: TBevel;
@@ -304,10 +304,10 @@ type
     edtQty: TEdit;
     lblSymbolTaktis: TLabel;
     btnplatform: TButton;
-    btnInsertBase: TButton;
-    btnEditBase: TButton;
-    btnDeleteBase: TButton;
-    btnClearBase: TButton;
+    btnAddPlatform: TButton;
+    btnEditPlatform: TButton;
+    btnDeletePlatform: TButton;
+    btnClearPlatform: TButton;
     Bevel18: TBevel;
     Label3: TLabel;
     Label54: TLabel;
@@ -376,6 +376,7 @@ type
     Bevel24: TBevel;
     edtRadarIdentifier: TEdit;
     Label51: TLabel;
+    Label60: TLabel;
     procedure btnHandleShape(Sender: TObject);
     procedure cbbTypeToolsChange(Sender: TObject);
     procedure btnOutlineClick(Sender: TObject);
@@ -386,6 +387,11 @@ type
     procedure btnCloseClick(Sender: TObject);
     procedure colorChooseChange(Sender: TObject);
     procedure btnPlatformHandle(Sender: TObject);
+    procedure btnLogistichandle(Sender: TObject);
+    procedure lvEmbarkSelectItem(Sender: TObject; Item: TListItem;
+      Selected: Boolean);
+    procedure lvLogisticSelectItem(Sender: TObject; Item: TListItem;
+      Selected: Boolean);
 
   private
     FShapeType : Integer;
@@ -396,6 +402,7 @@ type
 //    FMapCursor: TMapCursor;
     FSelectedOverlayTab : TOverlayTab;
     FAction : Byte;
+    FIdSelectedLogistic, FIdSelectedEmbark : Integer;
 
   public
     IsEditObject : Boolean;
@@ -450,6 +457,8 @@ type
     function GetPlottingColor:Integer;
     function CekInput(IdObject : Integer): Boolean;
     procedure RefreshLvPolyVertexList;
+    procedure RefreshLogistic;
+    procedure RefreshEmbark;
 
     property SelectedOverlayTab : TOverlayTab read FSelectedOverlayTab write  FSelectedOverlayTab;
     property ShapeType : Integer read FShapeType write  FShapeType;
@@ -860,50 +869,57 @@ procedure TfrmOverlayTools.ClearEditText;
 begin
   // reset data & set button buat ambil koordinat down jadi false
 
-  { Text }
+  {$REGION ' Text '}
   edtTextPosLAt.Text := '';
   edtTextPosLong.Text := '';
   edtTextField.Text := 'None';
+  {$ENDREGION}
 
-  { Line }
+  {$REGION ' Line '}
   edtLineStartPosLong.Text := '';
   edtLineStartPosLat.Text := '';
   edtLineEndPosLong.Text := '';
   edtLineEndPosLat.Text := '';
+  {$ENDREGION}
 
-  { Rectangle }
+  {$REGION ' Rectangle '}
   edtRectStartPosLong.Text := '';
   edtRectStartPosLat.Text := '';
   edtRectEndPosLong.Text := '';
   edtRectEndPosLat.Text := '';
+  {$ENDREGION}
 
-  { Circle }
+  {$REGION ' Circle '}
   edtCircleRadius.Text := '1';
   edtCirclePosLong.Text := '';
   edtCirclePosLat.Text := '';
+  {$ENDREGION}
 
-  { Ellipse }
+  {$REGION ' Ellipse '}
   edtHorizontal.Text := '1';
   edtVertical.Text := '1';
   edtEllipsePosLong.Text := '';
   edtEllipsePosLat.Text := '';
+  {$ENDREGION}
 
-  { Arc }
+  {$REGION ' Arc '}
   edtArcRadius.Text := '1';
   edtArcPosLong.Text := '';
   edtArcPosLat.Text := '';
   edtArcStartAngle.Text := '0';
   edtArcEndAngle.Text := '0';
+  {$ENDREGION}
 
-  { Sector }
+  {$REGION ' Sector '}
   edtSectorInner.Text := '1';
   edtSectorOuter.Text := '1';
   edtSectorPosLong.Text := '';
   edtSectorPosLat.Text := '';
   edtSectorStartAngle.Text := '0';
   edtSectorEndAngle.Text := '0';
+  {$ENDREGION}
 
-  { Grid }
+  {$REGION ' Grid '}
   edtTableHeight.Text := '1';
   edtTableWidth.Text := '1';
   edtTablePosLong.Text := '';
@@ -911,11 +927,53 @@ begin
   edtTableColumn.Text := '1';
   edtTableRow.Text := '1';
   edtTableRotationAngle.Text := '0';
+  {$ENDREGION}
 
-  { Polygon }
+  {$REGION ' Polygon '}
   edtPolyPosLat.Text := '';
   edtPolyPosLong.Text := '';
   lvPolyVertex.Clear;
+  {$ENDREGION}
+
+  {$REGION ' Intelejen '}
+  edtIntelIdentifier.Text := '';
+  edtLattIntel.Text := '';
+  edtLongIntel.Text := '';
+  mmoInfo.Lines.Clear;
+  {$ENDREGION}
+
+  {$REGION ' Logistic '}
+  edtLogIdentifier.Text := '';
+  edtLattLog.Text := '';
+  edtLongLog.Text := '';
+  edtNameLogistic.Text := '';
+  cbbStatusLogistic.Text := '';
+  lvLogistic.Clear;
+  {$ENDREGION}
+
+  {$REGION ' Radar '}
+  edtRadarIdentifier.Text := '';
+  edtLattRadar.Text := '';
+  edtLongRadar.Text := '';
+  edtRadius.Text := '';
+  {$ENDREGION}
+
+  {$REGION ' Pangkalan '}
+  edtBaseIdentifier.Text := '';
+  edtLattBase.Text := '';
+  edtLongBase.Text := '';
+  edtPlatform .Text := '';
+  edtQty.Text := '';
+  lvEmbark.Clear;
+  {$ENDREGION}
+
+  {$REGION ' Panah '}
+  edtStartLatt.Text := '';
+  edtStartLong.Text := '';
+  edtEndLatt.Text := '';
+  edtEndLong.Text := '';
+  {$ENDREGION}
+
 
 //  SpeedButton10.Down := false;
 
@@ -1381,6 +1439,7 @@ begin
 
   recShape.IdUserRole   := FSelectedOverlayTab.IdUserRole;
   recShape.TemplateId   := FSelectedOverlayTab.IdOverlayTab;
+  recShape.ShapeType    := ovLogistic;
   recShape.OverlayName  := edtLogIdentifier.Text;
   recShape.PostStart.X  := dmsToLong(edtLongLog.Text);
   recShape.PostStart.Y  := dmsToLatt(edtLattLog.Text);
@@ -1541,6 +1600,23 @@ begin
     simMgrClient.DrawFlagPoint.FlagList.Delete(1);
     simMgrClient.DrawFlagPoint.FlagList.Insert(1, flagPointTemp);
   end;
+end;
+
+procedure TfrmOverlayTools.RefreshEmbark;
+begin
+  edtPlatform.Text := '';
+  edtQty.Text := '';
+  lblSymbolTaktis.Caption := '';
+  btnEditPlatform.Enabled := False;
+  btnDeletePlatform.Enabled := False;
+end;
+
+procedure TfrmOverlayTools.RefreshLogistic;
+begin
+  edtNameLogistic.Text := '';
+  cbbStatusLogistic.ItemIndex := 0;
+  btnEditLogistic.Enabled := False;
+  btnDeleteLogistic.Enabled := False;
 end;
 
 procedure TfrmOverlayTools.RefreshLvPolyVertexList;
@@ -1752,6 +1828,51 @@ begin
   {$ENDREGION}
 end;
 
+procedure TfrmOverlayTools.lvEmbarkSelectItem(Sender: TObject; Item: TListItem;Selected: Boolean);
+var
+  li : TListItem;
+begin
+  if Selected then
+  begin
+    FIdSelectedEmbark := lvEmbark.Selected.Index;
+
+    li := lvEmbark.Items[FIdSelectedEmbark];
+    edtPlatform.Text := li.Caption;
+    edtQty.Text := li.SubItems[0];
+    lblSymbolTaktis.Caption := li.SubItems[1];
+
+    btnEditPlatform.Enabled := True;
+    btnDeletePlatform.Enabled := True;
+  end
+  else
+  begin
+    btnEditPlatform.Enabled := False;
+    btnDeletePlatform.Enabled := False;
+  end;
+end;
+
+procedure TfrmOverlayTools.lvLogisticSelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);
+var
+  li : TListItem;
+begin
+  if Selected then
+  begin
+    FIdSelectedLogistic := lvLogistic.Selected.Index;
+
+    li := lvLogistic.Items[FIdSelectedLogistic];
+    edtNameLogistic.Text := li.Caption;
+    cbbStatusLogistic.Text := li.SubItems[0];
+
+    btnEditLogistic.Enabled := True;
+    btnDeleteLogistic.Enabled := True;
+  end
+  else
+  begin
+    btnEditLogistic.Enabled := False;
+    btnDeleteLogistic.Enabled := False;
+  end;
+end;
+
 function TfrmOverlayTools.GetPlottingColor: Integer;
 begin
   if rbBlue.Checked then
@@ -1785,6 +1906,13 @@ var
   gridTemp       : TGridShape;
   polygonTemp    : TPolygonShape;
 
+  IntelijenTemp : TIntelijenShape;
+  LogisticTemp  : TLogisticShape;
+  RadarTemp     : TRadarShape;
+  BaseTemp      : TPangkalanShape;
+  ArrowTemp    : TPanahShape;
+
+  intelDataTemp : TIntelijenInfo;
   polyPoint : Array of TPoint;
   point : TDotShape;
 
@@ -2198,6 +2326,143 @@ begin
           end;
         end;
       {$ENDREGION}
+      end
+      else if mainShapeTemp is TIntelijenShape then
+      begin
+        {$REGION ' Intelijen Section '}
+        IntelijenTemp := TIntelijenShape(mainShapeTemp);
+
+        simMgrClient.Converter.ConvertToScreen(IntelijenTemp.postCenter.X, IntelijenTemp.postCenter.Y, x1, y1);
+        rect1 := SelectedOverlayTab.Formula.assignRect(x1, y1);
+
+        if ptToArea(rect1, ptPos) then
+        begin
+          FShapeType := ovIntelijen;
+          FShapeId := IntelijenTemp.ShapeId;
+          FAction := caEdit;
+          edtIntelIdentifier.Text := IntelijenTemp.Identifier;
+          edtLongIntel.Text := formatDMS_long(IntelijenTemp.postCenter.X);
+          edtLattIntel.Text := formatDMS_latt(IntelijenTemp.postCenter.Y);
+          pnlOutline.Color := IntelijenTemp.ShapeOutline;
+
+          for k := 0 to IntelijenTemp.InfoList.Count - 1 do
+          begin
+            intelDataTemp := IntelijenTemp.InfoList[k];
+            mmoInfo.Lines.Add(intelDataTemp.Info)
+          end;
+
+          IntelijenTemp.isSelected := true;
+          LoadPanelIntelijen;
+
+          break;
+        end;
+        {$ENDREGION}
+      end
+      else if mainShapeTemp is TLogisticShape then
+      begin
+        {$REGION ' Logistic Section '}
+        LogisticTemp := TLogisticShape(mainShapeTemp);
+
+        simMgrClient.Converter.ConvertToScreen(LogisticTemp.postCenter.X, LogisticTemp.postCenter.Y, x1, y1);
+        rect1 := SelectedOverlayTab.Formula.assignRect(x1, y1);
+
+        if ptToArea(rect1, ptPos) then
+        begin
+          FShapeType := ovLogistic;
+          FShapeId := LogisticTemp.ShapeId;
+          FAction := caEdit;
+          edtIntelIdentifier.Text := LogisticTemp.Identifier;
+          edtLongLog.Text := formatDMS_long(LogisticTemp.postCenter.X);
+          edtLattLog.Text := formatDMS_latt(LogisticTemp.postCenter.Y);
+          pnlOutline.Color := LogisticTemp.ShapeOutline;
+          {edtItemLog belum}
+          {cbbStatus belum}
+          {lvLogistic belum}
+
+          LogisticTemp.isSelected := true;
+          LoadPanelLogistic;
+
+          break;
+        end;
+        {$ENDREGION}
+      end
+      else if mainShapeTemp is TRadarShape then
+      begin
+        {$REGION ' Radar Section '}
+         RadarTemp := TRadarShape(mainShapeTemp);
+
+        simMgrClient.Converter.ConvertToScreen(RadarTemp.postCenter.X, RadarTemp.postCenter.Y, x1, y1);
+        rect1 := SelectedOverlayTab.Formula.assignRect(x1, y1);
+
+        if ptToArea(rect1, ptPos) then
+        begin
+          FShapeType := ovLogistic;
+          FShapeId := RadarTemp.ShapeId;
+          FAction := caEdit;
+          edtLongRadar.Text := formatDMS_long(RadarTemp.postCenter.X);
+          edtLattRadar.Text := formatDMS_latt(RadarTemp.postCenter.Y);
+          pnlOutline.Color := RadarTemp.ShapeOutline;
+          {edtRadius belum}
+
+          RadarTemp.isSelected := true;
+          LoadPanelRadar;
+
+          break;
+        end;
+        {$ENDREGION}
+      end
+      else if mainShapeTemp is TPangkalanShape then
+      begin
+        {$REGION ' Base Section '}
+        BaseTemp := TPangkalanShape(mainShapeTemp);
+
+        simMgrClient.Converter.ConvertToScreen(BaseTemp.postCenter.X, BaseTemp.postCenter.Y, x1, y1);
+        rect1 := SelectedOverlayTab.Formula.assignRect(x1, y1);
+
+        if ptToArea(rect1, ptPos) then
+        begin
+          FShapeType := ovPangkalan;
+          FShapeId := BaseTemp.ShapeId;
+          FAction := caEdit;
+          edtLongBase.Text := formatDMS_long(BaseTemp.postCenter.X);
+          edtLattBase.Text := formatDMS_latt(BaseTemp.postCenter.Y);
+          pnlOutline.Color := BaseTemp.ShapeOutline;
+          {edtPlatform belum}
+          {edtQty belum}
+          {lvEmbark belum}
+
+          BaseTemp.isSelected := true;
+          LoadPanelPangkalan;
+
+          break;
+        end;
+        {$ENDREGION}
+      end
+      else if mainShapeTemp is TPanahShape then
+      begin
+        {$REGION ' Arrow Section '}
+         ArrowTemp := TPanahShape(mainShapeTemp);
+
+        simMgrClient.Converter.ConvertToScreen(ArrowTemp.postCenter.X, ArrowTemp.postCenter.Y, x1, y1);
+        rect1 := SelectedOverlayTab.Formula.assignRect(x1, y1);
+
+        if ptToArea(rect1, ptPos) then
+        begin
+          FShapeType := ovPanah;
+          FShapeId := ArrowTemp.ShapeId;
+          FAction := caEdit;
+//          edtStartLong.Text := formatDMS_long(ArrowTemp.postCenter.X);
+//          edtStartLatt.Text := formatDMS_latt(ArrowTemp.postCenter.Y);
+          pnlOutline.Color := ArrowTemp.ShapeOutline;
+          {edtEndLatt belum}
+          {edtEndLong belum}
+
+          ArrowTemp.isSelected := true;
+          LoadPanelPanah;
+
+          break;
+        end;
+        {$ENDREGION}
       end;
     end;
 
@@ -2339,44 +2604,84 @@ begin
   end;
 end;
 
+procedure TfrmOverlayTools.btnLogistichandle(Sender: TObject);
+begin
+  if ((edtNameLogistic.Text = '') or (cbbStatusLogistic.Text = '')) and
+     (TSpeedButton(Sender).Tag <> 4) then
+  begin
+    ShowMessage('Incomplete data input');
+    Exit;
+  end;
+
+  case TSpeedButton(Sender).Tag of
+    1: {Add}
+    begin
+      with lvLogistic.Items.Add do
+      begin
+        Caption := edtNameLogistic.Text;
+        SubItems.Add(cbbStatusLogistic.Text);
+      end;
+    end;
+    2:{Edit}
+    begin
+      with lvLogistic.Items[FIdSelectedLogistic] do
+      begin
+        Caption := edtNameLogistic.Text;
+        SubItems[0] := cbbStatusLogistic.Text;
+      end;
+
+    end;
+    3:{Delete}
+    begin
+      lvLogistic.Items.Delete(FIdSelectedLogistic);
+    end;
+    4:{Clear}
+    begin
+      lvLogistic.Items.Clear;
+    end;
+  end;
+
+  RefreshLogistic;
+end;
+
 procedure TfrmOverlayTools.btnPlatformHandle(Sender: TObject);
 begin
-//  if (edtNamePlatform.Text = '') or (edtQtyPlatform.Text = '') and
-//     (TSpeedButton(Sender).Tag <> 4) then
-//  begin
-//    ShowMessage('Incomplete data input');
-//    Exit;
-//  end;
-//
-//  case TSpeedButton(Sender).Tag of
-//    1: {Add}
-//    begin
-//      with lvEmbark.Items.Add do
-//      begin
-//        Caption := edtNamePlatform.Text;
-//        SubItems.Add(edtQtyPlatform.Text);
-//        SubItems.Add(lblFontTaktis.Caption);
-//      end;
-//    end;
-//    2:{Edit}
-//    begin
-//      with lvEmbark.Items[IdSelectedEmbark] do
-//      begin
-//        Caption := edtNamePlatform.Text;
-//        SubItems[0] := edtQtyPlatform.Text;
-//        SubItems[1] := lblFontTaktis.Caption;
-//      end;
-//    end;
-//    3:{Delete}
-//    begin
-//      lvEmbark.Items.Delete(IdSelectedEmbark);
-//    end;
-//    4:{Clear}
-//    begin
-//      lvEmbark.Items.Clear;
-//    end;
-//  end;
-//  RefreshLEmbark;
+  if (edtPlatform.Text = '') or (edtQty.Text = '') and
+     (TSpeedButton(Sender).Tag <> 4) then
+  begin
+    ShowMessage('Incomplete data input');
+    Exit;
+  end;
+
+  case TSpeedButton(Sender).Tag of
+    1: {Add}
+    begin
+      with lvEmbark.Items.Add do
+      begin
+        Caption := edtPlatform.Text;
+        SubItems.Add(edtQty.Text);
+        SubItems.Add(lblSymbolTaktis.Caption);
+      end;
+    end;
+    2:{Edit}
+    begin
+      with lvEmbark.Items[FIdSelectedEmbark] do
+      begin
+        Caption := edtPlatform.Text;
+        SubItems[0] := edtQty.Text;
+        SubItems[1] := lblSymbolTaktis.Caption;
+      end;
+    end;
+    3:{Delete}
+    begin
+      lvEmbark.Items.Delete(FIdSelectedEmbark);
+    end;
+    4:{Clear}
+    begin
+      lvEmbark.Items.Clear;
+    end;
+  end;
+  RefreshEmbark;
 end;
 
 end.
