@@ -20,14 +20,14 @@ type
     edtKeterangan: TEdit;
     cbbTipe: TComboBox;
     cbbKategori: TComboBox;
-    btnUpload: TButton;
     UploadImage: TOpenDialog;
     ImgBackgroundForm: TImage;
+    Label2: TLabel;
+    lblPlatform: TLabel;
+    btnUpload: TImage;
     btnOk: TImage;
     btnApply: TImage;
     btnCancel: TImage;
-    Label2: TLabel;
-    lblPlatform: TLabel;
     procedure btnOkClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
     procedure btnUploadClick(Sender: TObject);
@@ -161,7 +161,7 @@ end;
 
 procedure TfrmSimbolTaktis.cbbTipeChange(Sender: TObject);
 begin
-  if cbbTipe.ItemIndex = 0 then
+  if cbbTipe.ItemIndex = -1 then
     cbbTipe.ItemIndex := 0;
 
    btnOk.Enabled := True;

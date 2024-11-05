@@ -188,6 +188,16 @@ type
     edtTacticalSearch: TEdit;
     pnlRightTactical: TPanel;
     imgPreview: TImage;
+    Image1: TImage;
+    Label11: TLabel;
+    pnlKeteranganGambar: TPanel;
+    Label17: TLabel;
+    lblKeterangan: TLabel;
+    lblTipe: TLabel;
+    lblKategori: TLabel;
+    lblFile: TLabel;
+    Image2: TImage;
+    lblNamaGambar: TLabel;
 
     procedure btnAOTCClick(Sender: TObject);
 
@@ -732,8 +742,13 @@ begin
     begin
         ShowMessage('File gambar tidak ditemukan' + imagepath);
     end;
-  end;
 
+    lblNamaGambar.Caption := 'Nama Gambar: ' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '.jpg';
+    lblKeterangan.Caption := 'Keterangan: ' + Item.SubItems[0];
+    lblTipe.Caption       := 'Tipe: ' + Item.SubItems[1];
+    lblKategori.Caption   := 'Kategori: ' + Item.SubItems[2];
+    lblFile.Caption       := 'Lokasi Gambar: ' + imagepath;
+  end;
 end;
 
 procedure TfrmDisplayArea.btnEditTacticalSymbolClick(Sender: TObject);

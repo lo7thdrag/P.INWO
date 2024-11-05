@@ -36,13 +36,13 @@ type
     Panel1: TPanel;
     Label13: TLabel;
     lblPlatform: TLabel;
-    btnApply: TImage;
-    btnOk: TImage;
-    btnCancel: TImage;
     btnShowPassword: TImage;
     btnShowPassword2: TImage;
     Label14: TLabel;
     Label15: TLabel;
+    btnOk: TImage;
+    btnApply: TImage;
+    btnCancel: TImage;
     procedure cbbOrganisasiTugasChange(Sender: TObject);
     procedure cbbSubOrganisasiTugasChange(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
