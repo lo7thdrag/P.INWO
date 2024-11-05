@@ -360,11 +360,11 @@ end;
 
 procedure TfrmAsset.btnOKClick(Sender: TObject);
 begin
-  if btnOK.Enabled then
-    btnOK.Click;
-
-  if isOK then
-    Close;
+//  if btnOK.Enabled then
+//    btnOK.Click;
+//
+//  if isOK then
+//    Close;
 end;
 
 end.

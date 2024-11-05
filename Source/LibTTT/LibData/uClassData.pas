@@ -2421,4 +2421,17 @@ begin
   end;
 end;
 
+{ TAsset }
+
+constructor TAsset.Create;
+begin
+
+end;
+
+destructor TAsset.Destroy;
+begin
+
+  inherited;
+end;
+
 end.
