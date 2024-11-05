@@ -12,8 +12,6 @@ type
     ImageList1: TImageList;
     mpLayer: TMap;
     PanelLeft: TPanel;
-    btnOk: TButton;
-    btnCancel: TButton;
     grp1: TGroupBox;
     PanelTop: TPanel;
     toolbar2: TToolBar;
@@ -25,11 +23,13 @@ type
     cbbSetScale: TComboBox;
     btn3: TToolButton;
     btnIncreaseScale: TToolButton;
-    btn4: TToolButton;
     btnZoom: TToolButton;
     btnZoomOut: TToolButton;
     btnDragFilter: TToolButton;
     lstGSTGame: TListBox;
+    Panel1: TPanel;
+    btnCancel: TButton;
+    btnOk: TButton;
     procedure FormShow(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
     procedure lstGSTGameClick(Sender: TObject);
@@ -277,7 +277,8 @@ begin
       repeat
         if ((sr.Attr and faDirectory <> 0) and (sr.Name <> '.') and (sr.Name <> '..')) then
         begin
-          list.Add(sr.Name);
+          if (sr.Name <> 'indonesia-Background') then
+            list.Add(sr.Name);
         end;
 
       until FindNext(sr) <> 0;

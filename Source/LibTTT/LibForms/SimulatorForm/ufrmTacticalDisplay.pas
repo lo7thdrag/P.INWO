@@ -15,7 +15,7 @@ uses
 type
 
   TfrmTacticalDisplay = class(TForm)
-    pnlHeader: TPanel;
+    pnlMainLogin: TPanel;
     pnlLeft: TPanel;
     pnlCenter: TPanel;
     pnlLogo: TPanel;
@@ -47,14 +47,20 @@ type
     Panel3: TPanel;
     lblUserRole: TLabel;
     btnLogout: TButton;
-    pnlMainBackground: TPanel;
-    imgMainBackground: TImage;
+    pnlBackgroundLogin: TPanel;
+    imgBackgroundLogin: TImage;
     pnlSituationBoard: TPanel;
     Label3: TLabel;
     Image3: TImage;
     Label7: TLabel;
     btnShow: TButton;
     cbbConsoleName: TComboBox;
+    pnlHome: TPanel;
+    imgHome: TImage;
+    btnPlanning: TRzBmpButton;
+    btnPreparation: TRzBmpButton;
+    btnImplementation: TRzBmpButton;
+    btnTermination: TRzBmpButton;
 
     procedure FormCreate(Sender: TObject);
     procedure btnShowPasswordClick(Sender: TObject);
@@ -62,7 +68,6 @@ type
     procedure btnLogoutClick(Sender: TObject);
     procedure btnStartClick(Sender: TObject);
     procedure btnShowClick(Sender: TObject);
-    procedure cbbConsoleNameClick(Sender: TObject);
     procedure cbbConsoleNameDropDown(Sender: TObject);
 
   private
@@ -132,32 +137,6 @@ begin
   end;
 end;
 
-procedure TfrmTacticalDisplay.cbbConsoleNameClick(Sender: TObject);
-var
-  i : Integer;
-  consoleInfoTemp : TConsoleInfo;
-  userRoleTemp : TUser_Role;
-
-begin
-//  cbbConsoleName.Clear;
-//
-//  for i := 0 to simMgrClient.SimConsole.ConsoleList.Count-1 do
-//  begin
-//    consoleInfoTemp := TConsoleInfo(simMgrClient.SimConsole.ConsoleList.Objects[i]);
-//
-//    userRoleTemp := SimManager.SimUserRole.getUserRoleByIPAddress(consoleInfoTemp.IPAddress);
-//
-//    if Assigned(userRoleTemp) then
-//    begin
-//      if userRoleTemp.isInUse then
-//      begin
-//        cbbConsoleName.Items.Add(consoleInfoTemp.ConsoleName);
-//      end
-//    end;
-//  end;
-
-end;
-
 procedure TfrmTacticalDisplay.cbbConsoleNameDropDown(Sender: TObject);
 var
   i : Integer;
@@ -202,16 +181,6 @@ begin
   simMgrClient.MyConsoleData.assignUserRoleData(userRoleTemp.FData);
 
   frmSituationBoard.Show;
-//  frmSituationBoard := TfrmSituationBoard.Create(Self);
-//  try
-//    with frmSituationBoard do
-//    begin
-//      ShowModal;
-//    end;
-//
-//  finally
-//    frmSituationBoard.Free;
-//  end;
 end;
 
 
@@ -288,7 +257,8 @@ end;
 
 procedure TfrmTacticalDisplay.FormCreate(Sender: TObject);
 begin
-  EnableComposited(pnlMainBackground);
+  EnableComposited(pnlBackgroundLogin);
+  EnableComposited(pnlHome);
   Show;
 end;
 
