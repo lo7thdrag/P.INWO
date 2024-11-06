@@ -210,6 +210,7 @@ type
     btnAddAsset: TImage;
     btnEditAsset: TImage;
     btnDeleteAsset: TImage;
+    btnUnduh: TImage;
 
     procedure btnAOTCClick(Sender: TObject);
 
@@ -246,6 +247,7 @@ type
     procedure cbbFilterSearchSelect(Sender: TObject);
     procedure cbbSearchtipeSelect(Sender: TObject);
     procedure lvTacticalSymbolleSelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);
+    procedure btnUnduhClick(Sender: TObject);
 
     procedure pnlSimbolTaktisManajemenShow;
     procedure UpdateSimbolTaktis;
@@ -736,17 +738,17 @@ begin
   else if cbbFilterSearch.ItemIndex = 2 then
   begin
     cbbSearchTipe.Items.Add('PESAWAT TERBANG SAYAP PUTAR');
-    cbbSearchTipe.Items.Add('TANDA TAKTIS ALAT KENDALI OPS');
-    cbbSearchTipe.Items.Add('TANDA TAKTIS ANGK LAIN');
-    cbbSearchTipe.Items.Add('TANDA TAKTIS KAPAL');
-    cbbSearchTipe.Items.Add('TANDA TAKTIS KEGIATAN-MANUVERA');
-    cbbSearchTipe.Items.Add('TANDA TAKTIS KOMANDO');
-    cbbSearchTipe.Items.Add('TANDA TAKTIS KOMANDO OPERASIONAL');
-    cbbSearchTipe.Items.Add('TANDA TAKTIS LAINNYA');
-    cbbSearchTipe.Items.Add('TANDA TAKTIS MARINIR');
-    cbbSearchTipe.Items.Add('TANDA TAKTIS MEDAN');
-    cbbSearchTipe.Items.Add('TANDA TAKTIS PANGKALAN');
-    cbbSearchTipe.Items.Add('TANDA TAKTIS PESAWAT TERBANG SAYAP TETAP');
+    cbbSearchTipe.Items.Add('ALAT KENDALI OPS');
+    cbbSearchTipe.Items.Add('ANGKATAN LAIN');
+    cbbSearchTipe.Items.Add('KAPAL');
+    cbbSearchTipe.Items.Add('KEGIATAN-MANUVERA');
+    cbbSearchTipe.Items.Add('KOMANDO');
+    cbbSearchTipe.Items.Add('KOMANDO OPERASIONAL');
+    cbbSearchTipe.Items.Add('LAINNYA');
+    cbbSearchTipe.Items.Add('MARINIR');
+    cbbSearchTipe.Items.Add('MEDAN');
+    cbbSearchTipe.Items.Add('PANGKALAN');
+    cbbSearchTipe.Items.Add('PESAWAT TERBANG SAYAP TETAP');
   end;
 end;
 
@@ -866,6 +868,8 @@ begin
     lblKeterangan.Caption := 'Keterangan: ' + Item.SubItems[0];
     lblTipe.Caption       := 'Tipe: ' + Item.SubItems[1];
     lblKategori.Caption   := 'Kategori: ' + Item.SubItems[2];
+
+    FSelectedTacticalSymbol := Item.Data;
   end;
 end;
 
@@ -936,6 +940,23 @@ begin
       flagTable := false;
       UpdateSimbolTaktis;
     end;
+  end;
+end;
+
+procedure TfrmDisplayArea.btnUnduhClick(Sender: TObject);
+var
+  localDirTemp : String;
+  serverDirTemp : String;
+  localFileTemp : String;
+begin
+  if Assigned(FSelectedTacticalSymbol) then
+  begin
+    SelectDirectory('Select a directory', vGameDataSetting.LocalDirectory, localDirTemp);
+
+    serverDirTemp := vGameDataSetting.FileSimbolTaktis + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '.bmp';
+    localFileTemp := localDirTemp + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '.bmp';
+
+    CopyFile(PWideChar(serverDirTemp), PWideChar(localFileTemp), False);
   end;
 end;
 

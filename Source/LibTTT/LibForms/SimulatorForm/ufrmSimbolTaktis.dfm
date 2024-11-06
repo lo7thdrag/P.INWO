@@ -14792,7 +14792,7 @@ object frmSimbolTaktis: TfrmSimbolTaktis
         ParentFont = False
       end
       object Label3: TLabel
-        Left = 261
+        Left = 365
         Top = 30
         Width = 64
         Height = 18
@@ -14855,33 +14855,32 @@ object frmSimbolTaktis: TfrmSimbolTaktis
           'TAKTIS TNI AL')
       end
       object cbbKategori: TComboBox
-        Left = 336
+        Left = 440
         Top = 26
-        Width = 377
+        Width = 273
         Height = 26
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
         Font.Name = 'Berlin Sans FB'
         Font.Style = []
-        ItemIndex = 0
         ParentFont = False
         TabOrder = 2
         Text = 'PESAWAT TERBANG SAYAP PUTAR'
         OnChange = cbbKategoriChange
         Items.Strings = (
           'PESAWAT TERBANG SAYAP PUTAR'
-          'TANDA TAKTIS ALAT KENDALI OPS'
-          'TANDA TAKTIS ANGK LAIN'
-          'TANDA TAKTIS KAPAL'
-          'TANDA TAKTIS KEGIATAN-MANUVERA'
-          'TANDA TAKTIS KOMANDO'
-          'TANDA TAKTIS KOMANDO OPERASIONAL'
-          'TANDA TAKTIS LAINNYA'
-          'TANDA TAKTIS MARINIR'
-          'TANDA TAKTIS MEDAN'
-          'TANDA TAKTIS PANGKALAN'
-          'TANDA TAKTIS PESAWAT TERBANG SAYAP TETAP')
+          'ALAT KENDALI OPS'
+          'ANGKATAN LAIN'
+          'KAPAL'
+          'KEGIATAN-MANUVERA'
+          'KOMANDO'
+          'KOMANDO OPERASIONAL'
+          'LAINNYA'
+          'MARINIR'
+          'MEDAN'
+          'PANGKALAN'
+          'PESAWAT TERBANG SAYAP TETAP')
       end
     end
   end
