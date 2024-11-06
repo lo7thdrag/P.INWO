@@ -86,7 +86,8 @@ uses
   ufrmBrowseMap in '..\LibTTT\LibForms\SimulatorForm\AdditionalForm\ufrmBrowseMap.pas' {frmBrowseMap},
   ufrmAsset in '..\LibTTT\LibForms\SimulatorForm\ufrmAsset.pas' {frmAsset},
   ufrmRole in '..\LibTTT\LibForms\SimulatorForm\AdditionalForm\ufrmRole.pas' {frmSummaryRole},
-  ufrmSubRole in '..\LibTTT\LibForms\SimulatorForm\AdditionalForm\ufrmSubRole.pas' {frmSubRole};
+  ufrmSubRole in '..\LibTTT\LibForms\SimulatorForm\AdditionalForm\ufrmSubRole.pas' {frmSubRole},
+  ufrmSelectSimbolTaktis in '..\LibTTT\LibForms\SimulatorForm\AdditionalForm\ufrmSelectSimbolTaktis.pas' {frmSelectSimbolTaktis};
 
 {$R *.res}
 
@@ -112,6 +113,7 @@ begin
   Application.CreateForm(TfrmAsset, frmAsset);
   Application.CreateForm(TfrmSummaryRole, frmSummaryRole);
   Application.CreateForm(TfrmSubRole, frmSubRole);
+  Application.CreateForm(TfrmSelectSimbolTaktis, frmSelectSimbolTaktis);
   //  Application.CreateForm(TfrmCreateTab, frmCreateTab);
 //  Application.CreateForm(TfrmImageInsert, frmImageInsert);
 //  Application.CreateForm(TfrmAvailableUserRole, frmAvailableUserRole);

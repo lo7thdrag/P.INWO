@@ -512,6 +512,16 @@ type
 
     property Converter : TCoordConverter read FConverter write FConverter;
   end;
+
+  TFontTaktis = class
+  public
+    FData : TRecFontTaktis;
+
+    constructor Create;
+    destructor Destroy;override;
+
+  end;
+
 implementation
 
 {$REGION ' TUser_Role '}
@@ -2429,6 +2439,19 @@ begin
 end;
 
 destructor TAsset.Destroy;
+begin
+
+  inherited;
+end;
+
+{ TFontTaktis }
+
+constructor TFontTaktis.Create;
+begin
+
+end;
+
+destructor TFontTaktis.Destroy;
 begin
 
   inherited;

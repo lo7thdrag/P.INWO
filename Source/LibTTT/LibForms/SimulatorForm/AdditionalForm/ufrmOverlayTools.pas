@@ -7,7 +7,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls,
   Vcl.ComCtrls, Vcl.Buttons, Vcl.ColorGrd, Vcl.Imaging.pngimage, RzBmpBtn,
 
-  uConstantaData, uRecordData, uSimMgr_Client, uBaseCoordSystem, uClassData, uDataTypes, uFormula;
+  uConstantaData, uRecordData, uSimMgr_Client, uBaseCoordSystem, uClassData, uDataTypes, uFormula, ufrmSelectSimbolTaktis;
 
 type
   E_ShapeColor = (scOutline, scFill);
@@ -392,6 +392,7 @@ type
       Selected: Boolean);
     procedure lvLogisticSelectItem(Sender: TObject; Item: TListItem;
       Selected: Boolean);
+    procedure btnplatformClick(Sender: TObject);
 
   private
     FShapeType : Integer;
@@ -600,6 +601,12 @@ end;
 procedure TfrmOverlayTools.btnOutlineClick(Sender: TObject);
 begin
   FShapeColor := scOutline;
+end;
+
+procedure TfrmOverlayTools.btnplatformClick(Sender: TObject);
+begin
+  frmSelectSimbolTaktis.drwgrdFontTaktis.RowCount := 184;
+  frmSelectSimbolTaktis.ShowModal;
 end;
 
 procedure TfrmOverlayTools.Canceled;
@@ -1552,8 +1559,8 @@ begin
   recShape.TemplateId   := FSelectedOverlayTab.IdOverlayTab;
   recShape.ShapeType    := ovPanah;
   recShape.OverlayName  := edtRadarIdentifier.Text;
-  recShape.PostStart.X  := dmsToLong(edtLongRadar.Text);
-  recShape.PostStart.Y  := dmsToLatt(edtLattRadar.Text);
+  recShape.PostStart.X  := dmsToLong(edtStartLong.Text);
+  recShape.PostStart.Y  := dmsToLatt(edtStartLatt.Text);
   recShape.PostEnd.X    := dmsToLong(edtEndLong.Text);
   recShape.PostEnd.Y    := dmsToLatt(edtEndLatt.Text);
   recShape.IdSelectShape:= FShapeId;
@@ -1913,6 +1920,9 @@ var
   ArrowTemp    : TPanahShape;
 
   intelDataTemp : TIntelijenInfo;
+  shipDataTemp  : TVehicleOnBase;
+  logDataTemp : TLogisticOnBase;
+
   polyPoint : Array of TPoint;
   point : TDotShape;
 
@@ -2102,7 +2112,7 @@ begin
           edtEllipsePosLat.Text   := formatDMS_latt(ellipseTemp.postCenter.Y);
           edtHorizontal.Text      := FloatToStr(ellipseTemp.Hradius);
           edtVertical.Text        := FloatToStr(ellipseTemp.Vradius);
-          pnlOutline.Color    := ellipseTemp.ShapeOutline;
+          pnlOutline.Color        := ellipseTemp.ShapeOutline;
 
           cbbDashesPen.ItemIndex :=  SetLineType(ellipseTemp.LineType);
           cbbWeightPen.Text := IntToStr(ellipseTemp.LineWeight);
@@ -2371,13 +2381,21 @@ begin
           FShapeType := ovLogistic;
           FShapeId := LogisticTemp.ShapeId;
           FAction := caEdit;
-          edtIntelIdentifier.Text := LogisticTemp.Identifier;
+          edtLogIdentifier.Text := LogisticTemp.Identifier;
           edtLongLog.Text := formatDMS_long(LogisticTemp.postCenter.X);
           edtLattLog.Text := formatDMS_latt(LogisticTemp.postCenter.Y);
           pnlOutline.Color := LogisticTemp.ShapeOutline;
-          {edtItemLog belum}
-          {cbbStatus belum}
-          {lvLogistic belum}
+
+          for k := 0 to LogisticTemp.LogisticList.Count - 1 do
+          begin
+            logDataTemp := LogisticTemp.LogisticList[k];
+
+            with lvLogistic.Items.Add do
+            begin
+              SubItems.Add(logDataTemp.Name);
+              SubItems.Add(logDataTemp.Status);
+            end;
+          end;
 
           LogisticTemp.isSelected := true;
           LoadPanelLogistic;
@@ -2399,10 +2417,11 @@ begin
           FShapeType := ovLogistic;
           FShapeId := RadarTemp.ShapeId;
           FAction := caEdit;
+          edtRadarIdentifier.Text := RadarTemp.Identifier;
           edtLongRadar.Text := formatDMS_long(RadarTemp.postCenter.X);
           edtLattRadar.Text := formatDMS_latt(RadarTemp.postCenter.Y);
+          edtRadius.Text := FloatToStr(RadarTemp.Radius);
           pnlOutline.Color := RadarTemp.ShapeOutline;
-          {edtRadius belum}
 
           RadarTemp.isSelected := true;
           LoadPanelRadar;
@@ -2424,12 +2443,21 @@ begin
           FShapeType := ovPangkalan;
           FShapeId := BaseTemp.ShapeId;
           FAction := caEdit;
+          edtBaseIdentifier.Text := BaseTemp.Identifier;
           edtLongBase.Text := formatDMS_long(BaseTemp.postCenter.X);
           edtLattBase.Text := formatDMS_latt(BaseTemp.postCenter.Y);
           pnlOutline.Color := BaseTemp.ShapeOutline;
-          {edtPlatform belum}
-          {edtQty belum}
-          {lvEmbark belum}
+
+          for k := 0 to BaseTemp.VehiclesList.Count - 1 do
+          begin
+            shipDataTemp := BaseTemp.VehiclesList[k];
+
+            with lvEmbark.Items.Add do
+            begin
+              SubItems.Add(shipDataTemp.Name);
+              SubItems.Add(IntToStr(shipDataTemp.Quantity));
+            end;
+          end;
 
           BaseTemp.isSelected := true;
           LoadPanelPangkalan;
@@ -2451,11 +2479,11 @@ begin
           FShapeType := ovPanah;
           FShapeId := ArrowTemp.ShapeId;
           FAction := caEdit;
-//          edtStartLong.Text := formatDMS_long(ArrowTemp.postCenter.X);
-//          edtStartLatt.Text := formatDMS_latt(ArrowTemp.postCenter.Y);
+          edtStartLong.Text := formatDMS_long(ArrowTemp.postCenter.X);
+          edtStartLatt.Text := formatDMS_latt(ArrowTemp.postCenter.Y);
+          edtEndLong.Text := formatDMS_long(ArrowTemp.postCenter.X);
+          edtEndLatt.Text := formatDMS_latt(ArrowTemp.postCenter.Y);
           pnlOutline.Color := ArrowTemp.ShapeOutline;
-          {edtEndLatt belum}
-          {edtEndLong belum}
 
           ArrowTemp.isSelected := true;
           LoadPanelPanah;

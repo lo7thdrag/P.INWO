@@ -995,6 +995,13 @@ type
     Path_Directori        : string[80];
   end;
 
+  TRecFontTaktis = record
+    FONT_ID                    : integer;
+    FONT_NAME                  : string[60];
+    FONT_INDEX                 : integer;
+    KETERANGAN                 : string[255];
+  end;
+
   {$ENDREGION}
 
 const

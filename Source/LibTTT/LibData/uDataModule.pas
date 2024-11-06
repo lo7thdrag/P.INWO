@@ -431,6 +431,8 @@ type
     function GetSearchTacticalSymbol(var FilterIndex: Integer; SearchContent: string; aList:TList): Integer;
     function UpdateTacticalSymbol(var aRec: TRecTactical_Symbol): Boolean;
     function DeleteTacticalSymbol(const aTacticalSymbolID: Integer): Boolean;
+
+    function getAllFontTaktis(mList: TList; aFontType : Byte): Integer;
     {$ENDREGION}
 
     {$REGION ' Additional Section '}
@@ -8769,6 +8771,57 @@ begin
         aList.Add(rec);
         Next;
       end;
+    end;
+  end;
+end;
+
+function TdmINWO.getAllFontTaktis(mList: TList; aFontType: Byte): Integer;
+var
+  rec: TFontTaktis;
+begin
+  result := -1;
+  if not ZConn.Connected then
+    exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT * ');
+    SQL.Add('FROM Font_Taktis ');
+
+    if aFontType = 0 then
+      SQL.Add('WHERE FONT_ID >= 221 and FONT_ID <= 404')
+    else if aFontType = 1 then
+      SQL.Add('WHERE FONT_ID >= 10 and FONT_ID <= 220')
+    else if aFontType = 2 then
+      SQL.Add('WHERE FONT_ID >= 405 and FONT_ID <= 539');
+
+    SQL.Add('order by FONT_ID');
+    Open;
+
+    result := RecordCount;
+    if not IsEmpty then
+    begin
+      First;
+      if not Assigned(mList) then
+        mList := TList.Create;
+    end;
+
+    while not ZQ.Eof do
+    begin
+      rec := TFontTaktis.Create;
+      with rec.FData do
+      begin
+        FONT_ID := FieldByName('FONT_ID').AsInteger;
+        FONT_NAME := FieldByName('FONT_NAME').AsString;
+        FONT_INDEX := FieldByName('FONT_INDEX').AsInteger;
+        KETERANGAN := FieldByName('KETERANGAN').AsString;
+
+      end;
+
+      mList.Add(rec);
+      ZQ.Next;
     end;
   end;
 end;
