@@ -14564,8 +14564,8 @@ object frmSummaryUserRole: TfrmSummaryUserRole
     object Label8: TLabel
       Left = 18
       Top = 58
-      Width = 62
-      Height = 25
+      Width = 57
+      Height = 36
       Caption = 'Sub Role'#13#10
       Font.Charset = ANSI_CHARSET
       Font.Color = clWhite

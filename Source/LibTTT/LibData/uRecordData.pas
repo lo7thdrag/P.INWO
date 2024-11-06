@@ -161,10 +161,28 @@ type
     Latitude  : Double;
   end;
 
+  TRecRole = record
+    RoleIndex       : Integer;
+    RoleAcronim     : string[20];
+    RoleIdentifier  : string[75];
+  end;
+
+  TRecSubRole = record
+    SubRoleIndex      : Integer;
+    RoleIndex         : Integer;
+    SubRoleAcronim    : string[20];
+    SubRoleIdentifier : string[75];
+    Perencanaan       : Byte;
+    Persiapan         : Byte;
+    Pelaksanaan       : Byte;
+    Pengakhiran       : Byte;
+  end;
+
   TRecUser_Role = record
     UserRoleIndex       : Integer;
-    OrganisasiTugas     : Integer;
-    SubOrganisasiTugas  : Integer;
+    RoleIndex           : Integer;
+    SubRoleIndex        : Integer;
+    UserRoleAcronim     : string[20];
     Perencanaan         : Byte;
     Persiapan           : Byte;
     Pelaksanaan         : Byte;

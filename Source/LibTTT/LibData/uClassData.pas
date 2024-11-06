@@ -10,6 +10,28 @@ uses
 
 type
 
+  TRole = class
+  private
+
+  public
+    FData  : TRecRole;
+
+    constructor Create;
+    destructor Destroy;override;
+
+  end;
+
+  TSubRole = class
+  private
+
+  public
+    FData  : TRecSubRole;
+
+    constructor Create;
+    destructor Destroy;override;
+
+  end;
+
   TUser_Role = class
   private
     FConsoleIP : string;
@@ -627,8 +649,8 @@ end;
 procedure TConsoleData.assignUserRoleData(Val: TRecUser_Role);
 begin
   FUserRoleData.UserRoleIndex       := Val.UserRoleIndex;
-  FUserRoleData.OrganisasiTugas     := Val.OrganisasiTugas;
-  FUserRoleData.SubOrganisasiTugas  := Val.SubOrganisasiTugas;
+  FUserRoleData.RoleIndex           := Val.RoleIndex;
+  FUserRoleData.SubRoleIndex        := Val.SubRoleIndex;
   FUserRoleData.Perencanaan         := Val.Perencanaan;
   FUserRoleData.Persiapan           := Val.Persiapan;
   FUserRoleData.Pelaksanaan         := Val.Pelaksanaan;
@@ -652,8 +674,8 @@ end;
 procedure TConsoleData.UnassignUserRoleData(Val: TRecUser_Role);
 begin
   FUserRoleData.UserRoleIndex       := 0;
-  FUserRoleData.OrganisasiTugas     := 0;
-  FUserRoleData.SubOrganisasiTugas  := 0;
+  FUserRoleData.RoleIndex           := 0;
+  FUserRoleData.SubRoleIndex        := 0;
   FUserRoleData.Perencanaan         := 0;
   FUserRoleData.Persiapan           := 0;
   FUserRoleData.Pelaksanaan         := 0;
@@ -2452,6 +2474,32 @@ begin
 end;
 
 destructor TFontTaktis.Destroy;
+begin
+
+  inherited;
+end;
+
+{ TSubRole }
+
+constructor TSubRole.Create;
+begin
+
+end;
+
+destructor TSubRole.Destroy;
+begin
+
+  inherited;
+end;
+
+{ TRole }
+
+constructor TRole.Create;
+begin
+
+end;
+
+destructor TRole.Destroy;
 begin
 
   inherited;

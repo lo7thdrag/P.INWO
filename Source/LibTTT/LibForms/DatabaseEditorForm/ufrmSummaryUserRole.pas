@@ -95,8 +95,8 @@ procedure TfrmSummaryUserRole.btnApplyClick(Sender: TObject);
 begin
   with FSelectedUserRole.FData do
   begin
-    OrganisasiTugas     := Integer(SetOrganisasiTugasToEnum(cbbRole.Text));
-    SubOrganisasiTugas  := Integer(SetSubOrganisasiTugasToEnum(cbbSubRole.Text));
+    RoleIndex     := Integer(SetOrganisasiTugasToEnum(cbbRole.Text));
+    SubRoleIndex  := Integer(SetSubOrganisasiTugasToEnum(cbbSubRole.Text));
     UserRoleIdentifier  := edtUserRole.Text;
     Username            := edtUsername.Text;
     Password            := edtPassword.Text;
@@ -436,10 +436,10 @@ procedure TfrmSummaryUserRole.UpdateUserRoleData;
 begin
   with FSelectedUserRole.FData do
   begin
-    cbbRole.Text := SetOrganisasiTugasToString(TOrganisasiTugas(OrganisasiTugas));
+    cbbRole.Text := SetOrganisasiTugasToString(TOrganisasiTugas(RoleIndex));
 
     AddCbbSubRole;
-    cbbSubRole.Text := SetSubOrganisasiTugasToString(TSubOrganisasiTugas(SubOrganisasiTugas));
+    cbbSubRole.Text := SetSubOrganisasiTugasToString(TSubOrganisasiTugas(SubRoleIndex));
 
     AddedtUserRole;
     edtUserRole.Text := UserRoleIdentifier;
