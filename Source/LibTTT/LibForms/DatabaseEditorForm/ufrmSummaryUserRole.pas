@@ -11,40 +11,36 @@ uses
 type
   TfrmSummaryUserRole = class(TForm)
     Label2: TLabel;
-    Label3: TLabel;
     Label4: TLabel;
     Label5: TLabel;
     Label1: TLabel;
     Label6: TLabel;
     Label7: TLabel;
     Label9: TLabel;
-    Label10: TLabel;
     edtUsername: TEdit;
     edtPassword: TEdit;
-    chkPerencanaan: TCheckBox;
-    chkPersiapan: TCheckBox;
-    chkPelaksanaan: TCheckBox;
-    chkPengakhiran: TCheckBox;
-    cbbOrganisasiTugas: TComboBox;
-    cbbSubOrganisasiTugas: TComboBox;
-    cbbUserRole: TComboBox;
+    cbbRole: TComboBox;
+    cbbSubRole: TComboBox;
     Label8: TLabel;
     Label11: TLabel;
     Label12: TLabel;
     edtConfirmPassword: TEdit;
     ImgBackgroundForm: TImage;
-    Panel1: TPanel;
+    pnlUserRole: TPanel;
     Label13: TLabel;
     lblPlatform: TLabel;
     btnShowPassword: TImage;
     btnShowPassword2: TImage;
     Label14: TLabel;
-    Label15: TLabel;
     btnOk: TImage;
-    btnApply: TImage;
     btnCancel: TImage;
-    procedure cbbOrganisasiTugasChange(Sender: TObject);
-    procedure cbbSubOrganisasiTugasChange(Sender: TObject);
+    edtUserRole: TEdit;
+    imgEdit: TImage;
+    btnEdit: TImage;
+    Image1: TImage;
+    Label3: TLabel;
+    procedure cbbRoleChange(Sender: TObject);
+    procedure cbbSubRoleChange(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
     procedure btnShowPasswordClick(Sender: TObject);
     procedure btnShowPassword2Click(Sender: TObject);
@@ -60,8 +56,8 @@ type
     function CekInput: Boolean;
     procedure UpdateUserRoleData;
 
-    procedure AddCbbSubOrganisasiTugas;
-    procedure AddCbbUserRole;
+    procedure AddCbbSubRole;
+    procedure AddedtUserRole;
 
   public
     isOK  : Boolean; {Penanda jika gagal cek input, btn OK tidak langsung close}
@@ -84,7 +80,7 @@ begin
   UpdateUserRoleData;
 
   with FSelectedUserRole.FData do
-    btnApply.Enabled := UserRoleIndex = 0;
+    btnOk.Enabled := UserRoleIndex = 0;
 
   isOK := True;
   AfterClose := True;
@@ -99,13 +95,9 @@ procedure TfrmSummaryUserRole.btnApplyClick(Sender: TObject);
 begin
   with FSelectedUserRole.FData do
   begin
-    OrganisasiTugas     := Integer(SetOrganisasiTugasToEnum(cbbOrganisasiTugas.Text));
-    SubOrganisasiTugas  := Integer(SetSubOrganisasiTugasToEnum(cbbSubOrganisasiTugas.Text));
-    Perencanaan         := Ord(chkPerencanaan.Checked);
-    Persiapan           := Ord(chkPersiapan.Checked);
-    Pelaksanaan         := Ord(chkPelaksanaan.Checked);
-    Pengakhiran         := Ord(chkPengakhiran.Checked);
-    UserRoleIdentifier  := cbbUserRole.Text;
+    OrganisasiTugas     := Integer(SetOrganisasiTugasToEnum(cbbRole.Text));
+    SubOrganisasiTugas  := Integer(SetSubOrganisasiTugasToEnum(cbbSubRole.Text));
+    UserRoleIdentifier  := edtUserRole.Text;
     Username            := edtUsername.Text;
     Password            := edtPassword.Text;
 
@@ -133,7 +125,7 @@ begin
 
   isOK := True;
   AfterClose := True;
-  btnApply.Enabled := False;
+  btnOk.Enabled := False;
   btnCancel.Enabled := False;
 end;
 
@@ -144,8 +136,8 @@ end;
 
 procedure TfrmSummaryUserRole.btnOkClick(Sender: TObject);
 begin
-  if btnApply.Enabled then
-    btnApply.OnClick(nil);
+  if btnOk.Enabled then
+    btnOk.OnClick(nil);
 
   if isOk then
     Close;
@@ -183,279 +175,279 @@ end;
 
 {$REGION ' Additional Event '}
 
-procedure TfrmSummaryUserRole.AddCbbSubOrganisasiTugas;
+procedure TfrmSummaryUserRole.AddCbbSubRole;
 begin
-  cbbSubOrganisasiTugas.Items.Clear;
+  cbbSubRole.Items.Clear;
 
-  if cbbOrganisasiTugas.Text = 'Integrated Naval Warfare Operations' then
+  if cbbRole.Text = 'Integrated Naval Warfare Operations' then
   begin
-    cbbSubOrganisasiTugas.Items.Add('KPL');
-    cbbSubOrganisasiTugas.Items.Add('STAF LAT');
-    cbbSubOrganisasiTugas.Items.Add('WASDAL');
-    cbbSubOrganisasiTugas.Items.Add('KOGAB');
+    cbbSubRole.Items.Add('KPL');
+    cbbSubRole.Items.Add('STAF LAT');
+    cbbSubRole.Items.Add('WASDAL');
+    cbbSubRole.Items.Add('KOGAB');
   end
-  else if cbbOrganisasiTugas.Text = 'Naval Tactical Warfare Operations' then
+  else if cbbRole.Text = 'Naval Tactical Warfare Operations' then
   begin
-    cbbSubOrganisasiTugas.Items.Add('KOGASGABLA');
+    cbbSubRole.Items.Add('KOGASGABLA');
   end
-  else if cbbOrganisasiTugas.Text = 'Amphibious Tactical Warfare Operations' then
+  else if cbbRole.Text = 'Amphibious Tactical Warfare Operations' then
   begin
-    cbbSubOrganisasiTugas.Items.Add('KOGASGABFIB');
+    cbbSubRole.Items.Add('KOGASGABFIB');
   end
-  else if cbbOrganisasiTugas.Text = 'Landing Forces Warfare Operations' then
+  else if cbbRole.Text = 'Landing Forces Warfare Operations' then
   begin
-    cbbSubOrganisasiTugas.Items.Add('PASRAT');
+    cbbSubRole.Items.Add('PASRAT');
   end
-  else if cbbOrganisasiTugas.Text = 'Administrative Landing Warfare Operations' then
+  else if cbbRole.Text = 'Administrative Landing Warfare Operations' then
   begin
-    cbbSubOrganisasiTugas.Items.Add('KOGASRATMIN');
+    cbbSubRole.Items.Add('KOGASRATMIN');
   end
-  else if cbbOrganisasiTugas.Text = 'Coastal Defence Warfare Operations' then
+  else if cbbRole.Text = 'Coastal Defence Warfare Operations' then
   begin
-    cbbSubOrganisasiTugas.Items.Add('KOGASHANTAI');
+    cbbSubRole.Items.Add('KOGASHANTAI');
   end
-  else if cbbOrganisasiTugas.Text = 'Supporting Unit Warfare Operations' then
+  else if cbbRole.Text = 'Supporting Unit Warfare Operations' then
   begin
-    cbbSubOrganisasiTugas.Items.Add('SATGASDUK');
+    cbbSubRole.Items.Add('SATGASDUK');
   end;
 end;
 
-procedure TfrmSummaryUserRole.AddCbbUserRole;
+procedure TfrmSummaryUserRole.AddedtUserRole;
 begin
-  cbbUserRole.Clear;
-  if cbbSubOrganisasiTugas.Text = 'KPL' then
+  edtUserRole.Clear;
+  if cbbSubRole.Text = 'KPL' then
   begin
     {$REGION ' KPL '}
-    cbbUserRole.Items.Add('PIMPINAN');
-    cbbUserRole.Items.Add('WAKIL');
-    cbbUserRole.Items.Add('DIRLAT');
-    cbbUserRole.Items.Add('WADIRLAT');
-    cbbUserRole.Items.Add('HATLAT');
-    cbbUserRole.Items.Add('TIM EVA');
-    cbbUserRole.Items.Add('DESTRA');
-    cbbUserRole.Items.Add('DEOYU');
-    cbbUserRole.Items.Add('DEKOMLEK');
-    cbbUserRole.Items.Add('DEMINLOG');
-    cbbUserRole.Items.Add('DELITBANG');
-    cbbUserRole.Items.Add('SETLAT');
+//    edtUserRole.Items.Add('PIMPINAN');
+//    edtUserRole.Items.Add('WAKIL');
+//    edtUserRole.Items.Add('DIRLAT');
+//    edtUserRole.Items.Add('WADIRLAT');
+//    edtUserRole.Items.Add('HATLAT');
+//    edtUserRole.Items.Add('TIM EVA');
+//    edtUserRole.Items.Add('DESTRA');
+//    edtUserRole.Items.Add('DEOYU');
+//    edtUserRole.Items.Add('DEKOMLEK');
+//    edtUserRole.Items.Add('DEMINLOG');
+//    edtUserRole.Items.Add('DELITBANG');
+//    edtUserRole.Items.Add('SETLAT');
     {$ENDREGION}
   end
-  else if cbbSubOrganisasiTugas.Text = 'STAF LAT' then
+  else if cbbSubRole.Text = 'STAF LAT' then
   begin
     {$REGION ' STAF LAT '}
-    cbbUserRole.Items.Add('PIMPINAN');
-    cbbUserRole.Items.Add('WAKIL');
-    cbbUserRole.Items.Add('DIRLAT');
-    cbbUserRole.Items.Add('WADIRLAT');
-    cbbUserRole.Items.Add('HATLAT');
-    cbbUserRole.Items.Add('TIM EVA');
-    cbbUserRole.Items.Add('DESTRA');
-    cbbUserRole.Items.Add('DEOYU');
-    cbbUserRole.Items.Add('DEKOMLEK');
-    cbbUserRole.Items.Add('DEMINLOG');
-    cbbUserRole.Items.Add('DELITBANG');
-    cbbUserRole.Items.Add('SETLAT');
-    cbbUserRole.Items.Add('DENMALAT');
-    cbbUserRole.Items.Add('DENHUBLAT');
+//    edtUserRole.Items.Add('PIMPINAN');
+//    edtUserRole.Items.Add('WAKIL');
+//    edtUserRole.Items.Add('DIRLAT');
+//    edtUserRole.Items.Add('WADIRLAT');
+//    edtUserRole.Items.Add('HATLAT');
+//    edtUserRole.Items.Add('TIM EVA');
+//    edtUserRole.Items.Add('DESTRA');
+//    edtUserRole.Items.Add('DEOYU');
+//    edtUserRole.Items.Add('DEKOMLEK');
+//    edtUserRole.Items.Add('DEMINLOG');
+//    edtUserRole.Items.Add('DELITBANG');
+//    edtUserRole.Items.Add('SETLAT');
+//    edtUserRole.Items.Add('DENMALAT');
+//    edtUserRole.Items.Add('DENHUBLAT');
     {$ENDREGION}
   end
-  else if cbbSubOrganisasiTugas.Text = 'WASDAL' then
+  else if cbbSubRole.Text = 'WASDAL' then
   begin
     {$REGION ' WASDAL '}
-    cbbUserRole.Items.Add('PIMPINAN');
-    cbbUserRole.Items.Add('WAKIL');
-    cbbUserRole.Items.Add('KAWASDAL');
-    cbbUserRole.Items.Add('WK WASDAL');
-    cbbUserRole.Items.Add('KATIM PENILAI');
-    cbbUserRole.Items.Add('KATIM EVA');
-    cbbUserRole.Items.Add('KTIM LITBANG');
-    cbbUserRole.Items.Add('WASDAL INTEL');
-    cbbUserRole.Items.Add('WASDAL OPS');
-    cbbUserRole.Items.Add('WASDAL REN');
-    cbbUserRole.Items.Add('WASDAL PERS');
-    cbbUserRole.Items.Add('WASDAL LOG');
-    cbbUserRole.Items.Add('WDL KOMLEK');
-    cbbUserRole.Items.Add('WDL GASDUK');
-    cbbUserRole.Items.Add('PASET');
+//    edtUserRole.Items.Add('PIMPINAN');
+//    edtUserRole.Items.Add('WAKIL');
+//    edtUserRole.Items.Add('KAWASDAL');
+//    edtUserRole.Items.Add('WK WASDAL');
+//    edtUserRole.Items.Add('KATIM PENILAI');
+//    edtUserRole.Items.Add('KATIM EVA');
+//    edtUserRole.Items.Add('KTIM LITBANG');
+//    edtUserRole.Items.Add('WASDAL INTEL');
+//    edtUserRole.Items.Add('WASDAL OPS');
+//    edtUserRole.Items.Add('WASDAL REN');
+//    edtUserRole.Items.Add('WASDAL PERS');
+//    edtUserRole.Items.Add('WASDAL LOG');
+//    edtUserRole.Items.Add('WDL KOMLEK');
+//    edtUserRole.Items.Add('WDL GASDUK');
+//    edtUserRole.Items.Add('PASET');
     {$ENDREGION}
   end
-  else if cbbSubOrganisasiTugas.Text = 'KOGAB' then
+  else if cbbSubRole.Text = 'KOGAB' then
   begin
     {$REGION ' KOGAB '}
-    cbbUserRole.Items.Add('PANGLIMA');
-    cbbUserRole.Items.Add('KASUM');
-    cbbUserRole.Items.Add('AS INTEL');
-    cbbUserRole.Items.Add('AS OPS');
-    cbbUserRole.Items.Add('AS PERS');
-    cbbUserRole.Items.Add('AS RENA');
-    cbbUserRole.Items.Add('AS KOMLEK');
-    cbbUserRole.Items.Add('AS TER/POT');
-    cbbUserRole.Items.Add('STF EVABANG');
-    cbbUserRole.Items.Add('STF LATIHAN');
-    cbbUserRole.Items.Add('LO KEMHAN');
-    cbbUserRole.Items.Add('LO AANGKATD');
-    cbbUserRole.Items.Add('LO AL');
-    cbbUserRole.Items.Add('LO AU');
-    cbbUserRole.Items.Add('KASETUM');
+//    edtUserRole.Items.Add('PANGLIMA');
+//    edtUserRole.Items.Add('KASUM');
+//    edtUserRole.Items.Add('AS INTEL');
+//    edtUserRole.Items.Add('AS OPS');
+//    edtUserRole.Items.Add('AS PERS');
+//    edtUserRole.Items.Add('AS RENA');
+//    edtUserRole.Items.Add('AS KOMLEK');
+//    edtUserRole.Items.Add('AS TER/POT');
+//    edtUserRole.Items.Add('STF EVABANG');
+//    edtUserRole.Items.Add('STF LATIHAN');
+//    edtUserRole.Items.Add('LO KEMHAN');
+//    edtUserRole.Items.Add('LO AANGKATD');
+//    edtUserRole.Items.Add('LO AL');
+//    edtUserRole.Items.Add('LO AU');
+//    edtUserRole.Items.Add('KASETUM');
 
     {$ENDREGION}
   end
-  else if cbbSubOrganisasiTugas.Text = 'KOGASGABLA' then
+  else if cbbSubRole.Text = 'KOGASGABLA' then
   begin
     {$REGION ' KOGASGABLA '}
-    cbbUserRole.Items.Add('PANGLIMA');
-    cbbUserRole.Items.Add('KEPALA STAF');
-    cbbUserRole.Items.Add('ASINTEL');
-    cbbUserRole.Items.Add('ASOPS');
-    cbbUserRole.Items.Add('ASRENA');
-    cbbUserRole.Items.Add('ASPERS');
-    cbbUserRole.Items.Add('ASLOG');
-    cbbUserRole.Items.Add('ASKOMLEK');
-    cbbUserRole.Items.Add('ASPOTMAR');
-    cbbUserRole.Items.Add('DANSATGASLA');
-    cbbUserRole.Items.Add('SATGASUD');
-    cbbUserRole.Items.Add('DAN UT PUKUL');
-    cbbUserRole.Items.Add('DAN UT INTAI');
-    cbbUserRole.Items.Add('DAN UT KAWAL');
-    cbbUserRole.Items.Add('DAN UT BANTU');
-    cbbUserRole.Items.Add('PASET');
+//    edtUserRole.Items.Add('PANGLIMA');
+//    edtUserRole.Items.Add('KEPALA STAF');
+//    edtUserRole.Items.Add('ASINTEL');
+//    edtUserRole.Items.Add('ASOPS');
+//    edtUserRole.Items.Add('ASRENA');
+//    edtUserRole.Items.Add('ASPERS');
+//    edtUserRole.Items.Add('ASLOG');
+//    edtUserRole.Items.Add('ASKOMLEK');
+//    edtUserRole.Items.Add('ASPOTMAR');
+//    edtUserRole.Items.Add('DANSATGASLA');
+//    edtUserRole.Items.Add('SATGASUD');
+//    edtUserRole.Items.Add('DAN UT PUKUL');
+//    edtUserRole.Items.Add('DAN UT INTAI');
+//    edtUserRole.Items.Add('DAN UT KAWAL');
+//    edtUserRole.Items.Add('DAN UT BANTU');
+//    edtUserRole.Items.Add('PASET');
     {$ENDREGION}
   end
-  else if cbbSubOrganisasiTugas.Text = 'KOGASGABFIB' then
+  else if cbbSubRole.Text = 'KOGASGABFIB' then
   begin
     {$REGION ' KOGASGABFIB '}
-    cbbUserRole.Items.Add('PANGLIMA');
-    cbbUserRole.Items.Add('KEPALA STAS');
-    cbbUserRole.Items.Add('ASINTEL');
-    cbbUserRole.Items.Add('ASOPS');
-    cbbUserRole.Items.Add('ASRENA');
-    cbbUserRole.Items.Add('ASPERS');
-    cbbUserRole.Items.Add('ASLOG');
-    cbbUserRole.Items.Add('ASKOMLEK');
-    cbbUserRole.Items.Add('ASPOTMAR');
-    cbbUserRole.Items.Add('DANSATGASLA');
-    cbbUserRole.Items.Add('DAN PASRAT');
-    cbbUserRole.Items.Add('DAN SATGASUD');
-    cbbUserRole.Items.Add('DAN UT UDARA');
-    cbbUserRole.Items.Add('DAN UT TABIR');
-    cbbUserRole.Items.Add('DAN UT AJU');
-    cbbUserRole.Items.Add('DAN UT BANTU');
-    cbbUserRole.Items.Add('DAN UT ANGKT');
-    cbbUserRole.Items.Add('DAN UT INTAI');
-    cbbUserRole.Items.Add('PASET');
+//    edtUserRole.Items.Add('PANGLIMA');
+//    edtUserRole.Items.Add('KEPALA STAS');
+//    edtUserRole.Items.Add('ASINTEL');
+//    edtUserRole.Items.Add('ASOPS');
+//    edtUserRole.Items.Add('ASRENA');
+//    edtUserRole.Items.Add('ASPERS');
+//    edtUserRole.Items.Add('ASLOG');
+//    edtUserRole.Items.Add('ASKOMLEK');
+//    edtUserRole.Items.Add('ASPOTMAR');
+//    edtUserRole.Items.Add('DANSATGASLA');
+//    edtUserRole.Items.Add('DAN PASRAT');
+//    edtUserRole.Items.Add('DAN SATGASUD');
+//    edtUserRole.Items.Add('DAN UT UDARA');
+//    edtUserRole.Items.Add('DAN UT TABIR');
+//    edtUserRole.Items.Add('DAN UT AJU');
+//    edtUserRole.Items.Add('DAN UT BANTU');
+//    edtUserRole.Items.Add('DAN UT ANGKT');
+//    edtUserRole.Items.Add('DAN UT INTAI');
+//    edtUserRole.Items.Add('PASET');
     {$ENDREGION}
   end
-  else if cbbSubOrganisasiTugas.Text = 'PASRAT' then
+  else if cbbSubRole.Text = 'PASRAT' then
   begin
     {$REGION ' PASRAT '}
-    cbbUserRole.Items.Add('DAN PASRAT');
-    cbbUserRole.Items.Add('WAD PASRAT');
-    cbbUserRole.Items.Add('ASINTEL');
-    cbbUserRole.Items.Add('ASOPS');
-    cbbUserRole.Items.Add('ASRENA');
-    cbbUserRole.Items.Add('ASPERS');
-    cbbUserRole.Items.Add('ASLOG');
-    cbbUserRole.Items.Add('ASKOMLEK');
-    cbbUserRole.Items.Add('ASPOTMAR');
-    cbbUserRole.Items.Add('DAN BRIF MAR');
-    cbbUserRole.Items.Add('PASET');
+//    edtUserRole.Items.Add('DAN PASRAT');
+//    edtUserRole.Items.Add('WAD PASRAT');
+//    edtUserRole.Items.Add('ASINTEL');
+//    edtUserRole.Items.Add('ASOPS');
+//    edtUserRole.Items.Add('ASRENA');
+//    edtUserRole.Items.Add('ASPERS');
+//    edtUserRole.Items.Add('ASLOG');
+//    edtUserRole.Items.Add('ASKOMLEK');
+//    edtUserRole.Items.Add('ASPOTMAR');
+//    edtUserRole.Items.Add('DAN BRIF MAR');
+//    edtUserRole.Items.Add('PASET');
     {$ENDREGION}
   end
-  else if cbbSubOrganisasiTugas.Text = 'KOGASRATMIN' then
+  else if cbbSubRole.Text = 'KOGASRATMIN' then
   begin
     {$REGION ' KOGASRATMIN '}
-    cbbUserRole.Items.Add('PANGLIMA');
-    cbbUserRole.Items.Add('KEPALA STAF');
-    cbbUserRole.Items.Add('ASINTEL');
-    cbbUserRole.Items.Add('ASOPS');
-    cbbUserRole.Items.Add('ASRENA');
-    cbbUserRole.Items.Add('ASPERS');
-    cbbUserRole.Items.Add('ASLOG');
-    cbbUserRole.Items.Add('ASKOMLEK');
-    cbbUserRole.Items.Add('ASPOTMAR');
-    cbbUserRole.Items.Add('DAN SATGASLA');
-    cbbUserRole.Items.Add('DAN STGASRAT');
-    cbbUserRole.Items.Add('DANSATGASUD');
-    cbbUserRole.Items.Add('KATERMINAL');
-    cbbUserRole.Items.Add('PASET');
+//    edtUserRole.Items.Add('PANGLIMA');
+//    edtUserRole.Items.Add('KEPALA STAF');
+//    edtUserRole.Items.Add('ASINTEL');
+//    edtUserRole.Items.Add('ASOPS');
+//    edtUserRole.Items.Add('ASRENA');
+//    edtUserRole.Items.Add('ASPERS');
+//    edtUserRole.Items.Add('ASLOG');
+//    edtUserRole.Items.Add('ASKOMLEK');
+//    edtUserRole.Items.Add('ASPOTMAR');
+//    edtUserRole.Items.Add('DAN SATGASLA');
+//    edtUserRole.Items.Add('DAN STGASRAT');
+//    edtUserRole.Items.Add('DANSATGASUD');
+//    edtUserRole.Items.Add('KATERMINAL');
+//    edtUserRole.Items.Add('PASET');
     {$ENDREGION}
   end
-  else if cbbSubOrganisasiTugas.Text = 'KOGASHANTAI' then
+  else if cbbSubRole.Text = 'KOGASHANTAI' then
   begin
     {$REGION ' KOGASHANTAI '}
-    cbbUserRole.Items.Add('PANGLIMA');
-    cbbUserRole.Items.Add('KEPALA STAF');
-    cbbUserRole.Items.Add('ASINTEL');
-    cbbUserRole.Items.Add('ASOPS');
-    cbbUserRole.Items.Add('ASRENA');
-    cbbUserRole.Items.Add('ASPERS');
-    cbbUserRole.Items.Add('ASLOG');
-    cbbUserRole.Items.Add('ASKOMLEK');
-    cbbUserRole.Items.Add('ASPOTMAR');
-    cbbUserRole.Items.Add('DAN SATGASLA');
-    cbbUserRole.Items.Add('DAN STGASRAT');
-    cbbUserRole.Items.Add('DAN SATGASUD');
-    cbbUserRole.Items.Add('PASET');
+//    edtUserRole.Items.Add('PANGLIMA');
+//    edtUserRole.Items.Add('KEPALA STAF');
+//    edtUserRole.Items.Add('ASINTEL');
+//    edtUserRole.Items.Add('ASOPS');
+//    edtUserRole.Items.Add('ASRENA');
+//    edtUserRole.Items.Add('ASPERS');
+//    edtUserRole.Items.Add('ASLOG');
+//    edtUserRole.Items.Add('ASKOMLEK');
+//    edtUserRole.Items.Add('ASPOTMAR');
+//    edtUserRole.Items.Add('DAN SATGASLA');
+//    edtUserRole.Items.Add('DAN STGASRAT');
+//    edtUserRole.Items.Add('DAN SATGASUD');
+//    edtUserRole.Items.Add('PASET');
     {$ENDREGION}
   end
-  else if cbbSubOrganisasiTugas.Text = 'SATGASDUK' then
+  else if cbbSubRole.Text = 'SATGASDUK' then
   begin
     {$REGION ' SATGASDUK '}
-    cbbUserRole.Items.Add('INTELEJEN');
-    cbbUserRole.Items.Add('MINLOG');
-    cbbUserRole.Items.Add('KOMLEK');
-    cbbUserRole.Items.Add('PERNIKA');
-    cbbUserRole.Items.Add('HUKUM');
-    cbbUserRole.Items.Add('POM');
-    cbbUserRole.Items.Add('PENERANGAN');
-    cbbUserRole.Items.Add('PSIKOLOGI');
-    cbbUserRole.Items.Add('KESEHATAN');
-    cbbUserRole.Items.Add('PERS');
-    cbbUserRole.Items.Add('INFO');
-    cbbUserRole.Items.Add('BAK');
-    cbbUserRole.Items.Add('SAR');
-    cbbUserRole.Items.Add('ANGKT UDARA');
-    cbbUserRole.Items.Add('ANGKT LAUT');
-    cbbUserRole.Items.Add('PASSUS GAB');
-    cbbUserRole.Items.Add('TERITORIAL');
+//    edtUserRole.Items.Add('INTELEJEN');
+//    edtUserRole.Items.Add('MINLOG');
+//    edtUserRole.Items.Add('KOMLEK');
+//    edtUserRole.Items.Add('PERNIKA');
+//    edtUserRole.Items.Add('HUKUM');
+//    edtUserRole.Items.Add('POM');
+//    edtUserRole.Items.Add('PENERANGAN');
+//    edtUserRole.Items.Add('PSIKOLOGI');
+//    edtUserRole.Items.Add('KESEHATAN');
+//    edtUserRole.Items.Add('PERS');
+//    edtUserRole.Items.Add('INFO');
+//    edtUserRole.Items.Add('BAK');
+//    edtUserRole.Items.Add('SAR');
+//    edtUserRole.Items.Add('ANGKT UDARA');
+//    edtUserRole.Items.Add('ANGKT LAUT');
+//    edtUserRole.Items.Add('PASSUS GAB');
+//    edtUserRole.Items.Add('TERITORIAL');
     {$ENDREGION}
   end
 end;
 
-procedure TfrmSummaryUserRole.cbbOrganisasiTugasChange(Sender: TObject);
+procedure TfrmSummaryUserRole.cbbRoleChange(Sender: TObject);
 begin
-  AddCbbSubOrganisasiTugas;
-  cbbSubOrganisasiTugas.ItemIndex := 0;
-  AddCbbUserRole;
-  cbbUserRole.ItemIndex := 0;
+  AddcbbSubRole;
+  cbbSubRole.ItemIndex := 0;
+  AddedtUserRole;
+//  edtUserRole.ItemIndex := 0;
 
-  btnApply.Enabled := True;
+  btnOk.Enabled := True;
 end;
 
-procedure TfrmSummaryUserRole.cbbSubOrganisasiTugasChange(Sender: TObject);
+procedure TfrmSummaryUserRole.cbbSubRoleChange(Sender: TObject);
 begin
-  AddCbbUserRole;
-  cbbUserRole.ItemIndex := 0;
+  AddedtUserRole;
+//  edtUserRole.ItemIndex := 0;
 
-  btnApply.Enabled := True;
+  btnOk.Enabled := True;
 end;
 
 procedure TfrmSummaryUserRole.UpdateUserRoleData;
 begin
   with FSelectedUserRole.FData do
   begin
-    cbbOrganisasiTugas.Text := SetOrganisasiTugasToString(TOrganisasiTugas(OrganisasiTugas));
+    cbbRole.Text := SetOrganisasiTugasToString(TOrganisasiTugas(OrganisasiTugas));
 
-    AddCbbSubOrganisasiTugas;
-    cbbSubOrganisasiTugas.Text := SetSubOrganisasiTugasToString(TSubOrganisasiTugas(SubOrganisasiTugas));
+    AddCbbSubRole;
+    cbbSubRole.Text := SetSubOrganisasiTugasToString(TSubOrganisasiTugas(SubOrganisasiTugas));
 
-    AddCbbUserRole;
-    cbbUserRole.Text := UserRoleIdentifier;
+    AddedtUserRole;
+    edtUserRole.Text := UserRoleIdentifier;
 
-    chkPerencanaan.Checked := Boolean(Perencanaan);
-    chkPersiapan.Checked := Boolean(Persiapan);
-    chkPelaksanaan.Checked := Boolean(Pelaksanaan);
-    chkPengakhiran.Checked := Boolean(Pengakhiran);
+//    chkPerencanaan.Checked := Boolean(Perencanaan);
+//    chkPersiapan.Checked := Boolean(Persiapan);
+//    chkPelaksanaan.Checked := Boolean(Pelaksanaan);
+//    chkPengakhiran.Checked := Boolean(Pengakhiran);
 
     edtUsername.Text := Username;
     edtPassword.Text := Password;
@@ -479,7 +471,7 @@ begin
   end;
 
   {Data ada yg kosong}
-  if (cbbOrganisasiTugas.Text = '') or (cbbSubOrganisasiTugas.Text = '') or (cbbUserRole.Text = '') or
+  if (cbbRole.Text = '') or (cbbSubRole.Text = '') or (edtUserRole.Text = '') or
      (edtUsername.Text = '') or (edtPassword.Text = '') then
   begin
     ShowMessage('Inputan data tidak lengkap');
@@ -505,12 +497,12 @@ end;
 
 procedure TfrmSummaryUserRole.chkChangeClick(Sender: TObject);
 begin
-  btnApply.Enabled := True;
+  btnOk.Enabled := True;
 end;
 
 procedure TfrmSummaryUserRole.edtChange(Sender: TObject);
 begin
-  btnApply.Enabled := True;
+  btnOk.Enabled := True;
 end;
 
 {$ENDREGION}

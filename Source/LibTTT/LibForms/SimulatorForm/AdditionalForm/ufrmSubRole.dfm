@@ -2,8 +2,8 @@ object frmSubRole: TfrmSubRole
   Left = 0
   Top = 0
   BorderStyle = bsNone
-  ClientHeight = 408
-  ClientWidth = 981
+  ClientHeight = 388
+  ClientWidth = 661
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -16,8 +16,8 @@ object frmSubRole: TfrmSubRole
   object ImgBackgroundForm: TImage
     Left = 0
     Top = 0
-    Width = 981
-    Height = 408
+    Width = 661
+    Height = 388
     Align = alClient
     Picture.Data = {
       0954506E67496D61676589504E470D0A1A0A0000000D49484452000004930000
@@ -14138,60 +14138,11 @@ object frmSubRole: TfrmSubRole
       2F88F2FF03BA682A148F9ACFEF0000000049454E44AE426082}
     Stretch = True
     Transparent = True
-    ExplicitLeft = -63
-    ExplicitWidth = 698
-    ExplicitHeight = 384
-  end
-  object btnApply: TImage
-    Left = 472
-    Top = 330
-    Width = 100
-    Height = 30
-    Cursor = crHandPoint
-    Hint = 'Add Data'
-    ParentShowHint = False
-    Picture.Data = {
-      0954506E67496D61676589504E470D0A1A0A0000000D49484452000000780000
-      001E0806000000E7C9DA9500000009704859730000375D0000375D011980465D
-      000003DB4944415478DAED9BBD6E13411080F71A2840022C2444894D436D173C
-      404EA2A14C0A1012552C2228A8EC82820AC50D15428A454D113F82DDD1E29A2A
-      F708490305559839EF9DE7E6667FCE388A6FB5238D2EB999F5CDCEB733B7EB28
-      C9975FBFBF2AA5DEA82821CA51A2013F02FD70DDD144B1CA7DD08FA04F1B8C29
-      01DF017D79DD3388E29404F415E831E8430FFF08B8A5725BAD3AEE7BD01B16BF
-      08B8E5F218F433E873833D020E449EA915E827EC7E041C9060AB7EA756ADFBAE
-      BEE707B87333D9834BDFF3414B7DF5F67FD1BDB5F89EFD1939FCA6E0776132C2
-      F87DB8746DFEE0E39A47066366963179AC1B3CD7E803F917737CFEF7726261B0
-      047B250E220F403F81BE067DEB0B18937FACFC64ACAFDEFE30D90924E1D2E187
-      0B27354186F1672C8907022C9F790C61DCD430268F95D830E173D07B92DD2736
-      0298C7965288CC3EE60B40901FF8E83601461121C3584CDE19F3C52A19323FDF
-      7994904D80E13E42FDA9D6E066603BE01FE48ACD02780A10CBF8AF1A306F6D7B
-      5A51165A29843E0986DB6BD0748BA680C7E4674CE488F90F58122570D86E7B16
-      3F1ED73E9B635E6516C0739203637771C566018CD203909960DF2E602EFC61BC
-      2DD9DA9A492860F04F98ED102E2716FBA906C46500BE4BE2676BB7B890105A9F
-      DAA531700F7F2F161D424DE9739AC4E6005C5671D0805D764B7BE7101BC7CDEF
-      A915D01332ACF6AE6F129B03706E029817BB0C18DF656502F82E544A840010AB
-      EB5CB2EB1DEA2971C7588AEA5A806F6A884B8A9B56A60418E7816DD9BAA96A12
-      9B01F042ADDB7F0E7397015744AA4E3D46042CB44E6EA750665A69523BC5BBD1
-      D1A22BAF012503A652DB0B087372C686D529E554ADF73968C7F7F5A10A05B043
-      F831861E41A41D79D9421BECA2CB4D93634C6AEA48BEB101A89994531DC39CFC
-      AED48E02CEB4E6425B261BE30398C3E547901ED833B6B1298F249E802B3B62C7
-      189CD7C0B07BF68ACDB689827BC502C1E74CD58E026EBCC952EBE30BB665E3FB
-      4E487E31AEABD695531E496C0B4F0B821A5260C233B09A4624AE09F88FD9E778
-      C706A07A524E3560FADAC8C8B876032EDA383FB7F2EAB71C41B8E447920DE3A2
-      63729802BC5AAB6E121BC05A9A3651A48AA9040318AB042758544B25910DDEDB
-      C633AD475C3E5F74D45A7593D86CBB64C3F169A700FB26DFB48B16AB981F4184
-      A315DDC1E6E3B60C18AB0ABFAAACB5EAA6B101ACD402982FF28ADD22AD012C56
-      313F82F0EF8185336847B1A3C6FF0036CC736BB151804215870358F8BCA21A6B
-      4710014EE548A2FDB70658DB6BAD5A55FF08B1516C0C305FE4570B384A2B2402
-      0E5C22E0C025020E5C22E0C0A50238FEEB4A78F20D749AC47F3E0B5A8EFE010A
-      5CEEBC5B11E4200000000049454E44AE426082}
-    ShowHint = True
-    Stretch = True
-    Transparent = True
+    ExplicitHeight = 385
   end
   object btnCancel: TImage
-    Left = 535
-    Top = 330
+    Left = 525
+    Top = 327
     Width = 100
     Height = 30
     Cursor = crHandPoint
@@ -14228,8 +14179,8 @@ object frmSubRole: TfrmSubRole
     Transparent = True
   end
   object btnOk: TImage
-    Left = 368
-    Top = 330
+    Left = 421
+    Top = 327
     Width = 100
     Height = 30
     Cursor = crHandPoint
@@ -14263,10 +14214,10 @@ object frmSubRole: TfrmSubRole
   end
   object lblPlatform: TLabel
     Left = 8
-    Top = 44
+    Top = 75
     Width = 40
-    Height = 198
-    Caption = 'grup pengguna'
+    Height = 123
+    Caption = 'Sub Role'
     Color = clBackground
     Font.Charset = ANSI_CHARSET
     Font.Color = 15846229
@@ -14278,73 +14229,107 @@ object frmSubRole: TfrmSubRole
     ParentFont = False
     Transparent = True
   end
-  object Panel1: TPanel
-    Left = 32
-    Top = 44
-    Width = 603
-    Height = 266
+  object btnNew: TImage
+    Left = 194
+    Top = 39
+    Width = 30
+    Height = 30
+    Cursor = crHandPoint
+    Hint = 'Add Data'
+    ParentShowHint = False
+    Picture.Data = {
+      0954506E67496D61676589504E470D0A1A0A0000000D494844520000001D0000
+      001D08060000005693670F000000097048597300002E2300002E230178A53F76
+      000000664944415478DA639C78F3C77F063A0346A8A58C1498E100C40D406C4F
+      4F4B49B69C9A96126D392D2C2568392D2DC569393D2CC5B09C124B61598D54BD
+      FF472D1DB574F85A4A690D84CDDCC16929DE60C263305E7DA3968E5A3A322D25
+      178C5A3A8C2DA52B0000BA8D8D1B420588510000000049454E44AE426082}
+    Proportional = True
+    ShowHint = True
+    Stretch = True
+    Transparent = True
+  end
+  object btnEdit: TImage
+    Left = 229
+    Top = 39
+    Width = 30
+    Height = 30
+    Cursor = crHandPoint
+    Hint = 'Edit Data'
+    ParentShowHint = False
+    Picture.Data = {
+      0954506E67496D61676589504E470D0A1A0A0000000D494844520000001D0000
+      001D08060000005693670F000000097048597300002E2300002E230178A53F76
+      0000019C4944415478DAE5D4CF2B04611CC7F167AE94F5EBA80D719572418983
+      DF925CC4969348FE08F12738919C2807C96F22CE42580E086751A29C08599FA7
+      E7BB358DE779E6997D76E6E2A977EDCC3C3BAF9D6776C699BAFD48B1888743A8
+      63718E2634811AA34403E3D9448DF130505F3C4C54894781FEC1B38136A06954
+      89B6D0307AD5CC4FD9A2CD681DE5B8F625510B7A09036D45AB1ED004CE18E5E0
+      1AFA41B98A39FC786FB6D036BAC20334843650AD64DEBB621502A3ED04EEA13E
+      F489626857025FA26A5BB483C01DD44F607AC4687F3D6DBFD18A1CDBA01CE4F7
+      685B02A6471CDDD3B2F21539529CCB08ED422B68132514603EDA67E259D58146
+      68375A66E2CFC2C12FC99C02022B98F8579FF8AC9A16ED414B040EA06FC99C42
+      02CB99782E4F99FF50A279E89989B74D4203F2C7A68C8937D39901A8456BE857
+      CFA0313ED173BC88AEB094AED014D4A27C3917E9F32C1A75C1C504C6093C0F00
+      6AD17134E9DA9E43232EB084C06440508BCEA341CFBE05544520BF871719805A
+      F410D549BEF0883A2D402D7A879ED015BA4637D48305E68B8639FE211AE9F805
+      6634CC1BA5DBBF090000000049454E44AE426082}
+    Proportional = True
+    ShowHint = True
+    Stretch = True
+    Transparent = True
+  end
+  object btnDelete: TImage
+    Left = 264
+    Top = 39
+    Width = 30
+    Height = 30
+    Cursor = crHandPoint
+    Hint = 'Delete Data'
+    ParentShowHint = False
+    Picture.Data = {
+      0954506E67496D61676589504E470D0A1A0A0000000D494844520000001D0000
+      001D08060000005693670F000000097048597300002E2300002E230178A53F76
+      000002584944415478DABD965D888C611480CF6824960B5ACACF0D6A93FCFF84
+      08118A42E42FAE08456DB8D80B4512C20576293F25171B4552A4144512B217F2
+      736308E566E5A7D4A2DDD078CE9E33E33556E69BEFB56F3DCD37DFCC7CCF7BDE
+      73DEF34EA63ED79A974E1E1995D6D674CB54FA8086E76D3379D90533D24B33C9
+      E6D1906B2D5B5E8E542FF48183E1313C84424A7AC2E7A4F27F49B3700E96059F
+      BC814B300EA6C166389124F272239D042B6139F42FF9E62D9807DFFE78463EDF
+      61CE93E6B48BFF78152C853E7EFF1D9C8553F02C9416230FE4690AA92BCC8515
+      B0187AC10F5FEE93A5D2409E8F55BDDD6181AFC01C180DAF2B950E80E149EC8C
+      1EF0169A2A954E87DB09A53AB4DA2F562AD57DF809BEC33D18017DE10B3C8051
+      500D1FE0094CF64887412E4D4E9FC21DD824B62FF57A1B1C16DB42E78B9189EC
+      832D5228AA14D2D31ECD22B1AEF4CA27705CAC78AE8AEDE3263803236142FB2F
+      534837C2565F32ADD2AF1D4887FA64EEB62FABC8DAB4D2F1701FAAC4BA4E0BD4
+      9548AB7C321F6137D4A795665D3456ACDBBC804381F4824BB5C0B433CD869B69
+      A5E291EE87CB6255DC18488FC210F95564FDE07D0CE9116886036227CC8D40BA
+      53AC90D6C11E090F8494D235304BAC40B4AF3E0AA45A680BE1208C11EBC751A4
+      3562DB61AA58A13407D2251EE515CF795D2CA9BE79E9B9AB15ABE2825427B2DD
+      857B3DDF51A43AAEC36AB1BF2ED5815457E198D89699E84B1F4DAA51685F1D28
+      76786B6EB50DF6166B0A1AADF6EAB698D229FEF0BF1DB4D760FE6F77221DE21B
+      60070C0AEE6964BA85D68B9DA3D1A5C94662E97F1A456967090BE327FF026B2A
+      FAE8FCBF0000000049454E44AE426082}
+    Proportional = True
+    ShowHint = True
+    Stretch = True
+    Transparent = True
+  end
+  object pnlSubRole: TPanel
+    Left = 300
+    Top = 75
+    Width = 325
+    Height = 246
     BevelOuter = bvNone
     Color = 2235405
     ParentBackground = False
     TabOrder = 0
-    object Label1: TLabel
-      Left = 18
-      Top = 157
-      Width = 67
-      Height = 18
-      Caption = 'Username'
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWhite
-      Font.Height = -16
-      Font.Name = 'Berlin Sans FB'
-      Font.Style = []
-      ParentFont = False
-    end
     object Label10: TLabel
       Left = 163
-      Top = 91
+      Top = 96
       Width = 4
       Height = 18
       Caption = ':'
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWhite
-      Font.Height = -16
-      Font.Name = 'Berlin Sans FB'
-      Font.Style = []
-      ParentFont = False
-    end
-    object Label11: TLabel
-      Left = 18
-      Top = 223
-      Width = 119
-      Height = 18
-      Caption = 'Confirm Password'
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWhite
-      Font.Height = -16
-      Font.Name = 'Berlin Sans FB'
-      Font.Style = []
-      ParentFont = False
-    end
-    object Label12: TLabel
-      Left = 163
-      Top = 223
-      Width = 4
-      Height = 18
-      Caption = ':'
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWhite
-      Font.Height = -16
-      Font.Name = 'Berlin Sans FB'
-      Font.Style = []
-      ParentFont = False
-    end
-    object Label2: TLabel
-      Left = 18
-      Top = 190
-      Width = 64
-      Height = 18
-      Caption = 'Password'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWhite
       Font.Height = -16
@@ -14354,7 +14339,7 @@ object frmSubRole: TfrmSubRole
     end
     object Label3: TLabel
       Left = 18
-      Top = 91
+      Top = 96
       Width = 60
       Height = 18
       Caption = 'Tahapan'
@@ -14365,22 +14350,9 @@ object frmSubRole: TfrmSubRole
       Font.Style = []
       ParentFont = False
     end
-    object Label4: TLabel
-      Left = 18
-      Top = 124
-      Width = 62
-      Height = 18
-      Caption = 'User Role'
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWhite
-      Font.Height = -16
-      Font.Name = 'Berlin Sans FB'
-      Font.Style = []
-      ParentFont = False
-    end
     object Label5: TLabel
       Left = 18
-      Top = 25
+      Top = 30
       Width = 113
       Height = 18
       Caption = 'Organisasi Tugas '
@@ -14391,35 +14363,9 @@ object frmSubRole: TfrmSubRole
       Font.Style = []
       ParentFont = False
     end
-    object Label6: TLabel
-      Left = 163
-      Top = 157
-      Width = 4
-      Height = 18
-      Caption = ':'
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWhite
-      Font.Height = -16
-      Font.Name = 'Berlin Sans FB'
-      Font.Style = []
-      ParentFont = False
-    end
-    object Label7: TLabel
-      Left = 163
-      Top = 190
-      Width = 4
-      Height = 18
-      Caption = ':'
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWhite
-      Font.Height = -16
-      Font.Name = 'Berlin Sans FB'
-      Font.Style = []
-      ParentFont = False
-    end
     object Label8: TLabel
       Left = 18
-      Top = 58
+      Top = 62
       Width = 149
       Height = 18
       Caption = 'Sub Organisasi Tugas  :'
@@ -14430,132 +14376,23 @@ object frmSubRole: TfrmSubRole
       Font.Style = []
       ParentFont = False
     end
-    object Label9: TLabel
-      Left = 163
-      Top = 124
-      Width = 4
-      Height = 18
-      Caption = ':'
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWhite
-      Font.Height = -16
-      Font.Name = 'Berlin Sans FB'
-      Font.Style = []
-      ParentFont = False
-    end
     object Label13: TLabel
       Left = 163
-      Top = 26
+      Top = 31
       Width = 4
       Height = 18
       Caption = ':'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWhite
       Font.Height = -16
-      Font.Name = 'Berlin Sans FB'
-      Font.Style = []
-      ParentFont = False
-    end
-    object btnShowPassword: TImage
-      Left = 313
-      Top = 193
-      Width = 20
-      Height = 12
-      Cursor = crHandPoint
-      Hint = 'Add Data'
-      ParentShowHint = False
-      Picture.Data = {
-        0954506E67496D61676589504E470D0A1A0A0000000D49484452000000260000
-        001008060000007A1E0D1E000000097048597300002E2300002E230178A53F76
-        000002324944415478DABDD64B4854511CC7F1FFF5B5107A28DA4011450FDBE4
-        268BDC1444B549A88D14644A460FDDA5D422ACA4B4C7A2072D7A9042F6A60229
-        08A94D610412818B222A846817426054501A69DF7FE77FEB78B931D38CCE1F3E
-        70EF9D33737E73CEFFDE99E0CCDBEF424DC51E2CC106FC94ECD602DCC149DCC0
-        6840B0220E5E2361830EA03D8BA10AF014CBECBC075581ADD8211CB41774B536
-        A23B0BA1025C46AD37F76AF486C1F22CF5721B3082F5783889A17270160DDEB5
-        E3D8F73BB105D3D27DEEC7143BFF81DD383709A1748EABE2FA39AC97586A8B32
-        2ED81ADC4651E4436EA2098313146A053A5116B93E8CEDB81606D37DDE8BA3C8
-        C5188650ECBDE913DAD0812F69065A84166C11D75B61BDC1426FEE56B46BB04B
-        1C6CF506EA1E5FC429D4453E44035EC15D3C91E48F15FD7255E26EA675E2FA2A
-        AC6F388C13D821E35BA643836993775BE23FCD67B51617302F66D2CFE2FAE205
-        3EE2AB4D3C1D33518EC5E26EAC683DC62E0C78D73458A3ED4875D8633BC5ED7D
-        9D2DA75F85B88F55696E61B48E887B5646E7C9B545388F7EBFF98398C162DFF8
-        3D66D9F973CCC09C1442E856BF433EE6DA356DEEDA646FF483FDABAAC5FD5C68
-        698FCD16B76D25A830DB30DFC6689063E21E3DAFC4DD6D2BD16BAF8F58C80F99
-        067B247FB751B7617FCC98EBD86CC7CD381D33A60F9576ACBF326D99044BD80A
-        1426F9A67EB07A74C58CD13BF3961D3FF342A6BD62D3B009A5B66271E507AB11
-        F70F215A7AC76A63DFC3038C661A2C954A25D87FD52F1D9295127D07EB880000
-        000049454E44AE426082}
-      Proportional = True
-      ShowHint = True
-      Stretch = True
-      Transparent = True
-    end
-    object btnShowPassword2: TImage
-      Left = 313
-      Top = 226
-      Width = 20
-      Height = 12
-      Cursor = crHandPoint
-      Hint = 'Add Data'
-      ParentShowHint = False
-      Picture.Data = {
-        0954506E67496D61676589504E470D0A1A0A0000000D49484452000000260000
-        001008060000007A1E0D1E000000097048597300002E2300002E230178A53F76
-        000002324944415478DABDD64B4854511CC7F1FFF5B5107A28DA4011450FDBE4
-        268BDC1444B549A88D14644A460FDDA5D422ACA4B4C7A2072D7A9042F6A60229
-        08A94D610412818B222A846817426054501A69DF7FE77FEB78B931D38CCE1F3E
-        70EF9D33737E73CEFFDE99E0CCDBEF424DC51E2CC106FC94ECD602DCC149DCC0
-        6840B0220E5E2361830EA03D8BA10AF014CBECBC075581ADD8211CB41774B536
-        A23B0BA1025C46AD37F76AF486C1F22CF5721B3082F5783889A17270160DDEB5
-        E3D8F73BB105D3D27DEEC7143BFF81DD383709A1748EABE2FA39AC97586A8B32
-        2ED81ADC4651E4436EA2098313146A053A5116B93E8CEDB81606D37DDE8BA3C8
-        C5188650ECBDE913DAD0812F69065A84166C11D75B61BDC1426FEE56B46BB04B
-        1C6CF506EA1E5FC429D4453E44035EC15D3C91E48F15FD7255E26EA675E2FA2A
-        AC6F388C13D821E35BA643836993775BE23FCD67B51617302F66D2CFE2FAE205
-        3EE2AB4D3C1D33518EC5E26EAC683DC62E0C78D73458A3ED4875D8633BC5ED7D
-        9D2DA75F85B88F55696E61B48E887B5646E7C9B545388F7EBFF98398C162DFF8
-        3D66D9F973CCC09C1442E856BF433EE6DA356DEEDA646FF483FDABAAC5FD5C68
-        698FCD16B76D25A830DB30DFC6689063E21E3DAFC4DD6D2BD16BAF8F58C80F99
-        067B247FB751B7617FCC98EBD86CC7CD381D33A60F9576ACBF326D99044BD80A
-        1426F9A67EB07A74C58CD13BF3961D3FF342A6BD62D3B009A5B66271E507AB11
-        F70F215A7AC76A63DFC3038C661A2C954A25D87FD52F1D9295127D07EB880000
-        000049454E44AE426082}
-      Proportional = True
-      ShowHint = True
-      Stretch = True
-      Transparent = True
-    end
-    object Label14: TLabel
-      Left = 313
-      Top = 159
-      Width = 63
-      Height = 13
-      Caption = '* max char 25'
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWhite
-      Font.Height = -11
-      Font.Name = 'Berlin Sans FB'
-      Font.Style = []
-      ParentFont = False
-    end
-    object Label15: TLabel
-      Left = 345
-      Top = 192
-      Width = 63
-      Height = 13
-      Caption = '* max char 10'
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWhite
-      Font.Height = -11
       Font.Name = 'Berlin Sans FB'
       Font.Style = []
       ParentFont = False
     end
     object cbbOrganisasiTugas: TComboBox
-      Left = 186
-      Top = 23
-      Width = 271
+      Left = 185
+      Top = 28
+      Width = 121
       Height = 23
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -14574,8 +14411,8 @@ object frmSubRole: TfrmSubRole
         'Supporting Unit Warfare Operations')
     end
     object chkPelaksanaan: TCheckBox
-      Left = 365
-      Top = 92
+      Left = 186
+      Top = 143
       Width = 97
       Height = 17
       Caption = 'Pelaksanaan'
@@ -14585,11 +14422,11 @@ object frmSubRole: TfrmSubRole
       Font.Name = 'Berlin Sans FB'
       Font.Style = []
       ParentFont = False
-      TabOrder = 4
+      TabOrder = 3
     end
     object chkPengakhiran: TCheckBox
-      Left = 466
-      Top = 92
+      Left = 186
+      Top = 166
       Width = 97
       Height = 17
       Caption = 'Pengakhiran'
@@ -14599,11 +14436,11 @@ object frmSubRole: TfrmSubRole
       Font.Name = 'Berlin Sans FB'
       Font.Style = []
       ParentFont = False
-      TabOrder = 5
+      TabOrder = 4
     end
     object chkPerencanaan: TCheckBox
       Left = 186
-      Top = 92
+      Top = 97
       Width = 97
       Height = 17
       Caption = 'Perencanaan'
@@ -14613,11 +14450,11 @@ object frmSubRole: TfrmSubRole
       Font.Name = 'Berlin Sans FB'
       Font.Style = []
       ParentFont = False
-      TabOrder = 2
+      TabOrder = 1
     end
     object chkPersiapan: TCheckBox
-      Left = 287
-      Top = 92
+      Left = 186
+      Top = 120
       Width = 74
       Height = 17
       Caption = 'Persiapan'
@@ -14627,67 +14464,11 @@ object frmSubRole: TfrmSubRole
       Font.Name = 'Berlin Sans FB'
       Font.Style = []
       ParentFont = False
-      TabOrder = 3
+      TabOrder = 2
     end
-    object cbbSubOrganisasiTugas: TComboBox
-      Left = 186
-      Top = 55
-      Width = 161
-      Height = 23
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Berlin Sans FB'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 1
-    end
-    object cbbUserRole: TComboBox
-      Left = 186
-      Top = 122
-      Width = 161
-      Height = 23
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Berlin Sans FB'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 6
-    end
-    object edtConfirmPassword: TEdit
-      Left = 186
-      Top = 221
-      Width = 121
-      Height = 23
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Berlin Sans FB'
-      Font.Style = []
-      MaxLength = 10
-      ParentFont = False
-      PasswordChar = '*'
-      TabOrder = 9
-    end
-    object edtPassword: TEdit
-      Left = 186
-      Top = 188
-      Width = 121
-      Height = 23
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Berlin Sans FB'
-      Font.Style = []
-      MaxLength = 10
-      ParentFont = False
-      PasswordChar = '*'
-      TabOrder = 8
-    end
-    object edtUsername: TEdit
-      Left = 186
-      Top = 155
+    object edtSubOrganisasiTugas: TEdit
+      Left = 185
+      Top = 60
       Width = 121
       Height = 23
       Font.Charset = ANSI_CHARSET
@@ -14697,7 +14478,24 @@ object frmSubRole: TfrmSubRole
       Font.Style = []
       MaxLength = 25
       ParentFont = False
-      TabOrder = 7
+      TabOrder = 5
     end
+  end
+  object lstSubRole: TListBox
+    Left = 66
+    Top = 75
+    Width = 228
+    Height = 282
+    BevelInner = bvNone
+    BevelOuter = bvNone
+    BorderStyle = bsNone
+    Color = 2235405
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWhite
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 1
   end
 end

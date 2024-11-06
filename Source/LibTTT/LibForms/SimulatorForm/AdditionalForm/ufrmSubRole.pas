@@ -9,39 +9,26 @@ uses
 
 type
   TfrmSubRole = class(TForm)
-    btnApply: TImage;
     btnCancel: TImage;
     btnOk: TImage;
     ImgBackgroundForm: TImage;
     lblPlatform: TLabel;
-    Panel1: TPanel;
-    Label1: TLabel;
+    pnlSubRole: TPanel;
     Label10: TLabel;
-    Label11: TLabel;
-    Label12: TLabel;
-    Label2: TLabel;
     Label3: TLabel;
-    Label4: TLabel;
     Label5: TLabel;
-    Label6: TLabel;
-    Label7: TLabel;
     Label8: TLabel;
-    Label9: TLabel;
     Label13: TLabel;
-    btnShowPassword: TImage;
-    btnShowPassword2: TImage;
-    Label14: TLabel;
-    Label15: TLabel;
     cbbOrganisasiTugas: TComboBox;
     chkPelaksanaan: TCheckBox;
     chkPengakhiran: TCheckBox;
     chkPerencanaan: TCheckBox;
     chkPersiapan: TCheckBox;
-    cbbSubOrganisasiTugas: TComboBox;
-    cbbUserRole: TComboBox;
-    edtConfirmPassword: TEdit;
-    edtPassword: TEdit;
-    edtUsername: TEdit;
+    edtSubOrganisasiTugas: TEdit;
+    lstSubRole: TListBox;
+    btnNew: TImage;
+    btnEdit: TImage;
+    btnDelete: TImage;
   private
     { Private declarations }
   public

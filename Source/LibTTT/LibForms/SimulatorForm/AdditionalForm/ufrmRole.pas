@@ -14,31 +14,21 @@ type
     btnOk: TImage;
     ImgBackgroundForm: TImage;
     lblPlatform: TLabel;
-    Panel1: TPanel;
+    pnlRole: TPanel;
+    Label16: TLabel;
+    Label17: TLabel;
+    Label18: TLabel;
+    edtRole: TEdit;
+    edtIdentifier: TEdit;
+    lstRole: TListBox;
+    btnDelete: TImage;
+    btnEdit: TImage;
+    btnNew: TImage;
+    Image1: TImage;
+    Image3: TImage;
     Label1: TLabel;
-    Label10: TLabel;
-    Label11: TLabel;
-    Label12: TLabel;
-    Label2: TLabel;
-    Label3: TLabel;
-    Label4: TLabel;
-    Label5: TLabel;
-    Label6: TLabel;
-    Label7: TLabel;
-    Label8: TLabel;
-    Label9: TLabel;
-    Label13: TLabel;
-    btnShowPassword: TImage;
-    btnShowPassword2: TImage;
-    Label14: TLabel;
-    Label15: TLabel;
-    chkPelaksanaan: TCheckBox;
-    chkPengakhiran: TCheckBox;
-    chkPerencanaan: TCheckBox;
-    chkPersiapan: TCheckBox;
-    edtConfirmPassword: TEdit;
-    edtPassword: TEdit;
-    edtUsername: TEdit;
+    procedure lstAcousticDecoyClick(Sender: TObject);
+    procedure Label17Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -51,5 +41,17 @@ var
 implementation
 
 {$R *.dfm}
+
+end.
+
+procedure TfrmSummaryRole.Label17Click(Sender: TObject);
+begin
+
+end;
+
+procedure TfrmSummaryRole.lstAcousticDecoyClick(Sender: TObject);
+begin
+
+end;
 
 end.
