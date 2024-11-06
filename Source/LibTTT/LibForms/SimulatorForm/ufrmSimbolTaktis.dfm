@@ -15,6 +15,7 @@ object frmSimbolTaktis: TfrmSimbolTaktis
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object pnlMain: TPanel
@@ -14349,10 +14350,10 @@ object frmSimbolTaktis: TfrmSimbolTaktis
         OnClick = btnUploadClick
       end
       object imgSimbolTaktis: TImage
-        Left = 288
-        Top = 136
+        Left = 284
+        Top = 144
         Width = 137
-        Height = 137
+        Height = 130
         ParentShowHint = False
         Picture.Data = {
           0954506E67496D61676589504E470D0A1A0A0000000D494844520000006F0000
@@ -14759,7 +14760,6 @@ object frmSimbolTaktis: TfrmSimbolTaktis
           994292656636D59AAAE00F86FE0416794FA0921F6802CDDEDF4EE1598BA52AA2
           46024A375549A1D1CFCC68F517D03C1602859A42025132FD1F989FD13FC7D90A
           9AB5FC3FC1C17C02349F0ED90000000049454E44AE426082}
-        Proportional = True
         ShowHint = True
         Stretch = True
       end
@@ -14834,6 +14834,7 @@ object frmSimbolTaktis: TfrmSimbolTaktis
         Font.Style = []
         ParentFont = False
         TabOrder = 0
+        OnChange = edtKeteranganChange
       end
       object cbbTipe: TComboBox
         Left = 62
@@ -14845,8 +14846,10 @@ object frmSimbolTaktis: TfrmSimbolTaktis
         Font.Height = -16
         Font.Name = 'Berlin Sans FB'
         Font.Style = []
+        ItemIndex = 0
         ParentFont = False
         TabOrder = 1
+        Text = 'TAKTIS TNI AL'
         OnChange = cbbTipeChange
         Items.Strings = (
           'TAKTIS TNI AL')
@@ -14861,8 +14864,10 @@ object frmSimbolTaktis: TfrmSimbolTaktis
         Font.Height = -16
         Font.Name = 'Berlin Sans FB'
         Font.Style = []
+        ItemIndex = 0
         ParentFont = False
         TabOrder = 2
+        Text = 'PESAWAT TERBANG SAYAP PUTAR'
         OnChange = cbbKategoriChange
         Items.Strings = (
           'PESAWAT TERBANG SAYAP PUTAR'

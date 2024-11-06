@@ -723,7 +723,7 @@ procedure TfrmDisplayArea.pnlSimbolTaktisManajemenShow;
 begin
   pnlMenejemenSimbolTaktis.BringToFront;
 
-  UpdateSimbolTaktis
+  UpdateSimbolTaktis;
 end;
 
 procedure TfrmDisplayArea.AddSearchTacticalSymbolItems;
@@ -760,25 +760,30 @@ end;
 
 procedure TfrmDisplayArea.cbbFilterSearchSelect(Sender: TObject);
 begin
-   cbbSearchTipe.ItemIndex := 0;
+  cbbSearchTipe.Clear;
 
-   if cbbFilterSearch.ItemIndex = 0 then
-   begin
-     edtTacticalSearch.Clear;
-     flagTable := False;
-     UpdateSimbolTaktis;
-     edtTacticalSearch.BringToFront;
-   end
-   else if cbbFilterSearch.ItemIndex = 1 then
-   begin
-     AddSearchTacticalSymbolItems;
-     cbbSearchTipe.BringToFront;
-   end
-   else if cbbFilterSearch.ItemIndex = 2 then
-   begin
-     AddSearchTacticalSymbolItems;
-     cbbSearchTipe.BringToFront;
-   end;
+  case cbbFilterSearch.ItemIndex of
+    0: {All}
+    begin
+      edtTacticalSearch.Clear;
+      flagTable := False;
+      UpdateSimbolTaktis;
+      edtTacticalSearch.BringToFront;
+    end;
+    1: {Tipe}
+    begin
+      AddSearchTacticalSymbolItems;
+      cbbSearchTipe.ItemIndex := 0;
+      cbbSearchTipe.BringToFront;
+    end;
+    2: {Kategori}
+    begin
+      AddSearchTacticalSymbolItems;
+      cbbSearchTipe.ItemIndex := 0;
+      cbbSearchTipe.BringToFront;
+    end;
+
+  end;
 end;
 
 procedure TfrmDisplayArea.UpdateSimbolTaktis;
@@ -803,6 +808,7 @@ begin
      li.SubItems.Add(tacticalSymbolTemp.FData.Keterangan);
      li.SubItems.Add(IntToStr(tacticalSymbolTemp.FData.Tipe));
      li.SubItems.Add(IntToStr(tacticalSymbolTemp.FData.Kategori));
+     li.SubItems.Add(tacticalSymbolTemp.FData.Path_Directori);
 
      li.Data := tacticalSymbolTemp;
   end;
@@ -848,7 +854,7 @@ begin
     end
     else
     begin
-        ShowMessage('File gambar tidak ditemukan' + imagepath);
+      ShowMessage('File gambar tidak ditemukan' + imagepath);
     end;
 
     lblNamaGambar.Caption := 'Nama Gambar: ' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '.bmp';
@@ -881,23 +887,32 @@ end;
 procedure TfrmDisplayArea.btnDeleteTacticalSymbolClick(Sender: TObject);
 var
   warning: Integer;
+  serverDirTemp : String;
 begin
-   if lvTacticalSymbol.ItemIndex <> -1  then
-   begin
-     warning := MessageDlg('Are you sure delete this item?', mtConfirmation, mbOKCancel, 0);
 
-     if warning = mrOK then
-     begin
-       with FSelectedTacticalSymbol.FData do
-       begin
-         if dmINWO.DeleteTacticalSymbol(Id_Tactical_Symbol)then
-             ShowMessage('Data has been deleted');
-       end;
+  if lvTacticalSymbol.ItemIndex < 0  then
+    Exit;
 
-       UpdateSimbolTaktis;
+  warning := MessageDlg('Are you sure delete this item?', mtConfirmation, mbOKCancel, 0);
 
-     end;
-   end;
+  if warning = mrOK then
+  begin
+    if Assigned(FSelectedTacticalSymbol) then
+    begin
+      serverDirTemp := vGameDataSetting.FileSimbolTaktis + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '.bmp';
+
+      with FSelectedTacticalSymbol.FData do
+      begin
+        if dmINWO.DeleteTacticalSymbol(Id_Tactical_Symbol)then
+           ShowMessage('Data has been deleted');
+      end;
+    end;
+
+    DeleteFile(serverDirTemp);
+    FSelectedTacticalSymbol := nil;
+
+    UpdateSimbolTaktis;
+  end;
 end;
 
 procedure TfrmDisplayArea.edtSearchKeyPressTactical(Sender: TObject; var Key: Char);
@@ -1009,6 +1024,7 @@ begin
     cbbSearchType.Items.Add('SATGASDUK');
   end;
 end;
+
 
 procedure TfrmDisplayArea.btnAddClick(Sender: TObject);
 begin

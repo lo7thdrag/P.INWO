@@ -35,10 +35,13 @@ type
     procedure cbbTipeChange(Sender: TObject);
     procedure cbbKategoriChange(Sender: TObject);
     procedure btnApplyClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure edtKeteranganChange(Sender: TObject);
 
   private
     FSelectedTacticalSymbol : TTactical_Symbol;
     FPathDirectory : string;
+    FAddressPath  : string;
     function CekInput: Boolean;
 
     procedure UpdateTacticalSymbol;
@@ -58,66 +61,49 @@ implementation
 
 {$R *.dfm}
 
-function TfrmSimbolTaktis.CekInput: Boolean;
+{$REGION 'Form Event'}
+
+procedure TfrmSimbolTaktis.FormShow(Sender: TObject);
 var
   fileDataTemp : TRecTactical_Symbol;
 begin
-  Result := False;
+  UpdateTacticalSymbol;
 
-  {Data ada yg kosong}
-  with fileDataTemp do
-  begin
-    Tipe                := cbbTipe.ItemIndex;
-    Kategori            := cbbKategori.ItemIndex;
-    Keterangan          := edtKeterangan.Text;
-    Path_Directori      := UploadImage.FileName;
-  end;
+  with FSelectedTacticalSymbol.FData do
+    btnApply.Enabled := Id_Tactical_Symbol = 0;
 
-  {Data sudah ada}
-  if (dmINWO.GetFilterByTactical(FSelectedTacticalSymbol.FData)>0) and (FSelectedTacticalSymbol.FData.Id_Tactical_Symbol = 0)then
-  begin
-    ShowMessage('Data sudah ada didalam database');
-    Exit;
-  end;
-
-  Result := True;
+  isOK := True;
+  AfterClose := True;
+  btnCancel.Enabled := True;
 end;
+
+{$ENDREGION}
+
+{$REGION 'Button Event'}
 
 procedure TfrmSimbolTaktis.btnUploadClick(Sender: TObject);
 var
-  addressTemp  : PWideChar;
-  fileNameTemp : string;
-  UploadImage  : TSaveDialog;
+//  addressTemp  : PWideChar;
+//  fileNameTemp : string;
+//  UploadImage  : TSaveDialog;
   saveFileTemp : TTactical_Symbol;
-  fileDataTemp : TRecTactical_Symbol;
+//  fileDataTemp : TRecTactical_Symbol;
 
 begin
   UploadImage := TSaveDialog.Create(self);
   UploadImage.InitialDir := GetCurrentDir;
   UploadImage.Filter := 'Image Files(*.bmp)|*.bmp';
 //  UploadImage.Filter := 'Image Files|*.jpg;*.jpeg;*.png;*.bmp';
-  UploadImage.DefaultExt := 'jpg';
+  UploadImage.DefaultExt := 'bmp';
   UploadImage.FilterIndex := 1;
 
   if UploadImage.Execute then
   begin
-    addressTemp := PWideChar(UploadImage.FileName);
-    fileNameTemp := ExtractFileName(UploadImage.FileName);
+    FAddressPath := PWideChar(UploadImage.FileName);
 
-    with fileDataTemp do
-    begin
-      Tipe                := cbbTipe.ItemIndex;
-      Kategori            := cbbKategori.ItemIndex;
-      Keterangan          := edtKeterangan.Text;
-      Path_Directori      := vGameDataSetting.FileSimbolTaktis;
+    imgSimbolTaktis.Picture.LoadFromFile(FAddressPath);
 
-      if dmINWO.InsertTacticalSymbol(fileDataTemp) then
-      begin
-     //    ShowMessage('Data has been saved');
-      end;
-    end;
-
-    CopyFile(addressTemp, PWideChar(vGameDataSetting.FileSimbolTaktis + '\'+ IntToStr(fileDataTemp.Id_Tactical_Symbol) + '.bmp'), False);
+    btnApply.Enabled := True;
   end
   else
     ShowMessage('Save file was cancelled');
@@ -142,12 +128,9 @@ begin
 end;
 
 procedure TfrmSimbolTaktis.btnApplyClick(Sender: TObject);
-var
-  filedataTemp : TRecTactical_Symbol;
-  addressTemp  : PWideChar;
 begin
 
-  with fileDataTemp do
+  with FSelectedTacticalSymbol.FData do
   begin
     Tipe            := cbbTipe.ItemIndex;
     Kategori        := cbbKategori.ItemIndex;
@@ -160,19 +143,25 @@ begin
       Exit;
     end;
 
-    if dmINWO.InsertTacticalSymbol(fileDataTemp) then
+    if Id_Tactical_Symbol = 0 then
     begin
-      ShowMessage('Data has been saved');
+      if dmINWO.InsertTacticalSymbol(FSelectedTacticalSymbol.FData) then
+      begin
+        ShowMessage('Data has been saved');
+      end
     end
     else
     begin
-      if dmINWO.UpdateTacticalSymbol(fileDataTemp) then
+      if dmINWO.UpdateTacticalSymbol(FSelectedTacticalSymbol.FData) then
       begin
         ShowMessage('Data has been updated');
       end;
     end;
+
+    CopyFile(PWideChar(FAddressPath), PWideChar(vGameDataSetting.FileSimbolTaktis + '\'+ IntToStr(Id_Tactical_Symbol) + '.bmp'), False);
   end;
 
+  FAddressPath := '';
   isOK := True;
   AfterClose := True;
   btnApply.Enabled := False;
@@ -193,13 +182,116 @@ begin
     Close;
 end;
 
-procedure TfrmSimbolTaktis.UpdateTacticalSymbol;
+{$ENDREGION}
+
+{$REGION 'Filter Event'}
+
+function TfrmSimbolTaktis.CekInput: Boolean;
+var
+  fileDataTemp : TRecTactical_Symbol;
+  addressTemp  : PWideChar;
 begin
-  with FSelectedTacticalSymbol do
+  Result := False;
+
+  if cbbTipe.ItemIndex = -1 then
   begin
-    cbbTipe.ItemIndex;
-    cbbKategori.ItemIndex;
+    ShowMessage('Cek ulang tipe anda');
+    Exit;
+  end;
+
+  if cbbKategori.ItemIndex = -1 then
+  begin
+    ShowMessage('Cek ulang tipe anda');
+    Exit;
+  end;
+
+  {Data ada yg kosong}
+  if (edtKeterangan.Text = '') then
+  begin
+    ShowMessage('Inputan data tidak lengkap');
+    Exit;
+  end;
+
+  if FAddressPath = '' then
+  begin
+    ShowMessage('Inputan gambar tidak lengkap');
+    Exit;
+  end;
+
+
+//  {Data sudah ada}
+//  if (dmINWO.GetUserRoleFilterByOrganisasiTugas(FSelectedUserRole.FData)>0) and (FSelectedUserRole.FData.UserRoleIndex = 0)then
+//  begin
+//    ShowMessage('Data sudah ada didalam database');
+//    Exit;
+//  end;
+//
+//  {Username sudah digunakan}
+//  if (dmINWO.GetUserRoleFilterByOrganisasiTugas(FSelectedUserRole.FData)>0) and (FSelectedUserRole.FData.UserRoleIndex = 0) then
+//  begin
+//    ShowMessage('Username sudah digunakan');
+//    Exit;
+//  end;
+
+//  Result := True;
+//
+//  {Data ada yg kosong}
+//  with fileDataTemp do
+//  begin
+//    Tipe                := cbbTipe.ItemIndex;
+//    Kategori            := cbbKategori.ItemIndex;
+//    Keterangan          := edtKeterangan.Text;
+//    Path_Directori      := UploadImage.FileName;
+//  end;
+
+  {Data sudah ada}
+  if (dmINWO.GetFilterByTactical(FSelectedTacticalSymbol.FData)>0) and (FSelectedTacticalSymbol.FData.Id_Tactical_Symbol = 0)then
+  begin
+    ShowMessage('Data sudah ada didalam database');
+    Exit;
+  end;
+
+  Result := True;
+end;
+
+procedure TfrmSimbolTaktis.edtKeteranganChange(Sender: TObject);
+begin
+  btnApply.Enabled := True;
+end;
+
+{$ENDREGION}
+
+{$REGION 'Additional Event'}
+
+procedure TfrmSimbolTaktis.UpdateTacticalSymbol;
+var
+  imagepath : string;
+begin
+  if Assigned(FSelectedTacticalSymbol) then
+  begin
+    with FSelectedTacticalSymbol.FData do
+    begin
+      cbbTipe.ItemIndex := Tipe;
+      cbbKategori.ItemIndex := Kategori;
+      edtKeterangan.Text := Keterangan;
+
+      if Id_Tactical_Symbol = 0 then
+        exit;
+
+      imagepath := Path_Directori + '\' + IntToStr(Id_Tactical_Symbol) + '.bmp';
+      if FileExists(imagepath) then
+      begin
+        imgSimbolTaktis.Picture.LoadFromFile(imagepath);
+        FAddressPath := imagepath;
+      end
+      else
+      begin
+          ShowMessage('File gambar tidak ditemukan' + imagepath);
+      end;
+    end;
   end;
 end;
+
+{$ENDREGION}
 
 end.
