@@ -61,14 +61,8 @@ type
     btnPreparation: TRzBmpButton;
     btnImplementation: TRzBmpButton;
     btnTermination: TRzBmpButton;
-    pnlUser: TPanel;
-    lblTahapan: TLabel;
-    lstKogas: TListBox;
-    lstUserRole: TListBox;
-    btnLoginImplementation: TButton;
-    lblUserRoleImplemen: TLabel;
-    lblKogas: TLabel;
-    cbbKogas: TComboBox;
+    cbbSubRole: TComboBox;
+    lstUserRoleLogin: TListBox;
 
     procedure FormCreate(Sender: TObject);
     procedure btnShowPasswordClick(Sender: TObject);
@@ -78,7 +72,7 @@ type
     procedure btnShowClick(Sender: TObject);
     procedure cbbConsoleNameDropDown(Sender: TObject);
     procedure btnPlanningClick(Sender: TObject);
-    procedure lstKogasClick(Sender: TObject);
+    procedure lstUserRoleLoginClick(Sender: TObject);
 
   private
 
@@ -288,7 +282,7 @@ begin
   top := Screen.Monitors[vGameDataSetting.TacticalScreen].top;
 end;
 
-procedure TfrmTacticalDisplay.lstKogasClick(Sender: TObject);
+procedure TfrmTacticalDisplay.lstUserRoleLoginClick(Sender: TObject);
 begin
 pnlBackgroundLogin.BringToFront;
 end;
