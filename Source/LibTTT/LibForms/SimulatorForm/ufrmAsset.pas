@@ -27,17 +27,14 @@ type
     lbl3: TLabel;
     lbl4: TLabel;
     lbl5: TLabel;
-    lbl6: TLabel;
     Label134: TLabel;
     Label135: TLabel;
-    Label136: TLabel;
     lbl12: TLabel;
     lbl13: TLabel;
     lbl1: TLabel;
     Label3: TLabel;
     cbbCategory: TComboBox;
     cbbType: TComboBox;
-    cbbDetectabilityType: TComboBox;
     cbbDomain: TComboBox;
     edtQuantityGroupPersonal: TEdit;
     edtNoLambung: TEdit;
@@ -155,6 +152,17 @@ type
     Label30: TLabel;
     Label31: TLabel;
     Edit7: TEdit;
+    Label33: TLabel;
+    Edit9: TEdit;
+    Label34: TLabel;
+    Label35: TLabel;
+    Label36: TLabel;
+    Label37: TLabel;
+    Label38: TLabel;
+    Label39: TLabel;
+    Label40: TLabel;
+    Label41: TLabel;
+    Label42: TLabel;
     procedure btnOKClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
     procedure btnApplyClick(Sender: TObject);
@@ -162,9 +170,12 @@ type
   private
     FSelectedAsset : TAsset ;
 
+    function CekInput : Boolean;
+
   public
     isOK : Boolean;
     afterClose : Boolean;
+    LastName : string;
 
     property SelectedAsset : TAsset read FSelectedAsset write FSelectedAsset;
   end;
@@ -178,7 +189,14 @@ implementation
 
 procedure TfrmAsset.btnApplyClick(Sender: TObject);
 begin
-//
+  with FSelectedAsset do
+  begin
+    if not CekInput then
+    begin
+      isOK := False;
+      Exit;
+    end;
+  end;
 end;
 
 procedure TfrmAsset.btnCancelClick(Sender: TObject);
@@ -189,11 +207,60 @@ end;
 
 procedure TfrmAsset.btnOKClick(Sender: TObject);
 begin
-  if btnApply.Enabled then
-    btnApply.Click;
+//  if btnApply.Enabled then
+//    btnApply.Click;
+//
+//  if isOK then
+//    Close;
+end;
 
-  if isOK then
-    Close;
+function TfrmAsset.CekInput: Boolean;
+var
+  i, chkSpace, numSpace : Integer;
+begin
+  Result := False;
+
+  {jika inputan kosong}
+  if (edtClass.Text = '') then
+  begin
+    ShowMessage('Please insert class name');
+    Exit;
+  end;
+
+  {jika inputan spasi semua}
+  if Copy(edtClass.Text, 1, 1) = ' ' then
+  begin
+    chkSpace := Length(edtClass.Text);
+    numSpace := 0;
+
+    for i := 1 to chkSpace do
+    begin
+      if edtClass.Text[i] = #32 then
+      numSpace := numSpace +1;
+    end;
+
+    if chkSpace = numSpace then
+    begin
+      ShowMessage('please use another class name');
+      Exit;
+    end;
+  end;
+
+  {jika class name sudah ada}
+  if (dmINWO.GetVehicleDef(edtClass.Text)>0) then
+  begin
+    {jika inputan baru}
+    if FSelectedAsset.FData.Vehicle_Index = 0 then
+    begin
+      ShowMessage('Please use another class name');
+      Exit;
+    end
+    else if LastName <> edtClass.Text then
+    begin
+      ShowMessage('Please use another class name');
+      Exit;
+    end;
+  end;
 end;
 
 end.
