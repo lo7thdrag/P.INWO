@@ -329,6 +329,8 @@ type
       Selected: Boolean);
     procedure btnRemoveReferensiClick(Sender: TObject);
     procedure btnAddAssetClick(Sender: TObject);
+    procedure btnDeleteAssetClick(Sender: TObject);
+    procedure btnEditAssetClick(Sender: TObject);
 //    procedure LlvFileDataSelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);
 
   private
@@ -352,6 +354,7 @@ type
     FSelectedFileReferensi : TFile_Data;
     FSelectedGameArea : TGame_Area_Definition;
     FSelectedTacticalSymbol : TTactical_Symbol;
+    FSelectedAsset : TAsset;
 
     procedure RoundCornerOf(Control: TWinControl; val1, val2: Integer);
     procedure AddSearchTypeItems;
@@ -638,8 +641,7 @@ var
 begin
   lvAsset.Items.Clear;
 
-  if flagTable = true then
-    dmINWO.GetAllVehicleDef(FAssetList);
+  dmINWO.GetAllVehicleDef(FAssetList);
 
   for i := 0 to FAssetList.Count - 1 do
   begin
@@ -668,6 +670,45 @@ begin
     UpdateDataAset;
 end;
 
+procedure TfrmDisplayArea.btnDeleteAssetClick(Sender: TObject);
+var
+  warning : Integer;
+begin
+  if lvAsset.ItemIndex <> -1 then
+  begin
+    warning := MessageDlg('Are you sure to delete this item?', mtConfirmation, mbOKCancel, 0);
+
+    if warning = mrOK then
+    begin
+      with FSelectedAsset.FData do
+      begin
+        if dmINWO.DeleteVehicleDef(Vehicle_Index) then
+          ShowMessage('Data has been deleted');
+      end;
+
+      UpdateDataAset;
+    end;
+  end;
+end;
+
+procedure TfrmDisplayArea.btnEditAssetClick(Sender: TObject);
+begin
+  if lvAsset.ItemIndex <> -1 then
+  begin
+    frmAsset := TfrmAsset.Create(Self);
+    try
+      with frmAsset do
+      begin
+        SelectedAsset := FSelectedAsset;
+        ShowModal;
+      end;
+    finally
+      frmAsset.Free;
+    end;
+
+    UpdateDataAset;
+  end;
+end;
 
 {$ENDREGION}
 
@@ -968,7 +1009,6 @@ begin
     cbbSearchType.Items.Add('SATGASDUK');
   end;
 end;
-
 
 procedure TfrmDisplayArea.btnAddClick(Sender: TObject);
 begin

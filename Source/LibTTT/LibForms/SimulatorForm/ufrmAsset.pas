@@ -334,6 +334,7 @@ type
     btnCancel: TImage;
     procedure btnOKClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
+    procedure btnApplyClick(Sender: TObject);
 
   private
     FSelectedAsset : TAsset ;
@@ -352,6 +353,11 @@ implementation
 
 {$R *.dfm}
 
+procedure TfrmAsset.btnApplyClick(Sender: TObject);
+begin
+//
+end;
+
 procedure TfrmAsset.btnCancelClick(Sender: TObject);
 begin
   afterClose := False;
@@ -360,11 +366,11 @@ end;
 
 procedure TfrmAsset.btnOKClick(Sender: TObject);
 begin
-//  if btnOK.Enabled then
-//    btnOK.Click;
-//
-//  if isOK then
-//    Close;
+  if btnApply.Enabled then
+    btnApply.Click;
+
+  if isOK then
+    Close;
 end;
 
 end.
