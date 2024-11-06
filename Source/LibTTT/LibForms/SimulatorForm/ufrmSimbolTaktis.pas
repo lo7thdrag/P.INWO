@@ -83,17 +83,12 @@ end;
 
 procedure TfrmSimbolTaktis.btnUploadClick(Sender: TObject);
 var
-//  addressTemp  : PWideChar;
-//  fileNameTemp : string;
-//  UploadImage  : TSaveDialog;
   saveFileTemp : TTactical_Symbol;
-//  fileDataTemp : TRecTactical_Symbol;
 
 begin
   UploadImage := TSaveDialog.Create(self);
   UploadImage.InitialDir := GetCurrentDir;
   UploadImage.Filter := 'Image Files(*.bmp)|*.bmp';
-//  UploadImage.Filter := 'Image Files|*.jpg;*.jpeg;*.png;*.bmp';
   UploadImage.DefaultExt := 'bmp';
   UploadImage.FilterIndex := 1;
 
@@ -217,32 +212,6 @@ begin
     ShowMessage('Inputan gambar tidak lengkap');
     Exit;
   end;
-
-
-//  {Data sudah ada}
-//  if (dmINWO.GetUserRoleFilterByOrganisasiTugas(FSelectedUserRole.FData)>0) and (FSelectedUserRole.FData.UserRoleIndex = 0)then
-//  begin
-//    ShowMessage('Data sudah ada didalam database');
-//    Exit;
-//  end;
-//
-//  {Username sudah digunakan}
-//  if (dmINWO.GetUserRoleFilterByOrganisasiTugas(FSelectedUserRole.FData)>0) and (FSelectedUserRole.FData.UserRoleIndex = 0) then
-//  begin
-//    ShowMessage('Username sudah digunakan');
-//    Exit;
-//  end;
-
-//  Result := True;
-//
-//  {Data ada yg kosong}
-//  with fileDataTemp do
-//  begin
-//    Tipe                := cbbTipe.ItemIndex;
-//    Kategori            := cbbKategori.ItemIndex;
-//    Keterangan          := edtKeterangan.Text;
-//    Path_Directori      := UploadImage.FileName;
-//  end;
 
   {Data sudah ada}
   if (dmINWO.GetFilterByTactical(FSelectedTacticalSymbol.FData)>0) and (FSelectedTacticalSymbol.FData.Id_Tactical_Symbol = 0)then
