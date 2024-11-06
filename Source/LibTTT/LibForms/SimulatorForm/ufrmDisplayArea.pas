@@ -838,6 +838,11 @@ var
 
 begin
   FSelectedTacticalSymbol := nil;
+  imgPreview.Picture := nil;
+  lblNamaGambar.Caption := 'Nama Gambar: ';
+  lblKeterangan.Caption := 'Keterangan: ';
+  lblTipe.Caption       := 'Tipe: ';
+  lblKategori.Caption   := 'Kategori: ';
 
   if Selected then
   begin
