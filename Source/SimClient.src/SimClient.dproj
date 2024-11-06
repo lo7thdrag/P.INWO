@@ -280,6 +280,13 @@
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\SimulatorForm\ufrmAsset.pas">
             <Form>frmAsset</Form>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\SimulatorForm\AdditionalForm\ufrmRole.pas">
+            <Form>frmSummaryRole</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\SimulatorForm\AdditionalForm\ufrmSubRole.pas">
+            <Form>frmSubRole</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Debug">
