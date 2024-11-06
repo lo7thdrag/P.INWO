@@ -27,8 +27,8 @@ type
     Image1: TImage;
     Image3: TImage;
     Label1: TLabel;
-    procedure lstAcousticDecoyClick(Sender: TObject);
-    procedure Label17Click(Sender: TObject);
+//    procedure lstAcousticDecoyClick(Sender: TObject);
+//    procedure Label17Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -44,14 +44,14 @@ implementation
 
 end.
 
-procedure TfrmSummaryRole.Label17Click(Sender: TObject);
-begin
+//procedure TfrmSummaryRole.Label17Click(Sender: TObject);
+//begin
+//
+//end;
 
-end;
+//procedure TfrmSummaryRole.lstAcousticDecoyClick(Sender: TObject);
+//begin
+//
+//end;
 
-procedure TfrmSummaryRole.lstAcousticDecoyClick(Sender: TObject);
-begin
-
-end;
-
-end.
+//end.

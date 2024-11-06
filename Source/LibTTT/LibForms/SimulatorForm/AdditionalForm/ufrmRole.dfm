@@ -14468,7 +14468,6 @@ object frmSummaryRole: TfrmSummaryRole
       Font.Name = 'Berlin Sans FB'
       Font.Style = []
       ParentFont = False
-      OnClick = Label17Click
     end
     object Label18: TLabel
       Left = 84
