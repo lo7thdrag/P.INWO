@@ -2,22 +2,26 @@ object frmSubRole: TfrmSubRole
   Left = 0
   Top = 0
   BorderStyle = bsNone
-  ClientHeight = 388
-  ClientWidth = 661
-  Color = clBtnFace
+  ClientHeight = 301
+  ClientWidth = 513
+  Color = 1119507
+  TransparentColor = True
+  TransparentColorValue = 1119507
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Position = poScreenCenter
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object ImgBackgroundForm: TImage
     Left = 0
     Top = 0
-    Width = 661
-    Height = 388
+    Width = 513
+    Height = 301
     Align = alClient
     Picture.Data = {
       0954506E67496D61676589504E470D0A1A0A0000000D49484452000004930000
@@ -14138,11 +14142,12 @@ object frmSubRole: TfrmSubRole
       2F88F2FF03BA682A148F9ACFEF0000000049454E44AE426082}
     Stretch = True
     Transparent = True
+    ExplicitWidth = 661
     ExplicitHeight = 385
   end
   object btnCancel: TImage
-    Left = 525
-    Top = 327
+    Left = 378
+    Top = 247
     Width = 100
     Height = 30
     Cursor = crHandPoint
@@ -14177,10 +14182,11 @@ object frmSubRole: TfrmSubRole
     ShowHint = True
     Stretch = True
     Transparent = True
+    OnClick = btnCancelClick
   end
   object btnOk: TImage
-    Left = 421
-    Top = 327
+    Left = 272
+    Top = 247
     Width = 100
     Height = 30
     Cursor = crHandPoint
@@ -14228,6 +14234,7 @@ object frmSubRole: TfrmSubRole
     ParentColor = False
     ParentFont = False
     Transparent = True
+    OnClick = lblPlatformClick
   end
   object btnNew: TImage
     Left = 194
@@ -14248,6 +14255,7 @@ object frmSubRole: TfrmSubRole
     ShowHint = True
     Stretch = True
     Transparent = True
+    OnClick = btnNewClick
   end
   object btnEdit: TImage
     Left = 229
@@ -14278,6 +14286,7 @@ object frmSubRole: TfrmSubRole
     ShowHint = True
     Stretch = True
     Transparent = True
+    OnClick = btnEditClick
   end
   object btnDelete: TImage
     Left = 264
@@ -14314,35 +14323,23 @@ object frmSubRole: TfrmSubRole
     ShowHint = True
     Stretch = True
     Transparent = True
+    OnClick = btnDeleteClick
   end
   object pnlSubRole: TPanel
-    Left = 300
-    Top = 75
-    Width = 325
-    Height = 246
+    Left = 66
+    Top = 39
+    Width = 412
+    Height = 202
     BevelOuter = bvNone
     Color = 2235405
     ParentBackground = False
     TabOrder = 0
-    object Label10: TLabel
-      Left = 163
-      Top = 96
-      Width = 4
-      Height = 18
-      Caption = ':'
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWhite
-      Font.Height = -16
-      Font.Name = 'Berlin Sans FB'
-      Font.Style = []
-      ParentFont = False
-    end
     object Label3: TLabel
       Left = 18
-      Top = 96
-      Width = 60
+      Top = 113
+      Width = 72
       Height = 18
-      Caption = 'Tahapan'
+      Caption = 'Tahapan : '
       Font.Charset = ANSI_CHARSET
       Font.Color = clWhite
       Font.Height = -16
@@ -14353,9 +14350,9 @@ object frmSubRole: TfrmSubRole
     object Label5: TLabel
       Left = 18
       Top = 30
-      Width = 113
+      Width = 77
       Height = 18
-      Caption = 'Organisasi Tugas '
+      Caption = 'Role         :  '
       Font.Charset = ANSI_CHARSET
       Font.Color = clWhite
       Font.Height = -16
@@ -14365,10 +14362,10 @@ object frmSubRole: TfrmSubRole
     end
     object Label8: TLabel
       Left = 18
-      Top = 62
-      Width = 149
+      Top = 57
+      Width = 69
       Height = 18
-      Caption = 'Sub Organisasi Tugas  :'
+      Caption = 'Sub Role  :'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWhite
       Font.Height = -16
@@ -14376,12 +14373,12 @@ object frmSubRole: TfrmSubRole
       Font.Style = []
       ParentFont = False
     end
-    object Label13: TLabel
-      Left = 163
-      Top = 31
-      Width = 4
+    object Label1: TLabel
+      Left = 18
+      Top = 84
+      Width = 69
       Height = 18
-      Caption = ':'
+      Caption = 'Identifier  :'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWhite
       Font.Height = -16
@@ -14390,8 +14387,8 @@ object frmSubRole: TfrmSubRole
       ParentFont = False
     end
     object cbbOrganisasiTugas: TComboBox
-      Left = 185
-      Top = 28
+      Left = 101
+      Top = 27
       Width = 121
       Height = 23
       Font.Charset = ANSI_CHARSET
@@ -14411,8 +14408,8 @@ object frmSubRole: TfrmSubRole
         'Supporting Unit Warfare Operations')
     end
     object chkPelaksanaan: TCheckBox
-      Left = 186
-      Top = 143
+      Left = 101
+      Top = 155
       Width = 97
       Height = 17
       Caption = 'Pelaksanaan'
@@ -14425,8 +14422,8 @@ object frmSubRole: TfrmSubRole
       TabOrder = 3
     end
     object chkPengakhiran: TCheckBox
-      Left = 186
-      Top = 166
+      Left = 101
+      Top = 176
       Width = 97
       Height = 17
       Caption = 'Pengakhiran'
@@ -14439,8 +14436,8 @@ object frmSubRole: TfrmSubRole
       TabOrder = 4
     end
     object chkPerencanaan: TCheckBox
-      Left = 186
-      Top = 97
+      Left = 101
+      Top = 113
       Width = 97
       Height = 17
       Caption = 'Perencanaan'
@@ -14453,8 +14450,8 @@ object frmSubRole: TfrmSubRole
       TabOrder = 1
     end
     object chkPersiapan: TCheckBox
-      Left = 186
-      Top = 120
+      Left = 101
+      Top = 134
       Width = 74
       Height = 17
       Caption = 'Persiapan'
@@ -14467,8 +14464,8 @@ object frmSubRole: TfrmSubRole
       TabOrder = 2
     end
     object edtSubOrganisasiTugas: TEdit
-      Left = 185
-      Top = 60
+      Left = 101
+      Top = 54
       Width = 121
       Height = 23
       Font.Charset = ANSI_CHARSET
@@ -14479,6 +14476,20 @@ object frmSubRole: TfrmSubRole
       MaxLength = 25
       ParentFont = False
       TabOrder = 5
+    end
+    object Edit1: TEdit
+      Left = 101
+      Top = 81
+      Width = 284
+      Height = 23
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Berlin Sans FB'
+      Font.Style = []
+      MaxLength = 25
+      ParentFont = False
+      TabOrder = 6
     end
   end
   object lstSubRole: TListBox

@@ -9,7 +9,6 @@ uses
 
 type
   TfrmSummaryRole = class(TForm)
-    btnApply: TImage;
     btnCancel: TImage;
     btnOk: TImage;
     ImgBackgroundForm: TImage;
@@ -24,15 +23,18 @@ type
     btnDelete: TImage;
     btnEdit: TImage;
     btnNew: TImage;
-    Image1: TImage;
-    Image3: TImage;
     Label1: TLabel;
-//    procedure lstAcousticDecoyClick(Sender: TObject);
-//    procedure Label17Click(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure btnNewClick(Sender: TObject);
+    procedure btnEditClick(Sender: TObject);
+    procedure btnCancelClick(Sender: TObject);
+
   private
-    { Private declarations }
+    procedure SetAvailableSize;
+    procedure SetSummarySize;
+
   public
-    { Public declarations }
+
   end;
 
 var
@@ -42,16 +44,54 @@ implementation
 
 {$R *.dfm}
 
+procedure TfrmSummaryRole.btnCancelClick(Sender: TObject);
+begin
+  SetAvailableSize;
+end;
+
+procedure TfrmSummaryRole.btnEditClick(Sender: TObject);
+begin
+  SetSummarySize
+end;
+
+procedure TfrmSummaryRole.btnNewClick(Sender: TObject);
+begin
+  SetSummarySize;
+end;
+
+procedure TfrmSummaryRole.FormShow(Sender: TObject);
+begin
+  SetAvailableSize;
+end;
+
+procedure TfrmSummaryRole.SetAvailableSize;
+begin
+  Width := 321;
+  Height := 425;
+
+  btnNew.Visible := True;
+  btnEdit.Visible := True;
+  btnDelete.Visible := True;
+  lstRole.Visible := True;
+
+  pnlRole.Visible := False;
+  btnCancel.Visible := False;
+  btnOk.Visible := False;
+end;
+
+procedure TfrmSummaryRole.SetSummarySize;
+begin
+  Width := 484;
+  Height := 211;
+
+  btnNew.Visible := False;
+  btnEdit.Visible := False;
+  btnDelete.Visible := False;
+  lstRole.Visible := False;
+
+  pnlRole.Visible := True;
+  btnCancel.Visible := True;
+  btnOk.Visible := True;
+end;
+
 end.
-
-//procedure TfrmSummaryRole.Label17Click(Sender: TObject);
-//begin
-//
-//end;
-
-//procedure TfrmSummaryRole.lstAcousticDecoyClick(Sender: TObject);
-//begin
-//
-//end;
-
-//end.

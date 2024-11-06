@@ -14685,7 +14685,7 @@ object frmSummaryUserRole: TfrmSummaryUserRole
       Font.Style = []
       ParentFont = False
     end
-    object btnEdit: TImage
+    object btnEditRole: TImage
       Left = 353
       Top = 23
       Width = 22
@@ -14756,8 +14756,9 @@ object frmSummaryUserRole: TfrmSummaryUserRole
       ShowHint = True
       Stretch = True
       Transparent = True
+      OnClick = btnEditRoleClick
     end
-    object Image1: TImage
+    object btnEditSubRole: TImage
       Left = 353
       Top = 55
       Width = 22
@@ -14829,6 +14830,7 @@ object frmSummaryUserRole: TfrmSummaryUserRole
       ShowHint = True
       Stretch = True
       Transparent = True
+      OnClick = btnEditSubRoleClick
     end
     object Label3: TLabel
       Left = 163

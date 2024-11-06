@@ -73,6 +73,9 @@ type
     procedure cbbConsoleNameDropDown(Sender: TObject);
     procedure btnPlanningClick(Sender: TObject);
     procedure lstUserRoleLoginClick(Sender: TObject);
+    procedure btnPreparationClick(Sender: TObject);
+    procedure btnImplementationClick(Sender: TObject);
+    procedure btnTerminationClick(Sender: TObject);
 
   private
 
@@ -141,6 +144,24 @@ begin
   end;
 end;
 
+procedure TfrmTacticalDisplay.btnTerminationClick(Sender: TObject);
+begin
+  if btnTermination.Down then
+  begin
+    cbbSubRole.Left := 1429;
+    lstUserRoleLogin.Left := 1429;
+
+    cbbSubRole.Visible := True;
+    lstUserRoleLogin.Visible := True;
+  end
+  else
+  begin
+    cbbSubRole.Visible := False;
+    lstUserRoleLogin.Visible := False;
+  end;
+
+end;
+
 procedure TfrmTacticalDisplay.cbbConsoleNameDropDown(Sender: TObject);
 var
   i : Integer;
@@ -187,6 +208,24 @@ begin
   frmSituationBoard.Show;
 end;
 
+
+procedure TfrmTacticalDisplay.btnImplementationClick(Sender: TObject);
+begin
+  if btnImplementation.Down then
+  begin
+    cbbSubRole.Left := 998;
+    lstUserRoleLogin.Left := 998;
+
+    cbbSubRole.Visible := True;
+    lstUserRoleLogin.Visible := True;
+  end
+  else
+  begin
+    cbbSubRole.Visible := False;
+    lstUserRoleLogin.Visible := False;
+  end;
+
+end;
 
 procedure TfrmTacticalDisplay.btnLoginClick(Sender: TObject);
 var
@@ -261,8 +300,36 @@ end;
 
 procedure TfrmTacticalDisplay.btnPlanningClick(Sender: TObject);
 begin
-lblTahapan.Caption := 'Planning';
-pnlUser.Visible := True;
+  if btnPlanning.Down then
+  begin
+    cbbSubRole.Left := 137;
+    lstUserRoleLogin.Left := 137;
+
+    cbbSubRole.Visible := True;
+    lstUserRoleLogin.Visible := True;
+  end
+  else
+  begin
+    cbbSubRole.Visible := False;
+    lstUserRoleLogin.Visible := False;
+  end;
+end;
+
+procedure TfrmTacticalDisplay.btnPreparationClick(Sender: TObject);
+begin
+  if btnPreparation.Down then
+  begin
+    cbbSubRole.Left := 568;
+    lstUserRoleLogin.Left := 568;
+
+    cbbSubRole.Visible := True;
+    lstUserRoleLogin.Visible := True;
+  end
+  else
+  begin
+    cbbSubRole.Visible := False;
+    lstUserRoleLogin.Visible := False;
+  end;
 end;
 
 procedure TfrmTacticalDisplay.FormCreate(Sender: TObject);

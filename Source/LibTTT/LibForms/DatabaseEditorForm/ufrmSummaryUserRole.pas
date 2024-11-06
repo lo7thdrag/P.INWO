@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Imaging.pngimage,
 
-  uClassData, uConstantaData, uDataModule, uRecordData;
+  uClassData, uConstantaData, uDataModule, uRecordData, ufrmRole, ufrmSubRole;
 
 type
   TfrmSummaryUserRole = class(TForm)
@@ -36,8 +36,8 @@ type
     btnCancel: TImage;
     edtUserRole: TEdit;
     imgEdit: TImage;
-    btnEdit: TImage;
-    Image1: TImage;
+    btnEditRole: TImage;
+    btnEditSubRole: TImage;
     Label3: TLabel;
     procedure cbbRoleChange(Sender: TObject);
     procedure cbbSubRoleChange(Sender: TObject);
@@ -49,6 +49,8 @@ type
     procedure FormShow(Sender: TObject);
     procedure chkChangeClick(Sender: TObject);
     procedure edtChange(Sender: TObject);
+    procedure btnEditRoleClick(Sender: TObject);
+    procedure btnEditSubRoleClick(Sender: TObject);
 
   private
     FSelectedUserRole : TUser_Role;
@@ -85,6 +87,11 @@ begin
   isOK := True;
   AfterClose := True;
   btnCancel.Enabled := True;
+end;
+
+procedure TfrmSummaryUserRole.btnEditSubRoleClick(Sender: TObject);
+begin
+  frmSubRole.Show;
 end;
 
 {$ENDREGION}
@@ -132,6 +139,11 @@ end;
 procedure TfrmSummaryUserRole.btnCancelClick(Sender: TObject);
 begin
   Close;
+end;
+
+procedure TfrmSummaryUserRole.btnEditRoleClick(Sender: TObject);
+begin
+  frmSummaryRole.Show;
 end;
 
 procedure TfrmSummaryUserRole.btnOkClick(Sender: TObject);
