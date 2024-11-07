@@ -14234,7 +14234,6 @@ object frmSubRole: TfrmSubRole
     ParentColor = False
     ParentFont = False
     Transparent = True
-    OnClick = lblPlatformClick
   end
   object btnNew: TImage
     Left = 194

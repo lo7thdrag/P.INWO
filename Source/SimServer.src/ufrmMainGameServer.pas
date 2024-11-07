@@ -163,7 +163,7 @@ begin
       if userRoleTemp.isInUse then
       begin
         li.SubItems.Add(userRoleTemp.FData.UserRoleIdentifier);
-        li.SubItems.Add(SetOrganisasiTugasAkronimToString(TOrganisasiTugas(userRoleTemp.FData.OrganisasiTugas)));
+        li.SubItems.Add(SetOrganisasiTugasAkronimToString(TOrganisasiTugas(userRoleTemp.FData.RoleIndex)));
       end
       else
       begin

@@ -370,8 +370,8 @@ begin
 
     with simMgrClient.MyConsoleData.UserRoleData do
     begin
-      lblOperasi.Caption := SetOrganisasiTugasToString(TOrganisasiTugas(OrganisasiTugas));
-      lblKomandoTugas.Caption := SetSubOrganisasiTugasToString(TSubOrganisasiTugas(SubOrganisasiTugas));
+      lblOperasi.Caption := SetOrganisasiTugasToString(TOrganisasiTugas(RoleIndex));
+      lblKomandoTugas.Caption := SetSubOrganisasiTugasToString(TSubOrganisasiTugas(SubRoleIndex));
       lblUserRole.Caption := UserRoleIdentifier;
 
       if Perencanaan = 1 then

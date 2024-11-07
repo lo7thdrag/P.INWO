@@ -476,7 +476,7 @@ begin
   with simMgrClient.MyConsoleData do
   begin
     lblConsoleName.Caption := Identifier;
-    lblKogas.Caption := SetSubOrganisasiTugasToString(TSubOrganisasiTugas(UserRoleData.SubOrganisasiTugas));
+//    lblKogas.Caption := SetSubOrganisasiTugasToString(TSubOrganisasiTugas(UserRoleData.SubOrganisasiTugas));
     lblUserRoleIdentifier.Caption := UserRoleData.UserRoleIdentifier;
     lblTahapan.Caption := SetTipeTahapanToString(TTipeTahapan(TipeTahapan));
   end;
@@ -995,8 +995,8 @@ begin
     li := lvUserRole.Items.Add;
     li.Caption := IntToStr(i+1);
     li.SubItems.Add(userRoleTemp.FData.UserRoleIdentifier);
-    li.SubItems.Add(SetOrganisasiTugasAkronimToString(TOrganisasiTugas(userRoleTemp.FData.OrganisasiTugas)));
-    li.SubItems.Add(SetSubOrganisasiTugasToString(TSubOrganisasiTugas(userRoleTemp.FData.SubOrganisasiTugas)));
+    li.SubItems.Add(SetOrganisasiTugasAkronimToString(TOrganisasiTugas(userRoleTemp.FData.RoleIndex)));
+    li.SubItems.Add(SetSubOrganisasiTugasToString(TSubOrganisasiTugas(userRoleTemp.FData.SubRoleIndex)));
 
     if userRoleTemp.FData.Perencanaan = 1 then
       li.SubItems.Add('✔')

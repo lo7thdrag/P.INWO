@@ -32,7 +32,6 @@ type
     procedure FormShow(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
     procedure btnNewClick(Sender: TObject);
-    procedure lblPlatformClick(Sender: TObject);
     procedure btnDeleteClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
 
@@ -60,6 +59,11 @@ begin
 
 end;
 
+
+procedure TfrmSubRole.btnDeleteClick(Sender: TObject);
+begin
+//
+end;
 
 procedure TfrmSubRole.btnEditClick(Sender: TObject);
 begin
