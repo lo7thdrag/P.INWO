@@ -109,7 +109,7 @@ type
     OrderID             : Byte;
     SenderUserRoleId    : Integer;
     ReceiverUserRoleId  : Integer;
-    ChatMessage         : AnsiString;
+    ChatMessage         : string[255];
     end;
 
   //CPID_CMD_OVERLAYSHAPE

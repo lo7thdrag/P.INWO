@@ -1714,6 +1714,7 @@ begin
    rec.OrderID := 0;
    rec.SenderUserRoleId := simMgrClient.MyConsoleData.UserRoleData.UserRoleIndex;
    rec.ReceiverUserRoleId := FSelectedUserChat.FData.UserRoleIndex;
+   FillChar(rec.ChatMessage, SizeOf(rec.ChatMessage), 0);
    rec.ChatMessage := edtChatBox.Text;
 
    simMgrClient.netSend_CmdSendMessage(rec);
