@@ -197,9 +197,6 @@ type
     Label18: TLabel;
     pnlCariAsset: TPanel;
     Label19: TLabel;
-    editSearch: TEdit;
-    cbbCariTipe: TComboBox;
-    cbbFilterCari: TComboBox;
     pnlListAsset: TPanel;
     lvAsset: TListView;
     Image7: TImage;
@@ -211,6 +208,9 @@ type
     btnEditAsset: TImage;
     btnDeleteAsset: TImage;
     btnUnduh: TImage;
+    cbbFilter: TComboBox;
+    cbbSearch: TComboBox;
+    editSearch: TEdit;
 
     procedure btnAOTCClick(Sender: TObject);
 
@@ -333,6 +333,9 @@ type
     procedure btnAddAssetClick(Sender: TObject);
     procedure btnDeleteAssetClick(Sender: TObject);
     procedure btnEditAssetClick(Sender: TObject);
+    procedure cbbFilterSelect(Sender: TObject);
+    procedure editSearchKeyPressAsset(Sender: TObject; var Key: Char);
+    procedure cbbSearchSelect(Sender: TObject);
 //    procedure LlvFileDataSelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);
 
   private
@@ -361,6 +364,7 @@ type
     procedure RoundCornerOf(Control: TWinControl; val1, val2: Integer);
     procedure AddSearchTypeItems;
     procedure AddSearchTacticalSymbolItems;
+    procedure AddSearchAssetItems;
 
   public
 
@@ -712,6 +716,78 @@ begin
   end;
 end;
 
+procedure TfrmDisplayArea.cbbFilterSelect(Sender: TObject);
+begin
+  cbbSearch.ItemIndex := 0;
+
+  if cbbFilter.ItemIndex = 0 then
+  begin
+    editSearch.Clear;
+    flagTable := False;
+    UpdateDataAset;
+    editSearch.BringToFront;
+  end
+  else if cbbFilter.ItemIndex = 1 then
+  begin
+    editSearch.BringToFront;
+  end
+  else if cbbFilter.ItemIndex = 2 then
+  begin
+    AddSearchAssetItems;
+    cbbSearch.BringToFront;
+  end
+  else if cbbFilter.ItemIndex = 3 then
+  begin
+    AddSearchAssetItems;
+    cbbSearch.BringToFront;
+  end;
+end;
+
+procedure TfrmDisplayArea.editSearchKeyPressAsset(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    if (editSearch.Text <> '') and (cbbFilter.ItemIndex > 0) then
+    begin
+      ItemSearchIndex := cbbFilter.ItemIndex;
+      SearchName := editSearch.Text;
+      flagTable := True;
+      UpdateDataAset;
+    end
+    else if editSearch.Text = '' then
+    begin
+      flagTable := False;
+      UpdateDataAset;
+    end;
+  end;
+end;
+
+procedure TfrmDisplayArea.cbbSearchSelect(Sender: TObject);
+begin
+  ItemSearchIndex := cbbFilter.ItemIndex;
+  SearchName := IntToStr(cbbSearch.ItemIndex);
+  flagTable := True;
+  UpdateDataAset;
+end;
+
+procedure TfrmDisplayArea.AddSearchAssetItems;
+begin
+  if cbbFilter.ItemIndex = 1 then
+  begin
+    cbbSearch.Items.Clear;
+    cbbSearch.Items.Add('0'); //Air
+    cbbSearch.Items.Add('1'); //Surface
+    cbbSearch.Items.Add('2'); //Subsurface
+    cbbSearch.Items.Add('3'); //Land
+    cbbSearch.Items.Add('4'); //Amphibious
+  end
+  else if cbbFilter.ItemIndex = 2 then
+  begin
+//
+  end;
+end;
+
+
 {$ENDREGION}
 
 {$REGION ' Simbol Taktis Procedure '}
@@ -727,6 +803,7 @@ begin
 
   UpdateSimbolTaktis;
 end;
+
 
 procedure TfrmDisplayArea.AddSearchTacticalSymbolItems;
 begin
@@ -1156,6 +1233,7 @@ begin
     cbbSearchType.BringToFront;
   end;
 end;
+
 
 procedure TfrmDisplayArea.edtSearchKeyPress(Sender: TObject; var Key: Char);
 begin
