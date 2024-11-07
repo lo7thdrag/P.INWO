@@ -43,6 +43,11 @@ type
     function GetAllSubRole(var aList: TList): Integer;
     function GetAllUserRole(var aList: TList): Integer;
 
+    function GetRoleByName(const aName: string): Integer; overload;
+    function GetRoleInSubRole(const RoleID: Integer): Integer;
+
+    function GetSubRoleByName(const aName: string): Integer; overload;
+
     function GetSearchUserRole(var FilterIndex : Integer ; SearchContent : string ; aList: TList ): Integer;
     function GetUserRoleFilterByOrganisasiTugas(var rec : TRecUser_Role): Integer;
     function GetUserRoleByFilterUsername(var rec : TRecUser_Role): Integer;
@@ -51,9 +56,9 @@ type
     function UpdateRole(var rec : TRecRole): Boolean;
     function DeleteRole(const RoleID: Integer): Boolean;
 
-//    function InsertSubRole(var rec : TRecSubRole) : Boolean;
-//    function UpdateSubRole(var rec : TRecSubRole): Boolean;
-//    function DeleteSubRole(const SubRoleID: Integer): Boolean;
+    function InsertSubRole(var rec : TRecSubRole) : Boolean;
+    function UpdateSubRole(var rec : TRecSubRole): Boolean;
+    function DeleteSubRole(const SubRoleID: Integer): Boolean;
 
     function InsertUserRole(var rec : TRecUser_Role) : Boolean;
     function UpdateUserRole(var rec : TRecUser_Role): Boolean;
@@ -915,9 +920,9 @@ begin
 
         with rec.FData do
         begin
-          RoleIndex := FieldByName('id_User').AsInteger;
-          RoleAcronim := FieldByName('Nama_Role').AsString;
-          RoleIdentifier := FieldByName('Nama_Role').AsString;
+          RoleIndex := FieldByName('RoleIndex').AsInteger;
+          RoleAcronim := FieldByName('RoleAcronim').AsString;
+          RoleIdentifier := FieldByName('RoleIdentifier').AsString;
         end;
 
         aList.Add(rec);
@@ -969,10 +974,10 @@ begin
 
         with rec.FData do
         begin
-          SubRoleIndex := FieldByName('id_User').AsInteger;
-          RoleIndex := FieldByName('id_User').AsInteger;
-          SubRoleAcronim := FieldByName('Nama_Role').AsString;
-          SubRoleIdentifier := FieldByName('Nama_Role').AsString;
+          SubRoleIndex := FieldByName('SubRoleIndex').AsInteger;
+          RoleIndex := FieldByName('RoleIndex').AsInteger;
+          SubRoleAcronim := FieldByName('SubRoleAcronim').AsString;
+          SubRoleIdentifier := FieldByName('SubRoleIdentifier').AsString;
           Perencanaan := Ord(FieldByName('Perencanaan').AsBoolean);
           Persiapan := Ord(FieldByName('Persiapan').AsBoolean);
           Pelaksanaan := Ord(FieldByName('Pelaksanaan').AsBoolean);
@@ -1044,6 +1049,66 @@ begin
         Next;
       end;
     end;
+  end;
+end;
+
+function TdmINWO.GetRoleByName(const aName: string): Integer;
+begin
+  Result := 0;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT * FROM Role_Definition');
+    SQL.Add('WHERE RoleAcronim = '+ QuotedStr(aName));
+    Open;
+
+    Result := RecordCount;
+  end;
+end;
+
+function TdmINWO.GetSubRoleByName(const aName: string): Integer;
+begin
+  Result := 0;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT * FROM SubRole_Definition');
+    SQL.Add('WHERE SubRoleAcronim = '+ QuotedStr(aName));
+    Open;
+
+    Result := RecordCount;
+  end;
+end;
+
+function TdmINWO.GetRoleInSubRole(const RoleID: Integer): Integer;
+var
+  i : Integer;
+  rec: TSubRole;
+begin
+  Result := 0;
+
+  if not ZConn.Connected then
+    exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('DELETE FROM SubRole_Definition ');
+    SQL.Add('WHERE (SubRoleIndex = ' + IntToStr(RoleID) + ')');
+    Open;
+
+    Result := RecordCount;
   end;
 end;
 
@@ -1167,8 +1232,8 @@ begin
 
     SQL.Clear;
 
-    SQL.Add('INSERT INTO UserRole');
-    SQL.Add('(Username, Password, Nama_Role, Organisasi_Tugas, OpsGab, Perencanaan, Persiapan, Pelaksanaan, Pengakhiran)');
+    SQL.Add('INSERT INTO Role_Definition');
+    SQL.Add('(RoleAcronim, RoleIdentifier)');
     SQL.Add('VALUES (');
 
     with rec do
@@ -1184,25 +1249,165 @@ begin
 
     {Yg barusan diinput diambil lagi datanya, untuk mengetahui Indexnya}
     SQL.Clear;
-    SQL.Add('SELECT * FROM UserRole');
-    SQL.Add('WHERE (Nama_Role = ' + QuotedStr(rec.RoleAcronim) +
-     ') and (Organisasi_Tugas = ' + QuotedStr(rec.RoleIdentifier) + ')' );
+    SQL.Add('SELECT * FROM Role_Definition');
+    SQL.Add('WHERE (RoleAcronim = ' + QuotedStr(rec.RoleAcronim) +
+     ') and (RoleIdentifier = ' + QuotedStr(rec.RoleIdentifier) + ')' );
     Open;
 
-    rec.RoleIndex := FieldByName('id_User').AsInteger;
+    rec.RoleIndex := FieldByName('RoleIndex').AsInteger;
+  end;
+end;
+
+ function TdmINWO.InsertSubRole(var rec: TRecSubRole): Boolean;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+
+    SQL.Clear;
+
+    SQL.Add('INSERT INTO SubRole_Definition');
+    SQL.Add('(SubRoleIndex, RoleIndex, SubRoleAcronim, SubRoleIdentifier, Perencanaan, Persiapan, Pelaksanaan, Pengakhiran)');
+    SQL.Add('VALUES (');
+
+    with rec do
+    begin
+      SQL.Add(IntToStr(RoleIndex) + ', ');
+      SQL.Add(QuotedStr(SubRoleAcronim) + ', ');
+      SQL.Add(QuotedStr(SubRoleIdentifier) + ', ');
+      SQL.Add(IntToStr(SubRoleIndex) + ', ');
+      SQL.Add(IntToStr(Perencanaan) + ', ');
+      SQL.Add(IntToStr(Persiapan) + ', ');
+      SQL.Add(IntToStr(Pelaksanaan) + ', ');
+      SQL.Add(IntToStr(Pengakhiran));
+    end;
+
+    SQL.Add(')');
+    ExecSQL;
+
+    Result := True;
+
+    {Yg barusan diinput diambil lagi datanya, untuk mengetahui Indexnya}
+    SQL.Clear;
+    SQL.Add('SELECT * FROM SubRole_Definition');
+    SQL.Add('WHERE (RoleIndex = ' + IntToStr(rec.RoleIndex) +
+     ') and (SubRoleAcronim = ' + QuotedStr(rec.SubRoleAcronim) +
+     ') and (SubRoleIdentifier = ' + QuotedStr(rec.SubRoleIdentifier) +
+     ') and (Perencanaan = ' + IntToStr(rec.Perencanaan) +
+     ') and (Persiapan = ' + IntToStr(rec.Persiapan) +
+     ') and (Pelaksanaan = ' + IntToStr(rec.Pelaksanaan) +
+     ') and (Pengakhiran = ' + IntToStr(rec.Pengakhiran) + ')' );
+    Open;
+
+    rec.SubRoleIndex := FieldByName('SubRoleIndex').AsInteger;
+  end;
+end;
+
+function TdmINWO.UpdateSubRole(var rec: TRecSubRole): Boolean;
+begin
+  if not ZConn.Connected then
+  Exit;
+
+  with ZQ do
+  begin
+    with rec do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Add('UPDATE SubRole_Definition');
+      SQL.Add('SET');
+      SQL.Add('RoleIndex=' + IntToStr(rec.RoleIndex)+',');
+      SQL.Add('SubRoleAcronim=' + QuotedStr(rec.SubRoleAcronim) + ',');
+      SQL.Add('SubRoleIdentifier=' + QuotedStr(rec.SubRoleIdentifier) + ',');
+      SQL.Add('Perencanaan=' + IntToStr(rec.Perencanaan) + ',');
+      SQL.Add('Persiapan=' + IntToStr(rec.Persiapan) + ',');
+      SQL.Add('Pelaksanaan=' + IntToStr(rec.Pelaksanaan)+ ',');
+      SQL.Add('Pengakhiran=' + IntToStr(rec.Pengakhiran)+ ',');
+      SQL.Add('WHERE (SubRoleIndex =' + IntToStr(rec.SubRoleIndex) + ')');
+      ExecSQL;
+    end;
+
+    Result := True;
   end;
 end;
 
 function TdmINWO.UpdateRole(var rec: TRecRole): Boolean;
 begin
+  if not ZConn.Connected then
+  Exit;
 
+  with ZQ do
+  begin
+    with rec do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Add('UPDATE Role_Definition');
+      SQL.Add('SET');
+      SQL.Add('RoleAcronim=' + QuotedStr(rec.RoleAcronim)+',');
+      SQL.Add('RoleIdentifier=' + QuotedStr(rec.RoleIdentifier));
+      SQL.Add('WHERE (RoleIndex =' + IntToStr(rec.RoleIndex) + ')');
+      ExecSQL;
+    end;
+
+    Result := True;
+  end;
+end;
+
+function TdmINWO.DeleteSubRole(const SubRoleID: Integer): Boolean;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('DELETE FROM SubRole_Definition');
+    SQL.Add('WHERE (SubRoleIndex = ' + IntToStr(SubRoleID) + ')');
+    ExecSQL;
+
+    SQL.Clear;
+    SQL.Add('SELECT *');
+    SQL.Add('FROM SubRole_Definition');
+    SQL.Add('WHERE SubRoleIndex = ' + IntToStr(SubRoleID));
+    Open;
+
+    Result := RecordCount = 0;
+  end;
 end;
 
 function TdmINWO.DeleteRole(const RoleID: Integer): Boolean;
 begin
+  Result := False;
 
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('DELETE FROM Role_Definition ');
+    SQL.Add('WHERE (RoleIndex = ' + IntToStr(RoleID) + ')');
+    ExecSQL;
+
+    SQL.Clear;
+    SQL.Add('SELECT *');
+    SQL.Add('FROM Role_Definition');
+    SQL.Add('WHERE RoleIndex = ' + IntToStr(RoleID));
+    Open;
+
+    Result := RecordCount = 0;
+  end;
 end;
-
 
 function TdmINWO.InsertUserRole(var rec : TRecUser_Role) : Boolean;
 begin
