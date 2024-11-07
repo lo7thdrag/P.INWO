@@ -112,6 +112,8 @@ begin
   SimTabProperties := TTabPropertiesContainer.Create;
 
   SimOverlay := TOverlayTabContainer.Create;
+
+  SimChatting := TChattingContainer.Create;
 //  SimOverlay.Converter := Converter;
 end;
 
@@ -127,6 +129,7 @@ begin
   SimConsole.Free;
   SimUserRole.Free;
   SimTabProperties.Free;
+  SimChatting.Free;
 
   inherited;
 end;

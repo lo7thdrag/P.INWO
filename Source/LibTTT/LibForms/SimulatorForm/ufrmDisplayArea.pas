@@ -1637,6 +1637,7 @@ procedure TfrmDisplayArea.ObrolanClick(Sender: TObject);
 begin
   pnlRight.Width := 430;
   pnlMainChatting.BringToFront;
+  UpdateClientChatting;
 end;
 
 procedure TfrmDisplayArea.btnCloseChatClick(Sender: TObject);
@@ -1652,7 +1653,7 @@ end;
 procedure TfrmDisplayArea.btnUserChatClick(Sender: TObject);
 begin
   lstUserChat.BringToFront;
-
+  UpdateClientChatting;
 end;
 
 procedure TfrmDisplayArea.lstUserChatDblClick(Sender: TObject);
@@ -1661,6 +1662,8 @@ begin
     Exit;
 
   FSelectedUserChat := TUser_Role(lstUserChat.Items.Objects[lstUserChat.ItemIndex]);
+  mmoChat.BringToFront;
+  UpdateClientHistoryChat;
 end;
 
 procedure TfrmDisplayArea.UpdateClientHistoryChat;
@@ -1728,7 +1731,10 @@ begin
     userRoleTemp := simMgrClient.SimUserRole.UserList[i];
     if Assigned(userRoleTemp) then
     begin
-      lstUserChat.Items.AddObject(userRoleTemp.FData.UserRoleIdentifier, userRoleTemp);
+      if userRoleTemp.isInUse then
+      begin
+        lstUserChat.Items.AddObject(userRoleTemp.FData.UserRoleIdentifier, userRoleTemp);
+      end;
     end;
   end;
 end;
