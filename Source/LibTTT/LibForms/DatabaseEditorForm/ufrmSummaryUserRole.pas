@@ -34,11 +34,14 @@ type
     Label14: TLabel;
     btnOk: TImage;
     btnCancel: TImage;
-    edtUserRole: TEdit;
     imgEdit: TImage;
     btnEditRole: TImage;
     btnEditSubRole: TImage;
     Label3: TLabel;
+    Label10: TLabel;
+    Label15: TLabel;
+    edtIdentifier: TEdit;
+    cbbUserRole: TComboBox;
     procedure cbbRoleChange(Sender: TObject);
     procedure cbbSubRoleChange(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
@@ -51,17 +54,28 @@ type
     procedure edtChange(Sender: TObject);
     procedure btnEditRoleClick(Sender: TObject);
     procedure btnEditSubRoleClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
 
   private
     FSelectedUserRole : TUser_Role;
+    FRoleList : TList;
+    FSubRoleList : TList;
 
     function CekInput: Boolean;
     procedure UpdateUserRoleData;
 
+    procedure AddCbbRole;
     procedure AddCbbSubRole;
-    procedure AddedtUserRole;
+    procedure AddCbbUserRole;
+
+    function GetRoleAcronim(id : Integer):string;
+    function GetRoleIndex(id : string):Integer;
+    function GetSubRoleAcronim(id : Integer):string;
+    function GetSubRoleIndex(id : string):Integer;
 
   public
+    LastName : string;
     isOK  : Boolean; {Penanda jika gagal cek input, btn OK tidak langsung close}
     AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, list tdk perlu di update }
 
@@ -77,6 +91,18 @@ implementation
 
 {$REGION ' Form Event '}
 
+procedure TfrmSummaryUserRole.FormCreate(Sender: TObject);
+begin
+  FRoleList := TList.Create;
+  FSubRoleList := TList.Create;
+end;
+
+procedure TfrmSummaryUserRole.FormDestroy(Sender: TObject);
+begin
+  FRoleList.Free;
+  FSubRoleList.Free;
+end;
+
 procedure TfrmSummaryUserRole.FormShow(Sender: TObject);
 begin
   UpdateUserRoleData;
@@ -87,6 +113,82 @@ begin
   isOK := True;
   AfterClose := True;
   btnCancel.Enabled := True;
+end;
+
+function TfrmSummaryUserRole.GetRoleAcronim(id: Integer): string;
+var
+  i : Integer;
+  roleTemp : TRole;
+begin
+  Result := '';
+
+  for i := 0 to FRoleList.Count - 1 do
+  begin
+    roleTemp := FRoleList.Items[i];
+
+    if roleTemp.FData.RoleIndex = id then
+    begin
+      Result := roleTemp.FData.RoleAcronim;
+      Break;
+    end;
+  end;
+end;
+
+function TfrmSummaryUserRole.GetRoleIndex(id: string): Integer;
+var
+  i : Integer;
+  roleTemp : TRole;
+begin
+  Result := 0;
+
+  for i := 0 to FRoleList.Count - 1 do
+  begin
+    roleTemp := FRoleList.Items[i];
+
+    if roleTemp.FData.RoleAcronim = id then
+    begin
+      Result := roleTemp.FData.RoleIndex;
+      Break;
+    end;
+  end;
+end;
+
+function TfrmSummaryUserRole.GetSubRoleAcronim(id: Integer): string;
+var
+  i : Integer;
+  subRoleTemp : TSubRole;
+begin
+  Result := '';
+
+  for i := 0 to FSubRoleList.Count - 1 do
+  begin
+    subRoleTemp := FSubRoleList.Items[i];
+
+    if subRoleTemp.FData.RoleIndex = id then
+    begin
+      Result := subRoleTemp.FData.SubRoleAcronim;
+      Break;
+    end;
+  end;
+end;
+
+function TfrmSummaryUserRole.GetSubRoleIndex(id: string): Integer;
+var
+  i : Integer;
+  subRoleTemp : TSubRole;
+begin
+  Result := 0;
+
+  for i := 0 to FSubRoleList.Count - 1 do
+  begin
+    subRoleTemp := FSubRoleList.Items[i];
+
+    if subRoleTemp.FData.SubRoleAcronim = id then
+    begin
+      Result := subRoleTemp.FData.SubRoleIndex;
+      Break;
+    end;
+  end;
 end;
 
 procedure TfrmSummaryUserRole.btnEditSubRoleClick(Sender: TObject);
@@ -104,7 +206,7 @@ begin
   begin
     RoleIndex     := Integer(SetOrganisasiTugasToEnum(cbbRole.Text));
     SubRoleIndex  := Integer(SetSubOrganisasiTugasToEnum(cbbSubRole.Text));
-    UserRoleIdentifier  := edtUserRole.Text;
+    UserRoleIdentifier  := cbbUserRole.Text;
     Username            := edtUsername.Text;
     Password            := edtPassword.Text;
 
@@ -187,241 +289,237 @@ end;
 
 {$REGION ' Additional Event '}
 
-procedure TfrmSummaryUserRole.AddCbbSubRole;
+procedure TfrmSummaryUserRole.AddCbbRole;
+var
+  i : Integer;
+  roleTemp : TRole;
 begin
-  cbbSubRole.Items.Clear;
+  cbbRole.Items.Clear;
 
-  if cbbRole.Text = 'Integrated Naval Warfare Operations' then
+  dmINWO.GetAllRole(FRoleList);
+
+  for i := 0 to FRoleList.Count - 1 do
   begin
-    cbbSubRole.Items.Add('KPL');
-    cbbSubRole.Items.Add('STAF LAT');
-    cbbSubRole.Items.Add('WASDAL');
-    cbbSubRole.Items.Add('KOGAB');
-  end
-  else if cbbRole.Text = 'Naval Tactical Warfare Operations' then
-  begin
-    cbbSubRole.Items.Add('KOGASGABLA');
-  end
-  else if cbbRole.Text = 'Amphibious Tactical Warfare Operations' then
-  begin
-    cbbSubRole.Items.Add('KOGASGABFIB');
-  end
-  else if cbbRole.Text = 'Landing Forces Warfare Operations' then
-  begin
-    cbbSubRole.Items.Add('PASRAT');
-  end
-  else if cbbRole.Text = 'Administrative Landing Warfare Operations' then
-  begin
-    cbbSubRole.Items.Add('KOGASRATMIN');
-  end
-  else if cbbRole.Text = 'Coastal Defence Warfare Operations' then
-  begin
-    cbbSubRole.Items.Add('KOGASHANTAI');
-  end
-  else if cbbRole.Text = 'Supporting Unit Warfare Operations' then
-  begin
-    cbbSubRole.Items.Add('SATGASDUK');
+    roleTemp := FRoleList.Items[i];
+    cbbRole.Items.AddObject(roleTemp.FData.RoleAcronim, roleTemp);
   end;
 end;
 
-procedure TfrmSummaryUserRole.AddedtUserRole;
+procedure TfrmSummaryUserRole.AddCbbSubRole;
+var
+  i : Integer;
+  subRoleTemp : TSubRole;
 begin
-  edtUserRole.Clear;
+  cbbSubRole.Items.Clear;
+
+  dmINWO.GetAllSubRole(FRoleList);
+
+  for i := 0 to FRoleList.Count - 1 do
+  begin
+    subRoleTemp := FRoleList.Items[i];
+
+    if subRoleTemp.FData.RoleIndex = GetRoleIndex(cbbRole.Text) then
+      cbbRole.Items.AddObject(subRoleTemp.FData.SubRoleAcronim, subRoleTemp);
+  end;
+end;
+
+procedure TfrmSummaryUserRole.AddCbbUserRole;
+begin
+  cbbUserRole.Clear;
   if cbbSubRole.Text = 'KPL' then
   begin
     {$REGION ' KPL '}
-//    edtUserRole.Items.Add('PIMPINAN');
-//    edtUserRole.Items.Add('WAKIL');
-//    edtUserRole.Items.Add('DIRLAT');
-//    edtUserRole.Items.Add('WADIRLAT');
-//    edtUserRole.Items.Add('HATLAT');
-//    edtUserRole.Items.Add('TIM EVA');
-//    edtUserRole.Items.Add('DESTRA');
-//    edtUserRole.Items.Add('DEOYU');
-//    edtUserRole.Items.Add('DEKOMLEK');
-//    edtUserRole.Items.Add('DEMINLOG');
-//    edtUserRole.Items.Add('DELITBANG');
-//    edtUserRole.Items.Add('SETLAT');
+    cbbUserRole.Items.Add('PIMPINAN');
+    cbbUserRole.Items.Add('WAKIL');
+    cbbUserRole.Items.Add('DIRLAT');
+    cbbUserRole.Items.Add('WADIRLAT');
+    cbbUserRole.Items.Add('HATLAT');
+    cbbUserRole.Items.Add('TIM EVA');
+    cbbUserRole.Items.Add('DESTRA');
+    cbbUserRole.Items.Add('DEOYU');
+    cbbUserRole.Items.Add('DEKOMLEK');
+    cbbUserRole.Items.Add('DEMINLOG');
+    cbbUserRole.Items.Add('DELITBANG');
+    cbbUserRole.Items.Add('SETLAT');
     {$ENDREGION}
   end
   else if cbbSubRole.Text = 'STAF LAT' then
   begin
     {$REGION ' STAF LAT '}
-//    edtUserRole.Items.Add('PIMPINAN');
-//    edtUserRole.Items.Add('WAKIL');
-//    edtUserRole.Items.Add('DIRLAT');
-//    edtUserRole.Items.Add('WADIRLAT');
-//    edtUserRole.Items.Add('HATLAT');
-//    edtUserRole.Items.Add('TIM EVA');
-//    edtUserRole.Items.Add('DESTRA');
-//    edtUserRole.Items.Add('DEOYU');
-//    edtUserRole.Items.Add('DEKOMLEK');
-//    edtUserRole.Items.Add('DEMINLOG');
-//    edtUserRole.Items.Add('DELITBANG');
-//    edtUserRole.Items.Add('SETLAT');
-//    edtUserRole.Items.Add('DENMALAT');
-//    edtUserRole.Items.Add('DENHUBLAT');
+    cbbUserRole.Items.Add('PIMPINAN');
+    cbbUserRole.Items.Add('WAKIL');
+    cbbUserRole.Items.Add('DIRLAT');
+    cbbUserRole.Items.Add('WADIRLAT');
+    cbbUserRole.Items.Add('HATLAT');
+    cbbUserRole.Items.Add('TIM EVA');
+    cbbUserRole.Items.Add('DESTRA');
+    cbbUserRole.Items.Add('DEOYU');
+    cbbUserRole.Items.Add('DEKOMLEK');
+    cbbUserRole.Items.Add('DEMINLOG');
+    cbbUserRole.Items.Add('DELITBANG');
+    cbbUserRole.Items.Add('SETLAT');
+    cbbUserRole.Items.Add('DENMALAT');
+    cbbUserRole.Items.Add('DENHUBLAT');
     {$ENDREGION}
   end
   else if cbbSubRole.Text = 'WASDAL' then
   begin
     {$REGION ' WASDAL '}
-//    edtUserRole.Items.Add('PIMPINAN');
-//    edtUserRole.Items.Add('WAKIL');
-//    edtUserRole.Items.Add('KAWASDAL');
-//    edtUserRole.Items.Add('WK WASDAL');
-//    edtUserRole.Items.Add('KATIM PENILAI');
-//    edtUserRole.Items.Add('KATIM EVA');
-//    edtUserRole.Items.Add('KTIM LITBANG');
-//    edtUserRole.Items.Add('WASDAL INTEL');
-//    edtUserRole.Items.Add('WASDAL OPS');
-//    edtUserRole.Items.Add('WASDAL REN');
-//    edtUserRole.Items.Add('WASDAL PERS');
-//    edtUserRole.Items.Add('WASDAL LOG');
-//    edtUserRole.Items.Add('WDL KOMLEK');
-//    edtUserRole.Items.Add('WDL GASDUK');
-//    edtUserRole.Items.Add('PASET');
+    cbbUserRole.Items.Add('PIMPINAN');
+    cbbUserRole.Items.Add('WAKIL');
+    cbbUserRole.Items.Add('KAWASDAL');
+    cbbUserRole.Items.Add('WK WASDAL');
+    cbbUserRole.Items.Add('KATIM PENILAI');
+    cbbUserRole.Items.Add('KATIM EVA');
+    cbbUserRole.Items.Add('KTIM LITBANG');
+    cbbUserRole.Items.Add('WASDAL INTEL');
+    cbbUserRole.Items.Add('WASDAL OPS');
+    cbbUserRole.Items.Add('WASDAL REN');
+    cbbUserRole.Items.Add('WASDAL PERS');
+    cbbUserRole.Items.Add('WASDAL LOG');
+    cbbUserRole.Items.Add('WDL KOMLEK');
+    cbbUserRole.Items.Add('WDL GASDUK');
+    cbbUserRole.Items.Add('PASET');
     {$ENDREGION}
   end
   else if cbbSubRole.Text = 'KOGAB' then
   begin
     {$REGION ' KOGAB '}
-//    edtUserRole.Items.Add('PANGLIMA');
-//    edtUserRole.Items.Add('KASUM');
-//    edtUserRole.Items.Add('AS INTEL');
-//    edtUserRole.Items.Add('AS OPS');
-//    edtUserRole.Items.Add('AS PERS');
-//    edtUserRole.Items.Add('AS RENA');
-//    edtUserRole.Items.Add('AS KOMLEK');
-//    edtUserRole.Items.Add('AS TER/POT');
-//    edtUserRole.Items.Add('STF EVABANG');
-//    edtUserRole.Items.Add('STF LATIHAN');
-//    edtUserRole.Items.Add('LO KEMHAN');
-//    edtUserRole.Items.Add('LO AANGKATD');
-//    edtUserRole.Items.Add('LO AL');
-//    edtUserRole.Items.Add('LO AU');
-//    edtUserRole.Items.Add('KASETUM');
-
+    cbbUserRole.Items.Add('PANGLIMA');
+    cbbUserRole.Items.Add('KASUM');
+    cbbUserRole.Items.Add('AS INTEL');
+    cbbUserRole.Items.Add('AS OPS');
+    cbbUserRole.Items.Add('AS PERS');
+    cbbUserRole.Items.Add('AS RENA');
+    cbbUserRole.Items.Add('AS KOMLEK');
+    cbbUserRole.Items.Add('AS TER/POT');
+    cbbUserRole.Items.Add('STF EVABANG');
+    cbbUserRole.Items.Add('STF LATIHAN');
+    cbbUserRole.Items.Add('LO KEMHAN');
+    cbbUserRole.Items.Add('LO AANGKATD');
+    cbbUserRole.Items.Add('LO AL');
+    cbbUserRole.Items.Add('LO AU');
+    cbbUserRole.Items.Add('KASETUM');
     {$ENDREGION}
   end
   else if cbbSubRole.Text = 'KOGASGABLA' then
   begin
     {$REGION ' KOGASGABLA '}
-//    edtUserRole.Items.Add('PANGLIMA');
-//    edtUserRole.Items.Add('KEPALA STAF');
-//    edtUserRole.Items.Add('ASINTEL');
-//    edtUserRole.Items.Add('ASOPS');
-//    edtUserRole.Items.Add('ASRENA');
-//    edtUserRole.Items.Add('ASPERS');
-//    edtUserRole.Items.Add('ASLOG');
-//    edtUserRole.Items.Add('ASKOMLEK');
-//    edtUserRole.Items.Add('ASPOTMAR');
-//    edtUserRole.Items.Add('DANSATGASLA');
-//    edtUserRole.Items.Add('SATGASUD');
-//    edtUserRole.Items.Add('DAN UT PUKUL');
-//    edtUserRole.Items.Add('DAN UT INTAI');
-//    edtUserRole.Items.Add('DAN UT KAWAL');
-//    edtUserRole.Items.Add('DAN UT BANTU');
-//    edtUserRole.Items.Add('PASET');
+    cbbUserRole.Items.Add('PANGLIMA');
+    cbbUserRole.Items.Add('KEPALA STAF');
+    cbbUserRole.Items.Add('ASINTEL');
+    cbbUserRole.Items.Add('ASOPS');
+    cbbUserRole.Items.Add('ASRENA');
+    cbbUserRole.Items.Add('ASPERS');
+    cbbUserRole.Items.Add('ASLOG');
+    cbbUserRole.Items.Add('ASKOMLEK');
+    cbbUserRole.Items.Add('ASPOTMAR');
+    cbbUserRole.Items.Add('DANSATGASLA');
+    cbbUserRole.Items.Add('SATGASUD');
+    cbbUserRole.Items.Add('DAN UT PUKUL');
+    cbbUserRole.Items.Add('DAN UT INTAI');
+    cbbUserRole.Items.Add('DAN UT KAWAL');
+    cbbUserRole.Items.Add('DAN UT BANTU');
+    cbbUserRole.Items.Add('PASET');
     {$ENDREGION}
   end
   else if cbbSubRole.Text = 'KOGASGABFIB' then
   begin
     {$REGION ' KOGASGABFIB '}
-//    edtUserRole.Items.Add('PANGLIMA');
-//    edtUserRole.Items.Add('KEPALA STAS');
-//    edtUserRole.Items.Add('ASINTEL');
-//    edtUserRole.Items.Add('ASOPS');
-//    edtUserRole.Items.Add('ASRENA');
-//    edtUserRole.Items.Add('ASPERS');
-//    edtUserRole.Items.Add('ASLOG');
-//    edtUserRole.Items.Add('ASKOMLEK');
-//    edtUserRole.Items.Add('ASPOTMAR');
-//    edtUserRole.Items.Add('DANSATGASLA');
-//    edtUserRole.Items.Add('DAN PASRAT');
-//    edtUserRole.Items.Add('DAN SATGASUD');
-//    edtUserRole.Items.Add('DAN UT UDARA');
-//    edtUserRole.Items.Add('DAN UT TABIR');
-//    edtUserRole.Items.Add('DAN UT AJU');
-//    edtUserRole.Items.Add('DAN UT BANTU');
-//    edtUserRole.Items.Add('DAN UT ANGKT');
-//    edtUserRole.Items.Add('DAN UT INTAI');
-//    edtUserRole.Items.Add('PASET');
+    cbbUserRole.Items.Add('PANGLIMA');
+    cbbUserRole.Items.Add('KEPALA STAS');
+    cbbUserRole.Items.Add('ASINTEL');
+    cbbUserRole.Items.Add('ASOPS');
+    cbbUserRole.Items.Add('ASRENA');
+    cbbUserRole.Items.Add('ASPERS');
+    cbbUserRole.Items.Add('ASLOG');
+    cbbUserRole.Items.Add('ASKOMLEK');
+    cbbUserRole.Items.Add('ASPOTMAR');
+    cbbUserRole.Items.Add('DANSATGASLA');
+    cbbUserRole.Items.Add('DAN PASRAT');
+    cbbUserRole.Items.Add('DAN SATGASUD');
+    cbbUserRole.Items.Add('DAN UT UDARA');
+    cbbUserRole.Items.Add('DAN UT TABIR');
+    cbbUserRole.Items.Add('DAN UT AJU');
+    cbbUserRole.Items.Add('DAN UT BANTU');
+    cbbUserRole.Items.Add('DAN UT ANGKT');
+    cbbUserRole.Items.Add('DAN UT INTAI');
+    cbbUserRole.Items.Add('PASET');
     {$ENDREGION}
   end
   else if cbbSubRole.Text = 'PASRAT' then
   begin
     {$REGION ' PASRAT '}
-//    edtUserRole.Items.Add('DAN PASRAT');
-//    edtUserRole.Items.Add('WAD PASRAT');
-//    edtUserRole.Items.Add('ASINTEL');
-//    edtUserRole.Items.Add('ASOPS');
-//    edtUserRole.Items.Add('ASRENA');
-//    edtUserRole.Items.Add('ASPERS');
-//    edtUserRole.Items.Add('ASLOG');
-//    edtUserRole.Items.Add('ASKOMLEK');
-//    edtUserRole.Items.Add('ASPOTMAR');
-//    edtUserRole.Items.Add('DAN BRIF MAR');
-//    edtUserRole.Items.Add('PASET');
+    cbbUserRole.Items.Add('DAN PASRAT');
+    cbbUserRole.Items.Add('WAD PASRAT');
+    cbbUserRole.Items.Add('ASINTEL');
+    cbbUserRole.Items.Add('ASOPS');
+    cbbUserRole.Items.Add('ASRENA');
+    cbbUserRole.Items.Add('ASPERS');
+    cbbUserRole.Items.Add('ASLOG');
+    cbbUserRole.Items.Add('ASKOMLEK');
+    cbbUserRole.Items.Add('ASPOTMAR');
+    cbbUserRole.Items.Add('DAN BRIF MAR');
+    cbbUserRole.Items.Add('PASET');
     {$ENDREGION}
   end
   else if cbbSubRole.Text = 'KOGASRATMIN' then
   begin
     {$REGION ' KOGASRATMIN '}
-//    edtUserRole.Items.Add('PANGLIMA');
-//    edtUserRole.Items.Add('KEPALA STAF');
-//    edtUserRole.Items.Add('ASINTEL');
-//    edtUserRole.Items.Add('ASOPS');
-//    edtUserRole.Items.Add('ASRENA');
-//    edtUserRole.Items.Add('ASPERS');
-//    edtUserRole.Items.Add('ASLOG');
-//    edtUserRole.Items.Add('ASKOMLEK');
-//    edtUserRole.Items.Add('ASPOTMAR');
-//    edtUserRole.Items.Add('DAN SATGASLA');
-//    edtUserRole.Items.Add('DAN STGASRAT');
-//    edtUserRole.Items.Add('DANSATGASUD');
-//    edtUserRole.Items.Add('KATERMINAL');
-//    edtUserRole.Items.Add('PASET');
+    cbbUserRole.Items.Add('PANGLIMA');
+    cbbUserRole.Items.Add('KEPALA STAF');
+    cbbUserRole.Items.Add('ASINTEL');
+    cbbUserRole.Items.Add('ASOPS');
+    cbbUserRole.Items.Add('ASRENA');
+    cbbUserRole.Items.Add('ASPERS');
+    cbbUserRole.Items.Add('ASLOG');
+    cbbUserRole.Items.Add('ASKOMLEK');
+    cbbUserRole.Items.Add('ASPOTMAR');
+    cbbUserRole.Items.Add('DAN SATGASLA');
+    cbbUserRole.Items.Add('DAN STGASRAT');
+    cbbUserRole.Items.Add('DANSATGASUD');
+    cbbUserRole.Items.Add('KATERMINAL');
+    cbbUserRole.Items.Add('PASET');
     {$ENDREGION}
   end
   else if cbbSubRole.Text = 'KOGASHANTAI' then
   begin
     {$REGION ' KOGASHANTAI '}
-//    edtUserRole.Items.Add('PANGLIMA');
-//    edtUserRole.Items.Add('KEPALA STAF');
-//    edtUserRole.Items.Add('ASINTEL');
-//    edtUserRole.Items.Add('ASOPS');
-//    edtUserRole.Items.Add('ASRENA');
-//    edtUserRole.Items.Add('ASPERS');
-//    edtUserRole.Items.Add('ASLOG');
-//    edtUserRole.Items.Add('ASKOMLEK');
-//    edtUserRole.Items.Add('ASPOTMAR');
-//    edtUserRole.Items.Add('DAN SATGASLA');
-//    edtUserRole.Items.Add('DAN STGASRAT');
-//    edtUserRole.Items.Add('DAN SATGASUD');
-//    edtUserRole.Items.Add('PASET');
+    cbbUserRole.Items.Add('PANGLIMA');
+    cbbUserRole.Items.Add('KEPALA STAF');
+    cbbUserRole.Items.Add('ASINTEL');
+    cbbUserRole.Items.Add('ASOPS');
+    cbbUserRole.Items.Add('ASRENA');
+    cbbUserRole.Items.Add('ASPERS');
+    cbbUserRole.Items.Add('ASLOG');
+    cbbUserRole.Items.Add('ASKOMLEK');
+    cbbUserRole.Items.Add('ASPOTMAR');
+    cbbUserRole.Items.Add('DAN SATGASLA');
+    cbbUserRole.Items.Add('DAN STGASRAT');
+    cbbUserRole.Items.Add('DAN SATGASUD');
+    cbbUserRole.Items.Add('PASET');
     {$ENDREGION}
   end
   else if cbbSubRole.Text = 'SATGASDUK' then
   begin
     {$REGION ' SATGASDUK '}
-//    edtUserRole.Items.Add('INTELEJEN');
-//    edtUserRole.Items.Add('MINLOG');
-//    edtUserRole.Items.Add('KOMLEK');
-//    edtUserRole.Items.Add('PERNIKA');
-//    edtUserRole.Items.Add('HUKUM');
-//    edtUserRole.Items.Add('POM');
-//    edtUserRole.Items.Add('PENERANGAN');
-//    edtUserRole.Items.Add('PSIKOLOGI');
-//    edtUserRole.Items.Add('KESEHATAN');
-//    edtUserRole.Items.Add('PERS');
-//    edtUserRole.Items.Add('INFO');
-//    edtUserRole.Items.Add('BAK');
-//    edtUserRole.Items.Add('SAR');
-//    edtUserRole.Items.Add('ANGKT UDARA');
-//    edtUserRole.Items.Add('ANGKT LAUT');
-//    edtUserRole.Items.Add('PASSUS GAB');
-//    edtUserRole.Items.Add('TERITORIAL');
+    cbbUserRole.Items.Add('INTELEJEN');
+    cbbUserRole.Items.Add('MINLOG');
+    cbbUserRole.Items.Add('KOMLEK');
+    cbbUserRole.Items.Add('PERNIKA');
+    cbbUserRole.Items.Add('HUKUM');
+    cbbUserRole.Items.Add('POM');
+    cbbUserRole.Items.Add('PENERANGAN');
+    cbbUserRole.Items.Add('PSIKOLOGI');
+    cbbUserRole.Items.Add('KESEHATAN');
+    cbbUserRole.Items.Add('PERS');
+    cbbUserRole.Items.Add('INFO');
+    cbbUserRole.Items.Add('BAK');
+    cbbUserRole.Items.Add('SAR');
+    cbbUserRole.Items.Add('ANGKT UDARA');
+    cbbUserRole.Items.Add('ANGKT LAUT');
+    cbbUserRole.Items.Add('PASSUS GAB');
+    cbbUserRole.Items.Add('TERITORIAL');
     {$ENDREGION}
   end
 end;
@@ -430,40 +528,60 @@ procedure TfrmSummaryUserRole.cbbRoleChange(Sender: TObject);
 begin
   AddcbbSubRole;
   cbbSubRole.ItemIndex := 0;
-  AddedtUserRole;
-//  edtUserRole.ItemIndex := 0;
+  AddCbbUserRole;
+  cbbUserRole.ItemIndex := 0;
 
   btnOk.Enabled := True;
 end;
 
 procedure TfrmSummaryUserRole.cbbSubRoleChange(Sender: TObject);
 begin
-  AddedtUserRole;
-//  edtUserRole.ItemIndex := 0;
+  AddCbbUserRole;
+  cbbUserRole.ItemIndex := 0;
 
   btnOk.Enabled := True;
 end;
 
 procedure TfrmSummaryUserRole.UpdateUserRoleData;
 begin
-  with FSelectedUserRole.FData do
+  AddCbbRole;
+
+  with FSelectedUserRole do
   begin
-    cbbRole.Text := SetOrganisasiTugasToString(TOrganisasiTugas(RoleIndex));
+    if FData.UserRoleIndex = 0 then
+    begin
+      if cbbRole.Items.Count > 0 then
+        cbbRole.ItemIndex := 0;
 
-    AddCbbSubRole;
-    cbbSubRole.Text := SetSubOrganisasiTugasToString(TSubOrganisasiTugas(SubRoleIndex));
+      AddCbbSubRole;
 
-    AddedtUserRole;
-    edtUserRole.Text := UserRoleIdentifier;
+      if cbbSubRole.Items.Count > 0 then
+        cbbSubRole.ItemIndex := 0;
 
-//    chkPerencanaan.Checked := Boolean(Perencanaan);
-//    chkPersiapan.Checked := Boolean(Persiapan);
-//    chkPelaksanaan.Checked := Boolean(Pelaksanaan);
-//    chkPengakhiran.Checked := Boolean(Pengakhiran);
+      AddCbbUserRole;
+      cbbUserRole.ItemIndex := 0;
 
-    edtUsername.Text := Username;
-    edtPassword.Text := Password;
-    edtConfirmPassword.Text := Password;
+      edtUsername.Text := '';
+      edtPassword.Text := '';
+      edtConfirmPassword.Text := '';
+    end
+    else
+    begin
+      cbbRole.Text := GetRoleAcronim(FData.RoleIndex);
+
+      AddCbbSubRole;
+      cbbSubRole.Text := GetSubRoleAcronim(FData.SubRoleIndex);
+
+      AddCbbUserRole;
+      cbbUserRole.Text := FData.UserRoleAcronim;
+      edtIdentifier.Text := FData.UserRoleIdentifier;
+
+      edtUsername.Text := FData.Username;
+      edtPassword.Text := FData.Password;
+      edtConfirmPassword.Text := FData.Password;
+    end;
+
+    LastName := cbbSubRole.Text;
   end;
 end;
 
@@ -483,7 +601,7 @@ begin
   end;
 
   {Data ada yg kosong}
-  if (cbbRole.Text = '') or (cbbSubRole.Text = '') or (edtUserRole.Text = '') or
+  if (cbbRole.Text = '') or (cbbSubRole.Text = '') or (cbbUserRole.Text = '') or
      (edtUsername.Text = '') or (edtPassword.Text = '') then
   begin
     ShowMessage('Inputan data tidak lengkap');

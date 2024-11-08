@@ -266,8 +266,8 @@ type
   TDSiWindowsVersion  = (wvUnknown, wvWin31, wvWin95, wvWin95OSR2, wvWin98, wvWin98SE, wvWinME, wvWin9x, wvWinNT3, wvWinNT4,
                           wvWin2000, wvWinXP, wvWinNT, wvWinServer2003, wvWinVista);
   TConsoleGroup       = (cgOfficial, cgSituationBoard);
-  TOrganisasiTugas    = (otINWO, otNTWO, otATWO, otLFWO, otALWO, otCDWO, otSUWO);
-  TSubOrganisasiTugas = (sotKPL, sotSTAFLAT, sotWASDAL, sotKOGAB, sotKOGASGABLA, sotKOGASGABFIB, sotPASRAT, sotKOGASRATMIN, sotKOGASHANTAI, sotSATGASDUK);
+  TOrganisasiTugas    = (otINWO, otNTWO, otATWO, otLFWO, otALWO, otCDWO, otSUWO, otLAIN);
+  TSubOrganisasiTugas = (sotKPL, sotSTAFLAT, sotWASDAL, sotKOGAB, sotKOGASGABLA, sotKOGASGABFIB, sotPASRAT, sotKOGASRATMIN, sotKOGASHANTAI, sotSATGASDUK, sotLAIN);
 
   TFileExtention      = (feWord, feExcel, fePPT, fePaint);
 
@@ -396,6 +396,7 @@ begin
     sotKOGASRATMIN : result := 'KOGASRATMIN';
     sotKOGASHANTAI : result := 'KOGASHANTAI';
     sotSATGASDUK : result := 'SATGASDUK';
+    sotLAIN : Result := 'LAIN-LAIN'
   end;
 end;
 

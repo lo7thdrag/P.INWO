@@ -3,8 +3,8 @@ object frmSummaryUserRole: TfrmSummaryUserRole
   Top = 0
   BorderStyle = bsNone
   Caption = 'frmSummaryUserRole'
-  ClientHeight = 345
-  ClientWidth = 510
+  ClientHeight = 332
+  ClientWidth = 572
   Color = 1119507
   TransparentColor = True
   TransparentColorValue = 1119507
@@ -15,14 +15,16 @@ object frmSummaryUserRole: TfrmSummaryUserRole
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object ImgBackgroundForm: TImage
     Left = 0
     Top = 0
-    Width = 510
-    Height = 345
+    Width = 572
+    Height = 332
     Align = alClient
     Picture.Data = {
       0954506E67496D61676589504E470D0A1A0A0000000D49484452000004930000
@@ -14147,7 +14149,7 @@ object frmSummaryUserRole: TfrmSummaryUserRole
     ExplicitHeight = 353
   end
   object lblPlatform: TLabel
-    Left = 8
+    Left = 3
     Top = 44
     Width = 40
     Height = 136
@@ -14164,8 +14166,8 @@ object frmSummaryUserRole: TfrmSummaryUserRole
     Transparent = True
   end
   object btnOk: TImage
-    Left = 265
-    Top = 278
+    Left = 336
+    Top = 280
     Width = 100
     Height = 30
     Cursor = crHandPoint
@@ -14199,8 +14201,8 @@ object frmSummaryUserRole: TfrmSummaryUserRole
     OnClick = btnOkClick
   end
   object btnCancel: TImage
-    Left = 368
-    Top = 278
+    Left = 443
+    Top = 280
     Width = 100
     Height = 30
     Cursor = crHandPoint
@@ -14449,18 +14451,18 @@ object frmSummaryUserRole: TfrmSummaryUserRole
     Transparent = True
   end
   object pnlUserRole: TPanel
-    Left = 62
+    Left = 47
     Top = 43
-    Width = 406
+    Width = 498
     Height = 229
     BevelOuter = bvNone
     Color = 2235405
     ParentBackground = False
     TabOrder = 0
     object Label1: TLabel
-      Left = 18
-      Top = 120
-      Width = 67
+      Left = 26
+      Top = 136
+      Width = 119
       Height = 18
       Caption = 'Username'
       Font.Charset = ANSI_CHARSET
@@ -14471,8 +14473,8 @@ object frmSummaryUserRole: TfrmSummaryUserRole
       ParentFont = False
     end
     object Label11: TLabel
-      Left = 18
-      Top = 182
+      Left = 26
+      Top = 192
       Width = 119
       Height = 18
       Caption = 'Confirm Password'
@@ -14484,8 +14486,8 @@ object frmSummaryUserRole: TfrmSummaryUserRole
       ParentFont = False
     end
     object Label12: TLabel
-      Left = 163
-      Top = 182
+      Left = 154
+      Top = 192
       Width = 4
       Height = 18
       Caption = ':'
@@ -14497,9 +14499,9 @@ object frmSummaryUserRole: TfrmSummaryUserRole
       ParentFont = False
     end
     object Label2: TLabel
-      Left = 18
-      Top = 151
-      Width = 64
+      Left = 26
+      Top = 164
+      Width = 119
       Height = 18
       Caption = 'Password'
       Font.Charset = ANSI_CHARSET
@@ -14510,9 +14512,9 @@ object frmSummaryUserRole: TfrmSummaryUserRole
       ParentFont = False
     end
     object Label4: TLabel
-      Left = 18
-      Top = 89
-      Width = 62
+      Left = 26
+      Top = 80
+      Width = 119
       Height = 18
       Caption = 'User Role'
       Font.Charset = ANSI_CHARSET
@@ -14523,9 +14525,9 @@ object frmSummaryUserRole: TfrmSummaryUserRole
       ParentFont = False
     end
     object Label5: TLabel
-      Left = 18
-      Top = 25
-      Width = 29
+      Left = 26
+      Top = 23
+      Width = 119
       Height = 18
       Caption = 'Role'
       Font.Charset = ANSI_CHARSET
@@ -14536,8 +14538,8 @@ object frmSummaryUserRole: TfrmSummaryUserRole
       ParentFont = False
     end
     object Label6: TLabel
-      Left = 163
-      Top = 120
+      Left = 154
+      Top = 136
       Width = 4
       Height = 18
       Caption = ':'
@@ -14549,8 +14551,8 @@ object frmSummaryUserRole: TfrmSummaryUserRole
       ParentFont = False
     end
     object Label7: TLabel
-      Left = 163
-      Top = 151
+      Left = 154
+      Top = 164
       Width = 4
       Height = 18
       Caption = ':'
@@ -14562,10 +14564,10 @@ object frmSummaryUserRole: TfrmSummaryUserRole
       ParentFont = False
     end
     object Label8: TLabel
-      Left = 18
-      Top = 58
-      Width = 57
-      Height = 36
+      Left = 26
+      Top = 52
+      Width = 119
+      Height = 18
       Caption = 'Sub Role'#13#10
       Font.Charset = ANSI_CHARSET
       Font.Color = clWhite
@@ -14575,8 +14577,8 @@ object frmSummaryUserRole: TfrmSummaryUserRole
       ParentFont = False
     end
     object Label9: TLabel
-      Left = 163
-      Top = 89
+      Left = 154
+      Top = 80
       Width = 4
       Height = 18
       Caption = ':'
@@ -14588,8 +14590,8 @@ object frmSummaryUserRole: TfrmSummaryUserRole
       ParentFont = False
     end
     object Label13: TLabel
-      Left = 163
-      Top = 25
+      Left = 154
+      Top = 23
       Width = 4
       Height = 18
       Caption = ':'
@@ -14601,8 +14603,8 @@ object frmSummaryUserRole: TfrmSummaryUserRole
       ParentFont = False
     end
     object btnShowPassword: TImage
-      Left = 313
-      Top = 154
+      Left = 316
+      Top = 167
       Width = 20
       Height = 12
       Cursor = crHandPoint
@@ -14637,8 +14639,8 @@ object frmSummaryUserRole: TfrmSummaryUserRole
       OnClick = btnShowPasswordClick
     end
     object btnShowPassword2: TImage
-      Left = 313
-      Top = 185
+      Left = 316
+      Top = 195
       Width = 20
       Height = 12
       Cursor = crHandPoint
@@ -14673,8 +14675,8 @@ object frmSummaryUserRole: TfrmSummaryUserRole
       OnClick = btnShowPassword2Click
     end
     object Label14: TLabel
-      Left = 313
-      Top = 122
+      Left = 316
+      Top = 138
       Width = 63
       Height = 13
       Caption = '* max char 25'
@@ -14686,8 +14688,8 @@ object frmSummaryUserRole: TfrmSummaryUserRole
       ParentFont = False
     end
     object btnEditRole: TImage
-      Left = 353
-      Top = 23
+      Left = 288
+      Top = 21
       Width = 22
       Height = 22
       Cursor = crHandPoint
@@ -14759,8 +14761,8 @@ object frmSummaryUserRole: TfrmSummaryUserRole
       OnClick = btnEditRoleClick
     end
     object btnEditSubRole: TImage
-      Left = 353
-      Top = 55
+      Left = 288
+      Top = 50
       Width = 22
       Height = 22
       Cursor = crHandPoint
@@ -14833,8 +14835,34 @@ object frmSummaryUserRole: TfrmSummaryUserRole
       OnClick = btnEditSubRoleClick
     end
     object Label3: TLabel
-      Left = 163
-      Top = 58
+      Left = 154
+      Top = 52
+      Width = 4
+      Height = 18
+      Caption = ':'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWhite
+      Font.Height = -16
+      Font.Name = 'Berlin Sans FB'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label10: TLabel
+      Left = 26
+      Top = 108
+      Width = 57
+      Height = 18
+      Caption = 'Identifier'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWhite
+      Font.Height = -16
+      Font.Name = 'Berlin Sans FB'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label15: TLabel
+      Left = 154
+      Top = 108
       Width = 4
       Height = 18
       Caption = ':'
@@ -14846,9 +14874,9 @@ object frmSummaryUserRole: TfrmSummaryUserRole
       ParentFont = False
     end
     object cbbRole: TComboBox
-      Left = 186
-      Top = 23
-      Width = 161
+      Left = 172
+      Top = 21
+      Width = 110
       Height = 23
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -14858,19 +14886,11 @@ object frmSummaryUserRole: TfrmSummaryUserRole
       ParentFont = False
       TabOrder = 0
       OnChange = cbbRoleChange
-      Items.Strings = (
-        'Integrated Naval Warfare Operations'
-        'Naval Tactical Warfare Operations'
-        'Amphibious Tactical Warfare Operations'
-        'Landing Forces Warfare Operations'
-        'Administrative Landing Warfare Operations'
-        'Coastal Defence Warfare Operations'
-        'Supporting Unit Warfare Operations')
     end
     object cbbSubRole: TComboBox
-      Left = 186
-      Top = 55
-      Width = 161
+      Left = 172
+      Top = 49
+      Width = 110
       Height = 23
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -14882,9 +14902,9 @@ object frmSummaryUserRole: TfrmSummaryUserRole
       OnChange = cbbSubRoleChange
     end
     object edtConfirmPassword: TEdit
-      Left = 186
-      Top = 180
-      Width = 121
+      Left = 172
+      Top = 189
+      Width = 138
       Height = 23
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -14898,9 +14918,9 @@ object frmSummaryUserRole: TfrmSummaryUserRole
       OnChange = edtChange
     end
     object edtPassword: TEdit
-      Left = 186
-      Top = 149
-      Width = 121
+      Left = 172
+      Top = 161
+      Width = 138
       Height = 23
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -14914,9 +14934,9 @@ object frmSummaryUserRole: TfrmSummaryUserRole
       OnChange = edtChange
     end
     object edtUsername: TEdit
-      Left = 186
-      Top = 118
-      Width = 121
+      Left = 172
+      Top = 133
+      Width = 138
       Height = 23
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -14928,20 +14948,33 @@ object frmSummaryUserRole: TfrmSummaryUserRole
       TabOrder = 2
       OnChange = edtChange
     end
-    object edtUserRole: TEdit
-      Left = 186
-      Top = 87
-      Width = 121
+    object edtIdentifier: TEdit
+      Left = 172
+      Top = 105
+      Width = 301
       Height = 23
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
       Font.Name = 'Berlin Sans FB'
       Font.Style = []
-      MaxLength = 25
       ParentFont = False
       TabOrder = 5
       OnChange = edtChange
+    end
+    object cbbUserRole: TComboBox
+      Left = 172
+      Top = 77
+      Width = 138
+      Height = 23
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Berlin Sans FB'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 6
+      OnChange = cbbSubRoleChange
     end
   end
 end

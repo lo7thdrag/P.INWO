@@ -47,6 +47,7 @@ type
     function GetRoleInSubRole(const RoleID: Integer): Integer;
 
     function GetSubRoleByName(const aName: string): Integer; overload;
+    function GetSubRoleInUserRole(const RoleID: Integer): Integer;
 
     function GetSearchUserRole(var FilterIndex : Integer ; SearchContent : string ; aList: TList ): Integer;
     function GetUserRoleFilterByOrganisasiTugas(var rec : TRecUser_Role): Integer;
@@ -1090,6 +1091,27 @@ begin
   end;
 end;
 
+function TdmINWO.GetSubRoleInUserRole(const RoleID: Integer): Integer;
+var
+  i : Integer;
+  rec: TSubRole;
+begin
+  Result := 0;
+
+  if not ZConn.Connected then
+    exit;
+
+  with ZQ do
+  begin
+    SQL.Clear;
+    SQL.Add('SELECT * FROM User_Role_Definition');
+    SQL.Add('WHERE SubRoleIndex = '+ IntToStr(RoleID));
+    Open;
+
+    Result := RecordCount;
+  end;
+end;
+
 function TdmINWO.GetRoleInSubRole(const RoleID: Integer): Integer;
 var
   i : Integer;
@@ -1102,10 +1124,9 @@ begin
 
   with ZQ do
   begin
-    Close;
     SQL.Clear;
-    SQL.Add('DELETE FROM SubRole_Definition ');
-    SQL.Add('WHERE (SubRoleIndex = ' + IntToStr(RoleID) + ')');
+    SQL.Add('SELECT * FROM SubRole_Definition');
+    SQL.Add('WHERE RoleIndex = '+ IntToStr(RoleID));
     Open;
 
     Result := RecordCount;

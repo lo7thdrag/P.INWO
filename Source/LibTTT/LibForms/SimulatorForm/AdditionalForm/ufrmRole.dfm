@@ -2,8 +2,8 @@ object frmSummaryRole: TfrmSummaryRole
   Left = 0
   Top = 0
   BorderStyle = bsNone
-  ClientHeight = 439
-  ClientWidth = 500
+  ClientHeight = 364
+  ClientWidth = 300
   Color = 1119507
   TransparentColor = True
   TransparentColorValue = 1119507
@@ -15,14 +15,15 @@ object frmSummaryRole: TfrmSummaryRole
   OldCreateOrder = False
   Position = poScreenCenter
   OnCreate = FormCreate
+  OnDestroy = FormDestroy
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object ImgBackgroundForm: TImage
     Left = 0
     Top = 0
-    Width = 500
-    Height = 439
+    Width = 300
+    Height = 364
     Align = alClient
     Picture.Data = {
       0954506E67496D61676589504E470D0A1A0A0000000D49484452000004930000
@@ -14143,14 +14144,12 @@ object frmSummaryRole: TfrmSummaryRole
       2F88F2FF03BA682A148F9ACFEF0000000049454E44AE426082}
     Stretch = True
     Transparent = True
-    OnClick = btnCloseClick
-    ExplicitTop = 8
-    ExplicitWidth = 621
-    ExplicitHeight = 425
+    ExplicitWidth = 301
+    ExplicitHeight = 385
   end
   object lblPlatform: TLabel
-    Left = 8
-    Top = 79
+    Left = 3
+    Top = 44
     Width = 40
     Height = 61
     Caption = 'Role'
@@ -14166,7 +14165,7 @@ object frmSummaryRole: TfrmSummaryRole
     Transparent = True
   end
   object btnNew: TImage
-    Left = 182
+    Left = 171
     Top = 41
     Width = 30
     Height = 31
@@ -14184,11 +14183,12 @@ object frmSummaryRole: TfrmSummaryRole
     ShowHint = True
     Stretch = True
     Transparent = True
+    Visible = False
     OnClick = btnNewClick
   end
   object btnOk: TImage
-    Left = 249
-    Top = 138
+    Left = 200
+    Top = 137
     Width = 100
     Height = 30
     Cursor = crHandPoint
@@ -14222,8 +14222,8 @@ object frmSummaryRole: TfrmSummaryRole
     OnClick = btnOkClick
   end
   object btnCancel: TImage
-    Left = 355
-    Top = 138
+    Left = 306
+    Top = 137
     Width = 100
     Height = 30
     Cursor = crHandPoint
@@ -14261,7 +14261,7 @@ object frmSummaryRole: TfrmSummaryRole
     OnClick = btnCancelClick
   end
   object btnDelete: TImage
-    Left = 252
+    Left = 206
     Top = 41
     Width = 30
     Height = 31
@@ -14295,10 +14295,11 @@ object frmSummaryRole: TfrmSummaryRole
     ShowHint = True
     Stretch = True
     Transparent = True
+    Visible = False
     OnClick = btnDeleteClick
   end
   object btnEdit: TImage
-    Left = 217
+    Left = 241
     Top = 41
     Width = 30
     Height = 31
@@ -14329,9 +14330,9 @@ object frmSummaryRole: TfrmSummaryRole
     OnClick = btnEditClick
   end
   object btnClose: TLabel
-    Left = 144
-    Top = 392
-    Width = 49
+    Left = 138
+    Top = 321
+    Width = 39
     Height = 17
     Cursor = crHandPoint
     Caption = 'CLOSE'
@@ -14344,10 +14345,10 @@ object frmSummaryRole: TfrmSummaryRole
     OnClick = btnCloseClick
   end
   object lstRole: TListBox
-    Left = 54
+    Left = 43
     Top = 79
     Width = 228
-    Height = 306
+    Height = 234
     BevelInner = bvNone
     BevelOuter = bvNone
     BorderStyle = bsNone
@@ -14362,9 +14363,9 @@ object frmSummaryRole: TfrmSummaryRole
     OnClick = lstRoleClick
   end
   object pnlRole: TPanel
-    Left = 46
+    Left = 43
     Top = 41
-    Width = 401
+    Width = 363
     Height = 90
     BevelOuter = bvNone
     Color = 2235405
@@ -14422,24 +14423,23 @@ object frmSummaryRole: TfrmSummaryRole
       Font.Style = []
       ParentFont = False
     end
-    object edtRole: TEdit
+    object edtIdentifier: TEdit
       Left = 105
-      Top = 20
-      Width = 121
+      Top = 47
+      Width = 240
       Height = 23
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
       Font.Name = 'Berlin Sans FB'
       Font.Style = []
-      MaxLength = 25
       ParentFont = False
       TabOrder = 0
     end
-    object edtIdentifier: TEdit
+    object cbbRole: TComboBox
       Left = 105
-      Top = 47
-      Width = 277
+      Top = 20
+      Width = 110
       Height = 23
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -14448,6 +14448,15 @@ object frmSummaryRole: TfrmSummaryRole
       Font.Style = []
       ParentFont = False
       TabOrder = 1
+      OnChange = cbbRoleChange
+      Items.Strings = (
+        'INWO'
+        'NTWO'
+        'ATWO'
+        'LFWO'
+        'ALWO'
+        'CDWO'
+        'SUWO')
     end
   end
 end

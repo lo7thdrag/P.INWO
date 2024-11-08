@@ -18,7 +18,6 @@ type
     Label16: TLabel;
     Label17: TLabel;
     Label18: TLabel;
-    edtRole: TEdit;
     edtIdentifier: TEdit;
     lstRole: TListBox;
     btnDelete: TImage;
@@ -26,6 +25,7 @@ type
     btnNew: TImage;
     Label1: TLabel;
     btnClose: TLabel;
+    cbbRole: TComboBox;
     procedure FormShow(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
     procedure btnNewClick(Sender: TObject);
@@ -37,6 +37,8 @@ type
     procedure lstRoleClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnOkClick(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure cbbRoleChange(Sender: TObject);
 
   private
     FSelectedRole : TRole;
@@ -45,6 +47,7 @@ type
     function CekInput: Boolean;
     procedure SetAvailableSize;
     procedure SetSummarySize;
+    procedure UpdateRoleData;
 
   public
     LastName : string;
@@ -58,7 +61,6 @@ implementation
 
 {$R *.dfm}
 
-
 procedure TfrmSummaryRole.btnCancelClick(Sender: TObject);
 begin
   SetAvailableSize;
@@ -70,11 +72,7 @@ begin
   begin
     SetSummarySize;
 
-    if Assigned(FSelectedRole) then
-    begin
-      edtRole.Text := FSelectedRole.FData.RoleAcronim;
-      edtIdentifier.Text := FSelectedRole.FData.RoleIdentifier;
-    end;
+    UpdateRoleData;
   end;
 end;
 
@@ -82,25 +80,22 @@ procedure TfrmSummaryRole.btnNewClick(Sender: TObject);
 begin
   SetSummarySize;
 
-  edtRole.Text := '';
-  edtIdentifier.Text := '';
+  FSelectedRole := TRole.Create;
+  UpdateRoleData;
 end;
 
 procedure TfrmSummaryRole.btnOkClick(Sender: TObject);
 begin
-  FSelectedRole := TRole.Create;
-
   with FSelectedRole do
   begin
     if not CekInput then
     begin
-      ShowMessage('Incomplete data input');
       Exit;
     end;
 
     {$REGION ' General '}
-    LastName := edtRole.Text;
-    FData.RoleAcronim := edtRole.Text;
+    LastName := cbbRole.Text;
+    FData.RoleAcronim := cbbRole.Text;
     FData.RoleIdentifier := edtIdentifier.Text;
     {$ENDREGION}
 
@@ -120,10 +115,14 @@ begin
     end;
   end;
 
-  FSelectedRole.Free;
-
   UpdateListRole;
   SetAvailableSize;
+end;
+
+procedure TfrmSummaryRole.cbbRoleChange(Sender: TObject);
+begin
+  if cbbRole.ItemIndex = -1 then
+    cbbRole.ItemIndex := 0;
 end;
 
 function TfrmSummaryRole.CekInput: Boolean;
@@ -133,43 +132,43 @@ begin
   Result := False;
 
   {Jika inputan class name kosong}
-  if (edtRole.Text = '') or (edtIdentifier.Text = '')then
+  if (cbbRole.Text = '') or (edtIdentifier.Text = '')then
   begin
-    ShowMessage('Please insert class name');
+    ShowMessage('Input cannot be empty');
     Exit;
   end;
 
   {Jika berisi spasi semua}
-  if Copy(edtRole.Text, 1, 1) = ' ' then
+  if Copy(cbbRole.Text, 1, 1) = ' ' then
   begin
-    chkSpace := Length(edtRole.Text);
+    chkSpace := Length(cbbRole.Text);
     numSpace := 0;
 
     for i := 1 to chkSpace do
     begin
-      if edtRole.Text[i] = #32 then
+      if cbbRole.Text[i] = #32 then
       numSpace := numSpace + 1;
     end;
 
     if chkSpace = numSpace then
     begin
-      ShowMessage('Please use another class name');
+      ShowMessage('Please use another role name');
       Exit;
     end;
   end;
 
   {Jika Class Name sudah ada}
-  if (dmINWO.GetRoleByName(edtRole.Text)>0) then
+  if (dmINWO.GetRoleByName(cbbRole.Text)>0) then
   begin
     {Jika inputan baru}
     if FSelectedRole.FData.RoleIndex = 0 then
     begin
-      ShowMessage('Please use another class name');
+      ShowMessage('Please use another role name');
       Exit;
     end
-    else if LastName <> edtRole.Text then
+    else if LastName <> cbbRole.Text then
     begin
-      ShowMessage('Please use another class name');
+      ShowMessage('Please use another role name');
       Exit;
     end;
   end;
@@ -211,6 +210,14 @@ begin
   FRoleList := TList.Create;
 end;
 
+procedure TfrmSummaryRole.FormDestroy(Sender: TObject);
+begin
+  FRoleList := TList.Create;
+
+  if Assigned(FSelectedRole) then
+    FSelectedRole.Free;
+end;
+
 procedure TfrmSummaryRole.FormShow(Sender: TObject);
 begin
   UpdateListRole;
@@ -241,14 +248,33 @@ begin
   end;
 end;
 
+procedure TfrmSummaryRole.UpdateRoleData;
+begin
+  with FSelectedRole do
+  begin
+    if FData.RoleIndex = 0 then
+    begin
+      cbbRole.ItemIndex := 0;
+      edtIdentifier.Text := '';
+    end
+    else
+    begin
+      cbbRole.Text := FData.RoleAcronim;
+      edtIdentifier.Text := FData.RoleIdentifier;
+    end;
+
+    LastName := cbbRole.Text;
+  end;
+end;
+
 procedure TfrmSummaryRole.SetAvailableSize;
 begin
-  Width := 321;
-  Height := 425;
+  Width := 300;
+  Height := 356;
 
-  btnNew.Visible := True;
+//  btnNew.Visible := True;
   btnEdit.Visible := True;
-  btnDelete.Visible := True;
+//  btnDelete.Visible := True;
   lstRole.Visible := True;
 
   pnlRole.Visible := False;
@@ -258,8 +284,8 @@ end;
 
 procedure TfrmSummaryRole.SetSummarySize;
 begin
-  Width := 484;
-  Height := 211;
+  Width := 432;
+  Height := 187;
 
   btnNew.Visible := False;
   btnEdit.Visible := False;
