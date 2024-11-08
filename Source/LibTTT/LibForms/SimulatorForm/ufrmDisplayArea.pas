@@ -1795,25 +1795,29 @@ begin
   if Assigned(FSelectedUserChat) then
   begin
     SimManager.SimChatting.GetChattingBySending(simMgrClient.MyConsoleData.UserRoleData.UserRoleIndex, IdSender, tempList);
-
+//    SimManager.SimChatting.GetChattingByUserRole(simMgrClient.MyConsoleData.UserRoleData.UserRoleIndex, tempList);
     for i := 0 to tempList.Count - 1 do
     begin
       chattingTemp := tempList.Items[i];
 
-      if chattingTemp.IdUserRoleReceive = simMgrClient.MyConsoleData.UserRoleData.UserRoleIndex then
+      if chattingTemp.IdUserRoleSending = simMgrClient.MyConsoleData.UserRoleData.UserRoleIndex then
       begin
         mmoChat.Font.Color := clBlack;
         mmoChat.Lines.Add('You :');
+        mmoChat.Lines.Add('/n');
+        mmoChat.Lines.Add(chattingTemp.ChatMessage);
+        mmoChat.Lines.Add('/n');
       end
-      else
+      else if (chattingTemp.IdUserRoleReceive = simMgrClient.MyConsoleData.UserRoleData.UserRoleIndex)
+      and (chattingTemp.IdUserRoleSending = IdSender) then
       begin
         mmoChat.Font.Color := clBlue;
-        mmoChat.Lines.Add(FSelectedUserChat.FData.UserRoleIdentifier + ' :');
+//        mmoChat.Lines.Add(FSelectedUserChat.FData.UserRoleIdentifier + ' :');
+        mmoChat.Lines.Add(IntToStr(IdSender) + ' :');
+        mmoChat.Lines.Add('/n');
+        mmoChat.Lines.Add(chattingTemp.ChatMessage);
+        mmoChat.Lines.Add('/n');
       end;
-
-      mmoChat.Lines.Add('/n');
-      mmoChat.Lines.Add(chattingTemp.ChatMessage);
-      mmoChat.Lines.Add('/n');
 
 
   //    userRoleTemp := SimUserRole.getUserRoleByID(rec.UserRoleId);
