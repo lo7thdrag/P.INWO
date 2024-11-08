@@ -17,6 +17,7 @@ type
 
     FShapeID  : Integer;
     FTabSituationBoardID  : Integer;
+    FChatId : Integer;
 
     procedure FGameThread_OnTerminate(sender: TObject);
     procedure FGameThread_OnRunning(const dt: double); virtual;
@@ -68,6 +69,7 @@ type
 
     function GetSerialTabSituationBoardID : Integer;
     function GetSerialShapeID : Integer;
+    function GetSerialChatID : Integer;
 
     procedure GameStart; override;
     procedure GamePause; override;
@@ -97,6 +99,7 @@ begin
 
   FShapeID := 0;
   FTabSituationBoardID := 0;
+  FChatId := 0;
 
   FGameThread.Interval := 10;
   FGameThread.OnRunning   := FGameThread_OnRunning;
@@ -681,6 +684,8 @@ begin
   case rec.OrderID of
     SEND_CHAT :
     begin
+      chatTemp := TChatting.Create;
+      chatTemp.IdChat := GetSerialChatID;
       chatTemp.IdUserRoleSending := rec.SenderUserRoleId;
       chatTemp.IdUserRoleReceive := rec.ReceiverUserRoleId;
       chatTemp.ChatMessage := rec.ChatMessage;
@@ -731,6 +736,12 @@ begin
     Result := True
   else
     Result := False;
+end;
+
+function TT3SimManager.GetSerialChatID: Integer;
+begin
+  Result := FChatId;
+  Inc(FChatId);
 end;
 
 function TT3SimManager.GetSerialShapeID: Integer;
