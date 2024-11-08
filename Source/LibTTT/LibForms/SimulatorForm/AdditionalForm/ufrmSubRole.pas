@@ -31,6 +31,7 @@ type
     Label1: TLabel;
     edtIdentifier: TEdit;
     btnClose: TImage;
+    Label2: TLabel;
     procedure FormShow(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
     procedure btnNewClick(Sender: TObject);

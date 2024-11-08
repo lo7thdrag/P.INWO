@@ -14408,22 +14408,20 @@ object frmSubRole: TfrmSubRole
     Transparent = True
     OnClick = btnDeleteClick
   end
-  object lstSubRole: TListBox
-    Left = 66
-    Top = 75
-    Width = 228
-    Height = 282
-    BevelInner = bvNone
-    BevelOuter = bvNone
-    BorderStyle = bsNone
-    Color = 2235405
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWhite
-    Font.Height = -13
-    Font.Name = 'Tahoma'
-    Font.Style = []
+  object Label2: TLabel
+    Left = 144
+    Top = 286
+    Width = 39
+    Height = 17
+    Cursor = crHandPoint
+    Caption = 'CLOSE'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clAqua
+    Font.Height = -16
+    Font.Name = 'Jefferies'
+    Font.Style = [fsBold, fsItalic]
     ParentFont = False
-    TabOrder = 1
+    OnClick = btnCloseClick
   end
   object pnlSubRole: TPanel
     Left = 66
@@ -14538,7 +14536,7 @@ object frmSubRole: TfrmSubRole
     object chkPerencanaan: TCheckBox
       Left = 101
       Top = 113
-      Width = 97
+      Width = 108
       Height = 17
       Caption = 'Perencanaan'
       Font.Charset = ANSI_CHARSET
@@ -14552,7 +14550,7 @@ object frmSubRole: TfrmSubRole
     object chkPersiapan: TCheckBox
       Left = 101
       Top = 134
-      Width = 74
+      Width = 84
       Height = 17
       Caption = 'Persiapan'
       Font.Charset = ANSI_CHARSET
@@ -14591,5 +14589,22 @@ object frmSubRole: TfrmSubRole
       ParentFont = False
       TabOrder = 4
     end
+  end
+  object lstSubRole: TListBox
+    Left = 66
+    Top = 75
+    Width = 228
+    Height = 282
+    BevelInner = bvNone
+    BevelOuter = bvNone
+    BorderStyle = bsNone
+    Color = 2235405
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWhite
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 1
   end
 end

@@ -25,7 +25,7 @@ type
     btnEdit: TImage;
     btnNew: TImage;
     Label1: TLabel;
-    btnClose: TImage;
+    btnClose: TLabel;
     procedure FormShow(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
     procedure btnNewClick(Sender: TObject);
