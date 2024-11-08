@@ -163,6 +163,9 @@ type
     Label40: TLabel;
     Label41: TLabel;
     Label42: TLabel;
+    Edit2: TEdit;
+    Label43: TLabel;
+    Label44: TLabel;
     procedure btnOKClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
     procedure btnApplyClick(Sender: TObject);
@@ -226,6 +229,15 @@ var
 implementation
 
 {$R *.dfm}
+uses
+  ufrmRadarOnBoardPickList, ufrmSonarOnBoardPickList, ufrmESMOnBoardPickList,
+  ufrmEODOnBoardPickList, ufrmMADOnBoardPickList, ufrmSonobuoyOnBoardPickList,
+  ufrmVisualDetectorOnBoardPickList, ufrmIFFOnBoardPickList, ufrmMissileOnBoardPickList,
+  ufrmTorpedoOnBoardPickList, ufrmMineOnBoardPickList, ufrmGunOnBoardPickList,
+  ufrmBombOnBoardPickList, ufrmAcousticDecoyOnBoardPickList, ufrmAirBubbleOnBoardPickList,
+  ufrmChaffOnBoardPickList, ufrmFloatingDecoyOnBoardPickList, ufrmInfraredDecoyOnBoardPickList,
+  ufrmRadarNoiseJammerOnBoardPickList, ufrmSelfDefensiveJammerOnBoardPickList,
+  ufrmTowedJammerDecoyOnBoardPickList;
 
 procedure TfrmAsset.FormShow(Sender: TObject);
 begin
@@ -382,7 +394,20 @@ begin
   end;
   {$ENDREGION}
 
-  btnCancel.Enabled := not afterClose;
+  frmRadarOnBoardPickList := TfrmRadarOnBoardPickList.Create(Self);
+  try
+    with frmRadarOnBoardPickList do
+    begin
+      SelectedAsset := FSelectedAsset;
+      ShowModal;
+    end;
+
+    AfterClose := frmRadarOnBoardPickList.AfterClose;
+  finally
+    frmRadarOnBoardPickList.Free;
+  end;
+
+  btnCancel.Enabled := not AfterClose;
   btnApply.Enabled := afterClose;
 end;
 
@@ -395,6 +420,19 @@ begin
     Exit;
   end;
   {$ENDREGION}
+
+  frmSonarOnBoardPickList := TfrmSonarOnBoardPickList.Create(Self);
+  try
+    with frmSonarOnBoardPickList do
+    begin
+      SelectedAsset := FSelectedAsset;
+      ShowModal;
+    end;
+
+    AfterClose := frmSonarOnBoardPickList.AfterClose;
+  finally
+    frmSonarOnBoardPickList.Free;
+  end;
 
   btnCancel.Enabled := not afterClose;
   btnApply.Enabled := afterClose;
@@ -410,6 +448,19 @@ begin
   end;
   {$ENDREGION}
 
+  frmSonobuoyOnBoardPickList := TfrmSonobuoyOnBoardPickList.Create(Self);
+  try
+    with frmSonobuoyOnBoardPickList do
+    begin
+      SelectedAsset := FSelectedAsset;
+      ShowModal;
+    end;
+
+    AfterClose := frmSonobuoyOnBoardPickList.AfterClose;
+  finally
+    frmSonobuoyOnBoardPickList.Free;
+  end;
+
   btnCancel.Enabled := not afterClose;
   btnApply.Enabled := afterClose;
 end;
@@ -423,6 +474,19 @@ begin
     Exit;
   end;
   {$ENDREGION}
+
+  frmESMOnBoardPickList := TfrmESMOnBoardPickList.Create(Self);
+  try
+    with frmESMOnBoardPickList do
+    begin
+      SelectedAsset := FSelectedAsset;
+      ShowModal;
+    end;
+
+    AfterClose := frmESMOnBoardPickList.AfterClose;
+  finally
+    frmESMOnBoardPickList.Free;
+  end;
 
   btnCancel.Enabled := not afterClose;
   btnApply.Enabled := afterClose;
@@ -438,6 +502,19 @@ begin
   end;
   {$ENDREGION}
 
+  frmIFFOnBoardPickList := TfrmIFFOnBoardPickList.Create(Self);
+  try
+    with frmIFFOnBoardPickList do
+    begin
+      SelectedAsset := FSelectedAsset;
+      ShowModal;
+    end;
+
+    AfterClose := frmIFFOnBoardPickList.AfterClose;
+  finally
+    frmIFFOnBoardPickList.Free;
+  end;
+
   btnCancel.Enabled := not afterClose;
   btnApply.Enabled := afterClose;
 end;
@@ -451,6 +528,19 @@ begin
     Exit;
   end;
   {$ENDREGION}
+
+  frmMADOnBoardPickList := TfrmMADOnBoardPickList.Create(Self);
+  try
+    with frmMADOnBoardPickList do
+    begin
+      SelectedAsset := FSelectedAsset;
+      ShowModal;
+    end;
+
+    AfterClose := frmMADOnBoardPickList.AfterClose;
+  finally
+    frmMADOnBoardPickList.Free;
+  end;
 
   btnCancel.Enabled := not afterClose;
   btnApply.Enabled := afterClose;
@@ -466,6 +556,19 @@ begin
   end;
   {$ENDREGION}
 
+  frmEODOnBoardPickList := TfrmEODOnBoardPickList.Create(Self);
+  try
+    with frmEODOnBoardPickList do
+    begin
+      SelectedAsset := FSelectedAsset;
+      ShowModal;
+    end;
+
+    AfterClose := frmEODOnBoardPickList.AfterClose;
+  finally
+    frmEODOnBoardPickList.Free;
+  end;
+
   btnCancel.Enabled := not afterClose;
   btnApply.Enabled := afterClose;
 end;
@@ -479,6 +582,19 @@ begin
     Exit;
   end;
   {$ENDREGION}
+
+  frmVisualDetectorOnBoardPickList := TfrmVisualDetectorOnBoardPickList.Create(Self);
+  try
+    with frmVisualDetectorOnBoardPickList do
+    begin
+      SelectedAsset := FSelectedAsset;
+      ShowModal;
+    end;
+
+    AfterClose := frmVisualDetectorOnBoardPickList.AfterClose;
+  finally
+    frmVisualDetectorOnBoardPickList.Free;
+  end;
 
   btnCancel.Enabled := not afterClose;
   btnApply.Enabled := afterClose;
@@ -495,6 +611,19 @@ begin
   end;
   {$ENDREGION}
 
+  frmMissileOnBoardPickList := TfrmMissileOnBoardPickList.Create(Self);
+  try
+    with frmMissileOnBoardPickList do
+    begin
+      SelectedAsset := FSelectedAsset;
+      ShowModal;
+    end;
+
+    AfterClose := frmMissileOnBoardPickList.AfterClose;
+  finally
+    frmMissileOnBoardPickList.Free;
+  end;
+
   btnCancel.Enabled := not afterClose;
   btnApply.Enabled := afterClose;
 end;
@@ -508,6 +637,19 @@ begin
     Exit;
   end;
   {$ENDREGION}
+
+  frmTorpedoOnBoardPickList := TfrmTorpedoOnBoardPickList.Create(Self);
+  try
+    with frmTorpedoOnBoardPickList do
+    begin
+      SelectedAsset := FSelectedAsset;
+      ShowModal;
+    end;
+
+    AfterClose := frmTorpedoOnBoardPickList.AfterClose;
+  finally
+    frmTorpedoOnBoardPickList.Free;
+  end;
 
   btnCancel.Enabled := not afterClose;
   btnApply.Enabled := afterClose;
@@ -523,6 +665,19 @@ begin
   end;
   {$ENDREGION}
 
+  frmMineOnBoardPickList := TfrmMineOnBoardPickList.Create(Self);
+  try
+    with frmMineOnBoardPickList do
+    begin
+      SelectedAsset := FSelectedAsset;
+      ShowModal;
+    end;
+
+    AfterClose := frmMineOnBoardPickList.AfterClose;
+  finally
+    frmMineOnBoardPickList.Free;
+  end;
+
   btnCancel.Enabled := not afterClose;
   btnApply.Enabled := afterClose;
 end;
@@ -537,6 +692,19 @@ begin
   end;
   {$ENDREGION}
 
+  frmGunOnBoardPickList := TfrmGunOnBoardPickList.Create(Self);
+  try
+    with frmGunOnBoardPickList do
+    begin
+      SelectedAsset := FSelectedAsset;
+      ShowModal;
+    end;
+
+    AfterClose := frmGunOnBoardPickList.AfterClose;
+  finally
+    frmGunOnBoardPickList.Free;
+  end;
+
   btnCancel.Enabled := not afterClose;
   btnApply.Enabled := afterClose;
 end;
@@ -550,6 +718,19 @@ begin
     Exit;
   end;
   {$ENDREGION}
+
+  frmBombOnBoardPickList := TfrmBombOnBoardPickList.Create(Self);
+  try
+    with frmBombOnBoardPickList do
+    begin
+      SelectedAsset := FSelectedAsset;
+      ShowModal;
+    end;
+
+    AfterClose := frmBombOnBoardPickList.AfterClose;
+  finally
+    frmBombOnBoardPickList.Free;
+  end;
 
   btnCancel.Enabled := not afterClose;
   btnApply.Enabled := afterClose;
@@ -566,6 +747,19 @@ begin
   end;
   {$ENDREGION}
 
+  frmAcousticDecoyOnBoardPickList := TfrmAcousticDecoyOnBoardPickList.Create(Self);
+  try
+    with frmAcousticDecoyOnBoardPickList do
+    begin
+      SelectedAsset := FSelectedAsset;
+      ShowModal;
+    end;
+
+    AfterClose := frmAcousticDecoyOnBoardPickList.AfterClose;
+  finally
+    frmAcousticDecoyOnBoardPickList.Free;
+  end;
+
 //  btnCancel.Enabled := not afterClose;
   btnApply.Enabled := afterClose;
 end;
@@ -579,6 +773,19 @@ begin
     Exit;
   end;
   {$ENDREGION}
+
+  frmAirBubbleOnBoardPickList := TfrmAirBubbleOnBoardPickList.Create(Self);
+  try
+    with frmAirBubbleOnBoardPickList do
+    begin
+      SelectedAsset := FSelectedAsset;
+      ShowModal;
+    end;
+
+    AfterClose := frmAirBubbleOnBoardPickList.AfterClose;
+  finally
+    frmAirBubbleOnBoardPickList.Free;
+  end;
 
   btnCancel.Enabled := not afterClose;
   btnApply.Enabled := afterClose;
@@ -594,6 +801,19 @@ begin
   end;
   {$ENDREGION}
 
+  frmChaffOnBoardPickList := TfrmChaffOnBoardPickList.Create(Self);
+  try
+    with frmChaffOnBoardPickList do
+    begin
+      SelectedAsset := FSelectedAsset;
+      ShowModal;
+    end;
+
+    AfterClose := frmChaffOnBoardPickList.AfterClose;
+  finally
+    frmChaffOnBoardPickList.Free;
+  end;
+
   btnCancel.Enabled := not afterClose;
   btnApply.Enabled := afterClose;
 end;
@@ -607,6 +827,19 @@ begin
     Exit;
   end;
   {$ENDREGION}
+
+  frmSelfDefensiveJammerOnBoardPickList := TfrmSelfDefensiveJammerOnBoardPickList.Create(Self);
+  try
+    with frmSelfDefensiveJammerOnBoardPickList do
+    begin
+      SelectedAsset := FSelectedAsset;
+      ShowModal;
+    end;
+
+    AfterClose := frmSelfDefensiveJammerOnBoardPickList.AfterClose;
+  finally
+    frmSelfDefensiveJammerOnBoardPickList.Free;
+  end;
 
   btnCancel.Enabled := not afterClose;
   btnApply.Enabled := afterClose;
@@ -622,6 +855,19 @@ begin
   end;
   {$ENDREGION}
 
+  frmFloatingDecoyOnBoardPickList := TfrmFloatingDecoyOnBoardPickList.Create(Self);
+  try
+    with frmFloatingDecoyOnBoardPickList do
+    begin
+      SelectedAsset := FSelectedAsset;
+      ShowModal;
+    end;
+
+    AfterClose := frmFloatingDecoyOnBoardPickList.AfterClose;
+  finally
+    frmFloatingDecoyOnBoardPickList.Free;
+  end;
+
   btnCancel.Enabled := not afterClose;
   btnApply.Enabled := afterClose;
 end;
@@ -635,6 +881,19 @@ begin
     Exit;
   end;
   {$ENDREGION}
+
+  frmInfraredDecoyOnBoardPickList := TfrmInfraredDecoyOnBoardPickList.Create(Self);
+  try
+    with frmInfraredDecoyOnBoardPickList do
+    begin
+      SelectedAsset := FSelectedAsset;
+      ShowModal;
+    end;
+
+    AfterClose := frmInfraredDecoyOnBoardPickList.AfterClose;
+  finally
+    frmInfraredDecoyOnBoardPickList.Free;
+  end;
 
   btnCancel.Enabled := not afterClose;
   btnApply.Enabled := afterClose;
@@ -650,6 +909,19 @@ begin
   end;
   {$ENDREGION}
 
+  frmRadarNoiseJammerOnBoardPickList := TfrmRadarNoiseJammerOnBoardPickList.Create(Self);
+  try
+    with frmRadarNoiseJammerOnBoardPickList do
+    begin
+      SelectedAsset := FSelectedAsset;
+      ShowModal;
+    end;
+
+    AfterClose := frmRadarNoiseJammerOnBoardPickList.AfterClose;
+  finally
+    frmRadarNoiseJammerOnBoardPickList.Free;
+  end;
+
   btnCancel.Enabled := not afterClose;
   btnApply.Enabled := afterClose;
 end;
@@ -663,6 +935,19 @@ begin
     Exit;
   end;
   {$ENDREGION}
+
+  frmTowedJammerDecoyOnBoardPickList := TfrmTowedJammerDecoyOnBoardPickList.Create(Self);
+  try
+    with frmTowedJammerDecoyOnBoardPickList do
+    begin
+      SelectedAsset := FSelectedAsset;
+      ShowModal;
+    end;
+
+    AfterClose := frmTowedJammerDecoyOnBoardPickList.AfterClose;
+  finally
+    frmTowedJammerDecoyOnBoardPickList.Free;
+  end;
 
   btnCancel.Enabled := not afterClose;
   btnApply.Enabled := afterClose;

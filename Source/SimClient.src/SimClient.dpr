@@ -87,7 +87,10 @@ uses
   ufrmAsset in '..\LibTTT\LibForms\SimulatorForm\ufrmAsset.pas' {frmAsset},
   ufrmRole in '..\LibTTT\LibForms\SimulatorForm\AdditionalForm\ufrmRole.pas' {frmSummaryRole},
   ufrmSubRole in '..\LibTTT\LibForms\SimulatorForm\AdditionalForm\ufrmSubRole.pas' {frmSubRole},
-  ufrmSelectSimbolTaktis in '..\LibTTT\LibForms\SimulatorForm\AdditionalForm\ufrmSelectSimbolTaktis.pas' {frmSelectSimbolTaktis};
+  ufrmSelectSimbolTaktis in '..\LibTTT\LibForms\SimulatorForm\AdditionalForm\ufrmSelectSimbolTaktis.pas' {frmSelectSimbolTaktis},
+  ufrmRadarOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmRadarOnBoardPickList.pas' {frmRadarOnBoardPickList},
+  ufrmRadarMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmRadarMount.pas' {frmRadarMount},
+  ufrmBlindZoneAttachment in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\ufrmBlindZoneAttachment.pas' {frmBlindZonesAttachment};
 
 {$R *.res}
 
@@ -114,6 +117,9 @@ begin
   Application.CreateForm(TfrmSummaryRole, frmSummaryRole);
   Application.CreateForm(TfrmSubRole, frmSubRole);
   Application.CreateForm(TfrmSelectSimbolTaktis, frmSelectSimbolTaktis);
+  Application.CreateForm(TfrmRadarOnBoardPickList, frmRadarOnBoardPickList);
+  Application.CreateForm(TfrmRadarMount, frmRadarMount);
+  Application.CreateForm(TfrmBlindZonesAttachment, frmBlindZonesAttachment);
   //  Application.CreateForm(TfrmCreateTab, frmCreateTab);
 //  Application.CreateForm(TfrmImageInsert, frmImageInsert);
 //  Application.CreateForm(TfrmAvailableUserRole, frmAvailableUserRole);

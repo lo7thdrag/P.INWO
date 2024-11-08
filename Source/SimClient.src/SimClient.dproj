@@ -280,17 +280,27 @@
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\SimulatorForm\ufrmAsset.pas">
             <Form>frmAsset</Form>
+            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\SimulatorForm\AdditionalForm\ufrmRole.pas">
             <Form>frmSummaryRole</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\SimulatorForm\AdditionalForm\ufrmSubRole.pas">
             <Form>frmSubRole</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\SimulatorForm\AdditionalForm\ufrmSelectSimbolTaktis.pas">
             <Form>frmSelectSimbolTaktis</Form>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmRadarOnBoardPickList.pas">
+            <Form>frmRadarOnBoardPickList</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmRadarMount.pas">
+            <Form>frmRadarMount</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\ufrmBlindZoneAttachment.pas">
+            <Form>frmBlindZonesAttachment</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Debug">
