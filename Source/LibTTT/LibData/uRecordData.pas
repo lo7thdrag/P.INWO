@@ -170,7 +170,7 @@ type
   TRecSubRole = record
     SubRoleIndex      : Integer;
     RoleIndex         : Integer;
-    SubRoleAcronim    : string[20];
+    SubRoleAcronim    : string[75];
     SubRoleIdentifier : string[75];
     Perencanaan       : Byte;
     Persiapan         : Byte;
@@ -181,15 +181,17 @@ type
   TRecUser_Role = record
     UserRoleIndex       : Integer;
     RoleIndex           : Integer;
+    RoleAcronim         : string[20];
     SubRoleIndex        : Integer;
+    SubRoleAcronim      : string[20];
     UserRoleAcronim     : string[20];
-    Perencanaan         : Byte;
-    Persiapan           : Byte;
-    Pelaksanaan         : Byte;
-    Pengakhiran         : Byte;
-    UserRoleIdentifier  : string[20];
+    UserRoleIdentifier  : string[75];
     Username            : string[26];
     Password            : string[11];
+    //    Perencanaan         : Byte;
+//    Persiapan           : Byte;
+//    Pelaksanaan         : Byte;
+//    Pengakhiran         : Byte;
   end;
 
   TRecFile_Data = record

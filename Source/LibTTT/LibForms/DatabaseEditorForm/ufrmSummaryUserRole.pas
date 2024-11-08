@@ -56,6 +56,7 @@ type
     procedure btnEditSubRoleClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure cbbUserRoleChange(Sender: TObject);
 
   private
     FSelectedUserRole : TUser_Role;
@@ -202,30 +203,32 @@ end;
 
 procedure TfrmSummaryUserRole.btnApplyClick(Sender: TObject);
 begin
-  with FSelectedUserRole.FData do
+  with FSelectedUserRole do
   begin
-    RoleIndex     := Integer(SetOrganisasiTugasToEnum(cbbRole.Text));
-    SubRoleIndex  := Integer(SetSubOrganisasiTugasToEnum(cbbSubRole.Text));
-    UserRoleIdentifier  := cbbUserRole.Text;
-    Username            := edtUsername.Text;
-    Password            := edtPassword.Text;
-
     if not CekInput then
     begin
-      isOK := False;
       Exit;
     end;
 
-    if UserRoleIndex = 0 then
+    LastName := cbbUserRole.Text;
+
+    FData.RoleIndex := GetRoleIndex(cbbRole.Text);
+    FData.SubRoleIndex := GetSubRoleIndex(cbbSubRole.Text);
+    FData.UserRoleAcronim := cbbUserRole.Text;
+    FData.UserRoleIdentifier := edtIdentifier.Text;
+    FData.Username := edtUsername.Text;
+    FData.Password := edtPassword.Text;
+
+    if FData.UserRoleIndex = 0 then
     begin
-      if dmINWO.InsertUserRole(FSelectedUserRole.FData) then
+      if dmINWO.InsertUserRole(FData) then
       begin
         ShowMessage('Data has been saved');
       end;
     end
     else
     begin
-      if dmINWO.UpdateUserRole(FSelectedUserRole.FData) then
+      if dmINWO.UpdateUserRole(FData) then
       begin
         ShowMessage('Data has been updated');
       end;
@@ -312,14 +315,14 @@ var
 begin
   cbbSubRole.Items.Clear;
 
-  dmINWO.GetAllSubRole(FRoleList);
+  dmINWO.GetAllSubRole(FSubRoleList);
 
-  for i := 0 to FRoleList.Count - 1 do
+  for i := 0 to FSubRoleList.Count - 1 do
   begin
-    subRoleTemp := FRoleList.Items[i];
+    subRoleTemp := FSubRoleList.Items[i];
 
     if subRoleTemp.FData.RoleIndex = GetRoleIndex(cbbRole.Text) then
-      cbbRole.Items.AddObject(subRoleTemp.FData.SubRoleAcronim, subRoleTemp);
+      cbbSubRole.Items.AddObject(subRoleTemp.FData.SubRoleAcronim, subRoleTemp);
   end;
 end;
 
@@ -526,8 +529,12 @@ end;
 
 procedure TfrmSummaryUserRole.cbbRoleChange(Sender: TObject);
 begin
+  if cbbRole.ItemIndex = -1 then
+    cbbRole.ItemIndex := 0;
+
   AddcbbSubRole;
   cbbSubRole.ItemIndex := 0;
+
   AddCbbUserRole;
   cbbUserRole.ItemIndex := 0;
 
@@ -536,10 +543,20 @@ end;
 
 procedure TfrmSummaryUserRole.cbbSubRoleChange(Sender: TObject);
 begin
+  if cbbSubRole.ItemIndex = -1 then
+    cbbSubRole.ItemIndex := 0;
+
   AddCbbUserRole;
   cbbUserRole.ItemIndex := 0;
 
   btnOk.Enabled := True;
+end;
+
+procedure TfrmSummaryUserRole.cbbUserRoleChange(Sender: TObject);
+begin
+  if cbbUserRole.ItemIndex = -1 then
+    cbbUserRole.ItemIndex := 0
+
 end;
 
 procedure TfrmSummaryUserRole.UpdateUserRoleData;

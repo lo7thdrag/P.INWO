@@ -1006,7 +1006,7 @@ begin
   begin
     Close;
     SQL.Clear;
-    SQL.Add('SELECT * FROM UserRole');
+    SQL.Add('SELECT * FROM User_Role_Definition');
     Open;
 
     Result := RecordCount;
@@ -1034,16 +1034,13 @@ begin
 
         with rec.FData do
         begin
-          UserRoleIndex := FieldByName('id_User').AsInteger;
-          UserRoleIdentifier := FieldByName('Nama_Role').AsString;
+          RoleIndex := FieldByName('RoleIndex').AsInteger;
+          SubRoleIndex := FieldByName('SubRoleIndex').AsInteger;
+          UserRoleIndex := FieldByName('UserRoleIndex').AsInteger;
+          UserRoleAcronim := FieldByName('UserRoleAcronim').AsString;
+          UserRoleIdentifier := FieldByName('UserRoleIdentifier').AsString;
           Username := FieldByName('Username').AsString;
           Password := FieldByName('Password').AsString;
-          RoleIndex := FieldByName('Organisasi_Tugas').AsInteger;
-          SubRoleIndex := FieldByName('OpsGab').AsInteger;
-          Perencanaan := Ord(FieldByName('Perencanaan').AsBoolean);
-          Persiapan := Ord(FieldByName('Persiapan').AsBoolean);
-          Pelaksanaan := Ord(FieldByName('Pelaksanaan').AsBoolean);
-          Pengakhiran := Ord(FieldByName('Pengakhiran').AsBoolean);
         end;
 
         aList.Add(rec);
@@ -1147,13 +1144,13 @@ begin
   begin
     Close;
     SQL.Clear;
-    SQL.Add('SELECT * FROM UserRole');
+    SQL.Add('SELECT * FROM User_Role_Definition');
     if FilterIndex = 1 then
-      SQL.Add('WHERE Nama_Role like '  + quotedStr('%' + SearchContent + '%'))
+      SQL.Add('WHERE UserRoleAcronim like '  + quotedStr('%' + SearchContent + '%'))
     else if FilterIndex = 2 then
-      SQL.Add('WHERE Organisasi_Tugas = '  + SearchContent )
+      SQL.Add('WHERE RoleIndex = '  + SearchContent )
     else if FilterIndex = 3 then
-      SQL.Add('WHERE OpsGab = '  + SearchContent);
+      SQL.Add('WHERE SubRoleIndex = '  + SearchContent);
 
     Open;
 
@@ -1182,16 +1179,13 @@ begin
 
         with rec.FData do
         begin
-          UserRoleIndex := FieldByName('id_User').AsInteger;
-          UserRoleIdentifier := FieldByName('Nama_Role').AsString;
+          RoleIndex := FieldByName('RoleIndex').AsInteger;
+          SubRoleIndex := FieldByName('SubRoleIndex').AsInteger;
+          UserRoleIndex := FieldByName('UserRoleIndex').AsInteger;
+          UserRoleAcronim := FieldByName('UserRoleAcronim').AsString;
+          UserRoleIdentifier := FieldByName('UserRoleIdentifier').AsString;
           Username := FieldByName('Username').AsString;
           Password := FieldByName('Password').AsString;
-          RoleIndex := FieldByName('Organisasi_Tugas').AsInteger;
-          SubRoleIndex := FieldByName('OpsGab').AsInteger;
-          Perencanaan := Ord(FieldByName('Perencanaan').AsBoolean);
-          Persiapan := Ord(FieldByName('Persiapan').AsBoolean);
-          Pelaksanaan := Ord(FieldByName('Pelaksanaan').AsBoolean);
-          Pengakhiran := Ord(FieldByName('Pengakhiran').AsBoolean);
         end;
 
         aList.Add(rec);
@@ -1213,8 +1207,8 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT * FROM UserRole');
-    SQL.Add('WHERE (Nama_Role = ' + QuotedStr(rec.UserRoleIdentifier) + ') and (Organisasi_Tugas = ' + IntToStr(rec.RoleIndex) + ') and ' );
-    SQL.Add('(OpsGab = ' + IntToStr(rec.SubRoleIndex) + ')' );
+    SQL.Add('WHERE (UserRoleAcronim = ' + QuotedStr(rec.UserRoleAcronim) + ') and (RoleIndex = ' + IntToStr(rec.RoleIndex) + ') and ' );
+    SQL.Add('(SubRoleIndex = ' + IntToStr(rec.SubRoleIndex) + ')' );
     Open;
 
     Result := RecordCount;
@@ -1232,7 +1226,7 @@ begin
   begin
     Close;
     SQL.Clear;
-    SQL.Add('SELECT * FROM UserRole');
+    SQL.Add('SELECT * FROM User_Role_Definition');
     SQL.Add('WHERE (Username = ' + QuotedStr(rec.Username) + ') ' );
     Open;
 
@@ -1442,21 +1436,18 @@ begin
 
     SQL.Clear;
 
-    SQL.Add('INSERT INTO UserRole');
-    SQL.Add('(Username, Password, Nama_Role, Organisasi_Tugas, OpsGab, Perencanaan, Persiapan, Pelaksanaan, Pengakhiran)');
+    SQL.Add('INSERT INTO User_Role_Definition');
+    SQL.Add('(RoleIndex, SubRoleIndex, UserRoleAcronim, UserRoleIdentifier, Username, Password)');
     SQL.Add('VALUES (');
 
     with rec do
     begin
-      SQL.Add(QuotedStr(Username) + ', ');
-      SQL.Add(QuotedStr(Password) + ', ');
-      SQL.Add(QuotedStr(UserRoleIdentifier) + ', ');
       SQL.Add(IntToStr(RoleIndex) + ', ');
       SQL.Add(IntToStr(SubRoleIndex) + ', ');
-      SQL.Add(IntToStr(Perencanaan) + ', ');
-      SQL.Add(IntToStr(Persiapan) + ', ');
-      SQL.Add(IntToStr(Pelaksanaan) + ', ');
-      SQL.Add(IntToStr(Pengakhiran));
+      SQL.Add(QuotedStr(UserRoleAcronim) + ', ');
+      SQL.Add(QuotedStr(UserRoleIdentifier) + ', ');
+      SQL.Add(QuotedStr(Username) + ', ');
+      SQL.Add(QuotedStr(Password));
     end;
 
     SQL.Add(')');
@@ -1466,25 +1457,12 @@ begin
 
     {Yg barusan diinput diambil lagi datanya, untuk mengetahui Indexnya}
     SQL.Clear;
-    SQL.Add('SELECT * FROM UserRole');
-    SQL.Add('WHERE (Nama_Role = ' + QuotedStr(rec.UserRoleIdentifier) +
-     ') and (Organisasi_Tugas = ' + IntToStr(rec.RoleIndex) + ') and ' );
-    SQL.Add('(OpsGab = ' + IntToStr(rec.SubRoleIndex) + ')' );
+    SQL.Add('SELECT * FROM User_Role_Definition');
+    SQL.Add('WHERE (RoleIndex = ' + IntToStr(rec.RoleIndex) + ') and (SubRoleIndex = ' + IntToStr(rec.SubRoleIndex) + ') and ' );
+    SQL.Add('(UserRoleAcronim = ' + QuotedStr(rec.UserRoleAcronim) + ')' );
     Open;
 
-    rec.UserRoleIndex := FieldByName('id_User').AsInteger;
-
-//    SQL.Add('INSERT INTO UserRole Values');
-//    SQL.Add('('''+rec.Username+''','''+rec.Password+''','''+rec.UserRoleIdentifier+
-//    ''','''+IntToStr(rec.OrganisasiTugas)+
-//    ''','''+IntToStr(rec.Perencanaan)+
-//    ''','''+IntToStr(rec.Persiapan)+
-//    ''','''+IntToStr(rec.Pelaksanaan)+
-//    ''','''+IntToStr(rec.Pengakhiran)+
-//    ''','''+IntToStr(rec.SubOrganisasiTugas)+''')');
-
-//    ExecSQL;
-//    Result := True;
+    rec.UserRoleIndex := FieldByName('UserRoleIndex').AsInteger;
   end;
 end;
 
@@ -1499,18 +1477,15 @@ begin
     begin
       Close;
       SQL.Clear;
-      SQL.Add('UPDATE UserRole');
+      SQL.Add('UPDATE User_Role_Definition');
       SQL.Add('SET');
+      SQL.Add('RoleIndex=' + IntToStr(rec.RoleIndex)+',');
+      SQL.Add('SubRoleIndex=' + IntToStr(rec.SubRoleIndex)+',');
+      SQL.Add('UserRoleAcronim=' + QuotedStr(rec.UserRoleAcronim)+',');
+      SQL.Add('UserRoleIdentifier=' + QuotedStr(rec.UserRoleIdentifier)+',');
       SQL.Add('Username=' + QuotedStr(rec.Username)+',');
-      SQL.Add('Password=' + QuotedStr(rec.Password)+',');
-      SQL.Add('Nama_Role=' + QuotedStr(rec.UserRoleIdentifier)+',');
-      SQL.Add('Organisasi_Tugas=' + IntToStr(rec.RoleIndex)+',');
-      SQL.Add('Perencanaan=' + IntToStr(rec.Perencanaan)+',');
-      SQL.Add('Persiapan=' + IntToStr(rec.Persiapan)+',');
-      SQL.Add('Pelaksanaan=' + IntToStr(rec.Pelaksanaan)+',');
-      SQL.Add('Pengakhiran=' + IntToStr(rec.Pengakhiran)+',');
-      SQL.Add('OpsGab=' + IntToStr(rec.SubRoleIndex));
-      SQL.Add('WHERE (id_User =' + IntToStr(rec.UserRoleIndex) + ')');
+      SQL.Add('Password=' + QuotedStr(rec.Password));
+      SQL.Add('WHERE (UserRoleIndex =' + IntToStr(rec.UserRoleIndex) + ')');
       ExecSQL;
     end;
 
@@ -1527,8 +1502,8 @@ begin
   begin
     Close;
     SQL.Clear;
-    SQL.Add('DELETE FROM UserRole');
-    SQL.Add('WHERE (id_User='+QuotedStr(IntToStr(UserRoleID))+')');
+    SQL.Add('DELETE FROM User_Role_Definition');
+    SQL.Add('WHERE (UserRoleIndex='+QuotedStr(IntToStr(UserRoleID))+')');
     ExecSQL;
     Result := True;
   end;

@@ -14198,7 +14198,7 @@ object frmSummaryUserRole: TfrmSummaryUserRole
     ShowHint = True
     Stretch = True
     Transparent = True
-    OnClick = btnOkClick
+    OnClick = btnApplyClick
   end
   object btnCancel: TImage
     Left = 443
@@ -14974,7 +14974,7 @@ object frmSummaryUserRole: TfrmSummaryUserRole
       Font.Style = []
       ParentFont = False
       TabOrder = 6
-      OnChange = cbbSubRoleChange
+      OnChange = cbbUserRoleChange
     end
   end
 end

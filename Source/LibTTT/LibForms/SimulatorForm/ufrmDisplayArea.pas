@@ -1109,29 +1109,30 @@ begin
     userRoleTemp := FUserRoleList.Items[i];
     li := lvUserRole.Items.Add;
     li.Caption := IntToStr(i+1);
+    li.SubItems.Add(userRoleTemp.FData.UserRoleAcronim);
     li.SubItems.Add(userRoleTemp.FData.UserRoleIdentifier);
     li.SubItems.Add(SetOrganisasiTugasAkronimToString(TOrganisasiTugas(userRoleTemp.FData.RoleIndex)));
     li.SubItems.Add(SetSubOrganisasiTugasToString(TSubOrganisasiTugas(userRoleTemp.FData.SubRoleIndex)));
 
-    if userRoleTemp.FData.Perencanaan = 1 then
-      li.SubItems.Add('✔')
-    else
-      li.SubItems.Add('❌');
-
-    if userRoleTemp.FData.Persiapan = 1 then
-      li.SubItems.Add('✔')
-    else
-      li.SubItems.Add('❌');
-
-    if userRoleTemp.FData.Pelaksanaan = 1 then
-      li.SubItems.Add('✔')
-    else
-      li.SubItems.Add('❌');
-
-    if userRoleTemp.FData.Pengakhiran = 1 then
-      li.SubItems.Add('✔')
-    else
-      li.SubItems.Add('❌');
+//    if userRoleTemp.FData.Perencanaan = 1 then
+//      li.SubItems.Add('✔')
+//    else
+//      li.SubItems.Add('❌');
+//
+//    if userRoleTemp.FData.Persiapan = 1 then
+//      li.SubItems.Add('✔')
+//    else
+//      li.SubItems.Add('❌');
+//
+//    if userRoleTemp.FData.Pelaksanaan = 1 then
+//      li.SubItems.Add('✔')
+//    else
+//      li.SubItems.Add('❌');
+//
+//    if userRoleTemp.FData.Pengakhiran = 1 then
+//      li.SubItems.Add('✔')
+//    else
+//      li.SubItems.Add('❌');
 
     li.Data := userRoleTemp;
   end;
