@@ -779,7 +779,7 @@ begin
   if aDomain = 0 then
   begin
     case aCategory of
-      0,1,2,3:
+      0,1,2:
       begin
         cbbType.Items.Clear;
         cbbType.Items.Add('Fixed Wing');

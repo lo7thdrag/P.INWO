@@ -50763,6 +50763,7 @@ object frmDisplayArea: TfrmDisplayArea
             ParentFont = False
             TabOrder = 0
             ViewStyle = vsReport
+            OnSelectItem = lvAssetSelectItem
           end
         end
       end
