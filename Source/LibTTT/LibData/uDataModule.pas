@@ -1272,7 +1272,7 @@ begin
     SQL.Clear;
 
     SQL.Add('INSERT INTO SubRole_Definition');
-    SQL.Add('(SubRoleIndex, RoleIndex, SubRoleAcronim, SubRoleIdentifier, Perencanaan, Persiapan, Pelaksanaan, Pengakhiran)');
+    SQL.Add('(RoleIndex, SubRoleAcronim, SubRoleIdentifier, Perencanaan, Persiapan, Pelaksanaan, Pengakhiran)');
     SQL.Add('VALUES (');
 
     with rec do
@@ -1280,7 +1280,6 @@ begin
       SQL.Add(IntToStr(RoleIndex) + ', ');
       SQL.Add(QuotedStr(SubRoleAcronim) + ', ');
       SQL.Add(QuotedStr(SubRoleIdentifier) + ', ');
-      SQL.Add(IntToStr(SubRoleIndex) + ', ');
       SQL.Add(IntToStr(Perencanaan) + ', ');
       SQL.Add(IntToStr(Persiapan) + ', ');
       SQL.Add(IntToStr(Pelaksanaan) + ', ');

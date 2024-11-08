@@ -79,13 +79,13 @@ begin
 
     if Assigned(FSelectedSubRole) then
     begin
-      cbbOrganisasiTugas.Text := IntToStr(FSelectedSubRole.FData.SubRoleIndex);
+      cbbOrganisasiTugas.ItemIndex := FSelectedSubRole.FData.RoleIndex;
       edtSubOrganisasiTugas.Text := FSelectedSubRole.FData.SubRoleAcronim;
       edtIdentifier.Text := FSelectedSubRole.FData.SubRoleIdentifier;
-      chkPerencanaan.Caption := IntToStr(FSelectedSubRole.FData.Perencanaan);
-      chkPersiapan.Caption := IntToStr(FSelectedSubRole.FData.Persiapan);
-      chkPelaksanaan.Caption := IntToStr(FSelectedSubRole.FData.Pelaksanaan);
-      chkPengakhiran.Caption := IntToStr(FSelectedSubRole.FData.Pengakhiran);
+      chkPerencanaan.Checked := FSelectedSubRole.FData.Perencanaan = 1;
+      chkPersiapan.Checked := FSelectedSubRole.FData.Persiapan = 1;
+      chkPelaksanaan.Checked := FSelectedSubRole.FData.Pelaksanaan = 1;
+      chkPengakhiran.Checked := FSelectedSubRole.FData.Pengakhiran = 1;
     end;
   end;
 end;
@@ -94,13 +94,13 @@ procedure TfrmSubRole.btnNewClick(Sender: TObject);
 begin
   SetSummarySize;
 
-  cbbOrganisasiTugas.Text := '';
+  cbbOrganisasiTugas.ItemIndex := -1;
   edtSubOrganisasiTugas.Text := '';
   edtIdentifier.Text := '';
-  chkPerencanaan.Caption := '';
-  chkPersiapan.Caption := '';
-  chkPelaksanaan.Caption := '';
-  chkPengakhiran.Caption := '';
+  chkPerencanaan.Checked := False;
+  chkPersiapan.Checked := False;
+  chkPelaksanaan.Checked := False;
+  chkPengakhiran.Checked := False;
 end;
 
 procedure TfrmSubRole.buttonOkClick(Sender: TObject);
@@ -117,16 +117,16 @@ begin
 
     {$REGION ' General '}
     LastName := edtSubOrganisasiTugas.Text;
-    FData.SubRoleIndex := StrToInt(cbbOrganisasiTugas.Text);
+    FData.RoleIndex := cbbOrganisasiTugas.ItemIndex;
     FData.SubRoleAcronim := edtSubOrganisasiTugas.Text;
     FData.SubRoleIdentifier := edtIdentifier.Text;
-    FData.Perencanaan := StrToInt(chkPerencanaan.Caption);
-    FData.Persiapan := StrToInt(chkPersiapan.Caption);
-    FData.Pelaksanaan := StrToInt(chkPelaksanaan.Caption);
-    FData.Pengakhiran := StrToInt(chkPengakhiran.Caption);
+    FData.Perencanaan := Ord(chkPerencanaan.Checked);
+    FData.Persiapan := ord(chkPersiapan.Checked);
+    FData.Pelaksanaan := ord(chkPelaksanaan.Checked);
+    FData.Pengakhiran := ord(chkPengakhiran.Checked);
     {$ENDREGION}
 
-    if FData.RoleIndex = 0 then
+    if FData.SubRoleIndex = 0 then
     begin
       if dmINWO.InsertSubRole(FData) then
       begin
@@ -151,6 +151,7 @@ end;
 function TfrmSubRole.CekInput;
 var
   i, chkSpace, numSpace: Integer;
+  checkedCount: Integer;
 begin
   Result := False;
 
@@ -160,6 +161,26 @@ begin
     ShowMessage('Please insert class name');
     Exit;
   end;
+
+  if cbbOrganisasiTugas.ItemIndex = -1 then
+  begin
+    ShowMessage('Cek ulang tipe anda');
+    Exit;
+  end;
+
+  checkedCount := 0;
+
+  if chkPersiapan.Checked then Inc(CheckedCount);
+  if chkPerencanaan.Checked then Inc(CheckedCount);
+  if chkPelaksanaan.Checked then Inc(CheckedCount);
+  if chkPengakhiran.Checked then Inc(CheckedCount);
+
+  if checkedCount > 1 then
+  begin
+      ShowMessage('Cek ulang tipe anda');
+    Exit;
+  end;
+
 
   {Jika berisi spasi semua}
   if Copy(edtSubOrganisasiTugas.Text, 1, 1) = ' ' then
