@@ -14,6 +14,7 @@ object frmSummaryRole: TfrmSummaryRole
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
+  OnCreate = FormCreate
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -14142,6 +14143,7 @@ object frmSummaryRole: TfrmSummaryRole
       2F88F2FF03BA682A148F9ACFEF0000000049454E44AE426082}
     Stretch = True
     Transparent = True
+    OnClick = btnCloseClick
     ExplicitTop = 8
     ExplicitWidth = 621
     ExplicitHeight = 425
@@ -14217,6 +14219,7 @@ object frmSummaryRole: TfrmSummaryRole
     ShowHint = True
     Stretch = True
     Transparent = True
+    OnClick = btnOkClick
   end
   object btnCancel: TImage
     Left = 355
@@ -14292,6 +14295,7 @@ object frmSummaryRole: TfrmSummaryRole
     ShowHint = True
     Stretch = True
     Transparent = True
+    OnClick = btnDeleteClick
   end
   object btnEdit: TImage
     Left = 217
@@ -14324,8 +14328,41 @@ object frmSummaryRole: TfrmSummaryRole
     Transparent = True
     OnClick = btnEditClick
   end
-  object pnlRole: TPanel
+  object btnClose: TLabel
+    Left = 144
+    Top = 392
+    Width = 49
+    Height = 17
+    Cursor = crHandPoint
+    Caption = 'CLOSE'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clAqua
+    Font.Height = -16
+    Font.Name = 'Jefferies'
+    Font.Style = [fsBold, fsItalic]
+    ParentFont = False
+    OnClick = btnCloseClick
+  end
+  object lstRole: TListBox
     Left = 54
+    Top = 79
+    Width = 228
+    Height = 306
+    BevelInner = bvNone
+    BevelOuter = bvNone
+    BorderStyle = bsNone
+    Color = 2235405
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWhite
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 1
+    OnClick = lstRoleClick
+  end
+  object pnlRole: TPanel
+    Left = 46
     Top = 41
     Width = 401
     Height = 90
@@ -14409,26 +14446,8 @@ object frmSummaryRole: TfrmSummaryRole
       Font.Height = -13
       Font.Name = 'Berlin Sans FB'
       Font.Style = []
-      MaxLength = 25
       ParentFont = False
       TabOrder = 1
     end
-  end
-  object lstRole: TListBox
-    Left = 54
-    Top = 79
-    Width = 228
-    Height = 306
-    BevelInner = bvNone
-    BevelOuter = bvNone
-    BorderStyle = bsNone
-    Color = 2235405
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWhite
-    Font.Height = -13
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 1
   end
 end

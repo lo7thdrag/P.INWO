@@ -336,6 +336,8 @@ type
     procedure cbbFilterSelect(Sender: TObject);
     procedure editSearchKeyPressAsset(Sender: TObject; var Key: Char);
     procedure cbbSearchSelect(Sender: TObject);
+    procedure lvAssetSelectItem(Sender: TObject; Item: TListItem;
+      Selected: Boolean);
 //    procedure LlvFileDataSelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);
 
   private
@@ -729,17 +731,21 @@ begin
   end
   else if cbbFilter.ItemIndex = 1 then
   begin
-    editSearch.BringToFront;
+    AddSearchAssetItems;
+    cbbSearch.BringToFront;
+    cbbSearch.ItemIndex := 0;
   end
   else if cbbFilter.ItemIndex = 2 then
   begin
     AddSearchAssetItems;
     cbbSearch.BringToFront;
+    cbbSearch.ItemIndex := 0;
   end
   else if cbbFilter.ItemIndex = 3 then
   begin
     AddSearchAssetItems;
     cbbSearch.BringToFront;
+    cbbSearch.ItemIndex := 0;
   end;
 end;
 
@@ -775,18 +781,50 @@ begin
   if cbbFilter.ItemIndex = 1 then
   begin
     cbbSearch.Items.Clear;
-    cbbSearch.Items.Add('0'); //Air
-    cbbSearch.Items.Add('1'); //Surface
-    cbbSearch.Items.Add('2'); //Subsurface
-    cbbSearch.Items.Add('3'); //Land
-    cbbSearch.Items.Add('4'); //Amphibious
+    cbbSearch.Items.Add('Air');
+    cbbSearch.Items.Add('Surface');
+    cbbSearch.Items.Add('Subsurface');
+    cbbSearch.Items.Add('Land');
+    cbbSearch.Items.Add('Amphibious');
   end
   else if cbbFilter.ItemIndex = 2 then
   begin
-//
+    cbbSearch.Items.Clear;
+    cbbSearch.Items.Add('Combatant');
+    cbbSearch.Items.Add('Non-Combatant');
+    cbbSearch.Items.Add('Non-Naval');
+    cbbSearch.Items.Add('Other');
+  end
+  else if cbbFilter.ItemIndex = 3 then
+  begin
+    cbbSearch.Items.Clear;
+    cbbSearch.Items.Add('Frigate, Guided Missile (FFG)');
+    cbbSearch.Items.Add('Destroyer, Guided Missile (DDG)');
+    cbbSearch.Items.Add('Cruiser, Guided Missile (CG/CGN)');
+    cbbSearch.Items.Add('Aircraft Carrier (CV/CVN)');
+    cbbSearch.Items.Add('Patrol Craft (PT/PTG)');
+    cbbSearch.Items.Add('Mine Warfare');
+    cbbSearch.Items.Add('Auxiliary');
+    cbbSearch.Items.Add('Merchant');
+    cbbSearch.Items.Add('utility Vessel');
+    cbbSearch.Items.Add('Destroyer (DD)');
+    cbbSearch.Items.Add('Frigate (FF)');
+    cbbSearch.Items.Add('Amphibious Warfare');
+    cbbSearch.Items.Add('other');
   end;
 end;
 
+procedure TfrmDisplayArea.lvAssetSelectItem(Sender: TObject; Item: TListItem;
+  Selected: Boolean);
+begin
+  if Selected then
+  begin
+    if (Item = nil) or (Item.Data = nil) then
+      Exit;
+
+    FSelectedAsset := TAsset(lvAsset.Selected.Data);
+  end;
+end;
 
 {$ENDREGION}
 

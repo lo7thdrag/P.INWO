@@ -198,6 +198,10 @@ type
     procedure FormShow(Sender: TObject);
 
     procedure ValidationFormatInput();
+    procedure Button1Click(Sender: TObject);
+    procedure edtNumeralkeyPress(Sender: TObject; var Key: Char);
+    function GetNumberOfKoma(s : string): Boolean;
+    procedure CheckBoxDataClick(Sender: TObject);
 
   private
     FSelectedAsset : TAsset ;
@@ -350,7 +354,21 @@ end;
 {$ENDREGION}
 
 {$REGION 'Physical'}
-
+procedure TfrmAsset.Button1Click(Sender: TObject);
+var
+  Lengt, Width, Height, HGS, Displacement : Double;
+begin
+  case cbbDomain.ItemIndex of
+    0:
+    begin
+      Lengt := StrToFloat(edtLengthDimension.Text);
+      Width := StrToFloat(edtWidthDimension.Text);
+      Height := StrToFloat(edtHeightDimension.Text);
+      HGS := StrToFloat(Edit1.Text);
+      Displacement := (StrToFloat(edtWeightDimension.Text))*1000;
+    end;
+  end;
+end;
 {$ENDREGION}
 
 {$REGION 'Assets'}
@@ -714,9 +732,66 @@ begin
   end;
 end;
 
+procedure TfrmAsset.CheckBoxDataClick(Sender: TObject);
+begin
+  btnApply.Enabled := True;
+end;
+
 procedure TfrmAsset.edtChange(Sender: TObject);
 begin
   btnApply.Enabled := True;
+end;
+
+function TfrmAsset.GetNumberOfKoma(s: string): Boolean;
+var
+  a, i : Integer;
+begin
+  Result := False;
+  a := 0;
+
+  for i := 1 to Length(s) do
+  begin
+    if s[i] = '.' then
+      a := a + 1;
+  end;
+
+  if a > 0 then
+    Result := True;
+end;
+
+procedure TfrmAsset.edtNumeralkeyPress(Sender: TObject; var Key: Char);
+var
+  value : Double;
+begin
+  if not (Key in[#48 .. #57, #8, #13, #46]) then
+  begin
+    Key := #0;
+    Exit;
+  end;
+
+  if GetNumberOfKoma(TEdit(Sender).Text) then
+  begin
+    if Key = #46 then
+      Key := #0;
+  end;
+
+  if Key = #13 then
+  begin
+    if TEdit(Sender).Text = '' then
+      TEdit(Sender).Text := '0';
+
+    value := StrToFloat(TEdit(Sender).Text);
+
+    case TEdit(Sender).Tag of
+      0: TEdit(Sender).Text := FormatFloat('0', value);
+      1: TEdit(Sender).Text := FormatFloat('0.0', value);
+      2: TEdit(Sender).Text := FormatFloat('0.00', value);
+      3: TEdit(Sender).Text := FormatFloat('0.000', value);
+    end;
+
+    btnApply.Enabled := True;
+  end;
+
 end;
 
 procedure TfrmAsset.UpdateCbbCategoryItems(const aDomain, IdCategory: Byte);
@@ -779,7 +854,7 @@ begin
   if aDomain = 0 then
   begin
     case aCategory of
-      0,1,2,3:
+      0,1,2:
       begin
         cbbType.Items.Clear;
         cbbType.Items.Add('Fixed Wing');
