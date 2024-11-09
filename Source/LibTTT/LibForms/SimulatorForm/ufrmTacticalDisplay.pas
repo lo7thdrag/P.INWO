@@ -359,41 +359,53 @@ var
   userRoleTemp : TUser_Role;
 
 begin
-  lblWelcome.Caption := 'Selamat datang ' + simMgrClient.MyConsoleData.Identifier;
-  userRoleTemp := simMgrClient.SimUserRole.getUserRoleByID(simMgrClient.MyConsoleData.UserRoleData.UserRoleIndex);
-
-  if Assigned(userRoleTemp) then
-  begin
-    {$REGION ' User Login '}
-
-    cbbTahapan.Items.Clear;
-
-    with simMgrClient.MyConsoleData.UserRoleData do
+  frmDisplayArea := TfrmDisplayArea.Create(Self);
+  try
+    with frmDisplayArea do
     begin
-      lblOperasi.Caption := SetOrganisasiTugasToString(TOrganisasiTugas(RoleIndex));
-      lblKomandoTugas.Caption := SetSubOrganisasiTugasToString(TSubOrganisasiTugas(SubRoleIndex));
-      lblUserRole.Caption := UserRoleIdentifier;
-
-      if Perencanaan = 1 then
-        cbbTahapan.Items.Add('Perencanaan');
-
-      if Persiapan = 1 then
-        cbbTahapan.Items.Add('Persiapan');
-
-      if Pelaksanaan = 1 then
-        cbbTahapan.Items.Add('Pelaksanaan');
-
-      if Pengakhiran = 1 then
-        cbbTahapan.Items.Add('Pengakhiran');
+//      simMgrClient.MyConsoleData.TipeTahapan := Byte(SetTipeTahapanToEnum(cbbTahapan.Text));
+      ShowModal;
     end;
 
-    if cbbTahapan.Items.Count > 0 then
-      cbbTahapan.ItemIndex := 0;
-
-    pnlDescription.BringToFront;
-
-    {$ENDREGION}
+  finally
+    frmDisplayArea.Free;
   end;
+
+//  lblWelcome.Caption := 'Selamat datang ' + simMgrClient.MyConsoleData.Identifier;
+//  userRoleTemp := simMgrClient.SimUserRole.getUserRoleByID(simMgrClient.MyConsoleData.UserRoleData.UserRoleIndex);
+//
+//  if Assigned(userRoleTemp) then
+//  begin
+//    {$REGION ' User Login '}
+//
+//    cbbTahapan.Items.Clear;
+//
+//    with simMgrClient.MyConsoleData.UserRoleData do
+//    begin
+//      lblOperasi.Caption := SetOrganisasiTugasToString(TOrganisasiTugas(RoleIndex));
+//      lblKomandoTugas.Caption := SetSubOrganisasiTugasToString(TSubOrganisasiTugas(SubRoleIndex));
+//      lblUserRole.Caption := UserRoleIdentifier;
+//
+////      if Perencanaan = 1 then
+////        cbbTahapan.Items.Add('Perencanaan');
+////
+////      if Persiapan = 1 then
+////        cbbTahapan.Items.Add('Persiapan');
+////
+////      if Pelaksanaan = 1 then
+////        cbbTahapan.Items.Add('Pelaksanaan');
+////
+////      if Pengakhiran = 1 then
+////        cbbTahapan.Items.Add('Pengakhiran');
+//    end;
+//
+//    if cbbTahapan.Items.Count > 0 then
+//      cbbTahapan.ItemIndex := 0;
+//
+//    pnlDescription.BringToFront;
+//
+//    {$ENDREGION}
+//  end;
 end;
 
 procedure TfrmTacticalDisplay.UpdateClientLogout(Sender: TObject);

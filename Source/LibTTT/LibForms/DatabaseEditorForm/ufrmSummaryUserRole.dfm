@@ -14462,7 +14462,7 @@ object frmSummaryUserRole: TfrmSummaryUserRole
     object Label1: TLabel
       Left = 26
       Top = 136
-      Width = 119
+      Width = 67
       Height = 18
       Caption = 'Username'
       Font.Charset = ANSI_CHARSET
@@ -14501,7 +14501,7 @@ object frmSummaryUserRole: TfrmSummaryUserRole
     object Label2: TLabel
       Left = 26
       Top = 164
-      Width = 119
+      Width = 64
       Height = 18
       Caption = 'Password'
       Font.Charset = ANSI_CHARSET
@@ -14514,7 +14514,7 @@ object frmSummaryUserRole: TfrmSummaryUserRole
     object Label4: TLabel
       Left = 26
       Top = 80
-      Width = 119
+      Width = 62
       Height = 18
       Caption = 'User Role'
       Font.Charset = ANSI_CHARSET
@@ -14527,7 +14527,7 @@ object frmSummaryUserRole: TfrmSummaryUserRole
     object Label5: TLabel
       Left = 26
       Top = 23
-      Width = 119
+      Width = 29
       Height = 18
       Caption = 'Role'
       Font.Charset = ANSI_CHARSET
@@ -14566,8 +14566,8 @@ object frmSummaryUserRole: TfrmSummaryUserRole
     object Label8: TLabel
       Left = 26
       Top = 52
-      Width = 119
-      Height = 18
+      Width = 57
+      Height = 36
       Caption = 'Sub Role'#13#10
       Font.Charset = ANSI_CHARSET
       Font.Color = clWhite

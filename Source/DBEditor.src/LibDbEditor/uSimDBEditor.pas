@@ -64,7 +64,7 @@ begin
 
   frmDatabaseLogin.Free;
 
-  LoadFF_AppDBSetting('setting.ini' , vAppDBSetting);
+//  LoadFF_AppDBSetting('setting.ini' , vAppDBSetting);
 end;
 
 end.

@@ -205,10 +205,10 @@ procedure TfrmSummaryUserRole.btnApplyClick(Sender: TObject);
 begin
   with FSelectedUserRole do
   begin
-    if not CekInput then
-    begin
-      Exit;
-    end;
+//    if not CekInput then
+//    begin
+//      Exit;
+//    end;
 
     LastName := cbbUserRole.Text;
 
@@ -525,6 +525,10 @@ begin
     cbbUserRole.Items.Add('TERITORIAL');
     {$ENDREGION}
   end
+  else
+  begin
+    cbbUserRole.Items.Add('ADMINISTRATOR');
+  end;
 end;
 
 procedure TfrmSummaryUserRole.cbbRoleChange(Sender: TObject);

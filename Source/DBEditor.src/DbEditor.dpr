@@ -131,7 +131,14 @@ uses
   uDBAsset_Sensor in '..\LibTTT\LibData\uDBAsset_Sensor.pas',
   uDBAsset_Countermeasure in '..\LibTTT\LibData\uDBAsset_Countermeasure.pas',
   uDBAsset_Vehicle in '..\LibTTT\LibData\uDBAsset_Vehicle.pas' {/  ufrmUsage in '..\LibTTT\LibForms\DatabaseEditorForm\ufrmUsage.pas' {frmUsage},
-  ufrmUsage in '..\LibTTT\LibForms\DatabaseEditorForm\ufrmUsage.pas' {frmUsage};
+  ufrmUsage in '..\LibTTT\LibForms\DatabaseEditorForm\ufrmUsage.pas' {frmUsage},
+  uFormula in '..\LibTTT\LibData\uFormula.pas',
+  uMapXData in '..\LibTTT\LibComponent\uMapXData.pas',
+  uMapXHandler in '..\LibTTT\LibComponent\uMapXHandler.pas',
+  uTMapTouch2 in '..\LibTTT\LibComponent\uTMapTouch2.pas',
+  WbemScripting_TLB in '..\LibTTT\LibComponent\WbemScripting_TLB.pas',
+  ufrmRole in '..\LibTTT\LibForms\SimulatorForm\AdditionalForm\ufrmRole.pas' {frmSummaryRole},
+  ufrmSubRole in '..\LibTTT\LibForms\SimulatorForm\AdditionalForm\ufrmSubRole.pas' {frmSubRole};
 
 begin
 
@@ -211,6 +218,8 @@ begin
   Application.CreateForm(TfrmTowedJammerMount, frmTowedJammerMount);
   Application.CreateForm(TfrmVisualDetectorMount, frmVisualDetectorMount);
   Application.CreateForm(TfrmUsage, frmUsage);
+  Application.CreateForm(TfrmSummaryRole, frmSummaryRole);
+  Application.CreateForm(TfrmSubRole, frmSubRole);
   uSimDBEditor.StartInitialize;
 
   Application.Run;
