@@ -49,6 +49,8 @@ type
     function GetSubRoleByName(const aName: string): Integer; overload;
     function GetSubRoleInUserRole(const RoleID: Integer): Integer;
 
+    function GetSubRoleByID(const SubRoleID: Integer; var rec : TRecSubRole): Integer;
+
     function GetSearchUserRole(var FilterIndex : Integer ; SearchContent : string ; aList: TList ): Integer;
     function GetUserRoleFilterByOrganisasiTugas(var rec : TRecUser_Role): Integer;
     function GetUserRoleByFilterUsername(var rec : TRecUser_Role): Integer;
@@ -1066,6 +1068,46 @@ begin
     Open;
 
     Result := RecordCount;
+  end;
+end;
+
+function TdmINWO.GetSubRoleByID(const SubRoleID: Integer; var rec: TRecSubRole): Integer;
+var
+  i : Integer;
+begin
+  Result := -1;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT * FROM SubRole_Definition WHERE SubRoleIndex = '  + IntToStr(SubRoleID));
+    Open;
+
+    Result := RecordCount;
+
+    if not IsEmpty then
+    begin
+      First;
+
+      while not Eof do
+      begin
+        with rec do
+        begin
+          SubRoleIndex := FieldByName('SubRoleIndex').AsInteger;
+          RoleIndex := FieldByName('RoleIndex').AsInteger;
+          SubRoleAcronim := FieldByName('SubRoleAcronim').AsString;
+          SubRoleIdentifier := FieldByName('SubRoleIdentifier').AsString;
+          Perencanaan := Ord(FieldByName('Perencanaan').AsBoolean);
+          Persiapan := Ord(FieldByName('Persiapan').AsBoolean);
+          Pelaksanaan := Ord(FieldByName('Pelaksanaan').AsBoolean);
+          Pengakhiran := Ord(FieldByName('Pengakhiran').AsBoolean);
+        end;
+      end;
+    end;
   end;
 end;
 

@@ -387,6 +387,8 @@ begin
   begin
     userRoleTemp := listTemp.Items[i];
 
+    dmINWO.GetSubRoleByID(userRoleTemp.FData.SubRoleIndex, userRoleTemp.FSubRoleData);
+
     if Assigned(userRoleTemp) then
     begin
       SimUserRole.addUserRole(userRoleTemp);

@@ -39,6 +39,8 @@ type
 
   public
     FData  : TRecUser_Role;
+    FSubRoleData  : TRecSubRole;
+    FRoleData  : TRecRole;
 
     constructor Create;
     destructor Destroy;override;
