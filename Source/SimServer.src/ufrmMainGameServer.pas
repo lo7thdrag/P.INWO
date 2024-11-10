@@ -132,7 +132,7 @@ var
   i : Integer;
   li : TListItem;
   consoleInfoTemp : TConsoleInfo;
-  userRoleTemp : TUser_Role;
+  userRoleTemp : TUserRole;
 
 begin
   lvConsole.Items.Clear;

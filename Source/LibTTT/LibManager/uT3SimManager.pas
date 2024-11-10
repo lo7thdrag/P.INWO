@@ -143,7 +143,6 @@ begin
   inherited;
 end;
 
-
 procedure TT3SimManager.FGameThread_OnTerminate(sender: TObject);
 begin
 
@@ -159,7 +158,6 @@ begin
   if SimManager.GetGameState then
     FMainVTime.IncreaseMillisecond(dt * 1000.0 );
 end;
-
 
 procedure TT3SimManager.GameStart;
 begin
@@ -221,16 +219,33 @@ begin
 
   for i := 0 to listTemp.Count-1 do
   begin
-    userRoleTemp := listTemp.Items[i];
+    roleTemp := listTemp.Items[i];
 
-    if Assigned(userRoleTemp) then
+    if Assigned(roleTemp) then
     begin
-      SimUserRole.addUserRole(userRoleTemp);
+      SimRole.addRole(roleTemp);
     end;
   end;
-  listTemp.Free;
+  listTemp.Clear;
+  {$ENDREGION}
 
-  {$REGION ' Load User Role '}
+  {$REGION ' Load SubRole '}
+  listTemp := TList.Create;
+  dmINWO.GetAllSubRole(listTemp);
+
+  for i := 0 to listTemp.Count-1 do
+  begin
+    subRoleTemp := listTemp.Items[i];
+
+    if Assigned(subRoleTemp) then
+    begin
+      SimSubRole.addSubRole(subRoleTemp);
+    end;
+  end;
+  listTemp.Clear;
+  {$ENDREGION}
+
+  {$REGION ' Load UserRole '}
   listTemp := TList.Create;
   dmINWO.GetAllUserRole(listTemp);
 
@@ -240,10 +255,21 @@ begin
 
     if Assigned(userRoleTemp) then
     begin
+      subRoleTemp := SimSubRole.getSubRoleByID(userRoleTemp.FData.SubRoleIndex);
+
+      if Assigned(subRoleTemp) then
+        userRoleTemp.FSubRoleData := subRoleTemp.FData;
+
+      roleTemp := SimRole.getRoleByID(userRoleTemp.FData.RoleIndex);
+
+      if Assigned(roleTemp) then
+        userRoleTemp.FRoleData := roleTemp.FData;
+
       SimUserRole.addUserRole(userRoleTemp);
     end;
   end;
   listTemp.Free;
+  {$ENDREGION}
 
 end;
 
@@ -771,7 +797,6 @@ procedure TT3SimManager.InitNetwork;
 begin
   // some of register packet
 end;
-
 
 function TT3SimManager.GetGameState: Boolean;
 begin

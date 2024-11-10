@@ -76,9 +76,11 @@ type
     procedure btnPreparationClick(Sender: TObject);
     procedure btnImplementationClick(Sender: TObject);
     procedure btnTerminationClick(Sender: TObject);
+    procedure cbbSubRoleChange(Sender: TObject);
 
   private
-
+    procedure AddCbbSubRole(tipeTahapan : Integer);
+    procedure AddUserRoleLogin;
 
   public
     procedure Initialize;
@@ -188,6 +190,14 @@ begin
 
 end;
 
+procedure TfrmTacticalDisplay.cbbSubRoleChange(Sender: TObject);
+begin
+  if cbbSubRole.ItemIndex = -1 then
+    Exit;
+
+
+end;
+
 procedure TfrmTacticalDisplay.btnShowClick(Sender: TObject);
 var
   ipTemp : string;
@@ -208,6 +218,50 @@ begin
   frmSituationBoard.Show;
 end;
 
+
+procedure TfrmTacticalDisplay.AddCbbSubRole(tipeTahapan : Integer);
+var
+  i : Integer;
+  subRoleTemp : TSubRole;
+begin
+  cbbSubRole.Items.Clear;
+
+  for i := 0 to SimManager.SimSubRole.SubRoleList.Count-1 do
+  begin
+    subRoleTemp := SimManager.SimSubRole.SubRoleList[i];
+
+    if Assigned(subRoleTemp) then
+    begin
+      case tipeTahapan of
+        0:
+        begin
+          if subRoleTemp.FData.Perencanaan = 1 then
+            cbbSubRole.Items.AddObject(subRoleTemp.FData.SubRoleAcronim, subRoleTemp);
+        end;
+        1:
+        begin
+          if subRoleTemp.FData.Persiapan = 1 then
+            cbbSubRole.Items.AddObject(subRoleTemp.FData.SubRoleAcronim, subRoleTemp);
+        end;
+        2:
+        begin
+          if subRoleTemp.FData.Pelaksanaan = 1 then
+            cbbSubRole.Items.AddObject(subRoleTemp.FData.SubRoleAcronim, subRoleTemp);
+        end;
+        3:
+        begin
+          if subRoleTemp.FData.Pengakhiran = 1 then
+            cbbSubRole.Items.AddObject(subRoleTemp.FData.SubRoleAcronim, subRoleTemp);
+        end;
+      end;
+    end;
+  end;
+end;
+
+procedure TfrmTacticalDisplay.AddUserRoleLogin;
+begin
+
+end;
 
 procedure TfrmTacticalDisplay.btnImplementationClick(Sender: TObject);
 begin
@@ -306,7 +360,12 @@ begin
     lstUserRoleLogin.Left := 137;
 
     cbbSubRole.Visible := True;
-    lstUserRoleLogin.Visible := True;
+//    lstUserRoleLogin.Visible := True;
+
+    AddCbbSubRole(0);
+
+    if cbbSubRole.Items.Count > 0 then
+      cbbSubRole.ItemIndex := 0
   end
   else
   begin
@@ -323,7 +382,12 @@ begin
     lstUserRoleLogin.Left := 568;
 
     cbbSubRole.Visible := True;
-    lstUserRoleLogin.Visible := True;
+//    lstUserRoleLogin.Visible := True;
+
+    AddCbbSubRole(1);
+
+    if cbbSubRole.Items.Count > 0 then
+      cbbSubRole.ItemIndex := 0
   end
   else
   begin

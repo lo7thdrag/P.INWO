@@ -189,7 +189,7 @@ end;
 procedure TSimMgr_Server.FNetServerOnClientDisConnect(const S: string);
 var
   consoleInfoTemp : TConsoleInfo;
-  userRoleDataTemp : TUser_Role;
+  userRoleDataTemp : TUserRole;
   rec : TRecTCP_UserState;
 
 begin
@@ -374,7 +374,7 @@ procedure TSimMgr_Server.LoadDataAsset(const vSet: TGameDataSetting);
 var
   i : Integer;
   listTemp : TList;
-  userRoleTemp : TUser_Role;
+  userRoleTemp : TUserRole;
 
 begin
   inherited;
