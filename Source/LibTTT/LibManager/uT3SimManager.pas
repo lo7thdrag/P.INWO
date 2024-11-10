@@ -8,7 +8,7 @@ uses
 
   MapXLib_TLB, uThreadTimer,  uVirtualTime, uLibSetting, uSimManager , uSimObjects, uT3UnitContainer,
   uT3EventManager, uT3Listener, uSteppers, uNetBaseSocket, uConsoleData, uClassData, uRecordData,
-  uCoordConvertor, uConstantaData;
+  uCoordConvertor, uConstantaData, uDataModule;
 
 type
 
@@ -45,6 +45,8 @@ type
   public
 
     SimConsole : TConsoleContainer;
+    SimRole : TRoleContainer;
+    SimSubRole : TSubRoleContainer;
     SimUserRole : TUserRoleContainer;
     SimTabProperties : TTabPropertiesContainer;
     SimChatting : TChattingContainer;
@@ -111,6 +113,8 @@ begin
   FNetworkThread.Enabled := True;
 
   SimConsole := TConsoleContainer.Create;
+  SimRole := TRoleContainer.Create;
+  SimSubRole := TSubRoleContainer.Create;
   SimUserRole := TUserRoleContainer.Create;
   SimTabProperties := TTabPropertiesContainer.Create;
 
@@ -130,6 +134,8 @@ destructor TT3SimManager.Destroy;
 begin
 
   SimConsole.Free;
+  SimRole.Free;
+  SimSubRole.Free;
   SimUserRole.Free;
   SimTabProperties.Free;
   SimChatting.Free;
@@ -198,10 +204,47 @@ begin
 end;
 
 procedure TT3SimManager.LoadDataAsset(const vSet: TGameDataSetting);
-begin
+var
+  i : Integer;
+  listTemp : TList;
+  roleTemp : TRole;
+  subRoleTemp : TSubRole;
+  userRoleTemp : TUserRole;
 
+begin
   FMainVTime.Reset(0);
   FMainVTime.DateTimeOffset := 0;
+
+  {$REGION ' Load Role '}
+  listTemp := TList.Create;
+  dmINWO.GetAllRole(listTemp);
+
+  for i := 0 to listTemp.Count-1 do
+  begin
+    userRoleTemp := listTemp.Items[i];
+
+    if Assigned(userRoleTemp) then
+    begin
+      SimUserRole.addUserRole(userRoleTemp);
+    end;
+  end;
+  listTemp.Free;
+
+  {$REGION ' Load User Role '}
+  listTemp := TList.Create;
+  dmINWO.GetAllUserRole(listTemp);
+
+  for i := 0 to listTemp.Count-1 do
+  begin
+    userRoleTemp := listTemp.Items[i];
+
+    if Assigned(userRoleTemp) then
+    begin
+      SimUserRole.addUserRole(userRoleTemp);
+    end;
+  end;
+  listTemp.Free;
+
 end;
 
 procedure TT3SimManager.OnOverlayShape(const rec: TRecTCPSendOverlayShape);
@@ -698,7 +741,7 @@ end;
 
 procedure TT3SimManager.OnUserStateChange(const rec: TRecTCP_UserState);
 var
-  userRoleTemp : TUser_Role;
+  userRoleTemp : TUserRole;
 
 begin
 

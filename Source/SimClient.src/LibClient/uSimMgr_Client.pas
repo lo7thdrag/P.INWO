@@ -359,7 +359,7 @@ procedure TSimMgr_Client.LoadDataAsset(const vSet: TGameDataSetting);
 var
   i : Integer;
   listTemp : TList;
-  userRoleTemp : TUser_Role;
+  userRoleTemp : TUserRole;
 
 begin
   inherited;
@@ -582,7 +582,7 @@ end;
 
 procedure TSimMgr_Client.OnUserStateChange(const rec: TRecTCP_UserState);
 var
-  userRoleTemp : TUser_Role;
+  userRoleTemp : TUserRole;
 
 begin
   inherited;

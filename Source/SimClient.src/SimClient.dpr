@@ -120,14 +120,6 @@ begin
   Application.CreateForm(TfrmRadarOnBoardPickList, frmRadarOnBoardPickList);
   Application.CreateForm(TfrmRadarMount, frmRadarMount);
   Application.CreateForm(TfrmBlindZonesAttachment, frmBlindZonesAttachment);
-  //  Application.CreateForm(TfrmCreateTab, frmCreateTab);
-//  Application.CreateForm(TfrmImageInsert, frmImageInsert);
-//  Application.CreateForm(TfrmAvailableUserRole, frmAvailableUserRole);
-  //  Application.CreateForm(TfrmMapPreview, frmMapPreview);
-  //  Application.CreateForm(TfrmMapEditor, frmMapEditor);
-//  Application.CreateForm(TfrmOverlayTools, frmOverlayTools);
-//  Application.CreateForm(TfrmImageInsert, frmImageInsert);
-//  Application.CreateForm(TForm1, Form1);
   uScriptSimClients.BeginGame;
 
   Application.Run;

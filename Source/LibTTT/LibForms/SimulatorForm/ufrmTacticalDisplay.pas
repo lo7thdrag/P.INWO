@@ -166,7 +166,7 @@ procedure TfrmTacticalDisplay.cbbConsoleNameDropDown(Sender: TObject);
 var
   i : Integer;
   consoleInfoTemp : TConsoleInfo;
-  userRoleTemp : TUser_Role;
+  userRoleTemp : TUserRole;
 
 begin
   cbbConsoleName.Clear;
@@ -191,7 +191,7 @@ end;
 procedure TfrmTacticalDisplay.btnShowClick(Sender: TObject);
 var
   ipTemp : string;
-  userRoleTemp : TUser_Role;
+  userRoleTemp : TUserRole;
 
 begin
   if (cbbConsoleName.ItemIndex = -1) or (cbbConsoleName.Text = '') then
@@ -229,7 +229,7 @@ end;
 
 procedure TfrmTacticalDisplay.btnLoginClick(Sender: TObject);
 var
-  userRoleTemp : TUser_Role;
+  userRoleTemp : TUserRole;
   rec : TRecTCP_UserState;
 
 begin
@@ -356,7 +356,7 @@ end;
 
 procedure TfrmTacticalDisplay.UpdateClientLogin(Sender: TObject);
 var
-  userRoleTemp : TUser_Role;
+  userRoleTemp : TUserRole;
 
 begin
   frmDisplayArea := TfrmDisplayArea.Create(Self);

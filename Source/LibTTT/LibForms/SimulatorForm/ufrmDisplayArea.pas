@@ -355,8 +355,8 @@ type
     FTacticalSymbolList : TList;
     FAssetList : TList;
 
-    FSelectedPengguna : TUser_Role;
-    FSelectedUserChat : TUser_Role;
+    FSelectedPengguna : TUserRole;
+    FSelectedUserChat : TUserRole;
     FSelectedFileBeranda : TFile_Data;
     FSelectedFileReferensi : TFile_Data;
     FSelectedGameArea : TGame_Area_Definition;
@@ -1093,7 +1093,7 @@ end;
 procedure TfrmDisplayArea.UpdateDataPengguna;
 var
   i : Integer;
-  userRoleTemp : TUser_Role;
+  userRoleTemp : TUserRole;
   li : TListItem;
 
 begin
@@ -1174,7 +1174,7 @@ begin
   try
     with frmSummaryUserRole do
     begin
-      SelectedUserRole := TUser_Role.Create;
+      SelectedUserRole := TUserRole.Create;
       ShowModal;
       SelectedUserRole.Free;
     end;
@@ -1234,7 +1234,7 @@ begin
     if (Item = nil) or (item.Data = nil) then
       Exit;
 
-    FSelectedPengguna := TUser_Role(lvUserRole.Selected.Data);
+    FSelectedPengguna := TUserRole(lvUserRole.Selected.Data);
   end;
 end;
 
@@ -1778,7 +1778,7 @@ begin
   if lstUserChat.ItemIndex = -1 then
     Exit;
 
-  FSelectedUserChat := TUser_Role(lstUserChat.Items.Objects[lstUserChat.ItemIndex]);
+  FSelectedUserChat := TUserRole(lstUserChat.Items.Objects[lstUserChat.ItemIndex]);
   mmoChat.BringToFront;
   UpdateClientHistoryChat(FSelectedUserChat.FData.UserRoleIndex);
 end;
@@ -1788,7 +1788,7 @@ var
 tempList : TList;
 i : Integer;
 chattingTemp : TChatting;
-userRoleTemp : TUser_Role;
+userRoleTemp : TUserRole;
 namaRole : string;
 begin
   tempList := TList.Create;
@@ -1849,7 +1849,7 @@ end;
 procedure TfrmDisplayArea.UpdateClientChatting;
 var
   i : Integer;
-  userRoleTemp : TUser_Role;
+  userRoleTemp : TUserRole;
 begin
   lstUserChat.Items.Clear;
 

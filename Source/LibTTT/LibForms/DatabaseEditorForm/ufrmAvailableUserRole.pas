@@ -39,7 +39,7 @@ type
   private
     FUpdateList : Boolean;
     FUserRoleList : TList;
-    FSelectedUserRole : TUser_Role;
+    FSelectedUserRole : TUserRole;
     procedure AddSearchTypeItems;
 
 
@@ -149,7 +149,7 @@ begin
   try
     with frmSummaryUserRole do
     begin
-      SelectedUserRole := TUser_Role.Create;
+      SelectedUserRole := TUserRole.Create;
       ShowModal;
       SelectedUserRole.Free;
       FUpdateList := AfterClose;
@@ -260,14 +260,14 @@ begin
     if (Item = nil) or (item.Data = nil) then
       Exit;
 
-    FSelectedUserRole := TUser_Role(lvUserRole.Selected.Data);
+    FSelectedUserRole := TUserRole(lvUserRole.Selected.Data);
   end;
 end;
 
 procedure TfrmAvailableUserRole.UpdatUserRoleList;
 var
   i : Integer;
-  userRoleTemp : TUser_Role;
+  userRoleTemp : TUserRole;
   li : TListItem;
 
 begin

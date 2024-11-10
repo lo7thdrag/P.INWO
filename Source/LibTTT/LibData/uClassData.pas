@@ -21,6 +21,22 @@ type
 
   end;
 
+  TRoleContainer = class
+  private
+    FRoleList : TList;
+
+  public
+    constructor Create;
+    destructor  Destroy; override;
+
+    function  getRoleByID(Id : Integer): TRole;
+
+    procedure addRole(Val : TRole);
+    procedure deleteRole(Val : TRole);
+
+    property RoleList : TList read FRoleList write FRoleList;
+  end;
+
   TSubRole = class
   private
 
@@ -32,7 +48,23 @@ type
 
   end;
 
-  TUser_Role = class
+  TSubRoleContainer = class
+  private
+    FSubRoleList : TList;
+
+  public
+    constructor Create;
+    destructor  Destroy; override;
+
+    function  getSubRoleByID(Id : Integer): TRole;
+
+    procedure addSubRole(Val : TRole);
+    procedure deleteSubRole(Val : TRole);
+
+    property SubRoleList : TList read FSubRoleList write FSubRoleList;
+  end;
+
+  TUserRole = class
   private
     FConsoleIP : string;
     FisInUse : Boolean;
@@ -57,12 +89,12 @@ type
     constructor Create;
     destructor  Destroy; override;
 
-    function  getUserRoleByUsernamePassword(username, password : string): TUser_Role;
-    function  getUserRoleByID(Id : Integer): TUser_Role;
-    function  getUserRoleByIPAddress(IpAddress : string): TUser_Role;
+    function  getUserRoleByUsernamePassword(username, password : string): TUserRole;
+    function  getUserRoleByID(Id : Integer): TUserRole;
+    function  getUserRoleByIPAddress(IpAddress : string): TUserRole;
 
-    procedure addUserRole(Val : TUser_Role);
-    procedure deleteUserRole(Val : TUser_Role);
+    procedure addUserRole(Val : TUserRole);
+    procedure deleteUserRole(Val : TUserRole);
 
     property UserList : TList read FUserList write FUserList;
   end;
@@ -549,15 +581,133 @@ type
 
 implementation
 
+{$REGION ' TRole '}
+
+constructor TRole.Create;
+begin
+
+end;
+
+destructor TRole.Destroy;
+begin
+
+  inherited;
+end;
+
+{$ENDREGION}
+
+{$REGION ' TRoleContainer '}
+
+procedure TRoleContainer.addRole(Val: TRole);
+begin
+  FRoleList.Add(Val);
+end;
+
+constructor TRoleContainer.Create;
+begin
+  FRoleList := TList.Create;
+end;
+
+procedure TRoleContainer.deleteRole(Val: TRole);
+begin
+  FRoleList.Remove(Val);
+end;
+
+destructor TRoleContainer.Destroy;
+begin
+  FRoleList.Free;
+  inherited;
+end;
+
+function TRoleContainer.getRoleByID(Id: Integer): TRole;
+var
+  i : Integer;
+  roleTemp : TRole;
+begin
+  Result := nil;
+
+  for i := 0 to FRoleList.Count-1 do
+  begin
+    roleTemp := FRoleList.Items[i];
+
+    if roleTemp.FData.RoleIndex = Id then
+    begin
+      Result := roleTemp;
+      Exit;
+    end;
+  end;
+end;
+
+{$ENDREGION}
+
+{$REGION ' TSubRole '}
+
+constructor TSubRole.Create;
+begin
+
+end;
+
+destructor TSubRole.Destroy;
+begin
+
+  inherited;
+end;
+
+{$ENDREGION}
+
+{$REGION ' TSubRoleContainer '}
+
+procedure TSubRoleContainer.addSubRole(Val: TRole);
+begin
+  FSubRoleList.Add(Val);
+end;
+
+constructor TSubRoleContainer.Create;
+begin
+  FSubRoleList := TList.Create;
+end;
+
+procedure TSubRoleContainer.deleteSubRole(Val: TRole);
+begin
+  FSubRoleList.Remove(Val);
+end;
+
+destructor TSubRoleContainer.Destroy;
+begin
+  FSubRoleList.Free;
+  inherited;
+end;
+
+function TSubRoleContainer.getSubRoleByID(Id: Integer): TRole;
+var
+  i : Integer;
+  subRoleTemp : TSubRole;
+begin
+  Result := nil;
+
+  for i := 0 to FSubRoleList.Count-1 do
+  begin
+    subRoleTemp := FSubRoleList.Items[i];
+
+    if subRoleTemp.FData.SubRoleIndex = Id then
+    begin
+      Result := subRoleTemp;
+      Exit;
+    end;
+  end;
+end;
+
+{$ENDREGION}
+
 {$REGION ' TUser_Role '}
 
-constructor TUser_Role.Create;
+constructor TUserRole.Create;
 begin
   FisInUse := False;
   FConsoleIP := '';
 end;
 
-destructor TUser_Role.Destroy;
+destructor TUserRole.Destroy;
 begin
 
   inherited;
@@ -567,7 +717,7 @@ end;
 
 {$REGION ' TUserRoleContainer '}
 
-procedure TUserRoleContainer.addUserRole(Val: TUser_Role);
+procedure TUserRoleContainer.addUserRole(Val: TUserRole);
 begin
   FUserList.Add(Val);
 end;
@@ -577,7 +727,7 @@ begin
   FUserList := TList.Create;
 end;
 
-procedure TUserRoleContainer.deleteUserRole(Val: TUser_Role);
+procedure TUserRoleContainer.deleteUserRole(Val: TUserRole);
 begin
   FUserList.Remove(Val);
 end;
@@ -588,10 +738,10 @@ begin
   inherited;
 end;
 
-function TUserRoleContainer.getUserRoleByID(Id: Integer): TUser_Role;
+function TUserRoleContainer.getUserRoleByID(Id: Integer): TUserRole;
 var
   i : Integer;
-  userRoleTemp : TUser_Role;
+  userRoleTemp : TUserRole;
 begin
   Result := nil;
 
@@ -607,10 +757,10 @@ begin
   end;
 end;
 
-function TUserRoleContainer.getUserRoleByIPAddress(IpAddress : string): TUser_Role;
+function TUserRoleContainer.getUserRoleByIPAddress(IpAddress : string): TUserRole;
 var
   i : Integer;
-  userRoleTemp : TUser_Role;
+  userRoleTemp : TUserRole;
 begin
   Result := nil;
 
@@ -626,10 +776,10 @@ begin
   end;
 end;
 
-function TUserRoleContainer.getUserRoleByUsernamePassword(username, password: string): TUser_Role;
+function TUserRoleContainer.getUserRoleByUsernamePassword(username, password: string): TUserRole;
 var
   i : Integer;
-  userRoleTemp : TUser_Role;
+  userRoleTemp : TUserRole;
 begin
   Result := nil;
 
@@ -2432,7 +2582,7 @@ end;
 
 {$ENDREGION}
 
-{ TRuler }
+{$REGION ' TRuler '}
 
 constructor TRuler.Create(cvt: TCoordConverter);
 begin
@@ -2472,7 +2622,9 @@ begin
   end;
 end;
 
-{ TAsset }
+{$ENDREGION}
+
+{$REGION ' TAsset '}
 
 constructor TAsset.Create;
 begin
@@ -2485,7 +2637,9 @@ begin
   inherited;
 end;
 
-{ TFontTaktis }
+{$ENDREGION}
+
+{$REGION ' TFontTaktis '}
 
 constructor TFontTaktis.Create;
 begin
@@ -2498,30 +2652,6 @@ begin
   inherited;
 end;
 
-{ TSubRole }
-
-constructor TSubRole.Create;
-begin
-
-end;
-
-destructor TSubRole.Destroy;
-begin
-
-  inherited;
-end;
-
-{ TRole }
-
-constructor TRole.Create;
-begin
-
-end;
-
-destructor TRole.Destroy;
-begin
-
-  inherited;
-end;
+{$ENDREGION}
 
 end.

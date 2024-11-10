@@ -997,7 +997,7 @@ end;
 function TdmINWO.GetAllUserRole(var aList: TList): Integer;
 var
   i : Integer;
-  rec : TUser_Role;
+  rec : TUserRole;
 begin
   Result := -1;
 
@@ -1032,7 +1032,7 @@ begin
 
       while not Eof do
       begin
-        rec := TUser_Role.Create;
+        rec := TUserRole.Create;
 
         with rec.FData do
         begin
@@ -1175,7 +1175,7 @@ end;
 function TdmINWO.GetSearchUserRole(var FilterIndex : Integer ; SearchContent : string ; aList: TList ): Integer;
 var
   i : Integer;
-  rec : TUser_Role;
+  rec : TUserRole;
 begin
   Result := -1;
 
@@ -1217,7 +1217,7 @@ begin
 
       while not Eof do
       begin
-        rec := TUser_Role.Create;
+        rec := TUserRole.Create;
 
         with rec.FData do
         begin

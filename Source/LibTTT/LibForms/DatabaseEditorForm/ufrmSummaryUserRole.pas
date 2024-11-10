@@ -59,7 +59,7 @@ type
     procedure cbbUserRoleChange(Sender: TObject);
 
   private
-    FSelectedUserRole : TUser_Role;
+    FSelectedUserRole : TUserRole;
     FRoleList : TList;
     FSubRoleList : TList;
 
@@ -80,7 +80,7 @@ type
     isOK  : Boolean; {Penanda jika gagal cek input, btn OK tidak langsung close}
     AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, list tdk perlu di update }
 
-    property SelectedUserRole : TUser_Role read FSelectedUserRole write FSelectedUserRole;
+    property SelectedUserRole : TUserRole read FSelectedUserRole write FSelectedUserRole;
   end;
 
 var
