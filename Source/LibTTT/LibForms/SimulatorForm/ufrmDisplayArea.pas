@@ -482,9 +482,9 @@ begin
   with simMgrClient.MyConsoleData do
   begin
     lblConsoleName.Caption := Identifier;
-//    lblKogas.Caption := SetSubOrganisasiTugasToString(TSubOrganisasiTugas(UserRoleData.SubOrganisasiTugas));
-    lblUserRoleIdentifier.Caption := UserRoleData.UserRoleIdentifier;
-    lblTahapan.Caption := SetTipeTahapanToString(TTipeTahapan(TipeTahapan));
+    lblKogas.Caption := UserRoleData.FSubRoleData.SubRoleAcronim;
+    lblUserRoleIdentifier.Caption := UserRoleData.FData.UserRoleAcronim;
+//    lblTahapan.Caption := SetTipeTahapanToString(TTipeTahapan(UserRoleData.FSubRoleData.));
   end;
 
   CalendarView1.Date := Now;
@@ -538,8 +538,8 @@ begin
       Encripted_File_Name := '';
       Tipe_File           := ExtractFileExt(saveDialog.FileName);
       Modified_Date       := DateToStr(Now);
-      Modified_By         := simMgrClient.MyConsoleData.UserRoleData.UserRoleIdentifier;
-      id_User             := simMgrClient.MyConsoleData.UserRoleData.UserRoleIndex;
+      Modified_By         := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim;
+      id_User             := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
 
       if dmINWO.InsertFile(fileDataTemp) then
       begin
@@ -1114,26 +1114,6 @@ begin
     li.SubItems.Add(SetOrganisasiTugasAkronimToString(TOrganisasiTugas(userRoleTemp.FData.RoleIndex)));
     li.SubItems.Add(SetSubOrganisasiTugasToString(TSubOrganisasiTugas(userRoleTemp.FData.SubRoleIndex)));
 
-//    if userRoleTemp.FData.Perencanaan = 1 then
-//      li.SubItems.Add('✔')
-//    else
-//      li.SubItems.Add('❌');
-//
-//    if userRoleTemp.FData.Persiapan = 1 then
-//      li.SubItems.Add('✔')
-//    else
-//      li.SubItems.Add('❌');
-//
-//    if userRoleTemp.FData.Pelaksanaan = 1 then
-//      li.SubItems.Add('✔')
-//    else
-//      li.SubItems.Add('❌');
-//
-//    if userRoleTemp.FData.Pengakhiran = 1 then
-//      li.SubItems.Add('✔')
-//    else
-//      li.SubItems.Add('❌');
-
     li.Data := userRoleTemp;
   end;
 end;
@@ -1542,8 +1522,8 @@ begin
       Encripted_File_Name := '';
       Tipe_File           := ExtractFileExt(saveDialog.FileName);
       Modified_Date       := DateToStr(Now);
-      Modified_By         := simMgrClient.MyConsoleData.UserRoleData.UserRoleIdentifier;
-      id_User             := simMgrClient.MyConsoleData.UserRoleData.UserRoleIndex;
+      Modified_By         := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim;
+      id_User             := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
 
       if dmINWO.InsertReferensi(fileDataTemp) then
       begin
@@ -1795,13 +1775,13 @@ begin
 
   if Assigned(FSelectedUserChat) then
   begin
-    SimManager.SimChatting.GetChattingBySending(simMgrClient.MyConsoleData.UserRoleData.UserRoleIndex, IdSender, tempList);
+    SimManager.SimChatting.GetChattingBySending(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, IdSender, tempList);
 //    SimManager.SimChatting.GetChattingByUserRole(simMgrClient.MyConsoleData.UserRoleData.UserRoleIndex, tempList);
     for i := 0 to tempList.Count - 1 do
     begin
       chattingTemp := tempList.Items[i];
 
-      if chattingTemp.IdUserRoleSending = simMgrClient.MyConsoleData.UserRoleData.UserRoleIndex then
+      if chattingTemp.IdUserRoleSending = simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex then
       begin
         mmoChat.Font.Color := clBlack;
         mmoChat.Lines.Add('You :');
@@ -1809,7 +1789,7 @@ begin
         mmoChat.Lines.Add(chattingTemp.ChatMessage);
         mmoChat.Lines.Add('/n');
       end
-      else if (chattingTemp.IdUserRoleReceive = simMgrClient.MyConsoleData.UserRoleData.UserRoleIndex)
+      else if (chattingTemp.IdUserRoleReceive = simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex)
       and (chattingTemp.IdUserRoleSending = IdSender) then
       begin
         mmoChat.Font.Color := clBlue;
@@ -1838,7 +1818,7 @@ var
 rec : TRecTCPSendChatUserRole;
 begin
    rec.OrderID := 0;
-   rec.SenderUserRoleId := simMgrClient.MyConsoleData.UserRoleData.UserRoleIndex;
+   rec.SenderUserRoleId := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
    rec.ReceiverUserRoleId := FSelectedUserChat.FData.UserRoleIndex;
    FillChar(rec.ChatMessage, SizeOf(rec.ChatMessage), 0);
    rec.ChatMessage := edtChatBox.Text;
@@ -1912,7 +1892,7 @@ begin
   if Assigned(simMgrClient.MyConsoleData) then
   begin
     rec.OrderID := CORD_ID_LOGOUT;
-    rec.UserRoleId := simMgrClient.MyConsoleData.UserRoleData.UserRoleIndex;
+    rec.UserRoleId := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
     rec.ConsoleIP := simMgrClient.MyConsoleData.IpAdrres;
     rec.UserRoleInUse := False;
 

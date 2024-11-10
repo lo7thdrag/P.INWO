@@ -104,21 +104,19 @@ type
     FIdentifier : string;
     FIpAdrres : string;
     FGroup : TConsoleGroup;
-    FUserRoleData : TRecUser_Role;
-    FTipeTahapan : Byte;
+    FUserRoleData : TUserRole;
 
   public
     constructor Create;
     destructor  Destroy; override;
 
-    procedure assignUserRoleData(Val : TRecUser_Role);
-    procedure UnassignUserRoleData(Val : TRecUser_Role);
+    procedure assignUserRoleData(Val : TUserRole);
+    procedure UnassignUserRoleData(Val : TUserRole);
 
     property Identifier : string read FIdentifier write FIdentifier;
     property IpAdrres : string read FIpAdrres write FIpAdrres;
     property Group : TConsoleGroup read FGroup write FGroup;
-    property UserRoleData : TRecUser_Role read FUserRoleData write FUserRoleData;
-    property TipeTahapan : byte read FTipeTahapan write FTipeTahapan;
+    property UserRoleData : TUserRole read FUserRoleData write FUserRoleData;
   end;
 
   TFile_Data = class
@@ -799,43 +797,38 @@ end;
 
 {$REGION ' TConsoleData '}
 
-procedure TConsoleData.assignUserRoleData(Val: TRecUser_Role);
+procedure TConsoleData.assignUserRoleData(Val: TUserRole);
 begin
-  FUserRoleData.UserRoleIndex       := Val.UserRoleIndex;
-  FUserRoleData.RoleIndex           := Val.RoleIndex;
-  FUserRoleData.SubRoleIndex        := Val.SubRoleIndex;
-//  FUserRoleData.Perencanaan         := Val.Perencanaan;
-//  FUserRoleData.Persiapan           := Val.Persiapan;
-//  FUserRoleData.Pelaksanaan         := Val.Pelaksanaan;
-//  FUserRoleData.Pengakhiran         := Val.Pengakhiran;
-  FUserRoleData.UserRoleIdentifier  := Val.UserRoleIdentifier;
-  FUserRoleData.Username            := Val.Username;
-  FUserRoleData.Password            := Val.Password;
+  FUserRoleData := Val;
+//  FUserRoleData.FData         := Val.FData;
+//  FUserRoleData.FSubRoleData  := Val.FSubRoleData;
+//  FUserRoleData.FRoleData     := Val.FRoleData;
 end;
 
 constructor TConsoleData.Create;
 begin
-
+  FUserRoleData := TUserRole.Create;
 end;
 
 destructor TConsoleData.Destroy;
 begin
-
+  FUserRoleData.Free;
   inherited;
 end;
 
-procedure TConsoleData.UnassignUserRoleData(Val: TRecUser_Role);
+procedure TConsoleData.UnassignUserRoleData(Val: TUserRole);
 begin
-  FUserRoleData.UserRoleIndex       := 0;
-  FUserRoleData.RoleIndex           := 0;
-  FUserRoleData.SubRoleIndex        := 0;
-//  FUserRoleData.Perencanaan         := 0;
-//  FUserRoleData.Persiapan           := 0;
-//  FUserRoleData.Pelaksanaan         := 0;
-//  FUserRoleData.Pengakhiran         := 0;
-  FUserRoleData.UserRoleIdentifier  := '';
-  FUserRoleData.Username            := '';
-  FUserRoleData.Password            := '';
+  FUserRoleData := nil;
+//  FUserRoleData.UserRoleIndex       := 0;
+//  FUserRoleData.RoleIndex           := 0;
+//  FUserRoleData.SubRoleIndex        := 0;
+////  FUserRoleData.Perencanaan         := 0;
+////  FUserRoleData.Persiapan           := 0;
+////  FUserRoleData.Pelaksanaan         := 0;
+////  FUserRoleData.Pengakhiran         := 0;
+//  FUserRoleData.UserRoleIdentifier  := '';
+//  FUserRoleData.Username            := '';
+//  FUserRoleData.Password            := '';
 end;
 
 {$ENDREGION}

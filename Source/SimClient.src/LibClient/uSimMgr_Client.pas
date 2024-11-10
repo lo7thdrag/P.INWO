@@ -543,7 +543,7 @@ begin
   inherited;
 
   {$REGION ' Khusus Console yg bersangkutan '}
-  if MyConsoleData.UserRoleData.UserRoleIndex = rec.IdUserRole then
+  if MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.IdUserRole then
   begin
     TT3ClientEventManager(EventManager).OnUpdateSituationBoardTabPropertiesChange;
   end;
@@ -555,7 +555,7 @@ begin
   inherited;
 
   {$REGION ' Khusus Console yg bersangkutan '}
-  if MyConsoleData.UserRoleData.UserRoleIndex = rec.UserRoleId then
+  if MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.UserRoleId then
   begin
     TT3ClientEventManager(EventManager).OnUpdateSituationBoardTabPropertiesChange;
   end;
@@ -568,12 +568,12 @@ begin
   inherited;
 
   {Update untuk yg ngirim dan yang nerima}
-  if (MyConsoleData.UserRoleData.UserRoleIndex = rec.ReceiverUserRoleId) then
+  if (MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.ReceiverUserRoleId) then
   begin
     TT3ClientEventManager(EventManager).OnUpdateUserRoleChatChange(rec.ReceiverUserRoleId);
   end;
 
-  if (MyConsoleData.UserRoleData.UserRoleIndex = rec.SenderUserRoleId) then
+  if (MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.SenderUserRoleId) then
   begin
     TT3ClientEventManager(EventManager).OnUpdateUserRoleChatChange(rec.SenderUserRoleId);
   end;
@@ -597,12 +597,12 @@ begin
       case rec.OrderID of
         CORD_ID_LOGIN :
         begin
-          MyConsoleData.assignUserRoleData(userRoleTemp.FData);
+          MyConsoleData.assignUserRoleData(userRoleTemp);
           TT3ClientEventManager(EventManager).OnUpdateUserStateChange(rec.OrderID);
         end;
         CORD_ID_LOGOUT :
         begin
-          MyConsoleData.UnassignUserRoleData(userRoleTemp.FData);
+          MyConsoleData.UnassignUserRoleData(userRoleTemp);
           TT3ClientEventManager(EventManager).OnUpdateUserStateChange(rec.OrderID);
         end;
       end;

@@ -63,6 +63,7 @@ type
     btnTermination: TRzBmpButton;
     cbbSubRole: TComboBox;
     lstUserRoleLogin: TListBox;
+    lblUserIdentifier: TLabel;
 
     procedure FormCreate(Sender: TObject);
     procedure btnShowPasswordClick(Sender: TObject);
@@ -72,15 +73,19 @@ type
     procedure btnShowClick(Sender: TObject);
     procedure cbbConsoleNameDropDown(Sender: TObject);
     procedure btnPlanningClick(Sender: TObject);
-    procedure lstUserRoleLoginClick(Sender: TObject);
     procedure btnPreparationClick(Sender: TObject);
     procedure btnImplementationClick(Sender: TObject);
     procedure btnTerminationClick(Sender: TObject);
-    procedure cbbSubRoleChange(Sender: TObject);
+    procedure cbbSubRoleSelect(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure lstUserRoleLoginDblClick(Sender: TObject);
 
   private
+    FSelectedSubRole : TSubRole;
+    FselectedUserRole : TUserRole;
+
     procedure AddCbbSubRole(tipeTahapan : Integer);
-    procedure AddUserRoleLogin;
+    procedure AddUserRoleLogin(SubRoleId : integer);
 
   public
     procedure Initialize;
@@ -137,7 +142,7 @@ begin
   try
     with frmDisplayArea do
     begin
-      simMgrClient.MyConsoleData.TipeTahapan := Byte(SetTipeTahapanToEnum(cbbTahapan.Text));
+//      simMgrClient.MyConsoleData.TipeTahapan := Byte(SetTipeTahapanToEnum(cbbTahapan.Text));
       ShowModal;
     end;
 
@@ -150,11 +155,15 @@ procedure TfrmTacticalDisplay.btnTerminationClick(Sender: TObject);
 begin
   if btnTermination.Down then
   begin
-    cbbSubRole.Left := 1429;
-    lstUserRoleLogin.Left := 1429;
+    cbbSubRole.Left := 137;
+    lstUserRoleLogin.Left := 137;
 
     cbbSubRole.Visible := True;
-    lstUserRoleLogin.Visible := True;
+
+    AddCbbSubRole(3);
+
+    if cbbSubRole.Items.Count > 0 then
+      cbbSubRole.ItemIndex := 0;
   end
   else
   begin
@@ -190,11 +199,18 @@ begin
 
 end;
 
-procedure TfrmTacticalDisplay.cbbSubRoleChange(Sender: TObject);
+procedure TfrmTacticalDisplay.cbbSubRoleSelect(Sender: TObject);
 begin
   if cbbSubRole.ItemIndex = -1 then
     Exit;
 
+  FSelectedSubRole := TSubRole(cbbSubRole.Items.Objects[cbbSubRole.ItemIndex]);
+
+  if Assigned(FSelectedSubRole) then
+  begin
+    AddUserRoleLogin(FSelectedSubRole.FData.SubRoleIndex);
+    lstUserRoleLogin.Visible := True;
+  end;
 
 end;
 
@@ -213,7 +229,7 @@ begin
   ipTemp := simMgrClient.SimConsole.GetIPAddress(cbbConsoleName.Text);
   userRoleTemp := SimManager.SimUserRole.getUserRoleByIPAddress(ipTemp);
 
-  simMgrClient.MyConsoleData.assignUserRoleData(userRoleTemp.FData);
+  simMgrClient.MyConsoleData.assignUserRoleData(userRoleTemp);
 
   frmSituationBoard.Show;
 end;
@@ -258,20 +274,38 @@ begin
   end;
 end;
 
-procedure TfrmTacticalDisplay.AddUserRoleLogin;
+procedure TfrmTacticalDisplay.AddUserRoleLogin(SubRoleId : integer);
+var
+  i : Integer;
+  userRoleTemp : TUserRole;
 begin
+  lstUserRoleLogin.Items.Clear;
 
+  for i := 0 to SimManager.SimUserRole.UserList.Count-1 do
+  begin
+    userRoleTemp := SimManager.SimUserRole.UserList[i];
+
+    if Assigned(userRoleTemp) then
+    begin
+      if userRoleTemp.FData.SubRoleIndex = SubRoleId then
+        lstUserRoleLogin.Items.AddObject(userRoleTemp.FData.UserRoleAcronim, userRoleTemp);
+    end;
+  end;
 end;
 
 procedure TfrmTacticalDisplay.btnImplementationClick(Sender: TObject);
 begin
   if btnImplementation.Down then
   begin
-    cbbSubRole.Left := 998;
-    lstUserRoleLogin.Left := 998;
+    cbbSubRole.Left := 1000;
+    lstUserRoleLogin.Left := 1000;
 
     cbbSubRole.Visible := True;
-    lstUserRoleLogin.Visible := True;
+
+    AddCbbSubRole(2);
+
+    if cbbSubRole.Items.Count > 0 then
+      cbbSubRole.ItemIndex := 0;
   end
   else
   begin
@@ -283,26 +317,23 @@ end;
 
 procedure TfrmTacticalDisplay.btnLoginClick(Sender: TObject);
 var
-  userRoleTemp : TUserRole;
   rec : TRecTCP_UserState;
 
 begin
-  if (vGameDataSetting.DemoMode = False) then
+  if not SimManager.GetGameState then
   begin
-    if not SimManager.GetGameState then
-    begin
-      ShowMessage('Console anda tidak terhubung ke server');
-      Exit;
-    end;
+    ShowMessage('Your consule is not connecting to the server');
+    Exit;
+  end;
 
-    userRoleTemp := simMgrClient.SimUserRole.getUserRoleByUsernamePassword(edtUsername.Text, edtPassword.Text);
-
-    if Assigned(userRoleTemp) then
+  if Assigned(FselectedUserRole) then
+  begin
+    if (FselectedUserRole.FData.Username = edtUsername.Text)  and (FselectedUserRole.FData.Password = edtPassword.Text) then
     begin
-      if not userRoleTemp.isInUse then
+      if not FselectedUserRole.isInUse then
       begin
         rec.OrderID       := CORD_ID_LOGIN;
-        rec.UserRoleId    := userRoleTemp.FData.UserRoleIndex;
+        rec.UserRoleId    := FselectedUserRole.FData.UserRoleIndex;
         rec.ConsoleIP     := simMgrClient.MyConsoleData.IpAdrres;
         rec.UserRoleInUse := True;
 
@@ -310,28 +341,17 @@ begin
       end
       else
       begin
-        ShowMessage('Role sudah digunakan');
+        ShowMessage('User Role is in use ');
       end;
     end
     else
     begin
-      ShowMessage('Role tidak ditemukan, silahkan cek kembali username dan password');
+      ShowMessage('Invalid username and password ');
     end;
   end
   else
   begin
-    frmDisplayArea := TfrmDisplayArea.Create(Self);
-    try
-      with frmDisplayArea do
-      begin
-//        simMgrClient.MyConsoleData.TipeTahapan := Byte(SetTipeTahapanToEnum(cbbTahapan.Text));
-        ShowModal;
-      end;
-
-    finally
-      frmDisplayArea.Free;
-    end;
-    Exit
+    ShowMessage('Role tidak ditemukan, silahkan cek kembali username dan password');
   end;
 
 end;
@@ -344,7 +364,7 @@ begin
   if Assigned(simMgrClient.MyConsoleData) then
   begin
     rec.OrderID := CORD_ID_LOGOUT;
-    rec.UserRoleId := simMgrClient.MyConsoleData.UserRoleData.UserRoleIndex;
+    rec.UserRoleId := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
     rec.ConsoleIP := simMgrClient.MyConsoleData.IpAdrres;
     rec.UserRoleInUse := False;
 
@@ -360,12 +380,11 @@ begin
     lstUserRoleLogin.Left := 137;
 
     cbbSubRole.Visible := True;
-//    lstUserRoleLogin.Visible := True;
 
     AddCbbSubRole(0);
 
     if cbbSubRole.Items.Count > 0 then
-      cbbSubRole.ItemIndex := 0
+      cbbSubRole.ItemIndex := 0;
   end
   else
   begin
@@ -382,12 +401,11 @@ begin
     lstUserRoleLogin.Left := 568;
 
     cbbSubRole.Visible := True;
-//    lstUserRoleLogin.Visible := True;
 
     AddCbbSubRole(1);
 
     if cbbSubRole.Items.Count > 0 then
-      cbbSubRole.ItemIndex := 0
+      cbbSubRole.ItemIndex := 0;
   end
   else
   begin
@@ -400,7 +418,17 @@ procedure TfrmTacticalDisplay.FormCreate(Sender: TObject);
 begin
   EnableComposited(pnlBackgroundLogin);
   EnableComposited(pnlHome);
+
+  FSelectedSubRole := TSubRole.Create;
+  FselectedUserRole := TUserRole.Create;
+
   Show;
+end;
+
+procedure TfrmTacticalDisplay.FormDestroy(Sender: TObject);
+begin
+  FSelectedSubRole.Free;
+  FselectedUserRole.Free;
 end;
 
 procedure TfrmTacticalDisplay.Initialize;
@@ -413,9 +441,17 @@ begin
   top := Screen.Monitors[vGameDataSetting.TacticalScreen].top;
 end;
 
-procedure TfrmTacticalDisplay.lstUserRoleLoginClick(Sender: TObject);
+procedure TfrmTacticalDisplay.lstUserRoleLoginDblClick(Sender: TObject);
 begin
-pnlBackgroundLogin.BringToFront;
+  if lstUserRoleLogin.ItemIndex = -1 then
+    Exit;
+
+  FselectedUserRole := TUserRole(lstUserRoleLogin.Items.Objects[lstUserRoleLogin.ItemIndex]);
+
+  if Assigned(FselectedUserRole) then
+    lblUserIdentifier.Caption := FselectedUserRole.FData.UserRoleIdentifier;
+
+  pnlBackgroundLogin.BringToFront;
 end;
 
 procedure TfrmTacticalDisplay.UpdateClientLogin(Sender: TObject);

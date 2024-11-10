@@ -1039,6 +1039,7 @@ begin
           RoleIndex := FieldByName('RoleIndex').AsInteger;
           SubRoleIndex := FieldByName('SubRoleIndex').AsInteger;
           UserRoleIndex := FieldByName('UserRoleIndex').AsInteger;
+          UserRoleAcronim := FieldByName('UserRoleAcronim').AsString;
           UserRoleIdentifier := FieldByName('UserRoleIdentifier').AsString;
           Username := FieldByName('Username').AsString;
           Password := FieldByName('Password').AsString;

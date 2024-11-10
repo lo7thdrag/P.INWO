@@ -49,13 +49,13 @@ begin
 
   for i := 1 to 13 do
   begin
-    if not SimManager.SimTabProperties.GetActiveTab(simMgrClient.MyConsoleData.UserRoleData.UserRoleIndex, i) then
+    if not SimManager.SimTabProperties.GetActiveTab(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, i) then
       Break;
   end;
 
   rec.OrderID := NEW_TAB;
   rec.TabId := i;
-  rec.UserRoleId := simMgrClient.MyConsoleData.UserRoleData.UserRoleIndex;
+  rec.UserRoleId := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
   rec.TabCaption := edtCaption.Text;
   rec.TabType := cbbType.ItemIndex;
 

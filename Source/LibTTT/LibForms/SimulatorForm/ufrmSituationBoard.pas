@@ -168,7 +168,7 @@ end;
 
 procedure TfrmSituationBoard.btnTabClick(Sender: TObject);
 begin
-  FSelectedTabProperties := SimManager.SimTabProperties.GetTapProperties(simMgrClient.MyConsoleData.UserRoleData.UserRoleIndex, TSpeedButton(Sender).Tag);
+  FSelectedTabProperties := SimManager.SimTabProperties.GetTapProperties(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, TSpeedButton(Sender).Tag);
 
   RefreshTab;
 end;
@@ -558,12 +558,12 @@ begin
     begin
       if TSpeedButton(Components[i]).Tag < 14 then
       begin
-        if SimManager.SimTabProperties.GetActiveTab(simMgrClient.MyConsoleData.UserRoleData.UserRoleIndex, tagTemp) then
+        if SimManager.SimTabProperties.GetActiveTab(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, tagTemp) then
         begin
           if TSpeedButton(Components[i]).Tag = tagTemp then
           begin
             TSpeedButton(Components[i]).Width := widthTemp;
-            TSpeedButton(Components[i]).Caption := SimManager.SimTabProperties.GetCaptionTab(simMgrClient.MyConsoleData.UserRoleData.UserRoleIndex, tagTemp);
+            TSpeedButton(Components[i]).Caption := SimManager.SimTabProperties.GetCaptionTab(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, tagTemp);
           end;
 
           inc(tagTemp);

@@ -50,7 +50,7 @@ var
 
 begin
   {Create Folder Tingkat User Role}
-  fileAddressTemp := '\' + IntToStr(simMgrClient.MyConsoleData.UserRoleData.UserRoleIndex);
+  fileAddressTemp := '\' + IntToStr(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex);
   CreateDir(vMapSetting.ImageGame + fileAddressTemp);
 
   {Create Folder Tingkat Tab}
@@ -62,7 +62,7 @@ begin
 
   rec.OrderID := EDIT_TAB;
   rec.TabId := TabId;
-  rec.UserRoleId := simMgrClient.MyConsoleData.UserRoleData.UserRoleIndex;
+  rec.UserRoleId := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
   rec.TabAddres := fileAddressTemp;
 
   simMgrClient.netSend_CmdSituationBoardTabProperties(rec);
