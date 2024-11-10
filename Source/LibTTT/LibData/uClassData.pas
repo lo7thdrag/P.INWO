@@ -56,10 +56,10 @@ type
     constructor Create;
     destructor  Destroy; override;
 
-    function  getSubRoleByID(Id : Integer): TRole;
+    function  getSubRoleByID(Id : Integer): TSubRole;
 
-    procedure addSubRole(Val : TRole);
-    procedure deleteSubRole(Val : TRole);
+    procedure addSubRole(Val : TSubRole);
+    procedure deleteSubRole(Val : TSubRole);
 
     property SubRoleList : TList read FSubRoleList write FSubRoleList;
   end;
@@ -657,7 +657,7 @@ end;
 
 {$REGION ' TSubRoleContainer '}
 
-procedure TSubRoleContainer.addSubRole(Val: TRole);
+procedure TSubRoleContainer.addSubRole(Val: TSubRole);
 begin
   FSubRoleList.Add(Val);
 end;
@@ -667,7 +667,7 @@ begin
   FSubRoleList := TList.Create;
 end;
 
-procedure TSubRoleContainer.deleteSubRole(Val: TRole);
+procedure TSubRoleContainer.deleteSubRole(Val: TSubRole);
 begin
   FSubRoleList.Remove(Val);
 end;
@@ -678,7 +678,7 @@ begin
   inherited;
 end;
 
-function TSubRoleContainer.getSubRoleByID(Id: Integer): TRole;
+function TSubRoleContainer.getSubRoleByID(Id: Integer): TSubRole;
 var
   i : Integer;
   subRoleTemp : TSubRole;
