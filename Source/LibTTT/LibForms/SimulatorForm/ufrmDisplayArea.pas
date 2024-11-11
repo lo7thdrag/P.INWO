@@ -211,6 +211,7 @@ type
     cbbFilter: TComboBox;
     cbbSearch: TComboBox;
     editSearch: TEdit;
+    Button1: TButton;
 
     procedure btnAOTCClick(Sender: TObject);
 
@@ -338,6 +339,7 @@ type
     procedure cbbSearchSelect(Sender: TObject);
     procedure lvAssetSelectItem(Sender: TObject; Item: TListItem;
       Selected: Boolean);
+    procedure Button1Click(Sender: TObject);
 //    procedure LlvFileDataSelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);
 
   private
@@ -1858,6 +1860,25 @@ procedure TfrmDisplayArea.btnUserChatClick(Sender: TObject);
 begin
   lstUserChat.BringToFront;
   UpdateClientChatting;
+end;
+
+procedure TfrmDisplayArea.Button1Click(Sender: TObject);
+var
+  i : Integer;
+  userroleTemp : TUserRole;
+
+begin
+  for i := 0 to SimManager.SimUserRole.UserList.Count - 1 do
+  begin
+    userroleTemp := SimManager.SimUserRole.UserList[i];
+
+    if Assigned(userroleTemp) then
+    begin
+      if userroleTemp.isInUse then
+        Memo1.Lines.Add(userroleTemp.FData.UserRoleAcronim)
+
+    end;
+  end;
 end;
 
 procedure TfrmDisplayArea.lstUserChatDblClick(Sender: TObject);

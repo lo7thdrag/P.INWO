@@ -798,14 +798,6 @@ end;
 
 {$REGION ' TConsoleData '}
 
-procedure TConsoleData.assignUserRoleData(Val: TUserRole);
-begin
-  FUserRoleData := Val;
-//  FUserRoleData.FData         := Val.FData;
-//  FUserRoleData.FSubRoleData  := Val.FSubRoleData;
-//  FUserRoleData.FRoleData     := Val.FRoleData;
-end;
-
 constructor TConsoleData.Create;
 begin
   FUserRoleData := TUserRole.Create;
@@ -817,19 +809,58 @@ begin
   inherited;
 end;
 
+procedure TConsoleData.assignUserRoleData(Val: TUserRole);
+begin
+  FUserRoleData.FConsoleIP                      := IpAdrres;
+  FUserRoleData.isInUse                         := Val.isInUse;
+
+  FUserRoleData.FData.UserRoleIndex             := Val.FData.UserRoleIndex;
+  FUserRoleData.FData.RoleIndex                 := Val.FData.RoleIndex;
+  FUserRoleData.FData.SubRoleIndex              := Val.FData.SubRoleIndex;
+  FUserRoleData.FData.UserRoleAcronim           := Val.FData.UserRoleAcronim;
+  FUserRoleData.FData.UserRoleIdentifier        := Val.FData.UserRoleIdentifier;
+  FUserRoleData.FData.Username                  := Val.FData.Username;
+  FUserRoleData.FData.Password                  := Val.FData.Password;
+
+  FUserRoleData.FSubRoleData.SubRoleIndex       := Val.FSubRoleData.SubRoleIndex;
+  FUserRoleData.FSubRoleData.RoleIndex          := Val.FSubRoleData.RoleIndex;
+  FUserRoleData.FSubRoleData.SubRoleAcronim     := Val.FSubRoleData.SubRoleAcronim;
+  FUserRoleData.FSubRoleData.SubRoleIdentifier  := Val.FSubRoleData.SubRoleIdentifier;
+  FUserRoleData.FSubRoleData.Perencanaan        := Val.FSubRoleData.Perencanaan;
+  FUserRoleData.FSubRoleData.Persiapan          := Val.FSubRoleData.Persiapan;
+  FUserRoleData.FSubRoleData.Pelaksanaan        := Val.FSubRoleData.Pelaksanaan;
+  FUserRoleData.FSubRoleData.Pengakhiran        := Val.FSubRoleData.Pengakhiran;
+
+  FUserRoleData.FRoleData.RoleIndex             := Val.FRoleData.RoleIndex;
+  FUserRoleData.FRoleData.RoleAcronim           := Val.FRoleData.RoleAcronim;
+  FUserRoleData.FRoleData.RoleIdentifier        := Val.FRoleData.RoleIdentifier;
+end;
+
 procedure TConsoleData.UnassignUserRoleData(Val: TUserRole);
 begin
-  FUserRoleData := nil;
-//  FUserRoleData.UserRoleIndex       := 0;
-//  FUserRoleData.RoleIndex           := 0;
-//  FUserRoleData.SubRoleIndex        := 0;
-////  FUserRoleData.Perencanaan         := 0;
-////  FUserRoleData.Persiapan           := 0;
-////  FUserRoleData.Pelaksanaan         := 0;
-////  FUserRoleData.Pengakhiran         := 0;
-//  FUserRoleData.UserRoleIdentifier  := '';
-//  FUserRoleData.Username            := '';
-//  FUserRoleData.Password            := '';
+  FUserRoleData.FConsoleIP                      := '';
+  FUserRoleData.isInUse                         := False;
+
+  FUserRoleData.FData.UserRoleIndex             := 0;
+  FUserRoleData.FData.RoleIndex                 := 0;
+  FUserRoleData.FData.SubRoleIndex              := 0;
+  FUserRoleData.FData.UserRoleAcronim           := '';
+  FUserRoleData.FData.UserRoleIdentifier        := '';
+  FUserRoleData.FData.Username                  := '';
+  FUserRoleData.FData.Password                  := '';
+
+  FUserRoleData.FSubRoleData.SubRoleIndex       := 0;
+  FUserRoleData.FSubRoleData.RoleIndex          := 0;
+  FUserRoleData.FSubRoleData.SubRoleAcronim     := '';
+  FUserRoleData.FSubRoleData.SubRoleIdentifier  := '';
+  FUserRoleData.FSubRoleData.Perencanaan        := 0;
+  FUserRoleData.FSubRoleData.Persiapan          := 0;
+  FUserRoleData.FSubRoleData.Pelaksanaan        := 0;
+  FUserRoleData.FSubRoleData.Pengakhiran        := 0;
+
+  FUserRoleData.FRoleData.RoleIndex             := 0;
+  FUserRoleData.FRoleData.RoleAcronim           := '';
+  FUserRoleData.FRoleData.RoleIdentifier        := '';
 end;
 
 {$ENDREGION}
