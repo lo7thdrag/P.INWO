@@ -1773,8 +1773,8 @@ namaRole : string;
 begin
   tempList := TList.Create;
 
-  if Assigned(FSelectedUserChat) then
-  begin
+//  if Assigned(IdSender) then
+//  begin
     SimManager.SimChatting.GetChattingBySending(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, IdSender, tempList);
 //    SimManager.SimChatting.GetChattingByUserRole(simMgrClient.MyConsoleData.UserRoleData.UserRoleIndex, tempList);
     for i := 0 to tempList.Count - 1 do
@@ -1806,7 +1806,7 @@ begin
   //    mmoChat.Lines.Add(IntToStr(chattingTemp.IdUserRoleSending));
   //    mmoChat.Lines.Add(IntToStr(chattingTemp.IdUserRoleReceive));
   //    mmoChat.Lines.Add(chattingTemp.ChatMessage);
-    end;
+//    end;
   end;
 
 
@@ -1838,7 +1838,7 @@ begin
     userRoleTemp := simMgrClient.SimUserRole.UserList[i];
     if Assigned(userRoleTemp) then
     begin
-      if userRoleTemp.isInUse then
+      if (userRoleTemp.isInUse) and (userRoleTemp.FData.UserRoleIndex <> simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex) then
       begin
         lstUserChat.Items.AddObject(userRoleTemp.FData.UserRoleIdentifier, userRoleTemp);
       end;
