@@ -14873,6 +14873,32 @@ object frmSummaryUserRole: TfrmSummaryUserRole
       Font.Style = []
       ParentFont = False
     end
+    object Label16: TLabel
+      Left = 348
+      Top = 166
+      Width = 63
+      Height = 13
+      Caption = '* max char 10'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWhite
+      Font.Height = -11
+      Font.Name = 'Berlin Sans FB'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label17: TLabel
+      Left = 348
+      Top = 194
+      Width = 63
+      Height = 13
+      Caption = '* max char 10'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWhite
+      Font.Height = -11
+      Font.Name = 'Berlin Sans FB'
+      Font.Style = []
+      ParentFont = False
+    end
     object cbbRole: TComboBox
       Left = 172
       Top = 21

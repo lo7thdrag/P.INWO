@@ -42,6 +42,8 @@ type
     Label15: TLabel;
     edtIdentifier: TEdit;
     cbbUserRole: TComboBox;
+    Label16: TLabel;
+    Label17: TLabel;
     procedure cbbRoleChange(Sender: TObject);
     procedure cbbSubRoleChange(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
@@ -239,6 +241,7 @@ begin
   AfterClose := True;
   btnOk.Enabled := False;
   btnCancel.Enabled := False;
+  Close;
 end;
 
 procedure TfrmSummaryUserRole.btnCancelClick(Sender: TObject);
