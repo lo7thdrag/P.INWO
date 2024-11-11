@@ -64,7 +64,6 @@ type
     cbbSubRole: TComboBox;
     lstUserRoleLogin: TListBox;
     lblUserIdentifier: TLabel;
-    Button1: TButton;
 
     procedure FormCreate(Sender: TObject);
     procedure btnShowPasswordClick(Sender: TObject);
@@ -80,7 +79,6 @@ type
     procedure cbbSubRoleSelect(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure lstUserRoleLoginDblClick(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
 
   private
     FSelectedSubRole : TSubRole;
@@ -173,21 +171,6 @@ begin
     lstUserRoleLogin.Visible := False;
   end;
 
-end;
-
-procedure TfrmTacticalDisplay.Button1Click(Sender: TObject);
-begin
-  frmDisplayArea := TfrmDisplayArea.Create(Self);
-  try
-    with frmDisplayArea do
-    begin
-//      simMgrClient.MyConsoleData.TipeTahapan := Byte(SetTipeTahapanToEnum(cbbTahapan.Text));
-      ShowModal;
-    end;
-
-  finally
-    frmDisplayArea.Free;
-  end;
 end;
 
 procedure TfrmTacticalDisplay.cbbConsoleNameDropDown(Sender: TObject);
