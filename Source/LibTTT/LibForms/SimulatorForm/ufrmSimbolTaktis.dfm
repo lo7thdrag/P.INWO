@@ -28,8 +28,6 @@ object frmSimbolTaktis: TfrmSimbolTaktis
     Color = 1119507
     ParentBackground = False
     TabOrder = 0
-    ExplicitWidth = 648
-    ExplicitHeight = 507
     object ImgBackgroundForm: TImage
       Left = 0
       Top = 0
@@ -14864,6 +14862,7 @@ object frmSimbolTaktis: TfrmSimbolTaktis
         Font.Height = -16
         Font.Name = 'Berlin Sans FB'
         Font.Style = []
+        ItemIndex = 0
         ParentFont = False
         TabOrder = 2
         Text = 'PESAWAT TERBANG SAYAP PUTAR'
