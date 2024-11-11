@@ -135,11 +135,11 @@ type
     Label12: TLabel;
     pnlMdmUserRole: TPanel;
     Label14: TLabel;
-    lblKogas: TLabel;
-    lblUserRoleIdentifier: TLabel;
+    lblRole: TLabel;
+    lblSubRole: TLabel;
     pnlMdmTahapan: TPanel;
     Label5: TLabel;
-    lblTahapan: TLabel;
+    lblUserRoleIdentifier: TLabel;
     lvFileData: TListView;
     pnlHeaderFileData: TPanel;
     Label3: TLabel;
@@ -485,9 +485,9 @@ begin
   with simMgrClient.MyConsoleData do
   begin
     lblConsoleName.Caption := Identifier;
-    lblKogas.Caption := UserRoleData.FSubRoleData.SubRoleAcronim;
+    lblRole.Caption := UserRoleData.FRoleData.RoleAcronim;
+    lblSubRole.Caption := UserRoleData.FSubRoleData.SubRoleAcronim;
     lblUserRoleIdentifier.Caption := UserRoleData.FData.UserRoleAcronim;
-//    lblTahapan.Caption := SetTipeTahapanToString(TTipeTahapan(UserRoleData.FSubRoleData.));
   end;
 
   CalendarView1.Date := Now;

@@ -133,6 +133,7 @@ var
   li : TListItem;
   consoleInfoTemp : TConsoleInfo;
   userRoleTemp : TUserRole;
+  subRoleTemp : TSubRole;
 
 begin
   lvConsole.Items.Clear;
@@ -162,8 +163,10 @@ begin
     begin
       if userRoleTemp.isInUse then
       begin
-        li.SubItems.Add(userRoleTemp.FData.UserRoleIdentifier);
-        li.SubItems.Add(SetOrganisasiTugasAkronimToString(TOrganisasiTugas(userRoleTemp.FData.RoleIndex)));
+        li.SubItems.Add(userRoleTemp.FData.UserRoleAcronim);
+
+        subRoleTemp := SimManager.SimSubRole.getSubRoleByID(userRoleTemp.FData.SubRoleIndex);
+        li.SubItems.Add(subRoleTemp.FData.SubRoleAcronim);
       end
       else
       begin
