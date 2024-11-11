@@ -66,7 +66,7 @@ GameTime : TDateTime;
 pw : PWideChar;
 begin
 //  WordFileName := 'C:\\[DENTA]\\aweesdrftyghuijok-Draft.docx';
-  WordFileNameTemplateRahasia := 'C:\\[DENTA]\\Template Telegram 2.docx';
+  WordFileNameTemplateRahasia := 'data\\Template Telegram 2.docx';
 
   WordApplication := null;
   WordFile := null;
@@ -124,7 +124,7 @@ GameTime : TDateTime;
 pw : PWideChar;
 begin
 //  WordFileName := 'C:\\[DENTA]\\aweesdrftyghuijok-Draft.docx';
-  WordFileNameTemplateTerbatas := 'C:\\[DENTA]\\Template Telegram 1.docx';
+  WordFileNameTemplateTerbatas := 'data\\Template Telegram 1.docx';
 
   WordApplication := null;
   WordFile := null;
