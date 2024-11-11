@@ -22,9 +22,8 @@ type
     btnCancel: TButton;
     btnOK: TButton;
     ImgBackgroundForm: TImage;
-    ImgHeader: TImage;
-    Label1: TLabel;
     edtClassName: TLabel;
+    lblPlatform: TLabel;
 
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);

@@ -228,6 +228,7 @@ type
   TAsset = class
   public
     FData : TRecVehicle_Definition;
+    FNote : TRecNote_Storage;
 
     constructor Create;
     destructor Destroy;override;
