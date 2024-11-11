@@ -11,7 +11,6 @@ type
     lbAllESMDef: TListBox;
     lbESMOnBoard: TListBox;
     btnAdd: TImage;
-    btnClose: TImage;
     btnEdit: TImage;
     btnRemove: TImage;
     ImgBackgroundAvailable: TImage;
@@ -21,6 +20,7 @@ type
     ImgHeaderOnBoard: TImage;
     Label1: TLabel;
     Label2: TLabel;
+    lblClose: TLabel;
 
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);

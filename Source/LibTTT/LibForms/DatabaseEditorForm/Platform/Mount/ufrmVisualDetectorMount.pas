@@ -16,8 +16,6 @@ type
     btnCancel: TButton;
     btnOK: TButton;
     ImgBackgroundForm: TImage;
-    ImgHeader: TImage;
-    Label1: TLabel;
     pnl1Title: TPanel;
     lbl1: TLabel;
     edtName: TEdit;
@@ -26,6 +24,7 @@ type
     edtObserver: TEdit;
     lblFeetObserver: TStaticText;
     pnlBlindZone: TPanel;
+    lblPlatform: TLabel;
 
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);

@@ -13,8 +13,6 @@ type
     btnCancel: TButton;
     btnOK: TButton;
     ImgBackgroundForm: TImage;
-    ImgHeader: TImage;
-    Label1: TLabel;
     pnl1Title: TPanel;
     lbl1: TLabel;
     edtName: TEdit;
@@ -32,6 +30,7 @@ type
     edtAntenna: TEdit;
     edtSubmerged: TEdit;
     edtMaxOperational: TEdit;
+    lblPlatform: TLabel;
 
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);

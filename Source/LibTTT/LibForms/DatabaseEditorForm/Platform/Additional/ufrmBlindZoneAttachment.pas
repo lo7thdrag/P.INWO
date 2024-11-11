@@ -36,8 +36,7 @@ type
     pnlFirstBlind: TPanel;
     lbl6: TLabel;
     pnlSecondBlind: TPanel;
-    Label1: TLabel;
-    ImgHeader: TImage;
+    lblPlatform: TLabel;
 
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);

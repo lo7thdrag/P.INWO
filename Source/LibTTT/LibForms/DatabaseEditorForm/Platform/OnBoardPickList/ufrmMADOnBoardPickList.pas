@@ -18,9 +18,9 @@ type
     ImgHeaderAvailable: TImage;
     ImgHeaderOnBoard: TImage;
     btnEdit: TImage;
-    btnClose: TImage;
     Label1: TLabel;
     Label2: TLabel;
+    lblClose: TLabel;
 
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);

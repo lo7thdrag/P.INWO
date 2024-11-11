@@ -12,7 +12,6 @@ type
     lbAllDefensiveJammerDef: TListBox;
     lbAllDefensiveJammerOnBoard: TListBox;
     btnAdd: TImage;
-    btnClose: TImage;
     btnRemove: TImage;
     ImgBackgroundAvailable: TImage;
     ImgBackgroundOnBoard: TImage;
@@ -21,6 +20,7 @@ type
     Label1: TLabel;
     Label2: TLabel;
     ImgBackgroundForm: TImage;
+    lblClose: TLabel;
 
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);

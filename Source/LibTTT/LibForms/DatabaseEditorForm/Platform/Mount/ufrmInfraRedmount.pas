@@ -21,8 +21,7 @@ type
     btnCancel: TButton;
     btnOK: TButton;
     ImgBackgroundForm: TImage;
-    ImgHeader: TImage;
-    Label1: TLabel;
+    lblPlatform: TLabel;
 
 
     procedure FormShow(Sender: TObject);
