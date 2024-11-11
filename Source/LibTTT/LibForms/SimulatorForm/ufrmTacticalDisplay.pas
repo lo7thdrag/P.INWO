@@ -64,6 +64,7 @@ type
     cbbSubRole: TComboBox;
     lstUserRoleLogin: TListBox;
     lblUserIdentifier: TLabel;
+    btnBack: TButton;
 
     procedure FormCreate(Sender: TObject);
     procedure btnShowPasswordClick(Sender: TObject);
@@ -79,6 +80,7 @@ type
     procedure cbbSubRoleSelect(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure lstUserRoleLoginDblClick(Sender: TObject);
+    procedure btnBackClick(Sender: TObject);
 
   private
     FSelectedSubRole : TSubRole;
@@ -155,8 +157,8 @@ procedure TfrmTacticalDisplay.btnTerminationClick(Sender: TObject);
 begin
   if btnTermination.Down then
   begin
-    cbbSubRole.Left := 137;
-    lstUserRoleLogin.Left := 137;
+    cbbSubRole.Left := 1430;
+    lstUserRoleLogin.Left := 1430;
 
     cbbSubRole.Visible := True;
 
@@ -164,6 +166,8 @@ begin
 
     if cbbSubRole.Items.Count > 0 then
       cbbSubRole.ItemIndex := 0;
+
+    cbbSubRole.OnSelect(nil);
   end
   else
   begin
@@ -293,6 +297,11 @@ begin
   end;
 end;
 
+procedure TfrmTacticalDisplay.btnBackClick(Sender: TObject);
+begin
+  pnlHome.BringToFront;
+end;
+
 procedure TfrmTacticalDisplay.btnImplementationClick(Sender: TObject);
 begin
   if btnImplementation.Down then
@@ -306,6 +315,8 @@ begin
 
     if cbbSubRole.Items.Count > 0 then
       cbbSubRole.ItemIndex := 0;
+
+    cbbSubRole.OnSelect(nil);
   end
   else
   begin
@@ -385,6 +396,8 @@ begin
 
     if cbbSubRole.Items.Count > 0 then
       cbbSubRole.ItemIndex := 0;
+
+    cbbSubRole.OnSelect(nil);
   end
   else
   begin
@@ -406,6 +419,8 @@ begin
 
     if cbbSubRole.Items.Count > 0 then
       cbbSubRole.ItemIndex := 0;
+
+    cbbSubRole.OnSelect(nil);
   end
   else
   begin

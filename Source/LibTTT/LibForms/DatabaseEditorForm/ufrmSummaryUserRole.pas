@@ -207,10 +207,10 @@ procedure TfrmSummaryUserRole.btnApplyClick(Sender: TObject);
 begin
   with FSelectedUserRole do
   begin
-//    if not CekInput then
-//    begin
-//      Exit;
-//    end;
+    if not CekInput then
+    begin
+      Exit;
+    end;
 
     LastName := cbbUserRole.Text;
 
@@ -605,7 +605,7 @@ begin
       edtConfirmPassword.Text := FData.Password;
     end;
 
-    LastName := cbbSubRole.Text;
+    LastName := cbbUserRole.Text;
   end;
 end;
 
@@ -625,25 +625,27 @@ begin
   end;
 
   {Data ada yg kosong}
-  if (cbbRole.Text = '') or (cbbSubRole.Text = '') or (cbbUserRole.Text = '') or
-     (edtUsername.Text = '') or (edtPassword.Text = '') then
+  if (edtUsername.Text = '') or (edtPassword.Text = '') then
   begin
     ShowMessage('Inputan data tidak lengkap');
     Exit;
   end;
 
-  {Data sudah ada}
-  if (dmINWO.GetUserRoleFilterByOrganisasiTugas(FSelectedUserRole.FData)>0) and (FSelectedUserRole.FData.UserRoleIndex = 0)then
+  {Jika Class Name sudah ada}
+  FSelectedUserRole.FData.UserRoleAcronim := cbbUserRole.Text;
+  if (dmINWO.GetUserRoleByName(FSelectedUserRole.FData)>0) then
   begin
-    ShowMessage('Data sudah ada didalam database');
-    Exit;
-  end;
-
-  {Username sudah digunakan}
-  if (dmINWO.GetUserRoleFilterByOrganisasiTugas(FSelectedUserRole.FData)>0) and (FSelectedUserRole.FData.UserRoleIndex = 0) then
-  begin
-    ShowMessage('Username sudah digunakan');
-    Exit;
+    {Jika inputan baru}
+    if FSelectedUserRole.FData.UserRoleIndex = 0 then
+    begin
+      ShowMessage('Please use another user role name');
+      Exit;
+    end
+    else if LastName <> cbbUserRole.Text then
+    begin
+      ShowMessage('Please use another user role name');
+      Exit;
+    end;
   end;
 
   Result := True;

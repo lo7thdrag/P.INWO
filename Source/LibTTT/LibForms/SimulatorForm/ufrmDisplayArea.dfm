@@ -50658,9 +50658,9 @@ object frmDisplayArea: TfrmDisplayArea
             OnSelect = cbbxFilterSearchSelect
             Items.Strings = (
               'ALL'
-              'User Role'
-              'Organisasi Tugas'
-              'Komando Tugas')
+              'Role'
+              'Sub Role'
+              'User Role')
           end
         end
         object pnlListPengguna: TPanel

@@ -14166,8 +14166,8 @@ object frmSummaryUserRole: TfrmSummaryUserRole
     Transparent = True
   end
   object btnOk: TImage
-    Left = 336
-    Top = 280
+    Left = 337
+    Top = 278
     Width = 100
     Height = 30
     Cursor = crHandPoint

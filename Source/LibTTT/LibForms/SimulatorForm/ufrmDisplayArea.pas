@@ -350,6 +350,8 @@ type
 
     FFileDataList : TList;
     FFileReferensiList : TList;
+    FRoleList : TList;
+    FSubRoleList : TList;
     FUserRoleList : TList;
     FGameAreaList : TList;
     FTacticalSymbolList : TList;
@@ -367,6 +369,10 @@ type
     procedure AddSearchTypeItems;
     procedure AddSearchTacticalSymbolItems;
     procedure AddSearchAssetItems;
+
+    procedure AddCbbRole;
+    procedure AddCbbSubRole;
+    function GetRoleIndex(id : string):Integer;
 
   public
 
@@ -440,21 +446,18 @@ begin
   RoundCornerOf(pnlMdmTahapan, 15, 15);
 
   FFileDataList := TList.Create;
-//  FSelectedFileBeranda := TFile_Data.Create;
-//  FSelectedFileBeranda := nil;
-
+  FRoleList := TList.Create;
+  FSubRoleList := TList.Create;
   FUserRoleList := TList.Create;
-//  FSelectedPengguna := TUser_Role.Create;
-//  FSelectedPengguna := nil;
-
   FGameAreaList := TList.Create;
-
   FFileReferensiList := TList.Create;
 end;
 
 procedure TfrmDisplayArea.FormDestroy(Sender: TObject);
 begin
   FreeItemsAndFreeList(FFileDataList);
+  FreeItemsAndFreeList(FRoleList);
+  FreeItemsAndFreeList(FSubRoleList);
   FreeItemsAndFreeList(FUserRoleList);
   FreeItemsAndFreeList(FGameAreaList);
   FreeItemsAndFreeList(FFileReferensiList);
@@ -776,6 +779,57 @@ begin
   UpdateDataAset;
 end;
 
+procedure TfrmDisplayArea.AddCbbRole;
+var
+  i : Integer;
+  roleTemp : TRole;
+begin
+  cbbSearchType.Items.Clear;
+
+  dmINWO.GetAllRole(FRoleList);
+
+  for i := 0 to FRoleList.Count - 1 do
+  begin
+    roleTemp := FRoleList.Items[i];
+    cbbSearchType.Items.AddObject(roleTemp.FData.RoleAcronim, roleTemp);
+  end;
+end;
+
+function TfrmDisplayArea.GetRoleIndex(id: string): Integer;
+var
+  i : Integer;
+  roleTemp : TRole;
+begin
+  Result := 0;
+
+  for i := 0 to FRoleList.Count - 1 do
+  begin
+    roleTemp := FRoleList.Items[i];
+
+    if roleTemp.FData.RoleAcronim = id then
+    begin
+      Result := roleTemp.FData.RoleIndex;
+      Break;
+    end;
+  end;
+end;
+
+procedure TfrmDisplayArea.AddCbbSubRole;
+var
+  i : Integer;
+  subRoleTemp : TSubRole;
+begin
+  cbbSearchType.Items.Clear;
+
+  dmINWO.GetAllSubRole(FSubRoleList);
+
+  for i := 0 to FSubRoleList.Count - 1 do
+  begin
+    subRoleTemp := FSubRoleList.Items[i];
+    cbbSearchType.Items.AddObject(subRoleTemp.FData.SubRoleAcronim, subRoleTemp);
+  end;
+end;
+
 procedure TfrmDisplayArea.AddSearchAssetItems;
 begin
   if cbbFilter.ItemIndex = 1 then
@@ -1093,6 +1147,8 @@ end;
 procedure TfrmDisplayArea.UpdateDataPengguna;
 var
   i : Integer;
+  roleTemp : TRole;
+  subRoleTemp : TSubRole;
   userRoleTemp : TUserRole;
   li : TListItem;
 
@@ -1110,9 +1166,21 @@ begin
     li := lvUserRole.Items.Add;
     li.Caption := IntToStr(i+1);
     li.SubItems.Add(userRoleTemp.FData.UserRoleAcronim);
-    li.SubItems.Add(userRoleTemp.FData.UserRoleIdentifier);
-    li.SubItems.Add(SetOrganisasiTugasAkronimToString(TOrganisasiTugas(userRoleTemp.FData.RoleIndex)));
-    li.SubItems.Add(SetSubOrganisasiTugasToString(TSubOrganisasiTugas(userRoleTemp.FData.SubRoleIndex)));
+
+    subRoleTemp := SimManager.SimSubRole.getSubRoleByID(userRoleTemp.FData.SubRoleIndex);
+    if Assigned(subRoleTemp) then
+      li.SubItems.Add(subRoleTemp.FData.SubRoleAcronim)
+    else
+      li.SubItems.Add('');
+
+    roleTemp := SimManager.SimRole.getRoleByID(userRoleTemp.FData.RoleIndex);
+    if Assigned(roleTemp) then
+      li.SubItems.Add(roleTemp.FData.RoleAcronim)
+    else
+      li.SubItems.Add('');
+
+    li.SubItems.Add(userRoleTemp.FData.Username);
+    li.SubItems.Add(userRoleTemp.FData.Password);
 
     li.Data := userRoleTemp;
   end;
@@ -1219,9 +1287,36 @@ begin
 end;
 
 procedure TfrmDisplayArea.cbbSearchTypeSelect(Sender: TObject);
+var
+  roleTemp : TRole;
+  subRoleTemp : TSubRole;
+
 begin
+  if cbbSearchType.ItemIndex = -1 then
+    Exit;
+
+  case cbbxFilterSearch.ItemIndex of
+    1:
+    begin
+      roleTemp := TRole(cbbSearchType.Items.Objects[cbbSearchType.ItemIndex]);
+
+      if Assigned(roleTemp) then
+      begin
+        SearchName := IntToStr(roleTemp.FData.RoleIndex);
+      end;
+    end;
+    2:
+    begin
+      subRoleTemp := TSubRole(cbbSearchType.Items.Objects[cbbSearchType.ItemIndex]);
+
+      if Assigned(subRoleTemp) then
+      begin
+        SearchName := IntToStr(subRoleTemp.FData.SubRoleIndex);
+      end;
+    end;
+  end;
+
   ItemSearchIndex := cbbxFilterSearch.ItemIndex;
-  SearchName := IntToStr(cbbSearchType.ItemIndex);
   flagTable := true;
   UpdateDataPengguna;
 end;
@@ -1230,6 +1325,7 @@ procedure TfrmDisplayArea.cbbxFilterSearchSelect(Sender: TObject);
 begin
   cbbSearchType.ItemIndex := 0;
 
+  {All}
   if cbbxFilterSearch.ItemIndex = 0 then
   begin
     edtSearch.Clear;
@@ -1237,19 +1333,30 @@ begin
     UpdateDataPengguna;
     edtSearch.BringToFront;
   end
+  {Role}
   else if cbbxFilterSearch.ItemIndex = 1 then
   begin
-    edtSearch.BringToFront;
+    AddCbbRole;
+
+    if cbbSearchType.Items.Count > 0 then
+      cbbSearchType.ItemIndex := 0;
+
+    cbbSearchType.BringToFront;
   end
+  {Sub Role}
   else if cbbxFilterSearch.ItemIndex = 2 then
   begin
-    AddSearchTypeItems;
+    AddCbbSubRole;
+
+    if cbbSearchType.Items.Count > 0 then
+      cbbSearchType.ItemIndex := 0;
+
     cbbSearchType.BringToFront;
   end
+  {User Role}
   else if cbbxFilterSearch.ItemIndex = 3 then
   begin
-    AddSearchTypeItems;
-    cbbSearchType.BringToFront;
+    edtSearch.BringToFront;
   end;
 end;
 

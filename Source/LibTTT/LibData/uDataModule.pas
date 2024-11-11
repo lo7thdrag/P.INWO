@@ -51,8 +51,9 @@ type
 
     function GetSubRoleByID(const SubRoleID: Integer; var rec : TRecSubRole): Integer;
 
+    function GetUserRoleByName(var rec : TRecUser_Role): Integer;
+
     function GetSearchUserRole(var FilterIndex : Integer ; SearchContent : string ; aList: TList ): Integer;
-    function GetUserRoleFilterByOrganisasiTugas(var rec : TRecUser_Role): Integer;
     function GetUserRoleByFilterUsername(var rec : TRecUser_Role): Integer;
 
     function InsertRole(var rec : TRecRole) : Boolean;
@@ -1187,11 +1188,11 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT * FROM User_Role_Definition');
-    if FilterIndex = 1 then
+    if FilterIndex = 0 then
       SQL.Add('WHERE UserRoleAcronim like '  + quotedStr('%' + SearchContent + '%'))
-    else if FilterIndex = 2 then
+    else if FilterIndex = 1 then
       SQL.Add('WHERE RoleIndex = '  + SearchContent )
-    else if FilterIndex = 3 then
+    else if FilterIndex = 2 then
       SQL.Add('WHERE SubRoleIndex = '  + SearchContent);
 
     Open;
@@ -1224,6 +1225,7 @@ begin
           RoleIndex := FieldByName('RoleIndex').AsInteger;
           SubRoleIndex := FieldByName('SubRoleIndex').AsInteger;
           UserRoleIndex := FieldByName('UserRoleIndex').AsInteger;
+          UserRoleAcronim := FieldByName('UserRoleAcronim').AsString;
           UserRoleIdentifier := FieldByName('UserRoleIdentifier').AsString;
           Username := FieldByName('Username').AsString;
           Password := FieldByName('Password').AsString;
@@ -1236,7 +1238,7 @@ begin
   end;
 end;
 
-function TdmINWO.GetUserRoleFilterByOrganisasiTugas(var rec: TRecUser_Role): Integer;
+function TdmINWO.GetUserRoleByName(var rec: TRecUser_Role): Integer;
 begin
   Result := -1;
 
@@ -1247,7 +1249,7 @@ begin
   begin
     Close;
     SQL.Clear;
-    SQL.Add('SELECT * FROM UserRole');
+    SQL.Add('SELECT * FROM User_Role_Definition');
     SQL.Add('WHERE (UserRoleAcronim = ' + QuotedStr(rec.UserRoleAcronim) + ') and (RoleIndex = ' + IntToStr(rec.RoleIndex) + ') and ' );
     SQL.Add('(SubRoleIndex = ' + IntToStr(rec.SubRoleIndex) + ')' );
     Open;
