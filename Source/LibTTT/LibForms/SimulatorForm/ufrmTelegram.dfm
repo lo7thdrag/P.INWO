@@ -22,8 +22,6 @@ object frmTelegram: TfrmTelegram
     BevelOuter = bvNone
     Color = clBackground
     TabOrder = 0
-    ExplicitTop = 113
-    ExplicitHeight = 518
     object ListView1: TListView
       Left = 16
       Top = 6
@@ -31,6 +29,14 @@ object frmTelegram: TfrmTelegram
       Height = 624
       Columns = <>
       TabOrder = 0
+    end
+    object ListBox1: TListBox
+      Left = 192
+      Top = 192
+      Width = 313
+      Height = 296
+      ItemHeight = 13
+      TabOrder = 1
     end
   end
   object pnlLeft: TPanel
@@ -43,8 +49,6 @@ object frmTelegram: TfrmTelegram
     Color = clCaptionText
     ParentBackground = False
     TabOrder = 1
-    ExplicitTop = 113
-    ExplicitHeight = 518
     object Image2: TImage
       Left = 1
       Top = 1
@@ -1105,6 +1109,7 @@ object frmTelegram: TfrmTelegram
       Height = 25
       Caption = 'Kirim'
       TabOrder = 5
+      OnClick = btnKirimClick
     end
     object cbbxTo: TComboBox
       Left = 40
@@ -1116,13 +1121,50 @@ object frmTelegram: TfrmTelegram
       Font.Height = -15
       Font.Name = 'Jefferies'
       Font.Style = []
-      ItemIndex = 0
+      ItemIndex = 1
       ParentFont = False
       TabOrder = 6
-      Text = 'Wasdal'
+      Text = 'Wasdal Operator'
+      OnDropDown = cbbxToDropDown
       Items.Strings = (
         'Wasdal'
         'Wasdal Operator')
+    end
+    object btnBuatTelegramTerbatas: TButton
+      Left = 40
+      Top = 304
+      Width = 138
+      Height = 25
+      Caption = 'Buat Telegram Terbatas'
+      TabOrder = 7
+      OnClick = btnBuatTelegramTerbatasClick
+    end
+    object btnBuatTelegramRahasia: TButton
+      Left = 40
+      Top = 335
+      Width = 138
+      Height = 25
+      Caption = 'Buat Telegram Rahasia'
+      TabOrder = 8
+      OnClick = btnBuatTelegramRahasiaClick
+    end
+    object Button1: TButton
+      Left = 67
+      Top = 192
+      Width = 75
+      Height = 25
+      Caption = 'Button1'
+      TabOrder = 9
+      OnClick = Button1Click
+    end
+    object Button2: TButton
+      Left = 67
+      Top = 232
+      Width = 75
+      Height = 25
+      Caption = 'Button2'
+      TabOrder = 10
+      OnClick = Button2Click
     end
   end
 end
