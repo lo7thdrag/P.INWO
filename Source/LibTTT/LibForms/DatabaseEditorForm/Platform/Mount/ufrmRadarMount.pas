@@ -30,13 +30,12 @@ type
     lbl9: TLabel;
     lbl10: TLabel;
     ImgBackgroundForm: TImage;
-    ImgHeader: TImage;
-    Label1: TLabel;
     btnOK: TButton;
     btnApply: TButton;
     btnCancel: TButton;
     txtClass: TLabel;
     edtClassName: TLabel;
+    lblPlatform: TLabel;
 
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);

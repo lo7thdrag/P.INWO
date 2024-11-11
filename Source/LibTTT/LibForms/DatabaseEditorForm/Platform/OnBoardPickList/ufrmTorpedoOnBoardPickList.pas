@@ -12,7 +12,6 @@ type
     lbAllTorpedoDef: TListBox;
     lbTorpedoOnBoard: TListBox;
     btnAdd: TImage;
-    btnClose: TImage;
     btnEdit: TImage;
     btnRemove: TImage;
     ImgBackgroundAvailable: TImage;
@@ -24,6 +23,7 @@ type
     Label2: TLabel;
     Label3: TLabel;
     Label4: TLabel;
+    lblClose: TLabel;
 
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);

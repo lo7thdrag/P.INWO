@@ -12,7 +12,6 @@ type
     lbAllIFFDef: TListBox;
     lbAllIFFOnBoard: TListBox;
     btnAdd: TImage;
-    btnClose: TImage;
     btnEdit: TImage;
     btnRemove: TImage;
     ImgBackgroundAvailable: TImage;
@@ -22,6 +21,7 @@ type
     ImgHeaderOnBoard: TImage;
     Label1: TLabel;
     Label2: TLabel;
+    lblClose: TLabel;
 
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);

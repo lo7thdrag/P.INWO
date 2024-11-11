@@ -12,7 +12,6 @@ type
     lbAllAirBubbleDef: TListBox;
     lbAllAirBubbleOnBoard: TListBox;
     btnAdd: TImage;
-    btnClose: TImage;
     btnEdit: TImage;
     btnRemove: TImage;
     ImgBackgroundAvailable: TImage;
@@ -22,6 +21,7 @@ type
     ImgHeaderOnBoard: TImage;
     Label3: TLabel;
     Label4: TLabel;
+    lblClose: TLabel;
 
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);

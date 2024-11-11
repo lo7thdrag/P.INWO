@@ -18,8 +18,6 @@ type
     btnOK: TButton;
     ImgBackgroundForm: TImage;
     ImgHeader: TImage;
-    Image1: TImage;
-    Label1: TLabel;
     pnl2ControlPage: TPanel;
     PageControl1: TPageControl;
     General: TTabSheet;
@@ -38,6 +36,7 @@ type
     edtMaxOperational: TEdit;
     pnlBlindZone: TPanel;
     edtClassName: TLabel;
+    lblPlatform: TLabel;
 
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);

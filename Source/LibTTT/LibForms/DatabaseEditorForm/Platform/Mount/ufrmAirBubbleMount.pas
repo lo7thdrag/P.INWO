@@ -18,11 +18,10 @@ type
     lbl1: TLabel;
     lbl2: TLabel;
     ImgBackgroundForm: TImage;
-    ImgHeader: TImage;
-    Label1: TLabel;
     btnApply: TButton;
     btnCancel: TButton;
     btnOK: TButton;
+    lblPlatform: TLabel;
 
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);

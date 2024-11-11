@@ -12,13 +12,12 @@ type
 
   TfrmLauncherList = class(TForm)
     lbAllLauncher: TListBox;
-    ImgBackgroungList: TImage;
     ImgBackground: TImage;
-    Label2: TLabel;
     btnNew: TImage;
     btnEdit: TImage;
     btnDelete: TImage;
-    ImgBtnBack: TImage;
+    lblPlatform: TLabel;
+    lblClose: TLabel;
 
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
