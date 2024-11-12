@@ -14244,6 +14244,10 @@ object frmChaffMount: TfrmChaffMount
       TabWidth = 100
       object General: TTabSheet
         Caption = 'General'
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object lb1: TLabel
           Left = 10
           Top = 21
