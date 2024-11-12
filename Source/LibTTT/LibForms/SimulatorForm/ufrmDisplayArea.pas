@@ -1875,7 +1875,7 @@ begin
 
     if Assigned(userroleTemp) then
     begin
-      if userroleTemp.isInUse then
+//      if userroleTemp.isInUse then
         Memo1.Lines.Add(userroleTemp.FData.UserRoleAcronim)
 
     end;
@@ -1967,7 +1967,8 @@ begin
     userRoleTemp := simMgrClient.SimUserRole.UserList[i];
     if Assigned(userRoleTemp) then
     begin
-      if (userRoleTemp.isInUse) and (userRoleTemp.FData.UserRoleIndex <> simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex) then
+//      if (userRoleTemp.isInUse) and (userRoleTemp.FData.UserRoleIndex <> simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex) then
+      if userRoleTemp.FData.UserRoleIndex <> simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex then
       begin
         lstUserChat.Items.AddObject(userRoleTemp.FData.UserRoleIdentifier, userRoleTemp);
       end;
