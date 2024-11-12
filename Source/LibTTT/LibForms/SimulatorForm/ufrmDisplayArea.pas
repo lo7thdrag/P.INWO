@@ -1968,8 +1968,8 @@ begin
     userRoleTemp := simMgrClient.SimUserRole.UserList[i];
     if Assigned(userRoleTemp) then
     begin
-//      if (userRoleTemp.isInUse) and (userRoleTemp.FData.UserRoleIndex <> simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex) then
-      if userRoleTemp.FData.UserRoleIndex <> simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex then
+      if (userRoleTemp.isInUse) and (userRoleTemp.FData.UserRoleIndex <> simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex) then
+//      if userRoleTemp.FData.UserRoleIndex <> simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex then
       begin
         lstUserChat.Items.AddObject(userRoleTemp.FData.UserRoleIdentifier, userRoleTemp);
       end;
@@ -1983,16 +1983,7 @@ end;
 
 procedure TfrmDisplayArea.TelegramClick(Sender: TObject);
 begin
-  frmTelegram := TfrmTelegram.Create(Self);
-  try
-    with frmTelegram do
-    begin
-      Show;
-    end;
-
-  finally
-    frmTelegram.Free;
-  end;
+  frmTelegram.Show;
 end;
 
 

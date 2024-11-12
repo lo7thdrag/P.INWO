@@ -160,6 +160,7 @@ begin
   Application.Title := 'SimClient';
   Application.CreateForm(TdmINWO, dmINWO);
   Application.CreateForm(TfrmTacticalDisplay, frmTacticalDisplay);
+  Application.CreateForm(TfrmDisplayArea, frmDisplayArea);
   Application.CreateForm(TfrmSituationBoard, frmSituationBoard);
   Application.CreateForm(TfrmOverlayTools, frmOverlayTools);
   Application.CreateForm(TfrmBrowseMap, frmBrowseMap);
@@ -233,6 +234,7 @@ begin
   Application.CreateForm(TfrmTorpedoLauncher, frmTorpedoLauncher);
   Application.CreateForm(TfrmVehicleInputToBase, frmVehicleInputToBase);
   Application.CreateForm(TSimbolTaktis, SimbolTaktis);
+  Application.CreateForm(TfrmTelegram, frmTelegram);
   uScriptSimClients.BeginGame;
 
   Application.Run;
