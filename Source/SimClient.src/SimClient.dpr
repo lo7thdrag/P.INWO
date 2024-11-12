@@ -234,6 +234,7 @@ begin
   Application.CreateForm(TfrmTorpedoLauncher, frmTorpedoLauncher);
   Application.CreateForm(TfrmVehicleInputToBase, frmVehicleInputToBase);
   Application.CreateForm(TSimbolTaktis, SimbolTaktis);
+  Application.CreateForm(TfrmTelegram, frmTelegram);
   uScriptSimClients.BeginGame;
 
   Application.Run;
