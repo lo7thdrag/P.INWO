@@ -229,13 +229,13 @@ implementation
 {$R *.dfm}
 uses
   ufrmRadarOnBoardPickList, ufrmSonarOnBoardPickList, ufrmESMOnBoardPickList,
-  ufrmEODOnBoardPickList, {ufrmMADOnBoardPickList,} ufrmSonobuoyOnBoardPickList,
-  {ufrmVisualDetectorOnBoardPickList, ufrmIFFOnBoardPickList, ufrmMissileOnBoardPickList,
+  ufrmEODOnBoardPickList, ufrmMADOnBoardPickList, ufrmSonobuoyOnBoardPickList,
+  ufrmVisualDetectorOnBoardPickList, ufrmIFFOnBoardPickList, ufrmMissileOnBoardPickList,
   ufrmTorpedoOnBoardPickList, ufrmMineOnBoardPickList, ufrmGunOnBoardPickList,
   ufrmBombOnBoardPickList, ufrmAcousticDecoyOnBoardPickList, ufrmAirBubbleOnBoardPickList,
   ufrmChaffOnBoardPickList, ufrmFloatingDecoyOnBoardPickList, ufrmInfraredDecoyOnBoardPickList,
   ufrmRadarNoiseJammerOnBoardPickList, ufrmSelfDefensiveJammerOnBoardPickList,
-  ufrmTowedJammerDecoyOnBoardPickList, ufrmEmbarkedOnBoardPickList,} uSimbolTaktis;
+  ufrmTowedJammerDecoyOnBoardPickList, ufrmEmbarkedOnBoardPickList, uSimbolTaktis;
 
 procedure TfrmAsset.FormShow(Sender: TObject);
 begin
