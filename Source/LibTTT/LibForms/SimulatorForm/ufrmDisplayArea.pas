@@ -1918,8 +1918,9 @@ begin
 //        mmoChat.Lines.Add('/n');
         mmoChat.Lines.Add(chattingTemp.ChatMessage);
 //        mmoChat.Lines.Add('/n');
-      end
-      else if (chattingTemp.IdUserRoleSending = IdSender) then
+      end;
+
+      if (chattingTemp.IdUserRoleReceive = IdSender) then
       begin
         mmoChat.Font.Color := clBlue;
 //        mmoChat.Lines.Add(FSelectedUserChat.FData.UserRoleIdentifier + ' :');
