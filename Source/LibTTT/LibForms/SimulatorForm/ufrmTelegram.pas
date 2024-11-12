@@ -211,13 +211,13 @@ begin
 //        ShowMessage('Data has been saved');
 //      end;
 //    end;
-    if not TDirectory.Exists(vGameDataSetting.FileDirectory + '\\' + cbbxTo.Text) then
+    if not TDirectory.Exists(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' +  cbbxTo.Text) then
     begin
-      TDirectory.CreateDirectory(vGameDataSetting.FileDirectory + '\\' + cbbxTo.Text);
-      CopyFile(addressTemp, PWideChar(vGameDataSetting.FileDirectory + '\\' + cbbxTo.Text + '\\' + filNameTemp), False);
+      TDirectory.CreateDirectory(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + cbbxTo.Text);
+      CopyFile(addressTemp, PWideChar(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + cbbxTo.Text + '\\' + filNameTemp), False);
     end
     else
-    CopyFile(addressTemp, PWideChar(vGameDataSetting.FileDirectory + '\\' + cbbxTo.Text + '\\' + filNameTemp), False);
+    CopyFile(addressTemp, PWideChar(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + cbbxTo.Text + '\\' + filNameTemp), False);
   end
   else
     ShowMessage('Save file was cancelled');
