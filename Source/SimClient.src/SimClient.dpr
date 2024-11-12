@@ -88,13 +88,8 @@ uses
   ufrmRole in '..\LibTTT\LibForms\SimulatorForm\AdditionalForm\ufrmRole.pas' {frmSummaryRole},
   ufrmSubRole in '..\LibTTT\LibForms\SimulatorForm\AdditionalForm\ufrmSubRole.pas' {frmSubRole},
   ufrmSelectSimbolTaktis in '..\LibTTT\LibForms\SimulatorForm\AdditionalForm\ufrmSelectSimbolTaktis.pas' {frmSelectSimbolTaktis},
-  ufrmRadarMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmRadarMount.pas' {frmRadarMount},
   ufrmBlindZoneAttachment in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\ufrmBlindZoneAttachment.pas' {frmBlindZonesAttachment},
-  ufrmSonarMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmSonarMount.pas' {frmSonarMount},
   uSimbolTaktis in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\uSimbolTaktis.pas' {SimbolTaktis},
-  ufrmESMMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmESMMount.pas' {frmESMMount},
-  ufrmEODMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmEODMount.pas' {frmEODMount},
-  ufrmSonobuoyMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmSonobuoyMount.pas' {frmSonobuoyMount},
   ufrmAccousticDecoyOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmAccousticDecoyOnBoardPickList.pas' {frmAccousticDecoyOnBoardPickList},
   ufrmAcousticDecoyOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmAcousticDecoyOnBoardPickList.pas' {frmAcousticDecoyOnBoardPickList},
   ufrmAirBubbleOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmAirBubbleOnBoardPickList.pas' {frmAirBubbleOnBoardPickList},
@@ -117,7 +112,27 @@ uses
   ufrmSonobuoyOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmSonobuoyOnBoardPickList.pas' {frmSonobuoyOnBoardPickList},
   ufrmTorpedoOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmTorpedoOnBoardPickList.pas' {frmTorpedoOnBoardPickList},
   ufrmTowedJammerDecoyOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmTowedJammerDecoyOnBoardPickList.pas' {frmTowedJammerDecoyOnBoardPickList},
-  ufrmVisualDetectorOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmVisualDetectorOnBoardPickList.pas' {frmVisualDetectorOnBoardPickList};
+  ufrmVisualDetectorOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmVisualDetectorOnBoardPickList.pas' {frmVisualDetectorOnBoardPickList},
+  ufrmAcousticDecoyMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmAcousticDecoyMount.pas' {frmAcousticDecoyMount},
+  ufrmAirBubbleMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmAirBubbleMount.pas' {frmAirBubbleMount},
+  ufrmBombMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmBombMount.pas' {frmBombMount},
+  ufrmChaffMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmChaffMount.pas' {frmChaffMount},
+  ufrmEODMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmEODMount.pas' {frmEODMount},
+  ufrmESMMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmESMMount.pas' {frmESMMount},
+  ufrmFloatingDecoyMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmFloatingDecoyMount.pas' {frmFloatingDecoyMount},
+  ufrmGunMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmGunMount.pas' {frmGunMount},
+  ufrmIFFMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmIFFMount.pas' {frmIFFMount},
+  ufrmInfraRedmount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmInfraRedmount.pas' {frmInfraredmount},
+  ufrmMADMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmMADMount.pas' {frmMADMount},
+  ufrmMineMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmMineMount.pas' {frmMineMount},
+  ufrmMissileMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmMissileMount.pas' {frmMissileMount},
+  ufrmRadarJammerMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmRadarJammerMount.pas' {frmRadarJammerMount},
+  ufrmRadarMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmRadarMount.pas' {frmRadarMount},
+  ufrmSonarMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmSonarMount.pas' {frmSonarMount},
+  ufrmSonobuoyMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmSonobuoyMount.pas' {frmSonobuoyMount},
+  ufrmTorpedoMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmTorpedoMount.pas' {frmTorpedoMount},
+  ufrmTowedJammerMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmTowedJammerMount.pas' {frmTowedJammerMount},
+  ufrmVisualDetectorMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmVisualDetectorMount.pas' {frmVisualDetectorMount};
 
 {$R *.res}
 
@@ -180,6 +195,26 @@ begin
   Application.CreateForm(TfrmTorpedoOnBoardPickList, frmTorpedoOnBoardPickList);
   Application.CreateForm(TfrmTowedJammerDecoyOnBoardPickList, frmTowedJammerDecoyOnBoardPickList);
   Application.CreateForm(TfrmVisualDetectorOnBoardPickList, frmVisualDetectorOnBoardPickList);
+  Application.CreateForm(TfrmAcousticDecoyMount, frmAcousticDecoyMount);
+  Application.CreateForm(TfrmAirBubbleMount, frmAirBubbleMount);
+  Application.CreateForm(TfrmBombMount, frmBombMount);
+  Application.CreateForm(TfrmChaffMount, frmChaffMount);
+  Application.CreateForm(TfrmEODMount, frmEODMount);
+  Application.CreateForm(TfrmESMMount, frmESMMount);
+  Application.CreateForm(TfrmFloatingDecoyMount, frmFloatingDecoyMount);
+  Application.CreateForm(TfrmGunMount, frmGunMount);
+  Application.CreateForm(TfrmIFFMount, frmIFFMount);
+  Application.CreateForm(TfrmInfraredmount, frmInfraredmount);
+  Application.CreateForm(TfrmMADMount, frmMADMount);
+  Application.CreateForm(TfrmMineMount, frmMineMount);
+  Application.CreateForm(TfrmMissileMount, frmMissileMount);
+  Application.CreateForm(TfrmRadarJammerMount, frmRadarJammerMount);
+  Application.CreateForm(TfrmRadarMount, frmRadarMount);
+  Application.CreateForm(TfrmSonarMount, frmSonarMount);
+  Application.CreateForm(TfrmSonobuoyMount, frmSonobuoyMount);
+  Application.CreateForm(TfrmTorpedoMount, frmTorpedoMount);
+  Application.CreateForm(TfrmTowedJammerMount, frmTowedJammerMount);
+  Application.CreateForm(TfrmVisualDetectorMount, frmVisualDetectorMount);
   uScriptSimClients.BeginGame;
 
   Application.Run;
