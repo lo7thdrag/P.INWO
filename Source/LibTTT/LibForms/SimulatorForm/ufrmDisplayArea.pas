@@ -381,6 +381,7 @@ type
     procedure UpdateClientChatting;
     procedure UpdateClientHistoryChat(IdSender : Integer);
 
+
   end;
 
 var
@@ -1991,6 +1992,7 @@ begin
     frmTelegram.Free;
   end;
 end;
+
 
 {$ENDREGION}
 
