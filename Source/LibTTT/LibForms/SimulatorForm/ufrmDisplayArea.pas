@@ -11,7 +11,7 @@ uses
   {Project Uses}
   uRecordData, uConstantaData, uSimMgr_Client, uT3SimManager, uClassData, ufrmVideoConference, ufrmSituationBoard,
   ufrmTelegram, uLibSetting, uSimContainers, ufrmSummaryUserRole, ufrmAvailableUserRole , UfrmMapEditor, ufrmSimbolTaktis,
-  ufrmAsset, ufrmMapPreview;
+  ufrmAsset, ufrmReferensi, ufrmMapPreview;
 
 type
   TfrmDisplayArea = class(TForm)
@@ -171,9 +171,6 @@ type
     imgHapus: TImage;
     edtSearch: TEdit;
     edtSearchMap: TEdit;
-    btnDownloadReferensi: TImage;
-    btnUploadReferensi: TImage;
-    btnRemoveReferensi: TImage;
     btnAddTacticalSymbol: TImage;
     btnEditTacticalSymbol: TImage;
     btnDeleteTacticalSymbol: TImage;
@@ -1584,7 +1581,7 @@ procedure TfrmDisplayArea.pnlReferensiShow;
 begin
   pnlMenejemenReferensi.BringToFront;
 
-  UpdateGameAreaList;
+  UpdateDataReferensi;
 end;
 
 procedure TfrmDisplayArea.btnDownloadReferensiClick(Sender: TObject);
@@ -1598,58 +1595,30 @@ begin
   begin
     SelectDirectory('Select a directory', vGameDataSetting.LocalDirectory, localDirTemp);
 
-    serverDirTemp := vGameDataSetting.FileReferensi + FSelectedFileReferensi.FData.Encripted_File_Name;
-    localFileTemp := localDirTemp + '\' + FSelectedFileReferensi.FData.Nama_File;
+//    serverDirTemp := vGameDataSetting.FileReferensi + FSelectedFileReferensi.FData.Encripted_File_Name;
+//    localFileTemp := localDirTemp + '\' + FSelectedFileReferensi.FData.Nama_File;
+
+    serverDirTemp := vGameDataSetting.FileReferensi + '\' + IntToStr(FSelectedFileReferensi.FData.ID_File) + '.docx, .pptx, .pdf';
+    localFileTemp := localDirTemp + '\' + IntToStr(FSelectedFileReferensi.FData.ID_File) + '.docx, .pptx, .pdf';
 
     CopyFile(PWideChar(serverDirTemp), PWideChar(localFileTemp), False);
   end;
 end;
 
 procedure TfrmDisplayArea.btnUploadReferensiClick(Sender: TObject);
-var
-  addressTemp : PWideChar;
-  filNameTemp : string;
-  saveDialog : TSaveDialog;
-  saveFileTemp : TFile_Data;
-  fileDataTemp : TRecFile_Data;
-
 begin
-  saveDialog := TSaveDialog.Create(self);
-  saveDialog.InitialDir := GetCurrentDir;
-  saveDialog.Filter := 'Word file|*.docx|Excel file|*.xlsx|Power Point file|*.pptx';
-  saveDialog.DefaultExt := 'docx';
-  saveDialog.FilterIndex := 1;
-
-  if saveDialog.Execute then
-  begin
-    addressTemp := PWideChar(saveDialog.FileName);
-    filNameTemp := ExtractFileName(saveDialog.FileName);
-
-    with fileDataTemp do
+  frmReferensi := TfrmReferensi.Create(Self);
+  try
+    with frmReferensi do
     begin
-      Nama_File           := filNameTemp;
-      Directory_Path      := vGameDataSetting.FileReferensi;
-      Encripted_File_Name := '';
-      Tipe_File           := ExtractFileExt(saveDialog.FileName);
-      Modified_Date       := DateToStr(Now);
-      Modified_By         := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim;
-      id_User             := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
-
-      if dmINWO.InsertReferensi(fileDataTemp) then
-      begin
-        dmINWO.UpdateFile(fileDataTemp);
-        ShowMessage('Data has been saved');
-      end;
+      SelectedReferensi := TFile_Data.Create;
+      ShowModal;
     end;
+  finally
+    frmSimbolTaktis.Free;
+  end;
 
-    CopyFile(addressTemp, PWideChar(vGameDataSetting.FileReferensi + fileDataTemp.Encripted_File_Name), False);
-  end
-  else
-    ShowMessage('Save file was cancelled');
-
-  saveDialog.Free;
-
-  UpdateDataFile;
+  UpdateDataReferensi;
 end;
 
 procedure TfrmDisplayArea.btnRemoveReferensiClick(Sender: TObject);
@@ -1664,7 +1633,8 @@ begin
   begin
     if Assigned(FSelectedFileReferensi) then
     begin
-      serverDirTemp := vGameDataSetting.FileDirectory + FSelectedFileReferensi.FData.Encripted_File_Name;
+//      serverDirTemp := vGameDataSetting.FileDirectory + FSelectedFileReferensi.FData.Encripted_File_Name;
+      serverDirTemp := vGameDataSetting.FileReferensi + '\' + IntToStr(FSelectedFileReferensi.FData.ID_File) + '.docx, .pptx, .pdf';
 
       with FSelectedFileReferensi.FData do
       begin
@@ -1676,21 +1646,25 @@ begin
       FSelectedFileReferensi := nil;
     end;
 
-    UpdateDataFile;
+    UpdateDataReferensi;
   end;
 end;
 
 procedure TfrmDisplayArea.lvReferensiSelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);
+var
+  docxpath :  string;
+  serverDirTemp : String;
+  localFileTemp : String;
 begin
   FSelectedFileReferensi := nil;
 
   if Selected then
   begin
     if (Item = nil) or (item.Data = nil) then
-    begin
-      MessageDlg('File Corrupted', mtInformation, [mbOK], 0);
       Exit;
-    end;
+
+    FSelectedFileReferensi := TFile_Data(lvReferensi.Selected.Data);
+    docxpath := FSelectedFileReferensi.FData.Directory_Path + '\' + IntToStr(FSelectedFileReferensi.FData.ID_File) + '.docx';
 
     FSelectedFileReferensi := Item.Data;
   end
