@@ -22,21 +22,33 @@ object frmTelegram: TfrmTelegram
     BevelOuter = bvNone
     Color = clBackground
     TabOrder = 0
-    object ListView1: TListView
+    object LstBxTelegram: TListBox
       Left = 16
-      Top = 6
-      Width = 697
-      Height = 624
-      Columns = <>
+      Top = 1
+      Width = 529
+      Height = 629
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Jefferies'
+      Font.Style = []
+      ParentFont = False
       TabOrder = 0
     end
-    object ListBox1: TListBox
-      Left = 192
-      Top = 192
-      Width = 313
-      Height = 296
-      ItemHeight = 13
+    object btnOpenTelegram: TButton
+      Left = 551
+      Top = 295
+      Width = 116
+      Height = 41
+      Caption = 'OPEN TELEGRAM'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Jefferies'
+      Font.Style = []
+      ParentFont = False
       TabOrder = 1
+      OnClick = btnOpenTelegramClick
     end
   end
   object pnlLeft: TPanel
@@ -626,13 +638,12 @@ object frmTelegram: TfrmTelegram
       Font.Style = []
       ParentFont = False
     end
-    object pnlBeritaMasuk: TPanel
+    object pnlTelegramMasuk: TPanel
       Left = 25
       Top = 416
       Width = 162
       Height = 33
       BevelOuter = bvNone
-      Caption = 'pnlBeritaMasuk'
       Color = clBackground
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -642,6 +653,7 @@ object frmTelegram: TfrmTelegram
       ParentBackground = False
       ParentFont = False
       TabOrder = 0
+      OnClick = pnlTelegramMasukClick
       object imgbtnBeritaMasuk: TImageButton
         Left = 16
         Top = 7
@@ -913,13 +925,12 @@ object frmTelegram: TfrmTelegram
         ParentFont = False
       end
     end
-    object pnlBeritaTerkirim: TPanel
+    object pnlTelegramTerkirim: TPanel
       Left = 25
       Top = 533
       Width = 162
       Height = 33
       BevelOuter = bvNone
-      Caption = 'pnlBeritaMasuk'
       Color = clBackground
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -929,6 +940,7 @@ object frmTelegram: TfrmTelegram
       ParentBackground = False
       ParentFont = False
       TabOrder = 3
+      OnClick = pnlTelegramTerkirimClick
       object imgbtnBeritaTerkirim: TImageButton
         Left = 15
         Top = 7
@@ -1155,16 +1167,8 @@ object frmTelegram: TfrmTelegram
       Height = 25
       Caption = 'Button1'
       TabOrder = 9
+      Visible = False
       OnClick = Button1Click
-    end
-    object Button2: TButton
-      Left = 67
-      Top = 232
-      Width = 75
-      Height = 25
-      Caption = 'Button2'
-      TabOrder = 10
-      OnClick = Button2Click
     end
   end
 end

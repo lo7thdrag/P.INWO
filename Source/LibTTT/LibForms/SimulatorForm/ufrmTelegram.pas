@@ -10,7 +10,6 @@ uses
 type
   TfrmTelegram = class(TForm)
     pnlRight: TPanel;
-    ListView1: TListView;
     pnlLeft: TPanel;
     imgbtnBeritaMasuk: TImageButton;
     lblBeritaMasuk: TLabel;
@@ -22,10 +21,10 @@ type
     lblBeritaTerkirim: TLabel;
     imgbtnSemuaBerita: TImageButton;
     lblSemuaBerita: TLabel;
-    pnlBeritaMasuk: TPanel;
+    pnlTelegramMasuk: TPanel;
     pnlBeritaBaruDibaca: TPanel;
     pnlDraft: TPanel;
-    pnlBeritaTerkirim: TPanel;
+    pnlTelegramTerkirim: TPanel;
     pnlSemuaBerita: TPanel;
     lblTo: TLabel;
     btnKirim: TButton;
@@ -34,14 +33,16 @@ type
     btnBuatTelegramTerbatas: TButton;
     btnBuatTelegramRahasia: TButton;
     Button1: TButton;
-    ListBox1: TListBox;
-    Button2: TButton;
+    LstBxTelegram: TListBox;
+    btnOpenTelegram: TButton;
     procedure btnBuatTelegramTerbatasClick(Sender: TObject);
     procedure btnBuatTelegramRahasiaClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
-    procedure Button2Click(Sender: TObject);
+    procedure btnOpenTelegramClick(Sender: TObject);
     procedure btnKirimClick(Sender: TObject);
     procedure cbbxToDropDown(Sender: TObject);
+    procedure pnlTelegramMasukClick(Sender: TObject);
+    procedure pnlTelegramTerkirimClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -98,19 +99,8 @@ begin
               //add error/exception handling code as desired
         end;
 
-//        If VarIsNull(WordFile) = False then
-//         begin
-//              WordFile.SaveAs(WordFileNameNew);
-//              //reference
-//              //https://docs.microsoft.com/en-us/office/vba/api/word.documents.save
-//         end;
      finally
-//        WordFile.Close;
-//        WordApplication.DisplayAlerts := True;
-//        WordApplication.Quit;
 
-//        WordFile := Unassigned;
-//        WordApplication := Unassigned;
      end;
   end;
 end;
@@ -156,19 +146,8 @@ begin
               //add error/exception handling code as desired
         end;
 
-//        If VarIsNull(WordFile) = False then
-//         begin
-//              WordFile.SaveAs(WordFileNameNew);
-//              //reference
-//              //https://docs.microsoft.com/en-us/office/vba/api/word.documents.save
-//         end;
      finally
-//        WordFile.Close;
-//        WordApplication.DisplayAlerts := True;
-//        WordApplication.Quit;
 
-//        WordFile := Unassigned;
-//        WordApplication := Unassigned;
      end;
   end;
 end;
@@ -193,31 +172,27 @@ begin
     addressTemp := PWideChar(saveDialog.FileName);
     filNameTemp := ExtractFileName(saveDialog.FileName);
 
-    
-
-//    with fileDataTemp do
-//    begin
-//      Nama_File           := filNameTemp;
-//      Directory_Path      := vGameDataSetting.FileDirectory;
-//      Encripted_File_Name := '';
-//      Tipe_File           := ExtractFileExt(saveDialog.FileName);
-//      Modified_Date       := DateToStr(Now);
-//      Modified_By         := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim;
-//      id_User             := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
-//
-//      if dmINWO.InsertFile(fileDataTemp) then
-//      begin
-//        dmINWO.UpdateFile(fileDataTemp);
-//        ShowMessage('Data has been saved');
-//      end;
-//    end;
-    if not TDirectory.Exists(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' +  cbbxTo.Text) then
+    // SAVE FILE KE INBOX FOLDER ROLE TUJUAN
+    if not (TDirectory.Exists(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' +  cbbxTo.Text + '\\' + 'INBOX')) then
     begin
-      TDirectory.CreateDirectory(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + cbbxTo.Text);
-      CopyFile(addressTemp, PWideChar(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + cbbxTo.Text + '\\' + filNameTemp), False);
+      TDirectory.CreateDirectory(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + cbbxTo.Text + '\\' + 'INBOX');
+      CopyFile(addressTemp, PWideChar(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + cbbxTo.Text + '\\' + 'INBOX' + '\\' + filNameTemp), False);
     end
     else
-    CopyFile(addressTemp, PWideChar(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + cbbxTo.Text + '\\' + filNameTemp), False);
+    begin
+    CopyFile(addressTemp, PWideChar(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + cbbxTo.Text + '\\' + 'INBOX' + '\\' + filNameTemp), False);
+    end;
+
+    // SAVE FILE KE SENT BOX FOLDER ROLE PENGIRIM
+    if not (TDirectory.Exists(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' +  simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIdentifier + '\\' + 'SENT')) then
+    begin
+      TDirectory.CreateDirectory(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIdentifier + '\\' + 'SENT');
+      CopyFile(addressTemp, PWideChar(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIdentifier + '\\' + 'SENT' + '\\' + filNameTemp), False);
+    end
+    else
+    begin
+    CopyFile(addressTemp, PWideChar(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIdentifier + '\\' + 'SENT' + '\\' + filNameTemp), False);
+    end;
   end
   else
     ShowMessage('Save file was cancelled');
@@ -231,20 +206,20 @@ procedure TfrmTelegram.Button1Click(Sender: TObject);
 var
 path : string;
 begin
-  path := 'C:\\[DENTA]';
+  path := vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIdentifier;
 
-  ListBox1.Items.AddStrings(TDirectory.GetFiles(path));
+  LstBxTelegram.Items.AddStrings(TDirectory.GetFiles(path));
 
 end;
 
-procedure TfrmTelegram.Button2Click(Sender: TObject);
+procedure TfrmTelegram.btnOpenTelegramClick(Sender: TObject);
 var
 WordApplication, WordFile: Variant;
 begin
   WordApplication := null;
   WordFile := null;
 
-  ListBox1.Items.Strings[ListBox1.ItemIndex];
+//  LstBxTelegram.Items.Strings[LstBxTelegram.ItemIndex];
 
   try
     //create Word OLE
@@ -254,28 +229,63 @@ begin
     //add error/exception handling code as desired
   end;
 
-  If VarIsNull(WordApplication) = False then
+  If (VarIsNull(WordApplication) = False) then
   begin
+    if LstBxTelegram.ItemIndex <> null then
+    begin
      try
         WordApplication.Visible := True; //set to False if you do not want to see the activity in the background
         WordApplication.DisplayAlerts := False; //ensures message dialogs do not interrupt the flow of your automation process. May be helpful to set to True during testing and debugging.
 
         try
-           WordFile := WordApplication.Documents.Open(ListBox1.Items.Strings[ListBox1.ItemIndex]);
+           WordFile := WordApplication.Documents.Open(LstBxTelegram.Items.Strings[LstBxTelegram.ItemIndex]);
         except
               WordFile := Null;
         end;
      finally
 
-     
+
      end;
-     end;
-  
+    end;
+  end;
+
 end;
 
 procedure TfrmTelegram.cbbxToDropDown(Sender: TObject);
 begin
 //  UpdateClientTelegramList;
+end;
+
+procedure TfrmTelegram.pnlTelegramMasukClick(Sender: TObject);
+var
+path : string;
+begin
+  path := vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIdentifier + '\\' + 'INBOX';
+
+  if not TDirectory.Exists(path) then
+  begin
+  ShowMessage('Inbox masih kosong');
+  Exit
+  end
+  else
+  LstBxTelegram.Items.Clear;
+  LstBxTelegram.Items.AddStrings(TDirectory.GetFiles(path));
+end;
+
+procedure TfrmTelegram.pnlTelegramTerkirimClick(Sender: TObject);
+var
+path : string;
+begin
+  path := vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIdentifier + '\\' + 'SENT';
+
+  if not TDirectory.Exists(path) then
+  begin
+  ShowMessage('Belum ada Telegram terkirim');
+  Exit
+  end
+  else
+  LstBxTelegram.Items.Clear;
+  LstBxTelegram.Items.AddStrings(TDirectory.GetFiles(path));
 end;
 
 procedure TfrmTelegram.UpdateClientTelegramList;
