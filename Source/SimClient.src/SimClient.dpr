@@ -88,8 +88,6 @@ uses
   ufrmRole in '..\LibTTT\LibForms\SimulatorForm\AdditionalForm\ufrmRole.pas' {frmSummaryRole},
   ufrmSubRole in '..\LibTTT\LibForms\SimulatorForm\AdditionalForm\ufrmSubRole.pas' {frmSubRole},
   ufrmSelectSimbolTaktis in '..\LibTTT\LibForms\SimulatorForm\AdditionalForm\ufrmSelectSimbolTaktis.pas' {frmSelectSimbolTaktis},
-  ufrmBlindZoneAttachment in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\ufrmBlindZoneAttachment.pas' {frmBlindZonesAttachment},
-  uSimbolTaktis in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\uSimbolTaktis.pas' {SimbolTaktis},
   ufrmAccousticDecoyOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmAccousticDecoyOnBoardPickList.pas' {frmAccousticDecoyOnBoardPickList},
   ufrmAcousticDecoyOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmAcousticDecoyOnBoardPickList.pas' {frmAcousticDecoyOnBoardPickList},
   ufrmAirBubbleOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmAirBubbleOnBoardPickList.pas' {frmAirBubbleOnBoardPickList},
@@ -132,7 +130,17 @@ uses
   ufrmSonobuoyMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmSonobuoyMount.pas' {frmSonobuoyMount},
   ufrmTorpedoMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmTorpedoMount.pas' {frmTorpedoMount},
   ufrmTowedJammerMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmTowedJammerMount.pas' {frmTowedJammerMount},
-  ufrmVisualDetectorMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmVisualDetectorMount.pas' {frmVisualDetectorMount};
+  ufrmVisualDetectorMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmVisualDetectorMount.pas' {frmVisualDetectorMount},
+  ufrmBlindZoneAttachment in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\ufrmBlindZoneAttachment.pas' {frmBlindZonesAttachment},
+  ufrmChaffAssets in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\ufrmChaffAssets.pas' {frmChaffAssets},
+  ufrmChaffLauncher in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\ufrmChaffLauncher.pas' {frmChaffLauncher},
+  ufrmEmbarkedInputName in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\ufrmEmbarkedInputName.pas' {frmEmbarkedInputName},
+  ufrmLauncherList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\ufrmLauncherList.pas' {frmLauncherList},
+  ufrmMissileLauncher in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\ufrmMissileLauncher.pas' {frmMissileLauncher},
+  ufrmPlatformInstanceInput in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\ufrmPlatformInstanceInput.pas' {frmPlatformInstanceInput},
+  ufrmTorpedoLauncher in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\ufrmTorpedoLauncher.pas' {frmTorpedoLauncher},
+  ufrmVehicleInputToBase in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\ufrmVehicleInputToBase.pas' {frmVehicleInputToBase},
+  uSimbolTaktis in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\uSimbolTaktis.pas' {SimbolTaktis};
 
 {$R *.res}
 
@@ -215,6 +223,16 @@ begin
   Application.CreateForm(TfrmTorpedoMount, frmTorpedoMount);
   Application.CreateForm(TfrmTowedJammerMount, frmTowedJammerMount);
   Application.CreateForm(TfrmVisualDetectorMount, frmVisualDetectorMount);
+  Application.CreateForm(TfrmBlindZonesAttachment, frmBlindZonesAttachment);
+  Application.CreateForm(TfrmChaffAssets, frmChaffAssets);
+  Application.CreateForm(TfrmChaffLauncher, frmChaffLauncher);
+  Application.CreateForm(TfrmEmbarkedInputName, frmEmbarkedInputName);
+  Application.CreateForm(TfrmLauncherList, frmLauncherList);
+  Application.CreateForm(TfrmMissileLauncher, frmMissileLauncher);
+  Application.CreateForm(TfrmPlatformInstanceInput, frmPlatformInstanceInput);
+  Application.CreateForm(TfrmTorpedoLauncher, frmTorpedoLauncher);
+  Application.CreateForm(TfrmVehicleInputToBase, frmVehicleInputToBase);
+  Application.CreateForm(TSimbolTaktis, SimbolTaktis);
   uScriptSimClients.BeginGame;
 
   Application.Run;

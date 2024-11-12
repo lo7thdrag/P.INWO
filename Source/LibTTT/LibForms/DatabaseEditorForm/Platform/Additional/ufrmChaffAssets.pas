@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ComCtrls, ExtCtrls, StdCtrls, Vcl.Mask, Vcl.Imaging.pngimage,
-  uBaseCoordSystem, {uDBAsset_Vehicle, uDBAsset_Countermeasure,} ufrmSummaryVehicle, uSimContainers;
+  uBaseCoordSystem, {uDBAsset_Vehicle, uDBAsset_Countermeasure, ufrmSummaryVehicle,} uSimContainers;
 
 type
   TfrmChaffAssets = class(TForm)
