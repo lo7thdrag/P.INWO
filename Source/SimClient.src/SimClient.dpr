@@ -88,18 +88,36 @@ uses
   ufrmRole in '..\LibTTT\LibForms\SimulatorForm\AdditionalForm\ufrmRole.pas' {frmSummaryRole},
   ufrmSubRole in '..\LibTTT\LibForms\SimulatorForm\AdditionalForm\ufrmSubRole.pas' {frmSubRole},
   ufrmSelectSimbolTaktis in '..\LibTTT\LibForms\SimulatorForm\AdditionalForm\ufrmSelectSimbolTaktis.pas' {frmSelectSimbolTaktis},
-  ufrmRadarOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmRadarOnBoardPickList.pas' {frmRadarOnBoardPickList},
   ufrmRadarMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmRadarMount.pas' {frmRadarMount},
   ufrmBlindZoneAttachment in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\ufrmBlindZoneAttachment.pas' {frmBlindZonesAttachment},
-  ufrmSonarOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmSonarOnBoardPickList.pas' {frmSonarOnBoardPickList},
   ufrmSonarMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmSonarMount.pas' {frmSonarMount},
   uSimbolTaktis in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\uSimbolTaktis.pas' {SimbolTaktis},
-  ufrmESMOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmESMOnBoardPickList.pas' {frmESMOnBoardPickList},
   ufrmESMMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmESMMount.pas' {frmESMMount},
-  ufrmEODOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmEODOnBoardPickList.pas' {frmEODOnBoardPickList},
   ufrmEODMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmEODMount.pas' {frmEODMount},
+  ufrmSonobuoyMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmSonobuoyMount.pas' {frmSonobuoyMount},
+  ufrmAccousticDecoyOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmAccousticDecoyOnBoardPickList.pas' {frmAccousticDecoyOnBoardPickList},
+  ufrmAcousticDecoyOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmAcousticDecoyOnBoardPickList.pas' {frmAcousticDecoyOnBoardPickList},
+  ufrmAirBubbleOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmAirBubbleOnBoardPickList.pas' {frmAirBubbleOnBoardPickList},
+  ufrmBombOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmBombOnBoardPickList.pas' {frmBombOnBoardPickList},
+  ufrmChaffOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmChaffOnBoardPickList.pas' {frmChaffOnBoardPickList},
+  ufrmEmbarkedOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmEmbarkedOnBoardPickList.pas' {frmEmbarkedOnBoardPickList},
+  ufrmEODOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmEODOnBoardPickList.pas' {frmEODOnBoardPickList},
+  ufrmESMOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmESMOnBoardPickList.pas' {frmESMOnBoardPickList},
+  ufrmFloatingDecoyOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmFloatingDecoyOnBoardPickList.pas' {frmFloatingDecoyOnBoardPickList},
+  ufrmGunOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmGunOnBoardPickList.pas' {frmGunOnBoardPickList},
+  ufrmIFFOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmIFFOnBoardPickList.pas' {frmIFFOnBoardPickList},
+  ufrmInfraredDecoyOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmInfraredDecoyOnBoardPickList.pas' {frmInfraredDecoyOnBoardPickList},
+  ufrmMADOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmMADOnBoardPickList.pas' {frmMADOnBoardPickList},
+  ufrmMineOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmMineOnBoardPickList.pas' {frmMineOnBoardPickList},
+  ufrmMissileOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmMissileOnBoardPickList.pas' {frmMissileOnBoardPickList},
+  ufrmRadarNoiseJammerOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmRadarNoiseJammerOnBoardPickList.pas' {frmRadarNoiseJammerOnBoardPickList},
+  ufrmRadarOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmRadarOnBoardPickList.pas' {frmRadarOnBoardPickList},
+  ufrmSelfDefensiveJammerOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmSelfDefensiveJammerOnBoardPickList.pas' {frmSelfDefensiveJammerOnBoardPickList},
+  ufrmSonarOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmSonarOnBoardPickList.pas' {frmSonarOnBoardPickList},
   ufrmSonobuoyOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmSonobuoyOnBoardPickList.pas' {frmSonobuoyOnBoardPickList},
-  ufrmSonobuoyMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmSonobuoyMount.pas' {frmSonobuoyMount};
+  ufrmTorpedoOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmTorpedoOnBoardPickList.pas' {frmTorpedoOnBoardPickList},
+  ufrmTowedJammerDecoyOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmTowedJammerDecoyOnBoardPickList.pas' {frmTowedJammerDecoyOnBoardPickList},
+  ufrmVisualDetectorOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmVisualDetectorOnBoardPickList.pas' {frmVisualDetectorOnBoardPickList};
 
 {$R *.res}
 
@@ -138,6 +156,30 @@ begin
   Application.CreateForm(TfrmEODMount, frmEODMount);
   Application.CreateForm(TfrmSonobuoyOnBoardPickList, frmSonobuoyOnBoardPickList);
   Application.CreateForm(TfrmSonobuoyMount, frmSonobuoyMount);
+  Application.CreateForm(TfrmAccousticDecoyOnBoardPickList, frmAccousticDecoyOnBoardPickList);
+  Application.CreateForm(TfrmAccousticDecoyOnBoardPickList, frmAccousticDecoyOnBoardPickList);
+  Application.CreateForm(TfrmAcousticDecoyOnBoardPickList, frmAcousticDecoyOnBoardPickList);
+  Application.CreateForm(TfrmAirBubbleOnBoardPickList, frmAirBubbleOnBoardPickList);
+  Application.CreateForm(TfrmBombOnBoardPickList, frmBombOnBoardPickList);
+  Application.CreateForm(TfrmChaffOnBoardPickList, frmChaffOnBoardPickList);
+  Application.CreateForm(TfrmEmbarkedOnBoardPickList, frmEmbarkedOnBoardPickList);
+  Application.CreateForm(TfrmEODOnBoardPickList, frmEODOnBoardPickList);
+  Application.CreateForm(TfrmESMOnBoardPickList, frmESMOnBoardPickList);
+  Application.CreateForm(TfrmFloatingDecoyOnBoardPickList, frmFloatingDecoyOnBoardPickList);
+  Application.CreateForm(TfrmGunOnBoardPickList, frmGunOnBoardPickList);
+  Application.CreateForm(TfrmIFFOnBoardPickList, frmIFFOnBoardPickList);
+  Application.CreateForm(TfrmInfraredDecoyOnBoardPickList, frmInfraredDecoyOnBoardPickList);
+  Application.CreateForm(TfrmMADOnBoardPickList, frmMADOnBoardPickList);
+  Application.CreateForm(TfrmMineOnBoardPickList, frmMineOnBoardPickList);
+  Application.CreateForm(TfrmMissileOnBoardPickList, frmMissileOnBoardPickList);
+  Application.CreateForm(TfrmRadarNoiseJammerOnBoardPickList, frmRadarNoiseJammerOnBoardPickList);
+  Application.CreateForm(TfrmRadarOnBoardPickList, frmRadarOnBoardPickList);
+  Application.CreateForm(TfrmSelfDefensiveJammerOnBoardPickList, frmSelfDefensiveJammerOnBoardPickList);
+  Application.CreateForm(TfrmSonarOnBoardPickList, frmSonarOnBoardPickList);
+  Application.CreateForm(TfrmSonobuoyOnBoardPickList, frmSonobuoyOnBoardPickList);
+  Application.CreateForm(TfrmTorpedoOnBoardPickList, frmTorpedoOnBoardPickList);
+  Application.CreateForm(TfrmTowedJammerDecoyOnBoardPickList, frmTowedJammerDecoyOnBoardPickList);
+  Application.CreateForm(TfrmVisualDetectorOnBoardPickList, frmVisualDetectorOnBoardPickList);
   uScriptSimClients.BeginGame;
 
   Application.Run;

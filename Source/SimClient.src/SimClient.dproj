@@ -291,20 +291,12 @@
         <DCCReference Include="..\LibTTT\LibForms\SimulatorForm\AdditionalForm\ufrmSelectSimbolTaktis.pas">
             <Form>frmSelectSimbolTaktis</Form>
         </DCCReference>
-        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmRadarOnBoardPickList.pas">
-            <Form>frmRadarOnBoardPickList</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmRadarMount.pas">
             <Form>frmRadarMount</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\ufrmBlindZoneAttachment.pas">
             <Form>frmBlindZonesAttachment</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
-        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmSonarOnBoardPickList.pas">
-            <Form>frmSonarOnBoardPickList</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmSonarMount.pas">
@@ -315,28 +307,108 @@
             <Form>SimbolTaktis</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmESMOnBoardPickList.pas">
-            <Form>frmESMOnBoardPickList</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmESMMount.pas">
             <Form>frmESMMount</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
-        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmEODOnBoardPickList.pas">
-            <Form>frmEODOnBoardPickList</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmEODMount.pas">
             <Form>frmEODMount</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmSonobuoyMount.pas">
+            <Form>frmSonobuoyMount</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmAccousticDecoyOnBoardPickList.pas">
+            <Form>frmAccousticDecoyOnBoardPickList</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmAcousticDecoyOnBoardPickList.pas">
+            <Form>frmAcousticDecoyOnBoardPickList</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmAirBubbleOnBoardPickList.pas">
+            <Form>frmAirBubbleOnBoardPickList</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmBombOnBoardPickList.pas">
+            <Form>frmBombOnBoardPickList</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmChaffOnBoardPickList.pas">
+            <Form>frmChaffOnBoardPickList</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmEmbarkedOnBoardPickList.pas">
+            <Form>frmEmbarkedOnBoardPickList</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmEODOnBoardPickList.pas">
+            <Form>frmEODOnBoardPickList</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmESMOnBoardPickList.pas">
+            <Form>frmESMOnBoardPickList</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmFloatingDecoyOnBoardPickList.pas">
+            <Form>frmFloatingDecoyOnBoardPickList</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmGunOnBoardPickList.pas">
+            <Form>frmGunOnBoardPickList</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmIFFOnBoardPickList.pas">
+            <Form>frmIFFOnBoardPickList</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmInfraredDecoyOnBoardPickList.pas">
+            <Form>frmInfraredDecoyOnBoardPickList</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmMADOnBoardPickList.pas">
+            <Form>frmMADOnBoardPickList</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmMineOnBoardPickList.pas">
+            <Form>frmMineOnBoardPickList</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmMissileOnBoardPickList.pas">
+            <Form>frmMissileOnBoardPickList</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmRadarNoiseJammerOnBoardPickList.pas">
+            <Form>frmRadarNoiseJammerOnBoardPickList</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmRadarOnBoardPickList.pas">
+            <Form>frmRadarOnBoardPickList</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmSelfDefensiveJammerOnBoardPickList.pas">
+            <Form>frmSelfDefensiveJammerOnBoardPickList</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmSonarOnBoardPickList.pas">
+            <Form>frmSonarOnBoardPickList</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmSonobuoyOnBoardPickList.pas">
             <Form>frmSonobuoyOnBoardPickList</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmSonobuoyMount.pas">
-            <Form>frmSonobuoyMount</Form>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmTorpedoOnBoardPickList.pas">
+            <Form>frmTorpedoOnBoardPickList</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmTowedJammerDecoyOnBoardPickList.pas">
+            <Form>frmTowedJammerDecoyOnBoardPickList</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmVisualDetectorOnBoardPickList.pas">
+            <Form>frmVisualDetectorOnBoardPickList</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Debug">
