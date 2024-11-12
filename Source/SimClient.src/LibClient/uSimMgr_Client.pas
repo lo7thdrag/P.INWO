@@ -220,7 +220,8 @@ procedure TSimMgr_Client.InitNetwork;
 begin
 
   {$REGION ' UDP SECTION '}
-  VNetClient.RegisterUDPPacket(CPID_CMD_GAME_CTRL, SizeOf(TRecCmd_GameCtrl), netRecv_CmdGameControl);
+//  VNetClient.RegisterUDPPacket(CPID_CMD_GAME_CTRL, SizeOf(TRecCmd_GameCtrl), netRecv_CmdGameControl);
+  VNetClient.RegisterTCPPacket(CPID_CMD_GAME_CTRL, SizeOf(TRecCmd_GameCtrl),netRecv_CmdGameControl);
 //  VNetClient.RegisterUDPPacket(CPID_CMD_CLIENT_STATE_INFO, SizeOf(TRecUDP_ClientState_Info),netRecv_CmdClientStateInfo);
   {$ENDREGION}
 
@@ -636,7 +637,7 @@ begin // 250 ms
       FOnUpdateTime(self);
   end;
 
-  VNetClient.getPacket;
+//  VNetClient.getPacket;
   FConnectDelay.Run(dt);
 end;
 

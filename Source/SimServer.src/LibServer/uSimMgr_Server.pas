@@ -246,13 +246,14 @@ begin
   FNetSender.DInterval := vNetServerSetting.SendInterval;
 
   {$REGION ' UDP SECTION '}
-  VNetServer.RegisterUDPPacket(CPID_CMD_GAME_CTRL, SizeOf(TRecCmd_GameCtrl),nil);
+//  VNetServer.RegisterUDPPacket(CPID_CMD_GAME_CTRL, SizeOf(TRecCmd_GameCtrl),nil);
 //  VNetServer.RegisterUDPPacket(CPID_CMD_CLIENT_STATE_INFO, SizeOf(TRecUDP_ClientState_Info),nil);
   {$ENDREGION}
 
   {$REGION ' TCP SECTION '}
 //  VNetServer.RegisterTCPPacket(CPID_CMD_CLIENT_STATE_INFO, SizeOf(TRecTCP_ClientState_Info), nil);
 //  VNetServer.RegisterTCPPacket(CPID_CMD_GAME_CTRL, SizeOf(TRecCmd_GameCtrl),netRecv_CmdGameControl);
+  VNetServer.RegisterTCPPacket(CPID_CMD_GAME_CTRL, SizeOf(TRecCmd_GameCtrl),nil);
   VNetServer.RegisterTCPPacket(CPID_CMD_USER_STATE, SizeOf(TRecTCP_UserState), netRecv_CmdUserState);
   VNetServer.RegisterTCPPacket(CPID_CMD_SITUATIONBOARD_TAB_PROPERTIES, SizeOf(TRecTCPSendSituationBoardTabProperties),netRecv_CmdSituationBoardTabProperties);
   VNetServer.RegisterTCPPacket(CPID_CMD_CHAT_USER_ROLE, SizeOf(TrecTCPSendChatUserRole), netRecv_CmdChatUserRole);

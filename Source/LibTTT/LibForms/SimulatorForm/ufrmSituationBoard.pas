@@ -159,7 +159,7 @@ begin
   try
     with frmCreateTab do
     begin
-      ShowModal;
+      Show;
     end;
   finally
     frmCreateTab.Free;
@@ -285,7 +285,7 @@ begin
     begin
       TabId := FSelectedTabProperties.IdTab;
       TabCaption := FSelectedTabProperties.CaptionTab;
-      ShowModal;
+      Show;
     end;
   finally
     frmImageInsert.Free;
@@ -300,7 +300,7 @@ begin
   try
     with frmBrowseMap do
     begin
-      ShowModal;
+      Show;
     end;
 
   finally

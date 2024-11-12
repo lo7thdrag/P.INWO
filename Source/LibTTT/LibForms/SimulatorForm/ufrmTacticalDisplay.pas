@@ -145,7 +145,8 @@ begin
     with frmDisplayArea do
     begin
 //      simMgrClient.MyConsoleData.TipeTahapan := Byte(SetTipeTahapanToEnum(cbbTahapan.Text));
-      ShowModal;
+//      ShowModal;
+      Show;
     end;
 
   finally
@@ -299,6 +300,14 @@ end;
 
 procedure TfrmTacticalDisplay.btnBackClick(Sender: TObject);
 begin
+  btnPlanning.Down := False;
+  btnPreparation.Down := False;
+  btnImplementation.Down := False;
+  btnTermination.Down := False;
+
+  cbbSubRole.Visible := False;
+  lstUserRoleLogin.Visible := False;
+
   pnlHome.BringToFront;
 end;
 
@@ -478,49 +487,11 @@ begin
   try
     with frmDisplayArea do
     begin
-//      simMgrClient.MyConsoleData.TipeTahapan := Byte(SetTipeTahapanToEnum(cbbTahapan.Text));
-      ShowModal;
-    end;
-
+      Show;
+    end
   finally
     frmDisplayArea.Free;
   end;
-
-//  lblWelcome.Caption := 'Selamat datang ' + simMgrClient.MyConsoleData.Identifier;
-//  userRoleTemp := simMgrClient.SimUserRole.getUserRoleByID(simMgrClient.MyConsoleData.UserRoleData.UserRoleIndex);
-//
-//  if Assigned(userRoleTemp) then
-//  begin
-//    {$REGION ' User Login '}
-//
-//    cbbTahapan.Items.Clear;
-//
-//    with simMgrClient.MyConsoleData.UserRoleData do
-//    begin
-//      lblOperasi.Caption := SetOrganisasiTugasToString(TOrganisasiTugas(RoleIndex));
-//      lblKomandoTugas.Caption := SetSubOrganisasiTugasToString(TSubOrganisasiTugas(SubRoleIndex));
-//      lblUserRole.Caption := UserRoleIdentifier;
-//
-////      if Perencanaan = 1 then
-////        cbbTahapan.Items.Add('Perencanaan');
-////
-////      if Persiapan = 1 then
-////        cbbTahapan.Items.Add('Persiapan');
-////
-////      if Pelaksanaan = 1 then
-////        cbbTahapan.Items.Add('Pelaksanaan');
-////
-////      if Pengakhiran = 1 then
-////        cbbTahapan.Items.Add('Pengakhiran');
-//    end;
-//
-//    if cbbTahapan.Items.Count > 0 then
-//      cbbTahapan.ItemIndex := 0;
-//
-//    pnlDescription.BringToFront;
-//
-//    {$ENDREGION}
-//  end;
 end;
 
 procedure TfrmTacticalDisplay.UpdateClientLogout(Sender: TObject);
@@ -539,16 +510,10 @@ end;
 
 procedure TfrmTacticalDisplay.UpdateGameState(Sender: TObject);
 begin
-//  if Assigned(frmPause) then
-//  begin
-//    if SimManager.GetGameState then
-//      frmPause.Hide
-//    else
-//    begin
-//      if not frmPause.Showing then
-//        frmPause.Show;
-//    end;
-//  end;
+  btnPlanning.Visible := SimManager.GetGameState;
+  btnPreparation.Visible := SimManager.GetGameState;
+  btnImplementation.Visible := SimManager.GetGameState;
+  btnTermination.Visible := SimManager.GetGameState;
 end;
 
 end.

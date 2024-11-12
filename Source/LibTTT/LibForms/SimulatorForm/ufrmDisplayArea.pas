@@ -676,7 +676,7 @@ begin
     with frmAsset do
     begin
       SelectedAsset := TAsset.Create;
-      ShowModal;
+      Show;
     end;
   finally
     frmAsset.Free;
@@ -714,7 +714,7 @@ begin
       with frmAsset do
       begin
         SelectedAsset := FSelectedAsset;
-        ShowModal;
+        Show;
       end;
     finally
       frmAsset.Free;
@@ -996,7 +996,7 @@ begin
     with frmSimbolTaktis do
     begin
       SelectedTacticalSymbol := TTactical_Symbol.Create;
-      ShowModal;
+      Show;
     end;
   finally
     frmSimbolTaktis.Free;
@@ -1054,7 +1054,7 @@ begin
         with frmSimbolTaktis do
         begin
           SelectedTacticalSymbol := FSelectedTacticalSymbol;
-          ShowModal;
+          Show;
         end;
       finally
          frmSimbolTaktis.Free;
@@ -1226,7 +1226,7 @@ begin
     with frmSummaryUserRole do
     begin
       SelectedUserRole := TUserRole.Create;
-      ShowModal;
+      Show;
       SelectedUserRole.Free;
     end;
   finally
@@ -1245,7 +1245,7 @@ begin
       with frmSummaryUserRole do
       begin
         SelectedUserRole := FSelectedPengguna;
-        ShowModal;
+        Show;
 //        FUpdateList := AfterClose;
       end;
     finally
@@ -1407,7 +1407,7 @@ begin
     begin
       SelectedGameArea := TGame_Area_Definition.Create;
       SelectedGameArea.FData.Detail_Map := 'ENC';
-      ShowModal;
+      Show;
 //      FUpdateList := AfterClose;
     end;
   finally
@@ -1431,7 +1431,7 @@ begin
     with frmMapEditor do
     begin
       SelectedGameArea := FSelectedGameArea;
-      ShowModal;
+      Show;
 //      FUpdateList := AfterClose;
     end;
   finally
@@ -1455,7 +1455,7 @@ begin
     with frmMapPreview do
     begin
       SelectedGameArea := FSelectedGameArea;
-      ShowModal;
+      Show;
     end;
   finally
     frmMapPreview.Free;
@@ -1986,7 +1986,7 @@ begin
   try
     with frmTelegram do
     begin
-      ShowModal;
+      Show;
     end;
 
   finally
@@ -2005,7 +2005,7 @@ begin
   try
     with frmVideoConference do
     begin
-      ShowModal;
+      Show;
     end;
 
   finally

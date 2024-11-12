@@ -1330,8 +1330,8 @@ object frmMainGameServer: TfrmMainGameServer
       OnClick = btnUnlockClick
     end
     object lblGameTime: TLabel
-      Left = 364
-      Top = 34
+      Left = 366
+      Top = 37
       Width = 52
       Height = 16
       Caption = '00:00:00'

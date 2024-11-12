@@ -76,7 +76,7 @@ begin
   r.GameCtrl  := CORD_ID_pause;
   simMgrServer.GamePause;
 
-  VNetServer.SendBroadcast_UDP_Data(CPID_CMD_GAME_CTRL , @r);
+  VNetServer.SendBroadcastCommand(CPID_CMD_GAME_CTRL , @r);
 end;
 
 procedure TfrmMainGameServer.btnUnlockClick(Sender: TObject);
@@ -88,7 +88,7 @@ begin
   r.GameCtrl  := CORD_ID_start;
   simMgrServer.GameStart;
 
-  VNetServer.SendBroadcast_UDP_Data(CPID_CMD_GAME_CTRL , @r);
+  VNetServer.SendBroadcastCommand(CPID_CMD_GAME_CTRL , @r);
 end;
 
 procedure TfrmMainGameServer.SpeedButton1Click(Sender: TObject);

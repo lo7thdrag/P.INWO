@@ -179,7 +179,7 @@ begin
 //  FNetClientVBS := TTCPClient.Create;
 //  FNetTCPSockVBS := FNetClientVBS;
 
-  FNetUDPNode.Listen(IntToStr(GamePort));
+//  FNetUDPNode.Listen(IntToStr(GamePort));
   FNetClient.Connect(ServerIP, IntToStr(CommandPort));
 //  FNetClientVBS.Connect(ServerIP, IntToStr(VBSPort));
 

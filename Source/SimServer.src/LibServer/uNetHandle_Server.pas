@@ -210,13 +210,13 @@ procedure TNetHandle_Server.StartListen;
 begin
   FOnline := true;
 
-  FNetUDPNode.Connect();
+//  FNetUDPNode.Connect();
   FNetTCPServer.Listen(IntToStr(CommandPort));
 end;
 
 procedure TNetHandle_Server.StopListen;
 begin
-  FNetUDPNode.Close;
+//  FNetUDPNode.Close;
   FNetTCPServer.Stop;
 
   FOnline := false;

@@ -405,6 +405,8 @@ type
     FAction : Byte;
     FIdSelectedLogistic, FIdSelectedEmbark : Integer;
 
+  protected
+    procedure CreateParams(var Params : TCreateParams); override;
   public
     IsEditObject : Boolean;
     isNoFill : Boolean;
@@ -606,7 +608,7 @@ end;
 procedure TfrmOverlayTools.btnplatformClick(Sender: TObject);
 begin
   frmSelectSimbolTaktis.drwgrdFontTaktis.RowCount := 184;
-  frmSelectSimbolTaktis.ShowModal;
+  frmSelectSimbolTaktis.Show;
 end;
 
 procedure TfrmOverlayTools.Canceled;
@@ -1005,6 +1007,13 @@ begin
     pnlFill.Caption := '';
     pnlFill.Color := colorChoose.ForegroundColor;
   end;
+end;
+
+procedure TfrmOverlayTools.CreateParams(var Params: TCreateParams);
+begin
+  inherited;
+  Params.WndParent:= 0;
+  Params.Style := WS_POPUPWINDOW or WS_CAPTION or WS_CLIPCHILDREN;
 end;
 
 procedure TfrmOverlayTools.Deleted;
