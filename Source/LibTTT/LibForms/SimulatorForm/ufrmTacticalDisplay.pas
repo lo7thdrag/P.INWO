@@ -479,19 +479,10 @@ begin
 end;
 
 procedure TfrmTacticalDisplay.UpdateClientLogin(Sender: TObject);
-var
-  userRoleTemp : TUserRole;
-
+//var
+//  userRoleTemp : TUserRole;
 begin
-  frmDisplayArea := TfrmDisplayArea.Create(Self);
-  try
-    with frmDisplayArea do
-    begin
-      Show;
-    end
-  finally
-    frmDisplayArea.Free;
-  end;
+  frmDisplayArea.Show;
 end;
 
 procedure TfrmTacticalDisplay.UpdateClientLogout(Sender: TObject);

@@ -119,6 +119,7 @@ begin
   Application.Title := 'SimClient';
   Application.CreateForm(TdmINWO, dmINWO);
   Application.CreateForm(TfrmTacticalDisplay, frmTacticalDisplay);
+  Application.CreateForm(TfrmDisplayArea, frmDisplayArea);
   Application.CreateForm(TfrmSituationBoard, frmSituationBoard);
   Application.CreateForm(TfrmOverlayTools, frmOverlayTools);
   Application.CreateForm(TfrmBrowseMap, frmBrowseMap);
