@@ -303,6 +303,42 @@
             <Form>frmBlindZonesAttachment</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmSonarOnBoardPickList.pas">
+            <Form>frmSonarOnBoardPickList</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmSonarMount.pas">
+            <Form>frmSonarMount</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\uSimbolTaktis.pas">
+            <Form>SimbolTaktis</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmESMOnBoardPickList.pas">
+            <Form>frmESMOnBoardPickList</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmESMMount.pas">
+            <Form>frmESMMount</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmEODOnBoardPickList.pas">
+            <Form>frmEODOnBoardPickList</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmEODMount.pas">
+            <Form>frmEODMount</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmSonobuoyOnBoardPickList.pas">
+            <Form>frmSonobuoyOnBoardPickList</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmSonobuoyMount.pas">
+            <Form>frmSonobuoyMount</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Debug">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

@@ -90,7 +90,16 @@ uses
   ufrmSelectSimbolTaktis in '..\LibTTT\LibForms\SimulatorForm\AdditionalForm\ufrmSelectSimbolTaktis.pas' {frmSelectSimbolTaktis},
   ufrmRadarOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmRadarOnBoardPickList.pas' {frmRadarOnBoardPickList},
   ufrmRadarMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmRadarMount.pas' {frmRadarMount},
-  ufrmBlindZoneAttachment in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\ufrmBlindZoneAttachment.pas' {frmBlindZonesAttachment};
+  ufrmBlindZoneAttachment in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\ufrmBlindZoneAttachment.pas' {frmBlindZonesAttachment},
+  ufrmSonarOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmSonarOnBoardPickList.pas' {frmSonarOnBoardPickList},
+  ufrmSonarMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmSonarMount.pas' {frmSonarMount},
+  uSimbolTaktis in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\uSimbolTaktis.pas' {SimbolTaktis},
+  ufrmESMOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmESMOnBoardPickList.pas' {frmESMOnBoardPickList},
+  ufrmESMMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmESMMount.pas' {frmESMMount},
+  ufrmEODOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmEODOnBoardPickList.pas' {frmEODOnBoardPickList},
+  ufrmEODMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmEODMount.pas' {frmEODMount},
+  ufrmSonobuoyOnBoardPickList in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmSonobuoyOnBoardPickList.pas' {frmSonobuoyOnBoardPickList},
+  ufrmSonobuoyMount in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmSonobuoyMount.pas' {frmSonobuoyMount};
 
 {$R *.res}
 
@@ -120,6 +129,15 @@ begin
   Application.CreateForm(TfrmRadarOnBoardPickList, frmRadarOnBoardPickList);
   Application.CreateForm(TfrmRadarMount, frmRadarMount);
   Application.CreateForm(TfrmBlindZonesAttachment, frmBlindZonesAttachment);
+  Application.CreateForm(TfrmSonarOnBoardPickList, frmSonarOnBoardPickList);
+  Application.CreateForm(TfrmSonarMount, frmSonarMount);
+  Application.CreateForm(TSimbolTaktis, SimbolTaktis);
+  Application.CreateForm(TfrmESMOnBoardPickList, frmESMOnBoardPickList);
+  Application.CreateForm(TfrmESMMount, frmESMMount);
+  Application.CreateForm(TfrmEODOnBoardPickList, frmEODOnBoardPickList);
+  Application.CreateForm(TfrmEODMount, frmEODMount);
+  Application.CreateForm(TfrmSonobuoyOnBoardPickList, frmSonobuoyOnBoardPickList);
+  Application.CreateForm(TfrmSonobuoyMount, frmSonobuoyMount);
   uScriptSimClients.BeginGame;
 
   Application.Run;
