@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+15<?xml version="1.0" encoding="iso-8859-1"?>
 <ppkmgroups>
 
   <SituationBoard id="Controller" name="SituationBoard Group">
@@ -8,7 +8,7 @@
 
   <officer id="Officer" name="Officer Group"> 
     <console ip="192.168.0.15" name="Programmer" ></console>    
-    <console ip="192.168.0.146" name="Official 1"></console>  
+    <console ip="192.168.0.240" name="Official 1"></console>  
     <console ip="192.168.0.172" name="Official 2"></console>
     <console ip="192.168.0.103" name="Official 3"></console>
     <console ip="192.168.0.104" name="Official 4"></console>

@@ -50758,6 +50758,15 @@ object frmDisplayArea: TfrmDisplayArea
         end
       end
     end
+    object Button1: TButton
+      Left = 968
+      Top = 128
+      Width = 75
+      Height = 25
+      Caption = 'Button1'
+      TabOrder = 7
+      OnClick = Button1Click
+    end
   end
   object ilClientStateColor: TImageList
     ShareImages = True
