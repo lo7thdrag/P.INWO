@@ -14248,6 +14248,8 @@ object frmIFFMount: TfrmIFFMount
     Width = 400
     Height = 248
     BevelOuter = bvNone
+    Color = 5523492
+    ParentBackground = False
     TabOrder = 4
     object PageControl1: TPageControl
       Left = 0
@@ -14265,7 +14267,6 @@ object frmIFFMount: TfrmIFFMount
       TabHeight = 30
       TabOrder = 0
       TabWidth = 100
-      ExplicitTop = 1
       object General: TTabSheet
         Caption = 'General'
         object lbl2: TLabel

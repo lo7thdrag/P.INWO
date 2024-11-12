@@ -61,7 +61,7 @@ var
 implementation
 
 uses
-  ufrmSummaryVehicle, uDataModule{, ufrmMADOnBoardPickList};
+  ufrmAsset, uDataModule{, ufrmMADOnBoardPickList};
 
 {$R *.dfm}
 
