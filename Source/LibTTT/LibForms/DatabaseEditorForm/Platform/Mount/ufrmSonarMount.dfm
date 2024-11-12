@@ -14207,6 +14207,7 @@ object frmSonarMount: TfrmSonarMount
     Width = 400
     Height = 250
     BevelOuter = bvNone
+    Color = 5523492
     ParentBackground = False
     TabOrder = 1
     object PageControl1: TPageControl

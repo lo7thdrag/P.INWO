@@ -19,14 +19,13 @@ type
     btnCancel: TButton;
     btnOK: TButton;
     ImgBackgroundForm: TImage;
-    ImgHeader: TImage;
-    Label1: TLabel;
     lbl2: TLabel;
     edtMaxQuantity: TEdit;
     chkAngleRequired: TCheckBox;
     grbAngleRequired: TGroupBox;
     lblAngle: TLabel;
     edtAngle: TEdit;
+    lblPlatform: TLabel;
 
     procedure FormShow(Sender: TObject);
 

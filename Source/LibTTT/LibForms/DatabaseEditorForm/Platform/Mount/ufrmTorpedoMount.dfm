@@ -14210,11 +14210,13 @@ object frmTorpedoMount: TfrmTorpedoMount
     Width = 400
     Height = 250
     BevelOuter = bvNone
+    Color = 5523492
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
     Font.Name = 'Berlin Sans FB'
     Font.Style = []
+    ParentBackground = False
     ParentFont = False
     TabOrder = 1
     object PageControl1: TPageControl

@@ -15241,8 +15241,8 @@ object frmMissileOnBoardPickList: TfrmMissileOnBoardPickList
     Transparent = True
   end
   object lblClose: TLabel
-    Left = 85
-    Top = 603
+    Left = 84
+    Top = 604
     Width = 50
     Height = 24
     Cursor = crHandPoint

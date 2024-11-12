@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Grids, uDBAsset_FontTaktis, StdCtrls, ufrmSummaryVehicle;
+  Dialogs, Grids, uClassData, StdCtrls, ufrmAsset;
 
 type
   TSimbolTaktis = class(TForm)
@@ -38,7 +38,7 @@ implementation
 
 {$R *.dfm}
 
-uses uDataModule, uPlottingEditor;
+uses uDataModule{, uPlottingEditor};
 
 procedure TSimbolTaktis.btnCancelClick(Sender: TObject);
 begin
@@ -48,12 +48,12 @@ end;
 
 procedure TSimbolTaktis.btnOKClick(Sender: TObject);
 begin
-  frmSummaryVehicle.edtFontID.Text := IntToStr(TFontTaktis(FontTaktisList.Items[drwgrdFontTaktis.Row]).FData.FONT_ID);
-  frmSummaryVehicle.lblFontTaktis.Font.Name := TFontTaktis(FontTaktisList.Items[drwgrdFontTaktis.Row]).FData.FONT_NAME;
-  frmSummaryVehicle.lblFontTaktis.Font.Size := 30;
-  frmSummaryVehicle.lblFontTaktis.Font.Style := [fsBold];
-  frmSummaryVehicle.lblFontTaktis.Caption := Char(TFontTaktis(FontTaktisList.Items[drwgrdFontTaktis.Row]).FData.FONT_INDEX);
-  frmSummaryVehicle.lblKeteranganSymbol.Caption := TFontTaktis(FontTaktisList.Items[drwgrdFontTaktis.Row]).FData.KETERANGAN;
+//  ufrmAsset.edtFontID.Text := IntToStr(TFontTaktis(FontTaktisList.Items[drwgrdFontTaktis.Row]).FData.FONT_ID);
+//  ufrmAsset.lblFontTaktis.Font.Name := TFontTaktis(FontTaktisList.Items[drwgrdFontTaktis.Row]).FData.FONT_NAME;
+//  ufrmAsset.lblFontTaktis.Font.Size := 30;
+//  ufrmAsset.lblFontTaktis.Font.Style := [fsBold];
+//  ufrmAsset.lblFontTaktis.Caption := Char(TFontTaktis(FontTaktisList.Items[drwgrdFontTaktis.Row]).FData.FONT_INDEX);
+//  ufrmAsset.lblKeteranganSymbol.Caption := TFontTaktis(FontTaktisList.Items[drwgrdFontTaktis.Row]).FData.KETERANGAN;
   Close;
 end;
 
@@ -99,7 +99,7 @@ begin
   else
     FontTaktisList.Create;
 
-  dmTTT.getFilterSimbol(edt_searchsimbol.Text,FontType,FontTaktisList);
+//  dmTTT.getFilterSimbol(edt_searchsimbol.Text,FontType,FontTaktisList);
   drwgrdFontTaktis.RowCount := FontTaktisList.Count;
   drwgrdFontTaktis.SetFocus;
 end;
@@ -121,7 +121,7 @@ begin
   else
     FontTaktisList.Create;
 
-  dmTTT.getAllFontTaktis(FontTaktisList, FontType);
+//  dmTTT.getAllFontTaktis(FontTaktisList, FontType);
 end;
 
 end.

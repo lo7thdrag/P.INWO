@@ -14171,6 +14171,7 @@ object frmSonobuoyMount: TfrmSonobuoyMount
     Width = 400
     Height = 250
     BevelOuter = bvNone
+    Color = 5523492
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
