@@ -32,6 +32,7 @@ type
     {$REGION ' Referensi '}
     function GetAllReferensi(var aList: TList): Integer;
     function GetSearchReferensi(var rec: TRecFile_Data): Integer;
+    function GetFilterByReferensi(var rec: TRecFile_Data): Integer;
 
     function InsertReferensi(var rec : TRecFile_Data) : Boolean;
     function UpdateReferensi(var rec : TRecFile_Data): Boolean;
@@ -728,7 +729,7 @@ begin
   begin
     Close;
     SQL.Clear;
-    SQL.Add('SELECT * FROM File_Refenrensi');
+    SQL.Add('SELECT * FROM File_Referensi');
     Open;
 
     Result := RecordCount;
@@ -784,8 +785,34 @@ begin
   begin
     Close;
     SQL.Clear;
-    SQL.Add('SELECT * FROM File_Refenrensi');
+    SQL.Add('SELECT * FROM File_Referensi');
     SQL.Add('WHERE (Nama_File = ' + QuotedStr(rec.Nama_File) + ') ' );
+    Open;
+
+    Result := RecordCount;
+  end;
+end;
+
+function TdmINWO.GetFilterByReferensi(var rec: TRecFile_Data): Integer;
+begin
+  Result := -1;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT * FROM File_Referensi');
+    SQL.Add('WHERE (Nama_File = ' + QuotedStr(rec.Nama_File) + ') and ' +
+          '(Tipe_File = ' + QuotedStr(rec.Tipe_File) + ') and ' +
+          '(Modified_By = ' + QuotedStr(rec.Modified_By) + ') and ' +
+          '(ID_File = ' + IntToStr(rec.ID_File) + ') and ' +
+          '(Encripted_File_Name = ' + QuotedStr(rec.Encripted_File_Name) + ') and ' +
+          '(id_User = ' + IntToStr(rec.id_User) + ') and ' +
+          '(Modified_Date = ' + QuotedStr(rec.Modified_Date) + ') and ' +
+          '(Directory_Path = ' + QuotedStr(rec.Directory_Path) + ')');
     Open;
 
     Result := RecordCount;
@@ -805,7 +832,7 @@ begin
 
     SQL.Clear;
 
-    SQL.Add('INSERT INTO File_Refenrensi');
+    SQL.Add('INSERT INTO File_Referensi');
     SQL.Add('(Nama_File, Directory_Path, Encripted_File_Name, Tipe_File, Modified_Date, Modified_By, id_User)');
     SQL.Add('VALUES (');
 
@@ -825,7 +852,7 @@ begin
 
     {Yg barusan diinput diambil lagi datanya, untuk mengetahui Indexnya}
     SQL.Clear;
-    SQL.Add('SELECT * FROM File_Directory ');
+    SQL.Add('SELECT * FROM File_Referensi ');
     SQL.Add('WHERE Nama_File = ' + QuotedStr(rec.Nama_File) + ' and Modified_Date = ' + QuotedStr(rec.Modified_Date) );
     Open;
 
@@ -847,7 +874,7 @@ begin
     begin
       Close;
       SQL.Clear;
-      SQL.Add('UPDATE File_Refenrensi');
+      SQL.Add('UPDATE File_Referensi');
       SQL.Add('SET');
       SQL.Add('Nama_File=' + QuotedStr(rec.Nama_File)+',');
       SQL.Add('Directory_Path=' + QuotedStr(rec.Directory_Path)+',');
@@ -873,7 +900,7 @@ begin
   begin
     Close;
     SQL.Clear;
-    SQL.Add('DELETE FROM File_Refenrensi');
+    SQL.Add('DELETE FROM File_Referensi');
     SQL.Add('WHERE (ID_File='+QuotedStr(IntToStr(FileID))+')');
     ExecSQL;
     Result := True;
