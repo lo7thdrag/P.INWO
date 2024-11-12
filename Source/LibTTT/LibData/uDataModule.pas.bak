@@ -453,8 +453,6 @@ type
     function DeleteTacticalSymbol(const aTacticalSymbolID: Integer): Boolean;
 
     function getAllFontTaktis(mList: TList; aFontType : Byte): Integer;
-    function getFontByID(const id: Integer; var FontTaktis: TFontTaktis): Integer;
-    function getFilterSimbol(const aSrch :string; const FontType : Byte; var FontTaktisList: TList):integer;
     {$ENDREGION}
 
     {$REGION ' Additional Section '}
@@ -9344,37 +9342,6 @@ begin
   end;
 end;
 
-function TdmINWO.getFontByID(const id: Integer; var FontTaktis: TFontTaktis): Integer;
-begin
-  result := -1;
-  if not ZConn.Connected then
-    exit;
-
-  with ZQ do
-  begin
-    Close;
-    SQL.Clear;
-    SQL.Add('SELECT * ');
-    SQL.Add('FROM Font_Taktis ');
-    SQL.Add('WHERE FONT_ID = ' + IntToStr(ID));
-    Open;
-
-    if not ZQ.IsEmpty then
-    begin
-      if not Assigned(FontTaktis) then
-        FontTaktis := TFontTaktis.Create;
-
-      with FontTaktis.FData do
-      begin
-        FONT_ID := FieldByName('FONT_ID').AsInteger;
-        FONT_NAME := FieldByName('FONT_NAME').AsString;
-        FONT_INDEX := FieldByName('FONT_INDEX').AsInteger;
-        KETERANGAN := FieldByName('KETERANGAN').AsString;
-      end;
-    end;
-  end;
-end;
-
 function TdmINWO.InsertFloatingDecoyDef(var aRec: TRecFloating_Decoy_Definition): Boolean;
 begin
   Result := False;
@@ -9946,60 +9913,6 @@ begin
     end;
   end;
 end;
-
-function TdmINWO.getFilterSimbol(const aSrch: string; const FontType: Byte; var FontTaktisList: TList): integer;
-var select,from,where,group : string;
-rec: TFontTaktis;
-begin
-  result := -1;
-  if not ZConn.Connected then
-    exit;
-
- with ZQ do
-  begin
-    Close;
-    SQL.Clear;
-    SQL.Add('SELECT * ');
-    SQL.Add('FROM Font_Taktis ');
-
-    if FontType = 0 then
-      SQL.Add('WHERE FONT_ID >= 221 and FONT_ID <= 404')
-    else if FontType = 1 then
-      SQL.Add('WHERE FONT_ID >= 10 and FONT_ID <= 220')
-    else if FontType = 2 then
-      SQL.Add('WHERE FONT_ID >= 405 and FONT_ID <= 539');
-
-    SQL.Add('AND KETERANGAN LIKE' + QuotedStr('%' + aSrch + '%'));
-    SQL.Add('order by FONT_ID');
-    Open;
-
-    SQL.Add(select);
-    Open;
-    result := RecordCount;
-    if not IsEmpty then
-    begin
-      First;
-      if not Assigned(FontTaktisList) then
-        FontTaktisList := TList.Create;
-    end;
-
-    while not ZQ.Eof do
-    begin
-      rec := TFontTaktis.Create;
-      with rec.FData do
-      begin
-        FONT_ID := FieldByName('FONT_ID').AsInteger;
-        FONT_NAME := FieldByName('FONT_NAME').AsString;
-        FONT_INDEX := FieldByName('FONT_INDEX').AsInteger;
-        KETERANGAN := FieldByName('KETERANGAN').AsString;
-
-      end;
-
-      FontTaktisList.Add(rec);
-      ZQ.Next;
-    end;
-    end;
-  end;
 
 function TdmINWO.GetSelfDefensiveJammerDef(const aClassName: string): Integer;
 begin

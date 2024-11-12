@@ -48,12 +48,12 @@ end;
 
 procedure TSimbolTaktis.btnOKClick(Sender: TObject);
 begin
-//  ufrmAsset.edtFontID.Text := IntToStr(TFontTaktis(FontTaktisList.Items[drwgrdFontTaktis.Row]).FData.FONT_ID);
-//  ufrmAsset.lblFontTaktis.Font.Name := TFontTaktis(FontTaktisList.Items[drwgrdFontTaktis.Row]).FData.FONT_NAME;
-//  ufrmAsset.lblFontTaktis.Font.Size := 30;
-//  ufrmAsset.lblFontTaktis.Font.Style := [fsBold];
-//  ufrmAsset.lblFontTaktis.Caption := Char(TFontTaktis(FontTaktisList.Items[drwgrdFontTaktis.Row]).FData.FONT_INDEX);
-//  ufrmAsset.lblKeteranganSymbol.Caption := TFontTaktis(FontTaktisList.Items[drwgrdFontTaktis.Row]).FData.KETERANGAN;
+  frmAsset.edtFontID.Text := IntToStr(TFontTaktis(FontTaktisList.Items[drwgrdFontTaktis.Row]).FData.FONT_ID);
+  frmAsset.lblFontTaktis.Font.Name := TFontTaktis(FontTaktisList.Items[drwgrdFontTaktis.Row]).FData.FONT_NAME;
+  frmAsset.lblFontTaktis.Font.Size := 30;
+  frmAsset.lblFontTaktis.Font.Style := [fsBold];
+  frmAsset.lblFontTaktis.Caption := Char(TFontTaktis(FontTaktisList.Items[drwgrdFontTaktis.Row]).FData.FONT_INDEX);
+  frmAsset.lblKeteranganSymbol.Caption := TFontTaktis(FontTaktisList.Items[drwgrdFontTaktis.Row]).FData.KETERANGAN;
   Close;
 end;
 
@@ -99,7 +99,7 @@ begin
   else
     FontTaktisList.Create;
 
-//  dmTTT.getFilterSimbol(edt_searchsimbol.Text,FontType,FontTaktisList);
+  dmINWO.getFilterSimbol(edt_searchsimbol.Text,FontType,FontTaktisList);
   drwgrdFontTaktis.RowCount := FontTaktisList.Count;
   drwgrdFontTaktis.SetFocus;
 end;
@@ -121,7 +121,7 @@ begin
   else
     FontTaktisList.Create;
 
-//  dmTTT.getAllFontTaktis(FontTaktisList, FontType);
+  dmINWO.getAllFontTaktis(FontTaktisList, FontType);
 end;
 
 end.

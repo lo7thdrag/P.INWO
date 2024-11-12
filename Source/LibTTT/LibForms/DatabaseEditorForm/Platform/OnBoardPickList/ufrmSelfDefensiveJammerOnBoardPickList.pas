@@ -43,6 +43,7 @@ type
     procedure UpdateDefensiveJammerList;
 
   public
+    AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, btn Cancel di summary menyala}
     property SelectedVehicle : TVehicle_Definition read FSelectedVehicle write FSelectedVehicle;
 
   end;
