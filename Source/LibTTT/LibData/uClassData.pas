@@ -1026,7 +1026,8 @@ begin
     chattingTemp := FChattingList.Items[i];
 
 //    if (chattingTemp.FIdUserRoleReceive = IdRoleReceiving) and (chattingTemp.FIdUserRoleSending = IdRoleReceiving) then
-      if (chattingTemp.FIdUserRoleReceive = IdRoleReceiving) or (chattingTemp.FIdUserRoleSending = IdRoleSending) then
+      if ((chattingTemp.FIdUserRoleReceive = IdRoleReceiving) and (chattingTemp.FIdUserRoleSending = IdRoleSending)) or
+         ((chattingTemp.FIdUserRoleReceive = IdRoleSending) and (chattingTemp.FIdUserRoleSending = IdRoleReceiving)) then
       chatList.Add(chattingTemp);
 
   end;

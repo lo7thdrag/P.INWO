@@ -571,12 +571,12 @@ begin
   {Update untuk yg ngirim dan yang nerima}
   if (MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.ReceiverUserRoleId) then
   begin
-    TT3ClientEventManager(EventManager).OnUpdateUserRoleChatChange(rec.ReceiverUserRoleId);
+    TT3ClientEventManager(EventManager).OnUpdateUserRoleChatChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId);
   end;
 
   if (MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.SenderUserRoleId) then
   begin
-    TT3ClientEventManager(EventManager).OnUpdateUserRoleChatChange(rec.SenderUserRoleId);
+    TT3ClientEventManager(EventManager).OnUpdateUserRoleChatChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId);
   end;
 
 end;
