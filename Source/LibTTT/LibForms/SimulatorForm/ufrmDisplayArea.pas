@@ -635,7 +635,7 @@ end;
 
 procedure TfrmDisplayArea.AssetClick(Sender: TObject);
 begin
-  pnlMenejemenAsset.BringToFront;
+  pnlAsetManajemenShow;
 end;
 
 procedure TfrmDisplayArea.pnlAsetManajemenShow;

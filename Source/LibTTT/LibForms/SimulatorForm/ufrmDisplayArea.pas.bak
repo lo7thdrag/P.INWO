@@ -11,7 +11,7 @@ uses
   {Project Uses}
   uRecordData, uConstantaData, uSimMgr_Client, uT3SimManager, uClassData, ufrmVideoConference, ufrmSituationBoard,
   ufrmTelegram, uLibSetting, uSimContainers, ufrmSummaryUserRole, ufrmAvailableUserRole , UfrmMapEditor, ufrmSimbolTaktis,
-   ufrmMapPreview;
+  ufrmAsset, ufrmReferensi, ufrmMapPreview;
 
 type
   TfrmDisplayArea = class(TForm)
@@ -20,7 +20,6 @@ type
     pnlCenter: TPanel;
     pnlMainCenter: TPanel;
     pnlMenejemenPengguna: TPanel;
-    pnlMenejemenAsset: TPanel;
     pnlMenejemenSimbolTaktis: TPanel;
     pnlMenejemenPeta: TPanel;
     pnlMenejemenReferensi: TPanel;
@@ -111,9 +110,6 @@ type
     ilClientStateColor: TImageList;
     pnlCariPengguna: TPanel;
     pnlListPengguna: TPanel;
-    btnAdd: TImage;
-    btnDelete: TImage;
-    btnEdit: TImage;
     cbbSearchType: TComboBox;
     cbbxFilterSearch: TComboBox;
     lblsearch: TLabel;
@@ -139,11 +135,11 @@ type
     Label12: TLabel;
     pnlMdmUserRole: TPanel;
     Label14: TLabel;
-    lblKogas: TLabel;
-    lblUserRoleIdentifier: TLabel;
+    lblRole: TLabel;
+    lblSubRole: TLabel;
     pnlMdmTahapan: TPanel;
     Label5: TLabel;
-    lblTahapan: TLabel;
+    lblUserRoleIdentifier: TLabel;
     lvFileData: TListView;
     pnlHeaderFileData: TPanel;
     Label3: TLabel;
@@ -175,19 +171,44 @@ type
     imgHapus: TImage;
     edtSearch: TEdit;
     edtSearchMap: TEdit;
-    btnAddMap: TImage;
-    btnEditMap: TImage;
-    btnDeleteMap: TImage;
-    btnPreview: TImage;
-    btnDownloadReferensi: TImage;
-    btnUploadReferensi: TImage;
-    btnRemoveReferensi: TImage;
     btnAddTacticalSymbol: TImage;
     btnEditTacticalSymbol: TImage;
     btnDeleteTacticalSymbol: TImage;
     edtTacticalSearch: TEdit;
     pnlRightTactical: TPanel;
     imgPreview: TImage;
+    Image1: TImage;
+    Label11: TLabel;
+    pnlKeteranganGambar: TPanel;
+    Label17: TLabel;
+    lblKeterangan: TLabel;
+    lblTipe: TLabel;
+    lblKategori: TLabel;
+    Image2: TImage;
+    lblNamaGambar: TLabel;
+    Image3: TImage;
+    Image4: TImage;
+    Image5: TImage;
+    pnlMenejemenAsset: TPanel;
+    pnlHeaderAsset: TPanel;
+    Label18: TLabel;
+    pnlCariAsset: TPanel;
+    Label19: TLabel;
+    pnlListAsset: TPanel;
+    lvAsset: TListView;
+    Image7: TImage;
+    Image8: TImage;
+    btnPreview: TImage;
+    Image9: TImage;
+    Image6: TImage;
+    btnAddAsset: TImage;
+    btnEditAsset: TImage;
+    btnDeleteAsset: TImage;
+    btnUnduh: TImage;
+    cbbFilter: TComboBox;
+    cbbSearch: TComboBox;
+    editSearch: TEdit;
+    Button1: TButton;
 
     procedure btnAOTCClick(Sender: TObject);
 
@@ -210,6 +231,8 @@ type
 
     {$REGION ' Asset Procedure '}
     procedure AssetClick(Sender: TObject);
+    procedure pnlAsetManajemenShow;
+    procedure UpdateDataAset;
     {$ENDREGION}
 
     {$REGION ' Simbol Taktis Procedure '}
@@ -217,10 +240,12 @@ type
     procedure btnAddTacticalSymbolClick(Sender: TObject);
     procedure btnEditTacticalSymbolClick(Sender: TObject);
     procedure btnDeleteTacticalSymbolClick(Sender: TObject);
+    procedure edtSearchKeyPressTactical(Sender: TObject; var Key: Char);
 
     procedure cbbFilterSearchSelect(Sender: TObject);
     procedure cbbSearchtipeSelect(Sender: TObject);
     procedure lvTacticalSymbolleSelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);
+    procedure btnUnduhClick(Sender: TObject);
 
     procedure pnlSimbolTaktisManajemenShow;
     procedure UpdateSimbolTaktis;
@@ -303,6 +328,15 @@ type
     procedure lvReferensiSelectItem(Sender: TObject; Item: TListItem;
       Selected: Boolean);
     procedure btnRemoveReferensiClick(Sender: TObject);
+    procedure btnAddAssetClick(Sender: TObject);
+    procedure btnDeleteAssetClick(Sender: TObject);
+    procedure btnEditAssetClick(Sender: TObject);
+    procedure cbbFilterSelect(Sender: TObject);
+    procedure editSearchKeyPressAsset(Sender: TObject; var Key: Char);
+    procedure cbbSearchSelect(Sender: TObject);
+    procedure lvAssetSelectItem(Sender: TObject; Item: TListItem;
+      Selected: Boolean);
+    procedure Button1Click(Sender: TObject);
 //    procedure LlvFileDataSelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);
 
   private
@@ -315,25 +349,35 @@ type
 
     FFileDataList : TList;
     FFileReferensiList : TList;
+    FRoleList : TList;
+    FSubRoleList : TList;
     FUserRoleList : TList;
     FGameAreaList : TList;
     FTacticalSymbolList : TList;
+    FAssetList : TList;
 
-    FSelectedPengguna : TUser_Role;
-    FSelectedUserChat : TUser_Role;
+    FSelectedPengguna : TUserRole;
+    FSelectedUserChat : TUserRole;
     FSelectedFileBeranda : TFile_Data;
     FSelectedFileReferensi : TFile_Data;
     FSelectedGameArea : TGame_Area_Definition;
     FSelectedTacticalSymbol : TTactical_Symbol;
+    FSelectedAsset : TAsset;
 
     procedure RoundCornerOf(Control: TWinControl; val1, val2: Integer);
     procedure AddSearchTypeItems;
     procedure AddSearchTacticalSymbolItems;
+    procedure AddSearchAssetItems;
+
+    procedure AddCbbRole;
+    procedure AddCbbSubRole;
+    function GetRoleIndex(id : string):Integer;
 
   public
 
     procedure UpdateClientChatting;
-    procedure UpdateClientHistoryChat;
+    procedure UpdateClientHistoryChat(IdSender : Integer);
+
 
   end;
 
@@ -402,21 +446,18 @@ begin
   RoundCornerOf(pnlMdmTahapan, 15, 15);
 
   FFileDataList := TList.Create;
-//  FSelectedFileBeranda := TFile_Data.Create;
-//  FSelectedFileBeranda := nil;
-
+  FRoleList := TList.Create;
+  FSubRoleList := TList.Create;
   FUserRoleList := TList.Create;
-//  FSelectedPengguna := TUser_Role.Create;
-//  FSelectedPengguna := nil;
-
   FGameAreaList := TList.Create;
-
   FFileReferensiList := TList.Create;
 end;
 
 procedure TfrmDisplayArea.FormDestroy(Sender: TObject);
 begin
   FreeItemsAndFreeList(FFileDataList);
+  FreeItemsAndFreeList(FRoleList);
+  FreeItemsAndFreeList(FSubRoleList);
   FreeItemsAndFreeList(FUserRoleList);
   FreeItemsAndFreeList(FGameAreaList);
   FreeItemsAndFreeList(FFileReferensiList);
@@ -444,9 +485,9 @@ begin
   with simMgrClient.MyConsoleData do
   begin
     lblConsoleName.Caption := Identifier;
-    lblKogas.Caption := SetSubOrganisasiTugasToString(TSubOrganisasiTugas(UserRoleData.SubOrganisasiTugas));
-    lblUserRoleIdentifier.Caption := UserRoleData.UserRoleIdentifier;
-    lblTahapan.Caption := SetTipeTahapanToString(TTipeTahapan(TipeTahapan));
+    lblRole.Caption := UserRoleData.FRoleData.RoleAcronim;
+    lblSubRole.Caption := UserRoleData.FSubRoleData.SubRoleAcronim;
+    lblUserRoleIdentifier.Caption := UserRoleData.FData.UserRoleAcronim;
   end;
 
   CalendarView1.Date := Now;
@@ -500,8 +541,8 @@ begin
       Encripted_File_Name := '';
       Tipe_File           := ExtractFileExt(saveDialog.FileName);
       Modified_Date       := DateToStr(Now);
-      Modified_By         := simMgrClient.MyConsoleData.UserRoleData.UserRoleIdentifier;
-      id_User             := simMgrClient.MyConsoleData.UserRoleData.UserRoleIndex;
+      Modified_By         := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim;
+      id_User             := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
 
       if dmINWO.InsertFile(fileDataTemp) then
       begin
@@ -597,6 +638,248 @@ begin
   pnlMenejemenAsset.BringToFront;
 end;
 
+procedure TfrmDisplayArea.pnlAsetManajemenShow;
+begin
+  pnlMenejemenAsset.BringToFront;
+  UpdateDataAset
+end;
+
+procedure TfrmDisplayArea.UpdateDataAset;
+var
+  i : Integer;
+  AssetTemp : TAsset;
+  li: TListItem;
+begin
+  lvAsset.Items.Clear;
+
+  dmINWO.GetAllVehicleDef(FAssetList);
+
+  for i := 0 to FAssetList.Count - 1 do
+  begin
+    AssetTemp := FAssetList.Items[i];
+
+    li := lvAsset.Items.Add;
+    li.Caption := IntToStr(i+1);
+    li.SubItems.Add(AssetTemp.FData.Vehicle_Identifier);
+    li.SubItems.Add(IntToStr(AssetTemp.FData.Platform_Domain));
+    li.SubItems.Add(IntToStr(AssetTemp.FData.Platform_Category));
+  end;
+end;
+
+procedure TfrmDisplayArea.btnAddAssetClick(Sender: TObject);
+begin
+  frmAsset := TfrmAsset.Create(Self);
+  try
+    with frmAsset do
+    begin
+      SelectedAsset := TAsset.Create;
+      Show;
+    end;
+  finally
+    frmAsset.Free;
+  end;
+    UpdateDataAset;
+end;
+
+procedure TfrmDisplayArea.btnDeleteAssetClick(Sender: TObject);
+var
+  warning : Integer;
+begin
+  if lvAsset.ItemIndex <> -1 then
+  begin
+    warning := MessageDlg('Are you sure to delete this item?', mtConfirmation, mbOKCancel, 0);
+
+    if warning = mrOK then
+    begin
+      with FSelectedAsset.FData do
+      begin
+        if dmINWO.DeleteVehicleDef(Vehicle_Index) then
+          ShowMessage('Data has been deleted');
+      end;
+
+      UpdateDataAset;
+    end;
+  end;
+end;
+
+procedure TfrmDisplayArea.btnEditAssetClick(Sender: TObject);
+begin
+  if lvAsset.ItemIndex <> -1 then
+  begin
+    frmAsset := TfrmAsset.Create(Self);
+    try
+      with frmAsset do
+      begin
+        SelectedAsset := FSelectedAsset;
+        Show;
+      end;
+    finally
+      frmAsset.Free;
+    end;
+
+    UpdateDataAset;
+  end;
+end;
+
+procedure TfrmDisplayArea.cbbFilterSelect(Sender: TObject);
+begin
+  cbbSearch.ItemIndex := 0;
+
+  if cbbFilter.ItemIndex = 0 then
+  begin
+    editSearch.Clear;
+    flagTable := False;
+    UpdateDataAset;
+    editSearch.BringToFront;
+  end
+  else if cbbFilter.ItemIndex = 1 then
+  begin
+    AddSearchAssetItems;
+    cbbSearch.BringToFront;
+    cbbSearch.ItemIndex := 0;
+  end
+  else if cbbFilter.ItemIndex = 2 then
+  begin
+    AddSearchAssetItems;
+    cbbSearch.BringToFront;
+    cbbSearch.ItemIndex := 0;
+  end
+  else if cbbFilter.ItemIndex = 3 then
+  begin
+    AddSearchAssetItems;
+    cbbSearch.BringToFront;
+    cbbSearch.ItemIndex := 0;
+  end;
+end;
+
+procedure TfrmDisplayArea.editSearchKeyPressAsset(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    if (editSearch.Text <> '') and (cbbFilter.ItemIndex > 0) then
+    begin
+      ItemSearchIndex := cbbFilter.ItemIndex;
+      SearchName := editSearch.Text;
+      flagTable := True;
+      UpdateDataAset;
+    end
+    else if editSearch.Text = '' then
+    begin
+      flagTable := False;
+      UpdateDataAset;
+    end;
+  end;
+end;
+
+procedure TfrmDisplayArea.cbbSearchSelect(Sender: TObject);
+begin
+  ItemSearchIndex := cbbFilter.ItemIndex;
+  SearchName := IntToStr(cbbSearch.ItemIndex);
+  flagTable := True;
+  UpdateDataAset;
+end;
+
+procedure TfrmDisplayArea.AddCbbRole;
+var
+  i : Integer;
+  roleTemp : TRole;
+begin
+  cbbSearchType.Items.Clear;
+
+  dmINWO.GetAllRole(FRoleList);
+
+  for i := 0 to FRoleList.Count - 1 do
+  begin
+    roleTemp := FRoleList.Items[i];
+    cbbSearchType.Items.AddObject(roleTemp.FData.RoleAcronim, roleTemp);
+  end;
+end;
+
+function TfrmDisplayArea.GetRoleIndex(id: string): Integer;
+var
+  i : Integer;
+  roleTemp : TRole;
+begin
+  Result := 0;
+
+  for i := 0 to FRoleList.Count - 1 do
+  begin
+    roleTemp := FRoleList.Items[i];
+
+    if roleTemp.FData.RoleAcronim = id then
+    begin
+      Result := roleTemp.FData.RoleIndex;
+      Break;
+    end;
+  end;
+end;
+
+procedure TfrmDisplayArea.AddCbbSubRole;
+var
+  i : Integer;
+  subRoleTemp : TSubRole;
+begin
+  cbbSearchType.Items.Clear;
+
+  dmINWO.GetAllSubRole(FSubRoleList);
+
+  for i := 0 to FSubRoleList.Count - 1 do
+  begin
+    subRoleTemp := FSubRoleList.Items[i];
+    cbbSearchType.Items.AddObject(subRoleTemp.FData.SubRoleAcronim, subRoleTemp);
+  end;
+end;
+
+procedure TfrmDisplayArea.AddSearchAssetItems;
+begin
+  if cbbFilter.ItemIndex = 1 then
+  begin
+    cbbSearch.Items.Clear;
+    cbbSearch.Items.Add('Air');
+    cbbSearch.Items.Add('Surface');
+    cbbSearch.Items.Add('Subsurface');
+    cbbSearch.Items.Add('Land');
+    cbbSearch.Items.Add('Amphibious');
+  end
+  else if cbbFilter.ItemIndex = 2 then
+  begin
+    cbbSearch.Items.Clear;
+    cbbSearch.Items.Add('Combatant');
+    cbbSearch.Items.Add('Non-Combatant');
+    cbbSearch.Items.Add('Non-Naval');
+    cbbSearch.Items.Add('Other');
+  end
+  else if cbbFilter.ItemIndex = 3 then
+  begin
+    cbbSearch.Items.Clear;
+    cbbSearch.Items.Add('Frigate, Guided Missile (FFG)');
+    cbbSearch.Items.Add('Destroyer, Guided Missile (DDG)');
+    cbbSearch.Items.Add('Cruiser, Guided Missile (CG/CGN)');
+    cbbSearch.Items.Add('Aircraft Carrier (CV/CVN)');
+    cbbSearch.Items.Add('Patrol Craft (PT/PTG)');
+    cbbSearch.Items.Add('Mine Warfare');
+    cbbSearch.Items.Add('Auxiliary');
+    cbbSearch.Items.Add('Merchant');
+    cbbSearch.Items.Add('utility Vessel');
+    cbbSearch.Items.Add('Destroyer (DD)');
+    cbbSearch.Items.Add('Frigate (FF)');
+    cbbSearch.Items.Add('Amphibious Warfare');
+    cbbSearch.Items.Add('other');
+  end;
+end;
+
+procedure TfrmDisplayArea.lvAssetSelectItem(Sender: TObject; Item: TListItem;
+  Selected: Boolean);
+begin
+  if Selected then
+  begin
+    if (Item = nil) or (Item.Data = nil) then
+      Exit;
+
+    FSelectedAsset := TAsset(lvAsset.Selected.Data);
+  end;
+end;
+
 {$ENDREGION}
 
 {$REGION ' Simbol Taktis Procedure '}
@@ -610,19 +893,32 @@ procedure TfrmDisplayArea.pnlSimbolTaktisManajemenShow;
 begin
   pnlMenejemenSimbolTaktis.BringToFront;
 
-  UpdateSimbolTaktis
+  UpdateSimbolTaktis;
 end;
+
 
 procedure TfrmDisplayArea.AddSearchTacticalSymbolItems;
 begin
-  if cbbFilterSearch.ItemIndex = 2 then
+  if cbbFilterSearch.ItemIndex = 1 then
   begin
     cbbSearchTipe.Items.Clear;
     cbbSearchTipe.Items.Add('TAKTIS TNI AL');
-    cbbSearchTipe.Items.Add('TAKTIS TNI AU');
-    cbbSearchTipe.Items.Add('TAKTIS TNI AD');
+  end
+  else if cbbFilterSearch.ItemIndex = 2 then
+  begin
+    cbbSearchTipe.Items.Add('PESAWAT TERBANG SAYAP PUTAR');
+    cbbSearchTipe.Items.Add('ALAT KENDALI OPS');
+    cbbSearchTipe.Items.Add('ANGKATAN LAIN');
+    cbbSearchTipe.Items.Add('KAPAL');
+    cbbSearchTipe.Items.Add('KEGIATAN-MANUVERA');
+    cbbSearchTipe.Items.Add('KOMANDO');
+    cbbSearchTipe.Items.Add('KOMANDO OPERASIONAL');
+    cbbSearchTipe.Items.Add('LAINNYA');
+    cbbSearchTipe.Items.Add('MARINIR');
+    cbbSearchTipe.Items.Add('MEDAN');
+    cbbSearchTipe.Items.Add('PANGKALAN');
+    cbbSearchTipe.Items.Add('PESAWAT TERBANG SAYAP TETAP');
   end;
-
 end;
 
 procedure TfrmDisplayArea.cbbSearchtipeSelect(Sender: TObject);
@@ -635,30 +931,30 @@ end;
 
 procedure TfrmDisplayArea.cbbFilterSearchSelect(Sender: TObject);
 begin
-   cbbSearchTipe.ItemIndex := 0;
+  cbbSearchTipe.Clear;
 
-   if cbbFilterSearch.ItemIndex = 0 then
-   begin
-     edtTacticalSearch.Clear;
-     flagTable := False;
-     UpdateSimbolTaktis;
-     edtTacticalSearch.BringToFront;
-   end
-   else if cbbFilterSearch.ItemIndex = 1 then
-   begin
-     edtTacticalSearch.BringToFront;
-   end
-   else if cbbFilterSearch.ItemIndex = 2 then
-   begin
-     AddSearchTacticalSymbolItems;
-     edtTacticalSearch.BringToFront;
-   end
-   else if cbbFilterSearch.ItemIndex = 3 then
-   begin
-     AddSearchTacticalSymbolItems;
-     edtTacticalSearch.BringToFront;
-   end
+  case cbbFilterSearch.ItemIndex of
+    0: {All}
+    begin
+      edtTacticalSearch.Clear;
+      flagTable := False;
+      UpdateSimbolTaktis;
+      edtTacticalSearch.BringToFront;
+    end;
+    1: {Tipe}
+    begin
+      AddSearchTacticalSymbolItems;
+      cbbSearchTipe.ItemIndex := 0;
+      cbbSearchTipe.BringToFront;
+    end;
+    2: {Kategori}
+    begin
+      AddSearchTacticalSymbolItems;
+      cbbSearchTipe.ItemIndex := 0;
+      cbbSearchTipe.BringToFront;
+    end;
 
+  end;
 end;
 
 procedure TfrmDisplayArea.UpdateSimbolTaktis;
@@ -683,6 +979,7 @@ begin
      li.SubItems.Add(tacticalSymbolTemp.FData.Keterangan);
      li.SubItems.Add(IntToStr(tacticalSymbolTemp.FData.Tipe));
      li.SubItems.Add(IntToStr(tacticalSymbolTemp.FData.Kategori));
+     li.SubItems.Add(tacticalSymbolTemp.FData.Path_Directori);
 
      li.Data := tacticalSymbolTemp;
   end;
@@ -696,7 +993,7 @@ begin
     with frmSimbolTaktis do
     begin
       SelectedTacticalSymbol := TTactical_Symbol.Create;
-      ShowModal;
+      Show;
     end;
   finally
     frmSimbolTaktis.Free;
@@ -712,6 +1009,11 @@ var
 
 begin
   FSelectedTacticalSymbol := nil;
+  imgPreview.Picture := nil;
+  lblNamaGambar.Caption := 'Nama Gambar: ';
+  lblKeterangan.Caption := 'Keterangan: ';
+  lblTipe.Caption       := 'Tipe: ';
+  lblKategori.Caption   := 'Kategori: ';
 
   if Selected then
   begin
@@ -720,7 +1022,7 @@ begin
 
     FSelectedTacticalSymbol := TTactical_Symbol(lvTacticalSymbol.Selected.Data);
 
-    imagepath := FSelectedTacticalSymbol.FData.Path_Directori + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '.jpeg';
+    imagepath := FSelectedTacticalSymbol.FData.Path_Directori + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '.bmp';
     if FileExists(imagepath) then
     begin
       imgPreview.Picture.LoadFromFile(imagepath);
@@ -728,10 +1030,16 @@ begin
     end
     else
     begin
-        ShowMessage('File gambar tidak ditemukan' + imagepath);
+      ShowMessage('File gambar tidak ditemukan' + imagepath);
     end;
-  end;
 
+    lblNamaGambar.Caption := 'Nama Gambar: ' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '.bmp';
+    lblKeterangan.Caption := 'Keterangan: ' + Item.SubItems[0];
+    lblTipe.Caption       := 'Tipe: ' + Item.SubItems[1];
+    lblKategori.Caption   := 'Kategori: ' + Item.SubItems[2];
+
+    FSelectedTacticalSymbol := Item.Data;
+  end;
 end;
 
 procedure TfrmDisplayArea.btnEditTacticalSymbolClick(Sender: TObject);
@@ -743,7 +1051,7 @@ begin
         with frmSimbolTaktis do
         begin
           SelectedTacticalSymbol := FSelectedTacticalSymbol;
-          ShowModal;
+          Show;
         end;
       finally
          frmSimbolTaktis.Free;
@@ -757,25 +1065,69 @@ end;
 procedure TfrmDisplayArea.btnDeleteTacticalSymbolClick(Sender: TObject);
 var
   warning: Integer;
+  serverDirTemp : String;
 begin
-   if lvTacticalSymbol.ItemIndex <> -1  then
-   begin
-     warning := MessageDlg('Are you sure delete this item?', mtConfirmation, mbOKCancel, 0);
 
-     if warning = mrOK then
-     begin
-       with FSelectedTacticalSymbol.FData do
-       begin
-         if dmINWO.DeleteTacticalSymbol(Id_Tactical_Symbol)then
-             ShowMessage('Data has been deleted');
-       end;
+  if lvTacticalSymbol.ItemIndex < 0  then
+    Exit;
 
-       UpdateSimbolTaktis;
+  warning := MessageDlg('Are you sure delete this item?', mtConfirmation, mbOKCancel, 0);
 
-     end;
-   end;
+  if warning = mrOK then
+  begin
+    if Assigned(FSelectedTacticalSymbol) then
+    begin
+      serverDirTemp := vGameDataSetting.FileSimbolTaktis + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '.bmp';
+
+      with FSelectedTacticalSymbol.FData do
+      begin
+        if dmINWO.DeleteTacticalSymbol(Id_Tactical_Symbol)then
+           ShowMessage('Data has been deleted');
+      end;
+    end;
+
+    DeleteFile(serverDirTemp);
+    FSelectedTacticalSymbol := nil;
+
+    UpdateSimbolTaktis;
+  end;
 end;
 
+procedure TfrmDisplayArea.edtSearchKeyPressTactical(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    if (edtTacticalSearch.Text <> '') and (cbbFilterSearch.ItemIndex > 0) then
+    begin
+      ItemSearchIndex := cbbFilterSearch.ItemIndex;
+      SearchName := edtTacticalSearch.Text;
+      flagTable := true;
+      UpdateSimbolTaktis;
+    end
+    else if edtTacticalSearch.Text = '' then
+    begin
+      flagTable := false;
+      UpdateSimbolTaktis;
+    end;
+  end;
+end;
+
+procedure TfrmDisplayArea.btnUnduhClick(Sender: TObject);
+var
+  localDirTemp : String;
+  serverDirTemp : String;
+  localFileTemp : String;
+begin
+  if Assigned(FSelectedTacticalSymbol) then
+  begin
+    SelectDirectory('Select a directory', vGameDataSetting.LocalDirectory, localDirTemp);
+
+    serverDirTemp := vGameDataSetting.FileSimbolTaktis + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '.bmp';
+    localFileTemp := localDirTemp + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '.bmp';
+
+    CopyFile(PWideChar(serverDirTemp), PWideChar(localFileTemp), False);
+  end;
+end;
 
 {$ENDREGION}
 
@@ -795,7 +1147,9 @@ end;
 procedure TfrmDisplayArea.UpdateDataPengguna;
 var
   i : Integer;
-  userRoleTemp : TUser_Role;
+  roleTemp : TRole;
+  subRoleTemp : TSubRole;
+  userRoleTemp : TUserRole;
   li : TListItem;
 
 begin
@@ -811,29 +1165,22 @@ begin
     userRoleTemp := FUserRoleList.Items[i];
     li := lvUserRole.Items.Add;
     li.Caption := IntToStr(i+1);
-    li.SubItems.Add(userRoleTemp.FData.UserRoleIdentifier);
-    li.SubItems.Add(SetOrganisasiTugasAkronimToString(TOrganisasiTugas(userRoleTemp.FData.OrganisasiTugas)));
-    li.SubItems.Add(SetSubOrganisasiTugasToString(TSubOrganisasiTugas(userRoleTemp.FData.SubOrganisasiTugas)));
+    li.SubItems.Add(userRoleTemp.FData.UserRoleAcronim);
 
-    if userRoleTemp.FData.Perencanaan = 1 then
-      li.SubItems.Add('✔')
+    subRoleTemp := SimManager.SimSubRole.getSubRoleByID(userRoleTemp.FData.SubRoleIndex);
+    if Assigned(subRoleTemp) then
+      li.SubItems.Add(subRoleTemp.FData.SubRoleAcronim)
     else
-      li.SubItems.Add('❌');
+      li.SubItems.Add('');
 
-    if userRoleTemp.FData.Persiapan = 1 then
-      li.SubItems.Add('✔')
+    roleTemp := SimManager.SimRole.getRoleByID(userRoleTemp.FData.RoleIndex);
+    if Assigned(roleTemp) then
+      li.SubItems.Add(roleTemp.FData.RoleAcronim)
     else
-      li.SubItems.Add('❌');
+      li.SubItems.Add('');
 
-    if userRoleTemp.FData.Pelaksanaan = 1 then
-      li.SubItems.Add('✔')
-    else
-      li.SubItems.Add('❌');
-
-    if userRoleTemp.FData.Pengakhiran = 1 then
-      li.SubItems.Add('✔')
-    else
-      li.SubItems.Add('❌');
+    li.SubItems.Add(userRoleTemp.FData.Username);
+    li.SubItems.Add(userRoleTemp.FData.Password);
 
     li.Data := userRoleTemp;
   end;
@@ -868,14 +1215,15 @@ begin
   end;
 end;
 
+
 procedure TfrmDisplayArea.btnAddClick(Sender: TObject);
 begin
   frmSummaryUserRole := TfrmSummaryUserRole.Create(self) ;
   try
     with frmSummaryUserRole do
     begin
-      SelectedUserRole := TUser_Role.Create;
-      ShowModal;
+      SelectedUserRole := TUserRole.Create;
+      Show;
       SelectedUserRole.Free;
     end;
   finally
@@ -894,7 +1242,7 @@ begin
       with frmSummaryUserRole do
       begin
         SelectedUserRole := FSelectedPengguna;
-        ShowModal;
+        Show;
 //        FUpdateList := AfterClose;
       end;
     finally
@@ -934,14 +1282,41 @@ begin
     if (Item = nil) or (item.Data = nil) then
       Exit;
 
-    FSelectedPengguna := TUser_Role(lvUserRole.Selected.Data);
+    FSelectedPengguna := TUserRole(lvUserRole.Selected.Data);
   end;
 end;
 
 procedure TfrmDisplayArea.cbbSearchTypeSelect(Sender: TObject);
+var
+  roleTemp : TRole;
+  subRoleTemp : TSubRole;
+
 begin
+  if cbbSearchType.ItemIndex = -1 then
+    Exit;
+
+  case cbbxFilterSearch.ItemIndex of
+    1:
+    begin
+      roleTemp := TRole(cbbSearchType.Items.Objects[cbbSearchType.ItemIndex]);
+
+      if Assigned(roleTemp) then
+      begin
+        SearchName := IntToStr(roleTemp.FData.RoleIndex);
+      end;
+    end;
+    2:
+    begin
+      subRoleTemp := TSubRole(cbbSearchType.Items.Objects[cbbSearchType.ItemIndex]);
+
+      if Assigned(subRoleTemp) then
+      begin
+        SearchName := IntToStr(subRoleTemp.FData.SubRoleIndex);
+      end;
+    end;
+  end;
+
   ItemSearchIndex := cbbxFilterSearch.ItemIndex;
-  SearchName := IntToStr(cbbSearchType.ItemIndex);
   flagTable := true;
   UpdateDataPengguna;
 end;
@@ -950,6 +1325,7 @@ procedure TfrmDisplayArea.cbbxFilterSearchSelect(Sender: TObject);
 begin
   cbbSearchType.ItemIndex := 0;
 
+  {All}
   if cbbxFilterSearch.ItemIndex = 0 then
   begin
     edtSearch.Clear;
@@ -957,21 +1333,33 @@ begin
     UpdateDataPengguna;
     edtSearch.BringToFront;
   end
+  {Role}
   else if cbbxFilterSearch.ItemIndex = 1 then
   begin
-    edtSearch.BringToFront;
+    AddCbbRole;
+
+    if cbbSearchType.Items.Count > 0 then
+      cbbSearchType.ItemIndex := 0;
+
+    cbbSearchType.BringToFront;
   end
+  {Sub Role}
   else if cbbxFilterSearch.ItemIndex = 2 then
   begin
-    AddSearchTypeItems;
+    AddCbbSubRole;
+
+    if cbbSearchType.Items.Count > 0 then
+      cbbSearchType.ItemIndex := 0;
+
     cbbSearchType.BringToFront;
   end
+  {User Role}
   else if cbbxFilterSearch.ItemIndex = 3 then
   begin
-    AddSearchTypeItems;
-    cbbSearchType.BringToFront;
+    edtSearch.BringToFront;
   end;
 end;
+
 
 procedure TfrmDisplayArea.edtSearchKeyPress(Sender: TObject; var Key: Char);
 begin
@@ -1016,7 +1404,7 @@ begin
     begin
       SelectedGameArea := TGame_Area_Definition.Create;
       SelectedGameArea.FData.Detail_Map := 'ENC';
-      ShowModal;
+      Show;
 //      FUpdateList := AfterClose;
     end;
   finally
@@ -1040,7 +1428,7 @@ begin
     with frmMapEditor do
     begin
       SelectedGameArea := FSelectedGameArea;
-      ShowModal;
+      Show;
 //      FUpdateList := AfterClose;
     end;
   finally
@@ -1064,7 +1452,7 @@ begin
     with frmMapPreview do
     begin
       SelectedGameArea := FSelectedGameArea;
-      ShowModal;
+      Show;
     end;
   finally
     frmMapPreview.Free;
@@ -1193,7 +1581,7 @@ procedure TfrmDisplayArea.pnlReferensiShow;
 begin
   pnlMenejemenReferensi.BringToFront;
 
-  UpdateGameAreaList;
+  UpdateDataReferensi;
 end;
 
 procedure TfrmDisplayArea.btnDownloadReferensiClick(Sender: TObject);
@@ -1207,58 +1595,30 @@ begin
   begin
     SelectDirectory('Select a directory', vGameDataSetting.LocalDirectory, localDirTemp);
 
-    serverDirTemp := vGameDataSetting.FileReferensi + FSelectedFileReferensi.FData.Encripted_File_Name;
-    localFileTemp := localDirTemp + '\' + FSelectedFileReferensi.FData.Nama_File;
+//    serverDirTemp := vGameDataSetting.FileReferensi + FSelectedFileReferensi.FData.Encripted_File_Name;
+//    localFileTemp := localDirTemp + '\' + FSelectedFileReferensi.FData.Nama_File;
+
+    serverDirTemp := vGameDataSetting.FileReferensi + '\' + IntToStr(FSelectedFileReferensi.FData.ID_File) + '.docx, .pptx, .pdf';
+    localFileTemp := localDirTemp + '\' + IntToStr(FSelectedFileReferensi.FData.ID_File) + '.docx, .pptx, .pdf';
 
     CopyFile(PWideChar(serverDirTemp), PWideChar(localFileTemp), False);
   end;
 end;
 
 procedure TfrmDisplayArea.btnUploadReferensiClick(Sender: TObject);
-var
-  addressTemp : PWideChar;
-  filNameTemp : string;
-  saveDialog : TSaveDialog;
-  saveFileTemp : TFile_Data;
-  fileDataTemp : TRecFile_Data;
-
 begin
-  saveDialog := TSaveDialog.Create(self);
-  saveDialog.InitialDir := GetCurrentDir;
-  saveDialog.Filter := 'Word file|*.docx|Excel file|*.xlsx|Power Point file|*.pptx';
-  saveDialog.DefaultExt := 'docx';
-  saveDialog.FilterIndex := 1;
-
-  if saveDialog.Execute then
-  begin
-    addressTemp := PWideChar(saveDialog.FileName);
-    filNameTemp := ExtractFileName(saveDialog.FileName);
-
-    with fileDataTemp do
+  frmReferensi := TfrmReferensi.Create(Self);
+  try
+    with frmReferensi do
     begin
-      Nama_File           := filNameTemp;
-      Directory_Path      := vGameDataSetting.FileReferensi;
-      Encripted_File_Name := '';
-      Tipe_File           := ExtractFileExt(saveDialog.FileName);
-      Modified_Date       := DateToStr(Now);
-      Modified_By         := simMgrClient.MyConsoleData.UserRoleData.UserRoleIdentifier;
-      id_User             := simMgrClient.MyConsoleData.UserRoleData.UserRoleIndex;
-
-      if dmINWO.InsertReferensi(fileDataTemp) then
-      begin
-        dmINWO.UpdateFile(fileDataTemp);
-        ShowMessage('Data has been saved');
-      end;
+      SelectedReferensi := TFile_Data.Create;
+      ShowModal;
     end;
+  finally
+    frmSimbolTaktis.Free;
+  end;
 
-    CopyFile(addressTemp, PWideChar(vGameDataSetting.FileReferensi + fileDataTemp.Encripted_File_Name), False);
-  end
-  else
-    ShowMessage('Save file was cancelled');
-
-  saveDialog.Free;
-
-  UpdateDataFile;
+  UpdateDataReferensi;
 end;
 
 procedure TfrmDisplayArea.btnRemoveReferensiClick(Sender: TObject);
@@ -1273,7 +1633,8 @@ begin
   begin
     if Assigned(FSelectedFileReferensi) then
     begin
-      serverDirTemp := vGameDataSetting.FileDirectory + FSelectedFileReferensi.FData.Encripted_File_Name;
+//      serverDirTemp := vGameDataSetting.FileDirectory + FSelectedFileReferensi.FData.Encripted_File_Name;
+      serverDirTemp := vGameDataSetting.FileReferensi + '\' + IntToStr(FSelectedFileReferensi.FData.ID_File) + '.docx, .pptx, .pdf';
 
       with FSelectedFileReferensi.FData do
       begin
@@ -1285,21 +1646,25 @@ begin
       FSelectedFileReferensi := nil;
     end;
 
-    UpdateDataFile;
+    UpdateDataReferensi;
   end;
 end;
 
 procedure TfrmDisplayArea.lvReferensiSelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);
+var
+  docxpath :  string;
+  serverDirTemp : String;
+  localFileTemp : String;
 begin
   FSelectedFileReferensi := nil;
 
   if Selected then
   begin
     if (Item = nil) or (item.Data = nil) then
-    begin
-      MessageDlg('File Corrupted', mtInformation, [mbOK], 0);
       Exit;
-    end;
+
+    FSelectedFileReferensi := TFile_Data(lvReferensi.Selected.Data);
+    docxpath := FSelectedFileReferensi.FData.Directory_Path + '\' + IntToStr(FSelectedFileReferensi.FData.ID_File) + '.docx';
 
     FSelectedFileReferensi := Item.Data;
   end
@@ -1453,6 +1818,7 @@ procedure TfrmDisplayArea.ObrolanClick(Sender: TObject);
 begin
   pnlRight.Width := 430;
   pnlMainChatting.BringToFront;
+  UpdateClientChatting;
 end;
 
 procedure TfrmDisplayArea.btnCloseChatClick(Sender: TObject);
@@ -1468,7 +1834,26 @@ end;
 procedure TfrmDisplayArea.btnUserChatClick(Sender: TObject);
 begin
   lstUserChat.BringToFront;
+  UpdateClientChatting;
+end;
 
+procedure TfrmDisplayArea.Button1Click(Sender: TObject);
+var
+  i : Integer;
+  userroleTemp : TUserRole;
+
+begin
+  for i := 0 to SimManager.SimUserRole.UserList.Count - 1 do
+  begin
+    userroleTemp := SimManager.SimUserRole.UserList[i];
+
+    if Assigned(userroleTemp) then
+    begin
+//      if userroleTemp.isInUse then
+        Memo1.Lines.Add(userroleTemp.FData.UserRoleAcronim)
+
+    end;
+  end;
 end;
 
 procedure TfrmDisplayArea.lstUserChatDblClick(Sender: TObject);
@@ -1476,47 +1861,62 @@ begin
   if lstUserChat.ItemIndex = -1 then
     Exit;
 
-  FSelectedUserChat := TUser_Role(lstUserChat.Items.Objects[lstUserChat.ItemIndex]);
+  FSelectedUserChat := TUserRole(lstUserChat.Items.Objects[lstUserChat.ItemIndex]);
+  mmoChat.BringToFront;
+  UpdateClientHistoryChat(FSelectedUserChat.FData.UserRoleIndex);
 end;
 
-procedure TfrmDisplayArea.UpdateClientHistoryChat;
+procedure TfrmDisplayArea.UpdateClientHistoryChat(IdSender: Integer);
 var
 tempList : TList;
 i : Integer;
 chattingTemp : TChatting;
-userRoleTemp : TUser_Role;
+userRoleTemp : TUserRole;
 namaRole : string;
 begin
   tempList := TList.Create;
-
-  SimManager.SimChatting.GetChattingBySending(simMgrClient.MyConsoleData.UserRoleData.UserRoleIndex, FSelectedUserChat.FData.UserRoleIndex, tempList);
-
-  for i := 0 to tempList.Count - 1 do
-  begin
-    chattingTemp := tempList.Items[i];
-
-    if chattingTemp.IdUserRoleReceive = simMgrClient.MyConsoleData.UserRoleData.UserRoleIndex then
+  try
+//  if Assigned(IdSender) then
+//  begin
+    SimManager.SimChatting.GetChattingBySending(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, IdSender, tempList);
+//
+    mmoChat.Clear;
+    for i := 0 to tempList.Count - 1 do
     begin
-      mmoChat.Font.Color := clBlack;
-      mmoChat.Lines.Add('You :');
-    end
-    else
-    begin
-      mmoChat.Font.Color := clBlue;
-      mmoChat.Lines.Add(FSelectedUserChat.FData.UserRoleIdentifier + ' :');
-    end;
+      chattingTemp := tempList.Items[i];
 
-      mmoChat.Lines.Add('/n');
-      mmoChat.Lines.Add(chattingTemp.ChatMessage);
-      mmoChat.Lines.Add('/n');
+      if chattingTemp.IdUserRoleSending = simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex then
+      begin
+        mmoChat.Font.Color := clBlack;
+        mmoChat.Lines.Add('You :');
+//        mmoChat.Lines.Add('/n');
+        mmoChat.Lines.Add(chattingTemp.ChatMessage);
+//        mmoChat.Lines.Add('/n');
+      end;
+
+      if (chattingTemp.IdUserRoleReceive = IdSender) then
+      begin
+        mmoChat.Font.Color := clBlue;
+//        mmoChat.Lines.Add(FSelectedUserChat.FData.UserRoleIdentifier + ' :');
+        mmoChat.Lines.Add(IntToStr(IdSender) + ' :');
+//        mmoChat.Lines.Add('/n');
+        mmoChat.Lines.Add(chattingTemp.ChatMessage);
+//        mmoChat.Lines.Add('/n');
+      end;
 
 
-//    userRoleTemp := SimUserRole.getUserRoleByID(rec.UserRoleId);
-//    mmoChat.Lines.Add(chattingTemp.IdUserRoleReceive, chattingTemp.ChatMessage);
-//    mmoChat.Lines.Add(IntToStr(chattingTemp.IdUserRoleSending));
-//    mmoChat.Lines.Add(IntToStr(chattingTemp.IdUserRoleReceive));
-//    mmoChat.Lines.Add(chattingTemp.ChatMessage);
+  //    userRoleTemp := SimUserRole.getUserRoleByID(rec.UserRoleId);
+  //    mmoChat.Lines.Add(chattingTemp.IdUserRoleReceive, chattingTemp.ChatMessage);
+  //    mmoChat.Lines.Add(IntToStr(chattingTemp.IdUserRoleSending));
+  //    mmoChat.Lines.Add(IntToStr(chattingTemp.IdUserRoleReceive));
+  //    mmoChat.Lines.Add(chattingTemp.ChatMessage);
+//    end;
   end;
+  finally
+    tempList.Free;
+  end;
+
+
 end;
 
 procedure TfrmDisplayArea.btnSendChatClick(Sender: TObject);
@@ -1525,8 +1925,9 @@ var
 rec : TRecTCPSendChatUserRole;
 begin
    rec.OrderID := 0;
-   rec.SenderUserRoleId := simMgrClient.MyConsoleData.UserRoleData.UserRoleIndex;
+   rec.SenderUserRoleId := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
    rec.ReceiverUserRoleId := FSelectedUserChat.FData.UserRoleIndex;
+   FillChar(rec.ChatMessage, SizeOf(rec.ChatMessage), 0);
    rec.ChatMessage := edtChatBox.Text;
 
    simMgrClient.netSend_CmdSendMessage(rec);
@@ -1535,7 +1936,7 @@ end;
 procedure TfrmDisplayArea.UpdateClientChatting;
 var
   i : Integer;
-  userRoleTemp : TUser_Role;
+  userRoleTemp : TUserRole;
 begin
   lstUserChat.Items.Clear;
 
@@ -1544,7 +1945,11 @@ begin
     userRoleTemp := simMgrClient.SimUserRole.UserList[i];
     if Assigned(userRoleTemp) then
     begin
-      lstUserChat.Items.AddObject(userRoleTemp.FData.UserRoleIdentifier, userRoleTemp);
+      if (userRoleTemp.isInUse) and (userRoleTemp.FData.UserRoleIndex <> simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex) then
+//      if userRoleTemp.FData.UserRoleIndex <> simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex then
+      begin
+        lstUserChat.Items.AddObject(userRoleTemp.FData.UserRoleIdentifier, userRoleTemp);
+      end;
     end;
   end;
 end;
@@ -1555,17 +1960,9 @@ end;
 
 procedure TfrmDisplayArea.TelegramClick(Sender: TObject);
 begin
-  frmTelegram := TfrmTelegram.Create(Self);
-  try
-    with frmTelegram do
-    begin
-      ShowModal;
-    end;
-
-  finally
-    frmTelegram.Free;
-  end;
+  frmTelegram.Show;
 end;
+
 
 {$ENDREGION}
 
@@ -1577,7 +1974,7 @@ begin
   try
     with frmVideoConference do
     begin
-      ShowModal;
+      Show;
     end;
 
   finally
@@ -1595,7 +1992,7 @@ begin
   if Assigned(simMgrClient.MyConsoleData) then
   begin
     rec.OrderID := CORD_ID_LOGOUT;
-    rec.UserRoleId := simMgrClient.MyConsoleData.UserRoleData.UserRoleIndex;
+    rec.UserRoleId := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
     rec.ConsoleIP := simMgrClient.MyConsoleData.IpAdrres;
     rec.UserRoleInUse := False;
 
