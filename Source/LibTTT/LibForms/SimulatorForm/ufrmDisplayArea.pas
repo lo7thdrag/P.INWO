@@ -1860,7 +1860,7 @@ begin
 
   FSelectedUserChat := TUserRole(lstUserChat.Items.Objects[lstUserChat.ItemIndex]);
   mmoChat.BringToFront;
-  UpdateClientHistoryChat(FSelectedUserChat.FData.UserRoleIndex, 2);
+  UpdateClientHistoryChat(FSelectedUserChat.FData.UserRoleIndex, 3);
 end;
 
 procedure TfrmDisplayArea.UpdateClientHistoryChat(IdSenderOrReceiver, typechat: Integer);
@@ -1877,7 +1877,7 @@ begin
   {Berarti Kita yg Ngirim}
   if (typechat = 1) and Assigned(FSelectedUserChat) then
   begin
-    SimManager.SimChatting.GetChattingBySending(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, IdSenderOrReceiver, tempList);
+    SimManager.SimChatting.GetChattingBySending(FSelectedUserChat.FData.UserRoleIndex, IdSenderOrReceiver, tempList);
     mmoChat.Clear;
 
     // UNTUK UPDATE CHAT MASUK LEWAT SERVER
@@ -1913,10 +1913,10 @@ begin
     end
 
     // UNTUK UPDATE CHAT MASUK PAS DI KLIK NAMA ROLE DI LIST CHAT
-    else if typechat = 2 and Assigned(FSelectedUserChat) then
+    else if (typechat = 2) and Assigned(FSelectedUserChat) then
     begin
 
-      SimManager.SimChatting.GetChattingByReceiving(IdSenderOrReceiver, FSelectedUserChat.FData.UserRoleIndex, tempList);
+      SimManager.SimChatting.GetChattingByReceiving(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, IdSenderOrReceiver, tempList);
 
       for i := 0 to tempList.Count - 1 do
       begin
