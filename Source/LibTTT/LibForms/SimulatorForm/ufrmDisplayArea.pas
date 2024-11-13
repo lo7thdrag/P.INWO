@@ -1892,7 +1892,7 @@ begin
           mmoChat.Lines.Add(chattingTemp.ChatMessage);
         end;
 
-        if (chattingTemp.IdUserRoleReceive = IdSender) then
+        if (chattingTemp.IdUserRoleSending = IdSender) then
         begin
           mmoChat.Font.Color := clBlue;
   //        mmoChat.Lines.Add(FSelectedUserChat.FData.UserRoleIdentifier + ' :');
@@ -1917,7 +1917,7 @@ begin
       begin
         chattingTemp := tempList.Items[i];
 
-        if chattingTemp.IdUserRoleReceive = simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex then
+        if chattingTemp.IdUserRoleSending = simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex then
         begin
           mmoChat.Font.Color := clBlack;
           mmoChat.Lines.Add('You :');
