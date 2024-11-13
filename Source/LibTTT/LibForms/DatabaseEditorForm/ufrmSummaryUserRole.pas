@@ -196,7 +196,16 @@ end;
 
 procedure TfrmSummaryUserRole.btnEditSubRoleClick(Sender: TObject);
 begin
-  frmSubRole.Show;
+  if not Assigned(frmSubRole) then
+    frmSubRole := TfrmSubRole.Create(Self);
+
+  try
+    with frmSubRole do
+    begin
+      Show;
+    end;
+  finally
+  end;
 end;
 
 {$ENDREGION}
@@ -251,7 +260,16 @@ end;
 
 procedure TfrmSummaryUserRole.btnEditRoleClick(Sender: TObject);
 begin
-  frmSummaryRole.Show;
+  if not Assigned(frmSummaryRole) then
+    frmSummaryRole := TfrmSummaryRole.Create(Self);
+
+  try
+    with frmSummaryRole do
+    begin
+      Show;
+    end;
+  finally
+  end;
 end;
 
 procedure TfrmSummaryUserRole.btnOkClick(Sender: TObject);

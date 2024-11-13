@@ -61,11 +61,13 @@ type
     btnPreparation: TRzBmpButton;
     btnImplementation: TRzBmpButton;
     btnTermination: TRzBmpButton;
-    cbbSubRole: TComboBox;
-    lstUserRoleLogin: TListBox;
     lblUserIdentifier: TLabel;
     btnBack: TButton;
     lblConsoleName: TLabel;
+    Label5: TLabel;
+    pnlButton: TPanel;
+    cbbSubRole: TComboBox;
+    lstUserRoleLogin: TListBox;
 
     procedure FormCreate(Sender: TObject);
     procedure btnShowPasswordClick(Sender: TObject);
@@ -161,8 +163,8 @@ procedure TfrmTacticalDisplay.btnTerminationClick(Sender: TObject);
 begin
   if btnTermination.Down then
   begin
-    cbbSubRole.Left := 1430;
-    lstUserRoleLogin.Left := 1430;
+    cbbSubRole.Left := btnTermination.Left;
+    lstUserRoleLogin.Left := btnTermination.Left;
 
     cbbSubRole.Visible := True;
 
@@ -318,8 +320,8 @@ procedure TfrmTacticalDisplay.btnImplementationClick(Sender: TObject);
 begin
   if btnImplementation.Down then
   begin
-    cbbSubRole.Left := 1000;
-    lstUserRoleLogin.Left := 1000;
+    cbbSubRole.Left := btnImplementation.Left;
+    lstUserRoleLogin.Left := btnImplementation.Left;
 
     cbbSubRole.Visible := True;
 
@@ -399,8 +401,8 @@ procedure TfrmTacticalDisplay.btnPlanningClick(Sender: TObject);
 begin
   if btnPlanning.Down then
   begin
-    cbbSubRole.Left := 137;
-    lstUserRoleLogin.Left := 137;
+    cbbSubRole.Left := btnPlanning.Left;
+    lstUserRoleLogin.Left := btnPlanning.Left;
 
     cbbSubRole.Visible := True;
 
@@ -422,8 +424,8 @@ procedure TfrmTacticalDisplay.btnPreparationClick(Sender: TObject);
 begin
   if btnPreparation.Down then
   begin
-    cbbSubRole.Left := 568;
-    lstUserRoleLogin.Left := 568;
+    cbbSubRole.Left := btnPreparation.Left;
+    lstUserRoleLogin.Left := btnPreparation.Left;
 
     cbbSubRole.Visible := True;
 
@@ -461,11 +463,13 @@ end;
 procedure TfrmTacticalDisplay.FormResize(Sender: TObject);
 begin
   lblConsoleName.Left := (pnlHome.Width-lblConsoleName.Width)div 2;
+  pnlButton.Left := (pnlHome.Width-pnlButton.Width)div 2;
 end;
 
 procedure TfrmTacticalDisplay.FormShow(Sender: TObject);
 begin
   lblConsoleName.Left := (pnlHome.Width-lblConsoleName.Width)div 2;
+  pnlButton.Left := (pnlHome.Width-pnlButton.Width)div 2;
 end;
 
 procedure TfrmTacticalDisplay.Initialize;
@@ -486,7 +490,25 @@ begin
   FselectedUserRole := TUserRole(lstUserRoleLogin.Items.Objects[lstUserRoleLogin.ItemIndex]);
 
   if Assigned(FselectedUserRole) then
-    lblUserIdentifier.Caption := FselectedUserRole.FData.UserRoleIdentifier;
+  begin
+
+    if (FselectedUserRole.FData.SubRoleIndex = 5) or (FselectedUserRole.FData.SubRoleIndex = 6) then
+    begin
+      lblUserIdentifier.Caption := FselectedUserRole.FData.UserRoleIdentifier + ' - ' + FselectedUserRole.FSubRoleData.SubRoleAcronim;
+
+      if FselectedUserRole.FData.SubRoleIndex = 5 then
+        imgBackgroundLogin.Picture.LoadFromFile('C:\Program Files (x24)\Bin\data\Image Background\wallpaperNTWO.png')
+      else if FselectedUserRole.FData.SubRoleIndex = 6 then
+        imgBackgroundLogin.Picture.LoadFromFile('C:\Program Files (x24)\Bin\data\Image Background\wallpaperATWO.png')
+      else
+        imgBackgroundLogin.Picture.LoadFromFile('C:\Program Files (x24)\Bin\data\Image Background\wallpaperINWO.png');
+    end
+    else
+    begin
+      ShowMessage('System yang tersedia hanya Kogasgabfib dan Kogasgabla');
+      Exit;
+    end;
+  end;
 
   pnlBackgroundLogin.BringToFront;
 end;
