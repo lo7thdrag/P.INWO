@@ -116,8 +116,8 @@ type
     lvUserRole: TListView;
     pnlCariReferensi: TPanel;
     Label4: TLabel;
-    ComboBox1: TComboBox;
-    ComboBox2: TComboBox;
+    cbbSearchReferensi: TComboBox;
+    cbbKategoriReferensi: TComboBox;
     pnlListReferensi: TPanel;
     lvReferensi: TListView;
     pnlCariPeta: TPanel;
@@ -209,6 +209,7 @@ type
     cbbSearch: TComboBox;
     editSearch: TEdit;
     Button1: TButton;
+    edtSearchReferensi: TEdit;
 
     procedure btnAOTCClick(Sender: TObject);
 
@@ -1595,8 +1596,10 @@ begin
   begin
     SelectDirectory('Select a directory', vGameDataSetting.LocalDirectory, localDirTemp);
 
-    serverDirTemp := vGameDataSetting.FileReferensi + '\' + IntToStr(FSelectedFileReferensi.FData.ID_File) + '.docx';
-    localFileTemp := localDirTemp + '\' + IntToStr(FSelectedFileReferensi.FData.ID_File) + '.docx';
+    serverDirTemp :=  vGameDataSetting.FileReferensi + '\' + IntToStr(FSelectedFileReferensi.FData.ID_File) +
+                      FSelectedFileReferensi.FData.Tipe_File;
+
+    localFileTemp := localDirTemp + '\' + FSelectedFileReferensi.FData.Encripted_File_Name + FSelectedFileReferensi.FData.Tipe_File;
 
     CopyFile(PWideChar(serverDirTemp), PWideChar(localFileTemp), False);
   end;
@@ -1630,7 +1633,8 @@ begin
   begin
     if Assigned(FSelectedFileReferensi) then
     begin
-      serverDirTemp := vGameDataSetting.FileReferensi + '\' + IntToStr(FSelectedFileReferensi.FData.ID_File) + '.docx';
+    serverDirTemp :=  vGameDataSetting.FileReferensi + '\' + IntToStr(FSelectedFileReferensi.FData.ID_File) +
+                      FSelectedFileReferensi.FData.Tipe_File;
 
       with FSelectedFileReferensi.FData do
       begin
@@ -1660,10 +1664,10 @@ begin
       Exit;
 
     FSelectedFileReferensi := TFile_Data(lvReferensi.Selected.Data);
-    docxpath := FSelectedFileReferensi.FData.Directory_Path + '\' + IntToStr(FSelectedFileReferensi.FData.ID_File) + '.docx';
+    docxpath := FSelectedFileReferensi.FData.Directory_Path + '\' + IntToStr(FSelectedFileReferensi.FData.ID_File);
 
     FSelectedFileReferensi := Item.Data;
-  end
+  end;
 end;
 
 procedure TfrmDisplayArea.UpdateDataReferensi;
@@ -1673,19 +1677,18 @@ var
   li : TListItem;
 
 begin
-  lvFileData.Items.Clear;
+  lvReferensi.Items.Clear;
 
-  dmINWO.GetAllFile(FFileDataList);
+  dmINWO.GetAllReferensi(FFileReferensiList);
 
-  for i := 0 to FFileDataList.Count - 1 do
+  for i := 0 to FFileReferensiList.Count - 1 do
   begin
-    fileDataTemp := FFileDataList.Items[i];
-    li := lvFileData.Items.Add;
+    fileDataTemp := FFileReferensiList.Items[i];
+    li := lvReferensi.Items.Add;
     li.SubItems.Add(fileDataTemp.FData.Nama_File);
     li.StateIndex := Integer(SetFileExtentionToEnum(fileDataTemp.FData.Tipe_File));
-    li.SubItems.Add(fileDataTemp.FData.Directory_Path);
-    li.SubItems.Add(fileDataTemp.FData.Modified_Date);
     li.SubItems.Add(fileDataTemp.FData.Modified_By);
+    li.SubItems.Add(fileDataTemp.FData.Modified_Date);
 
     li.Data := fileDataTemp;
   end;
