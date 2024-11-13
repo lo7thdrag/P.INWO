@@ -89,7 +89,6 @@ object frmTelegram: TfrmTelegram
     Color = clCaptionText
     ParentBackground = False
     TabOrder = 1
-    ExplicitHeight = 631
     object Image2: TImage
       Left = 1
       Top = 1
@@ -657,7 +656,7 @@ object frmTelegram: TfrmTelegram
       Tag = 3
       Left = 10
       Top = 426
-      Width = 52
+      Width = 58
       Height = 16
       Cursor = crHandPoint
       Caption = 'Send To : '
