@@ -208,6 +208,7 @@ type
 
     function CekInput : Boolean;
     procedure UpdateVehicleData;
+    procedure UpdateModelData;
 
     procedure UpdateCbbCategoryItems(const aDomain, IdCategory: Byte);
     procedure UpdateCbbTypeItems(const aDomain, aCategory, IdType: Byte);
@@ -227,14 +228,14 @@ implementation
 
 {$R *.dfm}
 uses
-  ufrmRadarOnBoardPickList{, ufrmSonarOnBoardPickList, ufrmESMOnBoardPickList,
+  ufrmRadarOnBoardPickList, ufrmSonarOnBoardPickList, ufrmESMOnBoardPickList,
   ufrmEODOnBoardPickList, ufrmMADOnBoardPickList, ufrmSonobuoyOnBoardPickList,
   ufrmVisualDetectorOnBoardPickList, ufrmIFFOnBoardPickList, ufrmMissileOnBoardPickList,
   ufrmTorpedoOnBoardPickList, ufrmMineOnBoardPickList, ufrmGunOnBoardPickList,
   ufrmBombOnBoardPickList, ufrmAcousticDecoyOnBoardPickList, ufrmAirBubbleOnBoardPickList,
   ufrmChaffOnBoardPickList, ufrmFloatingDecoyOnBoardPickList, ufrmInfraredDecoyOnBoardPickList,
   ufrmRadarNoiseJammerOnBoardPickList, ufrmSelfDefensiveJammerOnBoardPickList,
-  ufrmTowedJammerDecoyOnBoardPickList, ufrmEmbarkedOnBoardPickList};
+  ufrmTowedJammerDecoyOnBoardPickList, ufrmEmbarkedOnBoardPickList, uSimbolTaktis;
 
 procedure TfrmAsset.FormShow(Sender: TObject);
 begin
@@ -259,6 +260,8 @@ begin
       Exit;
     end;
 
+    ValidationFormatInput;
+
     {$REGION 'General'}
     LastName := edtClass.Text;
     FData.Vehicle_Identifier := edtClass.Text;
@@ -266,6 +269,8 @@ begin
     FData.Platform_Domain := cbbDomain.ItemIndex;
     FData.Platform_Category := cbbCategory.ItemIndex;
     FData.Platform_Type := cbbType.ItemIndex;
+//    FData.HullNumber := edtNoLambung.Text;
+//    FData.CallSign := edtCallSign.Text;
     {$ENDREGION}
 
     {$REGION 'Model'}
@@ -301,7 +306,7 @@ begin
     begin
       if dmINWO.InsertVehicleDef(FData) then
       begin
-//        dmINWO.InsertNoteStorage(1, FData.Vehicle_Index);
+        dmINWO.InsertNoteStorage(1, FData.Vehicle_Index, FNote);
         ShowMessage('Data has been saved');
       end;
     end
@@ -309,7 +314,7 @@ begin
     begin
       if dmINWO.UpdateVehicleDef(FData) then
       begin
-//        dmINWO.UpdateNoteStorage(FData.Vehicle_Index);
+        dmINWO.UpdateNoteStorage(FData.Vehicle_Index, FNote);
         ShowMessage('Data has been updated');;
       end;
     end;
@@ -379,24 +384,24 @@ begin
   if cbbFontType.ItemIndex = -1 then
     Exit;
 
-//  SimbolTaktis := TSimbolTaktis.Create(Self);
-//  try
-//    with SimbolTaktis do
-//    begin
-//      SimbolTaktis.FontType := cbbFontType.ItemIndex;
-//
-//      if cbbFontType.ItemIndex = 0 then
-//        SimbolTaktis.drwgrdFonttaktis.RowCount := 184;
-//      else if cbbFontType.ItemIndex = 1 then
-//        SimbolTaktis.drwgrdFonttaktis.RowCount := 211;
-//      else if cbbFontType.ItemIndex = 2 then
-//        SimbolTaktis.drwgrdFonttaktis.RowCount := 135;
-//      ShowModal;
-//
-//    end;
-//  finally
-//    SimbolTaktis.Free;
-//  end;
+  SimbolTaktis := TSimbolTaktis.Create(Self);
+  try
+    with SimbolTaktis do
+    begin
+      SimbolTaktis.FontType := cbbFontType.ItemIndex;
+
+      if cbbFontType.ItemIndex = 0 then
+        SimbolTaktis.drwgrdFonttaktis.RowCount := 184
+      else if cbbFontType.ItemIndex = 1 then
+        SimbolTaktis.drwgrdFonttaktis.RowCount := 211
+      else if cbbFontType.ItemIndex = 2 then
+        SimbolTaktis.drwgrdFonttaktis.RowCount := 135;
+      ShowModal;
+
+    end;
+  finally
+    SimbolTaktis.Free;
+  end;
 end;
 
 procedure TfrmAsset.btnOpenDialogImageClick(Sender: TObject);
@@ -407,7 +412,7 @@ begin
   end;
 
   try
-    Image.Picture.LoadFromFile('data\Image DBEditor\Interface' + edtModelPath.Text + '.PNG');
+    Image.Picture.LoadFromFile('data\Image DBEditor\Interface\' + edtModelPath.Text + '.PNG');
   except
     ShowMessage('Model is not found');
   end;
@@ -444,21 +449,21 @@ begin
   end;
   {$ENDREGION}
 
-//  frmRadarOnBoardPickList := TfrmRadarOnBoardPickList.Create(Self);
-//  try
-//    with frmRadarOnBoardPickList do
-//    begin
-//      SelectedAsset := FSelectedAsset;
-//      ShowModal;
-//    end;
-//
-//    AfterClose := frmRadarOnBoardPickList.AfterClose;
-//  finally
-//    frmRadarOnBoardPickList.Free;
-//  end;
-//
-//  btnCancel.Enabled := not AfterClose;
-//  btnApply.Enabled := afterClose;
+  frmRadarOnBoardPickList := TfrmRadarOnBoardPickList.Create(Self);
+  try
+    with frmRadarOnBoardPickList do
+    begin
+      SelectedAsset := FSelectedAsset;
+      ShowModal;
+    end;
+
+    AfterClose := frmRadarOnBoardPickList.AfterClose;
+  finally
+    frmRadarOnBoardPickList.Free;
+  end;
+
+  btnCancel.Enabled := not AfterClose;
+  btnApply.Enabled := afterClose;
 end;
 
 procedure TfrmAsset.btnSonarClick(Sender: TObject);
@@ -471,21 +476,21 @@ begin
   end;
   {$ENDREGION}
 
-//  frmSonarOnBoardPickList := TfrmSonarOnBoardPickList.Create(Self);
-//  try
-//    with frmSonarOnBoardPickList do
-//    begin
-//      SelectedAsset := FSelectedAsset;
-//      ShowModal;
-//    end;
-//
-//    AfterClose := frmSonarOnBoardPickList.AfterClose;
-//  finally
-//    frmSonarOnBoardPickList.Free;
-//  end;
-//
-//  btnCancel.Enabled := not afterClose;
-//  btnApply.Enabled := afterClose;
+  frmSonarOnBoardPickList := TfrmSonarOnBoardPickList.Create(Self);
+  try
+    with frmSonarOnBoardPickList do
+    begin
+      SelectedAsset := FSelectedAsset;
+      ShowModal;
+    end;
+
+    AfterClose := frmSonarOnBoardPickList.AfterClose;
+  finally
+    frmSonarOnBoardPickList.Free;
+  end;
+
+  btnCancel.Enabled := not afterClose;
+  btnApply.Enabled := afterClose;
 end;
 
 procedure TfrmAsset.btnSonobuoyClick(Sender: TObject);
@@ -498,21 +503,21 @@ begin
   end;
   {$ENDREGION}
 
-//  frmSonobuoyOnBoardPickList := TfrmSonobuoyOnBoardPickList.Create(Self);
-//  try
-//    with frmSonobuoyOnBoardPickList do
-//    begin
-//      SelectedAsset := FSelectedAsset;
-//      ShowModal;
-//    end;
-//
-//    AfterClose := frmSonobuoyOnBoardPickList.AfterClose;
-//  finally
-//    frmSonobuoyOnBoardPickList.Free;
-//  end;
-//
-//  btnCancel.Enabled := not afterClose;
-//  btnApply.Enabled := afterClose;
+  frmSonobuoyOnBoardPickList := TfrmSonobuoyOnBoardPickList.Create(Self);
+  try
+    with frmSonobuoyOnBoardPickList do
+    begin
+      SelectedAsset := FSelectedAsset;
+      ShowModal;
+    end;
+
+    AfterClose := frmSonobuoyOnBoardPickList.AfterClose;
+  finally
+    frmSonobuoyOnBoardPickList.Free;
+  end;
+
+  btnCancel.Enabled := not afterClose;
+  btnApply.Enabled := afterClose;
 end;
 
 procedure TfrmAsset.btnESMClick(Sender: TObject);
@@ -525,21 +530,21 @@ begin
   end;
   {$ENDREGION}
 
-//  frmESMOnBoardPickList := TfrmESMOnBoardPickList.Create(Self);
-//  try
-//    with frmESMOnBoardPickList do
-//    begin
-//      SelectedAsset := FSelectedAsset;
-//      ShowModal;
-//    end;
-//
-//    AfterClose := frmESMOnBoardPickList.AfterClose;
-//  finally
-//    frmESMOnBoardPickList.Free;
-//  end;
-//
-//  btnCancel.Enabled := not afterClose;
-//  btnApply.Enabled := afterClose;
+  frmESMOnBoardPickList := TfrmESMOnBoardPickList.Create(Self);
+  try
+    with frmESMOnBoardPickList do
+    begin
+      SelectedAsset := FSelectedAsset;
+      ShowModal;
+    end;
+
+    AfterClose := frmESMOnBoardPickList.AfterClose;
+  finally
+    frmESMOnBoardPickList.Free;
+  end;
+
+  btnCancel.Enabled := not afterClose;
+  btnApply.Enabled := afterClose;
 end;
 
 procedure TfrmAsset.btnIFFClick(Sender: TObject);
@@ -606,21 +611,21 @@ begin
   end;
   {$ENDREGION}
 
-//  frmEODOnBoardPickList := TfrmEODOnBoardPickList.Create(Self);
-//  try
-//    with frmEODOnBoardPickList do
-//    begin
-//      SelectedAsset := FSelectedAsset;
-//      ShowModal;
-//    end;
-//
-//    AfterClose := frmEODOnBoardPickList.AfterClose;
-//  finally
-//    frmEODOnBoardPickList.Free;
-//  end;
-//
-//  btnCancel.Enabled := not afterClose;
-//  btnApply.Enabled := afterClose;
+  frmEODOnBoardPickList := TfrmEODOnBoardPickList.Create(Self);
+  try
+    with frmEODOnBoardPickList do
+    begin
+      SelectedAsset := FSelectedAsset;
+      ShowModal;
+    end;
+
+    AfterClose := frmEODOnBoardPickList.AfterClose;
+  finally
+    frmEODOnBoardPickList.Free;
+  end;
+
+  btnCancel.Enabled := not afterClose;
+  btnApply.Enabled := afterClose;
 end;
 
 procedure TfrmAsset.btnVisualDetectorClick(Sender: TObject);
@@ -1025,8 +1030,8 @@ begin
 //  finally
 //    frmEmbarkedOnBoardPickList.Free;
 //  end;
-//
-//  btnApply.Enabled := True;
+
+  btnApply.Enabled := True;
 end;
 
 {$ENDREGION}
@@ -1343,6 +1348,32 @@ begin
   btnApply.Enabled := True;
 end;
 
+procedure TfrmAsset.UpdateModelData;
+var
+  aFontTaktis : TFontTaktis;
+begin
+  aFontTaktis := TFontTaktis.Create;
+
+  dmINWO.getFontByID(StrToInt(edtFontID.Text), aFontTaktis);
+  with FSelectedAsset.FData do
+  begin
+    lblFontTaktis.Font.Name := aFontTaktis.FData.FONT_NAME;
+    lblFontTaktis.Font.Size := 30;
+    lblFontTaktis.Font.Style := [fsBold];
+    lblFontTaktis.Caption := Char(aFontTaktis.FData.FONT_INDEX);
+    lblKeteranganSymbol.Caption := aFontTaktis.FData.KETERANGAN;
+
+    try
+      Image.Picture.LoadFromFile('data\Image DBEditor\Interface\' + Vbs_Class_Name + '.PNG');
+    except
+      Image.Picture.LoadFromFile('data\Image DBEditor\Interface\NoModel.bmp');
+    end;
+
+  end;
+
+  aFontTaktis.Free
+end;
+
 procedure TfrmAsset.UpdateVehicleData;
 begin
   with FSelectedAsset do
@@ -1363,6 +1394,8 @@ begin
     cbbDomain.ItemIndex := FData.Platform_Domain;
     cbbCategory.ItemIndex := FData.Platform_Category;
     cbbType.ItemIndex := FData.Platform_Type;
+//    FData.HullNumber := edtNoLambung.Text;
+//    FData.CallSign := edtCallSign.Text;
 
     lbl13.Visible := cbbType.Text = 'Group Personel';
     edtQuantityGroupPersonal.Visible := cbbType.Text = 'Group Personel';
@@ -1374,7 +1407,7 @@ begin
     edtFontID.Text := IntToStr(FData.Font_id);
     edtModelPath.Text := FData.Vbs_Class_Name;
 
-//    UpdateModelData;
+    UpdateModelData;
     {$ENDREGION}
 
     {$REGION 'Physical'}
@@ -1419,8 +1452,74 @@ begin
 end;
 
 procedure TfrmAsset.ValidationFormatInput;
+var
+  i, j: Integer;
+  value : Double;
+  hStr, mStr, sStr, hmSeparator, msSeparator : string;
+  h, m, s : Integer;
+  aTimeStr : string;
+  flag : Boolean;
+
 begin
-//
+  for i:= 0 to ComponentCount-1 do
+  begin
+    if Components[i] is TEdit then
+    begin
+      if TEdit(Components[i]).Tag = 4 then
+        continue;
+
+      if TEdit(Components[i]).Text = '' then
+        TEdit(Components[i]).Text := '0';
+
+      value := StrToFloat(TEdit(Components[i]).Text);
+
+      case TEdit(Components[i]).Tag of
+        0: TEdit(Components[i]).Text := FormatFloat('0', value);
+        1: TEdit(Components[i]).Text := FormatFloat('0.0', value);
+        2: TEdit(Components[i]).Text := FormatFloat('0.00', value);
+        3: TEdit(Components[i]).Text := FormatFloat('0.000', value);
+      end;
+
+      Continue;
+    end;
+
+    if Components[i] is TMaskEdit then
+    begin
+      aTimeStr := TMaskEdit(Components[i]).Text;
+      flag := False;
+
+      hStr := Copy(aTimeStr, 1, 2);
+      TryStrToInt(hStr, h);
+
+      mStr := Copy(aTimeStr, 4, 2);
+      TryStrToInt(mStr, m);
+
+      sStr := Copy(aTimeStr, 7, 2);
+      TryStrToInt(sStr, s);
+
+      if h > 23 then
+      begin
+        hStr := '23';
+        flag := True;
+      end;
+
+      if m > 59 then
+      begin
+        mStr := '59';
+        flag := True;
+      end;
+
+      if s > 59 then
+      begin
+        sStr := '59';
+        flag := True;
+      end;
+
+      if flag then
+        TMaskEdit(Components[i]).Text := hStr + ':' + mStr + ':' + sStr;
+
+    end;
+  end;
 end;
 
 end.
