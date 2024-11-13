@@ -3,7 +3,7 @@
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Windows, Messages, SysUtils, System.IOUtils, Winapi.ShellAPI, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Buttons, OleCtrls, MapXLib_TLB, ExtCtrls, ComCtrls,
   uLibSetting, System.ImageList, Vcl.ImgList, uRecordData, uClassData,
   Vcl.Imaging.jpeg, Vcl.Imaging.pngimage{, ShellApi} ;
@@ -65,6 +65,12 @@ begin
   UpdateGameState(nil);
 
   lblSession.Caption := IntToStr(SimManager.SessionID);
+
+  if not TDirectory.Exists(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM') then
+    Exit;
+  if not TDirectory.Exists('D:\Telegram\removeDir.bat') then
+    Exit;
+  ShellExecute(0, 'open', ('D:\Telegram\removeDir.bat'), nil, nil, SW_SHOW);
 end;
 
 procedure TfrmMainGameServer.btnLockClick(Sender: TObject);

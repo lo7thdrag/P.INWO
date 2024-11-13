@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, System.IOUtils, Winapi.Messages, System.SysUtils, System.Variants, System.Win.ComObj, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Imaging.pngimage,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Imaging.pngimage, Winapi.ShellAPI,
   Vcl.ExtCtrls, Vcl.Buttons, ImageButton, Vcl.ComCtrls, Vcl.Imaging.jpeg, uSimMgr_Client, uClassData, uT3SimManager, uRecordData, uLibSetting;
 
 type
@@ -45,12 +45,13 @@ type
     procedure cbbxToDropDown(Sender: TObject);
     procedure pnlTelegramMasukClick(Sender: TObject);
     procedure pnlTelegramTerkirimClick(Sender: TObject);
+    procedure Label1Click(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
-
     procedure UpdateClientTelegramList;
+
   end;
 
 var
@@ -187,6 +188,7 @@ begin
     begin
       TDirectory.CreateDirectory(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + cbbxTo.Text + '\\' + 'INBOX');
       CopyFile(addressTemp, PWideChar(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + cbbxTo.Text + '\\' + 'INBOX' + '\\' + filNameTemp), False);
+//      TDirectory.de
     end
     else
     begin
@@ -264,6 +266,15 @@ end;
 procedure TfrmTelegram.cbbxToDropDown(Sender: TObject);
 begin
   UpdateClientTelegramList;
+end;
+
+procedure TfrmTelegram.Label1Click(Sender: TObject);
+begin
+//  if not TDirectory.Exists(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM') then
+//    Exit;
+//
+//   ShellExecute(0, 'open', ('C:\[DENTA]\removeDir.bat'), nil, nil, SW_SHOW);
+
 end;
 
 procedure TfrmTelegram.pnlTelegramMasukClick(Sender: TObject);
