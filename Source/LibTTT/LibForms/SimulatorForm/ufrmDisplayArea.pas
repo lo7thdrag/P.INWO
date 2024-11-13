@@ -1875,7 +1875,7 @@ begin
   try
 
   {Berarti Kita yg Ngirim}
-  if typechat = 1 then
+  if (typechat = 1) and Assigned(FSelectedUserChat) then
   begin
     SimManager.SimChatting.GetChattingBySending(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, IdSenderOrReceiver, tempList);
     mmoChat.Clear;
@@ -1913,7 +1913,7 @@ begin
     end
 
     // UNTUK UPDATE CHAT MASUK PAS DI KLIK NAMA ROLE DI LIST CHAT
-    else if typechat = 2 then
+    else if typechat = 2 and Assigned(FSelectedUserChat) then
     begin
 
       SimManager.SimChatting.GetChattingByReceiving(IdSenderOrReceiver, FSelectedUserChat.FData.UserRoleIndex, tempList);
