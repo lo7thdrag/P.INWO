@@ -568,16 +568,15 @@ procedure TSimMgr_Client.OnUserRoleChatChange(const rec: TRecTCPSendChatUserRole
 begin
   inherited;
 
-  {Update kalo kita sebagai yg ngirim chat}
-  if (MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.SenderUserRoleId) then
-  begin
-    TT3ClientEventManager(EventManager).OnUpdateUserRoleChatChange(rec.SenderUserRoleId, 1);
-  end;
-
-  {Update kalo kita sebagai yg nerima chat}
+  {Update untuk yg ngirim dan yang nerima}
   if (MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.ReceiverUserRoleId) then
   begin
-    TT3ClientEventManager(EventManager).OnUpdateUserRoleChatChange(rec.ReceiverUserRoleId, 2);
+    TT3ClientEventManager(EventManager).OnUpdateUserRoleChatChange(rec.ReceiverUserRoleId);
+  end;
+
+  if (MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.SenderUserRoleId) then
+  begin
+    TT3ClientEventManager(EventManager).OnUpdateUserRoleChatChange(rec.SenderUserRoleId);
   end;
 
 end;

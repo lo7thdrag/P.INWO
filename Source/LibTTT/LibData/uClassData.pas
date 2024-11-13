@@ -198,7 +198,6 @@ type
     destructor  Destroy; override;
 
     function GetChattingBySending(IdRoleReceiving, IdRoleSending : Integer; var chatList : TList): Boolean;
-    function GetChattingByReceiving(IdRoleReceiving, IdRoleSending : Integer; var chatList : TList): Boolean;
     function GetChattingByUserRole(UserRoleId : Integer; var chatList : TList): Boolean;
 
     property ChattingList : TList read FChattingList write FChattingList;
@@ -1015,23 +1014,6 @@ destructor TChattingContainer.Destroy;
 begin
   ChattingList.Free;
   inherited;
-end;
-
-function TChattingContainer.GetChattingByReceiving(IdRoleReceiving,
-  IdRoleSending: Integer; var chatList: TList): Boolean;
-var
-  i : Integer;
-  chattingTemp : TChatting;
-begin
-  for i := 0 to FChattingList.Count - 1 do
-  begin
-    chattingTemp := FChattingList.Items[i];
-
-//    if (chattingTemp.FIdUserRoleReceive = IdRoleReceiving) and (chattingTemp.FIdUserRoleSending = IdRoleReceiving) then
-      if (chattingTemp.FIdUserRoleReceive = IdRoleReceiving) or (chattingTemp.FIdUserRoleSending = IdRoleSending) then
-      chatList.Add(chattingTemp);
-
-  end;
 end;
 
 function TChattingContainer.GetChattingBySending(IdRoleReceiving, IdRoleSending : Integer; var chatList : TList): Boolean;

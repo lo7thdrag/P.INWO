@@ -17,7 +17,7 @@ type
     procedure OnUpdateConsoleConnect; virtual;
     procedure OnUpdateUserStateChange(state : Integer); virtual;
     procedure OnUpdateSituationBoardTabPropertiesChange; virtual;
-    procedure OnUpdateUserRoleChatChange(id, typercvsnd : integer); virtual;
+    procedure OnUpdateUserRoleChatChange(id : integer); virtual;
 
   end;
 
