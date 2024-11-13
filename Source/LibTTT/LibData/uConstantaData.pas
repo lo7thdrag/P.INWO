@@ -269,7 +269,7 @@ type
   TOrganisasiTugas    = (otINWO, otNTWO, otATWO, otLFWO, otALWO, otCDWO, otSUWO, otLAIN);
   TSubOrganisasiTugas = (sotKPL, sotSTAFLAT, sotWASDAL, sotKOGAB, sotKOGASGABLA, sotKOGASGABFIB, sotPASRAT, sotKOGASRATMIN, sotKOGASHANTAI, sotSATGASDUK, sotLAIN);
 
-  TFileExtention      = (feWord, feExcel, fePPT, fePaint);
+  TFileExtention      = (feWord, feExcel, fePPT, fePaint, feEdge, feChrome, fePdf);
 
   TStorageType        = (stVehicle, stMissile, stTorpedo, stGun, stBomb, stMine, stRadar, stSonar, stEsm, stMad, stEod, stSonobuoy,
                          stChaff, stAirBubble, stAcousticDecoy, stInfraredDecoy, stFloatingDecoy, stTowedDecoy, stDefensiveJammer,
@@ -451,6 +451,9 @@ begin
     feExcel : result := '.xlsx';
     fePPT : result := '.pptx';
     fePaint : result := '.png';
+    feEdge : result := '.html';
+    feChrome : result := '.html';
+    fePdf : result := '.pdf';
   end;
 end;
 
@@ -471,7 +474,19 @@ begin
   else if aValue = '.png' then
   begin
     result := fePaint;
-  end;
+  end
+  else if aValue = '.html' then
+  begin
+    result := feEdge;
+  end
+  else if aValue = '.html' then
+  begin
+    result := feChrome;
+  end
+  else if aValue = '.pdf' then
+  begin
+    result := fePdf;
+  end;;
 end;
 
 function SetTipeTahapanToString(aValue : TTipeTahapan) : String;

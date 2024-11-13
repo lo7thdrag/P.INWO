@@ -91,7 +91,8 @@ begin
 
   if saveDialog.Execute then
   begin
-    FAddressPath := PWideChar(saveDialog.FileName);
+    FAddressPath  := PWideChar(saveDialog.FileName);
+    fileNameTemp  := ExtractFileName(saveDialog.FileName);
 
     btnApply.Enabled := True;
   end
@@ -104,21 +105,18 @@ end;
 procedure TfrmReferensi.btnApplyClick(Sender: TObject);
 var
   addressTemp : PWideChar;
+  filNameTemp : string;
   saveDialog : TSaveDialog;
   saveFileTemp : TFile_Data;
   fileDataTemp : TRecFile_Data;
 
-  fileNameTemp : string;
-
 begin
-    saveDialog := TSaveDialog.Create(self);
-
     with FSelectedReferensi.FData do
     begin
       Nama_File           := edtNameDocument.Text;
       Directory_Path      := vGameDataSetting.FileReferensi;
-      Encripted_File_Name := ExtractFileName(FAddressPath);
-      Tipe_File           := ExtractFileExt(FAddressPath);
+      Encripted_File_Name := '';
+      Tipe_File           := ExtractFileExt(saveDialog.FileName);
       Modified_Date       := DateToStr(Now);
       Modified_By         := edtKategori.Text;
       id_User             := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
@@ -144,7 +142,7 @@ begin
         end;
       end;
 
-     CopyFile(PWideChar(FAddressPath), PWideChar(vGameDataSetting.FileReferensi + '\' + IntToStr(ID_File) + Tipe_File), False);
+     CopyFile(PWideChar(FAddressPath), PWideChar(vGameDataSetting.FileReferensi + '\' + IntToStr(ID_File) + '.docx'), False);
 
     end;
 
@@ -229,7 +227,7 @@ begin
       if ID_File = 0 then
         exit;
 
-      docPath := Directory_Path + '\' + IntToStr(ID_File) + Tipe_File;
+      docPath := Directory_Path + '\' + IntToStr(ID_File) + '.docx';
       if FileExists(docPath) then
       begin
         FAddressPath := docPath;
