@@ -684,7 +684,9 @@ end;
 
 procedure TfrmDisplayArea.btnAddAssetClick(Sender: TObject);
 begin
-  frmAsset := TfrmAsset.Create(Self);
+  if not Assigned(frmAsset) then
+    frmAsset := TfrmAsset.Create(Self);
+
   try
     with frmAsset do
     begin
@@ -692,7 +694,6 @@ begin
       Show;
     end;
   finally
-//    frmAsset.Free;
   end;
     UpdateDataAset;
 end;
@@ -722,7 +723,9 @@ procedure TfrmDisplayArea.btnEditAssetClick(Sender: TObject);
 begin
   if lvAsset.ItemIndex <> -1 then
   begin
-    frmAsset := TfrmAsset.Create(Self);
+    if not Assigned(frmAsset) then
+      frmAsset := TfrmAsset.Create(Self);
+
     try
       with frmAsset do
       begin
@@ -730,7 +733,6 @@ begin
         Show;
       end;
     finally
-//      frmAsset.Free;
     end;
 
     UpdateDataAset;
