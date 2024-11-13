@@ -300,17 +300,15 @@ begin
 
     if FData.Vehicle_Index = 0 then
     begin
-      if dmINWO.InsertVehicleDef(FData) then
+      if dmINWO.InsertVehicleDef(FSelectedAsset.FData) then
       begin
-//        dmINWO.InsertNoteStorage(1, FData.Vehicle_Index, FNote);
         ShowMessage('Data has been saved');
       end;
     end
     else
     begin
-      if dmINWO.UpdateVehicleDef(FData) then
+      if dmINWO.UpdateVehicleDef(FSelectedAsset.FData) then
       begin
-//        dmINWO.UpdateNoteStorage(FData.Vehicle_Index, FNote);
         ShowMessage('Data has been updated');;
       end;
     end;
@@ -408,7 +406,7 @@ begin
   end;
 
   try
-    Image.Picture.LoadFromFile('data\Image DBEditor\Interface\' + edtModelPath.Text + '.PNG');
+//    Image.Picture.LoadFromFile('data\Image DBEditor\Interface\' + edtModelPath.Text + '.PNG');
   except
     ShowMessage('Model is not found');
   end;
@@ -1065,6 +1063,8 @@ begin
       Exit;
     end;
   end;
+
+  Result := True;
 end;
 
 procedure TfrmAsset.CheckBoxDataClick(Sender: TObject);
@@ -1346,7 +1346,7 @@ begin
     lblKeteranganSymbol.Caption := aFontTaktis.FData.KETERANGAN;
 
     try
-      Image.Picture.LoadFromFile('data\Image DBEditor\Interface\' + Vbs_Class_Name + '.PNG');
+//      Image.Picture.LoadFromFile('data\Image DBEditor\Interface\' + Vbs_Class_Name + '.PNG');
     except
       Image.Picture.LoadFromFile('data\Image DBEditor\Interface\NoModel.bmp');
     end;
@@ -1433,9 +1433,6 @@ procedure TfrmAsset.ValidationFormatInput;
 var
   i, j: Integer;
   value : Double;
-  hStr, mStr, sStr, hmSeparator, msSeparator : string;
-  h, m, s : Integer;
-  aTimeStr : string;
   flag : Boolean;
 
 begin
@@ -1459,43 +1456,6 @@ begin
       end;
 
       Continue;
-    end;
-
-    if Components[i] is TMaskEdit then
-    begin
-      aTimeStr := TMaskEdit(Components[i]).Text;
-      flag := False;
-
-      hStr := Copy(aTimeStr, 1, 2);
-      TryStrToInt(hStr, h);
-
-      mStr := Copy(aTimeStr, 4, 2);
-      TryStrToInt(mStr, m);
-
-      sStr := Copy(aTimeStr, 7, 2);
-      TryStrToInt(sStr, s);
-
-      if h > 23 then
-      begin
-        hStr := '23';
-        flag := True;
-      end;
-
-      if m > 59 then
-      begin
-        mStr := '59';
-        flag := True;
-      end;
-
-      if s > 59 then
-      begin
-        sStr := '59';
-        flag := True;
-      end;
-
-      if flag then
-        TMaskEdit(Components[i]).Text := hStr + ':' + mStr + ':' + sStr;
-
     end;
   end;
 end;

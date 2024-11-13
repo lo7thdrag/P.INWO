@@ -653,7 +653,10 @@ var
 begin
   lvAsset.Items.Clear;
 
-  dmINWO.GetAllVehicleDef(FAssetList);
+  if flagTable = True then
+    dmINWO.GetSearchVehicle(ItemSearchIndex, SearchName, FAssetList)
+  else
+    dmINWO.GetAllVehicleDef(FAssetList);
 
   for i := 0 to FAssetList.Count - 1 do
   begin
@@ -664,6 +667,8 @@ begin
     li.SubItems.Add(AssetTemp.FData.Vehicle_Identifier);
     li.SubItems.Add(IntToStr(AssetTemp.FData.Platform_Domain));
     li.SubItems.Add(IntToStr(AssetTemp.FData.Platform_Category));
+
+    li.Data := AssetTemp;
   end;
 end;
 
@@ -677,7 +682,7 @@ begin
       Show;
     end;
   finally
-    frmAsset.Free;
+//    frmAsset.Free;
   end;
     UpdateDataAset;
 end;
@@ -715,7 +720,7 @@ begin
         Show;
       end;
     finally
-      frmAsset.Free;
+//      frmAsset.Free;
     end;
 
     UpdateDataAset;

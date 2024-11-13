@@ -79,6 +79,7 @@ type
     function GetAllVehicleDef(var aList: TList): Integer;
     function GetVehicleDef(const aClassName: string): Integer; overload;
     function GetVehicleDef(const aVehicleID: Integer; var aResult: TVehicle_Definition): boolean; overload;
+    function GetSearchVehicle(var FilterIndex: Integer; SearchContent: string; aList:TList): Integer;
 
     function InsertVehicleDef(var aRec: TRecVehicle_Definition): Boolean;
     function UpdateVehicleDef(var aRec: TRecVehicle_Definition): Boolean;
@@ -1267,6 +1268,7 @@ begin
   end;
 end;
 
+
 function TdmINWO.GetUserRoleByName(var rec: TRecUser_Role): Integer;
 begin
   Result := -1;
@@ -1795,8 +1797,7 @@ begin
           Platform_Domain := FieldByName('Platform_Domain').AsInteger;
           Platform_Category := FieldByName('Platform_Category').AsInteger;
           Platform_Type := FieldByName('Platform_Type').AsInteger;
-//          Motion_Characteristics := FieldByName('Motion_Characteristics')
-//            .AsInteger;
+//          Motion_Characteristics := FieldByName('Motion_Characteristics').AsInteger;
           Length := FieldByName('Length').AsSingle;
           Width := FieldByName('Width').AsSingle;
           Height := FieldByName('Height').AsSingle;
@@ -2242,7 +2243,7 @@ begin
           RearGangway := FieldByName('RearGangway').AsBoolean;
           PortGangway := FieldByName('PortGangway').AsBoolean;
           StarBoardGangway := FieldByName('StarBoardGangway').AsBoolean;
-          DWT := FieldByName('DWT').AsSingle;
+//          DWT := FieldByName('DWT').AsSingle;
         end;
 
 //        with rec.FNote do
@@ -2402,7 +2403,7 @@ begin
         RearGangway := FieldByName('RearGangway').AsBoolean;
         PortGangway := FieldByName('PortGangway').AsBoolean;
         StarBoardGangway := FieldByName('StarBoardGangway').AsBoolean;
-        DWT := FieldByName('DWT').AsSingle;
+//        DWT := FieldByName('DWT').AsSingle;
       end;
     end;
   end;
@@ -2421,53 +2422,12 @@ begin
     SQL.Clear;
     SQL.Add('INSERT INTO Vehicle_Definition');
     SQL.Add('(Vehicle_Identifier, Platform_Domain, Platform_Category,');
-    SQL.Add('Platform_Type, Motion_Characteristics, Length, Width, Height,');
-    SQL.Add('Draft, Front_Radar_Cross, Side_Radar_Cross,');
-    SQL.Add('Front_Acoustic_Cross, Side_Acoustic_Cross,Magnetic_Cross,');
-    SQL.Add('Front_Visual_EO_Cross, Side_Visual_EO_Cross,');
-    SQL.Add('Front_Infrared_Cross, Side_Infrared_Cross,');
-    SQL.Add('LSpeed_Acoustic_Intens, Below_Cav_Acoustic_Intens,');
-    SQL.Add('Above_Cav_Acoustic_Intens, HSpeed_Acoustic_Intens,');
-    SQL.Add('Cavitation_Speed_Switch, Time_of_Weapon_Impact,');
-    SQL.Add('Chaff_Seduction_Capable, Seduction_Mode_Prob,');
-    SQL.Add('Min_Delay_Between_Chaff_Rounds, Max_Chaff_Salvo_Size,');
-    SQL.Add('SARH_POH_Modifier, CG_POH_Modifier, TARH_POH_Modifier,');
-    SQL.Add('IR_POH_Modifier, AR_POH_Modifier,');
-    SQL.Add('Active_Acoustic_Tor_POH_Mod, Passive_Acoustic_Tor_POH_Mod,');
-    SQL.Add('Active_Passive_Tor_POH_Mod, Wake_Home_POH_Modifier,');
-    SQL.Add('Wire_Guide_POH_Modifier, Mag_Mine_POH_Modifier,');
-    SQL.Add('Press_Mine_POH_Modifier, Impact_Mine_POH_Modifier,');
-    SQL.Add('Acoustic_Mine_POH_Modifier, Sub_Comm_Antenna_Height,');
-    SQL.Add('Rel_Comm_Antenna_Height, Max_Comm_Operating_Depth,');
-    SQL.Add('HF_Link_Capable, UHF_Link_Capable, HF_Voice_Capable,');
-    SQL.Add('VHF_Voice_Capable, UHF_Voice_Capable, SATCOM_Voice_Capable,');
-    SQL.Add('UWT_Voice_Capable, HF_MHS_Capable, UHF_MHS_Capable,');
-    SQL.Add('Satcom_MHS_Capable, Damage_Capacity, Plat_Basing_Capability,');
-    SQL.Add('Chaff_Capability, Readying_Time, Sonobuoy_Capable,');
-    SQL.Add('Nav_Light_Capable, Periscope_Depth,');
-    SQL.Add('Periscope_Height_Above_Water, Periscope_Front_Radar_Xsection,');
-    SQL.Add('Periscope_Side_Radar_Xsection, Periscope_Front_Vis_Xsection,');
-    SQL.Add('Periscope_Side_Vis_Xsection, Periscope_Front_IR_Xsection,');
-    SQL.Add('Periscope_Side_IR_Xsection, Engagement_Range,');
-    SQL.Add('Auto_Air_Defense_Capable, Alert_State_Time,');
-    SQL.Add('Detectability_Type, Max_Sonobuoys_To_Monitor,');
-    SQL.Add('Sonobuoy_Deploy_Max_Altitude, Sonobuoy_Deploy_Min_Altitude,');
-    SQL.Add('Sonobuoy_Deploy_Max_Speed, Air_Drop_Torpedo_Max_Altitude,');
-    SQL.Add('Air_Drop_Torpedo_Min_Altitude, Air_Drop_Torpedo_Max_Speed,');
-    SQL.Add('TMA_Rate_Factor, HMS_Noise_Reduction_Factor,');
-    SQL.Add('TAS_Noise_Reduction_Factor, Infrared_Decoy_Capable,');
-    SQL.Add('HF_Mid_Course_Update_Capable, UHF_Mid_Course_Update_Capable,');
-    SQL.Add('Platform_Capability_Index,');
-    SQL.Add('Logistics_Index,');
-    SQL.Add('SATCOM_Mid_Course_Update_Capable,');
-    SQL.Add('font_id, vbs_class_name, ');
-    SQL.Add('Quantity_Group_Personal,');
-    SQL.Add('GangwayPosition,');
+    SQL.Add('Motion_Characteristics,');
+    SQL.Add('font_id, vbs_class_name,');
     SQL.Add('FrontGangway,');
     SQL.Add('RearGangway,');
     SQL.Add('PortGangway,');
-    SQL.Add('StarBoardGangway,');
-    SQL.Add('DWT)');
+    SQL.Add('StarBoardGangway)');
     SQL.Add('VALUES (');
 
     with aRec do
@@ -2475,101 +2435,13 @@ begin
       SQL.Add(QuotedStr(Vehicle_Identifier) + ', ');
       SQL.Add(IntToStr(Platform_Domain) + ', ');
       SQL.Add(IntToStr(Platform_Category) + ', ');
-      SQL.Add(IntToStr(Platform_Type) + ', ');
-//      SQL.Add(IntToStr(Motion_Characteristics) + ', ');
-      SQL.Add(FloatToStr(Length) + ', ');
-      SQL.Add(FloatToStr(Width) + ', ');
-      SQL.Add(FloatToStr(Height) + ', ');
-      SQL.Add(FloatToStr(Draft) + ', ');
-//      SQL.Add(FloatToStr(Front_Radar_Cross) + ', ');
-//      SQL.Add(FloatToStr(Side_Radar_Cross) + ', ');
-//      SQL.Add(FloatToStr(Front_Acoustic_Cross) + ', ');
-//      SQL.Add(FloatToStr(Side_Acoustic_Cross) + ', ');
-//      SQL.Add(FloatToStr(Magnetic_Cross) + ', ');
-//      SQL.Add(FloatToStr(Front_Visual_EO_Cross) + ', ');
-//      SQL.Add(FloatToStr(Side_Visual_EO_Cross) + ', ');
-//      SQL.Add(FloatToStr(Front_Infrared_Cross) + ', ');
-//      SQL.Add(FloatToStr(Side_Infrared_Cross) + ', ');
-//      SQL.Add(FloatToStr(LSpeed_Acoustic_Intens) + ', ');
-//      SQL.Add(FloatToStr(Below_Cav_Acoustic_Intens) + ', ');
-//      SQL.Add(FloatToStr(Above_Cav_Acoustic_Intens) + ', ');
-//      SQL.Add(FloatToStr(HSpeed_Acoustic_Intens) + ', ');
-//      SQL.Add(FloatToStr(Cavitation_Speed_Switch) + ', ');
-//      SQL.Add(IntToStr(Time_of_Weapon_Impact) + ', ');
-//      SQL.Add(BoolToStr(Chaff_Seduction_Capable) + ', ');
-//      SQL.Add(FloatToStr(Seduction_Mode_Prob) + ', ');
-//      SQL.Add(IntToStr(Min_Delay_Between_Chaff_Rounds) + ', ');
-//      SQL.Add(IntToStr(Max_Chaff_Salvo_Size) + ', ');
-//      SQL.Add(FloatToStr(SARH_POH_Modifier) + ', ');
-//      SQL.Add(FloatToStr(CG_POH_Modifier) + ', ');
-//      SQL.Add(FloatToStr(TARH_POH_Modifier) + ', ');
-//      SQL.Add(FloatToStr(IR_POH_Modifier) + ', ');
-//      SQL.Add(FloatToStr(AR_POH_Modifier) + ', ');
-//      SQL.Add(FloatToStr(Active_Acoustic_Tor_POH_Mod) + ', ');
-//      SQL.Add(FloatToStr(Passive_Acoustic_Tor_POH_Mod) + ', ');
-//      SQL.Add(FloatToStr(Active_Passive_Tor_POH_Mod) + ', ');
-//      SQL.Add(FloatToStr(Wake_Home_POH_Modifier) + ', ');
-//      SQL.Add(FloatToStr(Wire_Guide_POH_Modifier) + ', ');
-//      SQL.Add(FloatToStr(Mag_Mine_POH_Modifier) + ', ');
-//      SQL.Add(FloatToStr(Press_Mine_POH_Modifier) + ', ');
-//      SQL.Add(FloatToStr(Impact_Mine_POH_Modifier) + ', ');
-//      SQL.Add(FloatToStr(Acoustic_Mine_POH_Modifier) + ', ');
-//      SQL.Add(FloatToStr(Sub_Comm_Antenna_Height) + ', ');
-//      SQL.Add(FloatToStr(Rel_Comm_Antenna_Height) + ', ');
-//      SQL.Add(FloatToStr(Max_Comm_Operating_Depth) + ', ');
-//      SQL.Add(BoolToStr(HF_Link_Capable) + ', ');
-//      SQL.Add(BoolToStr(UHF_Link_Capable) + ', ');
-//      SQL.Add(BoolToStr(HF_Voice_Capable) + ', ');
-//      SQL.Add(BoolToStr(VHF_Voice_Capable) + ', ');
-//      SQL.Add(BoolToStr(UHF_Voice_Capable) + ', ');
-//      SQL.Add(BoolToStr(SATCOM_Voice_Capable) + ', ');
-//      SQL.Add(BoolToStr(UWT_Voice_Capable) + ', ');
-//      SQL.Add(BoolToStr(HF_MHS_Capable) + ', ');
-//      SQL.Add(BoolToStr(UHF_MHS_Capable) + ', ');
-//      SQL.Add(BoolToStr(SATCOM_MHS_Capable) + ', ');
-//      SQL.Add(IntToStr(Damage_Capacity) + ', ');
-//      SQL.Add(BoolToStr(Plat_Basing_Capability) + ', ');
-//      SQL.Add(BoolToStr(Chaff_Capability) + ', ');
-//      SQL.Add(IntToStr(Readying_Time) + ', ');
-//      SQL.Add(BoolToStr(Sonobuoy_Capable) + ', ');
-//      SQL.Add(BoolToStr(Nav_Light_Capable) + ', ');
-      SQL.Add(FloatToStr(Periscope_Depth) + ', ');
-      SQL.Add(FloatToStr(Periscope_Height_Above_Water) + ', ');
-//      SQL.Add(FloatToStr(Periscope_Front_Radar_Xsection) + ', ');
-//      SQL.Add(FloatToStr(Periscope_Side_Radar_Xsection) + ', ');
-//      SQL.Add(FloatToStr(Periscope_Front_Vis_Xsection) + ', ');
-//      SQL.Add(FloatToStr(Periscope_Side_Vis_Xsection) + ', ');
-//      SQL.Add(FloatToStr(Periscope_Front_IR_Xsection) + ', ');
-//      SQL.Add(FloatToStr(Periscope_Side_IR_Xsection) + ', ');
-      SQL.Add(FloatToStr(Engagement_Range) + ', ');
-//      SQL.Add(BoolToStr(Auto_Air_Defense_Capable) + ', ');
-//      SQL.Add(FloatToStr(Alert_State_Time) + ', ');
-//      SQL.Add(IntToStr(Detectability_Type) + ', ');
-//      SQL.Add(IntToStr(Max_Sonobuoys_To_Monitor) + ', ');
-//      SQL.Add(IntToStr(Sonobuoy_Deploy_Max_Altitude) + ', ');
-//      SQL.Add(IntToStr(Sonobuoy_Deploy_Min_Altitude) + ', ');
-//      SQL.Add(IntToStr(Sonobuoy_Deploy_Max_Speed) + ', ');
-//      SQL.Add(IntToStr(Air_Drop_Torpedo_Max_Altitude) + ', ');
-//      SQL.Add(IntToStr(Air_Drop_Torpedo_Min_Altitude) + ', ');
-//      SQL.Add(IntToStr(Air_Drop_Torpedo_Max_Speed) + ', ');
-//      SQL.Add(FloatToStr(TMA_Rate_Factor) + ', ');
-//      SQL.Add(FloatToStr(HMS_Noise_Reduction_Factor) + ', ');
-//      SQL.Add(FloatToStr(TAS_Noise_Reduction_Factor) + ', ');
-//      SQL.Add(BoolToStr(Infrared_Decoy_Capable) + ', ');
-//      SQL.Add(BoolToStr(HF_Mid_Course_Update_Capable) + ', ');
-//      SQL.Add(BoolToStr(UHF_Mid_Course_Update_Capable) + ', ');
-//      SQL.Add(IntToStr(Platform_Capability_Index) + ', ');
-//      SQL.Add(IntToStr(Logistics_Index) + ', ');
-//      SQL.Add(BoolToStr(SATCOM_Mid_Course_Update_Capable) + ',');
+      SQL.Add(IntToStr(11) + ', ');
       SQL.Add(IntToStr(Font_id) + ', ');
       SQL.Add(QuotedStr(VBS_Class_Name) + ', ');
-//      SQL.Add(IntToStr(Quantity_Group_Personal) + ', ');
-//      SQL.Add(IntToStr(GangwayPosition) + ', ');
       SQL.Add(BoolToStr(FrontGangway) + ', ');
       SQL.Add(BoolToStr(RearGangway) + ', ');
       SQL.Add(BoolToStr(PortGangway) + ', ');
-      SQL.Add(BoolToStr(StarBoardGangway) + ', ');
-      SQL.Add(FloatToStr(DWT) + ')');
+      SQL.Add(BoolToStr(StarBoardGangway) + ')');
       ExecSQL;
 
       SQL.Clear;
@@ -2586,6 +2458,179 @@ begin
 
         Vehicle_Index := FieldByName('Vehicle_Index').AsInteger;
       end;
+
+      {$REGION ' bukan kodingan ku'}
+//    SQL.Clear;
+//    SQL.Add('INSERT INTO Vehicle_Definition');
+//    SQL.Add('(Vehicle_Identifier, Platform_Domain, Platform_Category,');
+////    SQL.Add('Platform_Type, Length, Width, Height,');
+//    SQL.Add('Platform_Type, Motion_Characteristics, Length, Width, Height,');
+////    SQL.Add('Draft, Front_Radar_Cross, Side_Radar_Cross,');
+////    SQL.Add('Front_Acoustic_Cross, Side_Acoustic_Cross,Magnetic_Cross,');
+////    SQL.Add('Front_Visual_EO_Cross, Side_Visual_EO_Cross,');
+////    SQL.Add('Front_Infrared_Cross, Side_Infrared_Cross,');
+////    SQL.Add('LSpeed_Acoustic_Intens, Below_Cav_Acoustic_Intens,');
+////    SQL.Add('Above_Cav_Acoustic_Intens, HSpeed_Acoustic_Intens,');
+////    SQL.Add('Cavitation_Speed_Switch, Time_of_Weapon_Impact,');
+////    SQL.Add('Chaff_Seduction_Capable, Seduction_Mode_Prob,');
+////    SQL.Add('Min_Delay_Between_Chaff_Rounds, Max_Chaff_Salvo_Size,');
+////    SQL.Add('SARH_POH_Modifier, CG_POH_Modifier, TARH_POH_Modifier,');
+////    SQL.Add('IR_POH_Modifier, AR_POH_Modifier,');
+////    SQL.Add('Active_Acoustic_Tor_POH_Mod, Passive_Acoustic_Tor_POH_Mod,');
+////    SQL.Add('Active_Passive_Tor_POH_Mod, Wake_Home_POH_Modifier,');
+////    SQL.Add('Wire_Guide_POH_Modifier, Mag_Mine_POH_Modifier,');
+////    SQL.Add('Press_Mine_POH_Modifier, Impact_Mine_POH_Modifier,');
+////    SQL.Add('Acoustic_Mine_POH_Modifier, Sub_Comm_Antenna_Height,');
+////    SQL.Add('Rel_Comm_Antenna_Height, Max_Comm_Operating_Depth,');
+////    SQL.Add('HF_Link_Capable, UHF_Link_Capable, HF_Voice_Capable,');
+////    SQL.Add('VHF_Voice_Capable, UHF_Voice_Capable, SATCOM_Voice_Capable,');
+////    SQL.Add('UWT_Voice_Capable, HF_MHS_Capable, UHF_MHS_Capable,');
+////    SQL.Add('Satcom_MHS_Capable, Damage_Capacity, Plat_Basing_Capability,');
+////    SQL.Add('Chaff_Capability, Readying_Time, Sonobuoy_Capable,');
+////    SQL.Add('Nav_Light_Capable, Periscope_Depth,');
+////    SQL.Add('Periscope_Height_Above_Water, Periscope_Front_Radar_Xsection,');
+////    SQL.Add('Periscope_Side_Radar_Xsection, Periscope_Front_Vis_Xsection,');
+////    SQL.Add('Periscope_Side_Vis_Xsection, Periscope_Front_IR_Xsection,');
+////    SQL.Add('Periscope_Side_IR_Xsection, Engagement_Range,');
+////    SQL.Add('Auto_Air_Defense_Capable, Alert_State_Time,');
+////    SQL.Add('Detectability_Type, Max_Sonobuoys_To_Monitor,');
+////    SQL.Add('Sonobuoy_Deploy_Max_Altitude, Sonobuoy_Deploy_Min_Altitude,');
+////    SQL.Add('Sonobuoy_Deploy_Max_Speed, Air_Drop_Torpedo_Max_Altitude,');
+////    SQL.Add('Air_Drop_Torpedo_Min_Altitude, Air_Drop_Torpedo_Max_Speed,');
+////    SQL.Add('TMA_Rate_Factor, HMS_Noise_Reduction_Factor,');
+////    SQL.Add('TAS_Noise_Reduction_Factor, Infrared_Decoy_Capable,');
+////    SQL.Add('HF_Mid_Course_Update_Capable, UHF_Mid_Course_Update_Capable,');
+////    SQL.Add('Platform_Capability_Index,');
+////    SQL.Add('Logistics_Index,');
+////    SQL.Add('SATCOM_Mid_Course_Update_Capable,');
+//    SQL.Add('font_id, vbs_class_name, ');
+////    SQL.Add('Quantity_Group_Personal,');
+//    SQL.Add('GangwayPosition,');
+//    SQL.Add('FrontGangway,');
+//    SQL.Add('RearGangway,');
+//    SQL.Add('PortGangway,');
+//    SQL.Add('StarBoardGangway)');
+////    SQL.Add('DWT)');
+//    SQL.Add('VALUES (');
+//
+//    with aRec do
+//    begin
+//      SQL.Add(QuotedStr(Vehicle_Identifier) + ', ');
+//      SQL.Add(IntToStr(Platform_Domain) + ', ');
+//      SQL.Add(IntToStr(Platform_Category) + ', ');
+//      SQL.Add(IntToStr(Platform_Type) + ', ');
+//      SQL.Add(IntToStr(Motion_Characteristics) + ', ');
+//      SQL.Add(FloatToStr(Length) + ', ');
+//      SQL.Add(FloatToStr(Width) + ', ');
+//      SQL.Add(FloatToStr(Height) + ', ');
+//      SQL.Add(FloatToStr(Draft) + ', ');
+////      SQL.Add(FloatToStr(Front_Radar_Cross) + ', ');
+////      SQL.Add(FloatToStr(Side_Radar_Cross) + ', ');
+////      SQL.Add(FloatToStr(Front_Acoustic_Cross) + ', ');
+////      SQL.Add(FloatToStr(Side_Acoustic_Cross) + ', ');
+////      SQL.Add(FloatToStr(Magnetic_Cross) + ', ');
+////      SQL.Add(FloatToStr(Front_Visual_EO_Cross) + ', ');
+////      SQL.Add(FloatToStr(Side_Visual_EO_Cross) + ', ');
+////      SQL.Add(FloatToStr(Front_Infrared_Cross) + ', ');
+////      SQL.Add(FloatToStr(Side_Infrared_Cross) + ', ');
+////      SQL.Add(FloatToStr(LSpeed_Acoustic_Intens) + ', ');
+////      SQL.Add(FloatToStr(Below_Cav_Acoustic_Intens) + ', ');
+////      SQL.Add(FloatToStr(Above_Cav_Acoustic_Intens) + ', ');
+////      SQL.Add(FloatToStr(HSpeed_Acoustic_Intens) + ', ');
+////      SQL.Add(FloatToStr(Cavitation_Speed_Switch) + ', ');
+////      SQL.Add(IntToStr(Time_of_Weapon_Impact) + ', ');
+////      SQL.Add(BoolToStr(Chaff_Seduction_Capable) + ', ');
+////      SQL.Add(FloatToStr(Seduction_Mode_Prob) + ', ');
+////      SQL.Add(IntToStr(Min_Delay_Between_Chaff_Rounds) + ', ');
+////      SQL.Add(IntToStr(Max_Chaff_Salvo_Size) + ', ');
+////      SQL.Add(FloatToStr(SARH_POH_Modifier) + ', ');
+////      SQL.Add(FloatToStr(CG_POH_Modifier) + ', ');
+////      SQL.Add(FloatToStr(TARH_POH_Modifier) + ', ');
+////      SQL.Add(FloatToStr(IR_POH_Modifier) + ', ');
+////      SQL.Add(FloatToStr(AR_POH_Modifier) + ', ');
+////      SQL.Add(FloatToStr(Active_Acoustic_Tor_POH_Mod) + ', ');
+////      SQL.Add(FloatToStr(Passive_Acoustic_Tor_POH_Mod) + ', ');
+////      SQL.Add(FloatToStr(Active_Passive_Tor_POH_Mod) + ', ');
+////      SQL.Add(FloatToStr(Wake_Home_POH_Modifier) + ', ');
+////      SQL.Add(FloatToStr(Wire_Guide_POH_Modifier) + ', ');
+////      SQL.Add(FloatToStr(Mag_Mine_POH_Modifier) + ', ');
+////      SQL.Add(FloatToStr(Press_Mine_POH_Modifier) + ', ');
+////      SQL.Add(FloatToStr(Impact_Mine_POH_Modifier) + ', ');
+////      SQL.Add(FloatToStr(Acoustic_Mine_POH_Modifier) + ', ');
+////      SQL.Add(FloatToStr(Sub_Comm_Antenna_Height) + ', ');
+////      SQL.Add(FloatToStr(Rel_Comm_Antenna_Height) + ', ');
+////      SQL.Add(FloatToStr(Max_Comm_Operating_Depth) + ', ');
+////      SQL.Add(BoolToStr(HF_Link_Capable) + ', ');
+////      SQL.Add(BoolToStr(UHF_Link_Capable) + ', ');
+////      SQL.Add(BoolToStr(HF_Voice_Capable) + ', ');
+////      SQL.Add(BoolToStr(VHF_Voice_Capable) + ', ');
+////      SQL.Add(BoolToStr(UHF_Voice_Capable) + ', ');
+////      SQL.Add(BoolToStr(SATCOM_Voice_Capable) + ', ');
+////      SQL.Add(BoolToStr(UWT_Voice_Capable) + ', ');
+////      SQL.Add(BoolToStr(HF_MHS_Capable) + ', ');
+////      SQL.Add(BoolToStr(UHF_MHS_Capable) + ', ');
+////      SQL.Add(BoolToStr(SATCOM_MHS_Capable) + ', ');
+////      SQL.Add(IntToStr(Damage_Capacity) + ', ');
+////      SQL.Add(BoolToStr(Plat_Basing_Capability) + ', ');
+////      SQL.Add(BoolToStr(Chaff_Capability) + ', ');
+////      SQL.Add(IntToStr(Readying_Time) + ', ');
+////      SQL.Add(BoolToStr(Sonobuoy_Capable) + ', ');
+////      SQL.Add(BoolToStr(Nav_Light_Capable) + ', ');
+//      SQL.Add(FloatToStr(Periscope_Depth) + ', ');
+//      SQL.Add(FloatToStr(Periscope_Height_Above_Water) + ', ');
+////      SQL.Add(FloatToStr(Periscope_Front_Radar_Xsection) + ', ');
+////      SQL.Add(FloatToStr(Periscope_Side_Radar_Xsection) + ', ');
+////      SQL.Add(FloatToStr(Periscope_Front_Vis_Xsection) + ', ');
+////      SQL.Add(FloatToStr(Periscope_Side_Vis_Xsection) + ', ');
+////      SQL.Add(FloatToStr(Periscope_Front_IR_Xsection) + ', ');
+////      SQL.Add(FloatToStr(Periscope_Side_IR_Xsection) + ', ');
+//      SQL.Add(FloatToStr(Engagement_Range) + ', ');
+////      SQL.Add(BoolToStr(Auto_Air_Defense_Capable) + ', ');
+////      SQL.Add(FloatToStr(Alert_State_Time) + ', ');
+////      SQL.Add(IntToStr(Detectability_Type) + ', ');
+////      SQL.Add(IntToStr(Max_Sonobuoys_To_Monitor) + ', ');
+////      SQL.Add(IntToStr(Sonobuoy_Deploy_Max_Altitude) + ', ');
+////      SQL.Add(IntToStr(Sonobuoy_Deploy_Min_Altitude) + ', ');
+////      SQL.Add(IntToStr(Sonobuoy_Deploy_Max_Speed) + ', ');
+////      SQL.Add(IntToStr(Air_Drop_Torpedo_Max_Altitude) + ', ');
+////      SQL.Add(IntToStr(Air_Drop_Torpedo_Min_Altitude) + ', ');
+////      SQL.Add(IntToStr(Air_Drop_Torpedo_Max_Speed) + ', ');
+////      SQL.Add(FloatToStr(TMA_Rate_Factor) + ', ');
+////      SQL.Add(FloatToStr(HMS_Noise_Reduction_Factor) + ', ');
+////      SQL.Add(FloatToStr(TAS_Noise_Reduction_Factor) + ', ');
+////      SQL.Add(BoolToStr(Infrared_Decoy_Capable) + ', ');
+////      SQL.Add(BoolToStr(HF_Mid_Course_Update_Capable) + ', ');
+////      SQL.Add(BoolToStr(UHF_Mid_Course_Update_Capable) + ', ');
+////      SQL.Add(IntToStr(Platform_Capability_Index) + ', ');
+////      SQL.Add(IntToStr(Logistics_Index) + ', ');
+////      SQL.Add(BoolToStr(SATCOM_Mid_Course_Update_Capable) + ',');
+//      SQL.Add(IntToStr(Font_id) + ', ');
+//      SQL.Add(QuotedStr(VBS_Class_Name) + ', ');
+////      SQL.Add(IntToStr(Quantity_Group_Personal) + ', ');
+////      SQL.Add(IntToStr(GangwayPosition) + ', ');
+//      SQL.Add(BoolToStr(FrontGangway) + ', ');
+//      SQL.Add(BoolToStr(RearGangway) + ', ');
+//      SQL.Add(BoolToStr(PortGangway) + ', ');
+////      SQL.Add(BoolToStr(StarBoardGangway) + ', ');
+//      SQL.Add(BoolToStr(StarBoardGangway) + ')');
+////      SQL.Add(FloatToStr(DWT) + ')');
+//      ExecSQL;
+//
+//      SQL.Clear;
+//      SQL.Add('SELECT *');
+//      SQL.Add('FROM Vehicle_Definition');
+//      SQL.Add('WHERE Vehicle_Identifier = ' + QuotedStr(Vehicle_Identifier));
+//      Open;
+//
+//      Result := RecordCount > 0;
+//
+//      if not IsEmpty then
+//      begin
+//        First;
+//
+//        Vehicle_Index := FieldByName('Vehicle_Index').AsInteger;
+//      end;
+{$ENDREGION}
     end;
   end;
 end;
@@ -2608,12 +2653,12 @@ begin
       SQL.Add('SET Vehicle_Identifier = ' + QuotedStr(Vehicle_Identifier));
       SQL.Add(', Platform_Domain = ' + IntToStr(Platform_Domain));
       SQL.Add(', Platform_Category = ' + IntToStr(Platform_Category));
-      SQL.Add(', Platform_Type = ' + IntToStr(Platform_Type));
-//      SQL.Add(', Motion_Characteristics = ' + IntToStr(Motion_Characteristics));
-      SQL.Add(', Length = ' + FloatToStr(Length));
-      SQL.Add(', Width = ' + FloatToStr(Width));
-      SQL.Add(', Height = ' + FloatToStr(Height));
-      SQL.Add(', Draft = ' + FloatToStr(Draft));
+//      SQL.Add(', Platform_Type = ' + IntToStr(Platform_Type));
+      SQL.Add(', Motion_Characteristics = ' + IntToStr(11));
+//      SQL.Add(', Length = ' + FloatToStr(Length));
+//      SQL.Add(', Width = ' + FloatToStr(Width));
+//      SQL.Add(', Height = ' + FloatToStr(Height));
+//      SQL.Add(', Draft = ' + FloatToStr(Draft));
 //      SQL.Add(', Front_Radar_Cross = ' + FloatToStr(Front_Radar_Cross));
 //      SQL.Add(', Side_Radar_Cross = ' + FloatToStr(Side_Radar_Cross));
 //      SQL.Add(', Front_Acoustic_Cross = ' + FloatToStr(Front_Acoustic_Cross));
@@ -2666,15 +2711,15 @@ begin
 //      SQL.Add(', Readying_Time = ' + IntToStr(Readying_Time));
 //      SQL.Add(', Sonobuoy_Capable = ' + BoolToStr(Sonobuoy_Capable));
 //      SQL.Add(', Nav_Light_Capable = ' + BoolToStr(Nav_Light_Capable));
-      SQL.Add(', Periscope_Depth = ' + FloatToStr(Periscope_Depth));
-      SQL.Add(', Periscope_Height_Above_Water = ' + FloatToStr(Periscope_Height_Above_Water));
+//      SQL.Add(', Periscope_Depth = ' + FloatToStr(Periscope_Depth));
+//      SQL.Add(', Periscope_Height_Above_Water = ' + FloatToStr(Periscope_Height_Above_Water));
 //      SQL.Add(', Periscope_Front_Radar_Xsection = ' + FloatToStr(Periscope_Front_Radar_Xsection));
 //      SQL.Add(', Periscope_Side_Radar_Xsection = ' + FloatToStr(Periscope_Side_Radar_Xsection));
 //      SQL.Add(', Periscope_Front_Vis_Xsection = ' + FloatToStr(Periscope_Front_Vis_Xsection));
 //      SQL.Add(', Periscope_Side_Vis_Xsection = ' +  FloatToStr(Periscope_Side_Vis_Xsection));
 //      SQL.Add(', Periscope_Front_IR_Xsection = ' + FloatToStr(Periscope_Front_IR_Xsection));
 //      SQL.Add(', Periscope_Side_IR_Xsection = ' + FloatToStr(Periscope_Side_IR_Xsection));
-      SQL.Add(', Engagement_Range = ' + FloatToStr(Engagement_Range));
+//      SQL.Add(', Engagement_Range = ' + FloatToStr(Engagement_Range));
 //      SQL.Add(', Auto_Air_Defense_Capable = ' + BoolToStr(Auto_Air_Defense_Capable));
 //      SQL.Add(', Alert_State_Time = ' + FloatToStr(Alert_State_Time));
 //      SQL.Add(', Detectability_Type = ' + IntToStr(Detectability_Type));
@@ -2702,8 +2747,8 @@ begin
       SQL.Add(', RearGangway = ' + BoolToStr(RearGangway));
       SQL.Add(', PortGangway = ' + BoolToStr(PortGangway));
       SQL.Add(', StarBoardGangway = ' + BoolToStr(StarBoardGangway));
-      SQL.Add(', DWT = ' + FloatToStr(DWT));
-//      SQL.Add('WHERE Vehicle_Index = ' + IntToStr(Vehicle_Index));
+//      SQL.Add(', DWT = ' + FloatToStr(DWT));
+      SQL.Add('WHERE Vehicle_Index = ' + IntToStr(Vehicle_Index));
       ExecSQL;
     end;
     Result := True;
@@ -2726,6 +2771,68 @@ begin
     ExecSQL;
 
     Result := True;
+  end;
+end;
+
+function TdmINWO.GetSearchVehicle(var FilterIndex: Integer; SearchContent: string; aList: TList): Integer;
+var
+  i : Integer;
+  rec : TVehicle_Definition;
+begin
+  Result := -1;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT * FROM Vehicle_Definition');
+    if FilterIndex = 1 then
+      SQL.Add('WHERE Platform_Domain = '  + SearchContent)
+    else if FilterIndex = 2 then
+      SQL.Add('WHERE Platform_Category = '  + IntToStr(StrToIntDef(SearchContent, 0)))
+    else if FilterIndex = 3 then
+      SQL.Add('WHERE Platform_Type = '  + IntToStr(StrToIntDef(SearchContent, 0)));
+
+    Open;
+
+    Result := RecordCount;
+
+    if Assigned(aList) then
+    begin
+      for i := 0 to aList.Count - 1 do
+      begin
+        rec := aList.Items[i];
+        rec.Free;
+      end;
+
+      aList.Clear;
+    end
+    else
+      aList := TList.Create;
+
+    if not IsEmpty then
+    begin
+      First;
+
+      while not Eof do
+      begin
+        rec := TVehicle_Definition.Create;
+
+        with rec.FDef do
+        begin
+          Vehicle_Identifier := FieldByName('Vehicle_Identifier').AsString;
+          Platform_Domain := FieldByName('Platform_Domain').AsInteger;
+          Platform_Category := FieldByName('Platform_Category').AsInteger;
+          Platform_Type := FieldByName('Platform_Type').AsInteger;
+        end;
+
+        aList.Add(rec);
+        Next;
+      end;
+    end;
   end;
 end;
 

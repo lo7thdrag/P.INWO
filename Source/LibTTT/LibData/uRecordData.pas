@@ -221,7 +221,7 @@ type
     Platform_Domain                    : byte;
     Platform_Category                  : byte;
     Platform_Type                      : byte;
-//    Motion_Characteristics             : integer;
+    Motion_Characteristics             : integer;
     Length                             : single;
     Width                              : single;
     Height                             : single;
