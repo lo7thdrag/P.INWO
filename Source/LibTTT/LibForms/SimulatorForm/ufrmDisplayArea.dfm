@@ -45124,22 +45124,25 @@ object frmDisplayArea: TfrmDisplayArea
         object pnlSparatorchat: TPanel
           Left = 8
           Top = 873
-          Width = 384
+          Width = 414
           Height = 15
           Align = alBottom
           BevelOuter = bvNone
           Color = clBackground
           TabOrder = 1
+          ExplicitWidth = 384
         end
         object pnlBottomChat: TPanel
           Left = 8
           Top = 888
-          Width = 384
+          Width = 414
           Height = 34
           Align = alBottom
           BevelOuter = bvNone
           Color = clBackground
           TabOrder = 2
+          Visible = False
+          ExplicitWidth = 384
           object edtChatBox: TEdit
             Left = 5
             Top = 3
@@ -45166,13 +45169,14 @@ object frmDisplayArea: TfrmDisplayArea
         object pnlHeaderChat: TPanel
           Left = 8
           Top = 8
-          Width = 384
+          Width = 414
           Height = 34
           Align = alTop
           BevelOuter = bvNone
           Color = 5918252
           ParentBackground = False
           TabOrder = 3
+          ExplicitWidth = 384
           object btnMessageChat: TSpeedButton
             Tag = 4
             Left = 48
@@ -45238,11 +45242,12 @@ object frmDisplayArea: TfrmDisplayArea
               F0D29283642D593A07593A07593A07593A075A3B08886932AE8F55B5975CB597
               5CB5975CB5975CB5975CB5975CB5975CB5975CB5975CB5975CB5975CB5975CB5
               975CB5975CAE9056795A25593A07593A07593A07593A07593A07}
+            Visible = False
             OnClick = btnMessageChatClick
           end
           object btnCloseChat: TSpeedButton
             Tag = 4
-            Left = 384
+            Left = 385
             Top = 5
             Width = 24
             Height = 24
@@ -45328,7 +45333,7 @@ object frmDisplayArea: TfrmDisplayArea
         object mmoChat: TMemo
           Left = 8
           Top = 42
-          Width = 384
+          Width = 414
           Height = 831
           Align = alClient
           BevelInner = bvNone
@@ -45341,11 +45346,12 @@ object frmDisplayArea: TfrmDisplayArea
           Font.Style = []
           ParentFont = False
           TabOrder = 0
+          ExplicitWidth = 384
         end
         object lstUserChat: TListBox
           Left = 8
           Top = 42
-          Width = 384
+          Width = 414
           Height = 831
           Align = alClient
           BevelInner = bvNone
@@ -45361,6 +45367,7 @@ object frmDisplayArea: TfrmDisplayArea
           ParentFont = False
           TabOrder = 4
           OnDblClick = lstUserChatDblClick
+          ExplicitWidth = 384
         end
       end
     end

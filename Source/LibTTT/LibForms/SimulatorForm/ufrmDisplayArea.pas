@@ -1821,6 +1821,11 @@ end;
 procedure TfrmDisplayArea.btnCloseChatClick(Sender: TObject);
 begin
   pnlRight.Width := 0;
+  lstUserChat.BringToFront;
+  mmoChat.Clear;
+  edtChatBox.Clear;
+  pnlBottomChat.Visible := False;
+
 end;
 
 procedure TfrmDisplayArea.btnMessageChatClick(Sender: TObject);
@@ -1830,6 +1835,9 @@ end;
 
 procedure TfrmDisplayArea.btnUserChatClick(Sender: TObject);
 begin
+  edtChatBox.Clear;
+  pnlBottomChat.Visible := False;
+  mmoChat.Clear;
   lstUserChat.BringToFront;
   UpdateClientChatting;
 end;
@@ -1860,6 +1868,7 @@ begin
 
   FSelectedUserChat := TUserRole(lstUserChat.Items.Objects[lstUserChat.ItemIndex]);
   mmoChat.BringToFront;
+  pnlBottomChat.Visible := True;
   UpdateClientHistoryChat(FSelectedUserChat.FData.UserRoleIndex, simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex);
 end;
 
@@ -1891,6 +1900,7 @@ begin
           mmoChat.Lines.Add('You :');
   //        mmoChat.Lines.Add('/n');
           mmoChat.Lines.Add(chattingTemp.ChatMessage);
+          mmoChat.Lines.Add('');
   //        mmoChat.Lines.Add('/n');
         end;
 
@@ -1898,9 +1908,11 @@ begin
         begin
           mmoChat.Font.Color := clBlue;
   //        mmoChat.Lines.Add(FSelectedUserChat.FData.UserRoleIdentifier + ' :');
-          mmoChat.Lines.Add(IntToStr(FSelectedUserChat.FData.UserRoleIndex) + ' :');
+//          mmoChat.Lines.Add(IntToStr(FSelectedUserChat.FData.UserRoleIndex) + ' :');
+            mmoChat.Lines.Add(FSelectedUserChat.FData.UserRoleIdentifier + ' :');
   //        mmoChat.Lines.Add('/n');
           mmoChat.Lines.Add(chattingTemp.ChatMessage);
+          mmoChat.Lines.Add('');
   //        mmoChat.Lines.Add('/n');
         end;
 //      end;
@@ -1932,6 +1944,7 @@ begin
    rec.ChatMessage := edtChatBox.Text;
 
    simMgrClient.netSend_CmdSendMessage(rec);
+   edtChatBox.Clear;
 end;
 
 procedure TfrmDisplayArea.UpdateClientChatting;
