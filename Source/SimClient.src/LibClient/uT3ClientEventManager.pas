@@ -41,7 +41,7 @@ end;
 procedure TT3ClientEventManager.OnUpdateUserRoleChatChange(id : integer);
 begin
   inherited;
-  frmDisplayArea.UpdateClientHistoryChat(id);
+  frmDisplayArea.UpdateClientHistoryChat(id, 1);
   frmDisplayArea.UpdateClientChatting;
 
 end;
