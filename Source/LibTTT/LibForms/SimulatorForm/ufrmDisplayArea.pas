@@ -376,7 +376,7 @@ type
   public
 
     procedure UpdateClientChatting;
-    procedure UpdateClientHistoryChat(IdSender, typechat : Integer);
+    procedure UpdateClientHistoryChat(IdSenderOrReceiver, typechat : Integer);
 
 
   end;
@@ -1863,7 +1863,7 @@ begin
   UpdateClientHistoryChat(FSelectedUserChat.FData.UserRoleIndex, 2);
 end;
 
-procedure TfrmDisplayArea.UpdateClientHistoryChat(IdSender, typechat: Integer);
+procedure TfrmDisplayArea.UpdateClientHistoryChat(IdSenderOrReceiver, typechat: Integer);
 var
 tempList : TList;
 i : Integer;
@@ -1873,14 +1873,16 @@ namaRole : string;
 begin
   tempList := TList.Create;
   try
-//  if Assigned(IdSender) then
-//  begin
-    SimManager.SimChatting.GetChattingBySending(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, IdSender, tempList);
+
+  {Berarti Kita yg Ngirim}
+  if typechat = 1 then
+  begin
+    SimManager.SimChatting.GetChattingBySending(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, IdSenderOrReceiver, tempList);
     mmoChat.Clear;
 
     // UNTUK UPDATE CHAT MASUK LEWAT SERVER
-    if typechat = 1 then
-    begin
+//    if typechat = 1 then
+//    begin
       for i := 0 to tempList.Count - 1 do
       begin
         chattingTemp := tempList.Items[i];
@@ -1892,11 +1894,11 @@ begin
           mmoChat.Lines.Add(chattingTemp.ChatMessage);
         end;
 
-        if (chattingTemp.IdUserRoleSending = IdSender) then
+        if (chattingTemp.IdUserRoleSending = IdSenderOrReceiver) then
         begin
           mmoChat.Font.Color := clBlue;
   //        mmoChat.Lines.Add(FSelectedUserChat.FData.UserRoleIdentifier + ' :');
-          mmoChat.Lines.Add(IntToStr(IdSender) + ' :');
+          mmoChat.Lines.Add(IntToStr(IdSenderOrReceiver) + ' :');
           mmoChat.Lines.Add(chattingTemp.ChatMessage);
         end;
 
@@ -1906,13 +1908,16 @@ begin
     //    mmoChat.Lines.Add(IntToStr(chattingTemp.IdUserRoleSending));
     //    mmoChat.Lines.Add(IntToStr(chattingTemp.IdUserRoleReceive));
     //    mmoChat.Lines.Add(chattingTemp.ChatMessage);
-  //    end;
+//      end;
       end;
     end
 
     // UNTUK UPDATE CHAT MASUK PAS DI KLIK NAMA ROLE DI LIST CHAT
     else if typechat = 2 then
     begin
+
+      SimManager.SimChatting.GetChattingByReceiving(IdSenderOrReceiver, FSelectedUserChat.FData.UserRoleIndex, tempList);
+
       for i := 0 to tempList.Count - 1 do
       begin
         chattingTemp := tempList.Items[i];
@@ -1924,11 +1929,11 @@ begin
           mmoChat.Lines.Add(chattingTemp.ChatMessage);
         end;
 
-        if (chattingTemp.IdUserRoleSending = IdSender) then
+        if (chattingTemp.IdUserRoleSending = IdSenderOrReceiver) then
         begin
           mmoChat.Font.Color := clBlue;
   //        mmoChat.Lines.Add(FSelectedUserChat.FData.UserRoleIdentifier + ' :');
-          mmoChat.Lines.Add(IntToStr(IdSender) + ' :');
+          mmoChat.Lines.Add(IntToStr(IdSenderOrReceiver) + ' :');
           mmoChat.Lines.Add(chattingTemp.ChatMessage);
         end;
 

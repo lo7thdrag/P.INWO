@@ -18,7 +18,7 @@ type
 
     procedure OnUpdateUserStateChange(state : Integer); override;
     procedure OnUpdateSituationBoardTabPropertiesChange; override;
-    procedure OnUpdateUserRoleChatChange(id : integer); override;
+    procedure OnUpdateUserRoleChatChange(id, typercvsnd : integer); override;
 
   end;
 
@@ -38,10 +38,17 @@ begin
 
 end;
 
-procedure TT3ClientEventManager.OnUpdateUserRoleChatChange(id : integer);
+procedure TT3ClientEventManager.OnUpdateUserRoleChatChange(id, typercvsnd : integer);
 begin
   inherited;
-  frmDisplayArea.UpdateClientHistoryChat(id, 1);
+  // GetChattingBySending
+  if typercvsnd = 1 then
+    frmDisplayArea.UpdateClientHistoryChat(id, 1)
+
+  // GetChattingByReceiving
+  else if typercvsnd = 2 then
+    frmDisplayArea.UpdateClientHistoryChat(id, 2);
+
   frmDisplayArea.UpdateClientChatting;
 
 end;
