@@ -912,7 +912,6 @@ begin
   UpdateSimbolTaktis;
 end;
 
-
 procedure TfrmDisplayArea.AddSearchTacticalSymbolItems;
 begin
   if cbbFilterSearch.ItemIndex = 1 then
@@ -1004,7 +1003,9 @@ end;
 
 procedure TfrmDisplayArea.btnAddTacticalSymbolClick(Sender: TObject);
 begin
-  frmSimbolTaktis := TfrmSimbolTaktis.Create(Self);
+  if not Assigned(frmSimbolTaktis) then
+     frmSimbolTaktis := TfrmSimbolTaktis.Create(Self);
+
   try
     with frmSimbolTaktis do
     begin
@@ -1012,7 +1013,6 @@ begin
       Show;
     end;
   finally
-    frmSimbolTaktis.Free;
   end;
     UpdateSimbolTaktis;
 end;
@@ -1062,7 +1062,9 @@ procedure TfrmDisplayArea.btnEditTacticalSymbolClick(Sender: TObject);
 begin
    if lvTacticalSymbol.ItemIndex <> -1 then
    begin
-      frmSimbolTaktis := TfrmSimbolTaktis.Create(Self);
+      if not Assigned(frmSimbolTaktis) then
+        frmSimbolTaktis := TfrmSimbolTaktis.Create(Self);
+
       try
         with frmSimbolTaktis do
         begin
@@ -1070,7 +1072,6 @@ begin
           Show;
         end;
       finally
-         frmSimbolTaktis.Free;
       end;
    end;
 
@@ -1234,7 +1235,9 @@ end;
 
 procedure TfrmDisplayArea.btnAddClick(Sender: TObject);
 begin
-  frmSummaryUserRole := TfrmSummaryUserRole.Create(self) ;
+  if not Assigned(frmSummaryUserRole) then
+    frmSummaryUserRole := TfrmSummaryUserRole.Create(self) ;
+
   try
     with frmSummaryUserRole do
     begin
@@ -1243,7 +1246,6 @@ begin
       SelectedUserRole.Free;
     end;
   finally
-    frmSummaryUserRole.Free
   end;
 
   UpdateDataPengguna;
@@ -1253,7 +1255,9 @@ procedure TfrmDisplayArea.btnEditClick(Sender: TObject);
 begin
  if lvUserRole.ItemIndex <> -1 then
   begin
-    frmSummaryUserRole := TfrmSummaryUserRole.Create(Self);
+    if not Assigned(frmSummaryUserRole) then
+       frmSummaryUserRole := TfrmSummaryUserRole.Create(Self);
+
     try
       with frmSummaryUserRole do
       begin
@@ -1262,7 +1266,6 @@ begin
 //        FUpdateList := AfterClose;
       end;
     finally
-      frmSummaryUserRole.Free;
     end;
 
 //    if FUpdateList then
@@ -1440,7 +1443,9 @@ begin
     Exit;
   end;
 
-  frmMapEditor := TfrmMapEditor.Create(Self);
+  if not Assigned(frmMapEditor) then
+    frmMapEditor := TfrmMapEditor.Create(Self);
+
   try
     with frmMapEditor do
     begin
@@ -1449,7 +1454,6 @@ begin
 //      FUpdateList := AfterClose;
     end;
   finally
-    frmMapEditor.Free;
   end;
 
 //  if FUpdateList then
@@ -1464,7 +1468,9 @@ begin
     Exit;
   end;
 
-  frmMapPreview := TfrmMapPreview.Create(Self);
+  if not Assigned(frmMapPreview) then
+    frmMapPreview := TfrmMapPreview.Create(Self);
+
   try
     with frmMapPreview do
     begin
@@ -1472,7 +1478,6 @@ begin
       Show;
     end;
   finally
-    frmMapPreview.Free;
   end;
 
 end;
