@@ -31,6 +31,7 @@ begin
   simMgrClient.OnUpdateGameState  := frmTacticalDisplay.UpdateGameState;
 
   frmTacticalDisplay.Initialize;
+  frmTacticalDisplay.lblConsoleName.Caption := simMgrClient.MyConsoleData.Identifier;
 
   VNetClient                  := TNetHandler_Client.Create;
   VNetClient.GamePort         := vNetSetting.GamePort;

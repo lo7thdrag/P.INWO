@@ -155,14 +155,15 @@ end;
 
 procedure TfrmSituationBoard.btnCreateTabClick(Sender: TObject);
 begin
-  frmCreateTab := TfrmCreateTab.Create(Self);
+  if not Assigned(frmCreateTab) then
+    frmCreateTab := TfrmCreateTab.Create(Self);
+
   try
     with frmCreateTab do
     begin
       Show;
     end;
   finally
-    frmCreateTab.Free;
   end;
 end;
 

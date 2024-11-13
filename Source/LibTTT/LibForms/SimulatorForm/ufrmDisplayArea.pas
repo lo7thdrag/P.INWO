@@ -382,6 +382,8 @@ type
 
   end;
 
+  function frmDisplayArea_Instance: TfrmDisplayArea;
+
 var
   frmDisplayArea: TfrmDisplayArea;
 
@@ -391,6 +393,14 @@ uses
   uDataModule;
 
 {$R *.dfm}
+
+function frmDisplayArea_Instance: TfrmDisplayArea;
+begin
+  if not Assigned(frmDisplayArea) then
+    Application.CreateForm(TfrmDisplayArea, frmDisplayArea);
+
+  Result := frmDisplayArea;
+end;
 
 procedure EnableComposited(WinControl:TWinControl);
 var
@@ -1404,7 +1414,9 @@ end;
 
 procedure TfrmDisplayArea.btnAddMapClick(Sender: TObject);
 begin
-  frmMapEditor := TfrmMapEditor.Create(Self);
+  if not Assigned(frmMapEditor) then
+    frmMapEditor := TfrmMapEditor.Create(Self);
+
   try
     with frmMapEditor do
     begin
@@ -1414,7 +1426,6 @@ begin
 //      FUpdateList := AfterClose;
     end;
   finally
-    frmMapEditor.Free;
   end;
 
 //  if FUpdateList then
@@ -1612,15 +1623,16 @@ end;
 
 procedure TfrmDisplayArea.btnUploadReferensiClick(Sender: TObject);
 begin
-  frmReferensi := TfrmReferensi.Create(Self);
+  if not Assigned(frmReferensi) then
+    frmReferensi := TfrmReferensi.Create(Self);
+
   try
     with frmReferensi do
     begin
       SelectedReferensi := TFile_Data.Create;
-      ShowModal;
+      Show;
     end;
   finally
-    frmReferensi.Free;
   end;
 
   UpdateDataReferensi;

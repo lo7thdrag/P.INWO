@@ -65,6 +65,7 @@ type
     lstUserRoleLogin: TListBox;
     lblUserIdentifier: TLabel;
     btnBack: TButton;
+    lblConsoleName: TLabel;
 
     procedure FormCreate(Sender: TObject);
     procedure btnShowPasswordClick(Sender: TObject);
@@ -81,6 +82,8 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure lstUserRoleLoginDblClick(Sender: TObject);
     procedure btnBackClick(Sender: TObject);
+    procedure FormResize(Sender: TObject);
+    procedure FormShow(Sender: TObject);
 
   private
     FSelectedSubRole : TSubRole;
@@ -455,6 +458,16 @@ begin
   FselectedUserRole.Free;
 end;
 
+procedure TfrmTacticalDisplay.FormResize(Sender: TObject);
+begin
+  lblConsoleName.Left := (pnlHome.Width-lblConsoleName.Width)div 2;
+end;
+
+procedure TfrmTacticalDisplay.FormShow(Sender: TObject);
+begin
+  lblConsoleName.Left := (pnlHome.Width-lblConsoleName.Width)div 2;
+end;
+
 procedure TfrmTacticalDisplay.Initialize;
 var
   i : Integer;
@@ -479,10 +492,8 @@ begin
 end;
 
 procedure TfrmTacticalDisplay.UpdateClientLogin(Sender: TObject);
-//var
-//  userRoleTemp : TUserRole;
 begin
-  frmDisplayArea.Show;
+  frmDisplayArea_Instance.Show;
 end;
 
 procedure TfrmTacticalDisplay.UpdateClientLogout(Sender: TObject);
