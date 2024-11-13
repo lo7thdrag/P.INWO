@@ -158,7 +158,6 @@ type
     Label40: TLabel;
     Label41: TLabel;
     Label42: TLabel;
-    edtCallSign: TEdit;
     Label43: TLabel;
     Label44: TLabel;
     procedure btnOKClick(Sender: TObject);
