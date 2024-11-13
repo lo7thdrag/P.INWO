@@ -1574,7 +1574,7 @@ end;
 
 procedure TfrmDisplayArea.ReferensiClick(Sender: TObject);
 begin
-  pnlReferensiShow
+  pnlReferensiShow;
 end;
 
 procedure TfrmDisplayArea.pnlReferensiShow;
@@ -1595,11 +1595,8 @@ begin
   begin
     SelectDirectory('Select a directory', vGameDataSetting.LocalDirectory, localDirTemp);
 
-//    serverDirTemp := vGameDataSetting.FileReferensi + FSelectedFileReferensi.FData.Encripted_File_Name;
-//    localFileTemp := localDirTemp + '\' + FSelectedFileReferensi.FData.Nama_File;
-
-    serverDirTemp := vGameDataSetting.FileReferensi + '\' + IntToStr(FSelectedFileReferensi.FData.ID_File) + '.docx, .pptx, .pdf';
-    localFileTemp := localDirTemp + '\' + IntToStr(FSelectedFileReferensi.FData.ID_File) + '.docx, .pptx, .pdf';
+    serverDirTemp := vGameDataSetting.FileReferensi + '\' + IntToStr(FSelectedFileReferensi.FData.ID_File) + '.docx';
+    localFileTemp := localDirTemp + '\' + IntToStr(FSelectedFileReferensi.FData.ID_File) + '.docx';
 
     CopyFile(PWideChar(serverDirTemp), PWideChar(localFileTemp), False);
   end;
@@ -1615,7 +1612,7 @@ begin
       ShowModal;
     end;
   finally
-    frmSimbolTaktis.Free;
+    frmReferensi.Free;
   end;
 
   UpdateDataReferensi;
@@ -1633,8 +1630,7 @@ begin
   begin
     if Assigned(FSelectedFileReferensi) then
     begin
-//      serverDirTemp := vGameDataSetting.FileDirectory + FSelectedFileReferensi.FData.Encripted_File_Name;
-      serverDirTemp := vGameDataSetting.FileReferensi + '\' + IntToStr(FSelectedFileReferensi.FData.ID_File) + '.docx, .pptx, .pdf';
+      serverDirTemp := vGameDataSetting.FileReferensi + '\' + IntToStr(FSelectedFileReferensi.FData.ID_File) + '.docx';
 
       with FSelectedFileReferensi.FData do
       begin
@@ -1690,6 +1686,7 @@ begin
     li.SubItems.Add(fileDataTemp.FData.Directory_Path);
     li.SubItems.Add(fileDataTemp.FData.Modified_Date);
     li.SubItems.Add(fileDataTemp.FData.Modified_By);
+
     li.Data := fileDataTemp;
   end;
 end;

@@ -28,10 +28,6 @@ object frmReferensi: TfrmReferensi
     Color = 1119507
     ParentBackground = False
     TabOrder = 0
-    ExplicitLeft = -189
-    ExplicitTop = -195
-    ExplicitWidth = 830
-    ExplicitHeight = 534
     object ImgBackgroundForm: TImage
       Left = 0
       Top = 0

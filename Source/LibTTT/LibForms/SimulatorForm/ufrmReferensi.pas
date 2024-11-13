@@ -114,8 +114,7 @@ begin
         end;
       end;
 
-//     CopyFile(PWideChar(FAddressPath), PWideChar(vGameDataSetting.FileReferensi + '\' + IntToStr(ID_File) + '.docx, .pptx, .pdf'), False);
-       CopyFile(addressTemp, PWideChar(vGameDataSetting.FileReferensi + fileDataTemp.Encripted_File_Name), False)
+     CopyFile(PWideChar(FAddressPath), PWideChar(vGameDataSetting.FileReferensi + '\' + IntToStr(ID_File) + '.docx'), False);
 
     end;
 
@@ -228,7 +227,7 @@ begin
       if ID_File = 0 then
         exit;
 
-      docPath := Directory_Path + '\' + IntToStr(ID_File) + '.docx, .pptx, .pdf';
+      docPath := Directory_Path + '\' + IntToStr(ID_File) + '.docx';
       if FileExists(docPath) then
       begin
         FAddressPath := docPath;
