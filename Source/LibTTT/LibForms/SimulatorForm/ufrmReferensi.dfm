@@ -14359,9 +14359,9 @@ object frmReferensi: TfrmReferensi
       object Label2: TLabel
         Left = 122
         Top = 232
-        Width = 273
+        Width = 269
         Height = 15
-        Caption = 'File dalam bentuk dokumen (.docx, .xls, .pptx, .pdf)'
+        Caption = 'File dalam bentuk dokumen (word, ppt, excel & pdf)'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWhite
         Font.Height = -13

@@ -8,7 +8,7 @@ uses
   Vcl.ExtCtrls,
 
   {uses project}
-   uSimMgr_Client, uLibSetting, uClassData, uDataModule, uRecordData;
+   uSimMgr_Client, uLibSetting, uClassData, uDataModule, uConstantaData, uRecordData;
 
 type
   TfrmReferensi = class(TForm)
@@ -85,7 +85,7 @@ var
 begin
   saveDialog := TSaveDialog.Create(self);
   saveDialog.InitialDir := GetCurrentDir;
-  saveDialog.Filter := 'Word file|*.docx|Excel file|*.xls|Power Point file|*.pptx|Pdf file|*.pdf';
+  saveDialog.Filter := 'Word file|*.docx; *.doc|Excel file|*.xls; *.xlsx|Power Point file|*.pptx; *.ppt|Pdf file|*.pdf';
   saveDialog.DefaultExt := 'docx';
   saveDialog.FilterIndex := 1;
 
