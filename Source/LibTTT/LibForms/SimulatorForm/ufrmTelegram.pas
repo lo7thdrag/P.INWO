@@ -273,6 +273,7 @@ begin
   path := vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIdentifier + '\\' + 'INBOX';
   lblTelegramMasuk.Visible := True;
   lblTelegramTerkirim.Visible := False;
+  LstBxTelegram.Items.Clear;
 
   if not TDirectory.Exists(path) then
   begin
@@ -280,7 +281,6 @@ begin
   Exit
   end
   else
-  LstBxTelegram.Items.Clear;
   LstBxTelegram.Items.AddStrings(TDirectory.GetFiles(path));
 end;
 
@@ -291,6 +291,7 @@ begin
   path := vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIdentifier + '\\' + 'SENT';
   lblTelegramMasuk.Visible := False;
   lblTelegramTerkirim.Visible := True;
+  LstBxTelegram.Items.Clear;
 
   if not TDirectory.Exists(path) then
   begin
@@ -298,7 +299,6 @@ begin
   Exit
   end
   else
-  LstBxTelegram.Items.Clear;
   LstBxTelegram.Items.AddStrings(TDirectory.GetFiles(path));
 end;
 
