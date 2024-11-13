@@ -34,6 +34,9 @@ type
     btnBuatTelegramRahasia: TButton;
     LstBxTelegram: TListBox;
     btnOpenTelegram: TButton;
+    Label1: TLabel;
+    lblTelegramMasuk: TLabel;
+    lblTelegramTerkirim: TLabel;
     procedure btnBuatTelegramTerbatasClick(Sender: TObject);
     procedure btnBuatTelegramRahasiaClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
@@ -81,7 +84,11 @@ begin
 
   If VarIsNull(WordApplication) = False then
   begin
-    WordFileName := 'C:\\[DENTA]\\TelegramRahasia_'+System.SysUtils.FormatDateTime('dd-mm-yy_hh;nn;ss', Now)+'.docx';
+    if not (TDirectory.Exists('D:\\Telegram')) then
+    begin
+      TDirectory.CreateDirectory('D:\\Telegram');
+    end;
+    WordFileName := 'D:\\Telegram\\TelegramRahasia_'+System.SysUtils.FormatDateTime('dd-mm-yy_hh;nn;ss', Now)+'.docx';
     pw := PWideChar(WordFileName);
     CopyFile(PWideChar(WordFileNameTemplateRahasia), pw, False);
      try
@@ -128,7 +135,11 @@ begin
 
   If VarIsNull(WordApplication) = False then
   begin
-    WordFileName := 'C:\\[DENTA]\\TelegramTerbatas_'+System.SysUtils.FormatDateTime('dd-mm-yy_hh;nn;ss', Now)+'.docx';
+    if not (TDirectory.Exists('D:\\Telegram')) then
+    begin
+      TDirectory.CreateDirectory('D:\\Telegram');
+    end;
+    WordFileName := 'D:\\Telegram\\TelegramTerbatas_'+System.SysUtils.FormatDateTime('dd-mm-yy_hh;nn;ss', Now)+'.docx';
     pw := PWideChar(WordFileName);
     CopyFile(PWideChar(WordFileNameTemplateTerbatas), pw, False);
      try
@@ -260,6 +271,8 @@ var
 path : string;
 begin
   path := vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIdentifier + '\\' + 'INBOX';
+  lblTelegramMasuk.Visible := True;
+  lblTelegramTerkirim.Visible := False;
 
   if not TDirectory.Exists(path) then
   begin
@@ -276,6 +289,8 @@ var
 path : string;
 begin
   path := vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIdentifier + '\\' + 'SENT';
+  lblTelegramMasuk.Visible := False;
+  lblTelegramTerkirim.Visible := True;
 
   if not TDirectory.Exists(path) then
   begin

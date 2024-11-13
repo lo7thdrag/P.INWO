@@ -1,8 +1,8 @@
 object frmTelegram: TfrmTelegram
   Left = 0
   Top = 0
-  ClientHeight = 631
-  ClientWidth = 917
+  ClientHeight = 627
+  ClientWidth = 1139
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -13,32 +13,59 @@ object frmTelegram: TfrmTelegram
   PixelsPerInch = 96
   TextHeight = 13
   object pnlRight: TPanel
-    Left = 200
+    Left = 216
     Top = 0
-    Width = 717
-    Height = 631
+    Width = 923
+    Height = 627
     Align = alRight
     BevelEdges = []
     BevelOuter = bvNone
     Color = clBackground
     TabOrder = 0
+    object lblTelegramMasuk: TLabel
+      Left = 24
+      Top = 14
+      Width = 233
+      Height = 40
+      Caption = 'Telegram Masuk'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -37
+      Font.Name = 'Jefferies'
+      Font.Style = []
+      ParentFont = False
+      Visible = False
+    end
+    object lblTelegramTerkirim: TLabel
+      Left = 24
+      Top = 14
+      Width = 259
+      Height = 40
+      Caption = 'Telegram Terkirim'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -37
+      Font.Name = 'Jefferies'
+      Font.Style = []
+      ParentFont = False
+      Visible = False
+    end
     object LstBxTelegram: TListBox
-      Left = 16
-      Top = 1
-      Width = 529
-      Height = 629
+      Left = 6
+      Top = 80
+      Width = 763
+      Height = 542
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
       Font.Name = 'Jefferies'
       Font.Style = []
-      ItemHeight = 17
       ParentFont = False
       TabOrder = 0
     end
     object btnOpenTelegram: TButton
-      Left = 551
-      Top = 295
+      Left = 767
+      Top = 293
       Width = 154
       Height = 41
       Caption = 'OPEN TELEGRAM'
@@ -56,17 +83,18 @@ object frmTelegram: TfrmTelegram
     Left = 0
     Top = 0
     Width = 217
-    Height = 631
+    Height = 627
     Align = alLeft
     Caption = 'pnlLeft'
     Color = clCaptionText
     ParentBackground = False
     TabOrder = 1
+    ExplicitHeight = 631
     object Image2: TImage
       Left = 1
       Top = 1
       Width = 215
-      Height = 629
+      Height = 625
       Align = alClient
       Picture.Data = {
         0A544A504547496D616765EE440000FFD8FFE1001845786966000049492A0008
@@ -621,17 +649,18 @@ object frmTelegram: TfrmTelegram
         B8A3FC4A218AA31446AD28C2612E5CEA73FD0A3097228F4D725C8D5463309FE0
         754DFF008146021188B10A9A9A9FC8C2623AE48888D58632223788EA9C18FF00
         52888A9AE08475879FE14AC446BFA6BFA6BF28EB7A23AE29FD0AA2FFD9}
-      ExplicitTop = 5
-      ExplicitHeight = 512
+      ExplicitLeft = 2
+      ExplicitTop = 0
+      ExplicitHeight = 629
     end
     object lblTo: TLabel
       Tag = 3
-      Left = 18
-      Top = 49
-      Width = 27
-      Height = 17
+      Left = 10
+      Top = 426
+      Width = 52
+      Height = 16
       Cursor = crHandPoint
-      Caption = 'To : '
+      Caption = 'Send To : '
       Font.Charset = ANSI_CHARSET
       Font.Color = 12826787
       Font.Height = -15
@@ -639,9 +668,24 @@ object frmTelegram: TfrmTelegram
       Font.Style = []
       ParentFont = False
     end
+    object Label1: TLabel
+      Tag = 3
+      Left = 50
+      Top = 18
+      Width = 114
+      Height = 35
+      Cursor = crHandPoint
+      Caption = 'Telegram'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = 12826787
+      Font.Height = -32
+      Font.Name = 'Jefferies'
+      Font.Style = []
+      ParentFont = False
+    end
     object pnlTelegramMasuk: TPanel
-      Left = 24
-      Top = 494
+      Left = 25
+      Top = 510
       Width = 162
       Height = 33
       BevelOuter = bvNone
@@ -725,8 +769,8 @@ object frmTelegram: TfrmTelegram
         Tag = 3
         Left = 43
         Top = 9
-        Width = 84
-        Height = 17
+        Width = 76
+        Height = 16
         Cursor = crHandPoint
         Caption = 'Berita Masuk'
         Font.Charset = ANSI_CHARSET
@@ -827,8 +871,8 @@ object frmTelegram: TfrmTelegram
         Tag = 3
         Left = 44
         Top = 9
-        Width = 123
-        Height = 17
+        Width = 106
+        Height = 16
         Cursor = crHandPoint
         Caption = 'Berita Baru Dibaca'
         Font.Charset = ANSI_CHARSET
@@ -921,8 +965,8 @@ object frmTelegram: TfrmTelegram
         Tag = 3
         Left = 42
         Top = 9
-        Width = 32
-        Height = 17
+        Width = 33
+        Height = 16
         Cursor = crHandPoint
         Caption = 'Draft'
         Font.Charset = ANSI_CHARSET
@@ -935,8 +979,8 @@ object frmTelegram: TfrmTelegram
       end
     end
     object pnlTelegramTerkirim: TPanel
-      Left = 25
-      Top = 533
+      Left = 26
+      Top = 549
       Width = 162
       Height = 33
       BevelOuter = bvNone
@@ -1017,8 +1061,8 @@ object frmTelegram: TfrmTelegram
         Tag = 3
         Left = 42
         Top = 9
-        Width = 93
-        Height = 17
+        Width = 87
+        Height = 16
         Cursor = crHandPoint
         Caption = 'Berita Terkirim'
         Font.Charset = ANSI_CHARSET
@@ -1115,8 +1159,8 @@ object frmTelegram: TfrmTelegram
         Tag = 3
         Left = 42
         Top = 9
-        Width = 89
-        Height = 17
+        Width = 75
+        Height = 16
         Cursor = crHandPoint
         Caption = 'Semua Berita'
         Font.Charset = ANSI_CHARSET
@@ -1129,8 +1173,8 @@ object frmTelegram: TfrmTelegram
       end
     end
     object btnKirim: TButton
-      Left = 68
-      Top = 88
+      Left = 60
+      Top = 453
       Width = 75
       Height = 25
       Caption = 'Kirim'
@@ -1138,10 +1182,10 @@ object frmTelegram: TfrmTelegram
       OnClick = btnKirimClick
     end
     object cbbxTo: TComboBox
-      Left = 40
-      Top = 46
+      Left = 65
+      Top = 423
       Width = 145
-      Height = 25
+      Height = 24
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBackground
       Font.Height = -15
@@ -1152,20 +1196,32 @@ object frmTelegram: TfrmTelegram
       OnDropDown = cbbxToDropDown
     end
     object btnBuatTelegramTerbatas: TButton
-      Left = 40
-      Top = 408
-      Width = 138
+      Left = 24
+      Top = 80
+      Width = 163
       Height = 25
       Caption = 'Buat Telegram Terbatas'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Jefferies'
+      Font.Style = []
+      ParentFont = False
       TabOrder = 7
       OnClick = btnBuatTelegramTerbatasClick
     end
     object btnBuatTelegramRahasia: TButton
-      Left = 40
-      Top = 439
-      Width = 138
+      Left = 25
+      Top = 111
+      Width = 162
       Height = 25
       Caption = 'Buat Telegram Rahasia'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Jefferies'
+      Font.Style = []
+      ParentFont = False
       TabOrder = 8
       OnClick = btnBuatTelegramRahasiaClick
     end
