@@ -280,7 +280,6 @@
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\SimulatorForm\ufrmAsset.pas">
             <Form>frmAsset</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\SimulatorForm\AdditionalForm\ufrmRole.pas">
             <Form>frmSummaryRole</Form>
@@ -291,184 +290,167 @@
         <DCCReference Include="..\LibTTT\LibForms\SimulatorForm\AdditionalForm\ufrmSelectSimbolTaktis.pas">
             <Form>frmSelectSimbolTaktis</Form>
         </DCCReference>
-        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\ufrmBlindZoneAttachment.pas">
-            <Form>frmBlindZonesAttachment</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
-        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\uSimbolTaktis.pas">
-            <Form>SimbolTaktis</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmAccousticDecoyOnBoardPickList.pas">
             <Form>frmAccousticDecoyOnBoardPickList</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmAcousticDecoyOnBoardPickList.pas">
             <Form>frmAcousticDecoyOnBoardPickList</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmAirBubbleOnBoardPickList.pas">
             <Form>frmAirBubbleOnBoardPickList</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmBombOnBoardPickList.pas">
             <Form>frmBombOnBoardPickList</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmChaffOnBoardPickList.pas">
             <Form>frmChaffOnBoardPickList</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmEmbarkedOnBoardPickList.pas">
             <Form>frmEmbarkedOnBoardPickList</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmEODOnBoardPickList.pas">
             <Form>frmEODOnBoardPickList</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmESMOnBoardPickList.pas">
             <Form>frmESMOnBoardPickList</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmFloatingDecoyOnBoardPickList.pas">
             <Form>frmFloatingDecoyOnBoardPickList</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmGunOnBoardPickList.pas">
             <Form>frmGunOnBoardPickList</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmIFFOnBoardPickList.pas">
             <Form>frmIFFOnBoardPickList</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmInfraredDecoyOnBoardPickList.pas">
             <Form>frmInfraredDecoyOnBoardPickList</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmMADOnBoardPickList.pas">
             <Form>frmMADOnBoardPickList</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmMineOnBoardPickList.pas">
             <Form>frmMineOnBoardPickList</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmMissileOnBoardPickList.pas">
             <Form>frmMissileOnBoardPickList</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmRadarNoiseJammerOnBoardPickList.pas">
             <Form>frmRadarNoiseJammerOnBoardPickList</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmRadarOnBoardPickList.pas">
             <Form>frmRadarOnBoardPickList</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmSelfDefensiveJammerOnBoardPickList.pas">
             <Form>frmSelfDefensiveJammerOnBoardPickList</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmSonarOnBoardPickList.pas">
             <Form>frmSonarOnBoardPickList</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmSonobuoyOnBoardPickList.pas">
             <Form>frmSonobuoyOnBoardPickList</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmTorpedoOnBoardPickList.pas">
             <Form>frmTorpedoOnBoardPickList</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmTowedJammerDecoyOnBoardPickList.pas">
             <Form>frmTowedJammerDecoyOnBoardPickList</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\OnBoardPickList\ufrmVisualDetectorOnBoardPickList.pas">
             <Form>frmVisualDetectorOnBoardPickList</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmAcousticDecoyMount.pas">
             <Form>frmAcousticDecoyMount</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmAirBubbleMount.pas">
             <Form>frmAirBubbleMount</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmBombMount.pas">
             <Form>frmBombMount</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmChaffMount.pas">
             <Form>frmChaffMount</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmEODMount.pas">
             <Form>frmEODMount</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmESMMount.pas">
             <Form>frmESMMount</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmFloatingDecoyMount.pas">
             <Form>frmFloatingDecoyMount</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmGunMount.pas">
             <Form>frmGunMount</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmIFFMount.pas">
             <Form>frmIFFMount</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmInfraRedmount.pas">
             <Form>frmInfraredmount</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmMADMount.pas">
             <Form>frmMADMount</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmMineMount.pas">
             <Form>frmMineMount</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmMissileMount.pas">
             <Form>frmMissileMount</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmRadarJammerMount.pas">
             <Form>frmRadarJammerMount</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmRadarMount.pas">
             <Form>frmRadarMount</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmSonarMount.pas">
             <Form>frmSonarMount</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmSonobuoyMount.pas">
             <Form>frmSonobuoyMount</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmTorpedoMount.pas">
             <Form>frmTorpedoMount</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmTowedJammerMount.pas">
             <Form>frmTowedJammerMount</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Mount\ufrmVisualDetectorMount.pas">
             <Form>frmVisualDetectorMount</Form>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\ufrmBlindZoneAttachment.pas">
+            <Form>frmBlindZonesAttachment</Form>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\ufrmChaffAssets.pas">
+            <Form>frmChaffAssets</Form>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\ufrmChaffLauncher.pas">
+            <Form>frmChaffLauncher</Form>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\ufrmEmbarkedInputName.pas">
+            <Form>frmEmbarkedInputName</Form>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\ufrmLauncherList.pas">
+            <Form>frmLauncherList</Form>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\ufrmMissileLauncher.pas">
+            <Form>frmMissileLauncher</Form>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\ufrmPlatformInstanceInput.pas">
+            <Form>frmPlatformInstanceInput</Form>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\ufrmTorpedoLauncher.pas">
+            <Form>frmTorpedoLauncher</Form>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\ufrmVehicleInputToBase.pas">
+            <Form>frmVehicleInputToBase</Form>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\uSimbolTaktis.pas">
+            <Form>SimbolTaktis</Form>
+        </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\SimulatorForm\ufrmReferensi.pas">
+            <Form>frmReferensi</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Debug">

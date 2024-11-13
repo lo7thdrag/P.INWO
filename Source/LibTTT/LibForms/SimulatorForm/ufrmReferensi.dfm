@@ -3,10 +3,11 @@ object frmReferensi: TfrmReferensi
   Top = 0
   BorderStyle = bsNone
   Caption = 'frmReferensi'
-  ClientHeight = 522
-  ClientWidth = 596
-  Color = clBtnFace
+  ClientHeight = 520
+  ClientWidth = 586
+  Color = 1119507
   TransparentColor = True
+  TransparentColorValue = 1119507
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
@@ -20,8 +21,8 @@ object frmReferensi: TfrmReferensi
   object pnlMain: TPanel
     Left = 0
     Top = 0
-    Width = 596
-    Height = 522
+    Width = 586
+    Height = 520
     Align = alClient
     BevelOuter = bvNone
     Color = 1119507
@@ -34,8 +35,8 @@ object frmReferensi: TfrmReferensi
     object ImgBackgroundForm: TImage
       Left = 0
       Top = 0
-      Width = 596
-      Height = 522
+      Width = 586
+      Height = 520
       Align = alClient
       Picture.Data = {
         0954506E67496D61676589504E470D0A1A0A0000000D49484452000004930000

@@ -140,7 +140,8 @@ uses
   ufrmPlatformInstanceInput in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\ufrmPlatformInstanceInput.pas' {frmPlatformInstanceInput},
   ufrmTorpedoLauncher in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\ufrmTorpedoLauncher.pas' {frmTorpedoLauncher},
   ufrmVehicleInputToBase in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\ufrmVehicleInputToBase.pas' {frmVehicleInputToBase},
-  uSimbolTaktis in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\uSimbolTaktis.pas' {SimbolTaktis};
+  uSimbolTaktis in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\uSimbolTaktis.pas' {SimbolTaktis},
+  ufrmReferensi in '..\LibTTT\LibForms\SimulatorForm\ufrmReferensi.pas' {frmReferensi};
 
 {$R *.res}
 
@@ -235,6 +236,7 @@ begin
   Application.CreateForm(TfrmVehicleInputToBase, frmVehicleInputToBase);
   Application.CreateForm(TSimbolTaktis, SimbolTaktis);
   Application.CreateForm(TfrmTelegram, frmTelegram);
+  Application.CreateForm(TfrmReferensi, frmReferensi);
   uScriptSimClients.BeginGame;
 
   Application.Run;
