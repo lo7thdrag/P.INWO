@@ -32,7 +32,6 @@ type
     Image2: TImage;
     btnBuatTelegramTerbatas: TButton;
     btnBuatTelegramRahasia: TButton;
-    Button1: TButton;
     LstBxTelegram: TListBox;
     btnOpenTelegram: TButton;
     procedure btnBuatTelegramTerbatasClick(Sender: TObject);
@@ -253,7 +252,7 @@ end;
 
 procedure TfrmTelegram.cbbxToDropDown(Sender: TObject);
 begin
-//  UpdateClientTelegramList;
+  UpdateClientTelegramList;
 end;
 
 procedure TfrmTelegram.pnlTelegramMasukClick(Sender: TObject);

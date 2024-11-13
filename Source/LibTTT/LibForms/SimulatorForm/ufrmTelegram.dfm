@@ -32,13 +32,14 @@ object frmTelegram: TfrmTelegram
       Font.Height = -15
       Font.Name = 'Jefferies'
       Font.Style = []
+      ItemHeight = 17
       ParentFont = False
       TabOrder = 0
     end
     object btnOpenTelegram: TButton
       Left = 551
       Top = 295
-      Width = 116
+      Width = 154
       Height = 41
       Caption = 'OPEN TELEGRAM'
       Font.Charset = ANSI_CHARSET
@@ -627,8 +628,8 @@ object frmTelegram: TfrmTelegram
       Tag = 3
       Left = 18
       Top = 49
-      Width = 25
-      Height = 16
+      Width = 27
+      Height = 17
       Cursor = crHandPoint
       Caption = 'To : '
       Font.Charset = ANSI_CHARSET
@@ -639,8 +640,8 @@ object frmTelegram: TfrmTelegram
       ParentFont = False
     end
     object pnlTelegramMasuk: TPanel
-      Left = 25
-      Top = 416
+      Left = 24
+      Top = 494
       Width = 162
       Height = 33
       BevelOuter = bvNone
@@ -659,6 +660,7 @@ object frmTelegram: TfrmTelegram
         Top = 7
         Width = 21
         Height = 21
+        OnClick = pnlTelegramMasukClick
         Picture.Data = {
           26070000424D2607000000000000420000002800000015000000150000000100
           200003000000E4060000130B0000130B000000000000000000000000FF0000FF
@@ -723,8 +725,8 @@ object frmTelegram: TfrmTelegram
         Tag = 3
         Left = 43
         Top = 9
-        Width = 76
-        Height = 16
+        Width = 84
+        Height = 17
         Cursor = crHandPoint
         Caption = 'Berita Masuk'
         Font.Charset = ANSI_CHARSET
@@ -733,12 +735,13 @@ object frmTelegram: TfrmTelegram
         Font.Name = 'Jefferies'
         Font.Style = []
         ParentFont = False
+        OnClick = pnlTelegramMasukClick
       end
     end
     object pnlBeritaBaruDibaca: TPanel
-      Left = 25
-      Top = 455
-      Width = 162
+      Left = 18
+      Top = 199
+      Width = 176
       Height = 33
       BevelOuter = bvNone
       Caption = 'pnlBeritaMasuk'
@@ -751,11 +754,13 @@ object frmTelegram: TfrmTelegram
       ParentBackground = False
       ParentFont = False
       TabOrder = 1
+      Visible = False
       object imgbtnBeritaBaruDibaca: TImageButton
         Left = 15
         Top = 7
         Width = 23
         Height = 20
+        Visible = False
         Picture.Data = {
           72070000424D7207000000000000420000002800000017000000140000000100
           20000300000030070000130B0000130B000000000000000000000000FF0000FF
@@ -820,10 +825,10 @@ object frmTelegram: TfrmTelegram
       end
       object lblBeritaBaruDibaca: TLabel
         Tag = 3
-        Left = 42
+        Left = 44
         Top = 9
-        Width = 106
-        Height = 16
+        Width = 123
+        Height = 17
         Cursor = crHandPoint
         Caption = 'Berita Baru Dibaca'
         Font.Charset = ANSI_CHARSET
@@ -832,11 +837,12 @@ object frmTelegram: TfrmTelegram
         Font.Name = 'Jefferies'
         Font.Style = []
         ParentFont = False
+        Visible = False
       end
     end
     object pnlDraft: TPanel
-      Left = 25
-      Top = 494
+      Left = 18
+      Top = 238
       Width = 162
       Height = 33
       BevelOuter = bvNone
@@ -850,11 +856,13 @@ object frmTelegram: TfrmTelegram
       ParentBackground = False
       ParentFont = False
       TabOrder = 2
+      Visible = False
       object imgbtnDraft: TImageButton
         Left = 17
         Top = 7
         Width = 18
         Height = 22
+        Visible = False
         Picture.Data = {
           72060000424D7206000000000000420000002800000012000000160000000100
           20000300000030060000130B0000130B000000000000000000000000FF0000FF
@@ -913,8 +921,8 @@ object frmTelegram: TfrmTelegram
         Tag = 3
         Left = 42
         Top = 9
-        Width = 33
-        Height = 16
+        Width = 32
+        Height = 17
         Cursor = crHandPoint
         Caption = 'Draft'
         Font.Charset = ANSI_CHARSET
@@ -923,6 +931,7 @@ object frmTelegram: TfrmTelegram
         Font.Name = 'Jefferies'
         Font.Style = []
         ParentFont = False
+        Visible = False
       end
     end
     object pnlTelegramTerkirim: TPanel
@@ -946,6 +955,7 @@ object frmTelegram: TfrmTelegram
         Top = 7
         Width = 22
         Height = 19
+        OnClick = pnlTelegramTerkirimClick
         Picture.Data = {
           CA060000424DCA06000000000000420000002800000016000000130000000100
           20000300000088060000130B0000130B000000000000000000000000FF0000FF
@@ -1007,8 +1017,8 @@ object frmTelegram: TfrmTelegram
         Tag = 3
         Left = 42
         Top = 9
-        Width = 87
-        Height = 16
+        Width = 93
+        Height = 17
         Cursor = crHandPoint
         Caption = 'Berita Terkirim'
         Font.Charset = ANSI_CHARSET
@@ -1017,11 +1027,12 @@ object frmTelegram: TfrmTelegram
         Font.Name = 'Jefferies'
         Font.Style = []
         ParentFont = False
+        OnClick = pnlTelegramTerkirimClick
       end
     end
     object pnlSemuaBerita: TPanel
-      Left = 25
-      Top = 572
+      Left = 18
+      Top = 160
       Width = 162
       Height = 33
       BevelOuter = bvNone
@@ -1035,11 +1046,13 @@ object frmTelegram: TfrmTelegram
       ParentBackground = False
       ParentFont = False
       TabOrder = 4
+      Visible = False
       object imgbtnSemuaBerita: TImageButton
         Left = 15
         Top = 8
         Width = 22
         Height = 19
+        Visible = False
         Picture.Data = {
           CA060000424DCA06000000000000420000002800000016000000130000000100
           20000300000088060000130B0000130B000000000000000000000000FF0000FF
@@ -1102,8 +1115,8 @@ object frmTelegram: TfrmTelegram
         Tag = 3
         Left = 42
         Top = 9
-        Width = 75
-        Height = 16
+        Width = 89
+        Height = 17
         Cursor = crHandPoint
         Caption = 'Semua Berita'
         Font.Charset = ANSI_CHARSET
@@ -1112,6 +1125,7 @@ object frmTelegram: TfrmTelegram
         Font.Name = 'Jefferies'
         Font.Style = []
         ParentFont = False
+        Visible = False
       end
     end
     object btnKirim: TButton
@@ -1127,24 +1141,19 @@ object frmTelegram: TfrmTelegram
       Left = 40
       Top = 46
       Width = 145
-      Height = 24
+      Height = 25
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBackground
       Font.Height = -15
       Font.Name = 'Jefferies'
       Font.Style = []
-      ItemIndex = 1
       ParentFont = False
       TabOrder = 6
-      Text = 'Wasdal Operator'
       OnDropDown = cbbxToDropDown
-      Items.Strings = (
-        'Wasdal'
-        'Wasdal Operator')
     end
     object btnBuatTelegramTerbatas: TButton
       Left = 40
-      Top = 304
+      Top = 408
       Width = 138
       Height = 25
       Caption = 'Buat Telegram Terbatas'
@@ -1153,22 +1162,12 @@ object frmTelegram: TfrmTelegram
     end
     object btnBuatTelegramRahasia: TButton
       Left = 40
-      Top = 335
+      Top = 439
       Width = 138
       Height = 25
       Caption = 'Buat Telegram Rahasia'
       TabOrder = 8
       OnClick = btnBuatTelegramRahasiaClick
-    end
-    object Button1: TButton
-      Left = 67
-      Top = 192
-      Width = 75
-      Height = 25
-      Caption = 'Button1'
-      TabOrder = 9
-      Visible = False
-      OnClick = Button1Click
     end
   end
 end
