@@ -1990,15 +1990,15 @@ end;
 
 procedure TfrmDisplayArea.VideoConferenceClick(Sender: TObject);
 begin
-  frmVideoConference := TfrmVideoConference.Create(Self);
+  if not Assigned(frmVideoConference) then
+    frmVideoConference := TfrmVideoConference.Create(Self);
+
   try
     with frmVideoConference do
     begin
       Show;
     end;
-
   finally
-    frmVideoConference.Free;
   end;
 end;
 

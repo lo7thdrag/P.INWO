@@ -40,6 +40,7 @@ const
   ovRadar     = 12;
   ovPangkalan = 13;
   ovPanah     = 14;
+  ovPlatform  = 15;
 
   /// Action Type
   caAdd     = 0;

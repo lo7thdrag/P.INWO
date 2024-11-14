@@ -2412,6 +2412,246 @@ object frmSituationBoard: TfrmSituationBoard
         OnClick = pnlCloseClick
       end
     end
+    object pnlHeaderSituationBoard: TPanel
+      Left = 0
+      Top = 1045
+      Width = 1917
+      Height = 35
+      Align = alBottom
+      BevelOuter = bvNone
+      Color = 5918252
+      TabOrder = 3
+      object btn1: TSpeedButton
+        Tag = 1
+        Left = 0
+        Top = 0
+        Width = 0
+        Height = 35
+        Align = alLeft
+        Caption = '---'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Jefferies'
+        Font.Style = []
+        ParentFont = False
+        OnClick = btnTabClick
+      end
+      object btn2: TSpeedButton
+        Tag = 2
+        Left = 0
+        Top = 0
+        Width = 0
+        Height = 35
+        Align = alLeft
+        Caption = '---'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Jefferies'
+        Font.Style = []
+        ParentFont = False
+        OnClick = btnTabClick
+      end
+      object btn3: TSpeedButton
+        Tag = 3
+        Left = 0
+        Top = 0
+        Width = 0
+        Height = 35
+        Align = alLeft
+        Caption = '---'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Jefferies'
+        Font.Style = []
+        ParentFont = False
+        OnClick = btnTabClick
+      end
+      object btn4: TSpeedButton
+        Tag = 4
+        Left = 0
+        Top = 0
+        Width = 0
+        Height = 35
+        Align = alLeft
+        Caption = '---'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Jefferies'
+        Font.Style = []
+        ParentFont = False
+        OnClick = btnTabClick
+      end
+      object btn5: TSpeedButton
+        Tag = 5
+        Left = 0
+        Top = 0
+        Width = 0
+        Height = 35
+        Align = alLeft
+        Caption = '---'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Jefferies'
+        Font.Style = []
+        ParentFont = False
+        OnClick = btnTabClick
+      end
+      object btn6: TSpeedButton
+        Tag = 6
+        Left = 0
+        Top = 0
+        Width = 0
+        Height = 35
+        Align = alLeft
+        Caption = '---'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Jefferies'
+        Font.Style = []
+        ParentFont = False
+        OnClick = btnTabClick
+      end
+      object btn7: TSpeedButton
+        Tag = 7
+        Left = 0
+        Top = 0
+        Width = 0
+        Height = 35
+        Align = alLeft
+        Caption = '---'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Jefferies'
+        Font.Style = []
+        ParentFont = False
+        OnClick = btnTabClick
+      end
+      object btn8: TSpeedButton
+        Tag = 8
+        Left = 0
+        Top = 0
+        Width = 0
+        Height = 35
+        Align = alLeft
+        Caption = '---'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Jefferies'
+        Font.Style = []
+        ParentFont = False
+        OnClick = btnTabClick
+      end
+      object btn9: TSpeedButton
+        Tag = 9
+        Left = 0
+        Top = 0
+        Width = 0
+        Height = 35
+        Align = alLeft
+        Caption = '---'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Jefferies'
+        Font.Style = []
+        ParentFont = False
+        Transparent = False
+        OnClick = btnTabClick
+      end
+      object btn10: TSpeedButton
+        Tag = 10
+        Left = 0
+        Top = 0
+        Width = 0
+        Height = 35
+        Align = alLeft
+        Caption = '---'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Jefferies'
+        Font.Style = []
+        ParentFont = False
+        OnClick = btnTabClick
+        ExplicitLeft = 40
+      end
+      object btn11: TSpeedButton
+        Tag = 11
+        Left = 0
+        Top = 0
+        Width = 0
+        Height = 35
+        Align = alLeft
+        Caption = '---'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Jefferies'
+        Font.Style = []
+        ParentFont = False
+        OnClick = btnTabClick
+        ExplicitLeft = 40
+      end
+      object btn12: TSpeedButton
+        Tag = 12
+        Left = 0
+        Top = 0
+        Width = 0
+        Height = 35
+        Align = alLeft
+        Caption = '---'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Jefferies'
+        Font.Style = []
+        ParentFont = False
+        OnClick = btnTabClick
+        ExplicitLeft = 40
+      end
+      object btn13: TSpeedButton
+        Tag = 13
+        Left = 0
+        Top = 0
+        Width = 0
+        Height = 35
+        Align = alLeft
+        Caption = '---'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Jefferies'
+        Font.Style = []
+        ParentFont = False
+        OnClick = btnTabClick
+        ExplicitLeft = 40
+      end
+      object btnCreateTab: TSpeedButton
+        Tag = 14
+        Left = 0
+        Top = 0
+        Width = 25
+        Height = 35
+        Align = alLeft
+        Caption = ' + '
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -21
+        Font.Name = 'Jefferies'
+        Font.Style = []
+        ParentFont = False
+        OnClick = btnCreateTabClick
+        ExplicitLeft = 66
+      end
+    end
     object pnlHome: TPanel
       Left = 0
       Top = 0
@@ -44797,246 +45037,6 @@ object frmSituationBoard: TfrmSituationBoard
         OnClick = pnlCloseClick
       end
     end
-    object pnlHeaderSituationBoard: TPanel
-      Left = 0
-      Top = 1045
-      Width = 1917
-      Height = 35
-      Align = alBottom
-      BevelOuter = bvNone
-      Color = 5918252
-      TabOrder = 3
-      object btn1: TSpeedButton
-        Tag = 1
-        Left = 0
-        Top = 0
-        Width = 0
-        Height = 35
-        Align = alLeft
-        Caption = '---'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -16
-        Font.Name = 'Jefferies'
-        Font.Style = []
-        ParentFont = False
-        OnClick = btnTabClick
-      end
-      object btn2: TSpeedButton
-        Tag = 2
-        Left = 0
-        Top = 0
-        Width = 0
-        Height = 35
-        Align = alLeft
-        Caption = '---'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -16
-        Font.Name = 'Jefferies'
-        Font.Style = []
-        ParentFont = False
-        OnClick = btnTabClick
-      end
-      object btn3: TSpeedButton
-        Tag = 3
-        Left = 0
-        Top = 0
-        Width = 0
-        Height = 35
-        Align = alLeft
-        Caption = '---'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -16
-        Font.Name = 'Jefferies'
-        Font.Style = []
-        ParentFont = False
-        OnClick = btnTabClick
-      end
-      object btn4: TSpeedButton
-        Tag = 4
-        Left = 0
-        Top = 0
-        Width = 0
-        Height = 35
-        Align = alLeft
-        Caption = '---'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -16
-        Font.Name = 'Jefferies'
-        Font.Style = []
-        ParentFont = False
-        OnClick = btnTabClick
-      end
-      object btn5: TSpeedButton
-        Tag = 5
-        Left = 0
-        Top = 0
-        Width = 0
-        Height = 35
-        Align = alLeft
-        Caption = '---'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -16
-        Font.Name = 'Jefferies'
-        Font.Style = []
-        ParentFont = False
-        OnClick = btnTabClick
-      end
-      object btn6: TSpeedButton
-        Tag = 6
-        Left = 0
-        Top = 0
-        Width = 0
-        Height = 35
-        Align = alLeft
-        Caption = '---'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -16
-        Font.Name = 'Jefferies'
-        Font.Style = []
-        ParentFont = False
-        OnClick = btnTabClick
-      end
-      object btn7: TSpeedButton
-        Tag = 7
-        Left = 0
-        Top = 0
-        Width = 0
-        Height = 35
-        Align = alLeft
-        Caption = '---'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -16
-        Font.Name = 'Jefferies'
-        Font.Style = []
-        ParentFont = False
-        OnClick = btnTabClick
-      end
-      object btn8: TSpeedButton
-        Tag = 8
-        Left = 0
-        Top = 0
-        Width = 0
-        Height = 35
-        Align = alLeft
-        Caption = '---'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -16
-        Font.Name = 'Jefferies'
-        Font.Style = []
-        ParentFont = False
-        OnClick = btnTabClick
-      end
-      object btn9: TSpeedButton
-        Tag = 9
-        Left = 0
-        Top = 0
-        Width = 0
-        Height = 35
-        Align = alLeft
-        Caption = '---'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -16
-        Font.Name = 'Jefferies'
-        Font.Style = []
-        ParentFont = False
-        Transparent = False
-        OnClick = btnTabClick
-      end
-      object btn10: TSpeedButton
-        Tag = 10
-        Left = 0
-        Top = 0
-        Width = 0
-        Height = 35
-        Align = alLeft
-        Caption = '---'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -16
-        Font.Name = 'Jefferies'
-        Font.Style = []
-        ParentFont = False
-        OnClick = btnTabClick
-        ExplicitLeft = 40
-      end
-      object btn11: TSpeedButton
-        Tag = 11
-        Left = 0
-        Top = 0
-        Width = 0
-        Height = 35
-        Align = alLeft
-        Caption = '---'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -16
-        Font.Name = 'Jefferies'
-        Font.Style = []
-        ParentFont = False
-        OnClick = btnTabClick
-        ExplicitLeft = 40
-      end
-      object btn12: TSpeedButton
-        Tag = 12
-        Left = 0
-        Top = 0
-        Width = 0
-        Height = 35
-        Align = alLeft
-        Caption = '---'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -16
-        Font.Name = 'Jefferies'
-        Font.Style = []
-        ParentFont = False
-        OnClick = btnTabClick
-        ExplicitLeft = 40
-      end
-      object btn13: TSpeedButton
-        Tag = 13
-        Left = 0
-        Top = 0
-        Width = 0
-        Height = 35
-        Align = alLeft
-        Caption = '---'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -16
-        Font.Name = 'Jefferies'
-        Font.Style = []
-        ParentFont = False
-        OnClick = btnTabClick
-        ExplicitLeft = 40
-      end
-      object btnCreateTab: TSpeedButton
-        Tag = 14
-        Left = 0
-        Top = 0
-        Width = 25
-        Height = 35
-        Align = alLeft
-        Caption = ' + '
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -21
-        Font.Name = 'Jefferies'
-        Font.Style = []
-        ParentFont = False
-        OnClick = btnCreateTabClick
-        ExplicitLeft = 66
-      end
-    end
     object pnlMap: TPanel
       Left = 0
       Top = 0
@@ -45046,6 +45046,9 @@ object frmSituationBoard: TfrmSituationBoard
       BevelOuter = bvNone
       Color = 5918252
       TabOrder = 0
+      DesignSize = (
+        1917
+        1045)
       object Map1: TMap
         Left = 0
         Top = 35
@@ -45074,7 +45077,7 @@ object frmSituationBoard: TfrmSituationBoard
           0B918FCE119DE300AA004BB851010000009001DC7C010005417269616C000352
           E30B918FCE119DE300AA004BB851010200009001A42C02000B4D61702053796D
           626F6C730000000000000001000100FFFFFF000200FFFFFF0000000000000100
-          0000010001180100002076FA0F01000000000000001C00000000000000000000
+          00000100011801000040C8BE1101000000000000001C00000000000000000000
           0000000000000000000000000000000000000000000000000000000000000000
           0000000000000000000000000000000000000000000000000000000000000000
           0002000000000000000000000000000000000000000000000000000000000000
@@ -45083,15 +45086,15 @@ object frmSituationBoard: TfrmSituationBoard
           0000000000000000000000000000000000000000000000000000000000000000
           0000000000000000000000000000000000000000000000000000000000000000
           00008076C000000000008056C000000000008076400000000000805640010000
-          00180100002076FA0F01000000000000001C0000000000000000000000000000
+          001801000040C8BE1101000000000000001C0000000000000000000000000000
           0000000000000000000000000000000000000000000000000000000000000000
           0000000000000000000000000000000000000000000000000000000000020000
           0000000000000000000000000000000000000000000000000000000000000000
           0000000000000000000000000000000000000000000000000000000000000000
           0000000000000000000000000000000000000000000000000000000000000000
           0000000000000000000000000000000000000000000000000000000000000000
-          0000000000000000000000000000000000000000000000000090E9970040E997
-          00DEDF2A7202000000020000004473320802000000D0E9970000000000000000
+          000000000000000000000000000000000000000000000000009083151240E997
+          0090831512FD9BAF080111B0084CE897009611B0089E11B00800000000000000
           0000000088B3400000000000408F400001000001}
       end
       object pnlToolBar: TPanel
@@ -45251,6 +45254,25 @@ object frmSituationBoard: TfrmSituationBoard
             OnClick = btnOverlayToolsClick
           end
         end
+      end
+      object pnlCloseMap: TPanel
+        Left = 1875
+        Top = 50
+        Width = 30
+        Height = 30
+        Cursor = crHandPoint
+        Anchors = [akTop, akRight]
+        BevelOuter = bvNone
+        Caption = 'X'
+        Color = clLime
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clRed
+        Font.Height = -21
+        Font.Name = 'Jefferies'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 2
+        OnClick = pnlCloseClick
       end
     end
   end

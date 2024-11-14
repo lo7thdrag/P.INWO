@@ -297,6 +297,7 @@ var
   RadarShape : TRadarShape;
   BaseShape : TPangkalanShape;
   ArrowShape : TPanahShape;
+  platformShape : TPlatformShape;
 
 begin
   overlayTabTemp := SimOverlay.GetOverlayTabByID(rec.TemplateId);
@@ -691,6 +692,28 @@ begin
 
             if rec.IdAction = caAdd then
               overlayTabTemp.MemberList.Add(ArrowShape);
+
+            {$ENDREGION}
+          end;
+          ovPlatform:
+          begin
+            {$REGION ' Platform '}
+            if rec.IdAction = caAdd then
+            begin
+              platformShape := TPlatformShape.Create(Converter);
+              platformShape.ShapeId := GetSerialShapeID;
+            end
+            else
+              platformShape := overlayTabTemp.GetShapeById(rec.IdSelectShape) as TPlatformShape;
+
+            platformShape.Identifier := rec.OverlayName;
+            platformShape.postCenter := rec.PostStart;
+            platformShape.simbol := rec.Words;
+            platformShape.ShapeOutline := rec.color;
+            platformShape.isShow := True;
+
+            if rec.IdAction = caAdd then
+              overlayTabTemp.MemberList.Add(platformShape);
 
             {$ENDREGION}
           end;

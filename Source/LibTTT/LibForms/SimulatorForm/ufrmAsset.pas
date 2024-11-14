@@ -378,7 +378,9 @@ begin
   if cbbFontType.ItemIndex = -1 then
     Exit;
 
-  SimbolTaktis := TSimbolTaktis.Create(Self);
+  if not Assigned(SimbolTaktis) then
+    SimbolTaktis := TSimbolTaktis.Create(Self);
+
   try
     with SimbolTaktis do
     begin
@@ -390,11 +392,9 @@ begin
         SimbolTaktis.drwgrdFonttaktis.RowCount := 211
       else if cbbFontType.ItemIndex = 2 then
         SimbolTaktis.drwgrdFonttaktis.RowCount := 135;
-      ShowModal;
-
+      Show;
     end;
   finally
-    SimbolTaktis.Free;
   end;
 end;
 

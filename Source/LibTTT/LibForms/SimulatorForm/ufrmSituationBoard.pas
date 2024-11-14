@@ -55,6 +55,7 @@ type
     ImageList1: TImageList;
     btnOverlayTools: TToolButton;
     pnlMain: TPanel;
+    pnlCloseMap: TPanel;
 
     procedure FormShow(Sender: TObject);
     procedure Button1Click(Sender: TObject);
@@ -280,7 +281,9 @@ end;
 
 procedure TfrmSituationBoard.btnEditImageAddressClick(Sender: TObject);
 begin
-  frmImageInsert := TfrmImageInsert.Create(Self);
+  if not Assigned(frmImageInsert) then
+    frmImageInsert := TfrmImageInsert.Create(Self);
+
   try
     with frmImageInsert do
     begin
@@ -289,7 +292,6 @@ begin
       Show;
     end;
   finally
-    frmImageInsert.Free;
   end;
 end;
 
@@ -297,15 +299,15 @@ procedure TfrmSituationBoard.btnGameAreaClick(Sender: TObject);
 begin
   btnGameArea.ImageIndex := 10;
 
-  frmBrowseMap := TfrmBrowseMap.Create(Self);
+  if not Assigned(frmBrowseMap) then
+    frmBrowseMap := TfrmBrowseMap.Create(Self);
+
   try
     with frmBrowseMap do
     begin
       Show;
     end;
-
   finally
-    frmBrowseMap.Free;
   end;
 end;
 
@@ -598,7 +600,7 @@ begin
       with frmOverlayTools do
       begin
         case ShapeType of
-          ovText, ovCircle, ovEllipse, ovArc, ovSector, ovGrid, ovIntelijen, ovRadar, ovLogistic, ovPangkalan:
+          ovText, ovCircle, ovEllipse, ovArc, ovSector, ovGrid, ovIntelijen, ovRadar, ovLogistic, ovPangkalan, ovPlatform:
           begin
             if simMgrClient.DrawFlagPoint.FlagList.Count > 0 then
               simMgrClient.DrawFlagPoint.FlagList.Clear;

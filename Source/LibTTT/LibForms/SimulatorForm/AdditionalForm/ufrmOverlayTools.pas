@@ -377,6 +377,26 @@ type
     edtRadarIdentifier: TEdit;
     Label51: TLabel;
     Label60: TLabel;
+    RzBmpButton1: TRzBmpButton;
+    grpPlatform: TGroupBox;
+    Label70: TLabel;
+    Label71: TLabel;
+    Bevel25: TBevel;
+    Label72: TLabel;
+    Label73: TLabel;
+    btnPosPlatform: TSpeedButton;
+    Label74: TLabel;
+    Label75: TLabel;
+    Label79: TLabel;
+    Bevel26: TBevel;
+    Label80: TLabel;
+    Bevel27: TBevel;
+    Label81: TLabel;
+    edtLongPlatform: TEdit;
+    edtLattPlatform: TEdit;
+    edtPlatformIdentifier: TEdit;
+    lblTacticalSymbolPlatform: TLabel;
+    Button1: TButton;
     procedure btnHandleShape(Sender: TObject);
     procedure cbbTypeToolsChange(Sender: TObject);
     procedure btnOutlineClick(Sender: TObject);
@@ -433,6 +453,7 @@ type
     procedure LoadPanelRadar;
     procedure LoadPanelPangkalan;
     procedure LoadPanelPanah;
+    procedure LoadPanelPlatform;
 
     procedure SetNoFill(val: Boolean);
 
@@ -450,6 +471,7 @@ type
     procedure GbrRadar;
     procedure GbrPangkalan;
     procedure GbrPanah;
+    procedure GbrPlatform;
     procedure GbrFlagPoint(mx, my :Double);
     procedure EditFlagPoint(id: Integer; mx, my: Double);
 
@@ -597,6 +619,8 @@ begin
       LoadPanelPangkalan;
     ovPanah :
       LoadPanelPanah;
+    ovPlatform :
+      LoadPanelPanah;
   end;
 end;
 
@@ -607,8 +631,17 @@ end;
 
 procedure TfrmOverlayTools.btnplatformClick(Sender: TObject);
 begin
-  frmSelectSimbolTaktis.drwgrdFontTaktis.RowCount := 184;
-  frmSelectSimbolTaktis.Show;
+  if not Assigned(frmSelectSimbolTaktis) then
+    frmSelectSimbolTaktis := TfrmSelectSimbolTaktis.Create(self) ;
+
+  try
+    with frmSelectSimbolTaktis do
+    begin
+      drwgrdFontTaktis.RowCount := 184;
+      Show;
+    end;
+  finally
+  end;
 end;
 
 procedure TfrmOverlayTools.Canceled;
@@ -1522,6 +1555,39 @@ begin
   FisInputProblem := False;
 end;
 
+procedure TfrmOverlayTools.GbrPlatform;
+var
+  i : Integer;
+  recShape : TRecTCPSendOverlayShape;
+
+begin
+  if CekInput(ovPlatform) then
+    Exit;
+
+  recShape.IdUserRole   := FSelectedOverlayTab.IdUserRole;
+  recShape.TemplateId   := FSelectedOverlayTab.IdOverlayTab;
+  recShape.ShapeType    := ovPlatform;
+  recShape.OverlayName  := edtPlatformIdentifier.Text;
+  recShape.PostStart.X  := dmsToLong(edtLongPlatform.Text);
+  recShape.PostStart.Y  := dmsToLatt(edtLattPlatform.Text);
+  recShape.IdSelectShape:= FShapeId;
+  recShape.IdAction     := FAction;
+  recShape.color        := GetPlottingColor;
+
+  for i := 0 to 12 do
+  begin
+    recShape.Data[i] := '';
+    recShape.Status[i] := '';
+    recShape.Simbol[i] := '';
+    recShape.Quantity[i] := 0;
+  end;
+
+  recShape.Words := lblTacticalSymbolPlatform.Caption;
+
+  simMgrClient.netSend_CmdOverlayShape(recShape);
+  FisInputProblem := False;
+end;
+
 procedure TfrmOverlayTools.GbrRadar;
 var
   i : Integer;
@@ -1775,6 +1841,15 @@ begin
   {$ENDREGION}
 end;
 
+procedure TfrmOverlayTools.LoadPanelPlatform;
+begin
+  grpPlatform.BringToFront;
+
+  {$REGION ' Button Handle '}
+  btnDelete.Enabled := FAction = caEdit;
+  {$ENDREGION}
+end;
+
 procedure TfrmOverlayTools.LoadPanelPolygon;
 begin
   grpPolygon.BringToFront;
@@ -1926,7 +2001,8 @@ var
   LogisticTemp  : TLogisticShape;
   RadarTemp     : TRadarShape;
   BaseTemp      : TPangkalanShape;
-  ArrowTemp    : TPanahShape;
+  ArrowTemp     : TPanahShape;
+  PlatformTemp  : TPlatformShape;
 
   intelDataTemp : TIntelijenInfo;
   shipDataTemp  : TVehicleOnBase;
@@ -2500,6 +2576,30 @@ begin
           break;
         end;
         {$ENDREGION}
+      end
+      else if mainShapeTemp is TPlatformShape then
+      begin
+        {$REGION ' Platform Section '}
+         PlatformTemp := TPlatformShape(mainShapeTemp);
+
+        simMgrClient.Converter.ConvertToScreen(PlatformTemp.postCenter.X, PlatformTemp.postCenter.Y, x1, y1);
+        rect1 := SelectedOverlayTab.Formula.assignRect(x1, y1);
+
+        if ptToArea(rect1, ptPos) then
+        begin
+          FShapeType := ovPlatform;
+          FShapeId := PlatformTemp.ShapeId;
+          FAction := caEdit;
+          edtLongPlatform.Text := formatDMS_long(PlatformTemp.postCenter.X);
+          edtLattPlatform.Text := formatDMS_latt(PlatformTemp.postCenter.Y);
+          pnlOutline.Color := PlatformTemp.ShapeOutline;
+
+          PlatformTemp.isSelected := true;
+          LoadPanelPlatform;
+
+          break;
+        end;
+        {$ENDREGION}
       end;
     end;
 
@@ -2615,6 +2715,11 @@ begin
       begin
         edtLattBase.Text := formatDMS_latt(my);
         edtLongBase.Text := formatDMS_long(mx);
+      end;
+    17:
+      begin
+        edtLattPlatform.Text := formatDMS_latt(my);
+        edtLongPlatform.Text := formatDMS_long(mx);
       end;
   end;
   show

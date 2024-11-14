@@ -465,6 +465,16 @@ type
     procedure Draw(FCanvas: TCanvas); override;
   end;
 
+  TPlatformShape = class (TMainShape)
+  public
+    simbol : string;
+
+    constructor Create(cvt : TCoordConverter);
+    destructor Destroy; override;
+
+    procedure Draw(FCanvas: TCanvas); override;
+  end;
+
   TOverlayTab = class
   private
     FIdOverlayTab : Integer;
@@ -2679,5 +2689,45 @@ begin
 end;
 
 {$ENDREGION}
+
+{ TPlatformShape }
+
+constructor TPlatformShape.Create(cvt: TCoordConverter);
+begin
+  inherited;
+end;
+
+destructor TPlatformShape.Destroy;
+begin
+
+  inherited;
+end;
+
+procedure TPlatformShape.Draw(FCanvas: TCanvas);
+var
+  cx, cy: Integer;
+begin
+  inherited;
+
+  SetTempHuruf(FCanvas.Font, 0);
+
+  with FCanvas do
+  begin
+    Converter.ConvertToScreen(postCenter.X, postCenter.Y, cx, cy);
+
+    Brush.Style := bsClear;
+
+    Font.Color := ShapeOutline;
+    Font.Size := 14;
+
+    if isSelected then
+     Font.Color  := clWhite;
+
+    SetStyleHuruf(FCanvas, fsBold, 15, ShapeOutline, 'TAKTIS_AL');
+    TextOut(cx+270, cy-26,simbol);
+
+    Font := SetTempHuruf(Font, 1);
+  end;
+end;
 
 end.

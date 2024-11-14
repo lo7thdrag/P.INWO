@@ -123,16 +123,17 @@ begin
 
   Hide;
 
-  frmSummaryUserRole := TfrmSummaryUserRole.Create(Self);
+  if not Assigned(frmSummaryUserRole) then
+    frmSummaryUserRole := TfrmSummaryUserRole.Create(Self);
+
   try
     with frmSummaryUserRole do
     begin
       SelectedUserRole := FSelectedUserRole;
-      ShowModal;
+      Show;
       FUpdateList := AfterClose;
     end;
   finally
-    frmSummaryUserRole.Free;
   end;
 
   if FUpdateList then
@@ -145,17 +146,18 @@ procedure TfrmAvailableUserRole.btnNewClick(Sender: TObject);
 begin
   Hide;
 
-  frmSummaryUserRole := TfrmSummaryUserRole.Create(self) ;
+  if not Assigned(frmSummaryUserRole) then
+    frmSummaryUserRole := TfrmSummaryUserRole.Create(self) ;
+
   try
     with frmSummaryUserRole do
     begin
       SelectedUserRole := TUserRole.Create;
-      ShowModal;
+      Show;
       SelectedUserRole.Free;
       FUpdateList := AfterClose;
     end;
   finally
-    frmSummaryUserRole.Free
   end;
 
   if FUpdateList then
