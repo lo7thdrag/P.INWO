@@ -1156,7 +1156,7 @@ begin
   begin
     SelectDirectory('Select a directory', vGameDataSetting.LocalDirectory, localDirTemp);
 
-    serverDirTemp := vGameDataSetting.FileSimbolTaktis + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '.bmp';
+    serverDirTemp := FSelectedTacticalSymbol.FData.Path_Directori + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '.bmp';
     localFileTemp := localDirTemp + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '.bmp';
 
     CopyFile(PWideChar(serverDirTemp), PWideChar(localFileTemp), False);
@@ -1634,7 +1634,7 @@ begin
   begin
     SelectDirectory('Select a directory', vGameDataSetting.LocalDirectory, localDirTemp);
 
-    serverDirTemp :=  vGameDataSetting.FileReferensi + '\' + IntToStr(FSelectedFileReferensi.FData.ID_File) +
+    serverDirTemp :=  FSelectedFileReferensi.FData.Directory_Path + '\' + IntToStr(FSelectedFileReferensi.FData.ID_File) +
                       FSelectedFileReferensi.FData.Tipe_File;
 
     localFileTemp := localDirTemp + '\' + FSelectedFileReferensi.FData.Encripted_File_Name + FSelectedFileReferensi.FData.Tipe_File;
