@@ -94,8 +94,7 @@ begin
     CopyFile(PWideChar(WordFileNameTemplateRahasia), pw, False);
      try
         WordApplication.Visible := True; //set to False if you do not want to see the activity in the background
-        WordApplication.DisplayAlerts := False; //ensures message dialogs do not interrupt the flow of your automation process. May be helpful to set to True during testing and debugging.
-
+        WordApplication.DisplayAlerts := True; //ensures message dialogs do not interrupt the flow of your automation process. May be helpful to set to True during testing and debugging.
         //Open Word File
         try
            WordFile := WordApplication.Documents.Open(WordFileName);
@@ -145,7 +144,7 @@ begin
     CopyFile(PWideChar(WordFileNameTemplateTerbatas), pw, False);
      try
         WordApplication.Visible := True; //set to False if you do not want to see the activity in the background
-        WordApplication.DisplayAlerts := False; //ensures message dialogs do not interrupt the flow of your automation process. May be helpful to set to True during testing and debugging.
+        WordApplication.DisplayAlerts := True; //ensures message dialogs do not interrupt the flow of your automation process. May be helpful to set to True during testing and debugging.
 
         //Open Word File
         try
