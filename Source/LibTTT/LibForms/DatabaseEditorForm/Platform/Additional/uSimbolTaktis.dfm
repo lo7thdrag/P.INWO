@@ -62,8 +62,8 @@ object SimbolTaktis: TSimbolTaktis
     OnClick = btnCancelClick
   end
   object edt_searchsimbol: TEdit
-    Left = 76
-    Top = 687
+    Left = 67
+    Top = 690
     Width = 121
     Height = 21
     TabOrder = 3

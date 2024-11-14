@@ -11,6 +11,8 @@ type
     drwgrdFontTaktis: TDrawGrid;
     btnOK: TButton;
     btnCancel: TButton;
+    lbl1: TLabel;
+    edt_searchsimbol: TEdit;
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -18,6 +20,8 @@ type
       Rect: TRect; State: TGridDrawState);
     procedure btnCancelClick(Sender: TObject);
     procedure btnOKClick(Sender: TObject);
+    procedure edt_searchsimbolKeyPress(Sender: TObject; var Key: Char);
+    procedure filtersearch;
   private
     { Private declarations }
     FontTaktisList : TList;
@@ -68,6 +72,29 @@ begin
     drwgrdFontTaktis.Canvas.TextOut(Rect.Left + 60, Rect.Top, char(aFontTaktis.FData.FONT_INDEX));
 
   end;
+end;
+
+procedure TfrmSelectSimbolTaktis.edt_searchsimbolKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if key = #13 then
+  begin
+    filtersearch;
+  end;
+end;
+
+procedure TfrmSelectSimbolTaktis.filtersearch;
+var
+ i : Integer;
+begin
+  if Assigned(FontTaktisList) then
+    FontTaktisList.Clear
+  else
+    FontTaktisList.Create;
+
+  dmINWO.getFilterSimbol(edt_searchsimbol.Text,FontType,FontTaktisList);
+  drwgrdFontTaktis.RowCount := FontTaktisList.Count;
+  drwgrdFontTaktis.SetFocus;
 end;
 
 procedure TfrmSelectSimbolTaktis.FormCreate(Sender: TObject);

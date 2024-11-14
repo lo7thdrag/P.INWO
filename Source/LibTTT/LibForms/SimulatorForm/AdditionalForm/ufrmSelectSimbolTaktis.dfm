@@ -19,6 +19,19 @@ object frmSelectSimbolTaktis: TfrmSelectSimbolTaktis
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
+  object lbl1: TLabel
+    Left = 21
+    Top = 523
+    Width = 49
+    Height = 16
+    Caption = 'Search :'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWhite
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
   object drwgrdFontTaktis: TDrawGrid
     Left = 0
     Top = 0
@@ -72,5 +85,13 @@ object frmSelectSimbolTaktis: TfrmSelectSimbolTaktis
     Font.Style = []
     ParentFont = False
     TabOrder = 2
+  end
+  object edt_searchsimbol: TEdit
+    Left = 76
+    Top = 519
+    Width = 121
+    Height = 21
+    TabOrder = 3
+    OnKeyPress = edt_searchsimbolKeyPress
   end
 end
