@@ -497,7 +497,7 @@ var
 implementation
 
 uses
-  ufrmSituationBoard, ufrmTacticalDisplay;
+  ufrmSituationBoard, ufrmTacticalDisplay, uSimbolTaktis;
 {$R *.dfm}
 
 
@@ -520,6 +520,7 @@ begin
     ovRadar : GbrRadar;
     ovPangkalan : GbrPangkalan;
     ovPanah : GbrPanah;
+    ovPlatform : GbrPlatform;
   end;
 end;
 
@@ -620,7 +621,7 @@ begin
     ovPanah :
       LoadPanelPanah;
     ovPlatform :
-      LoadPanelPanah;
+      LoadPanelPlatform;
   end;
 end;
 
@@ -899,6 +900,16 @@ begin
       end;
       {$ENDREGION}
     end;
+    ovPlatform:
+    begin
+      {$REGION ' Panah '}
+      if (edtPlatformIdentifier.Text = '') or (edtLattPlatform.Text = '') or (edtLongPlatform.Text = '') or (lblTacticalSymbolPlatform.Caption = '') then
+      begin
+        ShowMessage ('Data yang dimasukan tidak lengkap');
+        Result := True;
+      end;
+      {$ENDREGION}
+    end;
   end;
 
   if Result then
@@ -1016,6 +1027,12 @@ begin
   edtEndLong.Text := '';
   {$ENDREGION}
 
+  {$REGION ' Platform '}
+  edtPlatformIdentifier.Text := '';
+  edtLattPlatform.Text := '';
+  edtLongPlatform.Text := '';
+  lblTacticalSymbolPlatform.Caption := '';
+  {$ENDREGION}
 
 //  SpeedButton10.Down := false;
 
@@ -2051,6 +2068,7 @@ begin
           pnlOutline.color    := textTemp.ShapeOutline;
           textTemp.isSelected := true;
           LoadPanelText;
+          pnlShape.BringToFront;
 
           break;
         end;
@@ -2081,6 +2099,7 @@ begin
           cbbWeightPen.Text := IntToStr(lineTemp.LineWeight);
           lineTemp.isSelected := true;
           LoadPanelLine;
+          pnlShape.BringToFront;
 
           break;
         end;
@@ -2126,6 +2145,7 @@ begin
 
           rectangleTemp.isSelected := true;
           LoadPanelRectangle;
+          pnlShape.BringToFront;
 
           break;
         end;
@@ -2162,6 +2182,7 @@ begin
 
           circleTemp.isSelected := true;
           LoadPanelCircle;
+          pnlShape.BringToFront;
 
           break;
         end;
@@ -2214,6 +2235,7 @@ begin
 
           ellipseTemp.isSelected := true;
           LoadPanelEllipse;
+          pnlShape.BringToFront;
 
           break;
         end;
@@ -2242,6 +2264,7 @@ begin
 
           arcTemp.isSelected  := true;
           LoadPanelArc;
+          pnlShape.BringToFront;
 
           break;
         end;
@@ -2272,6 +2295,7 @@ begin
 
           sectorTemp.isSelected  := true;
           LoadPanelSector;
+          pnlShape.BringToFront;
 
           break;
         end;
@@ -2349,6 +2373,7 @@ begin
 
           gridTemp.isSelected := true;
           LoadPanelGrid;
+          pnlShape.BringToFront;
 
           break;
         end;
@@ -2416,6 +2441,7 @@ begin
 
             polygonTemp.isSelected := true;
             LoadPanelPolygon;
+            pnlShape.BringToFront;
 
             break;
           end;
@@ -2448,6 +2474,7 @@ begin
 
           IntelijenTemp.isSelected := true;
           LoadPanelIntelijen;
+          pnlObject.BringToFront;
 
           break;
         end;
@@ -2484,6 +2511,7 @@ begin
 
           LogisticTemp.isSelected := true;
           LoadPanelLogistic;
+          pnlObject.BringToFront;
 
           break;
         end;
@@ -2510,6 +2538,7 @@ begin
 
           RadarTemp.isSelected := true;
           LoadPanelRadar;
+          pnlObject.BringToFront;
 
           break;
         end;
@@ -2546,6 +2575,7 @@ begin
 
           BaseTemp.isSelected := true;
           LoadPanelPangkalan;
+          pnlObject.BringToFront;
 
           break;
         end;
@@ -2572,6 +2602,7 @@ begin
 
           ArrowTemp.isSelected := true;
           LoadPanelPanah;
+          pnlObject.BringToFront;
 
           break;
         end;
@@ -2583,19 +2614,24 @@ begin
          PlatformTemp := TPlatformShape(mainShapeTemp);
 
         simMgrClient.Converter.ConvertToScreen(PlatformTemp.postCenter.X, PlatformTemp.postCenter.Y, x1, y1);
-        rect1 := SelectedOverlayTab.Formula.assignRect(x1, y1);
+        rect1 := SelectedOverlayTab.Formula.checkText(x1, y1, 14, PlatformTemp.simbol);
 
         if ptToArea(rect1, ptPos) then
         begin
           FShapeType := ovPlatform;
           FShapeId := PlatformTemp.ShapeId;
           FAction := caEdit;
+          edtPlatformIdentifier.Text := PlatformTemp.Identifier;
           edtLongPlatform.Text := formatDMS_long(PlatformTemp.postCenter.X);
           edtLattPlatform.Text := formatDMS_latt(PlatformTemp.postCenter.Y);
+
+          lblTacticalSymbolPlatform.Caption := PlatformTemp.simbol;
+
           pnlOutline.Color := PlatformTemp.ShapeOutline;
 
           PlatformTemp.isSelected := true;
           LoadPanelPlatform;
+          pnlObject.BringToFront;
 
           break;
         end;

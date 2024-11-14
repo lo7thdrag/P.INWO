@@ -47,9 +47,6 @@ begin
   frmOverlayTools.lblSymbolTaktis.Font.Style := [fsBold];
   frmOverlayTools.lblSymbolTaktis.Caption := Char(TFontTaktis(FontTaktisList.Items[drwgrdFontTaktis.Row]).FData.FONT_INDEX);
 
-  frmOverlayTools.lblTacticalSymbolPlatform.Font.Name := TFontTaktis(FontTaktisList.Items[drwgrdFontTaktis.Row]).FData.FONT_NAME;
-  frmOverlayTools.lblTacticalSymbolPlatform.Font.Size := 30;
-  frmOverlayTools.lblTacticalSymbolPlatform.Font.Style := [fsBold];
   frmOverlayTools.lblTacticalSymbolPlatform.Caption := Char(TFontTaktis(FontTaktisList.Items[drwgrdFontTaktis.Row]).FData.FONT_INDEX);
   Close;
 end;

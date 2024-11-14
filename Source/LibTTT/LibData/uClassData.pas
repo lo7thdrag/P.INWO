@@ -2723,8 +2723,8 @@ begin
     if isSelected then
      Font.Color  := clWhite;
 
-    SetStyleHuruf(FCanvas, fsBold, 15, ShapeOutline, 'TAKTIS_AL');
-    TextOut(cx+270, cy-26,simbol);
+    SetStyleHuruf(FCanvas, fsBold, 20, ShapeOutline, 'TAKTIS_AL');
+    TextOut(cx, cy,simbol);
 
     Font := SetTempHuruf(Font, 1);
   end;
