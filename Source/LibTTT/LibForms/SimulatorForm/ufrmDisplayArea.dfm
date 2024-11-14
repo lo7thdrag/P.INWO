@@ -43018,6 +43018,7 @@ object frmDisplayArea: TfrmDisplayArea
           Align = alTop
           BevelOuter = bvNone
           TabOrder = 6
+          Visible = False
           object btnVideoConference: TSpeedButton
             Tag = 4
             Left = 13
