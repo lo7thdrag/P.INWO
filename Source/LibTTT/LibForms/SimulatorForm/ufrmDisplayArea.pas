@@ -1997,6 +1997,10 @@ end;
 
 procedure TfrmDisplayArea.TelegramClick(Sender: TObject);
 begin
+
+  if not Assigned(frmTelegram) then
+    frmTelegram := TfrmTelegram.Create(Self);
+
   frmTelegram.Show;
 end;
 
