@@ -10,7 +10,7 @@ uses
 
   {Project Uses}
   uClassData, uRecordData, uConstantaData, uConsoleData,uBaseCoordSystem, uCoordConvertor, uLibSetting, uSimObjects,
-  uSimMgr_Client, uT3SimManager, ufrmDisplayArea, ufrmSituationBoard ;
+  uSimMgr_Client, uT3SimManager, ufrmDisplayArea, ufrmSituationBoard, ufrmTelegram ;
 
 type
 
@@ -527,6 +527,7 @@ begin
   lblKomandoTugas.Caption := '';
   lblUserRole.Caption := '';
   cbbTahapan.Items.Clear;
+  frmTelegram.Close;
 
   pnlLogin.BringToFront;
   {$ENDREGION}
