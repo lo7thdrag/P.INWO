@@ -29,24 +29,7 @@ type
     lblGameArea: TLabel;
     lblPlatform: TLabel;
     Label1: TLabel;
-    pnlDescription: TPanel;
     imgLoginBackground: TImage;
-    lblWelcome: TLabel;
-    Label2: TLabel;
-    Label4: TLabel;
-    Label6: TLabel;
-    Label8: TLabel;
-    Image2: TImage;
-    btnStart: TButton;
-    Label10: TLabel;
-    cbbTahapan: TComboBox;
-    Panel1: TPanel;
-    lblOperasi: TLabel;
-    Panel2: TPanel;
-    lblKomandoTugas: TLabel;
-    Panel3: TPanel;
-    lblUserRole: TLabel;
-    btnLogout: TButton;
     pnlBackgroundLogin: TPanel;
     imgBackgroundLogin: TImage;
     pnlSituationBoard: TPanel;
@@ -73,7 +56,6 @@ type
     procedure btnShowPasswordClick(Sender: TObject);
     procedure btnLoginClick(Sender: TObject);
     procedure btnLogoutClick(Sender: TObject);
-    procedure btnStartClick(Sender: TObject);
     procedure btnShowClick(Sender: TObject);
     procedure cbbConsoleNameDropDown(Sender: TObject);
     procedure btnPlanningClick(Sender: TObject);
@@ -135,28 +117,6 @@ begin
     btnShowPassword.Picture.LoadFromFile('data\Image DBEditor\Interface\Background\btnHidePassword.png');
     EdtPassword.PasswordChar := '*';
   end
-end;
-
-procedure TfrmTacticalDisplay.btnStartClick(Sender: TObject);
-begin
-  if cbbTahapan.ItemIndex = -1 then
-  begin
-    ShowMessage('Silahkan pilih jenis tahapan ');
-    Exit;
-  end;
-
-  frmDisplayArea := TfrmDisplayArea.Create(Self);
-  try
-    with frmDisplayArea do
-    begin
-//      simMgrClient.MyConsoleData.TipeTahapan := Byte(SetTipeTahapanToEnum(cbbTahapan.Text));
-//      ShowModal;
-      Show;
-    end;
-
-  finally
-    frmDisplayArea.Free;
-  end;
 end;
 
 procedure TfrmTacticalDisplay.btnTerminationClick(Sender: TObject);
@@ -523,10 +483,6 @@ begin
   {$REGION ' User Logout '}
   edtUsername.Text := '';
   edtPassword.Text := '';
-  lblOperasi.Caption := '';
-  lblKomandoTugas.Caption := '';
-  lblUserRole.Caption := '';
-  cbbTahapan.Items.Clear;
   frmTelegram.Close;
 
   pnlLogin.BringToFront;

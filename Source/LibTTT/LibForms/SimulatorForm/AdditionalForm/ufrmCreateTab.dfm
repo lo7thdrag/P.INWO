@@ -12,6 +12,7 @@ object frmCreateTab: TfrmCreateTab
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
+  OnActivate = FormActivate
   PixelsPerInch = 96
   TextHeight = 13
   object lbl1: TLabel

@@ -114,12 +114,22 @@ type
     property MapCursor : TMapCursor read FMapCursor write  FMapCursor;
   end;
 
+  function frmSituationBoard_Instance: TfrmSituationBoard;
+
 var
   frmSituationBoard: TfrmSituationBoard;
 
 implementation
 
 {$R *.dfm}
+
+function frmSituationBoard_Instance: TfrmSituationBoard;
+begin
+  if not Assigned(frmSituationBoard) then
+    Application.CreateForm(TfrmSituationBoard, frmSituationBoard);
+
+  Result := frmSituationBoard;
+end;
 
 procedure EnableComposited(WinControl:TWinControl);
 var
@@ -561,6 +571,7 @@ begin
     begin
       if TSpeedButton(Components[i]).Tag < 14 then
       begin
+        TSpeedButton(Components[i]).Width := 0;
         if SimManager.SimTabProperties.GetActiveTab(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, tagTemp) then
         begin
           if TSpeedButton(Components[i]).Tag = tagTemp then
@@ -568,8 +579,11 @@ begin
             TSpeedButton(Components[i]).Width := widthTemp;
             TSpeedButton(Components[i]).Caption := SimManager.SimTabProperties.GetCaptionTab(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, tagTemp);
           end;
-
           inc(tagTemp);
+        end
+        else
+        begin
+
         end;
       end;
     end;

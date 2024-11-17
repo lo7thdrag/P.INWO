@@ -12,6 +12,7 @@ object frmImageInsert: TfrmImageInsert
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnActivate = FormActivate
   PixelsPerInch = 96
   TextHeight = 13
   object lbl1: TLabel

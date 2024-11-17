@@ -1837,16 +1837,6 @@ end;
 procedure TfrmDisplayArea.SituationBoardClick(Sender: TObject);
 begin
   frmSituationBoard.Show;
-//  frmSituationBoard := TfrmSituationBoard.Create(Self);
-//  try
-//    with frmSituationBoard do
-//    begin
-//      Show;
-//    end;
-//
-//  finally
-//    frmSituationBoard.Free;
-//  end;
 end;
 
 {$ENDREGION}

@@ -21,6 +21,7 @@ type
     procedure btnCancelClick(Sender: TObject);
     procedure btnOKClick(Sender: TObject);
     procedure cbbTypeChange(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
 
   private
     { Private declarations }
@@ -73,6 +74,12 @@ procedure TfrmCreateTab.cbbTypeChange(Sender: TObject);
 begin
   if cbbType.ItemIndex = -1 then
     cbbType.ItemIndex := 0;
+end;
+
+procedure TfrmCreateTab.FormActivate(Sender: TObject);
+begin
+  edtCaption.Text := '';
+  cbbType.ItemIndex := 0;
 end;
 
 end.

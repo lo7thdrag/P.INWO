@@ -21,6 +21,7 @@ type
     procedure btnCancelClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure btnOKClick(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
   private
     FFileName : string;
     FFileExt : string;
@@ -80,6 +81,11 @@ begin
 
     edtAddress.Text := dlgOpenPic1.FileName;
   end;
+end;
+
+procedure TfrmImageInsert.FormActivate(Sender: TObject);
+begin
+  edtAddress.Text := '';
 end;
 
 end.
