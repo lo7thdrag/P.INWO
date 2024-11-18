@@ -32,7 +32,7 @@ type
 
     {$REGION ' Referensi '}
     function GetAllReferensi(var aList: TList): Integer;
-    function GetSearchReferensi(var rec: TRecFile_Data): Integer;
+    function GetSearchReferensi(var FilterIndex : Integer ; SearchContent : string ; aList: TList ): Integer;
     function GetFilterByReferensi(var rec: TRecFile_Data): Integer;
 
     function InsertReferensi(var rec : TRecFile_Data) : Boolean;
@@ -819,14 +819,15 @@ begin
 
         with rec.FData do
         begin
-          ID_File := FieldByName('ID_File').AsInteger;
-          Nama_File := FieldByName('Nama_File').AsString;
-          Directory_Path := FieldByName('Directory_Path').AsString;
+          ID_File             := FieldByName('ID_File').AsInteger;
+          Nama_File           := FieldByName('Nama_File').AsString;
+          Directory_Path      := FieldByName('Directory_Path').AsString;
           Encripted_File_Name := FieldByName('Encripted_File_Name').AsString;
-          Tipe_File := FieldByName('Tipe_File').AsString;
-          Modified_Date := FieldByName('Modified_Date').AsString;
-          Modified_By := FieldByName('Modified_By').AsString;
-          id_User := FieldByName('id_User').AsInteger;
+          Tipe_File           := FieldByName('Tipe_File').AsString;
+          Modified_Date       := FieldByName('Modified_Date').AsString;
+          Modified_By         := FieldByName('Modified_By').AsString;
+          Kategori            := FieldByName('Kategori').AsString;
+          id_User             := FieldByName('id_User').AsInteger;
         end;
 
         aList.Add(rec);
@@ -836,7 +837,10 @@ begin
   end;
 end;
 
-function TdmINWO.GetSearchReferensi(var rec: TRecFile_Data): Integer;
+function TdmINWO.GetSearchReferensi(var FilterIndex : Integer ; SearchContent : string ; aList: TList ): Integer;
+var
+  i : Integer;
+  aRec : TFile_Data;
 begin
   Result := -1;
 
@@ -847,11 +851,65 @@ begin
   begin
     Close;
     SQL.Clear;
+
     SQL.Add('SELECT * FROM File_Referensi');
-    SQL.Add('WHERE (Nama_File = ' + QuotedStr(rec.Nama_File) + ') ' );
+
+    case FilterIndex of
+      0 : {All}
+      begin
+
+      end;
+      1: {Nama Dokumen}
+      begin
+        SQL.Add('WHERE Nama_File like '  + quotedStr( '%' + SearchContent + '%'))
+      end;
+      2: {Kategori}
+      begin
+        SQL.Add('WHERE Kategori = '  + quotedStr(SearchContent));
+      end;
+    end;
+
     Open;
 
     Result := RecordCount;
+
+    if Assigned(aList) then
+    begin
+      for i := 0 to aList.Count - 1 do
+      begin
+        aRec := aList.Items[i];
+        aRec.Free;
+      end;
+
+      aList.Clear;
+    end
+    else
+      aList := TList.Create;
+
+    if not IsEmpty then
+    begin
+      First;
+
+      while not Eof do
+      begin
+        aRec := TFile_Data.Create;
+
+        with aRec.FData do
+        begin
+          ID_File             := FieldByName('ID_File').AsInteger;
+          Nama_File           := FieldByName('Nama_File').AsString;
+          Encripted_File_Name := FieldByName('Encripted_File_Name').AsString;
+          Tipe_File           := FieldByName('Tipe_File').AsString;
+          Modified_Date       := FieldByName('Modified_Date').AsString;
+          Modified_By         := FieldByName('Modified_By').AsString;
+          Kategori            := FieldByName('Kategori').AsString;
+          id_User             := FieldByName('id_User').AsInteger;
+        end;
+
+        aList.Add(aRec);
+        Next;
+      end;
+    end;
   end;
 end;
 
@@ -874,6 +932,7 @@ begin
           '(Encripted_File_Name = ' + QuotedStr(rec.Encripted_File_Name) + ') and ' +
           '(id_User = ' + IntToStr(rec.id_User) + ') and ' +
           '(Modified_Date = ' + QuotedStr(rec.Modified_Date) + ') and ' +
+          '(Kategori = ' + QuotedStr(rec.Kategori) + ') and ' +
           '(Directory_Path = ' + QuotedStr(rec.Directory_Path) + ')');
     Open;
 
@@ -895,7 +954,7 @@ begin
     SQL.Clear;
 
     SQL.Add('INSERT INTO File_Referensi');
-    SQL.Add('(Nama_File, Directory_Path, Encripted_File_Name, Tipe_File, Modified_Date, Modified_By, id_User)');
+    SQL.Add('(Nama_File, Directory_Path, Encripted_File_Name, Tipe_File, Modified_Date, Modified_By, Kategori, id_User)');
     SQL.Add('VALUES (');
 
     with rec do
@@ -906,6 +965,7 @@ begin
       SQL.Add(QuotedStr(Tipe_File) + ', ');
       SQL.Add(QuotedStr(Modified_Date) + ', ');
       SQL.Add(QuotedStr(Modified_By) + ', ');
+      SQL.Add(QuotedStr(Kategori) + ', ');
       SQL.Add(IntToStr(id_User) + ')');
     end;
     ExecSQL;
@@ -944,6 +1004,7 @@ begin
       SQL.Add('Tipe_File=' + QuotedStr(rec.Tipe_File)+',');
       SQL.Add('Modified_Date=' + QuotedStr(rec.Modified_Date)+',');
       SQL.Add('Modified_By=' + QuotedStr(rec.Modified_By)+',');
+      SQL.Add('Kategori=' + QuotedStr(rec.Kategori)+',');
       SQL.Add('id_User=' + IntToStr(rec.id_User));
       SQL.Add(' WHERE (ID_File =' + IntToStr(rec.ID_File) + ')');
       ExecSQL;
@@ -10944,14 +11005,21 @@ begin
      Close;
      SQL.Clear;
      SQL.Add('SELECT * FROM Simbol_Taktis');
-     if FilterIndex = 1 then
-        SQL.Add('WHERE ID_Simbol = ' + IntToStr(StrToIntDef(SearchContent, 0)))
-     else if FilterIndex = 2 then
+
+     case FilterIndex of
+      0: {All}
+      begin
+
+      end;
+      1: {Tipe}
+      begin
         SQL.Add('WHERE Tipe = ' + IntToStr(StrToIntDef(SearchContent, 0)))
-     else if FilterIndex = 3 then
+      end;
+      2: {Kategori}
+      begin
         SQL.Add('WHERE Kategori like ' + quotedStr('%' + SearchContent + '%'))
-     else if FilterIndex = 4 then
-        SQL.Add('WHERE Keterangan = ' + quotedStr(SearchContent));
+      end;
+     end;
 
      Open;
 

@@ -120,7 +120,7 @@ begin
       Encripted_File_Name := ExtractFileName(FAddressPath);
       Tipe_File           := ExtractFileExt(FAddressPath);
       Modified_Date       := DateToStr(Now);
-      Modified_By         := edtKategori.Text;
+      Kategori            := edtKategori.Text;
       id_User             := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
 
       if not CekInput then
@@ -223,7 +223,7 @@ begin
   begin
     with FSelectedReferensi.FData do
     begin
-      edtKategori.Text     := Modified_By;
+      edtKategori.Text     := Kategori;
       edtNameDocument.Text := Nama_File;
 
       if ID_File = 0 then
