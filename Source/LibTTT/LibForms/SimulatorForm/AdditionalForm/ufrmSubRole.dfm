@@ -14487,7 +14487,7 @@ object frmSubRole: TfrmSubRole
       Font.Style = []
       ParentColor = False
       ParentFont = False
-      TabOrder = 0
+      TabOrder = 3
     end
     object edtIdentifier: TEdit
       Left = 101
@@ -14500,7 +14500,7 @@ object frmSubRole: TfrmSubRole
       Font.Name = 'Berlin Sans FB'
       Font.Style = []
       ParentFont = False
-      TabOrder = 4
+      TabOrder = 2
     end
     object chkPersiapan: TCheckBox
       Left = 101
@@ -14515,7 +14515,7 @@ object frmSubRole: TfrmSubRole
       Font.Style = []
       ParentColor = False
       ParentFont = False
-      TabOrder = 1
+      TabOrder = 4
     end
     object chkPelaksanaan: TCheckBox
       Left = 101
@@ -14528,7 +14528,7 @@ object frmSubRole: TfrmSubRole
       Font.Name = 'Berlin Sans FB'
       Font.Style = []
       ParentFont = False
-      TabOrder = 2
+      TabOrder = 5
     end
     object chkPengakhiran: TCheckBox
       Left = 101
@@ -14541,7 +14541,7 @@ object frmSubRole: TfrmSubRole
       Font.Name = 'Berlin Sans FB'
       Font.Style = []
       ParentFont = False
-      TabOrder = 3
+      TabOrder = 6
     end
     object cbbRole: TComboBox
       Left = 101
@@ -14554,7 +14554,7 @@ object frmSubRole: TfrmSubRole
       Font.Name = 'Berlin Sans FB'
       Font.Style = []
       ParentFont = False
-      TabOrder = 5
+      TabOrder = 0
       OnChange = cbbRoleChange
       Items.Strings = (
         'INWO'
@@ -14576,7 +14576,7 @@ object frmSubRole: TfrmSubRole
       Font.Name = 'Berlin Sans FB'
       Font.Style = []
       ParentFont = False
-      TabOrder = 6
+      TabOrder = 1
       OnChange = cbbSubRoleChange
     end
   end

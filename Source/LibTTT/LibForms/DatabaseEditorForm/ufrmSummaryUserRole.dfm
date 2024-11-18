@@ -14940,7 +14940,7 @@ object frmSummaryUserRole: TfrmSummaryUserRole
       MaxLength = 10
       ParentFont = False
       PasswordChar = '*'
-      TabOrder = 4
+      TabOrder = 6
       OnChange = edtChange
     end
     object edtPassword: TEdit
@@ -14956,7 +14956,7 @@ object frmSummaryUserRole: TfrmSummaryUserRole
       MaxLength = 10
       ParentFont = False
       PasswordChar = '*'
-      TabOrder = 3
+      TabOrder = 5
       OnChange = edtChange
     end
     object edtUsername: TEdit
@@ -14971,7 +14971,7 @@ object frmSummaryUserRole: TfrmSummaryUserRole
       Font.Style = []
       MaxLength = 25
       ParentFont = False
-      TabOrder = 2
+      TabOrder = 4
       OnChange = edtChange
     end
     object edtIdentifier: TEdit
@@ -14985,7 +14985,7 @@ object frmSummaryUserRole: TfrmSummaryUserRole
       Font.Name = 'Berlin Sans FB'
       Font.Style = []
       ParentFont = False
-      TabOrder = 5
+      TabOrder = 3
       OnChange = edtChange
     end
     object cbbUserRole: TComboBox
@@ -14999,7 +14999,7 @@ object frmSummaryUserRole: TfrmSummaryUserRole
       Font.Name = 'Berlin Sans FB'
       Font.Style = []
       ParentFont = False
-      TabOrder = 6
+      TabOrder = 2
       OnChange = cbbUserRoleChange
     end
   end

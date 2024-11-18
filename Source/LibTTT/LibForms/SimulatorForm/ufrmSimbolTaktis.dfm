@@ -14831,7 +14831,7 @@ object frmSimbolTaktis: TfrmSimbolTaktis
         Font.Name = 'Berlin Sans FB'
         Font.Style = []
         ParentFont = False
-        TabOrder = 0
+        TabOrder = 2
         OnChange = edtKeteranganChange
       end
       object cbbTipe: TComboBox
@@ -14846,7 +14846,7 @@ object frmSimbolTaktis: TfrmSimbolTaktis
         Font.Style = []
         ItemIndex = 0
         ParentFont = False
-        TabOrder = 1
+        TabOrder = 0
         Text = 'TAKTIS TNI AL'
         OnChange = cbbTipeChange
         Items.Strings = (
@@ -14864,7 +14864,7 @@ object frmSimbolTaktis: TfrmSimbolTaktis
         Font.Style = []
         ItemIndex = 0
         ParentFont = False
-        TabOrder = 2
+        TabOrder = 1
         Text = 'PESAWAT TERBANG SAYAP PUTAR'
         OnChange = cbbKategoriChange
         Items.Strings = (

@@ -14411,7 +14411,7 @@ object frmReferensi: TfrmReferensi
         Font.Name = 'Berlin Sans FB'
         Font.Style = []
         ParentFont = False
-        TabOrder = 0
+        TabOrder = 1
         OnChange = edtNameDocumentChange
       end
       object edtKategori: TEdit
@@ -14426,7 +14426,7 @@ object frmReferensi: TfrmReferensi
         Font.Name = 'Berlin Sans FB'
         Font.Style = []
         ParentFont = False
-        TabOrder = 1
+        TabOrder = 0
         OnChange = editKategoriChange
       end
     end

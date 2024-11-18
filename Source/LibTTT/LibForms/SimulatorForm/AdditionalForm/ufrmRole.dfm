@@ -14434,7 +14434,7 @@ object frmSummaryRole: TfrmSummaryRole
       Font.Name = 'Berlin Sans FB'
       Font.Style = []
       ParentFont = False
-      TabOrder = 0
+      TabOrder = 1
     end
     object cbbRole: TComboBox
       Left = 105
@@ -14447,7 +14447,7 @@ object frmSummaryRole: TfrmSummaryRole
       Font.Name = 'Berlin Sans FB'
       Font.Style = []
       ParentFont = False
-      TabOrder = 1
+      TabOrder = 0
       OnChange = cbbRoleChange
       Items.Strings = (
         'INWO'
