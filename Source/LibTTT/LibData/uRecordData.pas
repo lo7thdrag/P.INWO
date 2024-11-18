@@ -206,6 +206,7 @@ type
     Tipe_File           : string[5];
     Modified_Date       : string[35];
     Modified_By         : string[25];
+    Kategori            : string[255];
     id_User             : Integer;
   end;
 
