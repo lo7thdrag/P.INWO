@@ -11017,7 +11017,7 @@ begin
       end;
       2: {Kategori}
       begin
-        SQL.Add('WHERE Kategori like ' + quotedStr('%' + SearchContent + '%'))
+        SQL.Add('WHERE Kategori like ' + quotedStr(SearchContent))
       end;
      end;
 
