@@ -121,6 +121,7 @@ begin
       Tipe_File           := ExtractFileExt(FAddressPath);
       Modified_Date       := DateToStr(Now);
       Kategori            := edtKategori.Text;
+      Modified_By         := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIdentifier;
       id_User             := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
 
       if not CekInput then
