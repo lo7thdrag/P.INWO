@@ -1071,7 +1071,6 @@ object frmMainGameServer: TfrmMainGameServer
         2707778FC335279F719383DBC9E19A8FCFB8C9C1FDE4F0C545E7D464E102F207
         ECC545E7D464E106F2785EA11F5DF98C9C21DE50FD97A87CF98C9C22DE6F0BD4
         1E7CC64E11EF387ECBD41E7C462FFEA45E7F0B4FFCF8FF00813FFFD9}
-      Proportional = True
       Stretch = True
       ExplicitWidth = 540
       ExplicitHeight = 90
@@ -1402,7 +1401,7 @@ object frmMainGameServer: TfrmMainGameServer
       item
         Alignment = taCenter
         Caption = 'Operation'
-        Width = 95
+        Width = 160
       end>
     Font.Charset = ANSI_CHARSET
     Font.Color = clWhite
