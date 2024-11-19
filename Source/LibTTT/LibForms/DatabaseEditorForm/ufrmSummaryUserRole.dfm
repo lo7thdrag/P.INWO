@@ -14167,7 +14167,7 @@ object frmSummaryUserRole: TfrmSummaryUserRole
   end
   object btnOk: TImage
     Left = 337
-    Top = 278
+    Top = 280
     Width = 100
     Height = 30
     Cursor = crHandPoint

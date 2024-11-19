@@ -1649,15 +1649,6 @@ begin
     ExecSQL;
 
     Result := True;
-
-    {Yg barusan diinput diambil lagi datanya, untuk mengetahui Indexnya}
-    SQL.Clear;
-    SQL.Add('SELECT * FROM User_Role_Definition');
-    SQL.Add('WHERE (RoleIndex = ' + IntToStr(rec.RoleIndex) + ') and (SubRoleIndex = ' + IntToStr(rec.SubRoleIndex) + ') and ' );
-    SQL.Add('(UserRoleAcronim = ' + QuotedStr(rec.UserRoleAcronim) + ')' );
-    Open;
-
-    rec.UserRoleIndex := FieldByName('UserRoleIndex').AsInteger;
   end;
 end;
 

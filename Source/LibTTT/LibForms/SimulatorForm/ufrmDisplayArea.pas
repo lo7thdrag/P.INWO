@@ -486,11 +486,11 @@ begin
     lblUserRoleIdentifier.Caption := UserRoleData.FData.UserRoleAcronim;
 
     if UserRoleData.FData.SubRoleIndex = 5 then
-      imgMainBackground.Picture.LoadFromFile('C:\Program Files (x24)\Bin\data\Image Background\wallpaperNTWO.png')
+      imgMainBackground.Picture.LoadFromFile('C:\Program Files (x24)\Bin\data\Image Background\wallpaperNTWODisplayArea.png')
     else if UserRoleData.FData.SubRoleIndex = 6 then
-      imgMainBackground.Picture.LoadFromFile('C:\Program Files (x24)\Bin\data\Image Background\wallpaperATWO.png')
+      imgMainBackground.Picture.LoadFromFile('C:\Program Files (x24)\Bin\data\Image Background\wallpaperATWODisplayArea.png')
     else
-      imgMainBackground.Picture.LoadFromFile('C:\Program Files (x24)\Bin\data\Image Background\wallpaperINWO.png');
+      imgMainBackground.Picture.LoadFromFile('C:\Program Files (x24)\Bin\data\Image Background\wallpaperINWODisplayArea.png');
   end;
 
   pnlBerandaManajemenShow;
@@ -1284,8 +1284,6 @@ begin
     end;
   finally
   end;
-
-  UpdateDataPengguna;
 end;
 
 procedure TfrmDisplayArea.btnEditClick(Sender: TObject);
@@ -1300,13 +1298,9 @@ begin
       begin
         SelectedUserRole := FSelectedPengguna;
         Show;
-//        FUpdateList := AfterClose;
       end;
     finally
     end;
-
-//    if FUpdateList then
-      UpdateDataPengguna;
   end;
 end;
 

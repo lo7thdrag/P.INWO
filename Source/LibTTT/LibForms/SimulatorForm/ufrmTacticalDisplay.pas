@@ -457,11 +457,11 @@ begin
       lblUserIdentifier.Caption := FselectedUserRole.FData.UserRoleIdentifier + ' - ' + FselectedUserRole.FSubRoleData.SubRoleAcronim;
 
       if FselectedUserRole.FData.SubRoleIndex = 5 then
-        imgBackgroundLogin.Picture.LoadFromFile('C:\Program Files (x24)\Bin\data\Image Background\wallpaperNTWO.png')
+        imgBackgroundLogin.Picture.LoadFromFile('C:\Program Files (x24)\Bin\data\Image Background\wallpaperNTWOLogin.png')
       else if FselectedUserRole.FData.SubRoleIndex = 6 then
-        imgBackgroundLogin.Picture.LoadFromFile('C:\Program Files (x24)\Bin\data\Image Background\wallpaperATWO.png')
+        imgBackgroundLogin.Picture.LoadFromFile('C:\Program Files (x24)\Bin\data\Image Background\wallpaperATWOLogin.png')
       else
-        imgBackgroundLogin.Picture.LoadFromFile('C:\Program Files (x24)\Bin\data\Image Background\wallpaperINWO.png');
+        imgBackgroundLogin.Picture.LoadFromFile('C:\Program Files (x24)\Bin\data\Image Background\wallpaperINWOLogin.png');
     end
     else
     begin

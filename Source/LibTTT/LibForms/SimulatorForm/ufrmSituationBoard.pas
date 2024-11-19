@@ -84,6 +84,8 @@ type
     procedure btnOverlayToolsClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure btn1MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
 //    procedure Map1DrawUserLayer(Sender: TObject);
 
 
@@ -162,6 +164,14 @@ procedure InitOleVariant(var TheVar: OleVariant);
 begin
   TVarData(TheVar).vType := varError;
   TVarData(TheVar).vError := DISP_E_PARAMNOTFOUND;
+end;
+
+procedure TfrmSituationBoard.btn1MouseDown(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+  FSelectedTabProperties := SimManager.SimTabProperties.GetTapProperties(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, TSpeedButton(Sender).Tag);
+
+  RefreshTab;
 end;
 
 procedure TfrmSituationBoard.btnCreateTabClick(Sender: TObject);

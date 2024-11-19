@@ -54,6 +54,7 @@ object frmSituationBoard: TfrmSituationBoard
         Font.Style = []
         ParentFont = False
         OnClick = btnTabClick
+        OnMouseDown = btn1MouseDown
       end
       object btn2: TSpeedButton
         Tag = 2
@@ -279,6 +280,9 @@ object frmSituationBoard: TfrmSituationBoard
       BevelOuter = bvNone
       Color = 5918252
       TabOrder = 0
+      DesignSize = (
+        1917
+        1045)
       object Map1: TMap
         Left = 0
         Top = 35
@@ -323,8 +327,8 @@ object frmSituationBoard: TfrmSituationBoard
           0000000000000000000000000000000000000000000000000000000000000000
           0000000000000000000000000000000000000000000000000000000000000000
           0000000000000000000000000000000000000000000000000000000000000000
-          0000000000000000000000000000000000000000000000000000000000080000
-          00C0A6D050C0A6D05090C724097624B0D5AD24D337D8DE80C000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
           0000000088B3400000000000408F400001000001}
       end
       object pnlToolBar: TPanel
@@ -491,6 +495,7 @@ object frmSituationBoard: TfrmSituationBoard
         Width = 30
         Height = 30
         Cursor = crHandPoint
+        Anchors = [akLeft, akBottom]
         BevelOuter = bvNone
         Caption = 'X'
         Color = clLime
@@ -2872,6 +2877,7 @@ object frmSituationBoard: TfrmSituationBoard
         Width = 30
         Height = 30
         Cursor = crHandPoint
+        Anchors = [akLeft, akBottom]
         BevelOuter = bvNone
         Caption = 'X'
         Color = clLime
@@ -2894,6 +2900,9 @@ object frmSituationBoard: TfrmSituationBoard
       BevelOuter = bvNone
       Color = 5918252
       TabOrder = 2
+      DesignSize = (
+        1917
+        1045)
       object imgBackground: TImage
         Left = 0
         Top = 0
@@ -45253,6 +45262,7 @@ object frmSituationBoard: TfrmSituationBoard
         Width = 30
         Height = 30
         Cursor = crHandPoint
+        Anchors = [akLeft, akBottom]
         BevelOuter = bvNone
         Caption = 'X'
         Color = clLime

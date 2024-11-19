@@ -161,10 +161,9 @@ begin
   Application.Title := 'SimClient';
   Application.CreateForm(TdmINWO, dmINWO);
   Application.CreateForm(TfrmTacticalDisplay, frmTacticalDisplay);
-//  Application.CreateForm(TfrmDisplayArea, frmDisplayArea);
   frmDisplayArea := nil;
   frmSituationBoard := nil;
-  Application.CreateForm(TfrmSituationBoard, frmSituationBoard);
+//  Application.CreateForm(TfrmSituationBoard, frmSituationBoard);
   Application.CreateForm(TfrmOverlayTools, frmOverlayTools);
 //  Application.CreateForm(TfrmBrowseMap, frmBrowseMap);
   uScriptSimClients.BeginGame;

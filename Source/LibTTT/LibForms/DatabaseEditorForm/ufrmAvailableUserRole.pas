@@ -131,7 +131,7 @@ begin
     begin
       SelectedUserRole := FSelectedUserRole;
       Show;
-      FUpdateList := AfterClose;
+//      FUpdateList := AfterClose;
     end;
   finally
   end;
@@ -155,7 +155,7 @@ begin
       SelectedUserRole := TUserRole.Create;
       Show;
       SelectedUserRole.Free;
-      FUpdateList := AfterClose;
+//      FUpdateList := AfterClose;
     end;
   finally
   end;

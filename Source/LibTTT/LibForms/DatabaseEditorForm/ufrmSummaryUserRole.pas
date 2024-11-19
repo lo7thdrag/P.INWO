@@ -79,8 +79,8 @@ type
 
   public
     LastName : string;
-    isOK  : Boolean; {Penanda jika gagal cek input, btn OK tidak langsung close}
-    AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, list tdk perlu di update }
+//    isOK  : Boolean; {Penanda jika gagal cek input, btn OK tidak langsung close}
+//    AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, list tdk perlu di update }
 
     property SelectedUserRole : TUserRole read FSelectedUserRole write FSelectedUserRole;
   end;
@@ -91,6 +91,8 @@ var
 implementation
 
 {$R *.dfm}
+uses
+  ufrmDisplayArea;
 
 {$REGION ' Form Event '}
 
@@ -113,8 +115,8 @@ begin
   with FSelectedUserRole.FData do
     btnOk.Enabled := UserRoleIndex = 0;
 
-  isOK := True;
-  AfterClose := True;
+//  isOK := True;
+//  AfterClose := True;
   btnCancel.Enabled := True;
 end;
 
@@ -246,10 +248,7 @@ begin
     end;
   end;
 
-  isOK := True;
-  AfterClose := True;
-  btnOk.Enabled := False;
-  btnCancel.Enabled := False;
+  frmDisplayArea.UpdateDataPengguna;
   Close;
 end;
 
@@ -277,7 +276,7 @@ begin
   if btnOk.Enabled then
     btnOk.OnClick(nil);
 
-  if isOk then
+//  if isOk then
     Close;
 end;
 
