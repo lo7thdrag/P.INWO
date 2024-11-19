@@ -1076,7 +1076,7 @@ object frmMainGameServer: TfrmMainGameServer
       ExplicitHeight = 90
     end
     object Label4: TLabel
-      Left = 129
+      Left = 178
       Top = 34
       Width = 30
       Height = 16
@@ -1089,7 +1089,7 @@ object frmMainGameServer: TfrmMainGameServer
       ParentFont = False
     end
     object lbl: TLabel
-      Left = 272
+      Left = 321
       Top = 15
       Width = 29
       Height = 16
@@ -1102,7 +1102,7 @@ object frmMainGameServer: TfrmMainGameServer
       ParentFont = False
     end
     object Label5: TLabel
-      Left = 114
+      Left = 163
       Top = 15
       Width = 44
       Height = 16
@@ -1115,7 +1115,7 @@ object frmMainGameServer: TfrmMainGameServer
       ParentFont = False
     end
     object lblSession: TLabel
-      Left = 185
+      Left = 234
       Top = 15
       Width = 15
       Height = 16
@@ -1128,7 +1128,7 @@ object frmMainGameServer: TfrmMainGameServer
       ParentFont = False
     end
     object Label3: TLabel
-      Left = 160
+      Left = 209
       Top = 15
       Width = 21
       Height = 16
@@ -1141,7 +1141,7 @@ object frmMainGameServer: TfrmMainGameServer
       ParentFont = False
     end
     object Label6: TLabel
-      Left = 160
+      Left = 209
       Top = 34
       Width = 21
       Height = 16
@@ -1154,7 +1154,7 @@ object frmMainGameServer: TfrmMainGameServer
       ParentFont = False
     end
     object lblAppState: TLabel
-      Left = 185
+      Left = 234
       Top = 34
       Width = 46
       Height = 16
@@ -1167,7 +1167,7 @@ object frmMainGameServer: TfrmMainGameServer
       ParentFont = False
     end
     object Label1: TLabel
-      Left = 339
+      Left = 388
       Top = 15
       Width = 21
       Height = 16
@@ -1180,7 +1180,7 @@ object frmMainGameServer: TfrmMainGameServer
       ParentFont = False
     end
     object lblTime: TLabel
-      Left = 364
+      Left = 413
       Top = 15
       Width = 52
       Height = 16
@@ -1193,7 +1193,7 @@ object frmMainGameServer: TfrmMainGameServer
       ParentFont = False
     end
     object btnLock: TImage
-      Left = 485
+      Left = 534
       Top = 20
       Width = 25
       Height = 25
@@ -1261,7 +1261,7 @@ object frmMainGameServer: TfrmMainGameServer
       OnClick = btnLockClick
     end
     object btnUnlock: TImage
-      Left = 454
+      Left = 503
       Top = 20
       Width = 25
       Height = 25
@@ -1330,7 +1330,7 @@ object frmMainGameServer: TfrmMainGameServer
       OnClick = btnUnlockClick
     end
     object lblGameTime: TLabel
-      Left = 366
+      Left = 415
       Top = 37
       Width = 52
       Height = 16
@@ -1343,7 +1343,7 @@ object frmMainGameServer: TfrmMainGameServer
       ParentFont = False
     end
     object Label2: TLabel
-      Left = 272
+      Left = 321
       Top = 34
       Width = 66
       Height = 16
@@ -1356,7 +1356,7 @@ object frmMainGameServer: TfrmMainGameServer
       ParentFont = False
     end
     object Label7: TLabel
-      Left = 339
+      Left = 388
       Top = 34
       Width = 21
       Height = 16

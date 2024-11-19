@@ -483,7 +483,9 @@ begin
   {$REGION ' User Logout '}
   edtUsername.Text := '';
   edtPassword.Text := '';
-  frmTelegram.Close;
+
+  if Assigned(frmTelegram) then
+    frmTelegram.Close;
 
   pnlLogin.BringToFront;
   {$ENDREGION}

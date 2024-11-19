@@ -167,7 +167,7 @@ begin
   begin
     subRoleTemp := FSubRoleList.Items[i];
 
-    if subRoleTemp.FData.RoleIndex = id then
+    if subRoleTemp.FData.SubRoleIndex = id then
     begin
       Result := subRoleTemp.FData.SubRoleAcronim;
       Break;
