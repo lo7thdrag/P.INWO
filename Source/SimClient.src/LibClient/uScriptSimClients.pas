@@ -21,6 +21,7 @@ begin
   LoadFF_AppSetting(vSettingFile, vAppSetting);
   LoadFF_AppDBSetting('setting.ini' , vGameAreaSetting);
 
+  frmSituationBoard_Instance;
   simMgrClient := TSimMgr_Client.Create(frmSituationBoard.Map1);
 
   simMgrClient.LoadConsoleID;
