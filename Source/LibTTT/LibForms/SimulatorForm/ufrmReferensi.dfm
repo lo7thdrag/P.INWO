@@ -14160,8 +14160,8 @@ object frmReferensi: TfrmReferensi
       Left = 8
       Top = 60
       Width = 40
-      Height = 128
-      Caption = 'Referensi'
+      Height = 134
+      Caption = 'reference'
       Color = clBackground
       Font.Charset = ANSI_CHARSET
       Font.Color = 15846229
@@ -14429,6 +14429,33 @@ object frmReferensi: TfrmReferensi
         TabOrder = 0
         OnChange = editKategoriChange
       end
+    end
+    object RzBmpButton1: TRzBmpButton
+      Left = 240
+      Top = 408
+      Width = 100
+      Cursor = crHandPoint
+      Bitmaps.TransparentColor = clOlive
+      Color = clBtnFace
+      TabOrder = 1
+    end
+    object RzBmpButton2: TRzBmpButton
+      Left = 344
+      Top = 408
+      Width = 100
+      Cursor = crHandPoint
+      Bitmaps.TransparentColor = clOlive
+      Color = clBtnFace
+      TabOrder = 2
+    end
+    object RzBmpButton3: TRzBmpButton
+      Left = 448
+      Top = 408
+      Width = 100
+      Cursor = crHandPoint
+      Bitmaps.TransparentColor = clOlive
+      Color = clBtnFace
+      TabOrder = 3
     end
   end
 end

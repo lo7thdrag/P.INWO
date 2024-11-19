@@ -8,7 +8,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Imaging.pngimage,
 
   {uses project}
-   uSimMgr_Client, uLibSetting, uClassData, uDataModule, uRecordData;
+   uSimMgr_Client, uLibSetting, uClassData, uDataModule, uRecordData, RzBmpBtn;
 
 type
   TfrmSimbolTaktis = class(TForm)
@@ -29,6 +29,10 @@ type
     btnApply: TImage;
     btnCancel: TImage;
     Panel1: TPanel;
+    RzBmpButton1: TRzBmpButton;
+    RzBmpButton2: TRzBmpButton;
+    RzBmpButton3: TRzBmpButton;
+    RzBmpButton4: TRzBmpButton;
     procedure btnOkClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
     procedure btnUploadClick(Sender: TObject);

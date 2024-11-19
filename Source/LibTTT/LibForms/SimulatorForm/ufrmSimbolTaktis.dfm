@@ -14160,8 +14160,8 @@ object frmSimbolTaktis: TfrmSimbolTaktis
       Left = 8
       Top = 52
       Width = 40
-      Height = 180
-      Caption = 'Simbol Taktis'
+      Height = 209
+      Caption = 'Tactical symbol'
       Color = clBackground
       Font.Charset = ANSI_CHARSET
       Font.Color = 15846229
@@ -14881,6 +14881,38 @@ object frmSimbolTaktis: TfrmSimbolTaktis
           'PANGKALAN'
           'PESAWAT TERBANG SAYAP TETAP')
       end
+    end
+    object RzBmpButton1: TRzBmpButton
+      Left = 480
+      Top = 416
+      Width = 100
+      Bitmaps.TransparentColor = clOlive
+      Color = clBtnFace
+      TabOrder = 1
+    end
+    object RzBmpButton2: TRzBmpButton
+      Left = 584
+      Top = 416
+      Width = 100
+      Bitmaps.TransparentColor = clOlive
+      Color = clBtnFace
+      TabOrder = 2
+    end
+    object RzBmpButton3: TRzBmpButton
+      Left = 688
+      Top = 416
+      Width = 100
+      Bitmaps.TransparentColor = clOlive
+      Color = clBtnFace
+      TabOrder = 3
+    end
+    object RzBmpButton4: TRzBmpButton
+      Left = 368
+      Top = 392
+      Width = 90
+      Bitmaps.TransparentColor = clOlive
+      Color = clBtnFace
+      TabOrder = 4
     end
   end
   object UploadImage: TOpenDialog

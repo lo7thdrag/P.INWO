@@ -284,10 +284,13 @@ type
 
     procedure btnUploadReferensiClick(Sender: TObject);
     procedure btnDownloadReferensiClick(Sender: TObject);
+    procedure edtSearchKeyPressReferensi(Sender: TObject; var Key: Char);
+    procedure cbbSearchReferensiSelect(Sender: TObject);
+
     procedure pnlReferensiShow;
     procedure UpdateDataReferensi;
     {$ENDREGION}
-    
+
     {$REGION ' Office Editor Procedure '}
     procedure OfficeEditorClick(Sender: TObject);
     procedure imgMsPaintClick(Sender: TObject);
@@ -304,7 +307,7 @@ type
     {$REGION ' Situation Board Procedure '}
     procedure SituationBoardClick(Sender: TObject);
     {$ENDREGION}
-    
+
     {$REGION ' Obrolan Procedure '}
     procedure ObrolanClick(Sender: TObject);
     procedure btnUserChatClick(Sender: TObject);
@@ -313,7 +316,7 @@ type
     procedure lstUserChatDblClick(Sender: TObject);
 
     {$ENDREGION}
-     
+
     {$REGION ' Telegram Procedure '}
     procedure TelegramClick(Sender: TObject);
     {$ENDREGION}
@@ -1620,7 +1623,7 @@ procedure TfrmDisplayArea.pnlReferensiShow;
 begin
   pnlMenejemenReferensi.BringToFront;
 
-  UpdateDataReferensi;
+  UpdateDataReferensi
 end;
 
 procedure TfrmDisplayArea.btnDownloadReferensiClick(Sender: TObject);
@@ -1718,7 +1721,10 @@ var
 begin
   lvReferensi.Items.Clear;
 
-  dmINWO.GetAllReferensi(FFileReferensiList);
+   if flagTable = true then
+      dmINWO.GetSearchReferensi(ItemSearchIndex, SearchName, FFileReferensiList)
+   else
+      dmINWO.GetAllReferensi(FFileReferensiList);
 
   for i := 0 to FFileReferensiList.Count - 1 do
   begin
@@ -1726,10 +1732,53 @@ begin
     li := lvReferensi.Items.Add;
     li.SubItems.Add(fileDataTemp.FData.Nama_File);
     li.StateIndex := Integer(SetFileExtentionToEnum(fileDataTemp.FData.Tipe_File));
-    li.SubItems.Add(fileDataTemp.FData.Modified_By);
+    li.SubItems.Add(fileDataTemp.FData.Kategori);
     li.SubItems.Add(fileDataTemp.FData.Modified_Date);
 
     li.Data := fileDataTemp;
+  end;
+end;
+
+procedure TfrmDisplayArea.cbbSearchReferensiSelect(Sender: TObject);
+begin
+  {All}
+  if cbbKategoriReferensi.ItemIndex = 0 then
+  begin
+    edtSearchReferensi.Clear;
+    flagTable := False;
+    UpdateDataReferensi;
+  end
+  {Nama Dokumen}
+  else if cbbKategoriReferensi.ItemIndex = 1 then
+  begin
+    edtSearchReferensi.Text;
+  end
+  {Kategori}
+  else if cbbKategoriReferensi.ItemIndex = 2 then
+  begin
+    edtSearchReferensi.Text;
+  end
+end;
+
+procedure TfrmDisplayArea.edtSearchKeyPressReferensi(Sender: TObject; var Key: Char);
+var
+  i : Integer;
+  searchReferensi : TFile_Data;
+begin
+  if Key = #13 then
+  begin
+    if (edtSearchReferensi.Text <> '') and (cbbKategoriReferensi.ItemIndex > 0) then
+    begin
+      ItemSearchIndex := cbbKategoriReferensi.ItemIndex;
+      SearchName := edtSearchReferensi.Text;
+      flagTable := true;
+      UpdateDataReferensi;
+    end
+    else if edtSearchReferensi.Text = '' then
+    begin
+      flagTable := false;
+      UpdateDataReferensi;
+    end;
   end;
 end;
 
@@ -1837,6 +1886,16 @@ end;
 procedure TfrmDisplayArea.SituationBoardClick(Sender: TObject);
 begin
   frmSituationBoard.Show;
+//  frmSituationBoard := TfrmSituationBoard.Create(Self);
+//  try
+//    with frmSituationBoard do
+//    begin
+//      Show;
+//    end;
+//
+//  finally
+//    frmSituationBoard.Free;
+//  end;
 end;
 
 {$ENDREGION}

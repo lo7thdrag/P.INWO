@@ -8,7 +8,8 @@ uses
   Vcl.ExtCtrls,
 
   {uses project}
-   uSimMgr_Client, uLibSetting, uClassData, uDataModule, uConstantaData, uRecordData;
+   uSimMgr_Client, uLibSetting, uClassData, uDataModule, uConstantaData, uRecordData,
+  RzBmpBtn;
 
 type
   TfrmReferensi = class(TForm)
@@ -26,6 +27,9 @@ type
     edtNameDocument: TEdit;
     Label5: TLabel;
     edtKategori: TEdit;
+    RzBmpButton1: TRzBmpButton;
+    RzBmpButton2: TRzBmpButton;
+    RzBmpButton3: TRzBmpButton;
     procedure btnUploadClick(Sender: TObject);
     procedure btnOkClick(Sender: TObject);
     procedure btnApplyClick(Sender: TObject);
