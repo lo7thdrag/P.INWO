@@ -50359,6 +50359,7 @@ object frmDisplayArea: TfrmDisplayArea
             ParentFont = False
             TabOrder = 1
             Text = 'ALL'
+            OnSelect = cbbSearchReferensiSelect
             Items.Strings = (
               'ALL'
               'Nama Dokumen'
@@ -50381,6 +50382,7 @@ object frmDisplayArea: TfrmDisplayArea
             ShowHint = False
             TabOrder = 2
             TextHint = 'Search Here'
+            OnKeyPress = edtSearchKeyPressReferensi
           end
         end
         object pnlListReferensi: TPanel
