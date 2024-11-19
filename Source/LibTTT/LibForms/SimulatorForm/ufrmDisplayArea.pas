@@ -107,7 +107,6 @@ type
     pnlMdmConsoleName: TPanel;
     Label2: TLabel;
     pnlHeaderMyDeskstop: TPanel;
-    ilClientStateColor: TImageList;
     pnlCariPengguna: TPanel;
     pnlListPengguna: TPanel;
     cbbSearchType: TComboBox;
@@ -209,6 +208,7 @@ type
     cbbSearch: TComboBox;
     editSearch: TEdit;
     edtSearchReferensi: TEdit;
+    pnlSparatorTacticalSymbol: TPanel;
 
     procedure btnAOTCClick(Sender: TObject);
 
@@ -477,6 +477,22 @@ end;
 
 procedure TfrmDisplayArea.FormShow(Sender: TObject);
 begin
+
+  with simMgrClient.MyConsoleData do
+  begin
+    lblConsoleName.Caption := Identifier;
+    lblRole.Caption := UserRoleData.FRoleData.RoleAcronim;
+    lblSubRole.Caption := UserRoleData.FSubRoleData.SubRoleAcronim;
+    lblUserRoleIdentifier.Caption := UserRoleData.FData.UserRoleAcronim;
+
+    if UserRoleData.FData.SubRoleIndex = 5 then
+      imgMainBackground.Picture.LoadFromFile('C:\Program Files (x24)\Bin\data\Image Background\wallpaperNTWO.png')
+    else if UserRoleData.FData.SubRoleIndex = 6 then
+      imgMainBackground.Picture.LoadFromFile('C:\Program Files (x24)\Bin\data\Image Background\wallpaperATWO.png')
+    else
+      imgMainBackground.Picture.LoadFromFile('C:\Program Files (x24)\Bin\data\Image Background\wallpaperINWO.png');
+  end;
+
   pnlBerandaManajemenShow;
   pnlRight.Width := 0;
 end;
@@ -1203,6 +1219,7 @@ begin
     li := lvUserRole.Items.Add;
     li.Caption := IntToStr(i+1);
     li.SubItems.Add(userRoleTemp.FData.UserRoleAcronim);
+    li.SubItems.Add(userRoleTemp.FData.UserRoleIdentifier);
 
     subRoleTemp := SimManager.SimSubRole.getSubRoleByID(userRoleTemp.FData.SubRoleIndex);
     if Assigned(subRoleTemp) then
