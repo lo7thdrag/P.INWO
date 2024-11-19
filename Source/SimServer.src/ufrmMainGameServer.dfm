@@ -4,7 +4,7 @@ object frmMainGameServer: TfrmMainGameServer
   BorderIcons = []
   BorderStyle = bsDialog
   ClientHeight = 739
-  ClientWidth = 516
+  ClientWidth = 583
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -19,17 +19,18 @@ object frmMainGameServer: TfrmMainGameServer
   object pnlHeader: TPanel
     Left = 0
     Top = 0
-    Width = 516
+    Width = 583
     Height = 87
     Align = alTop
     BevelOuter = bvNone
     Caption = 'pnlHeader'
     ShowCaption = False
     TabOrder = 0
+    ExplicitWidth = 516
     object imgHeaderBackground: TImage
       Left = 0
       Top = 0
-      Width = 516
+      Width = 583
       Height = 87
       Align = alClient
       Picture.Data = {
@@ -1372,7 +1373,7 @@ object frmMainGameServer: TfrmMainGameServer
   object lvConsole: TListView
     Left = 0
     Top = 87
-    Width = 516
+    Width = 583
     Height = 652
     Align = alClient
     BevelInner = bvNone
@@ -1415,6 +1416,7 @@ object frmMainGameServer: TfrmMainGameServer
     StateImages = ilClientStateColor
     TabOrder = 1
     ViewStyle = vsReport
+    ExplicitWidth = 516
   end
   object ilClientStateColor: TImageList
     ShareImages = True

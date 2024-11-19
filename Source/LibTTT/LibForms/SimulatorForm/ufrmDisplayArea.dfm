@@ -42033,10 +42033,10 @@ object frmDisplayArea: TfrmDisplayArea
             Tag = 2
             Left = 55
             Top = 10
-            Width = 55
+            Width = 28
             Height = 16
             Cursor = crHandPoint
-            Caption = 'Pengguna'
+            Caption = 'User'
             Font.Charset = ANSI_CHARSET
             Font.Color = 12826787
             Font.Height = -15
@@ -42221,10 +42221,10 @@ object frmDisplayArea: TfrmDisplayArea
             Tag = 3
             Left = 55
             Top = 10
-            Width = 40
+            Width = 41
             Height = 16
             Cursor = crHandPoint
-            Caption = 'Asset '
+            Caption = 'Assets'
             Font.Charset = ANSI_CHARSET
             Font.Color = 12826787
             Font.Height = -15
@@ -42313,10 +42313,10 @@ object frmDisplayArea: TfrmDisplayArea
             Tag = 4
             Left = 55
             Top = 10
-            Width = 77
+            Width = 97
             Height = 16
             Cursor = crHandPoint
-            Caption = 'Simbol Taktis'
+            Caption = 'Tactical Symbols'
             Color = 12826787
             Font.Charset = ANSI_CHARSET
             Font.Color = 12826787
@@ -42407,10 +42407,10 @@ object frmDisplayArea: TfrmDisplayArea
             Tag = 5
             Left = 55
             Top = 10
-            Width = 30
+            Width = 29
             Height = 16
             Cursor = crHandPoint
-            Caption = 'Peta '
+            Caption = 'Maps'
             Font.Charset = ANSI_CHARSET
             Font.Color = 12826787
             Font.Height = -15
@@ -42499,10 +42499,10 @@ object frmDisplayArea: TfrmDisplayArea
             Tag = 4
             Left = 55
             Top = 10
-            Width = 58
+            Width = 62
             Height = 16
             Cursor = crHandPoint
-            Caption = 'Referensi'
+            Caption = 'Reference'
             Color = 12826787
             Font.Charset = ANSI_CHARSET
             Font.Color = 12826787
@@ -42593,10 +42593,10 @@ object frmDisplayArea: TfrmDisplayArea
             Tag = 3
             Left = 55
             Top = 10
-            Width = 46
+            Width = 29
             Height = 16
             Cursor = crHandPoint
-            Caption = 'Beranda'
+            Caption = 'Home'
             Font.Charset = ANSI_CHARSET
             Font.Color = 12826787
             Font.Height = -15
@@ -42887,10 +42887,10 @@ object frmDisplayArea: TfrmDisplayArea
             Tag = 3
             Left = 55
             Top = 10
-            Width = 73
+            Width = 88
             Height = 16
             Cursor = crHandPoint
-            Caption = 'Papan Situasi'
+            Caption = 'Situation Board'
             Font.Charset = ANSI_CHARSET
             Font.Color = 12826787
             Font.Height = -15
@@ -43184,10 +43184,10 @@ object frmDisplayArea: TfrmDisplayArea
             Tag = 4
             Left = 55
             Top = 10
-            Width = 48
+            Width = 25
             Height = 16
             Cursor = crHandPoint
-            Caption = 'Obrolan'
+            Caption = 'Chat'
             Color = 12826787
             Font.Charset = ANSI_CHARSET
             Font.Color = 12826787
@@ -45384,704 +45384,6 @@ object frmDisplayArea: TfrmDisplayArea
         BevelOuter = bvNone
         Color = clBackground
         TabOrder = 0
-      end
-      object pnlMenejemenBeranda: TPanel
-        Left = 0
-        Top = 0
-        Width = 1607
-        Height = 930
-        Align = alClient
-        BevelOuter = bvNone
-        TabOrder = 5
-        object pnlMdmMainLeft: TPanel
-          Left = 0
-          Top = 60
-          Width = 1110
-          Height = 870
-          Align = alLeft
-          BevelOuter = bvNone
-          TabOrder = 0
-          object pnlHeaderMyDeskstop: TPanel
-            Left = 0
-            Top = 0
-            Width = 1110
-            Height = 150
-            Align = alTop
-            BevelOuter = bvNone
-            Color = cl3DDkShadow
-            TabOrder = 0
-            object pnlMdmConsoleName: TPanel
-              Left = 0
-              Top = 0
-              Width = 264
-              Height = 134
-              BevelOuter = bvNone
-              Color = 5326139
-              ParentBackground = False
-              TabOrder = 0
-              object Label2: TLabel
-                Tag = 1
-                Left = 20
-                Top = 10
-                Width = 113
-                Height = 21
-                Cursor = crHandPoint
-                Caption = 'Console Name : '
-                Font.Charset = ANSI_CHARSET
-                Font.Color = 16448250
-                Font.Height = -19
-                Font.Name = 'Jefferies'
-                Font.Style = []
-                ParentFont = False
-              end
-              object lblConsoleName: TLabel
-                Tag = 1
-                Left = 0
-                Top = 64
-                Width = 264
-                Height = 70
-                Cursor = crHandPoint
-                Align = alBottom
-                Alignment = taCenter
-                AutoSize = False
-                Caption = 'Official 01'
-                Font.Charset = ANSI_CHARSET
-                Font.Color = 12826787
-                Font.Height = -37
-                Font.Name = 'Jefferies'
-                Font.Style = []
-                ParentFont = False
-                ExplicitLeft = 6
-                ExplicitTop = 69
-              end
-            end
-            object pnlMdmOrganisasiTugas: TPanel
-              Left = 282
-              Top = 0
-              Width = 264
-              Height = 134
-              BevelOuter = bvNone
-              Color = 5326139
-              ParentBackground = False
-              TabOrder = 1
-              object Label12: TLabel
-                Tag = 1
-                Left = 20
-                Top = 10
-                Width = 42
-                Height = 21
-                Cursor = crHandPoint
-                Caption = 'Role :'
-                Font.Charset = ANSI_CHARSET
-                Font.Color = 16448250
-                Font.Height = -19
-                Font.Name = 'Jefferies'
-                Font.Style = []
-                ParentFont = False
-              end
-              object lblRole: TLabel
-                Tag = 2
-                Left = 0
-                Top = 64
-                Width = 264
-                Height = 70
-                Cursor = crHandPoint
-                Align = alBottom
-                Alignment = taCenter
-                AutoSize = False
-                Caption = 'Kogasgabla'
-                Font.Charset = ANSI_CHARSET
-                Font.Color = 12826787
-                Font.Height = -37
-                Font.Name = 'Jefferies'
-                Font.Style = []
-                ParentFont = False
-                ExplicitLeft = -1
-                ExplicitTop = 50
-                ExplicitWidth = 358
-              end
-            end
-            object pnlMdmUserRole: TPanel
-              Left = 564
-              Top = 0
-              Width = 264
-              Height = 134
-              BevelOuter = bvNone
-              Color = 5326139
-              ParentBackground = False
-              TabOrder = 2
-              object Label14: TLabel
-                Tag = 1
-                Left = 20
-                Top = 10
-                Width = 74
-                Height = 21
-                Cursor = crHandPoint
-                Caption = 'Sub Role :'
-                Font.Charset = ANSI_CHARSET
-                Font.Color = 16448250
-                Font.Height = -19
-                Font.Name = 'Jefferies'
-                Font.Style = []
-                ParentFont = False
-              end
-              object lblSubRole: TLabel
-                Tag = 2
-                Left = 0
-                Top = 64
-                Width = 264
-                Height = 70
-                Cursor = crHandPoint
-                Align = alBottom
-                Alignment = taCenter
-                AutoSize = False
-                Caption = 'Set Lat'
-                Color = 12826787
-                Font.Charset = ANSI_CHARSET
-                Font.Color = 12826787
-                Font.Height = -37
-                Font.Name = 'Jefferies'
-                Font.Style = []
-                ParentColor = False
-                ParentFont = False
-                ExplicitTop = 69
-              end
-            end
-            object pnlMdmTahapan: TPanel
-              Left = 846
-              Top = 0
-              Width = 264
-              Height = 134
-              BevelOuter = bvNone
-              Color = 5326139
-              ParentBackground = False
-              TabOrder = 3
-              object Label5: TLabel
-                Tag = 1
-                Left = 20
-                Top = 10
-                Width = 81
-                Height = 21
-                Cursor = crHandPoint
-                Caption = 'User Role :'
-                Font.Charset = ANSI_CHARSET
-                Font.Color = 16448250
-                Font.Height = -19
-                Font.Name = 'Jefferies'
-                Font.Style = []
-                ParentFont = False
-              end
-              object lblUserRoleIdentifier: TLabel
-                Tag = 2
-                Left = 0
-                Top = 64
-                Width = 264
-                Height = 70
-                Cursor = crHandPoint
-                Align = alBottom
-                Alignment = taCenter
-                AutoSize = False
-                Caption = 'Pelaksanaan'
-                Color = 12826787
-                Font.Charset = ANSI_CHARSET
-                Font.Color = 12826787
-                Font.Height = -37
-                Font.Name = 'Jefferies'
-                Font.Style = []
-                ParentColor = False
-                ParentFont = False
-                ExplicitLeft = 1
-                ExplicitTop = 63
-              end
-            end
-          end
-          object pnlListMyFile: TPanel
-            Left = 0
-            Top = 150
-            Width = 1110
-            Height = 720
-            Align = alClient
-            BevelOuter = bvNone
-            BorderWidth = 20
-            Color = 3287589
-            ParentBackground = False
-            TabOrder = 1
-            object lvFileData: TListView
-              Left = 20
-              Top = 80
-              Width = 1070
-              Height = 620
-              Align = alClient
-              BevelInner = bvNone
-              BevelOuter = bvNone
-              BorderStyle = bsNone
-              Columns = <
-                item
-                  Width = 30
-                end
-                item
-                  Caption = 'Nama Dokumen'
-                  Width = 590
-                end
-                item
-                  Alignment = taCenter
-                  Caption = 'Direktori'
-                  Width = 0
-                end
-                item
-                  Alignment = taCenter
-                  Caption = 'Tanggal Diubah'
-                  Width = 200
-                end
-                item
-                  Alignment = taCenter
-                  Caption = 'Diubah Oleh'
-                  Width = 240
-                end>
-              Font.Charset = ANSI_CHARSET
-              Font.Color = clBlack
-              Font.Height = -16
-              Font.Name = 'Jefferies'
-              Font.Style = []
-              GridLines = True
-              RowSelect = True
-              ParentFont = False
-              StateImages = ilClientStateColor
-              TabOrder = 0
-              ViewStyle = vsReport
-              OnSelectItem = lvFileDataSelectItem
-            end
-            object pnlHeaderFileData: TPanel
-              Left = 20
-              Top = 20
-              Width = 1070
-              Height = 60
-              Align = alTop
-              BevelOuter = bvNone
-              Color = cl3DDkShadow
-              TabOrder = 1
-              object Label3: TLabel
-                Left = 0
-                Top = 0
-                Width = 39
-                Height = 19
-                Caption = 'Cari :'
-                Font.Charset = DEFAULT_CHARSET
-                Font.Color = clWhite
-                Font.Height = -16
-                Font.Name = 'Tahoma'
-                Font.Style = []
-                ParentFont = False
-              end
-              object imgUpload: TImage
-                Left = 702
-                Top = 19
-                Width = 120
-                Height = 30
-                Cursor = crHandPoint
-                Picture.Data = {
-                  0954506E67496D61676589504E470D0A1A0A0000000D49484452000000780000
-                  001E0806000000E7C9DA9500000009704859730000375D0000375D011980465D
-                  0000065169545874584D4C3A636F6D2E61646F62652E786D7000000000003C3F
-                  787061636B657420626567696E3D22EFBBBF222069643D2257354D304D704365
-                  6869487A7265537A4E54637A6B633964223F3E203C783A786D706D6574612078
-                  6D6C6E733A783D2261646F62653A6E733A6D6574612F2220783A786D70746B3D
-                  2241646F626520584D5020436F726520392E302D633030302037392E31373163
-                  3237662C20323032322F30382F31362D31383A30323A34332020202020202020
-                  223E203C7264663A52444620786D6C6E733A7264663D22687474703A2F2F7777
-                  772E77332E6F72672F313939392F30322F32322D7264662D73796E7461782D6E
-                  7323223E203C7264663A4465736372697074696F6E207264663A61626F75743D
-                  222220786D6C6E733A786D703D22687474703A2F2F6E732E61646F62652E636F
-                  6D2F7861702F312E302F2220786D6C6E733A64633D22687474703A2F2F707572
-                  6C2E6F72672F64632F656C656D656E74732F312E312F2220786D6C6E733A7068
-                  6F746F73686F703D22687474703A2F2F6E732E61646F62652E636F6D2F70686F
-                  746F73686F702F312E302F2220786D6C6E733A786D704D4D3D22687474703A2F
-                  2F6E732E61646F62652E636F6D2F7861702F312E302F6D6D2F2220786D6C6E73
-                  3A73744576743D22687474703A2F2F6E732E61646F62652E636F6D2F7861702F
-                  312E302F73547970652F5265736F757263654576656E74232220786D703A4372
-                  6561746F72546F6F6C3D2241646F62652050686F746F73686F702032342E3020
-                  2857696E646F7773292220786D703A437265617465446174653D22323032342D
-                  31312D30345431313A33323A32342B30373A30302220786D703A4D6F64696679
-                  446174653D22323032342D31312D30365431373A30323A35362B30373A303022
-                  20786D703A4D65746164617461446174653D22323032342D31312D3036543137
-                  3A30323A35362B30373A3030222064633A666F726D61743D22696D6167652F70
-                  6E67222070686F746F73686F703A436F6C6F724D6F64653D22332220786D704D
-                  4D3A496E7374616E636549443D22786D702E6969643A30353161376438622D35
-                  6137352D343634312D626333622D3933333537626431383862352220786D704D
-                  4D3A446F63756D656E7449443D2261646F62653A646F6369643A70686F746F73
-                  686F703A61343634396439342D323238312D383434352D623739302D62383832
-                  65333031616265312220786D704D4D3A4F726967696E616C446F63756D656E74
-                  49443D22786D702E6469643A31346264383736332D633332352D353834622D62
-                  3431622D333866336639653235613233223E203C70686F746F73686F703A5465
-                  78744C61796572733E203C7264663A4261673E203C7264663A6C692070686F74
-                  6F73686F703A4C617965724E616D653D22554E47474148222070686F746F7368
-                  6F703A4C61796572546578743D22554E47474148222F3E203C2F7264663A4261
-                  673E203C2F70686F746F73686F703A546578744C61796572733E203C786D704D
-                  4D3A486973746F72793E203C7264663A5365713E203C7264663A6C6920737445
-                  76743A616374696F6E3D2263726561746564222073744576743A696E7374616E
-                  636549443D22786D702E6969643A31346264383736332D633332352D35383462
-                  2D623431622D333866336639653235613233222073744576743A7768656E3D22
-                  323032342D31312D30345431313A33323A32342B30373A303022207374457674
-                  3A736F6674776172654167656E743D2241646F62652050686F746F73686F7020
-                  32342E30202857696E646F777329222F3E203C7264663A6C692073744576743A
-                  616374696F6E3D227361766564222073744576743A696E7374616E636549443D
-                  22786D702E6969643A30353161376438622D356137352D343634312D62633362
-                  2D393333353762643138386235222073744576743A7768656E3D22323032342D
-                  31312D30365431373A30323A35362B30373A3030222073744576743A736F6674
-                  776172654167656E743D2241646F62652050686F746F73686F702032342E3020
-                  2857696E646F777329222073744576743A6368616E6765643D222F222F3E203C
-                  2F7264663A5365713E203C2F786D704D4D3A486973746F72793E203C2F726466
-                  3A4465736372697074696F6E3E203C2F7264663A5244463E203C2F783A786D70
-                  6D6574613E203C3F787061636B657420656E643D2272223F3E5D76615A000004
-                  D04944415478DAED5B4BA8555518FEB752206A752349840C6E8F819706714427
-                  F9E45E2735A9B8BD241A08F7DA4028F271292450D1934A3E069105D1A4970639
-                  081A58A33410BC4DB441A01709B38978AF9350118FDFB7D7DA67AFB35F6BEDF3
-                  DAD7CDFEE03B679DB5FFBDD6BFD6B7DE7B1FEFC8DF37F789C884542823EA9E16
-                  F805F0BDA2BDA9908987C19DE0DA1CF734057E0E7CA9E8125470C22BE02170A9
-                  836D25F07D8A79E007E0873A9C86BE09FC38B80C9C0F5E012F80778AAEA51280
-                  BDB80EBE9972BDE702AF00F782EBC03946FC0C7802FC04BC54742D95006BC14F
-                  C1E723F13D15984308059C9B61731B7C1FFCACE81A2A01D881C6C15DE0633AAE
-                  6702BF2BF9447B0BFCAEE81A2A091E0177839BC183DD10982D8743F110B810BC
-                  051E061FCC91C635F009F066D1B55322FC0C9EEF54E035E097E0335D70E865F0
-                  64FEDB1A63F81800A745BC2F8CF8617CD454D8C354D1184460545F9C44DCAF86
-                  ED8E787C83698EC5F3635A2DF93BDAB5F84A4CC1E644B60F59E5B3A263815781
-                  7424A9A736C0EDE00670C4313DCE1D1FE7F481599DC2C7B0F2C533F2F22BACAE
-                  C29EA7053F6554EE53866D430726746318D0B6B5840C51C9DEB8BECFD12E968F
-                  24F81BF1C1563E2B3A1298C3F279515B9F247C246AF5CCD39733A2866F1BF683
-                  3B1CEC22684B60623CEC113181CF49B2680160E34DB8DBF97944F3D77E35FD9D
-                  5502B350E752AE7D03BE2DAA17134F837F808B2C6972D3BE2F870F960AB00A6C
-                  F4E298C0C16F0CA1DE6BDA6640977930CCCBD52EEA4F1323C69450B8C0146848
-                  7F2F1735044771165C0FFE1F8967DC2F92BDF0DA047E95A300960AB00A4CE85E
-                  9C2A70B4B223F3A1AB9D1F775CC23580C4EF2B4E603E88D8ABBFBD8C047942B5
-                  12BC9A729DF3D1E7594A813F88DA62CDB897A32381752F76153896B7A39D6F7B
-                  5D94E8ECB1B530DCECE1415A6C10C6E2CB2F434D7A24F0EBA286DCB996C4D863
-                  578BBF02CCC451708BC5E6A2A893AF2B6EE5684B605662B0F265C33BA6C33D12
-                  B8614E699C93F97B34F4AD25AD34745DE087C0CB122EEB53BD07DF008F3B64CA
-                  86C2A1DAE6E869510DC65668695360DA5154CE9353FA9BC810B8650E8DCEC136
-                  3B338E79D75A7F731EEEBFC06C612EA2FD24EA11962B1683FF39D85190DFEC66
-                  6D0B4C518F4512EB95C0C6FC1BF3C536EFF76C0E4E5AF52581A74F7FE93087E8
-                  F1049B67C1AF452DB216EADF361C04B7D9CDDA15D8EF357CD0316824962530ED
-                  2894311F3ADB05F36F12F40ABCFF026F050FE44890F8077C3221FE459D611E7C
-                  0B6EB49B352B002B56BF714DEB0BC1E2443204E63C6CF6E2A8C09312BECE34A0
-                  6D8DC5918B9DEF53D61333AEB41F2D42E057C11F738AD24D8159499BED663191
-                  A2D0274A4902FBF79BBD381098E98D65A4196CAF1CEC9A65D1E93717A2A3C6BD
-                  DC761A8BB0FE08CC16F8AF64BF3110453705E643ECEFDD4C5345368F15D30436
-                  EF3587DA34F18C133017BB96EBE8A9DE74823F14BE1E86FBB70FDE23EAD8D115
-                  DD12F84F517BEA1C6F7D3482BDA58196437B5E0B8E1527C38AF6AF0DEB00F7C5
-                  5309F101389C266C05B3EC4CBF52FD3157F2511F82FB53F24E8593C0DCD6F0B9
-                  EE9863A2DD10F87751ABF26B390A53218E5C47953C6A7C075C6249F42E782321
-                  FE017081E55E0ACA139C933A9D0A9DA12BCF832BCC5E5402971C95C025478BC0
-                  D55F57CA07BE1777DAABFE7C566AD4EF018980698B1E7FA9820000000049454E
-                  44AE426082}
-                Proportional = True
-                OnClick = btnUploadClick
-              end
-              object imgDownload: TImage
-                Left = 826
-                Top = 19
-                Width = 120
-                Height = 30
-                Cursor = crHandPoint
-                Picture.Data = {
-                  0954506E67496D61676589504E470D0A1A0A0000000D49484452000000780000
-                  001E0806000000E7C9DA9500000009704859730000375D0000375D011980465D
-                  0000064F69545874584D4C3A636F6D2E61646F62652E786D7000000000003C3F
-                  787061636B657420626567696E3D22EFBBBF222069643D2257354D304D704365
-                  6869487A7265537A4E54637A6B633964223F3E203C783A786D706D6574612078
-                  6D6C6E733A783D2261646F62653A6E733A6D6574612F2220783A786D70746B3D
-                  2241646F626520584D5020436F726520392E302D633030302037392E31373163
-                  3237662C20323032322F30382F31362D31383A30323A34332020202020202020
-                  223E203C7264663A52444620786D6C6E733A7264663D22687474703A2F2F7777
-                  772E77332E6F72672F313939392F30322F32322D7264662D73796E7461782D6E
-                  7323223E203C7264663A4465736372697074696F6E207264663A61626F75743D
-                  222220786D6C6E733A786D703D22687474703A2F2F6E732E61646F62652E636F
-                  6D2F7861702F312E302F2220786D6C6E733A64633D22687474703A2F2F707572
-                  6C2E6F72672F64632F656C656D656E74732F312E312F2220786D6C6E733A7068
-                  6F746F73686F703D22687474703A2F2F6E732E61646F62652E636F6D2F70686F
-                  746F73686F702F312E302F2220786D6C6E733A786D704D4D3D22687474703A2F
-                  2F6E732E61646F62652E636F6D2F7861702F312E302F6D6D2F2220786D6C6E73
-                  3A73744576743D22687474703A2F2F6E732E61646F62652E636F6D2F7861702F
-                  312E302F73547970652F5265736F757263654576656E74232220786D703A4372
-                  6561746F72546F6F6C3D2241646F62652050686F746F73686F702032342E3020
-                  2857696E646F7773292220786D703A437265617465446174653D22323032342D
-                  31312D30345431313A33323A32342B30373A30302220786D703A4D6F64696679
-                  446174653D22323032342D31312D30365431373A30313A35352B30373A303022
-                  20786D703A4D65746164617461446174653D22323032342D31312D3036543137
-                  3A30313A35352B30373A3030222064633A666F726D61743D22696D6167652F70
-                  6E67222070686F746F73686F703A436F6C6F724D6F64653D22332220786D704D
-                  4D3A496E7374616E636549443D22786D702E6969643A36346433336235332D39
-                  3338302D303134652D386262362D3637373265386562633031352220786D704D
-                  4D3A446F63756D656E7449443D2261646F62653A646F6369643A70686F746F73
-                  686F703A37366134333437352D366566342D336634632D613965372D63386138
-                  62303364323530312220786D704D4D3A4F726967696E616C446F63756D656E74
-                  49443D22786D702E6469643A62643061663566632D636436342D306634622D39
-                  3631612D353230326532643132393937223E203C70686F746F73686F703A5465
-                  78744C61796572733E203C7264663A4261673E203C7264663A6C692070686F74
-                  6F73686F703A4C617965724E616D653D22554E445548222070686F746F73686F
-                  703A4C61796572546578743D22554E445548222F3E203C2F7264663A4261673E
-                  203C2F70686F746F73686F703A546578744C61796572733E203C786D704D4D3A
-                  486973746F72793E203C7264663A5365713E203C7264663A6C69207374457674
-                  3A616374696F6E3D2263726561746564222073744576743A696E7374616E6365
-                  49443D22786D702E6969643A62643061663566632D636436342D306634622D39
-                  3631612D353230326532643132393937222073744576743A7768656E3D223230
-                  32342D31312D30345431313A33323A32342B30373A3030222073744576743A73
-                  6F6674776172654167656E743D2241646F62652050686F746F73686F70203234
-                  2E30202857696E646F777329222F3E203C7264663A6C692073744576743A6163
-                  74696F6E3D227361766564222073744576743A696E7374616E636549443D2278
-                  6D702E6969643A36346433336235332D393338302D303134652D386262362D36
-                  3737326538656263303135222073744576743A7768656E3D22323032342D3131
-                  2D30365431373A30313A35352B30373A3030222073744576743A736F66747761
-                  72654167656E743D2241646F62652050686F746F73686F702032342E30202857
-                  696E646F777329222073744576743A6368616E6765643D222F222F3E203C2F72
-                  64663A5365713E203C2F786D704D4D3A486973746F72793E203C2F7264663A44
-                  65736372697074696F6E3E203C2F7264663A5244463E203C2F783A786D706D65
-                  74613E203C3F787061636B657420656E643D2272223F3E3DCEBFFB0000044349
-                  44415478DAED9B6D684F511CC77F7F8FCDF3C3E4E105DA942862A39058981712
-                  11E19517F49F7744B2883CA44D2D8F79B179687941594912C99028947F9194BD
-                  B0459416CDB359C4F7B773EE7FE77F769FEFB6FBDFDDFDD6A77B77EEB9BF7BCF
-                  EF7BCF3DF79EFB5FE2445D7319119552AC28AA3C210D9E0FB6857D36B16C3514
-                  EC05451EF6491B3C0D2C0FBB05B15C69353806C6BBA81B1BDC4D95037680DD72
-                  DD4AB1C1DD5CDC8BCBC1068BED9D6EF002B0192C06E3C017F01C5C07E7C1A7B0
-                  3314111581A360A656DE69060F06A74123A800AF483C24A8FA0EF68053E05FD8
-                  198A807A81127010E4CAB24E317800B8020E8307B2EC33B537D8105F003BC3CE
-                  4E84340C1C025B40454719DC8744AFFD06CE806A705FD96E67306B29B81D7666
-                  22261E065F043138013692B8520A405F700BDC0027B5BA4E06DF04CBBCB620B7
-                  1F25B1180E9A3EB6509552BE048B425E47F911FC9D87D5B572730A65B54ADD5D
-                  6AB912D34C55A8D364760C259E7AAC1A6CABD78FE174FE1DA44006738FBDA834
-                  C4D004F0D6A4BE93C13FC020AF2D4082B8D773A26B91A062A59C13CA4F979CFC
-                  8434C3B843D4A32C5FA96B8CFFA5F26230629A29058AD964FD184A3CF558C5F2
-                  A2C93886D3F977900219BC0F1C3029F76B30C9ED5FBDB4C0A7C1AC12A3C77834
-                  98C5BD7056940DE6A7357E3A1E69B22D88C1FD418B9716043038DD8B6D0CD663
-                  5E2679C79231236BF06412AF3D66F26BF01B30D16B0B0218CC6AEDC51E0CD663
-                  46C6E045600D98014693E8C18619CD24C6E23F244CE45BF76F9318DB495C18AC
-                  15608CB69DF7E586F3C3D94FB72D0868706B2FEE62837958A851CE81F72FA490
-                  0C1E022E91FDD32DF7D6291E4CE144F093B65563EAC04AB974944F8339C949B9
-                  CE13039572BD2B0CB6522806F364C52A1781786C5A4FEE66A3F8BB7399439D77
-                  24AEEA46A7603E0DE67A6C2ABFCED4CB65EBB9F52483A782971E82ED27F3A76A
-                  557C6BBE4AD4960C1B9D2331876DAB0006B3A9955AB81E3506274D1260276EC0
-                  3ACA1C5F5471FC4760A0CB78BFC0081263BCA5FC1A2C93FE9ADA7A6F3AF93DC5
-                  6037B7525D3C0E2F044FB5F251B2CCCD076A55FC65E4995D0525413CBB542297
-                  2CE3E1C5CE60FD22D60D4E51E64F99F498698365BD945CE757A9A476ACAC3378
-                  1338EB23288F9F73C07BF9773F700FCCF3116B2E786C57C1C4245D3CB5586266
-                  B0DC5FEDC56E273A8C988532A6D5B4A63AEB9575064F27F1DDD68F9E9078B5E2
-                  1E5D4D62BEDA8FC6820F4E956C4C6E3542D6B13258DDD78DC1E998727F2B93D3
-                  E6CA7A5967B07192053E835F030D60ABCFFDEF907D2FCA904C744692B5497DDE
-                  5668B4CB48BCDC661CA75E7E186817CB2CA6B23FDF01F2B462DB63989C377F6C
-                  4851C7CAD1E0D9243EF9E5788D1C50FC7AC4BF0471F52E1CCB52AE66B2781CBC
-                  002675D149DD25F17AD41076762220D75395BD49FCE627DF65603FFA4BE281CA
-                  CBBB772C7B05FEE01F2BBB151B1C7165181CFFEB4AF4741C3C4CC4FF7C166995
-                  FF07878DC48B3FC1086D0000000049454E44AE426082}
-                Proportional = True
-                OnClick = btnDownloadClick
-              end
-              object imgHapus: TImage
-                Left = 950
-                Top = 19
-                Width = 120
-                Height = 30
-                Cursor = crHandPoint
-                Picture.Data = {
-                  0954506E67496D61676589504E470D0A1A0A0000000D49484452000000780000
-                  001E0806000000E7C9DA9500000009704859730000375D0000375D011980465D
-                  0000051C4944415478DAED9B69685C5514C7CF286A356E0962DD97B445141425
-                  1125B8E4430A222E205AB0D612109B9AA8A05F1A1754149708EA07E336887ED1
-                  881DC45D9006442D4821A35684803423B60AE292494B174531FEFFEF9E9BB973
-                  7D33792F79336F0CEFC09F9977EEB977EEBCDFDC739797E44627F73E2F22B749
-                  664BD106730AF84CE8FEB47B93595D3B0E7A08BA38469D39C0C74037F9A5435D
-                  C72FBA57CF157F49FBC62C25CB4137434F40274688CF00FF4FED483119F72EE8
-                  D03A719100B7436F4097415F402F416F437F8B99BB7F82DEADF50919E086DA4A
-                  E869E8EA1AE591005F083D0B5DE414FD0C6D85AE87FE813AA0DD619F90016E8A
-                  5D2106F4D99E3F568ABE8015A01BA136C7FF17742DF4B118D85596016E9A3155
-                  DF2126751FABBE05CDC18C5D0F6D84CE71FC25E845E815E877EBCC0037DD9643
-                  8F41FDD0ED8B5D64F58A017D1D7488FA7E857AA01DBCC800A7669F436349ADA2
-                  4F806E816E854E8746A06116340A70C761B92DFAB6B0B6B32D6FFD63A57D5D62
-                  B611B46194159DB20D78B9412F4B281B70DBF4CA7D2B227E382C16FED55E3BA1
-                  7D809F0B562E52DBBDB687A7FF9C2D4AB29628606B074357EAEB3B743410F0AC
-                  730347AC1F37B10F2F16FE6A948D3B659BA51AE00A94979CF24D5201136679FB
-                  A37063E1CBB941617D50B8F47585B45B665CC2902303FE163A3C66E3FBA173F9
-                  A6C500CF7ACD0C78A3DF053CEEC4118A1D75231CC90B003C2115B82555BBE323
-                  E46E402E49321619F077D0AA988DB3CE597CD32A80E1E7C8DDEC35C3F4BEC6A9
-                  1B0A4D532EDB249071A6E40500B6FD2DAAAFACB14CD91B6C2C008F4B321619F0
-                  A7D025D0555037F4B01673CBC4BDEFEB7AFD00C45FE907D02710BF642B01268C
-                  4DEA2F2BAC32CA3B9CBAF5A06DD1EF9434E04EA94C1B853446304FB1B8CF3D02
-                  3A19FA518B0F82D8E919AD7FAA96313D73A4F433A809806DBAB3E6A63D17F014
-                  5E3A35362F9554ECC634720487A5681A410F006C39E15B1419304F4878E6C9A7
-                  19847940CC96C87E29FA089FF33437D8BF418F8A3E9D6A02E07A666F2EC14EA9
-                  2FAF9AD0EB11BB3A8E380707F376C28BAC6054270C3932E0BBA1A7C49C647D0D
-                  7D0F9D21D58067D4773EF49598F4FD020B5B61047BE0D6C057806F5A63B9FDE9
-                  5630F3ADA2E716657101ABDFDF2675AA6849438E0C9847936362D2F47BD067D0
-                  A5520DF81B310F23AE11F3E0C1C6B6C41C1CB23DF22DD82ED519C1B442AD1577
-                  C411DCA7D725BB350B19D5A92CB27AC52C9A78CE390ABDA6B12EE00FD537A431
-                  ECF0972C6C11C0F3A5F379D3AE6FDE8FA1DB3B5071CBFC3ED45CB94B4A80B945
-                  E2B6E74931ABD0C7C59C52B980998EEFD18E3286E7A101D9B4018B4987767B54
-                  10930AADD91B1BDCF44500665AB57D6897CA6A9D16C077A604B71F6E6C6AFB60
-                  3E39DA2B6635BD56CC3360D67101DFAB3EA6729E4B2FB36DB400E03EE726FA23
-                  CDAE6C83ED521CC05ADFDDC386993B67BB2B71DF523DC9A211224FB4EC7EF87D
-                  A906BC4ECCFE97CF88792EBDD2566C01C084106C8F10B7C26DC34F8F62604706
-                  AC6DD4825C754AA6B161901B0197160BF0A498917C1A741EB45DAA015FAEBE1F
-                  C4ACB27B6DC5EC69526A160B30277E42E45EF72888F3890B987F95B907FA037A
-                  53CC880E2C039C9AC502FCAA9893298EE05D62601EAD653CBD3A45CC49D64EE8
-                  1131C79681658053B35880F9373F1F41778A9967B789998F397A999A7BF4FA19
-                  31E7D5DB6DC50C706A16FB793017120F4227E9F5ACCA9E49732B751FF4965B29
-                  039C9A35E481FF7F2C039C9A5501CEFE7565E9D9CB503E97FDF3D992B6C17F01
-                  50342EBC6DE26EC20000000049454E44AE426082}
-                Proportional = True
-                OnClick = btnRemoveClick
-              end
-              object edtCari: TEdit
-                Left = -2
-                Top = 25
-                Width = 324
-                Height = 26
-                AutoSize = False
-                Font.Charset = ANSI_CHARSET
-                Font.Color = clBlack
-                Font.Height = -13
-                Font.Name = 'Berlin Sans FB'
-                Font.Style = []
-                ParentFont = False
-                TabOrder = 0
-              end
-            end
-          end
-        end
-        object pnlMdmTools: TPanel
-          Left = 1130
-          Top = 60
-          Width = 477
-          Height = 870
-          Align = alClient
-          BevelOuter = bvNone
-          BorderWidth = 20
-          Color = 3287589
-          ParentBackground = False
-          TabOrder = 1
-          object AdvWatch1: TAdvWatch
-            Left = 20
-            Top = 300
-            Width = 437
-            Height = 250
-            Align = alTop
-            Appearance.AMPMFont.Charset = ANSI_CHARSET
-            Appearance.AMPMFont.Color = clWindowText
-            Appearance.AMPMFont.Height = -13
-            Appearance.AMPMFont.Name = 'Jefferies'
-            Appearance.AMPMFont.Style = []
-            Appearance.AMPMFrame = apRoundRect
-            Appearance.HourFont.Charset = ANSI_CHARSET
-            Appearance.HourFont.Color = clWindowText
-            Appearance.HourFont.Height = -13
-            Appearance.HourFont.Name = 'Jefferies'
-            Appearance.HourFont.Style = [fsBold]
-            Appearance.HourMarkLength = 8
-            Appearance.HourPointer = clBlack
-            Appearance.HourPointerShadow = clBtnShadow
-            Appearance.HourPointerSize = 5
-            Appearance.MinutePointerShadow = clBtnShadow
-            Appearance.MinuteMarkLength = 4
-            Appearance.Shape = wsRoundRect
-            Settings.Auto = True
-            Time = 45535.058385011570000000
-            Version = '1.2.1.1'
-          end
-          object CalendarView1: TCalendarView
-            Left = 20
-            Top = 20
-            Width = 437
-            Height = 250
-            Align = alTop
-            BorderColor = clWhite
-            Color = clGradientActiveCaption
-            Date = 45539.000000000000000000
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -16
-            Font.Name = 'Jefferies'
-            Font.Style = []
-            HeaderInfo.DaysOfWeekFont.Charset = ANSI_CHARSET
-            HeaderInfo.DaysOfWeekFont.Color = clWindowText
-            HeaderInfo.DaysOfWeekFont.Height = -13
-            HeaderInfo.DaysOfWeekFont.Name = 'Jefferies'
-            HeaderInfo.DaysOfWeekFont.Style = []
-            HeaderInfo.Font.Charset = ANSI_CHARSET
-            HeaderInfo.Font.Color = clWindowText
-            HeaderInfo.Font.Height = -19
-            HeaderInfo.Font.Name = 'Jefferies'
-            HeaderInfo.Font.Style = []
-            ParentFont = False
-            TabOrder = 1
-          end
-          object Panel22: TPanel
-            Left = 20
-            Top = 270
-            Width = 437
-            Height = 30
-            Align = alTop
-            BevelOuter = bvNone
-            TabOrder = 2
-          end
-          object Panel23: TPanel
-            Left = 20
-            Top = 550
-            Width = 437
-            Height = 30
-            Align = alTop
-            BevelOuter = bvNone
-            TabOrder = 3
-          end
-          object Memo1: TMemo
-            Left = 20
-            Top = 580
-            Width = 437
-            Height = 270
-            Align = alClient
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -15
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 4
-          end
-        end
-        object pnlSparMdm: TPanel
-          Left = 1110
-          Top = 60
-          Width = 20
-          Height = 870
-          Align = alLeft
-          BevelOuter = bvNone
-          TabOrder = 2
-        end
-        object pnlHeaderBeranda: TPanel
-          Left = 0
-          Top = 0
-          Width = 1607
-          Height = 60
-          Align = alTop
-          BevelOuter = bvNone
-          TabOrder = 3
-          object Label6: TLabel
-            Tag = 1
-            Left = 0
-            Top = 0
-            Width = 1607
-            Height = 60
-            Cursor = crHandPoint
-            Align = alClient
-            AutoSize = False
-            Caption = 'Beranda'
-            Font.Charset = ANSI_CHARSET
-            Font.Color = 12826787
-            Font.Height = -32
-            Font.Name = 'Jefferies'
-            Font.Style = [fsBold]
-            ParentFont = False
-            ExplicitTop = 80
-            ExplicitWidth = 358
-            ExplicitHeight = 70
-          end
-        end
       end
       object pnlMenejemenPeta: TPanel
         Left = 0
@@ -50471,6 +49773,704 @@ object frmDisplayArea: TfrmDisplayArea
             TabOrder = 0
             ViewStyle = vsReport
             OnSelectItem = lvAssetSelectItem
+          end
+        end
+      end
+      object pnlMenejemenBeranda: TPanel
+        Left = 0
+        Top = 0
+        Width = 1607
+        Height = 930
+        Align = alClient
+        BevelOuter = bvNone
+        TabOrder = 5
+        object pnlMdmMainLeft: TPanel
+          Left = 0
+          Top = 60
+          Width = 1110
+          Height = 870
+          Align = alLeft
+          BevelOuter = bvNone
+          TabOrder = 0
+          object pnlHeaderMyDeskstop: TPanel
+            Left = 0
+            Top = 0
+            Width = 1110
+            Height = 150
+            Align = alTop
+            BevelOuter = bvNone
+            Color = cl3DDkShadow
+            TabOrder = 0
+            object pnlMdmConsoleName: TPanel
+              Left = 0
+              Top = 0
+              Width = 264
+              Height = 134
+              BevelOuter = bvNone
+              Color = 5326139
+              ParentBackground = False
+              TabOrder = 0
+              object Label2: TLabel
+                Tag = 1
+                Left = 20
+                Top = 10
+                Width = 113
+                Height = 21
+                Cursor = crHandPoint
+                Caption = 'Console Name : '
+                Font.Charset = ANSI_CHARSET
+                Font.Color = 16448250
+                Font.Height = -19
+                Font.Name = 'Jefferies'
+                Font.Style = []
+                ParentFont = False
+              end
+              object lblConsoleName: TLabel
+                Tag = 1
+                Left = 0
+                Top = 64
+                Width = 264
+                Height = 70
+                Cursor = crHandPoint
+                Align = alBottom
+                Alignment = taCenter
+                AutoSize = False
+                Caption = 'Official 01'
+                Font.Charset = ANSI_CHARSET
+                Font.Color = 12826787
+                Font.Height = -37
+                Font.Name = 'Jefferies'
+                Font.Style = []
+                ParentFont = False
+                ExplicitLeft = 6
+                ExplicitTop = 69
+              end
+            end
+            object pnlMdmOrganisasiTugas: TPanel
+              Left = 282
+              Top = 0
+              Width = 264
+              Height = 134
+              BevelOuter = bvNone
+              Color = 5326139
+              ParentBackground = False
+              TabOrder = 1
+              object Label12: TLabel
+                Tag = 1
+                Left = 20
+                Top = 10
+                Width = 42
+                Height = 21
+                Cursor = crHandPoint
+                Caption = 'Role :'
+                Font.Charset = ANSI_CHARSET
+                Font.Color = 16448250
+                Font.Height = -19
+                Font.Name = 'Jefferies'
+                Font.Style = []
+                ParentFont = False
+              end
+              object lblRole: TLabel
+                Tag = 2
+                Left = 0
+                Top = 64
+                Width = 264
+                Height = 70
+                Cursor = crHandPoint
+                Align = alBottom
+                Alignment = taCenter
+                AutoSize = False
+                Caption = 'Kogasgabla'
+                Font.Charset = ANSI_CHARSET
+                Font.Color = 12826787
+                Font.Height = -37
+                Font.Name = 'Jefferies'
+                Font.Style = []
+                ParentFont = False
+                ExplicitLeft = -1
+                ExplicitTop = 50
+                ExplicitWidth = 358
+              end
+            end
+            object pnlMdmUserRole: TPanel
+              Left = 564
+              Top = 0
+              Width = 264
+              Height = 134
+              BevelOuter = bvNone
+              Color = 5326139
+              ParentBackground = False
+              TabOrder = 2
+              object Label14: TLabel
+                Tag = 1
+                Left = 20
+                Top = 10
+                Width = 74
+                Height = 21
+                Cursor = crHandPoint
+                Caption = 'Sub Role :'
+                Font.Charset = ANSI_CHARSET
+                Font.Color = 16448250
+                Font.Height = -19
+                Font.Name = 'Jefferies'
+                Font.Style = []
+                ParentFont = False
+              end
+              object lblSubRole: TLabel
+                Tag = 2
+                Left = 0
+                Top = 64
+                Width = 264
+                Height = 70
+                Cursor = crHandPoint
+                Align = alBottom
+                Alignment = taCenter
+                AutoSize = False
+                Caption = 'Set Lat'
+                Color = 12826787
+                Font.Charset = ANSI_CHARSET
+                Font.Color = 12826787
+                Font.Height = -37
+                Font.Name = 'Jefferies'
+                Font.Style = []
+                ParentColor = False
+                ParentFont = False
+                ExplicitTop = 69
+              end
+            end
+            object pnlMdmTahapan: TPanel
+              Left = 846
+              Top = 0
+              Width = 264
+              Height = 134
+              BevelOuter = bvNone
+              Color = 5326139
+              ParentBackground = False
+              TabOrder = 3
+              object Label5: TLabel
+                Tag = 1
+                Left = 20
+                Top = 10
+                Width = 81
+                Height = 21
+                Cursor = crHandPoint
+                Caption = 'User Role :'
+                Font.Charset = ANSI_CHARSET
+                Font.Color = 16448250
+                Font.Height = -19
+                Font.Name = 'Jefferies'
+                Font.Style = []
+                ParentFont = False
+              end
+              object lblUserRoleIdentifier: TLabel
+                Tag = 2
+                Left = 0
+                Top = 64
+                Width = 264
+                Height = 70
+                Cursor = crHandPoint
+                Align = alBottom
+                Alignment = taCenter
+                AutoSize = False
+                Caption = 'Pelaksanaan'
+                Color = 12826787
+                Font.Charset = ANSI_CHARSET
+                Font.Color = 12826787
+                Font.Height = -37
+                Font.Name = 'Jefferies'
+                Font.Style = []
+                ParentColor = False
+                ParentFont = False
+                ExplicitLeft = 1
+                ExplicitTop = 63
+              end
+            end
+          end
+          object pnlListMyFile: TPanel
+            Left = 0
+            Top = 150
+            Width = 1110
+            Height = 720
+            Align = alClient
+            BevelOuter = bvNone
+            BorderWidth = 20
+            Color = 3287589
+            ParentBackground = False
+            TabOrder = 1
+            object lvFileData: TListView
+              Left = 20
+              Top = 80
+              Width = 1070
+              Height = 620
+              Align = alClient
+              BevelInner = bvNone
+              BevelOuter = bvNone
+              BorderStyle = bsNone
+              Columns = <
+                item
+                  Width = 30
+                end
+                item
+                  Caption = 'Nama Dokumen'
+                  Width = 590
+                end
+                item
+                  Alignment = taCenter
+                  Caption = 'Direktori'
+                  Width = 0
+                end
+                item
+                  Alignment = taCenter
+                  Caption = 'Tanggal Diubah'
+                  Width = 200
+                end
+                item
+                  Alignment = taCenter
+                  Caption = 'Diubah Oleh'
+                  Width = 240
+                end>
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clBlack
+              Font.Height = -16
+              Font.Name = 'Jefferies'
+              Font.Style = []
+              GridLines = True
+              RowSelect = True
+              ParentFont = False
+              StateImages = ilClientStateColor
+              TabOrder = 0
+              ViewStyle = vsReport
+              OnSelectItem = lvFileDataSelectItem
+            end
+            object pnlHeaderFileData: TPanel
+              Left = 20
+              Top = 20
+              Width = 1070
+              Height = 60
+              Align = alTop
+              BevelOuter = bvNone
+              Color = cl3DDkShadow
+              TabOrder = 1
+              object Label3: TLabel
+                Left = 0
+                Top = 0
+                Width = 39
+                Height = 19
+                Caption = 'Cari :'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWhite
+                Font.Height = -16
+                Font.Name = 'Tahoma'
+                Font.Style = []
+                ParentFont = False
+              end
+              object imgUpload: TImage
+                Left = 702
+                Top = 19
+                Width = 120
+                Height = 30
+                Cursor = crHandPoint
+                Picture.Data = {
+                  0954506E67496D61676589504E470D0A1A0A0000000D49484452000000780000
+                  001E0806000000E7C9DA9500000009704859730000375D0000375D011980465D
+                  0000065169545874584D4C3A636F6D2E61646F62652E786D7000000000003C3F
+                  787061636B657420626567696E3D22EFBBBF222069643D2257354D304D704365
+                  6869487A7265537A4E54637A6B633964223F3E203C783A786D706D6574612078
+                  6D6C6E733A783D2261646F62653A6E733A6D6574612F2220783A786D70746B3D
+                  2241646F626520584D5020436F726520392E302D633030302037392E31373163
+                  3237662C20323032322F30382F31362D31383A30323A34332020202020202020
+                  223E203C7264663A52444620786D6C6E733A7264663D22687474703A2F2F7777
+                  772E77332E6F72672F313939392F30322F32322D7264662D73796E7461782D6E
+                  7323223E203C7264663A4465736372697074696F6E207264663A61626F75743D
+                  222220786D6C6E733A786D703D22687474703A2F2F6E732E61646F62652E636F
+                  6D2F7861702F312E302F2220786D6C6E733A64633D22687474703A2F2F707572
+                  6C2E6F72672F64632F656C656D656E74732F312E312F2220786D6C6E733A7068
+                  6F746F73686F703D22687474703A2F2F6E732E61646F62652E636F6D2F70686F
+                  746F73686F702F312E302F2220786D6C6E733A786D704D4D3D22687474703A2F
+                  2F6E732E61646F62652E636F6D2F7861702F312E302F6D6D2F2220786D6C6E73
+                  3A73744576743D22687474703A2F2F6E732E61646F62652E636F6D2F7861702F
+                  312E302F73547970652F5265736F757263654576656E74232220786D703A4372
+                  6561746F72546F6F6C3D2241646F62652050686F746F73686F702032342E3020
+                  2857696E646F7773292220786D703A437265617465446174653D22323032342D
+                  31312D30345431313A33323A32342B30373A30302220786D703A4D6F64696679
+                  446174653D22323032342D31312D30365431373A30323A35362B30373A303022
+                  20786D703A4D65746164617461446174653D22323032342D31312D3036543137
+                  3A30323A35362B30373A3030222064633A666F726D61743D22696D6167652F70
+                  6E67222070686F746F73686F703A436F6C6F724D6F64653D22332220786D704D
+                  4D3A496E7374616E636549443D22786D702E6969643A30353161376438622D35
+                  6137352D343634312D626333622D3933333537626431383862352220786D704D
+                  4D3A446F63756D656E7449443D2261646F62653A646F6369643A70686F746F73
+                  686F703A61343634396439342D323238312D383434352D623739302D62383832
+                  65333031616265312220786D704D4D3A4F726967696E616C446F63756D656E74
+                  49443D22786D702E6469643A31346264383736332D633332352D353834622D62
+                  3431622D333866336639653235613233223E203C70686F746F73686F703A5465
+                  78744C61796572733E203C7264663A4261673E203C7264663A6C692070686F74
+                  6F73686F703A4C617965724E616D653D22554E47474148222070686F746F7368
+                  6F703A4C61796572546578743D22554E47474148222F3E203C2F7264663A4261
+                  673E203C2F70686F746F73686F703A546578744C61796572733E203C786D704D
+                  4D3A486973746F72793E203C7264663A5365713E203C7264663A6C6920737445
+                  76743A616374696F6E3D2263726561746564222073744576743A696E7374616E
+                  636549443D22786D702E6969643A31346264383736332D633332352D35383462
+                  2D623431622D333866336639653235613233222073744576743A7768656E3D22
+                  323032342D31312D30345431313A33323A32342B30373A303022207374457674
+                  3A736F6674776172654167656E743D2241646F62652050686F746F73686F7020
+                  32342E30202857696E646F777329222F3E203C7264663A6C692073744576743A
+                  616374696F6E3D227361766564222073744576743A696E7374616E636549443D
+                  22786D702E6969643A30353161376438622D356137352D343634312D62633362
+                  2D393333353762643138386235222073744576743A7768656E3D22323032342D
+                  31312D30365431373A30323A35362B30373A3030222073744576743A736F6674
+                  776172654167656E743D2241646F62652050686F746F73686F702032342E3020
+                  2857696E646F777329222073744576743A6368616E6765643D222F222F3E203C
+                  2F7264663A5365713E203C2F786D704D4D3A486973746F72793E203C2F726466
+                  3A4465736372697074696F6E3E203C2F7264663A5244463E203C2F783A786D70
+                  6D6574613E203C3F787061636B657420656E643D2272223F3E5D76615A000004
+                  D04944415478DAED5B4BA8555518FEB752206A752349840C6E8F819706714427
+                  F9E45E2735A9B8BD241A08F7DA4028F271292450D1934A3E069105D1A4970639
+                  081A58A33410BC4DB441A01709B38978AF9350118FDFB7D7DA67AFB35F6BEDF3
+                  DAD7CDFEE03B679DB5FFBDD6BFD6B7DE7B1FEFC8DF37F789C884542823EA9E16
+                  F805F0BDA2BDA9908987C19DE0DA1CF734057E0E7CA9E8125470C22BE02170A9
+                  836D25F07D8A79E007E0873A9C86BE09FC38B80C9C0F5E012F80778AAEA51280
+                  BDB80EBE9972BDE702AF00F782EBC03946FC0C7802FC04BC54742D95006BC14F
+                  C1E723F13D15984308059C9B61731B7C1FFCACE81A2A01D881C6C15DE0633AAE
+                  6702BF2BF9447B0BFCAEE81A2A091E0177839BC183DD10982D8743F110B810BC
+                  051E061FCC91C635F009F066D1B55322FC0C9EEF54E035E097E0335D70E865F0
+                  64FEDB1A63F81800A745BC2F8CF8617CD454D8C354D1184460545F9C44DCAF86
+                  ED8E787C83698EC5F3635A2DF93BDAB5F84A4CC1E644B60F59E5B3A263815781
+                  7424A9A736C0EDE00670C4313DCE1D1FE7F481599DC2C7B0F2C533F2F22BACAE
+                  C29EA7053F6554EE53866D430726746318D0B6B5840C51C9DEB8BECFD12E968F
+                  24F81BF1C1563E2B3A1298C3F279515B9F247C246AF5CCD39733A2866F1BF683
+                  3B1CEC22684B60623CEC113181CF49B2680160E34DB8DBF97944F3D77E35FD9D
+                  5502B350E752AE7D03BE2DAA17134F837F808B2C6972D3BE2F870F960AB00A6C
+                  F4E298C0C16F0CA1DE6BDA6640977930CCCBD52EEA4F1323C69450B8C0146848
+                  7F2F1735044771165C0FFE1F8967DC2F92BDF0DA047E95A300960AB00A4CE85E
+                  9C2A70B4B223F3A1AB9D1F775CC23580C4EF2B4E603E88D8ABBFBD8C047942B5
+                  12BC9A729DF3D1E7594A813F88DA62CDB897A32381752F76153896B7A39D6F7B
+                  5D94E8ECB1B530DCECE1415A6C10C6E2CB2F434D7A24F0EBA286DCB996C4D863
+                  578BBF02CCC451708BC5E6A2A893AF2B6EE5684B605662B0F265C33BA6C33D12
+                  B8614E699C93F97B34F4AD25AD34745DE087C0CB122EEB53BD07DF008F3B64CA
+                  86C2A1DAE6E869510DC65668695360DA5154CE9353FA9BC810B8650E8DCEC136
+                  3B338E79D75A7F731EEEBFC06C612EA2FD24EA11962B1683FF39D85190DFEC66
+                  6D0B4C518F4512EB95C0C6FC1BF3C536EFF76C0E4E5AF52581A74F7FE93087E8
+                  F1049B67C1AF452DB216EADF361C04B7D9CDDA15D8EF357CD0316824962530ED
+                  2894311F3ADB05F36F12F40ABCFF026F050FE44890F8077C3221FE459D611E7C
+                  0B6EB49B352B002B56BF714DEB0BC1E2443204E63C6CF6E2A8C09312BECE34A0
+                  6D8DC5918B9DEF53D61333AEB41F2D42E057C11F738AD24D8159499BED663191
+                  A2D0274A4902FBF79BBD381098E98D65A4196CAF1CEC9A65D1E93717A2A3C6BD
+                  DC761A8BB0FE08CC16F8AF64BF3110453705E643ECEFDD4C5345368F15D30436
+                  EF3587DA34F18C133017BB96EBE8A9DE74823F14BE1E86FBB70FDE23EAD8D115
+                  DD12F84F517BEA1C6F7D3482BDA58196437B5E0B8E1527C38AF6AF0DEB00F7C5
+                  5309F101389C266C05B3EC4CBF52FD3157F2511F82FB53F24E8593C0DCD6F0B9
+                  EE9863A2DD10F87751ABF26B390A53218E5C47953C6A7C075C6249F42E782321
+                  FE017081E55E0ACA139C933A9D0A9DA12BCF832BCC5E5402971C95C025478BC0
+                  D55F57CA07BE1777DAABFE7C566AD4EF018980698B1E7FA9820000000049454E
+                  44AE426082}
+                Proportional = True
+                OnClick = btnUploadClick
+              end
+              object imgDownload: TImage
+                Left = 826
+                Top = 19
+                Width = 120
+                Height = 30
+                Cursor = crHandPoint
+                Picture.Data = {
+                  0954506E67496D61676589504E470D0A1A0A0000000D49484452000000780000
+                  001E0806000000E7C9DA9500000009704859730000375D0000375D011980465D
+                  0000064F69545874584D4C3A636F6D2E61646F62652E786D7000000000003C3F
+                  787061636B657420626567696E3D22EFBBBF222069643D2257354D304D704365
+                  6869487A7265537A4E54637A6B633964223F3E203C783A786D706D6574612078
+                  6D6C6E733A783D2261646F62653A6E733A6D6574612F2220783A786D70746B3D
+                  2241646F626520584D5020436F726520392E302D633030302037392E31373163
+                  3237662C20323032322F30382F31362D31383A30323A34332020202020202020
+                  223E203C7264663A52444620786D6C6E733A7264663D22687474703A2F2F7777
+                  772E77332E6F72672F313939392F30322F32322D7264662D73796E7461782D6E
+                  7323223E203C7264663A4465736372697074696F6E207264663A61626F75743D
+                  222220786D6C6E733A786D703D22687474703A2F2F6E732E61646F62652E636F
+                  6D2F7861702F312E302F2220786D6C6E733A64633D22687474703A2F2F707572
+                  6C2E6F72672F64632F656C656D656E74732F312E312F2220786D6C6E733A7068
+                  6F746F73686F703D22687474703A2F2F6E732E61646F62652E636F6D2F70686F
+                  746F73686F702F312E302F2220786D6C6E733A786D704D4D3D22687474703A2F
+                  2F6E732E61646F62652E636F6D2F7861702F312E302F6D6D2F2220786D6C6E73
+                  3A73744576743D22687474703A2F2F6E732E61646F62652E636F6D2F7861702F
+                  312E302F73547970652F5265736F757263654576656E74232220786D703A4372
+                  6561746F72546F6F6C3D2241646F62652050686F746F73686F702032342E3020
+                  2857696E646F7773292220786D703A437265617465446174653D22323032342D
+                  31312D30345431313A33323A32342B30373A30302220786D703A4D6F64696679
+                  446174653D22323032342D31312D30365431373A30313A35352B30373A303022
+                  20786D703A4D65746164617461446174653D22323032342D31312D3036543137
+                  3A30313A35352B30373A3030222064633A666F726D61743D22696D6167652F70
+                  6E67222070686F746F73686F703A436F6C6F724D6F64653D22332220786D704D
+                  4D3A496E7374616E636549443D22786D702E6969643A36346433336235332D39
+                  3338302D303134652D386262362D3637373265386562633031352220786D704D
+                  4D3A446F63756D656E7449443D2261646F62653A646F6369643A70686F746F73
+                  686F703A37366134333437352D366566342D336634632D613965372D63386138
+                  62303364323530312220786D704D4D3A4F726967696E616C446F63756D656E74
+                  49443D22786D702E6469643A62643061663566632D636436342D306634622D39
+                  3631612D353230326532643132393937223E203C70686F746F73686F703A5465
+                  78744C61796572733E203C7264663A4261673E203C7264663A6C692070686F74
+                  6F73686F703A4C617965724E616D653D22554E445548222070686F746F73686F
+                  703A4C61796572546578743D22554E445548222F3E203C2F7264663A4261673E
+                  203C2F70686F746F73686F703A546578744C61796572733E203C786D704D4D3A
+                  486973746F72793E203C7264663A5365713E203C7264663A6C69207374457674
+                  3A616374696F6E3D2263726561746564222073744576743A696E7374616E6365
+                  49443D22786D702E6969643A62643061663566632D636436342D306634622D39
+                  3631612D353230326532643132393937222073744576743A7768656E3D223230
+                  32342D31312D30345431313A33323A32342B30373A3030222073744576743A73
+                  6F6674776172654167656E743D2241646F62652050686F746F73686F70203234
+                  2E30202857696E646F777329222F3E203C7264663A6C692073744576743A6163
+                  74696F6E3D227361766564222073744576743A696E7374616E636549443D2278
+                  6D702E6969643A36346433336235332D393338302D303134652D386262362D36
+                  3737326538656263303135222073744576743A7768656E3D22323032342D3131
+                  2D30365431373A30313A35352B30373A3030222073744576743A736F66747761
+                  72654167656E743D2241646F62652050686F746F73686F702032342E30202857
+                  696E646F777329222073744576743A6368616E6765643D222F222F3E203C2F72
+                  64663A5365713E203C2F786D704D4D3A486973746F72793E203C2F7264663A44
+                  65736372697074696F6E3E203C2F7264663A5244463E203C2F783A786D706D65
+                  74613E203C3F787061636B657420656E643D2272223F3E3DCEBFFB0000044349
+                  44415478DAED9B6D684F511CC77F7F8FCDF3C3E4E105DA942862A39058981712
+                  11E19517F49F7744B2883CA44D2D8F79B179687941594912C99028947F9194BD
+                  B0459416CDB359C4F7B773EE7FE77F769FEFB6FBDFDDFDD6A77B77EEB9BF7BCF
+                  EF7BCF3DF79EFB5FE2445D7319119552AC28AA3C210D9E0FB6857D36B16C3514
+                  EC05451EF6491B3C0D2C0FBB05B15C69353806C6BBA81B1BDC4D95037680DD72
+                  DD4AB1C1DD5CDC8BCBC1068BED9D6EF002B0192C06E3C017F01C5C07E7C1A7B0
+                  3314111581A360A656DE69060F06A74123A800AF483C24A8FA0EF68053E05FD8
+                  198A807A81127010E4CAB24E317800B8020E8307B2EC33B537D8105F003BC3CE
+                  4E84340C1C025B40454719DC8744AFFD06CE806A705FD96E67306B29B81D7666
+                  22261E065F043138013692B8520A405F700BDC0027B5BA4E06DF04CBBCB620B7
+                  1F25B1180E9A3EB6509552BE048B425E47F911FC9D87D5B572730A65B54ADD5D
+                  6AB912D34C55A8D364760C259E7AAC1A6CABD78FE174FE1DA44006738FBDA834
+                  C4D004F0D6A4BE93C13FC020AF2D4082B8D773A26B91A062A59C13CA4F979CFC
+                  8434C3B843D4A32C5FA96B8CFFA5F26230629A29058AD964FD184A3CF558C5F2
+                  A2C93886D3F977900219BC0F1C3029F76B30C9ED5FBDB4C0A7C1AC12A3C77834
+                  98C5BD7056940DE6A7357E3A1E69B22D88C1FD418B9716043038DD8B6D0CD663
+                  5E2679C79231236BF06412AF3D66F26BF01B30D16B0B0218CC6AEDC51E0CD663
+                  46C6E045600D98014693E8C18619CD24C6E23F244CE45BF76F9318DB495C18AC
+                  15608CB69DF7E586F3C3D94FB72D0868706B2FEE62837958A851CE81F72FA490
+                  0C1E022E91FDD32DF7D6291E4CE144F093B65563EAC04AB974944F8339C949B9
+                  CE13039572BD2B0CB6522806F364C52A1781786C5A4FEE66A3F8BB7399439D77
+                  24AEEA46A7603E0DE67A6C2ABFCED4CB65EBB9F52483A782971E82ED27F3A76A
+                  557C6BBE4AD4960C1B9D2331876DAB0006B3A9955AB81E3506274D1260276EC0
+                  3ACA1C5F5471FC4760A0CB78BFC0081263BCA5FC1A2C93FE9ADA7A6F3AF93DC5
+                  6037B7525D3C0E2F044FB5F251B2CCCD076A55FC65E4995D0525413CBB542297
+                  2CE3E1C5CE60FD22D60D4E51E64F99F498698365BD945CE757A9A476ACAC3378
+                  1338EB23288F9F73C07BF9773F700FCCF3116B2E786C57C1C4245D3CB5586266
+                  B0DC5FEDC56E273A8C988532A6D5B4A63AEB9575064F27F1DDD68F9E9078B5E2
+                  1E5D4D62BEDA8FC6820F4E956C4C6E3542D6B13258DDD78DC1E998727F2B93D3
+                  E6CA7A5967B07192053E835F030D60ABCFFDEF907D2FCA904C744692B5497DDE
+                  5668B4CB48BCDC661CA75E7E186817CB2CA6B23FDF01F2B462DB63989C377F6C
+                  4851C7CAD1E0D9243EF9E5788D1C50FC7AC4BF0471F52E1CCB52AE66B2781CBC
+                  002675D149DD25F17AD41076762220D75395BD49FCE627DF65603FFA4BE281CA
+                  CBBB772C7B05FEE01F2BBB151B1C7165181CFFEB4AF4741C3C4CC4FF7C166995
+                  FF07878DC48B3FC1086D0000000049454E44AE426082}
+                Proportional = True
+                OnClick = btnDownloadClick
+              end
+              object imgHapus: TImage
+                Left = 950
+                Top = 19
+                Width = 120
+                Height = 30
+                Cursor = crHandPoint
+                Picture.Data = {
+                  0954506E67496D61676589504E470D0A1A0A0000000D49484452000000780000
+                  001E0806000000E7C9DA9500000009704859730000375D0000375D011980465D
+                  0000051C4944415478DAED9B69685C5514C7CF286A356E0962DD97B445141425
+                  1125B8E4430A222E205AB0D612109B9AA8A05F1A1754149708EA07E336887ED1
+                  881DC45D9006442D4821A35684803423B60AE292494B174531FEFFEF9E9BB973
+                  7D33792F79336F0CEFC09F9977EEB977EEBCDFDC739797E44627F73E2F22B749
+                  664BD106730AF84CE8FEB47B93595D3B0E7A08BA38469D39C0C74037F9A5435D
+                  C72FBA57CF157F49FBC62C25CB4137434F40274688CF00FF4FED483119F72EE8
+                  D03A719100B7436F4097415F402F416F437F8B99BB7F82DEADF50919E086DA4A
+                  E869E8EA1AE591005F083D0B5DE414FD0C6D85AE87FE813AA0DD619F90016E8A
+                  5D2106F4D99E3F568ABE8015A01BA136C7FF17742DF4B118D85596016E9A3155
+                  DF2126751FABBE05CDC18C5D0F6D84CE71FC25E845E815E877EBCC0037DD9643
+                  8F41FDD0ED8B5D64F58A017D1D7488FA7E857AA01DBCC800A7669F436349ADA2
+                  4F806E816E854E8746A06116340A70C761B92DFAB6B0B6B32D6FFD63A57D5D62
+                  B611B46194159DB20D78B9412F4B281B70DBF4CA7D2B227E382C16FED55E3BA1
+                  7D809F0B562E52DBBDB687A7FF9C2D4AB29628606B074357EAEB3B743410F0AC
+                  730347AC1F37B10F2F16FE6A948D3B659BA51AE00A94979CF24D5201136679FB
+                  A37063E1CBB941617D50B8F47585B45B665CC2902303FE163A3C66E3FBA173F9
+                  A6C500CF7ACD0C78A3DF053CEEC4118A1D75231CC90B003C2115B82555BBE323
+                  E46E402E49321619F077D0AA988DB3CE597CD32A80E1E7C8DDEC35C3F4BEC6A9
+                  1B0A4D532EDB249071A6E40500B6FD2DAAAFACB14CD91B6C2C008F4B321619F0
+                  A7D025D0555037F4B01673CBC4BDEFEB7AFD00C45FE907D02710BF642B01268C
+                  4DEA2F2BAC32CA3B9CBAF5A06DD1EF9434E04EA94C1B853446304FB1B8CF3D02
+                  3A19FA518B0F82D8E919AD7FAA96313D73A4F433A809806DBAB3E6A63D17F014
+                  5E3A35362F9554ECC634720487A5681A410F006C39E15B1419304F4878E6C9A7
+                  19847940CC96C87E29FA089FF33437D8BF418F8A3E9D6A02E07A666F2EC14EA9
+                  2FAF9AD0EB11BB3A8E380707F376C28BAC6054270C3932E0BBA1A7C49C647D0D
+                  7D0F9D21D58067D4773EF49598F4FD020B5B61047BE0D6C057806F5A63B9FDE9
+                  5630F3ADA2E716657101ABDFDF2675AA6849438E0C9847936362D2F47BD067D0
+                  A5520DF81B310F23AE11F3E0C1C6B6C41C1CB23DF22DD82ED519C1B442AD1577
+                  C411DCA7D725BB350B19D5A92CB27AC52C9A78CE390ABDA6B12EE00FD537A431
+                  ECF0972C6C11C0F3A5F379D3AE6FDE8FA1DB3B5071CBFC3ED45CB94B4A80B945
+                  E2B6E74931ABD0C7C59C52B980998EEFD18E3286E7A101D9B4018B4987767B54
+                  10930AADD91B1BDCF44500665AB57D6897CA6A9D16C077A604B71F6E6C6AFB60
+                  3E39DA2B6635BD56CC3360D67101DFAB3EA6729E4B2FB36DB400E03EE726FA23
+                  CDAE6C83ED521CC05ADFDDC386993B67BB2B71DF523DC9A211224FB4EC7EF87D
+                  A906BC4ECCFE97CF88792EBDD2566C01C084106C8F10B7C26DC34F8F62604706
+                  AC6DD4825C754AA6B161901B0197160BF0A498917C1A741EB45DAA015FAEBE1F
+                  C4ACB27B6DC5EC69526A160B30277E42E45EF72888F3890B987F95B907FA037A
+                  53CC880E2C039C9AC502FCAA9893298EE05D62601EAD653CBD3A45CC49D64EE8
+                  1131C79681658053B35880F9373F1F41778A9967B789998F397A999A7BF4FA19
+                  31E7D5DB6DC50C706A16FB793017120F4227E9F5ACCA9E49732B751FF4965B29
+                  039C9A35E481FF7F2C039C9A5501CEFE7565E9D9CB503E97FDF3D992B6C17F01
+                  50342EBC6DE26EC20000000049454E44AE426082}
+                Proportional = True
+                OnClick = btnRemoveClick
+              end
+              object edtCari: TEdit
+                Left = -2
+                Top = 25
+                Width = 324
+                Height = 26
+                AutoSize = False
+                Font.Charset = ANSI_CHARSET
+                Font.Color = clBlack
+                Font.Height = -13
+                Font.Name = 'Berlin Sans FB'
+                Font.Style = []
+                ParentFont = False
+                TabOrder = 0
+              end
+            end
+          end
+        end
+        object pnlMdmTools: TPanel
+          Left = 1130
+          Top = 60
+          Width = 477
+          Height = 870
+          Align = alClient
+          BevelOuter = bvNone
+          BorderWidth = 20
+          Color = 3287589
+          ParentBackground = False
+          TabOrder = 1
+          object AdvWatch1: TAdvWatch
+            Left = 20
+            Top = 300
+            Width = 437
+            Height = 250
+            Align = alTop
+            Appearance.AMPMFont.Charset = ANSI_CHARSET
+            Appearance.AMPMFont.Color = clWindowText
+            Appearance.AMPMFont.Height = -13
+            Appearance.AMPMFont.Name = 'Jefferies'
+            Appearance.AMPMFont.Style = []
+            Appearance.AMPMFrame = apRoundRect
+            Appearance.HourFont.Charset = ANSI_CHARSET
+            Appearance.HourFont.Color = clWindowText
+            Appearance.HourFont.Height = -13
+            Appearance.HourFont.Name = 'Jefferies'
+            Appearance.HourFont.Style = [fsBold]
+            Appearance.HourMarkLength = 8
+            Appearance.HourPointer = clBlack
+            Appearance.HourPointerShadow = clBtnShadow
+            Appearance.HourPointerSize = 5
+            Appearance.MinutePointerShadow = clBtnShadow
+            Appearance.MinuteMarkLength = 4
+            Appearance.Shape = wsRoundRect
+            Settings.Auto = True
+            Time = 45535.058385011570000000
+            Version = '1.2.1.1'
+          end
+          object CalendarView1: TCalendarView
+            Left = 20
+            Top = 20
+            Width = 437
+            Height = 250
+            Align = alTop
+            BorderColor = clWhite
+            Color = clGradientActiveCaption
+            Date = 45539.000000000000000000
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -16
+            Font.Name = 'Jefferies'
+            Font.Style = []
+            HeaderInfo.DaysOfWeekFont.Charset = ANSI_CHARSET
+            HeaderInfo.DaysOfWeekFont.Color = clWindowText
+            HeaderInfo.DaysOfWeekFont.Height = -13
+            HeaderInfo.DaysOfWeekFont.Name = 'Jefferies'
+            HeaderInfo.DaysOfWeekFont.Style = []
+            HeaderInfo.Font.Charset = ANSI_CHARSET
+            HeaderInfo.Font.Color = clWindowText
+            HeaderInfo.Font.Height = -19
+            HeaderInfo.Font.Name = 'Jefferies'
+            HeaderInfo.Font.Style = []
+            ParentFont = False
+            TabOrder = 1
+          end
+          object Panel22: TPanel
+            Left = 20
+            Top = 270
+            Width = 437
+            Height = 30
+            Align = alTop
+            BevelOuter = bvNone
+            TabOrder = 2
+          end
+          object Panel23: TPanel
+            Left = 20
+            Top = 550
+            Width = 437
+            Height = 30
+            Align = alTop
+            BevelOuter = bvNone
+            TabOrder = 3
+          end
+          object Memo1: TMemo
+            Left = 20
+            Top = 580
+            Width = 437
+            Height = 270
+            Align = alClient
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -15
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 4
+          end
+        end
+        object pnlSparMdm: TPanel
+          Left = 1110
+          Top = 60
+          Width = 20
+          Height = 870
+          Align = alLeft
+          BevelOuter = bvNone
+          TabOrder = 2
+        end
+        object pnlHeaderBeranda: TPanel
+          Left = 0
+          Top = 0
+          Width = 1607
+          Height = 60
+          Align = alTop
+          BevelOuter = bvNone
+          TabOrder = 3
+          object Label6: TLabel
+            Tag = 1
+            Left = 0
+            Top = 0
+            Width = 1607
+            Height = 60
+            Cursor = crHandPoint
+            Align = alClient
+            AutoSize = False
+            Caption = 'Beranda'
+            Font.Charset = ANSI_CHARSET
+            Font.Color = 12826787
+            Font.Height = -32
+            Font.Name = 'Jefferies'
+            Font.Style = [fsBold]
+            ParentFont = False
+            ExplicitTop = 80
+            ExplicitWidth = 358
+            ExplicitHeight = 70
           end
         end
       end
