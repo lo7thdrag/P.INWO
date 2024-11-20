@@ -212,6 +212,7 @@ type
     btnEditTacticalSymbol: TRzBmpButton;
     btnDownloadTacticalSymbol: TRzBmpButton;
     btnDeleteTacticalSymbol: TRzBmpButton;
+    ilClientStateColor: TImageList;
 
     procedure btnAOTCClick(Sender: TObject);
 
