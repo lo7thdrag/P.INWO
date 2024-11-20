@@ -192,9 +192,9 @@ type
     editSearch: TEdit;
     edtSearchReferensi: TEdit;
     pnlSparatorTacticalSymbol: TPanel;
-    RzBmpButton1: TRzBmpButton;
-    RzBmpButton2: TRzBmpButton;
-    RzBmpButton3: TRzBmpButton;
+    btnAddAsset: TRzBmpButton;
+    btnEditAsset: TRzBmpButton;
+    btnDeleteAsset: TRzBmpButton;
     btnUpload: TRzBmpButton;
     btnDownload: TRzBmpButton;
     btnDelete: TRzBmpButton;
