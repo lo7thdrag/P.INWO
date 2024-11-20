@@ -6,7 +6,8 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Imaging.pngimage,
 
-  uClassData, uConstantaData, uDataModule, uRecordData, ufrmRole, ufrmSubRole;
+  uClassData, uConstantaData, uDataModule, uRecordData, ufrmRole, ufrmSubRole,
+  RzBmpBtn;
 
 type
   TfrmSummaryUserRole = class(TForm)
@@ -32,8 +33,6 @@ type
     btnShowPassword: TImage;
     btnShowPassword2: TImage;
     Label14: TLabel;
-    btnOk: TImage;
-    btnCancel: TImage;
     imgEdit: TImage;
     btnEditRole: TImage;
     btnEditSubRole: TImage;
@@ -44,6 +43,8 @@ type
     cbbUserRole: TComboBox;
     Label16: TLabel;
     Label17: TLabel;
+    btnOk: TRzBmpButton;
+    btnCancel: TRzBmpButton;
     procedure cbbRoleChange(Sender: TObject);
     procedure cbbSubRoleChange(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
