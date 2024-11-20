@@ -11,7 +11,7 @@ uses
   {Project Uses}
   uRecordData, uConstantaData, uSimMgr_Client, uT3SimManager, uClassData, ufrmVideoConference, ufrmSituationBoard,
   ufrmTelegram, uLibSetting, uSimContainers, ufrmSummaryUserRole, ufrmAvailableUserRole , UfrmMapEditor, ufrmSimbolTaktis,
-  ufrmAsset, ufrmReferensi, ufrmMapPreview;
+  ufrmAsset, ufrmReferensi, ufrmMapPreview, RzBmpBtn;
 
 type
   TfrmDisplayArea = class(TForm)
@@ -165,14 +165,8 @@ type
     pnlHeaderPeta: TPanel;
     Label16: TLabel;
     lstUserChat: TListBox;
-    imgUpload: TImage;
-    imgDownload: TImage;
-    imgHapus: TImage;
     edtSearch: TEdit;
     edtSearchMap: TEdit;
-    btnAddTacticalSymbol: TImage;
-    btnEditTacticalSymbol: TImage;
-    btnDeleteTacticalSymbol: TImage;
     edtTacticalSearch: TEdit;
     pnlRightTactical: TPanel;
     imgPreview: TImage;
@@ -185,9 +179,6 @@ type
     lblKategori: TLabel;
     Image2: TImage;
     lblNamaGambar: TLabel;
-    Image3: TImage;
-    Image4: TImage;
-    Image5: TImage;
     pnlMenejemenAsset: TPanel;
     pnlHeaderAsset: TPanel;
     Label18: TLabel;
@@ -195,20 +186,32 @@ type
     Label19: TLabel;
     pnlListAsset: TPanel;
     lvAsset: TListView;
-    Image7: TImage;
-    Image8: TImage;
-    btnPreview: TImage;
-    Image9: TImage;
     Image6: TImage;
-    btnAddAsset: TImage;
-    btnEditAsset: TImage;
-    btnDeleteAsset: TImage;
-    btnUnduh: TImage;
     cbbFilter: TComboBox;
     cbbSearch: TComboBox;
     editSearch: TEdit;
     edtSearchReferensi: TEdit;
     pnlSparatorTacticalSymbol: TPanel;
+    RzBmpButton1: TRzBmpButton;
+    RzBmpButton2: TRzBmpButton;
+    RzBmpButton3: TRzBmpButton;
+    btnUpload: TRzBmpButton;
+    btnDownload: TRzBmpButton;
+    btnDelete: TRzBmpButton;
+    btnAddUser: TRzBmpButton;
+    btnEditUser: TRzBmpButton;
+    btnDeleteUser: TRzBmpButton;
+    btnAdd: TRzBmpButton;
+    btnEdit: TRzBmpButton;
+    btnPreview: TRzBmpButton;
+    btnDeleteMap: TRzBmpButton;
+    btnUploadReferensi: TRzBmpButton;
+    btnDownloadReferensi: TRzBmpButton;
+    btnDeleteReferensi: TRzBmpButton;
+    btnAddTacticalSymbol: TRzBmpButton;
+    btnEditTacticalSymbol: TRzBmpButton;
+    btnDownloadTacticalSymbol: TRzBmpButton;
+    btnDeleteTacticalSymbol: TRzBmpButton;
 
     procedure btnAOTCClick(Sender: TObject);
 
