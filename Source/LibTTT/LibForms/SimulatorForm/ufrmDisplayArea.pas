@@ -693,6 +693,13 @@ begin
 
   for i := 0 to FAssetList.Count - 1 do
   begin
+
+    AssetTemp := FAssetList.Items[i];
+
+    li := lvAsset.Items.Add;
+    li.Caption := IntToStr(i+1);
+    li.SubItems.Add(AssetTemp.FData.Vehicle_Identifier);
+
     case AssetTemp.FData.Platform_Domain of
       0 : val_Domain := 'Air';
       1 : val_Domain := 'Surface';
@@ -700,6 +707,7 @@ begin
       3 : val_Domain := 'Land';
       4 : val_Domain := 'Amphibious';
     end;
+    li.SubItems.Add(val_Domain);
 
     case AssetTemp.FData.Platform_Category of
       0 : val_Category := 'Combatant';
@@ -707,13 +715,6 @@ begin
       2 : val_Category := 'Non-Naval';
       3 : val_Category := 'Other';
     end;
-
-    AssetTemp := FAssetList.Items[i];
-
-    li := lvAsset.Items.Add;
-    li.Caption := IntToStr(i+1);
-    li.SubItems.Add(AssetTemp.FData.Vehicle_Identifier);
-    li.SubItems.Add(val_Domain);
     li.SubItems.Add(val_Category);
 
     li.Data := AssetTemp;
