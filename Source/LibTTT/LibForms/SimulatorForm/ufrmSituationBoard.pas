@@ -56,6 +56,7 @@ type
     btnOverlayTools: TToolButton;
     pnlMain: TPanel;
     pnlCloseMap: TPanel;
+    btnselect: TToolButton;
 
     procedure FormShow(Sender: TObject);
     procedure Button1Click(Sender: TObject);
@@ -86,6 +87,7 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure btn1MouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
+    procedure btnselectClick(Sender: TObject);
 //    procedure Map1DrawUserLayer(Sender: TObject);
 
 
@@ -405,6 +407,14 @@ begin
 //    frmRuler.Hide;
 //    Map1.Repaint;
 //  end;
+end;
+
+procedure TfrmSituationBoard.btnselectClick(Sender: TObject);
+begin
+  FMapCursor := mcSelect;
+
+  Map1.CurrentTool := miSelectTool;
+  Map1.MousePointer := miDefaultCursor;
 end;
 
 procedure TfrmSituationBoard.LoadMap(Geoset: String);

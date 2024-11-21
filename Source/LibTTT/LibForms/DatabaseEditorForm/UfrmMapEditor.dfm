@@ -29,7 +29,6 @@ object frmMapEditor: TfrmMapEditor
     Color = 5326139
     ParentBackground = False
     TabOrder = 0
-    ExplicitHeight = 671
     object pnlLeftBottom: TPanel
       Left = 0
       Top = 708
@@ -40,7 +39,6 @@ object frmMapEditor: TfrmMapEditor
       Color = 5326139
       ParentBackground = False
       TabOrder = 0
-      ExplicitTop = 606
       object btnOk: TButton
         Left = 238
         Top = 18
@@ -82,9 +80,6 @@ object frmMapEditor: TfrmMapEditor
       Color = 5326139
       ParentBackground = False
       TabOrder = 1
-      ExplicitLeft = 1
-      ExplicitTop = 1
-      ExplicitWidth = 399
       object Label1: TLabel
         Left = 8
         Top = 3
@@ -136,10 +131,6 @@ object frmMapEditor: TfrmMapEditor
       BevelOuter = bvNone
       BorderWidth = 10
       TabOrder = 2
-      ExplicitLeft = 401
-      ExplicitTop = 0
-      ExplicitWidth = 16
-      ExplicitHeight = 671
       object chklstArea: TCheckListBox
         Left = 10
         Top = 10
@@ -158,10 +149,6 @@ object frmMapEditor: TfrmMapEditor
         ParentFont = False
         Sorted = True
         TabOrder = 0
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 401
-        ExplicitHeight = 85
       end
     end
   end
@@ -173,10 +160,6 @@ object frmMapEditor: TfrmMapEditor
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitLeft = -682
-    ExplicitTop = -374
-    ExplicitWidth = 1917
-    ExplicitHeight = 1045
     object ENCMap: TMap
       Left = 0
       Top = 38
@@ -207,7 +190,7 @@ object frmMapEditor: TfrmMapEditor
         0B918FCE119DE300AA004BB851010000009001DC7C010005417269616C000352
         E30B918FCE119DE300AA004BB851010200009001A42C02000B4D61702053796D
         626F6C730000000000000001000100FFFFFF000200FFFFFF0000000000000100
-        000001000118010000C869150501000000D8F097001C00000000000000000000
+        00000100011801000060B84E1201000000D4EB97001C00000000000000000000
         0000000000000000000000000000000000000000000000000000000000000000
         0000000000000000000000000000000000000000000000000000000000000000
         0002000000000000000000000000000000000000000000000000000000000000
@@ -216,15 +199,15 @@ object frmMapEditor: TfrmMapEditor
         0000000000000000000000000000000000000000000000000000000000000000
         0000000000000000000000000000000000000000000000000000000000000000
         00008076C000000000008056C000000000008076400000000000805640010000
-        0018010000C869150501000000000000001C0000000000000000000000000000
+        001801000060B84E1201000000010000001C0000000000000000000000000000
         0000000000000000000000000000000000000000000000000000000000000000
         0000000000000000000000000000000000000000000000000000000000020000
         0000000000000000000000000000000000000000000000000000000000000000
         0000000000000000000000000000000000000000000000000000000000000000
         0000000000000000000000000000000000000000000000000000000000000000
         0000000000000000000000000000000000000000000000000000000000000000
-        000000000000000000000000000000000000000000000000000000000008F197
-        00B6E6B17720FB1E0100000000BD34981F000000000017140000000000000000
+        00000000000000000000000000000000000000000000000000B6E6B177404133
+        0100000000995067DF000000006C15F3012033FE74C4EB970000000000000000
         0000000088B3400000000000408F400001000001}
     end
     object pnlToolBar: TPanel
@@ -237,7 +220,6 @@ object frmMapEditor: TfrmMapEditor
       Color = 5326139
       ParentBackground = False
       TabOrder = 1
-      ExplicitWidth = 834
       object pnlAlignToolBar: TPanel
         Left = 0
         Top = 0
@@ -248,7 +230,6 @@ object frmMapEditor: TfrmMapEditor
         Color = 5326139
         ParentBackground = False
         TabOrder = 0
-        ExplicitHeight = 35
       end
       object ToolBar1: TToolBar
         Left = 25
@@ -263,8 +244,6 @@ object frmMapEditor: TfrmMapEditor
         Images = ImageList1
         ParentColor = False
         TabOrder = 1
-        ExplicitWidth = 793
-        ExplicitHeight = 35
         object btnDecrease: TToolButton
           Left = 0
           Top = 0
@@ -341,8 +320,15 @@ object frmMapEditor: TfrmMapEditor
           ShowHint = True
           OnClick = btnZoomClick
         end
-        object btnPan: TToolButton
+        object btnout: TToolButton
           Left = 305
+          Top = 0
+          Caption = 'btnout'
+          ImageIndex = 7
+          OnClick = btnOutclick
+        end
+        object btnPan: TToolButton
+          Left = 347
           Top = 0
           Hint = 'Pan'
           Caption = 'btnPan'
