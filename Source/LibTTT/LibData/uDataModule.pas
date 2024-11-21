@@ -898,6 +898,7 @@ begin
         begin
           ID_File             := FieldByName('ID_File').AsInteger;
           Nama_File           := FieldByName('Nama_File').AsString;
+          Directory_Path      := FieldByName('Directory_Path').AsString;
           Encripted_File_Name := FieldByName('Encripted_File_Name').AsString;
           Tipe_File           := FieldByName('Tipe_File').AsString;
           Modified_Date       := FieldByName('Modified_Date').AsString;
