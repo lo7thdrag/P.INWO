@@ -27,6 +27,7 @@ type
     btnZoom: TToolButton;
     btnPan: TToolButton;
     ImageList1: TImageList;
+    btnout: TToolButton;
     procedure FormShow(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -37,6 +38,7 @@ type
     procedure btnCenterGameClick(Sender: TObject);
     procedure btnZoomClick(Sender: TObject);
     procedure btnPanClick(Sender: TObject);
+    procedure btnoutclick(Sender: TObject);
 
   private
     FSelectedGameArea : TGame_Area_Definition;
@@ -92,6 +94,21 @@ begin
 
   cbSetScale.ItemIndex := cbSetScale.ItemIndex - 1;
   cbSetScaleChange(cbSetScale);
+end;
+
+procedure TfrmMapPreview.btnoutclick(Sender: TObject);
+begin
+    btnZoom.Down := False;
+
+  btnout.Down := not btnout.Down;
+  btnPan.Down := false;
+
+  FMapCursor := mcSelect;
+
+  ENCMap.CurrentTool := miZoomoutTool;
+  ENCMap.MousePointer := miZoomoutCursor;
+
+  btnout.ImageIndex := 8;
 end;
 
 procedure TfrmMapPreview.btnPanClick(Sender: TObject);

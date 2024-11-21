@@ -199,20 +199,13 @@ end;
 
 procedure TfrmSituationBoard.btnZoomClick(Sender: TObject);
 begin
-  // if btnZoom.Down then
-  // btnZoom.Down := False;
   btnZoom.Down := not btnZoom.Down;
   btnPan.Down := false;
 
   FMapCursor := mcSelect;
-//  LoadNormalButtonImage;
-
   Map1.CurrentTool := miZoomInTool;
   Map1.MousePointer := miZoomInCursor;
 
-//  btnSelect.Picture.LoadFromFile
-//    ('data\Image DBEditor\Interface\Button\btnCursor_Normal.PNG');
-//  pnlStatic.Visible := false;
   btnZoom.ImageIndex := 5;
 end;
 
