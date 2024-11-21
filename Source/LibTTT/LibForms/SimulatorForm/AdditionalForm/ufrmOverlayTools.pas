@@ -389,7 +389,7 @@ type
     procedure cbbTypeToolsChange(Sender: TObject);
     procedure btnOutlineClick(Sender: TObject);
     procedure btnHandleShapePosition(Sender: TObject);
-    procedure btnApplyClick(Sender: TObject);
+    procedure btnHandleObjectEditor(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnFillClick(Sender: TObject);
     procedure btnCloseClick(Sender: TObject);
@@ -512,7 +512,7 @@ begin
   end;
 end;
 
-procedure TfrmOverlayTools.btnApplyClick(Sender: TObject);
+procedure TfrmOverlayTools.btnHandleObjectEditor(Sender: TObject);
 begin
   case TButton(Sender).Tag of
     0: {Apply}

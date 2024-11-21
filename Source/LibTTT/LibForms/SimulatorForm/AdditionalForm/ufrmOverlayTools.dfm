@@ -89,7 +89,7 @@ object frmOverlayTools: TfrmOverlayTools
         Font.Style = [fsBold]
         ParentFont = False
         TabOrder = 0
-        OnClick = btnApplyClick
+        OnClick = btnHandleObjectEditor
       end
       object btnDelete: TButton
         Tag = 1
@@ -106,6 +106,7 @@ object frmOverlayTools: TfrmOverlayTools
         Font.Style = [fsBold]
         ParentFont = False
         TabOrder = 1
+        OnClick = btnHandleObjectEditor
       end
       object btnClose: TButton
         Tag = 1
