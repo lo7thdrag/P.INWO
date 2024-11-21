@@ -267,6 +267,8 @@ end;
 procedure TfrmSituationBoard.FormCreate(Sender: TObject);
 begin
   EnableComposited(pnlHome);
+  EnableComposited(pnlImage);
+  EnableComposited(pnlMap);
   FCanvas := TCanvas.Create;
 end;
 
@@ -591,10 +593,6 @@ begin
           end;
           inc(tagTemp);
         end
-        else
-        begin
-
-        end;
       end;
     end;
   end;
