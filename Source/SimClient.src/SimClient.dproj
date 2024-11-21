@@ -453,6 +453,10 @@
             <Form>frmReferensi</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="..\LibTTT\LibForms\SimulatorForm\ufrmToteDisplay.pas">
+            <Form>frmToteDisplay</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Debug">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
