@@ -14145,8 +14145,7 @@ object frmSummaryUserRole: TfrmSummaryUserRole
       2F88F2FF03BA682A148F9ACFEF0000000049454E44AE426082}
     Stretch = True
     Transparent = True
-    ExplicitWidth = 665
-    ExplicitHeight = 353
+    ExplicitLeft = -8
   end
   object lblPlatform: TLabel
     Left = 3

@@ -56,6 +56,7 @@ type
     btnOverlayTools: TToolButton;
     pnlMain: TPanel;
     pnlCloseMap: TPanel;
+    btnselect: TToolButton;
 
     procedure FormShow(Sender: TObject);
     procedure Button1Click(Sender: TObject);
@@ -86,6 +87,7 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure btn1MouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
+    procedure btnselectClick(Sender: TObject);
 //    procedure Map1DrawUserLayer(Sender: TObject);
 
 
@@ -197,20 +199,13 @@ end;
 
 procedure TfrmSituationBoard.btnZoomClick(Sender: TObject);
 begin
-  // if btnZoom.Down then
-  // btnZoom.Down := False;
   btnZoom.Down := not btnZoom.Down;
   btnPan.Down := false;
 
   FMapCursor := mcSelect;
-//  LoadNormalButtonImage;
-
   Map1.CurrentTool := miZoomInTool;
   Map1.MousePointer := miZoomInCursor;
 
-//  btnSelect.Picture.LoadFromFile
-//    ('data\Image DBEditor\Interface\Button\btnCursor_Normal.PNG');
-//  pnlStatic.Visible := false;
   btnZoom.ImageIndex := 5;
 end;
 
@@ -267,6 +262,8 @@ end;
 procedure TfrmSituationBoard.FormCreate(Sender: TObject);
 begin
   EnableComposited(pnlHome);
+  EnableComposited(pnlImage);
+  EnableComposited(pnlMap);
   FCanvas := TCanvas.Create;
 end;
 
@@ -403,6 +400,14 @@ begin
 //    frmRuler.Hide;
 //    Map1.Repaint;
 //  end;
+end;
+
+procedure TfrmSituationBoard.btnselectClick(Sender: TObject);
+begin
+  FMapCursor := mcSelect;
+
+  Map1.CurrentTool := miSelectTool;
+  Map1.MousePointer := miDefaultCursor;
 end;
 
 procedure TfrmSituationBoard.LoadMap(Geoset: String);
@@ -591,10 +596,6 @@ begin
           end;
           inc(tagTemp);
         end
-        else
-        begin
-
-        end;
       end;
     end;
   end;

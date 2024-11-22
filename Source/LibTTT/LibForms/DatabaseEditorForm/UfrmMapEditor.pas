@@ -39,6 +39,7 @@ type
     ProgressBar1: TProgressBar;
     pnlLeftMain: TPanel;
     btnSelect: TToolButton;
+    btnout: TToolButton;
     procedure btnCancelClick(Sender: TObject);
     procedure btnOkClick(Sender: TObject);
     procedure btnDecreaseClick(Sender: TObject);
@@ -62,6 +63,7 @@ type
     procedure ENCMapMouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure edtSearchKeyPress(Sender: TObject; var Key: Char);
+    procedure btnOutclick(Sender: TObject);
 
   private
     FSelectedGameArea : TGame_Area_Definition;
@@ -204,6 +206,22 @@ begin
 
   AfterClose := True;
   Close;
+end;
+
+procedure TfrmMapEditor.btnOutclick(Sender: TObject);
+begin
+  if btnZoom.Down then
+    btnZoom.Down := False;
+
+  btnout.Down := not btnout.Down;
+  btnPan.Down := false;
+
+  FMapCursor := mcSelect;
+
+  ENCMap.CurrentTool := miZoomoutTool;
+  ENCMap.MousePointer := miZoomoutCursor;
+
+  btnout.ImageIndex := 8;
 end;
 
 procedure TfrmMapEditor.btnPanClick(Sender: TObject);

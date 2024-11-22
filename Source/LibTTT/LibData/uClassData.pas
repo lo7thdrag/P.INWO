@@ -1258,13 +1258,13 @@ begin
     {draw lambang}
     bmp := TBitmap.Create;
     case id of
-      ovIntelijen, ovLogistic :
+      ovIntelijen, ovLogistic, ovPangkalan :
       begin
         bmp.Transparent := true;
         bmp.LoadFromFile(vGameDataSetting.ImgPath + pctLogisticPoint + '.bmp');
       end;
       ovRadar: bmp.LoadFromFile(vGameDataSetting.ImgPath + pctBaseRadar + '.bmp');
-      ovPangkalan: bmp.LoadFromFile(vGameDataSetting.ImgPath + pctBaseAL + '.bmp');
+//      ovPangkalan: bmp.LoadFromFile(vGameDataSetting.ImgPath + pctBaseAL + '.bmp');
       ovPanah:
       begin
         bmp.Transparent := true;
@@ -1278,13 +1278,13 @@ begin
 
     Draw(x1, y1, bmp);
 
-    {draw name}
-    if not isShow then
-    begin
+   {draw name}
+//    if not isShow then
+//    begin
       lengthName := (length(Identifier) div 2) * 8;
       SetStyleHuruf(FCanvas, fsBold, 10, ShapeOutline, 'Maiandra GD');
       TextOut(round(x-lengthName), round(y + (bmp.Height/2)), Identifier);
-    end;
+//    end;
 
     bmp.Free;
   end;
@@ -2185,7 +2185,7 @@ begin
       SetStyleHuruf(FCanvas, fsBold, 12, clWhite, 'Maiandra GD');
       Brush.Color := ShapeOutline;
       Rectangle(cx+50, cy-50, cx+370, cy - 30);
-      TextOut(round(cx + (210 - lengthName)), cy-50, Identifier);
+//      TextOut(round(cx + (210 - lengthName)), cy-50, Identifier);
       {$ENDREGION}
 
       {$REGION ' Isi Table '}
@@ -2268,7 +2268,7 @@ begin
       SetStyleHuruf(FCanvas, fsBold, 12, clWhite, 'Maiandra GD');
       Brush.Color := ShapeOutline;
       Rectangle(cx+50, cy-50, cx+280, cy-30);
-      TextOut(round(cx + (170 - lengthName)), cy-50, Identifier);
+//      TextOut(round(cx + (170 - lengthName)), cy-50, Identifier);
       {$ENDREGION}
 
       {$REGION ' Isi Table '}
@@ -2353,7 +2353,7 @@ begin
       SetStyleHuruf(FCanvas, fsBold, 12, clWhite, 'Maiandra GD');
       Brush.Color := ShapeOutline;
       Rectangle(cx+50, cy-50, cx+300, cy-30);
-      TextOut(round(cx + (180 - lengthName)), cy-50, Identifier);
+//      TextOut(round(cx + (180 - lengthName)), cy-50, Identifier);
       {$ENDREGION}
 
       {$REGION ' Isi Table '}

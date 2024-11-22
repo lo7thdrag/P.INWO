@@ -254,8 +254,6 @@ type
     Label19: TLabel;
     mmoInfo: TMemo;
     Label64: TLabel;
-    Label77: TLabel;
-    Bevel15: TBevel;
     Bevel16: TBevel;
     rbRed: TRadioButton;
     rbBlue: TRadioButton;
@@ -360,8 +358,6 @@ type
     Label27: TLabel;
     Label28: TLabel;
     Bevel21: TBevel;
-    edtIntelIdentifier: TEdit;
-    Label66: TLabel;
     Label67: TLabel;
     Bevel1: TBevel;
     Label61: TLabel;
@@ -372,10 +368,6 @@ type
     edtBaseIdentifier: TEdit;
     Bevel23: TBevel;
     Label49: TLabel;
-    Label50: TLabel;
-    Bevel24: TBevel;
-    edtRadarIdentifier: TEdit;
-    Label51: TLabel;
     Label60: TLabel;
     RzBmpButton1: TRzBmpButton;
     grpPlatform: TGroupBox;
@@ -389,19 +381,15 @@ type
     Label75: TLabel;
     Label79: TLabel;
     Bevel26: TBevel;
-    Label80: TLabel;
-    Bevel27: TBevel;
-    Label81: TLabel;
     edtLongPlatform: TEdit;
     edtLattPlatform: TEdit;
-    edtPlatformIdentifier: TEdit;
     lblTacticalSymbolPlatform: TLabel;
     Button1: TButton;
     procedure btnHandleShape(Sender: TObject);
     procedure cbbTypeToolsChange(Sender: TObject);
     procedure btnOutlineClick(Sender: TObject);
     procedure btnHandleShapePosition(Sender: TObject);
-    procedure btnApplyClick(Sender: TObject);
+    procedure btnHandleObjectEditor(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnFillClick(Sender: TObject);
     procedure btnCloseClick(Sender: TObject);
@@ -524,7 +512,7 @@ begin
   end;
 end;
 
-procedure TfrmOverlayTools.btnApplyClick(Sender: TObject);
+procedure TfrmOverlayTools.btnHandleObjectEditor(Sender: TObject);
 begin
   case TButton(Sender).Tag of
     0: {Apply}
@@ -853,7 +841,7 @@ begin
     ovIntelijen:
     begin
       {$REGION ' Intelijen '}
-      if (edtLattIntel.Text = '') or (edtLongIntel.Text = '') or (mmoInfo.Text = '') or (edtIntelIdentifier.Text = '')then
+      if (edtLattIntel.Text = '') or (edtLongIntel.Text = '') or (mmoInfo.Text = '')then
       begin
         ShowMessage ('Data yang dimasukan tidak lengkap');
         Result := True;
@@ -903,7 +891,7 @@ begin
     ovPlatform:
     begin
       {$REGION ' Panah '}
-      if (edtPlatformIdentifier.Text = '') or (edtLattPlatform.Text = '') or (edtLongPlatform.Text = '') or (lblTacticalSymbolPlatform.Caption = '') then
+      if (edtLattPlatform.Text = '') or (edtLongPlatform.Text = '') or (lblTacticalSymbolPlatform.Caption = '') then
       begin
         ShowMessage ('Data yang dimasukan tidak lengkap');
         Result := True;
@@ -989,7 +977,6 @@ begin
   {$ENDREGION}
 
   {$REGION ' Intelejen '}
-  edtIntelIdentifier.Text := '';
   edtLattIntel.Text := '';
   edtLongIntel.Text := '';
   mmoInfo.Lines.Clear;
@@ -1005,7 +992,6 @@ begin
   {$ENDREGION}
 
   {$REGION ' Radar '}
-  edtRadarIdentifier.Text := '';
   edtLattRadar.Text := '';
   edtLongRadar.Text := '';
   edtRadius.Text := '';
@@ -1028,7 +1014,6 @@ begin
   {$ENDREGION}
 
   {$REGION ' Platform '}
-  edtPlatformIdentifier.Text := '';
   edtLattPlatform.Text := '';
   edtLongPlatform.Text := '';
   lblTacticalSymbolPlatform.Caption := '';
@@ -1042,7 +1027,6 @@ procedure TfrmOverlayTools.ClearFlagPoint;
 begin
   simMgrClient.DrawFlagPoint.FlagList.Clear;
   frmSituationBoard.Map1.Refresh;
-  frmSituationBoard.Map1.Repaint;
 end;
 
 procedure TfrmOverlayTools.colorChooseChange(Sender: TObject);
@@ -1469,7 +1453,6 @@ begin
   recShape.IdUserRole   := FSelectedOverlayTab.IdUserRole;
   recShape.TemplateId   := FSelectedOverlayTab.IdOverlayTab;
   recShape.ShapeType    := ovIntelijen;
-  recShape.OverlayName  := edtIntelIdentifier.Text;
   recShape.PostStart.X  := dmsToLong(edtLongIntel.Text);
   recShape.PostStart.Y  := dmsToLatt(edtLattIntel.Text);
   recShape.IdSelectShape:= FShapeId;
@@ -1584,7 +1567,6 @@ begin
   recShape.IdUserRole   := FSelectedOverlayTab.IdUserRole;
   recShape.TemplateId   := FSelectedOverlayTab.IdOverlayTab;
   recShape.ShapeType    := ovPlatform;
-  recShape.OverlayName  := edtPlatformIdentifier.Text;
   recShape.PostStart.X  := dmsToLong(edtLongPlatform.Text);
   recShape.PostStart.Y  := dmsToLatt(edtLattPlatform.Text);
   recShape.IdSelectShape:= FShapeId;
@@ -1617,7 +1599,6 @@ begin
   recShape.IdUserRole   := FSelectedOverlayTab.IdUserRole;
   recShape.TemplateId   := FSelectedOverlayTab.IdOverlayTab;
   recShape.ShapeType    := ovRadar;
-  recShape.OverlayName  := edtRadarIdentifier.Text;
   recShape.PostStart.X  := dmsToLong(edtLongRadar.Text);
   recShape.PostStart.Y  := dmsToLatt(edtLattRadar.Text);
   recShape.IdSelectShape:= FShapeId;
@@ -1650,7 +1631,6 @@ begin
   recShape.IdUserRole   := FSelectedOverlayTab.IdUserRole;
   recShape.TemplateId   := FSelectedOverlayTab.IdOverlayTab;
   recShape.ShapeType    := ovPanah;
-  recShape.OverlayName  := edtRadarIdentifier.Text;
   recShape.PostStart.X  := dmsToLong(edtStartLong.Text);
   recShape.PostStart.Y  := dmsToLatt(edtStartLatt.Text);
   recShape.PostEnd.X    := dmsToLong(edtEndLong.Text);
@@ -2461,7 +2441,6 @@ begin
           FShapeType := ovIntelijen;
           FShapeId := IntelijenTemp.ShapeId;
           FAction := caEdit;
-          edtIntelIdentifier.Text := IntelijenTemp.Identifier;
           edtLongIntel.Text := formatDMS_long(IntelijenTemp.postCenter.X);
           edtLattIntel.Text := formatDMS_latt(IntelijenTemp.postCenter.Y);
           pnlOutline.Color := IntelijenTemp.ShapeOutline;
@@ -2530,7 +2509,6 @@ begin
           FShapeType := ovLogistic;
           FShapeId := RadarTemp.ShapeId;
           FAction := caEdit;
-          edtRadarIdentifier.Text := RadarTemp.Identifier;
           edtLongRadar.Text := formatDMS_long(RadarTemp.postCenter.X);
           edtLattRadar.Text := formatDMS_latt(RadarTemp.postCenter.Y);
           edtRadius.Text := FloatToStr(RadarTemp.Radius);
@@ -2621,7 +2599,6 @@ begin
           FShapeType := ovPlatform;
           FShapeId := PlatformTemp.ShapeId;
           FAction := caEdit;
-          edtPlatformIdentifier.Text := PlatformTemp.Identifier;
           edtLongPlatform.Text := formatDMS_long(PlatformTemp.postCenter.X);
           edtLattPlatform.Text := formatDMS_latt(PlatformTemp.postCenter.Y);
 

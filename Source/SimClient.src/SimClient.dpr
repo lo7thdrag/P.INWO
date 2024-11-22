@@ -141,7 +141,8 @@ uses
   ufrmTorpedoLauncher in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\ufrmTorpedoLauncher.pas' {frmTorpedoLauncher},
   ufrmVehicleInputToBase in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\ufrmVehicleInputToBase.pas' {frmVehicleInputToBase},
   uSimbolTaktis in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\uSimbolTaktis.pas' {SimbolTaktis},
-  ufrmReferensi in '..\LibTTT\LibForms\SimulatorForm\ufrmReferensi.pas' {frmReferensi};
+  ufrmReferensi in '..\LibTTT\LibForms\SimulatorForm\ufrmReferensi.pas' {frmReferensi},
+  ufrmToteDisplay in '..\LibTTT\LibForms\SimulatorForm\ufrmToteDisplay.pas' {frmToteDisplay};
 
 {$R *.res}
 
@@ -161,6 +162,7 @@ begin
   Application.Title := 'SimClient';
   Application.CreateForm(TdmINWO, dmINWO);
   Application.CreateForm(TfrmTacticalDisplay, frmTacticalDisplay);
+  Application.CreateForm(TfrmToteDisplay, frmToteDisplay);
   frmDisplayArea := nil;
   frmSituationBoard := nil;
 //  Application.CreateForm(TfrmSituationBoard, frmSituationBoard);
