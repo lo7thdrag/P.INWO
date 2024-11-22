@@ -12,40 +12,24 @@ uses
 
 type
   TfrmAsset = class(TForm)
-    pnlMain: TPanel;
-    imgBackgroundForm: TImage;
-    pnl1Title: TPanel;
-    txtClass: TLabel;
-    edtClass: TEdit;
-    pnl2ControlPage: TPanel;
-    lblPlatform: TLabel;
-    btnOK: TImage;
     btnApply: TImage;
     btnCancel: TImage;
+    btnOK: TImage;
+    imgBackgroundForm: TImage;
+    lblPlatform: TLabel;
+    pnl2ControlPage: TPanel;
     pgcAssets: TPageControl;
     tsGeneral: TTabSheet;
     GroupBox5: TGroupBox;
-    lbl3: TLabel;
-    lbl12: TLabel;
-    lbl4: TLabel;
-    Label134: TLabel;
-    Label135: TLabel;
-    lbl5: TLabel;
-    lbl1: TLabel;
-    Label3: TLabel;
-    Label44: TLabel;
-    Label43: TLabel;
     Label49: TLabel;
     Label51: TLabel;
     Label52: TLabel;
     Label53: TLabel;
-    cbbDomain: TComboBox;
-    cbbCategory: TComboBox;
-    cbbType: TComboBox;
-    edtNoLambung: TEdit;
-    edtCallSign: TEdit;
+    Label4: TLabel;
+    Label18: TLabel;
     Edit1: TEdit;
     Edit2: TEdit;
+    edtClass: TEdit;
     GroupBox1: TGroupBox;
     Label8: TLabel;
     Label9: TLabel;
@@ -62,22 +46,74 @@ type
     Label23: TLabel;
     Label24: TLabel;
     Label25: TLabel;
-    lbl22: TLabel;
-    lbl29: TLabel;
     edtLengthDimension: TEdit;
     edtWidthDimension: TEdit;
     edtHeightDimension: TEdit;
     edtWeightDimension: TEdit;
     edtDraftDimension: TEdit;
-    cbGangwayFront: TCheckBox;
-    cbGangwayRear: TCheckBox;
-    cbGangwayPort: TCheckBox;
-    cbGangwayStarboard: TCheckBox;
     gbDefaultModel: TGroupBox;
     Image: TImage;
     btnDefaultModel: TButton;
-    tsLogistic: TTabSheet;
     GroupBox3: TGroupBox;
+    lbl1: TLabel;
+    Label3: TLabel;
+    Label43: TLabel;
+    Label44: TLabel;
+    edtNoLambung: TEdit;
+    edtCallSign: TEdit;
+    GroupBox4: TGroupBox;
+    lbl3: TLabel;
+    lbl12: TLabel;
+    lbl4: TLabel;
+    Label134: TLabel;
+    cbbDomain: TComboBox;
+    cbbCategory: TComboBox;
+    tsAssets: TTabSheet;
+    Label5: TLabel;
+    Label48: TLabel;
+    Label6: TLabel;
+    cbbSensors: TComboBox;
+    GroupBox13: TGroupBox;
+    ListView15: TListView;
+    btnSensors: TButton;
+    cbbWeapons: TComboBox;
+    GroupBox8: TGroupBox;
+    ListView3: TListView;
+    cbbCountermeasures: TComboBox;
+    GroupBox9: TGroupBox;
+    ListView4: TListView;
+    Button1: TButton;
+    Button2: TButton;
+    tsLogistic: TTabSheet;
+    Label2: TLabel;
+    grbTime: TGroupBox;
+    Label63: TLabel;
+    Label64: TLabel;
+    Label65: TLabel;
+    medtEnduranceTime: TMaskEdit;
+    grbRange: TGroupBox;
+    Label66: TLabel;
+    Label67: TLabel;
+    Label68: TLabel;
+    edtMaximumRange: TEdit;
+    grbCapacity: TGroupBox;
+    Label29: TLabel;
+    Label30: TLabel;
+    Label31: TLabel;
+    Label39: TLabel;
+    Label40: TLabel;
+    Label41: TLabel;
+    Label33: TLabel;
+    Label42: TLabel;
+    Label55: TLabel;
+    Label69: TLabel;
+    Label70: TLabel;
+    Label71: TLabel;
+    edtLubricantsCapacity: TEdit;
+    edtWaterCapacity: TEdit;
+    edtFoodCapacity: TEdit;
+    edtFuel: TEdit;
+    grbConsumption: TGroupBox;
     Label1: TLabel;
     Label20: TLabel;
     Label21: TLabel;
@@ -88,7 +124,6 @@ type
     Label32: TLabel;
     Label34: TLabel;
     Label35: TLabel;
-    Label36: TLabel;
     Label37: TLabel;
     Label38: TLabel;
     Label56: TLabel;
@@ -97,6 +132,10 @@ type
     Label60: TLabel;
     Label61: TLabel;
     Label62: TLabel;
+    Label7: TLabel;
+    Label19: TLabel;
+    Label45: TLabel;
+    Label46: TLabel;
     edtLubricantsConsumtion: TEdit;
     edtWaterComsumption: TEdit;
     edtFoodComsumption: TEdit;
@@ -104,37 +143,23 @@ type
     edtMaximumConsumtion: TEdit;
     edtCruiseConsumtion: TEdit;
     edtHighConsumtion: TEdit;
-    GroupBox4: TGroupBox;
-    Label29: TLabel;
-    Label30: TLabel;
-    Label31: TLabel;
-    Label39: TLabel;
-    Label40: TLabel;
-    Label41: TLabel;
-    Label33: TLabel;
-    Label42: TLabel;
-    Label55: TLabel;
-    edtLubricantsCapacity: TEdit;
-    edtWaterCapacity: TEdit;
-    edtFoodCapacity: TEdit;
-    GroupBox6: TGroupBox;
-    Label17: TLabel;
-    Label54: TLabel;
-    Label57: TLabel;
-    edtOfficer: TEdit;
-    GroupBox7: TGroupBox;
-    Label63: TLabel;
-    Label64: TLabel;
-    Label65: TLabel;
-    GroupBox8: TGroupBox;
-    Label66: TLabel;
-    Label67: TLabel;
-    Label68: TLabel;
-    edtMaximumRange: TEdit;
-    medEnduranceTime: TMaskEdit;
+    cbxEnduranceType: TComboBox;
     tsTransport: TTabSheet;
-    Label90: TLabel;
-    Label91: TLabel;
+    GroupBox10: TGroupBox;
+    Label81: TLabel;
+    Label82: TLabel;
+    Label83: TLabel;
+    Label84: TLabel;
+    Label85: TLabel;
+    Label86: TLabel;
+    Label87: TLabel;
+    Label88: TLabel;
+    Label89: TLabel;
+    edtMaxWeightDeckUnitCarried: TEdit;
+    edtWidthDeckUnitCarried: TEdit;
+    EdtLengthDeckUnitCarried: TEdit;
+    CheckBox1: TCheckBox;
+    CheckBox2: TCheckBox;
     grpPersonelUnitCarried: TGroupBox;
     Label72: TLabel;
     Label73: TLabel;
@@ -150,57 +175,23 @@ type
     Label79: TLabel;
     Label80: TLabel;
     EdtMaxCapacityHangarUnitCarried: TEdit;
-    GroupBox12: TGroupBox;
+    edtMaxWeightHangarUnitCarried: TEdit;
     cbbFixWing: TCheckBox;
     cbbRotary: TCheckBox;
-    edtMaxWeightHangarUnitCarried: TEdit;
     cbbHangerUnitCarried: TCheckBox;
-    GroupBox10: TGroupBox;
-    Label81: TLabel;
-    Label82: TLabel;
-    Label83: TLabel;
-    Label84: TLabel;
-    Label85: TLabel;
-    Label86: TLabel;
-    Label87: TLabel;
-    Label88: TLabel;
-    Label89: TLabel;
-    edtMaxWeightDeckUnitCarried: TEdit;
-    GroupBox11: TGroupBox;
-    CheckBox1: TCheckBox;
-    CheckBox2: TCheckBox;
-    edtWidthDeckUnitCarried: TEdit;
-    EdtLengthDeckUnitCarried: TEdit;
     CheckBox3: TCheckBox;
+    GroupBox6: TGroupBox;
+    Label17: TLabel;
+    Label54: TLabel;
+    Label57: TLabel;
+    edtOfficer: TEdit;
+    GroupBox2: TGroupBox;
     lvTacticalSymbol: TListView;
-    tsSensors: TTabSheet;
-    Label5: TLabel;
-    Label6: TLabel;
-    cbbSensors: TComboBox;
-    GroupBox13: TGroupBox;
-    ListView15: TListView;
-    btnSensors: TButton;
-    tsWeapons: TTabSheet;
-    Label7: TLabel;
-    Label45: TLabel;
-    cbbWeapons: TComboBox;
-    GroupBox14: TGroupBox;
-    ListView1: TListView;
-    btnWeapons: TButton;
-    tsCountermeasures: TTabSheet;
-    Label46: TLabel;
-    Label47: TLabel;
-    cbbCountermeasures: TComboBox;
-    GroupBox15: TGroupBox;
-    ListView2: TListView;
-    btnCountermeasures: TButton;
-    Label18: TLabel;
-    Label19: TLabel;
-    cbbTypeOfEndurance: TComboBox;
-    Label69: TLabel;
-    Label70: TLabel;
-    edtFuel: TEdit;
-    Label71: TLabel;
+    GroupBox7: TGroupBox;
+    cbGangwayFront: TCheckBox;
+    cbGangwayRear: TCheckBox;
+    cbGangwayPort: TCheckBox;
+    cbGangwayStarboard: TCheckBox;
     procedure btnOKClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
     procedure btnApplyClick(Sender: TObject);
@@ -208,8 +199,6 @@ type
     procedure cbbDomainChange(Sender: TObject);
     procedure cbbCategoryChange(Sender: TObject);
     procedure cbbTypeChange(Sender: TObject);
-    procedure cbbFontTypeChange(Sender: TObject);
-    procedure btnTacticalSymbolClick(Sender: TObject);
     procedure btnOpenDialogImageClick(Sender: TObject);
     procedure btnRadarClick(Sender: TObject);
     procedure btnSonarClick(Sender: TObject);
@@ -239,7 +228,7 @@ type
     procedure edtNumeralkeyPress(Sender: TObject; var Key: Char);
     function GetNumberOfKoma(s : string): Boolean;
     procedure CheckBoxDataClick(Sender: TObject);
-    procedure cbbTypeOfEnduranceChange(Sender: TObject);
+    procedure cbxEnduranceTypeChange(Sender: TObject);
 
   private
     FSelectedAsset : TAsset ;
@@ -306,21 +295,15 @@ begin
 
     FData.Platform_Domain := cbbDomain.ItemIndex;
     FData.Platform_Category := cbbCategory.ItemIndex;
-    FData.Platform_Type := cbbType.ItemIndex;
+//    FData.Platform_Type := cbbType.ItemIndex;
 //    FData.HullNumber := edtNoLambung.Text;
 //    FData.CallSign := edtCallSign.Text;
-    {$ENDREGION}
-
-    {$REGION 'Model'}
-    FData.Font_id := StrToInt(edtFontID.Text);
-    FData.Vbs_Class_Name := edtModelPath.Text;
     {$ENDREGION}
 
     {$REGION 'Physical'}
     FData.Length := StrToFloat(edtLengthDimension.Text);
     FData.Width := StrToFloat(edtWidthDimension.Text);
     FData.Height := StrToFloat(edtHeightDimension.Text);
-    FData.Engagement_Range := StrToFloat(edtEngagementRangeDimension.Text);
     FData.Draft := StrToFloat(edtDraftDimension.Text);
     FData.DWT := StrToFloat(edtWeightDimension.Text);
 
@@ -329,16 +312,6 @@ begin
     FData.PortGangway := cbGangwayPort.Checked;
     FData.StarBoardGangway := cbGangwayStarboard.Checked;
     {$ENDREGION}
-
-    {$REGION 'Assets'}
-    FData.Periscope_Depth := StrToFloat(edtMaxOperatPeriscope.Text);
-    FData.Periscope_Height_Above_Water := StrToFloat(edtHighAbovePeriscope.Text);
-    {$ENDREGION}
-
-    {$REGION 'Notes'}
-//    FNote.Notes := mmoNotes.Text;
-    {$ENDREGION}
-
 
     if FData.Vehicle_Index = 0 then
     begin
@@ -382,9 +355,6 @@ end;
 procedure TfrmAsset.cbbCategoryChange(Sender: TObject);
 begin
   UpdateCbbTypeItems(cbbDomain.ItemIndex, cbbCategory.ItemIndex, 0);
-
-  lbl13.Visible := cbbType.Text = 'Group Personel';
-  edtQuantityGroupPersonal.Visible := cbbType.Text = 'Group Personel';
 end;
 
 procedure TfrmAsset.cbbDomainChange(Sender: TObject);
@@ -392,71 +362,37 @@ begin
   UpdateCbbCategoryItems(cbbDomain.ItemIndex, 0);
   UpdateCbbTypeItems(cbbDomain.ItemIndex,0 ,0);
 
-  lbl13.Visible := cbbType.Text = 'Group Personel';
-  edtQuantityGroupPersonal.Visible := cbbType.Text = 'Group Personel';
-
   btnApply.Enabled := True;
 end;
 
 procedure TfrmAsset.cbbTypeChange(Sender: TObject);
 begin
-  lbl13.Visible := cbbType.Text = 'Group Personel';
-  edtQuantityGroupPersonal.Visible := cbbType.Text = 'Group Personel';
-
   btnApply.Enabled := True;
 end;
 
-procedure TfrmAsset.cbbTypeOfEnduranceChange(Sender: TObject);
+procedure TfrmAsset.cbxEnduranceTypeChange(Sender: TObject);
 begin
-
+  grbCapacity.Visible := (cbxEnduranceType.ItemIndex = 0);
+  grbConsumption.Visible := (cbxEnduranceType.ItemIndex = 0);
+  grbTime.Visible := (cbxEnduranceType.ItemIndex = 1);
+  grbRange.Visible := (cbxEnduranceType.ItemIndex = 2);
 end;
 
 {$ENDREGION}
 
 {$REGION 'Model'}
-procedure TfrmAsset.cbbFontTypeChange(Sender: TObject);
-begin
-  if cbbFontType.ItemIndex = -1 then
-    cbbFontType.ItemIndex := 0;
-end;
-
-procedure TfrmAsset.btnTacticalSymbolClick(Sender: TObject);
-begin
-  if cbbFontType.ItemIndex = -1 then
-    Exit;
-
-  if not Assigned(SimbolTaktis) then
-    SimbolTaktis := TSimbolTaktis.Create(Self);
-
-  try
-    with SimbolTaktis do
-    begin
-      SimbolTaktis.FontType := cbbFontType.ItemIndex;
-
-      if cbbFontType.ItemIndex = 0 then
-        SimbolTaktis.drwgrdFonttaktis.RowCount := 184
-      else if cbbFontType.ItemIndex = 1 then
-        SimbolTaktis.drwgrdFonttaktis.RowCount := 211
-      else if cbbFontType.ItemIndex = 2 then
-        SimbolTaktis.drwgrdFonttaktis.RowCount := 135;
-      Show;
-    end;
-  finally
-  end;
-end;
-
 procedure TfrmAsset.btnOpenDialogImageClick(Sender: TObject);
 begin
-  if edtModelPath.Text = '' then
-  begin
-    ShowMessage('Please inser vehicle id');
-  end;
-
-  try
-//    Image.Picture.LoadFromFile('data\Image DBEditor\Interface\' + edtModelPath.Text + '.PNG');
-  except
-    ShowMessage('Model is not found');
-  end;
+//  if edtModelPath.Text = '' then
+//  begin
+//    ShowMessage('Please inser vehicle id');
+//  end;
+//
+//  try
+////    Image.Picture.LoadFromFile('data\Image DBEditor\Interface\' + edtModelPath.Text + '.PNG');
+//  except
+//    ShowMessage('Model is not found');
+//  end;
 end;
 
 {$ENDREGION}
@@ -1232,175 +1168,21 @@ end;
 
 procedure TfrmAsset.UpdateCbbTypeItems(const aDomain, aCategory, IdType: Byte);
 begin
-  {$REGION 'Air'}
-  if aDomain = 0 then
-  begin
-    case aCategory of
-      0,1,2:
-      begin
-        cbbType.Items.Clear;
-        cbbType.Items.Add('Fixed Wing');
-        cbbType.Items.Add('Rotary Wing');
-        cbbType.Items.Add('Seaplane');
-        cbbType.Items.Add('Other');
 
-        cbbType.ItemIndex := IdType;
-      end;
-    end;
-  end
-  {$ENDREGION}
-
-  {$REGION 'Surface'}
-  else if aDomain = 1 then
-  begin
-    case aCategory of
-      0:  {combatant}
-      begin
-        cbbType.Items.Clear;
-        cbbType.Items.Add('Frigate');
-        cbbType.Items.Add('Destroyer');
-        cbbType.Items.Add('Corvettes');
-        cbbType.Items.Add('Amphibious Forces');
-        cbbType.Items.Add('Aircraft Carrier');
-        cbbType.Items.Add('Patrol Forces');
-        cbbType.Items.Add('Mine Warfare Forces');
-        cbbType.Items.Add('Auxillaries');
-      end;
-      1: {Non-Combatant }
-      begin
-        cbbType.Items.Clear;
-        cbbType.Items.Add('Auxiliary');
-        cbbType.Items.Add('Merchant');
-      end;
-      2: {Non Naval}
-      begin
-        cbbType.Items.Clear;
-        cbbType.Items.Add('Passanger Ship');
-        cbbType.Items.Add('Carge');
-        cbbType.Items.Add('Tanker');
-      end;
-      3: {Other }
-      begin
-        cbbType.Items.Clear;
-        cbbType.Items.Add('Other');
-      end;
-    end;
-
-    cbbType.ItemIndex := 0;
-  end
-  {$ENDREGION}
-
-  {$REGION 'Subsurface'}
-  else if aDomain = 2 then
-  begin
-    case aCategory of
-      0: {Submarine }
-      begin
-        cbbType.Items.Clear;
-        cbbType.Items.Add('Diesel');
-        cbbType.Items.Add('Nuclear');
-      end;
-      1: {Other }
-      begin
-        cbbType.Items.Clear;
-        cbbType.Items.Add('Other');
-      end;
-    end;
-
-    cbbType.ItemIndex := 0;
-  end
-  {$ENDREGION}
-
-  {$REGION 'Land'}
-  else if aDomain = 3 then
-  begin
-    case aCategory of
-      0: {Armoured Vehicle }
-      begin
-        cbbType.Items.Clear;
-        cbbType.Items.Add('Main Battle Tank');
-        cbbType.Items.Add('Armoured Personel Carrier');
-      end;
-      1: {Transport Vehicle }
-      begin
-        cbbType.Items.Clear;
-        cbbType.Items.Add('Truck');
-        cbbType.Items.Add('Utility Vehicle');
-      end;
-      2: {Infantry }
-      begin
-        cbbType.Items.Clear;
-        cbbType.Items.Add('Group Personel');
-        cbbType.Items.Add('Other');
-      end;
-      3: {Artillery }
-      begin
-        cbbType.Items.Clear;
-        cbbType.Items.Add('Field Artillery');
-        cbbType.Items.Add('Anti Aircraft Artillery');
-        cbbType.Items.Add('Coastal Defense Artillery');
-        cbbType.Items.Add('Other');
-      end;
-      4: {Other }
-      begin
-        cbbType.Items.Clear;
-        cbbType.Items.Add('Other');
-      end;
-    end;
-
-    cbbType.ItemIndex := 0;
-  end
-  {$ENDREGION}
-
-  {$REGION 'Amphibious'}
-  else if aDomain = 4 then
-  begin
-    case aCategory of
-      0: {Amphibious }
-      begin
-        cbbType.Items.Clear;
-        cbbType.Items.Add('Amphibious Tank');
-        cbbType.Items.Add('Amphibious Personel Carrier');
-        cbbType.Items.Add('Hovercraft');
-      end;
-      1: {Other }
-      begin
-        cbbType.Items.Clear;
-        cbbType.Items.Add('Other');
-      end;
-    end;
-
-    cbbType.ItemIndex := 0;
-  end;
-  {$ENDREGION}
-
-  btnApply.Enabled := True;
 end;
 
 procedure TfrmAsset.UpdateModelData;
-var
-  aFontTaktis : TFontTaktis;
 begin
-  aFontTaktis := TFontTaktis.Create;
 
-  dmINWO.getFontByID(StrToInt(edtFontID.Text), aFontTaktis);
   with FSelectedAsset.FData do
   begin
-    lblFontTaktis.Font.Name := aFontTaktis.FData.FONT_NAME;
-    lblFontTaktis.Font.Size := 30;
-    lblFontTaktis.Font.Style := [fsBold];
-    lblFontTaktis.Caption := Char(aFontTaktis.FData.FONT_INDEX);
-    lblKeteranganSymbol.Caption := aFontTaktis.FData.KETERANGAN;
-
     try
-//      Image.Picture.LoadFromFile('data\Image DBEditor\Interface\' + Vbs_Class_Name + '.PNG');
+      Image.Picture.LoadFromFile('data\Image DBEditor\Interface\' + Vbs_Class_Name + '.PNG');
     except
       Image.Picture.LoadFromFile('data\Image DBEditor\Interface\NoModel.bmp');
     end;
 
   end;
-
-  aFontTaktis.Free
 end;
 
 procedure TfrmAsset.UpdateVehicleData;
@@ -1420,20 +1202,12 @@ begin
 
     cbbDomain.ItemIndex := FData.Platform_Domain;
     cbbCategory.ItemIndex := FData.Platform_Category;
-    cbbType.ItemIndex := FData.Platform_Type;
 //    FData.HullNumber := edtNoLambung.Text;
 //    FData.CallSign := edtCallSign.Text;
-
-    lbl13.Visible := cbbType.Text = 'Group Personel';
-    edtQuantityGroupPersonal.Visible := cbbType.Text = 'Group Personel';
-//    edtQuantityGroupPersonal.Text := FormatFloat('0', FData.Quantity_Group_Personal);
 
     {$ENDREGION}
 
     {$REGION 'Model'}
-    edtFontID.Text := IntToStr(FData.Font_id);
-    edtModelPath.Text := FData.Vbs_Class_Name;
-
     UpdateModelData;
     {$ENDREGION}
 
@@ -1441,7 +1215,6 @@ begin
     edtLengthDimension.Text := FormatFloat('0', FData.Length);
     edtWidthDimension.Text := FormatFloat('0', FData.Width);
     edtHeightDimension.Text := FormatFloat('0', FData.Height);
-    edtEngagementRangeDimension.Text := FormatFloat('0', FData.Engagement_Range);
     edtDraftDimension.Text := FormatFloat('0', FData.Draft);
     edtWeightDimension.Text := FormatFloat('0.0', FData.DWT);
 
@@ -1463,16 +1236,6 @@ begin
 //    edtEndurance.Text := FormatFloat('0', FData);
 
     {$ENDREGION}
-
-    {$REGION 'Assets'}
-    edtMaxOperatPeriscope.Text := FormatFloat('0', FData.Periscope_Depth);
-    edtHighAbovePeriscope.Text := FormatFloat('0', FData.Periscope_Height_Above_Water);
-    {$ENDREGION}
-
-    {$REGION 'Notes'}
-//    mmoNotes.Text := FNote.Notes;
-    {$ENDREGION}
-
   end;
 end;
 
