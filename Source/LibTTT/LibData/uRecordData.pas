@@ -217,16 +217,24 @@ type
   end;
 
   TRecVehicle_Definition =  record
-    Vehicle_Index                      : integer;
-    Vehicle_Identifier                 : string[60];
-    Platform_Domain                    : byte;
-    Platform_Category                  : byte;
-    Platform_Type                      : byte;
+    Vehicle_Index         : integer;
+    Vehicle_Identifier    : string[60];
+    Vehicle_Class         : string[60];
+    Vehicle_Nation        : string[60];
+    Platform_Domain       : byte;
+    Platform_Category     : byte;
+    Hull_Number           : string[5];
+    Call_Sign             : string[5];
+    Length                : single;
+    Width                 : single;
+    Height                : single;
+    Draft                 : single;
+    Weight                : single;
+    EnduranceType         : byte;
+
+//    Platform_Type                      : byte;
     Motion_Characteristics             : integer;
-    Length                             : single;
-    Width                              : single;
-    Height                             : single;
-    Draft                              : single;
+
 //    Front_Radar_Cross                  : single;
 //    Side_Radar_Cross                   : single;
 //    Front_Acoustic_Cross               : single;
