@@ -243,14 +243,12 @@ type
 //    function GetSensor_On_Board_By_Index(const typeOnBoard, id: Integer): Boolean;
 
     {Digunakan untuk mengambil data sensor yang ada di suatu kapal (OnBoard)}
-//    function GetRadarOnBoard(const aVehicleID: Integer; var aList: TList): Integer;
-//    function GetSonarOnBoard(const aVehicleID: Integer; var aList: TList): Integer;
-//    function GetESMOnBoard(const aVehicleID: Integer; var aList: TList): Integer;
-//    function GetEOOnBoard(const aVehicleID: Integer; var aList: TList): Integer;
-//    function GetSonobuoyOnBoard(const aVehicleID: Integer; var aList: TList): Integer;
-//    function GetMADOnBoard(const aVehicleID: Integer; var aList: TList): Integer;
-//    function GetIFFOnBoard(const aVehicleID: Integer; var aList: TList): Integer;
-//    function GetVisualOnBoard(const aVehicleID: Integer; var aList: TList): Integer;
+    function GetRadarOnBoard(const aVehicleID: Integer; var aList: TList): Integer;
+    function GetSonarOnBoard(const aVehicleID: Integer; var aList: TList): Integer;
+    function GetESMOnBoard(const aVehicleID: Integer; var aList: TList): Integer;
+    function GetEODOnBoard(const aVehicleID: Integer; var aList: TList): Integer;
+    function GetSonobuoyOnBoard(const aVehicleID: Integer; var aList: TList): Integer;
+    function GetMADOnBoard(const aVehicleID: Integer; var aList: TList): Integer;
 
     {Digunakan untuk pengecekan 1 jenis sensor tidak boleh menempati mount yg sama}
 //    function GetRadarOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
@@ -6200,9 +6198,8 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM Radar_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.Radar_Index = b.Radar_Index');
-    SQL.Add('ORDER BY a.Radar_Identifier');
+    SQL.Add('FROM Radar_Definition');
+    SQL.Add('ORDER BY Radar_Identifier');
     Open;
 
     Result := RecordCount;
@@ -6232,51 +6229,44 @@ begin
         begin
           Radar_Index := FieldByName('Radar_Index').AsInteger;
           Radar_Identifier := FieldByName('Radar_Identifier').AsString;
-          Radar_Emitter := FieldByName('Radar_Emitter').AsString;
-          Radar_Type := FieldByName('Radar_Type').AsInteger;
-          Frequency := FieldByName('Frequency').AsSingle;
-          Scan_Rate := FieldByName('Scan_Rate').AsSingle;
-          Pulse_Rep_Freq := FieldByName('Pulse_Rep_Freq').AsSingle;
-          Pulse_Width := FieldByName('Pulse_Width').AsSingle;
-          Radar_Power := FieldByName('Radar_Power').AsSingle;
-          Detection_Range := FieldByName('Detection_Range').AsSingle;
-          Known_Cross_Section := FieldByName('Known_Cross_Section').AsSingle;
-          Max_Unambig_Detect_Range := FieldByName('Max_Unambig_Detect_Range').AsSingle;
-          IFF_Capability := FieldByName('IFF_Capability').AsBoolean;
-          Altitude_Data_Capability := FieldByName('Altitude_Data_Capability').AsBoolean;
-          Ground_Speed_Data_Capability := FieldByName('Ground_Speed_Data_Capability').AsBoolean;
-          Heading_Data_Capability := FieldByName('Heading_Data_Capability').AsBoolean;
-          Plat_Type_Recog_Capability := FieldByName('Plat_Type_Recog_Capability').AsBoolean;
-          Plat_Class_Recog_Capability := FieldByName('Plat_Class_Recog_Capability').AsBoolean;
-          Clutter_Rejection := FieldByName('Clutter_Rejection').AsSingle;
-          Anti_Jamming_Capable := FieldByName('Anti_Jamming_Capable').AsBoolean;
-          Curve_Definition_Index := FieldByName('Curve_Definition_Index').AsInteger;
-          Second_Vert_Coverage := FieldByName('Second_Vert_Coverage').AsBoolean;
-          Jamming_A_Resistant := FieldByName('Jamming_A_Resistant').AsBoolean;
-          Jamming_B_Resistant := FieldByName('Jamming_B_Resistant').AsBoolean;
-          Jamming_C_Resistant := FieldByName('Jamming_C_Resistant').AsBoolean;
-          Anti_Jamming_A_Resistant := FieldByName('Anti_Jamming_A_Resistant').AsBoolean;
-          Anti_Jamming_B_Resistant := FieldByName('Anti_Jamming_B_Resistant').AsBoolean;
-          Anti_Jamming_C_Resistant := FieldByName('Anti_Jamming_C_Resistant').AsBoolean;
-          Anti_Jamming_Range_Reduction := FieldByName('Anti_Jamming_Range_Reduction').AsSingle;
-          Beam_Width := FieldByName('Beam_Width').AsSingle;
-          Sector_Scan_Capable := FieldByName('Sector_Scan_Capable').AsBoolean;
-          Off_Axis_Jammer_Reduction := FieldByName('Off_Axis_Jammer_Reduction').AsSingle;
-          Num_FCR_Channels := FieldByName('Num_FCR_Channels').AsInteger;
-          Radar_Spot_Number := FieldByName('Radar_Spot_Number').AsInteger;
-          Radar_Horizon_Factor := FieldByName('Radar_Horizon_Factor').AsSingle;
-          Main_Lobe_Gain := FieldByName('Main_Lobe_Gain').AsSingle;
-          Counter_Detection_Factor := FieldByName('Counter_Detection_Factor').AsSingle;
-          ECCM_Type := FieldByName('ECCM_Type').AsInteger;
-          MTI_Capable := FieldByName('MTI_Capable').AsBoolean;
-          MTI_MinTargetSpeed := FieldByName('MTI_MinTargetSpeed').AsSingle;
-        end;
-
-        with rec.FNote do
-        begin
-          Note_Index := FieldByName('Note_Index').AsInteger;
-          Note_Type := FieldByName('Note_Type').AsInteger;
-          Notes := FieldByName('Notes').AsString;
+//          Radar_Emitter := FieldByName('Radar_Emitter').AsString;
+//          Radar_Type := FieldByName('Radar_Type').AsInteger;
+//          Frequency := FieldByName('Frequency').AsSingle;
+//          Scan_Rate := FieldByName('Scan_Rate').AsSingle;
+//          Pulse_Rep_Freq := FieldByName('Pulse_Rep_Freq').AsSingle;
+//          Pulse_Width := FieldByName('Pulse_Width').AsSingle;
+//          Radar_Power := FieldByName('Radar_Power').AsSingle;
+//          Detection_Range := FieldByName('Detection_Range').AsSingle;
+//          Known_Cross_Section := FieldByName('Known_Cross_Section').AsSingle;
+//          Max_Unambig_Detect_Range := FieldByName('Max_Unambig_Detect_Range').AsSingle;
+//          IFF_Capability := FieldByName('IFF_Capability').AsBoolean;
+//          Altitude_Data_Capability := FieldByName('Altitude_Data_Capability').AsBoolean;
+//          Ground_Speed_Data_Capability := FieldByName('Ground_Speed_Data_Capability').AsBoolean;
+//          Heading_Data_Capability := FieldByName('Heading_Data_Capability').AsBoolean;
+//          Plat_Type_Recog_Capability := FieldByName('Plat_Type_Recog_Capability').AsBoolean;
+//          Plat_Class_Recog_Capability := FieldByName('Plat_Class_Recog_Capability').AsBoolean;
+//          Clutter_Rejection := FieldByName('Clutter_Rejection').AsSingle;
+//          Anti_Jamming_Capable := FieldByName('Anti_Jamming_Capable').AsBoolean;
+//          Curve_Definition_Index := FieldByName('Curve_Definition_Index').AsInteger;
+//          Second_Vert_Coverage := FieldByName('Second_Vert_Coverage').AsBoolean;
+//          Jamming_A_Resistant := FieldByName('Jamming_A_Resistant').AsBoolean;
+//          Jamming_B_Resistant := FieldByName('Jamming_B_Resistant').AsBoolean;
+//          Jamming_C_Resistant := FieldByName('Jamming_C_Resistant').AsBoolean;
+//          Anti_Jamming_A_Resistant := FieldByName('Anti_Jamming_A_Resistant').AsBoolean;
+//          Anti_Jamming_B_Resistant := FieldByName('Anti_Jamming_B_Resistant').AsBoolean;
+//          Anti_Jamming_C_Resistant := FieldByName('Anti_Jamming_C_Resistant').AsBoolean;
+//          Anti_Jamming_Range_Reduction := FieldByName('Anti_Jamming_Range_Reduction').AsSingle;
+//          Beam_Width := FieldByName('Beam_Width').AsSingle;
+//          Sector_Scan_Capable := FieldByName('Sector_Scan_Capable').AsBoolean;
+//          Off_Axis_Jammer_Reduction := FieldByName('Off_Axis_Jammer_Reduction').AsSingle;
+//          Num_FCR_Channels := FieldByName('Num_FCR_Channels').AsInteger;
+//          Radar_Spot_Number := FieldByName('Radar_Spot_Number').AsInteger;
+//          Radar_Horizon_Factor := FieldByName('Radar_Horizon_Factor').AsSingle;
+//          Main_Lobe_Gain := FieldByName('Main_Lobe_Gain').AsSingle;
+//          Counter_Detection_Factor := FieldByName('Counter_Detection_Factor').AsSingle;
+//          ECCM_Type := FieldByName('ECCM_Type').AsInteger;
+//          MTI_Capable := FieldByName('MTI_Capable').AsBoolean;
+//          MTI_MinTargetSpeed := FieldByName('MTI_MinTargetSpeed').AsSingle;
         end;
 
         aList.Add(rec);
@@ -6301,10 +6291,9 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM Radar_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.Radar_Index = b.Radar_Index');
-    SQL.Add('WHERE a.Radar_Identifier like '  + quotedStr('%' + aFilter + '%'));
-    SQL.Add('ORDER BY a.Radar_Identifier');
+    SQL.Add('FROM Radar_Definition');
+    SQL.Add('WHERE Radar_Identifier like '  + quotedStr('%' + aFilter + '%'));
+    SQL.Add('ORDER BY Radar_Identifier');
     Open;
 
     Result := RecordCount;
@@ -6374,13 +6363,6 @@ begin
           MTI_MinTargetSpeed := FieldByName('MTI_MinTargetSpeed').AsSingle;
         end;
 
-        with rec.FNote do
-        begin
-          Note_Index := FieldByName('Note_Index').AsInteger;
-          Note_Type := FieldByName('Note_Type').AsInteger;
-          Notes := FieldByName('Notes').AsString;
-        end;
-
         aList.Add(rec);
         Next;
       end;
@@ -6400,9 +6382,8 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM Radar_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.Radar_Index = b.Radar_Index');
-    SQL.Add('WHERE a.Radar_Identifier LIKE ' + QuotedStr(aClassName));
+    SQL.Add('FROM Radar_Definition');
+    SQL.Add('WHERE Radar_Identifier LIKE ' + QuotedStr(aClassName));
     Open;
 
     Result := RecordCount;
@@ -6587,6 +6568,71 @@ begin
   end;
 end;
 
+function TdmINWO.GetRadarOnBoard(const aVehicleID: Integer; var aList: TList): Integer;
+var
+  i : Integer;
+  rec : TRadar_On_Board;
+begin
+  Result := -1;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT * ');
+    SQL.Add('FROM Radar_On_Board a JOIN Radar_Definition b ');
+    SQL.Add('ON a.Radar_Index = b.Radar_Index ');
+    SQL.Add('WHERE a.Vehicle_Index = ' + IntToStr(aVehicleID));
+    SQL.Add('ORDER BY a.Instance_Identifier');
+    Open;
+
+    Result := RecordCount;
+
+    if Assigned(aList) then
+    begin
+      for i := 0 to aList.Count - 1 do
+      begin
+        rec := aList.Items[i];
+        rec.Free;
+      end;
+
+      aList.Clear;
+    end
+    else
+      aList := TList.Create;
+
+    if not IsEmpty then
+    begin
+      First;
+
+      while not Eof do
+      begin
+        rec := TRadar_On_Board.Create;
+
+        with rec.FData do
+        begin
+          Radar_Instance_Index := FieldByName('Radar_Instance_Index').AsInteger;
+          Instance_Identifier := FieldByName('Instance_Identifier').AsString;
+//          Vehicle_Index := FieldByName('Vehicle_Index').AsInteger;
+//          Radar_Index := FieldByName('Radar_Index').AsInteger;
+        end;
+
+        with rec.FDef do
+        begin
+          Radar_Index := FieldByName('Radar_Index').AsInteger;
+          Radar_Identifier := FieldByName('Radar_Identifier').AsString;
+        end;
+
+        aList.Add(rec);
+        Next;
+      end;
+    end;
+  end;
+end;
+
 {$ENDREGION}
 
 {$REGION ' Sonar Definition '}
@@ -6697,13 +6743,6 @@ begin
           Average_Beam_Width := FieldByName('Average_Beam_Width').AsSingle;
           Counter_Detection_Factor := FieldByName('Counter_Detection_Factor')
             .AsSingle;
-        end;
-
-        with rec.FNote do
-        begin
-          Note_Index := FieldByName('Note_Index').AsInteger;
-          Note_Type := FieldByName('Note_Type').AsInteger;
-          Notes := FieldByName('Notes').AsString;
         end;
 
         aList.Add(rec);
@@ -6822,13 +6861,6 @@ begin
             .AsSingle;
         end;
 
-        with rec.FNote do
-        begin
-          Note_Index := FieldByName('Note_Index').AsInteger;
-          Note_Type := FieldByName('Note_Type').AsInteger;
-          Notes := FieldByName('Notes').AsString;
-        end;
-
         aList.Add(rec);
         Next;
       end;
@@ -6854,6 +6886,71 @@ begin
     Open;
 
     Result := RecordCount;
+  end;
+end;
+
+function TdmINWO.GetSonarOnBoard(const aVehicleID: Integer; var aList: TList): Integer;
+var
+  i : Integer;
+  rec : TSonar_On_Board;
+begin
+  Result := -1;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT *');
+    SQL.Add('FROM Sonar_On_Board a JOIN Sonar_Definition b');
+    SQL.Add('ON a.Sonar_Index = b.Sonar_Index');
+    SQL.Add('WHERE a.Vehicle_Index = ' + IntToStr(aVehicleID));
+    SQL.Add('ORDER BY a.Instance_Identifier');
+    Open;
+
+    Result := RecordCount;
+
+    if Assigned(aList) then
+    begin
+      for i := 0 to aList.Count - 1 do
+      begin
+        rec := aList.Items[i];
+        rec.Free;
+      end;
+
+      aList.Clear;
+    end
+    else
+      aList := TList.Create;
+
+    if not IsEmpty then
+    begin
+      First;
+
+      while not Eof do
+      begin
+        rec := TSonar_On_Board.Create;
+
+        with rec.FData do
+        begin
+          Sonar_Instance_Index := FieldByName('Sonar_Instance_Index').AsInteger;
+          Instance_Identifier := FieldByName('Instance_Identifier').AsString;
+          Instance_Type := FieldByName('Instance_Type').AsInteger;
+          Vehicle_Index := FieldByName('Vehicle_Index').AsInteger;
+        end;
+
+        with rec.FDef do
+        begin
+          Sonar_Index := FieldByName('Sonar_Index').AsInteger;
+          Sonar_Identifier := FieldByName('Sonar_Identifier').AsString;
+        end;
+
+        aList.Add(rec);
+        Next;
+      end;
+    end;
   end;
 end;
 
@@ -7123,13 +7220,6 @@ begin
 //          Second_Frequency_Detection_Capable := FieldByName('Second_Frequency_Detection_Capable').AsInteger;
         end;
 
-        with rec.FNote do
-        begin
-          Note_Index := FieldByName('Note_Index').AsInteger;
-          Note_Type := FieldByName('Note_Type').AsInteger;
-          Notes := FieldByName('Notes').AsString;
-        end;
-
         aList.Add(rec);
         Next;
       end;
@@ -7204,13 +7294,6 @@ begin
 //          Second_Frequency_Detection_Capable := FieldByName('Second_Frequency_Detection_Capable').AsInteger;
         end;
 
-        with rec.FNote do
-        begin
-          Note_Index := FieldByName('Note_Index').AsInteger;
-          Note_Type := FieldByName('Note_Type').AsInteger;
-          Notes := FieldByName('Notes').AsString;
-        end;
-
         aList.Add(rec);
         Next;
       end;
@@ -7236,6 +7319,71 @@ begin
     Open;
 
     Result := RecordCount;
+  end;
+end;
+
+function TdmINWO.GetESMOnBoard(const aVehicleID: Integer; var aList: TList): Integer;
+var
+  i : Integer;
+  rec : TESM_On_Board;
+begin
+  Result := -1;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT *');
+    SQL.Add('FROM ESM_On_Board a JOIN ESM_Definition b');
+    SQL.Add('ON a.ESM_Index = b.ESM_Index');
+    SQL.Add('WHERE a.Vehicle_Index = ' + IntToStr(aVehicleID));
+    SQL.Add('ORDER BY a.Instance_Identifier');
+    Open;
+
+    Result := RecordCount;
+
+    if Assigned(aList) then
+    begin
+      for i := 0 to aList.Count - 1 do
+      begin
+        rec := aList.Items[i];
+        rec.Free;
+      end;
+
+      aList.Clear;
+    end
+    else
+      aList := TList.Create;
+
+    if not IsEmpty then
+    begin
+      First;
+
+      while not Eof do
+      begin
+        rec := TESM_On_Board.Create;
+
+        with rec.FData do
+        begin
+          ESM_Instance_Index := FieldByName('ESM_Instance_Index').AsInteger;
+          Instance_Identifier := FieldByName('Instance_Identifier').AsString;
+          Instance_Type := FieldByName('Instance_Type').AsInteger;
+          Vehicle_Index := FieldByName('Vehicle_Index').AsInteger;
+        end;
+
+        with rec.FDef do
+        begin
+          ESM_Index := FieldByName('ESM_Index').AsInteger;
+          Class_Identifier := FieldByName('Class_Identifier').AsString;
+        end;
+
+        aList.Add(rec);
+        Next;
+      end;
+    end;
   end;
 end;
 
@@ -7428,13 +7576,6 @@ begin
           Num_FC_Channels := FieldByName('Num_FC_Channels').AsInteger;
         end;
 
-        with rec.FNote do
-        begin
-          Note_Index := FieldByName('Note_Index').AsInteger;
-          Note_Type := FieldByName('Note_Type').AsInteger;
-          Notes := FieldByName('Notes').AsString;
-        end;
-
         aList.Add(rec);
         Next;
       end;
@@ -7498,13 +7639,6 @@ begin
           Num_FC_Channels := FieldByName('Num_FC_Channels').AsInteger;
         end;
 
-        with rec.FNote do
-        begin
-          Note_Index := FieldByName('Note_Index').AsInteger;
-          Note_Type := FieldByName('Note_Type').AsInteger;
-          Notes := FieldByName('Notes').AsString;
-        end;
-
         aList.Add(rec);
         Next;
       end;
@@ -7530,6 +7664,71 @@ begin
     Open;
 
     Result := RecordCount;
+  end;
+end;
+
+function TdmINWO.GetEODOnBoard(const aVehicleID: Integer; var aList: TList): Integer;
+var
+  i : Integer;
+  rec : TEOD_On_Board;
+begin
+  Result := -1;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT *');
+    SQL.Add('FROM EO_On_Board a JOIN EO_Detection_Definition b');
+    SQL.Add('ON a.EO_Index = b.EO_Index');
+    SQL.Add('WHERE a.Vehicle_Index = ' + IntToStr(aVehicleID));
+    SQL.Add('ORDER BY a.Instance_Identifier');
+    Open;
+
+    Result := RecordCount;
+
+    if Assigned(aList) then
+    begin
+      for i := 0 to aList.Count - 1 do
+      begin
+        rec := aList.Items[i];
+        rec.Free;
+      end;
+
+      aList.Clear;
+    end
+    else
+      aList := TList.Create;
+
+    if not IsEmpty then
+    begin
+      First;
+
+      while not Eof do
+      begin
+        rec := TEOD_On_Board.Create;
+
+        with rec.FData do
+        begin
+          EOD_Instance_Index := FieldByName('EO_Instance_Index').AsInteger;
+          Instance_Identifier := FieldByName('Instance_Identifier').AsString;
+          Vehicle_Index := FieldByName('Vehicle_Index').AsInteger;
+          EOD_Index := FieldByName('EO_Index').AsInteger;
+        end;
+
+        with rec.FDef do
+        begin
+          EOD_Index := FieldByName('EO_Index').AsInteger;
+          Class_Identifier := FieldByName('Class_Identifier').AsString;
+        end;
+
+        aList.Add(rec);
+        Next;
+      end;
+    end;
   end;
 end;
 
@@ -7694,13 +7893,6 @@ begin
           Sonar_Index := FieldByName('Sonar_Index').AsInteger;
         end;
 
-        with rec.FNote do
-        begin
-          Note_Index := FieldByName('Note_Index').AsInteger;
-          Note_Type := FieldByName('Note_Type').AsInteger;
-          Notes := FieldByName('Notes').AsString;
-        end;
-
         aList.Add(rec);
         Next;
       end;
@@ -7775,13 +7967,6 @@ begin
           Sonar_Index := FieldByName('Sonar_Index').AsInteger;
         end;
 
-        with rec.FNote do
-        begin
-          Note_Index := FieldByName('Note_Index').AsInteger;
-          Note_Type := FieldByName('Note_Type').AsInteger;
-          Notes := FieldByName('Notes').AsString;
-        end;
-
         aList.Add(rec);
         Next;
       end;
@@ -7807,6 +7992,72 @@ begin
     Open;
 
     Result := RecordCount;
+  end;
+end;
+
+function TdmINWO.GetSonobuoyOnBoard(const aVehicleID: Integer; var aList: TList): Integer;
+var
+  i : Integer;
+  rec : TSonobuoy_On_Board;
+begin
+  Result := -1;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT * ');
+    SQL.Add('FROM Sonobuoy_On_Board a JOIN Sonobuoy_Definition b ON');
+    SQL.Add('a.Sonobuoy_Index = b. Sonobuoy_Index join Sonar_Definition c ');
+    SQL.Add('on b.Sonar_Index = c.Sonar_Index ');
+    SQL.Add('WHERE a.Vehicle_Index = ' + IntToStr(aVehicleID));
+    SQL.Add('ORDER BY Instance_Identifier');
+    Open;
+
+    Result := RecordCount;
+
+    if Assigned(aList) then
+    begin
+      for i := 0 to aList.Count - 1 do
+      begin
+        rec := aList.Items[i];
+        rec.Free;
+      end;
+
+      aList.Clear;
+    end
+    else
+      aList := TList.Create;
+
+    if not IsEmpty then
+    begin
+      First;
+
+      while not Eof do
+      begin
+        rec := TSonobuoy_On_Board.Create;
+
+        with rec.FData do
+        begin
+          Sonobuoy_Instance_Index := FieldByName('Sonobuoy_Instance_Index').AsInteger;
+          Instance_Identifier := FieldByName('Instance_Identifier').AsString;
+          Vehicle_Index := FieldByName('Vehicle_Index').AsInteger;
+          Sonobuoy_Index := FieldByName('Sonobuoy_Index').AsInteger;
+        end;
+
+        with rec.FDef do
+        begin
+          Sonobuoy_Index := FieldByName('Sonobuoy_Index').AsInteger;
+          Class_Identifier := FieldByName('Class_Identifier').AsString;
+        end;
+
+        aList.Add(rec);
+        Next;
+      end;
+    end;
   end;
 end;
 
@@ -7978,13 +8229,6 @@ begin
           Known_Cross_Section := FieldByName('Known_Cross_Section').AsSingle;
         end;
 
-        with rec.FNote do
-        begin
-          Note_Index := FieldByName('Note_Index').AsInteger;
-          Note_Type := FieldByName('Note_Type').AsInteger;
-          Notes := FieldByName('Notes').AsString;
-        end;
-
         aList.Add(rec);
         Next;
       end;
@@ -8040,16 +8284,8 @@ begin
         begin
           MAD_Index := FieldByName('MAD_Index').AsInteger;
           Class_Identifier := FieldByName('Class_Identifier').AsString;
-          Baseline_Detect_Range := FieldByName('Baseline_Detect_Range')
-            .AsSingle;
+          Baseline_Detect_Range := FieldByName('Baseline_Detect_Range').AsSingle;
           Known_Cross_Section := FieldByName('Known_Cross_Section').AsSingle;
-        end;
-
-        with rec.FNote do
-        begin
-          Note_Index := FieldByName('Note_Index').AsInteger;
-          Note_Type := FieldByName('Note_Type').AsInteger;
-          Notes := FieldByName('Notes').AsString;
         end;
 
         aList.Add(rec);
@@ -8077,6 +8313,71 @@ begin
     Open;
 
     Result := RecordCount;
+  end;
+end;
+
+function TdmINWO.GetMADOnBoard(const aVehicleID: Integer; var aList: TList): Integer;
+var
+  i : Integer;
+  rec : TMAD_On_Board;
+begin
+  Result := -1;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT *');
+    SQL.Add('FROM MAD_Sensor_On_Board a JOIN MAD_Definition b');
+    SQL.Add('ON a.MAD_Index = b.MAD_Index');
+    SQL.Add('WHERE a.Vehicle_Index = ' + IntToStr(aVehicleID));
+    SQL.Add('ORDER BY a.Instance_Identifier');
+    Open;
+
+    Result := RecordCount;
+
+    if Assigned(aList) then
+    begin
+      for i := 0 to aList.Count - 1 do
+      begin
+        rec := aList.Items[i];
+        rec.Free;
+      end;
+
+      aList.Clear;
+    end
+    else
+      aList := TList.Create;
+
+    if not IsEmpty then
+    begin
+      First;
+
+      while not Eof do
+      begin
+        rec := TMAD_On_Board.Create;
+
+        with rec.FData do
+        begin
+          MAD_Instance_Index := FieldByName('MAD_Instance_Index').AsInteger;
+          Instance_Identifier := FieldByName('Instance_Identifier').AsString;
+          Vehicle_Index := FieldByName('Vehicle_Index').AsInteger;
+          MAD_Index := FieldByName('MAD_Index').AsInteger;
+        end;
+
+        with rec.FDef do
+        begin
+          MAD_Index := FieldByName('MAD_Index').AsInteger;
+          Class_Identifier := FieldByName('Class_Identifier').AsString;
+        end;
+
+        aList.Add(rec);
+        Next;
+      end;
+    end;
   end;
 end;
 

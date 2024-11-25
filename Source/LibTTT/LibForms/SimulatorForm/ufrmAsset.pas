@@ -8,7 +8,7 @@ uses
   Vcl.StdCtrls, Vcl.Mask, Vcl.Buttons, Vcl.ComCtrls,
 
   {uses project}
-   uSimMgr_Client, uLibSetting, uClassData, uDataModule, uRecordData, uDBAsset_Vehicle;
+   uSimMgr_Client, uLibSetting, uClassData, uDataModule, uRecordData, uDBAsset_Vehicle, uDBAsset_Sensor;
 
 type
   TfrmAsset = class(TForm)
@@ -1256,7 +1256,7 @@ begin
      UpdateCountermeasureData;
     {$ENDREGION}
 
-    {$REGION 'Logistic'}
+    {$REGION ' Logistic '}
 
     cbbEnduranceType.ItemIndex     := FData.EnduranceType;
     edtLubricantsCapacity.Text     := FormatFloat('0.00', FData.LubricantsCapacity);
@@ -1273,7 +1273,7 @@ begin
 
     {$ENDREGION}
 
-    {$REGION 'Transport'}
+    {$REGION ' Transport '}
     edtOfficer.Text                 := IntToStr(FData.Officer);
     chkFrontGangway.Checked         := Boolean(FData.FrontGangway);
     chkRearGangway.Checked          := Boolean(FData.RearGangway);
@@ -1302,9 +1302,121 @@ end;
 procedure TfrmAsset.UpdateSensorData;
 var
   i : Integer;
+  li: TListItem;
+  FAssetList : TList;
+
+  radarOnboardTemp  : TRadar_On_Board;
+  sonarOnboardTemp  : TSonar_On_Board;
+  esmOnboardTemp    : TESM_On_Board;
+  madOnboardTemp    : TMAD_On_Board;
+  eodOnboardTemp    : TEOD_On_Board;
+  sonobuoyOnboardTemp  : TSonobuoy_On_Board;
 
 begin
   lvSensors.Clear;
+
+  FAssetList := TList.Create;
+
+  case cbbSensors.ItemIndex of
+    0:
+    begin
+      {$REGION ' Radar '}
+      dmINWO.GetRadarOnBoard(FSelectedAsset.FData.VehicleIndex, FAssetList);
+
+      for i := 0 to FAssetList.Count - 1 do
+      begin
+        radarOnboardTemp := FAssetList.Items[i];
+
+        li := lvSensors.Items.Add;
+        li.Caption := radarOnboardTemp.FData.Instance_Identifier;
+
+        li.Data := radarOnboardTemp;
+      end;
+      {$ENDREGION}
+    end;
+    1:
+    begin
+      {$REGION ' Sonar '}
+      dmINWO.GetSonarOnBoard(FSelectedAsset.FData.VehicleIndex, FAssetList);
+
+      for i := 0 to FAssetList.Count - 1 do
+      begin
+        sonarOnboardTemp := FAssetList.Items[i];
+
+        li := lvSensors.Items.Add;
+        li.Caption := sonarOnboardTemp.FData.Instance_Identifier;
+
+        li.Data := sonarOnboardTemp;
+      end;
+      {$ENDREGION}
+    end;
+    2:
+    begin
+      {$REGION ' ESM '}
+      dmINWO.GetESMOnBoard(FSelectedAsset.FData.VehicleIndex, FAssetList);
+
+      for i := 0 to FAssetList.Count - 1 do
+      begin
+        esmOnboardTemp := FAssetList.Items[i];
+
+        li := lvSensors.Items.Add;
+        li.Caption := esmOnboardTemp.FData.Instance_Identifier;
+
+        li.Data := esmOnboardTemp;
+      end;
+      {$ENDREGION}
+    end;
+    3:
+    begin
+      {$REGION ' MAD '}
+      dmINWO.GetMADOnBoard(FSelectedAsset.FData.VehicleIndex, FAssetList);
+
+      for i := 0 to FAssetList.Count - 1 do
+      begin
+        madOnboardTemp := FAssetList.Items[i];
+
+        li := lvSensors.Items.Add;
+        li.Caption := madOnboardTemp.FData.Instance_Identifier;
+
+        li.Data := madOnboardTemp;
+      end;
+      {$ENDREGION}
+    end;
+    4:
+    begin
+      {$REGION ' EOD '}
+      dmINWO.GetEODOnBoard(FSelectedAsset.FData.VehicleIndex, FAssetList);
+
+      for i := 0 to FAssetList.Count - 1 do
+      begin
+        eodOnboardTemp := FAssetList.Items[i];
+
+        li := lvSensors.Items.Add;
+        li.Caption := eodOnboardTemp.FData.Instance_Identifier;
+
+        li.Data := eodOnboardTemp;
+      end;
+      {$ENDREGION}
+    end;
+    5:
+    begin
+      {$REGION ' Sonobuoy '}
+      dmINWO.GetSonobuoyOnBoard(FSelectedAsset.FData.VehicleIndex, FAssetList);
+
+      for i := 0 to FAssetList.Count - 1 do
+      begin
+        sonobuoyOnboardTemp := FAssetList.Items[i];
+
+        li := lvSensors.Items.Add;
+        li.Caption := sonobuoyOnboardTemp.FData.Instance_Identifier;
+
+        li.Data := sonobuoyOnboardTemp;
+      end;
+      {$ENDREGION}
+    end;
+  end;
+
+  FAssetList.Free;
 
 end;
 

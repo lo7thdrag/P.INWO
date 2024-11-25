@@ -24,7 +24,6 @@ type
   public
     FData : TRecRadar_On_Board;
     FDef  : TRecRadar_Definition;
-    FNote : TRecNote_Storage;
 
     constructor Create;
     destructor Destroy; override;
@@ -35,7 +34,6 @@ type
   public
     FData : TRecSonar_On_Board;
     FDef  : TRecSonar_Definition;
-    FNote : TRecNote_Storage;
 
     constructor Create;
     destructor Destroy;override;
@@ -46,7 +44,6 @@ type
   public
     FData : TRecESM_On_Board;
     FDef  : TRecESM_Definition;
-    FNote : TRecNote_Storage;
 
     constructor Create;
     destructor Destroy;override;
@@ -57,7 +54,6 @@ type
   public
     FData : TRecMAD_On_Board;
     FDef  : TRecMAD_Definition;
-    FNote : TRecNote_Storage;
 
     constructor Create;
     destructor Destroy;override;
@@ -69,7 +65,6 @@ type
   public
     FData : TRecEOD_On_Board;
     FDef  : TRecEOD_Definition;
-    FNote : TRecNote_Storage;
 
     constructor Create;
     destructor Destroy;override;
@@ -81,7 +76,6 @@ type
   public
     FData : TRecSonobuoy_On_Board;
     FDef  : TRecSonobuoy_Definition;
-    FNote : TRecNote_Storage;
 
     constructor Create;
     destructor Destroy;override;
