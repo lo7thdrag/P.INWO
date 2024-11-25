@@ -263,7 +263,7 @@ type
     WidthDeck             : Single;
     LengthDeck            : Single;
     HangarUnitCarried     : ByteBool;
-    FikWingCarried        : ByteBool;
+    FixWingCarried        : ByteBool;
     RotaryCarried         : ByteBool;
     MaxCapacityHangar     : Integer;
     MaxWeightHangar       : Single;

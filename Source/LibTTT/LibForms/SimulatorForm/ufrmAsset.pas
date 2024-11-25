@@ -176,7 +176,7 @@ type
     Label80: TLabel;
     edtMaxCapacityHangar: TEdit;
     edtMaxWeightHangar: TEdit;
-    chkFikWingCarried: TCheckBox;
+    chkFixWingCarried: TCheckBox;
     chkRotaryCarried: TCheckBox;
     chkHangarUnitCarried: TCheckBox;
     chkDeckUnitCarried: TCheckBox;
@@ -347,7 +347,7 @@ begin
     FData.WidthDeck             := StrToInt(edtWidthDeck.Text);
     FData.LengthDeck            := StrToInt(edtLengthDeck.Text);
     FData.HangarUnitCarried     := chkHangarUnitCarried.Checked;
-    FData.FikWingCarried        := chkFikWingCarried.Checked;
+    FData.FixWingCarried        := chkFixWingCarried.Checked;
     FData.RotaryCarried         := chkRotaryCarried.Checked;
     FData.MaxCapacityHangar     := StrToInt(edtMaxCapacityHangar.Text);
     FData.MaxWeightHangar       := StrToInt(edtMaxWeightHangar.Text);
@@ -1073,7 +1073,7 @@ begin
   end;
 
   {jika class name sudah ada}
-  if (dmINWO.GetVehicleDef(edtClass.Text)>0) then
+  if (dmINWO.GetFilterVehicleDefByName(edtClass.Text)>0) then
   begin
     {jika inputan baru}
     if FSelectedAsset.FData.VehicleIndex = 0 then
@@ -1289,7 +1289,7 @@ begin
     edtWidthDeck.Text               := FormatFloat('0.00', FData.WidthDeck);
     edtLengthDeck.Text              := FormatFloat('0.00', FData.LengthDeck);
     chkHangarUnitCarried.Checked    := Boolean(FData.HangarUnitCarried);
-    chkFikWingCarried.Checked       := Boolean(FData.FikWingCarried);
+    chkFixWingCarried.Checked       := Boolean(FData.FixWingCarried);
     chkRotaryCarried.Checked        := Boolean(FData.RotaryCarried);
     edtMaxCapacityHangar.Text       := IntToStr(FData.MaxCapacityHangar);
     edtMaxWeightHangar.Text         := FormatFloat('0.00', FData.MaxWeightHangar);
