@@ -34,3 +34,7 @@ Source/SimServer.src/SimServer.identcache
 Source/SimClient.src/SimClient.identcache
 Bin/Setting.ini
 Bin/Setting.ini
+/Source/LibTTT/LibForms/DatabaseEditorForm/Platform/Mount/__history
+/Source/LibTTT/LibForms/DatabaseEditorForm/Platform/Additional/__history
+/Source/LibTTT/LibForms/DatabaseEditorForm/Platform/OnBoardPickList/__history
+/Source/LibTTT/LibData/__recovery

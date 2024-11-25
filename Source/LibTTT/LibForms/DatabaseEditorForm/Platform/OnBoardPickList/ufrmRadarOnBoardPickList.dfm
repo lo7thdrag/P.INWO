@@ -15243,8 +15243,8 @@ object frmRadarOnBoardPickList: TfrmRadarOnBoardPickList
   object lblClose: TLabel
     Left = 85
     Top = 603
-    Width = 84
-    Height = 30
+    Width = 50
+    Height = 24
     Cursor = crHandPoint
     Caption = 'Close'
     Color = clBackground

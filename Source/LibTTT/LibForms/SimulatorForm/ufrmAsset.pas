@@ -201,7 +201,7 @@ type
     procedure cbbCategoryChange(Sender: TObject);
     procedure cbbTypeChange(Sender: TObject);
     procedure btnOpenDialogImageClick(Sender: TObject);
-    procedure btnRadarClick(Sender: TObject);
+//    procedure btnRadarClick(Sender: TObject);
     procedure btnSonarClick(Sender: TObject);
     procedure btnESMClick(Sender: TObject);
     procedure btnEODClick(Sender: TObject);
@@ -230,6 +230,10 @@ type
     function GetNumberOfKoma(s : string): Boolean;
     procedure CheckBoxDataClick(Sender: TObject);
     procedure cbbEnduranceTypeChange(Sender: TObject);
+    procedure cbbSensorsChange(Sender: TObject);
+    procedure cbbWeaponsChange(Sender: TObject);
+    procedure cbbCountermeasuresChange(Sender: TObject);
+    procedure btnSensorsClick(Sender: TObject);
 
   private
     FSelectedAsset : TAsset ;
@@ -315,7 +319,7 @@ begin
     FData.PlatformCategory  := cbbCategory.ItemIndex;
     {$ENDREGION}
 
-    {$REGION 'Logistic'}
+    {$REGION ' Logistic '}
 
     FData.EnduranceType           := cbbEnduranceType.ItemIndex;
     FData.LubricantsCapacity      := StrToFloat(edtLubricantsCapacity.Text);
@@ -331,7 +335,7 @@ begin
     FData.HighFuelConsumption     := StrToFloat(edtHighFuelConsumption.Text);
     {$ENDREGION}
 
-    {$REGION 'Transport'}
+    {$REGION ' Transport '}
     edtOfficer.Text             := IntToStr(FData.Officer);
     FData.FrontGangway          := chkFrontGangway.Checked;
     FData.RearGangway           := chkRearGangway.Checked;
@@ -397,6 +401,11 @@ begin
   btnApply.Enabled := True;
 end;
 
+procedure TfrmAsset.cbbCountermeasuresChange(Sender: TObject);
+begin
+  UpdateCountermeasureData;
+end;
+
 procedure TfrmAsset.cbbDomainChange(Sender: TObject);
 begin
   UpdateCbbCategoryItems(cbbDomain.ItemIndex, 0);
@@ -410,12 +419,22 @@ begin
   btnApply.Enabled := True;
 end;
 
+procedure TfrmAsset.cbbWeaponsChange(Sender: TObject);
+begin
+  UpdateWeaponData;
+end;
+
 procedure TfrmAsset.cbbEnduranceTypeChange(Sender: TObject);
 begin
   grbCapacity.Visible := (cbbEnduranceType.ItemIndex = 0);
   grbConsumption.Visible := (cbbEnduranceType.ItemIndex = 0);
   grbTime.Visible := (cbbEnduranceType.ItemIndex = 1);
   grbRange.Visible := (cbbEnduranceType.ItemIndex = 2);
+end;
+
+procedure TfrmAsset.cbbSensorsChange(Sender: TObject);
+begin
+  UpdateSensorData;
 end;
 
 procedure TfrmAsset.btnOpenDialogImageClick(Sender: TObject);
@@ -443,31 +462,113 @@ end;
 {$ENDREGION}
 
 {$REGION 'Assets'}
-procedure TfrmAsset.btnRadarClick(Sender: TObject);
+procedure TfrmAsset.btnSensorsClick(Sender: TObject);
 begin
-  {$REGION 'jika class belum tersimpan'}
   if FSelectedAsset.FData.VehicleIndex = 0 then
   begin
-    ShowMessage('Save data class before continue');
+    ShowMessage('Save data before continue  ');
     Exit;
   end;
-  {$ENDREGION}
 
-  frmRadarOnBoardPickList := TfrmRadarOnBoardPickList.Create(Self);
-  try
-    with frmRadarOnBoardPickList do
+  case cbbSensors.ItemIndex of
+    0:
     begin
-      SelectedAsset := FSelectedAsset;
-      ShowModal;
-    end;
+      {$REGION ' Radar '}
+      if not Assigned(frmRadarOnBoardPickList) then
+        frmRadarOnBoardPickList := TfrmRadarOnBoardPickList.Create(Self);
 
-    AfterClose := frmRadarOnBoardPickList.AfterClose;
-  finally
-    frmRadarOnBoardPickList.Free;
+      try
+        with frmRadarOnBoardPickList do
+        begin
+          SelectedVehicle := FSelectedAsset;
+          Show;
+        end;
+      finally
+      end;
+      {$ENDREGION}
+    end;
+    1:
+    begin
+      {$REGION ' Sonar '}
+//      dmINWO.GetSonarOnBoard(FSelectedAsset.FData.VehicleIndex, FAssetList);
+
+//      for i := 0 to FAssetList.Count - 1 do
+//      begin
+//        sonarOnboardTemp := FAssetList.Items[i];
+//
+//        li := lvSensors.Items.Add;
+//        li.Caption := sonarOnboardTemp.FData.Instance_Identifier;
+//
+//        li.Data := sonarOnboardTemp;
+//      end;
+      {$ENDREGION}
+    end;
+    2:
+    begin
+      {$REGION ' ESM '}
+//      dmINWO.GetESMOnBoard(FSelectedAsset.FData.VehicleIndex, FAssetList);
+//
+//      for i := 0 to FAssetList.Count - 1 do
+//      begin
+//        esmOnboardTemp := FAssetList.Items[i];
+//
+//        li := lvSensors.Items.Add;
+//        li.Caption := esmOnboardTemp.FData.Instance_Identifier;
+//
+//        li.Data := esmOnboardTemp;
+//      end;
+      {$ENDREGION}
+    end;
+    3:
+    begin
+      {$REGION ' MAD '}
+//      dmINWO.GetMADOnBoard(FSelectedAsset.FData.VehicleIndex, FAssetList);
+//
+//      for i := 0 to FAssetList.Count - 1 do
+//      begin
+//        madOnboardTemp := FAssetList.Items[i];
+//
+//        li := lvSensors.Items.Add;
+//        li.Caption := madOnboardTemp.FData.Instance_Identifier;
+//
+//        li.Data := madOnboardTemp;
+//      end;
+      {$ENDREGION}
+    end;
+    4:
+    begin
+      {$REGION ' EOD '}
+//      dmINWO.GetEODOnBoard(FSelectedAsset.FData.VehicleIndex, FAssetList);
+//
+//      for i := 0 to FAssetList.Count - 1 do
+//      begin
+//        eodOnboardTemp := FAssetList.Items[i];
+//
+//        li := lvSensors.Items.Add;
+//        li.Caption := eodOnboardTemp.FData.Instance_Identifier;
+//
+//        li.Data := eodOnboardTemp;
+//      end;
+      {$ENDREGION}
+    end;
+    5:
+    begin
+      {$REGION ' Sonobuoy '}
+//      dmINWO.GetSonobuoyOnBoard(FSelectedAsset.FData.VehicleIndex, FAssetList);
+//
+//      for i := 0 to FAssetList.Count - 1 do
+//      begin
+//        sonobuoyOnboardTemp := FAssetList.Items[i];
+//
+//        li := lvSensors.Items.Add;
+//        li.Caption := sonobuoyOnboardTemp.FData.Instance_Identifier;
+//
+//        li.Data := sonobuoyOnboardTemp;
+//      end;
+      {$ENDREGION}
+    end;
   end;
 
-  btnCancel.Enabled := not AfterClose;
-  btnApply.Enabled := afterClose;
 end;
 
 procedure TfrmAsset.btnSonarClick(Sender: TObject);
@@ -1047,43 +1148,43 @@ begin
   Result := False;
 
   {jika inputan kosong}
-  if (edtClass.Text = '') then
+  if (edtName.Text = '') then
   begin
-    ShowMessage('Please insert class name');
+    ShowMessage('Please insert name');
     Exit;
   end;
 
   {jika inputan spasi semua}
-  if Copy(edtClass.Text, 1, 1) = ' ' then
+  if Copy(edtName.Text, 1, 1) = ' ' then
   begin
-    chkSpace := Length(edtClass.Text);
+    chkSpace := Length(edtName.Text);
     numSpace := 0;
 
     for i := 1 to chkSpace do
     begin
-      if edtClass.Text[i] = #32 then
+      if edtName.Text[i] = #32 then
       numSpace := numSpace +1;
     end;
 
     if chkSpace = numSpace then
     begin
-      ShowMessage('please use another class name');
+      ShowMessage('please use another name');
       Exit;
     end;
   end;
 
   {jika class name sudah ada}
-  if (dmINWO.GetFilterVehicleDefByName(edtClass.Text)>0) then
+  if (dmINWO.GetFilterVehicleDefByName(edtName.Text)>0) then
   begin
     {jika inputan baru}
     if FSelectedAsset.FData.VehicleIndex = 0 then
     begin
-      ShowMessage('Please use another class name');
+      ShowMessage('Please use another name');
       Exit;
     end
-    else if LastName <> edtClass.Text then
+    else if LastName <> edtName.Text then
     begin
-      ShowMessage('Please use another class name');
+      ShowMessage('Please use another name');
       Exit;
     end;
   end;

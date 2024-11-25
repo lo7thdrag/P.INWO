@@ -4,9 +4,9 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ExtCtrls, ComCtrls, Vcl.Imaging.pngimage{,
-  uDBBlind_Zone, uBlindZoneView, uDBAsset_Vehicle, tttData,
-  uDBAsset_Radar};
+  Dialogs, StdCtrls, ExtCtrls, ComCtrls, Vcl.Imaging.pngimage,
+
+  uDBAsset_Sensor, uClassData, uSimContainers ;
 
 type
   TfrmRadarMount = class(TForm)
@@ -36,9 +36,6 @@ type
     txtClass: TLabel;
     edtClassName: TLabel;
     lblPlatform: TLabel;
-
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
 
     //Global
@@ -55,22 +52,18 @@ type
     procedure btnApplyClick(Sender: TObject);
 
   private
-//    FSelectedVehicle : TVehicle_Definition;
-//    FSelectedRadar : TRadar_On_Board;
-//
-//    FBlindZoneView : TBlindZoneView;
+    FSelectedVehicle : TAsset;
+    FSelectedRadar : TRadar_On_Board;
 
     function CekInput: Boolean;
     procedure UpdateRadarData;
     procedure DrawBlindZone;
 
   public
-    isOK  : Boolean; {Penanda jika gagal cek input, btn OK tidak langsung close}
-    AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, btn Cancel di summary menyala}
     LastName : string; {dicopy}
 
-//    property SelectedVehicle : TVehicle_Definition read FSelectedVehicle write FSelectedVehicle;
-//    property SelectedRadar : TRadar_On_Board read FSelectedRadar write FSelectedRadar;
+    property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
+    property SelectedRadar : TRadar_On_Board read FSelectedRadar write FSelectedRadar;
   end;
 
 var
@@ -85,37 +78,14 @@ uses
 
 {$REGION ' Form Handle '}
 
-procedure TfrmRadarMount.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-//  FBlindZoneView.Free;
-  Action := cafree;
-end;
-
-procedure TfrmRadarMount.FormCreate(Sender: TObject);
-begin
-//  FBlindZoneView := TBlindZoneView.Create(Self);
-//
-//  with FBlindZoneView do
-//  begin
-//    Parent := pnlBlindZone;
-//    Left := 0;
-//    Top := 0;
-//    Height := pnlBlindZone.Height;
-//    Width := pnlBlindZone.Width;
-//    OnClick := pnlBlindZoneClick;
-//  end;
-end;
-
 procedure TfrmRadarMount.FormShow(Sender: TObject);
 begin
-//  UpdateRadarData;
-//
-//  with FSelectedRadar.FData do
-//    btnApply.Enabled := Radar_Instance_Index = 0;
-//
-//  isOK := True;
-//  AfterClose := True;
-//  btnCancel.Enabled := True;
+  UpdateRadarData;
+
+  with FSelectedRadar.FData do
+    btnApply.Enabled := Radar_Instance_Index = 0;
+
+  btnCancel.Enabled := True;
 end;
 
 {$ENDREGION}
@@ -127,78 +97,69 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
-  if isOk then{dicopy}
-    Close;
+  Close;
 end;
 
 procedure TfrmRadarMount.btnApplyClick(Sender: TObject);
 begin
-//  if not CekInput then
-//  begin
-//    isOK := False;
-//    Exit;
-//  end;
-//
-//  ValidationFormatInput;
-//
-//  with FSelectedRadar do
-//  begin
-//    LastName := edtName.Text; {dicopy}
-//    FData.Instance_Identifier := edtName.Text;
-//    FData.Instance_Type := cbMountExtension.ItemIndex;
-//    FData.Vehicle_Index := FSelectedVehicle.FData.Vehicle_Index;
-//    FData.Radar_Index := FDef.Radar_Index;
-//    FData.Rel_Antenna_Height := StrToFloat(edtAntenna.Text);
-//    FData.Submerged_Antenna_Height := StrToFloat(edtSubmerged.Text);
-//    FData.Max_Operational_Depth := StrToFloat(edtMaxOperational.Text);
-//
-//    if FData.Radar_Instance_Index = 0 then
-//      dmTTT.InsertRadarOnBoard(FData)
-//    else
-//      dmTTT.UpdateRadarOnBoard(FData);
-//  end;
-//
-//  isOK := True; {dicopy}
-//  AfterClose := True;  {dicopy}
-//  btnApply.Enabled := False;  {dicopy}
-//  btnCancel.Enabled := False;  {dicopy}
+  if not CekInput then
+  begin
+    Exit;
+  end;
+
+  ValidationFormatInput;
+
+  with FSelectedRadar do
+  begin
+    LastName := edtName.Text;
+    FData.Instance_Identifier := edtName.Text;
+    FData.Instance_Type := cbMountExtension.ItemIndex;
+    FData.Vehicle_Index := FSelectedVehicle.FData.VehicleIndex;
+    FData.Radar_Index := FDef.Radar_Index;
+
+    if FData.Radar_Instance_Index = 0 then
+      dmINWO.InsertRadarOnBoard(FData)
+    else
+      dmINWO.UpdateRadarOnBoard(FData);
+  end;
+
+  btnApply.Enabled := False;  {dicopy}
+  btnCancel.Enabled := False;  {dicopy}
 end;
 
 procedure TfrmRadarMount.btnCancelClick(Sender: TObject);
 begin
-  AfterClose := False;  {dicopy}
   Close;
 end;
 
 procedure TfrmRadarMount.cbMountExtensionChange(Sender: TObject);
 begin
-//  edtName.Text := FSelectedRadar.FDef.Radar_Identifier + ' ' +
-//    cbMountExtension.Text;
-//
-//  btnApply.Enabled := True;
+  edtName.Text := FSelectedRadar.FDef.Radar_Identifier + ' ' + cbMountExtension.Text;
+
+  btnApply.Enabled := True;
 end;
 
 function TfrmRadarMount.CekInput: Boolean;
 begin
-//  Result := False;
-//
-//  {Jika Mount Name sudah ada}
-//  if dmTTT.GetRadarOnBoardCount(FSelectedVehicle.FData.Vehicle_Index, edtName.Text) then
-//  begin
-//    {Jika inputan baru}
-//    if FSelectedRadar.FData.Radar_Instance_Index = 0 then
-//    begin
-//      ShowMessage('Duplicate radar mount!' + Char(13) + 'Choose different mount to continue.');
-//      Exit;
-//    end
-//    else if LastName <> edtName.Text then {dicopy}
-//    begin
-//      ShowMessage('Please use another class name');
-//      Exit;
-//    end;
-//  end;
-//
-//  Result := True;
+  Result := False;
+
+  {Jika Mount Name sudah ada}
+  if dmINWO.GetRadarOnBoardCount(FSelectedVehicle.FData.VehicleIndex, edtName.Text) then
+  begin
+    {Jika inputan baru}
+    if FSelectedRadar.FData.Radar_Instance_Index = 0 then
+    begin
+      ShowMessage('Duplicate radar mount!' + Char(13) + 'Choose different mount to continue.');
+      Exit;
+    end
+    else if LastName <> edtName.Text then {dicopy}
+    begin
+      ShowMessage('Please use another class name');
+      Exit;
+    end;
+  end;
+
+  Result := True;
 end;
 
 procedure TfrmRadarMount.DrawBlindZone;
@@ -278,24 +239,24 @@ end;
 
 procedure TfrmRadarMount.UpdateRadarData;
 begin
-//  with FSelectedRadar do
-//  begin
-//    cbMountExtension.ItemIndex := FData.Instance_Type;
-//
-//    if FData.Radar_Instance_Index = 0 then
-//      edtName.Text := FDef.Radar_Identifier + ' ' + cbMountExtension.Text
-//    else
-//      edtName.Text := FData.Instance_Identifier;
-//
-//    LastName := edtName.Text;   {dicopy}
-//    edtClassName.Caption := FDef.Radar_Identifier;
-//
+  with FSelectedRadar do
+  begin
+    cbMountExtension.ItemIndex := FData.Instance_Type;
+
+    if FData.Radar_Instance_Index = 0 then
+      edtName.Text := FDef.Radar_Identifier + ' ' + cbMountExtension.Text
+    else
+      edtName.Text := FData.Instance_Identifier;
+
+    LastName := edtName.Text;   {dicopy}
+    edtClassName.Caption := FDef.Radar_Identifier;
+
 //    DrawBlindZone;
-//
-//    edtAntenna.Text := FormatFloat('0', FData.Rel_Antenna_Height);
-//    edtSubmerged.Text := FormatFloat('0', FData.Submerged_Antenna_Height);
-//    edtMaxOperational.Text := FormatFloat('0', FData.Max_Operational_Depth);
-//  end;
+
+    edtAntenna.Text := FormatFloat('0', FData.Rel_Antenna_Height);
+    edtSubmerged.Text := FormatFloat('0', FData.Submerged_Antenna_Height);
+    edtMaxOperational.Text := FormatFloat('0', FData.Max_Operational_Depth);
+  end;
 end;
 
 {$ENDREGION}
