@@ -90,12 +90,12 @@ type
     Label63: TLabel;
     Label64: TLabel;
     Label65: TLabel;
-    medtEnduranceTime: TMaskEdit;
+    medtMaxTime: TMaskEdit;
     grbRange: TGroupBox;
     Label66: TLabel;
     Label67: TLabel;
     Label68: TLabel;
-    edtMaximumRange: TEdit;
+    edtMaxRange: TEdit;
     grbCapacity: TGroupBox;
     Label29: TLabel;
     Label30: TLabel;
@@ -136,14 +136,14 @@ type
     Label19: TLabel;
     Label45: TLabel;
     Label46: TLabel;
-    edtLubricantsConsumtion: TEdit;
-    edtWaterComsumption: TEdit;
-    edtFoodComsumption: TEdit;
-    edtMinimumConsumtion: TEdit;
-    edtMaximumConsumtion: TEdit;
-    edtCruiseConsumtion: TEdit;
-    edtHighConsumtion: TEdit;
-    cbxEnduranceType: TComboBox;
+    edtLubricantsConsumption: TEdit;
+    edtWaterConsumption: TEdit;
+    edtFoodConsumption: TEdit;
+    edtMinFuelConsumption: TEdit;
+    edtMaxFuelConsumption: TEdit;
+    edtCruiseFuelConsumption: TEdit;
+    edtHighFuelConsumption: TEdit;
+    cbbEnduranceType: TComboBox;
     tsTransport: TTabSheet;
     GroupBox10: TGroupBox;
     Label81: TLabel;
@@ -155,18 +155,18 @@ type
     Label87: TLabel;
     Label88: TLabel;
     Label89: TLabel;
-    edtMaxWeightDeckUnitCarried: TEdit;
-    edtWidthDeckUnitCarried: TEdit;
-    EdtLengthDeckUnitCarried: TEdit;
-    cbbAmphibious: TCheckBox;
-    cbbLand: TCheckBox;
+    edtMaxWeightDeck: TEdit;
+    edtWidthDeck: TEdit;
+    edtLengthDeck: TEdit;
+    chkAmphibiousCarried: TCheckBox;
+    chkLandCarried: TCheckBox;
     grpPersonelUnitCarried: TGroupBox;
     Label72: TLabel;
     Label73: TLabel;
     Label74: TLabel;
-    edtMaxCapacity: TEdit;
-    cbbCarriedUnit: TCheckBox;
-    cbbPersonelUnitCarried: TCheckBox;
+    edtMaxPersonelCapacity: TEdit;
+    chkCarriableUnit: TCheckBox;
+    chkPersonelUnitCarried: TCheckBox;
     grpHangarUnitCarried: TGroupBox;
     Label75: TLabel;
     Label76: TLabel;
@@ -174,12 +174,12 @@ type
     Label78: TLabel;
     Label79: TLabel;
     Label80: TLabel;
-    EdtMaxCapacityHangarUnitCarried: TEdit;
-    edtMaxWeightHangarUnitCarried: TEdit;
-    cbbFixWing: TCheckBox;
-    cbbRotary: TCheckBox;
-    cbbHangerUnitCarried: TCheckBox;
-    CheckBox3: TCheckBox;
+    edtMaxCapacityHangar: TEdit;
+    edtMaxWeightHangar: TEdit;
+    chkFikWingCarried: TCheckBox;
+    chkRotaryCarried: TCheckBox;
+    chkHangarUnitCarried: TCheckBox;
+    chkDeckUnitCarried: TCheckBox;
     GroupBox6: TGroupBox;
     Label17: TLabel;
     Label54: TLabel;
@@ -188,10 +188,11 @@ type
     GroupBox2: TGroupBox;
     lvTacticalSymbol: TListView;
     GroupBox7: TGroupBox;
-    cbGangwayFront: TCheckBox;
-    cbGangwayRear: TCheckBox;
-    cbGangwayPort: TCheckBox;
-    cbGangwayStarboard: TCheckBox;
+    chkFrontGangway: TCheckBox;
+    chkRearGangway: TCheckBox;
+    chkPortGangway: TCheckBox;
+    chkStarBoardGangway: TCheckBox;
+    Button1: TButton;
     procedure btnOKClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
     procedure btnApplyClick(Sender: TObject);
@@ -228,17 +229,19 @@ type
     procedure edtNumeralkeyPress(Sender: TObject; var Key: Char);
     function GetNumberOfKoma(s : string): Boolean;
     procedure CheckBoxDataClick(Sender: TObject);
-    procedure cbxEnduranceTypeChange(Sender: TObject);
+    procedure cbbEnduranceTypeChange(Sender: TObject);
 
   private
     FSelectedAsset : TAsset ;
 
     function CekInput : Boolean;
     procedure UpdateVehicleData;
+    procedure UpdateSensorData;
+    procedure UpdateWeaponData;
+    procedure UpdateCountermeasureData;
     procedure UpdateModelData;
 
     procedure UpdateCbbCategoryItems(const aDomain, IdCategory: Byte);
-    procedure UpdateCbbTypeItems(const aDomain, aCategory, IdType: Byte);
 
   public
     isOK : Boolean;
@@ -270,7 +273,7 @@ begin
   UpdateVehicleData;
 
   with FSelectedAsset.FData do
-    btnApply.Enabled := Vehicle_Index = 0;
+    btnApply.Enabled := VehicleIndex = 0;
 
   isOK := True;
   afterClose := True;
@@ -289,31 +292,68 @@ begin
 
     ValidationFormatInput;
 
-    {$REGION 'General'}
-    LastName := edtClass.Text;
-    FData.Vehicle_Identifier := edtClass.Text;
+    {$REGION ' General '}
+    LastName := edtName.Text;
+    FData.VehicleIdentifier := edtName.Text;
+    FData.VehicleClass := edtClass.Text;
 
-    FData.Platform_Domain := cbbDomain.ItemIndex;
-    FData.Platform_Category := cbbCategory.ItemIndex;
-//    FData.Platform_Type := cbbType.ItemIndex;
-//    FData.HullNumber := edtNoLambung.Text;
-//    FData.CallSign := edtCallSign.Text;
+    FData.VehicleNation := edtNation.Text;
+
+    FData.PlatformDomain   := cbbDomain.ItemIndex;
+    UpdateCbbCategoryItems(FData.PlatformDomain, FData.PlatformCategory);
+    FData.PlatformCategory := cbbCategory.ItemIndex;
+
+    FData.HullNumber        := edtHullNumber.Text;
+    FData.CallSign          := edtCallSign.Text;
+    FData.LengthDimension   := StrToFloat(edtLengthDimension.Text);
+    FData.WidthDimension    := StrToFloat(edtWidthDimension.Text);
+    FData.HeightDimension   := StrToFloat(edtHeightDimension.Text);
+    FData.DraftDimension    := StrToFloat(edtDraftDimension.Text);
+    FData.WeightDimension   := StrToFloat(edtWeightDimension.Text);
+
+    FData.PlatformDomain    := cbbDomain.ItemIndex;
+    FData.PlatformCategory  := cbbCategory.ItemIndex;
     {$ENDREGION}
 
-    {$REGION 'Physical'}
-    FData.Length := StrToFloat(edtLengthDimension.Text);
-    FData.Width := StrToFloat(edtWidthDimension.Text);
-    FData.Height := StrToFloat(edtHeightDimension.Text);
-    FData.Draft := StrToFloat(edtDraftDimension.Text);
-    FData.DWT := StrToFloat(edtWeightDimension.Text);
+    {$REGION 'Logistic'}
 
-    FData.FrontGangway := cbGangwayFront.Checked;
-    FData.RearGangway := cbGangwayRear.Checked;
-    FData.PortGangway := cbGangwayPort.Checked;
-    FData.StarBoardGangway := cbGangwayStarboard.Checked;
+    FData.EnduranceType           := cbbEnduranceType.ItemIndex;
+    FData.LubricantsCapacity      := StrToFloat(edtLubricantsCapacity.Text);
+    FData.WaterCapacity           := StrToFloat(edtWaterCapacity.Text);
+    FData.FoodCapacity            := StrToFloat(edtFoodCapacity.Text);
+    FData.FuelCapacity            := StrToFloat(edtFuel.Text);
+    FData.LubricantsConsumption   := StrToFloat(edtLubricantsConsumption.Text);
+    FData.WaterConsumption        := StrToFloat(edtWaterConsumption.Text);
+    FData.FoodConsumption         := StrToFloat(edtFoodConsumption.Text);
+    FData.MinFuelConsumption      := StrToFloat(edtMinFuelConsumption.Text);
+    FData.MaxFuelConsumption      := StrToFloat(edtMaxFuelConsumption.Text);
+    FData.CruiseFuelConsumption   := StrToFloat(edtCruiseFuelConsumption.Text);
+    FData.HighFuelConsumption     := StrToFloat(edtHighFuelConsumption.Text);
     {$ENDREGION}
 
-    if FData.Vehicle_Index = 0 then
+    {$REGION 'Transport'}
+    edtOfficer.Text             := IntToStr(FData.Officer);
+    FData.FrontGangway          := chkFrontGangway.Checked;
+    FData.RearGangway           := chkRearGangway.Checked;
+    FData.PortGangway           := chkPortGangway.Checked;
+    FData.StarBoardGangway      := chkStarBoardGangway.Checked;
+    FData.CarriableUnit         := chkCarriableUnit.Checked;
+    FData.PersonelUnitCarried   := chkPersonelUnitCarried.Checked;
+    FData.MaxPersonelCapacity   := StrToInt(edtMaxPersonelCapacity.Text);
+    FData.DeckUnitCarried       := chkDeckUnitCarried.Checked;
+    FData.AmphibiousCarried     := chkAmphibiousCarried.Checked;
+    FData.LandCarried           := chkLandCarried.Checked;
+    FData.MaxWeightDeck         := StrToInt(edtMaxWeightDeck.Text);
+    FData.WidthDeck             := StrToInt(edtWidthDeck.Text);
+    FData.LengthDeck            := StrToInt(edtLengthDeck.Text);
+    FData.HangarUnitCarried     := chkHangarUnitCarried.Checked;
+    FData.FikWingCarried        := chkFikWingCarried.Checked;
+    FData.RotaryCarried         := chkRotaryCarried.Checked;
+    FData.MaxCapacityHangar     := StrToInt(edtMaxCapacityHangar.Text);
+    FData.MaxWeightHangar       := StrToInt(edtMaxWeightHangar.Text);
+    {$ENDREGION}
+
+    if FData.VehicleIndex = 0 then
     begin
       if dmINWO.InsertVehicleDef(FSelectedAsset.FData) then
       begin
@@ -354,13 +394,13 @@ end;
 {$REGION 'General'}
 procedure TfrmAsset.cbbCategoryChange(Sender: TObject);
 begin
-  UpdateCbbTypeItems(cbbDomain.ItemIndex, cbbCategory.ItemIndex, 0);
+  btnApply.Enabled := True;
 end;
 
 procedure TfrmAsset.cbbDomainChange(Sender: TObject);
 begin
   UpdateCbbCategoryItems(cbbDomain.ItemIndex, 0);
-  UpdateCbbTypeItems(cbbDomain.ItemIndex,0 ,0);
+//  UpdateCbbTypeItems(cbbDomain.ItemIndex,0 ,0);
 
   btnApply.Enabled := True;
 end;
@@ -370,17 +410,14 @@ begin
   btnApply.Enabled := True;
 end;
 
-procedure TfrmAsset.cbxEnduranceTypeChange(Sender: TObject);
+procedure TfrmAsset.cbbEnduranceTypeChange(Sender: TObject);
 begin
-  grbCapacity.Visible := (cbxEnduranceType.ItemIndex = 0);
-  grbConsumption.Visible := (cbxEnduranceType.ItemIndex = 0);
-  grbTime.Visible := (cbxEnduranceType.ItemIndex = 1);
-  grbRange.Visible := (cbxEnduranceType.ItemIndex = 2);
+  grbCapacity.Visible := (cbbEnduranceType.ItemIndex = 0);
+  grbConsumption.Visible := (cbbEnduranceType.ItemIndex = 0);
+  grbTime.Visible := (cbbEnduranceType.ItemIndex = 1);
+  grbRange.Visible := (cbbEnduranceType.ItemIndex = 2);
 end;
 
-{$ENDREGION}
-
-{$REGION 'Model'}
 procedure TfrmAsset.btnOpenDialogImageClick(Sender: TObject);
 begin
 //  if edtModelPath.Text = '' then
@@ -397,6 +434,10 @@ end;
 
 {$ENDREGION}
 
+{$REGION 'Model'}
+
+{$ENDREGION}
+
 {$REGION 'Physical'}
 
 {$ENDREGION}
@@ -405,7 +446,7 @@ end;
 procedure TfrmAsset.btnRadarClick(Sender: TObject);
 begin
   {$REGION 'jika class belum tersimpan'}
-  if FSelectedAsset.FData.Vehicle_Index = 0 then
+  if FSelectedAsset.FData.VehicleIndex = 0 then
   begin
     ShowMessage('Save data class before continue');
     Exit;
@@ -432,7 +473,7 @@ end;
 procedure TfrmAsset.btnSonarClick(Sender: TObject);
 begin
   {$REGION 'jika class belum tersimpan'}
-  if FSelectedAsset.FData.Vehicle_Index = 0 then
+  if FSelectedAsset.FData.VehicleIndex = 0 then
   begin
     ShowMessage('Save data class before continue');
     Exit;
@@ -459,7 +500,7 @@ end;
 procedure TfrmAsset.btnSonobuoyClick(Sender: TObject);
 begin
   {$REGION 'jika class belum tersimpan'}
-  if FSelectedAsset.FData.Vehicle_Index = 0 then
+  if FSelectedAsset.FData.VehicleIndex = 0 then
   begin
     ShowMessage('Save data class before continue');
     Exit;
@@ -486,7 +527,7 @@ end;
 procedure TfrmAsset.btnESMClick(Sender: TObject);
 begin
   {$REGION 'jika class belum tersimpan'}
-  if FSelectedAsset.FData.Vehicle_Index = 0 then
+  if FSelectedAsset.FData.VehicleIndex = 0 then
   begin
     ShowMessage('Save data class before continue');
     Exit;
@@ -513,7 +554,7 @@ end;
 procedure TfrmAsset.btnIFFClick(Sender: TObject);
 begin
   {$REGION 'jika class belum tersimpan'}
-  if FSelectedAsset.FData.Vehicle_Index = 0 then
+  if FSelectedAsset.FData.VehicleIndex = 0 then
   begin
     ShowMessage('Save data class before continue');
     Exit;
@@ -540,7 +581,7 @@ end;
 procedure TfrmAsset.btnMADClick(Sender: TObject);
 begin
   {$REGION 'jika class belum tersimpan'}
-  if FSelectedAsset.FData.Vehicle_Index = 0 then
+  if FSelectedAsset.FData.VehicleIndex = 0 then
   begin
     ShowMessage('Save data class before continue');
     Exit;
@@ -567,7 +608,7 @@ end;
 procedure TfrmAsset.btnEODClick(Sender: TObject);
 begin
   {$REGION 'jika class belum tersimpan'}
-  if FSelectedAsset.FData.Vehicle_Index = 0 then
+  if FSelectedAsset.FData.VehicleIndex = 0 then
   begin
     ShowMessage('Save data class before continue');
     Exit;
@@ -594,7 +635,7 @@ end;
 procedure TfrmAsset.btnVisualDetectorClick(Sender: TObject);
 begin
   {$REGION 'jika class belum tersimpan'}
-  if FSelectedAsset.FData.Vehicle_Index = 0 then
+  if FSelectedAsset.FData.VehicleIndex = 0 then
   begin
     ShowMessage('Save data class before continue');
     Exit;
@@ -622,7 +663,7 @@ end;
 procedure TfrmAsset.btnMissilesClick(Sender: TObject);
 begin
   {$REGION 'jika class belum tersimpan'}
-  if FSelectedAsset.FData.Vehicle_Index = 0 then
+  if FSelectedAsset.FData.VehicleIndex = 0 then
   begin
     ShowMessage('Save data class before continue');
     Exit;
@@ -649,7 +690,7 @@ end;
 procedure TfrmAsset.btnTorpedosClick(Sender: TObject);
 begin
   {$REGION 'jika class belum tersimpan'}
-  if FSelectedAsset.FData.Vehicle_Index = 0 then
+  if FSelectedAsset.FData.VehicleIndex = 0 then
   begin
     ShowMessage('Save data class before continue');
     Exit;
@@ -676,7 +717,7 @@ end;
 procedure TfrmAsset.btnMinesClick(Sender: TObject);
 begin
   {$REGION 'jika class belum tersimpan'}
-  if FSelectedAsset.FData.Vehicle_Index = 0 then
+  if FSelectedAsset.FData.VehicleIndex = 0 then
   begin
     ShowMessage('Save data class before continue');
     Exit;
@@ -703,7 +744,7 @@ end;
 procedure TfrmAsset.btnGunsClick(Sender: TObject);
 begin
   {$REGION 'jika class belum tersimpan'}
-  if FSelectedAsset.FData.Vehicle_Index = 0 then
+  if FSelectedAsset.FData.VehicleIndex = 0 then
   begin
     ShowMessage('Save data class before continue');
     Exit;
@@ -730,7 +771,7 @@ end;
 procedure TfrmAsset.btnBomb_DepthChargesClick(Sender: TObject);
 begin
   {$REGION 'jika class belum tersimpan'}
-  if FSelectedAsset.FData.Vehicle_Index = 0 then
+  if FSelectedAsset.FData.VehicleIndex = 0 then
   begin
     ShowMessage('Save data class before continue');
     Exit;
@@ -758,7 +799,7 @@ end;
 procedure TfrmAsset.btnAccousticDecoyClick(Sender: TObject);
 begin
   {$REGION 'jika class belum tersimpan'}
-  if FSelectedAsset.FData.Vehicle_Index = 0 then
+  if FSelectedAsset.FData.VehicleIndex = 0 then
   begin
     ShowMessage('Save data class before continue');
     Exit;
@@ -785,7 +826,7 @@ end;
 procedure TfrmAsset.btnAirBubbleClick(Sender: TObject);
 begin
   {$REGION 'jika class belum tersimpan'}
-  if FSelectedAsset.FData.Vehicle_Index = 0 then
+  if FSelectedAsset.FData.VehicleIndex = 0 then
   begin
     ShowMessage('Save data class before continue');
     Exit;
@@ -812,7 +853,7 @@ end;
 procedure TfrmAsset.btnChaffClick(Sender: TObject);
 begin
   {$REGION 'jika class belum tersimpan'}
-  if FSelectedAsset.FData.Vehicle_Index = 0 then
+  if FSelectedAsset.FData.VehicleIndex = 0 then
   begin
     ShowMessage('Save data class before continue');
     Exit;
@@ -839,7 +880,7 @@ end;
 procedure TfrmAsset.btnDefensiveJummerClick(Sender: TObject);
 begin
   {$REGION 'jika class belum tersimpan'}
-  if FSelectedAsset.FData.Vehicle_Index = 0 then
+  if FSelectedAsset.FData.VehicleIndex = 0 then
   begin
     ShowMessage('Save data class before continue');
     Exit;
@@ -866,7 +907,7 @@ end;
 procedure TfrmAsset.btnFloatingDecoyClick(Sender: TObject);
 begin
   {$REGION 'jika class belum tersimpan'}
-  if FSelectedAsset.FData.Vehicle_Index = 0 then
+  if FSelectedAsset.FData.VehicleIndex = 0 then
   begin
     ShowMessage('Save data class before continue');
     Exit;
@@ -893,7 +934,7 @@ end;
 procedure TfrmAsset.btnInfraredDecoyClick(Sender: TObject);
 begin
   {$REGION 'jika class belum tersimpan'}
-  if FSelectedAsset.FData.Vehicle_Index = 0 then
+  if FSelectedAsset.FData.VehicleIndex = 0 then
   begin
     ShowMessage('Save data class before continue');
     Exit;
@@ -920,7 +961,7 @@ end;
 procedure TfrmAsset.btnRadarJummerClick(Sender: TObject);
 begin
   {$REGION 'jika class belum tersimpan'}
-  if FSelectedAsset.FData.Vehicle_Index = 0 then
+  if FSelectedAsset.FData.VehicleIndex = 0 then
   begin
     ShowMessage('Save data class before continue');
     Exit;
@@ -947,7 +988,7 @@ end;
 procedure TfrmAsset.btnTowedJummer_DecoyClick(Sender: TObject);
 begin
   {$REGION 'jika class belum tersimpan'}
-  if FSelectedAsset.FData.Vehicle_Index = 0 then
+  if FSelectedAsset.FData.VehicleIndex = 0 then
   begin
     ShowMessage('Save data class before continue');
     Exit;
@@ -974,7 +1015,7 @@ end;
 procedure TfrmAsset.btnEmbarkedPlatformsClick(Sender: TObject);
 begin
   {$REGION 'jika class belum tersimpan'}
-  if FSelectedAsset.FData.Vehicle_Index = 0 then
+  if FSelectedAsset.FData.VehicleIndex = 0 then
   begin
     ShowMessage('Save data class before continue');
     Exit;
@@ -1035,7 +1076,7 @@ begin
   if (dmINWO.GetVehicleDef(edtClass.Text)>0) then
   begin
     {jika inputan baru}
-    if FSelectedAsset.FData.Vehicle_Index = 0 then
+    if FSelectedAsset.FData.VehicleIndex = 0 then
     begin
       ShowMessage('Please use another class name');
       Exit;
@@ -1166,22 +1207,15 @@ begin
   btnApply.Enabled := True;
 end;
 
-procedure TfrmAsset.UpdateCbbTypeItems(const aDomain, aCategory, IdType: Byte);
-begin
-
-end;
-
 procedure TfrmAsset.UpdateModelData;
 begin
-
   with FSelectedAsset.FData do
   begin
     try
-      Image.Picture.LoadFromFile('data\Image DBEditor\Interface\' + Vbs_Class_Name + '.PNG');
+      Image.Picture.LoadFromFile('data\Image DBEditor\Interface\' + VbsClassName + '.PNG');
     except
       Image.Picture.LoadFromFile('data\Image DBEditor\Interface\NoModel.bmp');
     end;
-
   end;
 end;
 
@@ -1189,54 +1223,107 @@ procedure TfrmAsset.UpdateVehicleData;
 begin
   with FSelectedAsset do
   begin
-    if FData.Vehicle_Index = 0 then
-      edtClass.Text := '(unnamed)'
+    if FData.VehicleIndex = 0 then
+      edtName.Text := '(unnamed)'
     else
-      edtClass.Text := FData.Vehicle_Identifier;
+      edtName.Text := FData.VehicleIdentifier;
 
-    {$REGION 'General'}
-    LastName := edtClass.Text;
+    {$REGION ' General '}
+    LastName := edtName.Text;
 
-    UpdateCbbCategoryItems(FData.Platform_Domain, FData.Platform_Category);
-    UpdateCbbTypeItems(FData.Platform_Domain, FData.Platform_Category, FData.Platform_Type);
+    edtClass.Text  := FData.VehicleClass;
+    edtNation.Text := FData.VehicleNation;
 
-    cbbDomain.ItemIndex := FData.Platform_Domain;
-    cbbCategory.ItemIndex := FData.Platform_Category;
-//    FData.HullNumber := edtNoLambung.Text;
-//    FData.CallSign := edtCallSign.Text;
+    cbbDomain.ItemIndex   := FData.PlatformDomain;
+    UpdateCbbCategoryItems(FData.PlatformDomain, FData.PlatformCategory);
+    cbbCategory.ItemIndex := FData.PlatformCategory;
 
-    {$ENDREGION}
+    edtHullNumber.Text        := FData.HullNumber;
+    edtCallSign.Text          := FData.CallSign;
+    edtLengthDimension.Text   := FormatFloat('0', FData.LengthDimension);
+    edtWidthDimension.Text    := FormatFloat('0', FData.WidthDimension);
+    edtHeightDimension.Text   := FormatFloat('0', FData.HeightDimension);
+    edtDraftDimension.Text    := FormatFloat('0', FData.DraftDimension);
+    edtWeightDimension.Text   := FormatFloat('0.0', FData.WeightDimension);
 
-    {$REGION 'Model'}
     UpdateModelData;
-    {$ENDREGION}
-
-    {$REGION 'Physical'}
-    edtLengthDimension.Text := FormatFloat('0', FData.Length);
-    edtWidthDimension.Text := FormatFloat('0', FData.Width);
-    edtHeightDimension.Text := FormatFloat('0', FData.Height);
-    edtDraftDimension.Text := FormatFloat('0', FData.Draft);
-    edtWeightDimension.Text := FormatFloat('0.0', FData.DWT);
-
-    cbGangwayFront.Checked := FData.FrontGangway;
-    cbGangwayRear.Checked := FData.RearGangway;
-    cbGangwayPort.Checked := FData.PortGangway;
-    cbGangwayStarboard.Checked := FData.StarBoardGangway;
-
-//    edtkecepatanJelajah.Text := FormatFloat('0', FData);
-//    edtKecepatanEkonomis.Text := FormatFloat('0', FData);
-//    edtKecepatanMaksimal.Text := FormatFloat('0', FData);
-
-//    edtKapasitasAT.Text := FormatFloat('0', FData);
-//    edtKapasitasBB.Text := FormatFloat('0', FData);
-//    edtKapasitasML.Text := FormatFloat('0', FData);
-//    edtFood.Text := FormatFloat('0', FData);
-
-//    edtKonsumsiFuel.Text := FormatFloat('0', FData);
-//    edtEndurance.Text := FormatFloat('0', FData);
 
     {$ENDREGION}
+
+    {$REGION ' Assets '}
+     UpdateSensorData;
+     UpdateWeaponData;
+     UpdateCountermeasureData;
+    {$ENDREGION}
+
+    {$REGION 'Logistic'}
+
+    cbbEnduranceType.ItemIndex     := FData.EnduranceType;
+    edtLubricantsCapacity.Text     := FormatFloat('0.00', FData.LubricantsCapacity);
+    edtWaterCapacity.Text          := FormatFloat('0.00', FData.WaterCapacity);
+    edtFoodCapacity.Text           := FormatFloat('0.00', FData.FoodCapacity);
+    edtFuel.Text                   := FormatFloat('0.00', FData.FuelCapacity);
+    edtLubricantsConsumption.Text  := FormatFloat('0.00', FData.LubricantsConsumption);
+    edtWaterConsumption.Text       := FormatFloat('0.00', FData.WaterConsumption);
+    edtFoodConsumption.Text        := FormatFloat('0.00', FData.FoodConsumption);
+    edtMinFuelConsumption.Text     := FormatFloat('0.00', FData.MinFuelConsumption);
+    edtMaxFuelConsumption.Text     := FormatFloat('0.00', FData.MaxFuelConsumption);
+    edtCruiseFuelConsumption.Text  := FormatFloat('0.00', FData.CruiseFuelConsumption);
+    edtHighFuelConsumption.Text    := FormatFloat('0.00', FData.HighFuelConsumption);
+
+    {$ENDREGION}
+
+    {$REGION 'Transport'}
+    edtOfficer.Text                 := IntToStr(FData.Officer);
+    chkFrontGangway.Checked         := Boolean(FData.FrontGangway);
+    chkRearGangway.Checked          := Boolean(FData.RearGangway);
+    chkPortGangway.Checked          := Boolean(FData.PortGangway);
+    chkStarBoardGangway.Checked     := Boolean(FData.StarBoardGangway);
+    chkCarriableUnit.Checked        := Boolean(FData.CarriableUnit);
+    chkPersonelUnitCarried.Checked  := Boolean(FData.PersonelUnitCarried);
+    edtMaxPersonelCapacity.Text     := IntToStr(FData.MaxPersonelCapacity);
+    chkDeckUnitCarried.Checked      := Boolean(FData.DeckUnitCarried);
+    chkAmphibiousCarried.Checked    := Boolean(FData.AmphibiousCarried);
+    chkLandCarried.Checked          := Boolean(FData.LandCarried);
+    edtMaxWeightDeck.Text           := FormatFloat('0.00', FData.MaxWeightDeck);
+    edtWidthDeck.Text               := FormatFloat('0.00', FData.WidthDeck);
+    edtLengthDeck.Text              := FormatFloat('0.00', FData.LengthDeck);
+    chkHangarUnitCarried.Checked    := Boolean(FData.HangarUnitCarried);
+    chkFikWingCarried.Checked       := Boolean(FData.FikWingCarried);
+    chkRotaryCarried.Checked        := Boolean(FData.RotaryCarried);
+    edtMaxCapacityHangar.Text       := IntToStr(FData.MaxCapacityHangar);
+    edtMaxWeightHangar.Text         := FormatFloat('0.00', FData.MaxWeightHangar);
+
+    {$ENDREGION}
+
   end;
+end;
+
+procedure TfrmAsset.UpdateSensorData;
+var
+  i : Integer;
+
+begin
+  lvSensors.Clear;
+
+end;
+
+procedure TfrmAsset.UpdateWeaponData;
+var
+  i : Integer;
+
+begin
+  lvWeapon.Clear;
+
+end;
+
+procedure TfrmAsset.UpdateCountermeasureData;
+var
+  i : Integer;
+
+begin
+  lvCountermeasures.Clear;
+
 end;
 
 procedure TfrmAsset.ValidationFormatInput;

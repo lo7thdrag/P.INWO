@@ -1748,16 +1748,16 @@ begin
 
         with rec.FDef do
         begin
-          Vehicle_Index := FieldByName('Vehicle_Index').AsInteger;
-          Vehicle_Identifier := FieldByName('Vehicle_Identifier').AsString;
-          Platform_Domain := FieldByName('Platform_Domain').AsInteger;
-          Platform_Category := FieldByName('Platform_Category').AsInteger;
-          Platform_Type := FieldByName('Platform_Type').AsInteger;
+//          Vehicle_Index := FieldByName('Vehicle_Index').AsInteger;
+//          Vehicle_Identifier := FieldByName('Vehicle_Identifier').AsString;
+//          Platform_Domain := FieldByName('Platform_Domain').AsInteger;
+//          Platform_Category := FieldByName('Platform_Category').AsInteger;
+//          Platform_Type := FieldByName('Platform_Type').AsInteger;
 //          Motion_Characteristics := FieldByName('Motion_Characteristics').AsInteger;
-          Length := FieldByName('Length').AsSingle;
-          Width := FieldByName('Width').AsSingle;
-          Height := FieldByName('Height').AsSingle;
-          Draft := FieldByName('Draft').AsSingle;
+//          Length := FieldByName('Length').AsSingle;
+//          Width := FieldByName('Width').AsSingle;
+//          Height := FieldByName('Height').AsSingle;
+//          Draft := FieldByName('Draft').AsSingle;
 //          Front_Radar_Cross := FieldByName('Front_Radar_Cross').AsSingle;
 //          Side_Radar_Cross := FieldByName('Side_Radar_Cross').AsSingle;
 //          Front_Acoustic_Cross := FieldByName('Front_Acoustic_Cross').AsSingle;
@@ -1810,8 +1810,8 @@ begin
 //          Readying_Time := FieldByName('Readying_Time').AsInteger;
 //          Sonobuoy_Capable := FieldByName('Sonobuoy_Capable').AsBoolean;
 //          Nav_Light_Capable := FieldByName('Nav_Light_Capable').AsBoolean;
-          Periscope_Depth := FieldByName('Periscope_Depth').AsSingle;
-          Periscope_Height_Above_Water := FieldByName('Periscope_Height_Above_Water').AsSingle;
+//          Periscope_Depth := FieldByName('Periscope_Depth').AsSingle;
+//          Periscope_Height_Above_Water := FieldByName('Periscope_Height_Above_Water').AsSingle;
 //          Periscope_Front_Radar_Xsection := FieldByName('Periscope_Front_Radar_Xsection').AsSingle;
 //          Periscope_Side_Radar_Xsection := FieldByName('Periscope_Side_Radar_Xsection').AsSingle;
 //          Periscope_Front_Vis_Xsection := FieldByName('Periscope_Front_Vis_Xsection').AsSingle;
@@ -1838,10 +1838,10 @@ begin
 //          Platform_Capability_Index := FieldByName('Platform_Capability_Index').AsInteger;
 //          Logistics_Index := FieldByName('Logistics_Index').AsInteger;
 ////          SATCOM_Mid_Course_Update_Capable := FieldByName('SATCOM_Mid_Course_Update_Capable').AsBoolean;
-          Font_id := FieldByName('font_id').AsInteger;
-          VBS_Class_Name := FieldByName('vbs_class_name').AsString;
+//          Font_id := FieldByName('font_id').AsInteger;
+//          VBS_Class_Name := FieldByName('vbs_class_name').AsString;
 //          Quantity_Group_Personal := FieldByName('Quantity_Group_Personal').AsInteger;
-          GangwayPosition := FieldByName('GangwayPosition').AsInteger;
+//          GangwayPosition := FieldByName('GangwayPosition').AsInteger;
 //          DWT := FieldByName('DWT').AsSingle;
         end;
 
@@ -1905,16 +1905,16 @@ begin
 
         with rec.FDef do
         begin
-          Vehicle_Index := FieldByName('Vehicle_Index').AsInteger;
-          Vehicle_Identifier := FieldByName('Vehicle_Identifier').AsString;
-          Platform_Domain := FieldByName('Platform_Domain').AsInteger;
-          Platform_Category := FieldByName('Platform_Category').AsInteger;
-          Platform_Type := FieldByName('Platform_Type').AsInteger;
+//          Vehicle_Index := FieldByName('Vehicle_Index').AsInteger;
+//          Vehicle_Identifier := FieldByName('Vehicle_Identifier').AsString;
+//          Platform_Domain := FieldByName('Platform_Domain').AsInteger;
+//          Platform_Category := FieldByName('Platform_Category').AsInteger;
+//          Platform_Type := FieldByName('Platform_Type').AsInteger;
 //          Motion_Characteristics := FieldByName('Motion_Characteristics').AsInteger;
-          Length := FieldByName('Length').AsSingle;
-          Width := FieldByName('Width').AsSingle;
-          Height := FieldByName('Height').AsSingle;
-          Draft := FieldByName('Draft').AsSingle;
+//          Length := FieldByName('Length').AsSingle;
+//          Width := FieldByName('Width').AsSingle;
+//          Height := FieldByName('Height').AsSingle;
+//          Draft := FieldByName('Draft').AsSingle;
 //          Front_Radar_Cross := FieldByName('Front_Radar_Cross').AsSingle;
 //          Side_Radar_Cross := FieldByName('Side_Radar_Cross').AsSingle;
 //          Front_Acoustic_Cross := FieldByName('Front_Acoustic_Cross').AsSingle;
@@ -1989,9 +1989,9 @@ begin
 //          Readying_Time := FieldByName('Readying_Time').AsInteger;
 //          Sonobuoy_Capable := FieldByName('Sonobuoy_Capable').AsBoolean;
 //          Nav_Light_Capable := FieldByName('Nav_Light_Capable').AsBoolean;
-          Periscope_Depth := FieldByName('Periscope_Depth').AsSingle;
-          Periscope_Height_Above_Water := FieldByName
-            ('Periscope_Height_Above_Water').AsSingle;
+//          Periscope_Depth := FieldByName('Periscope_Depth').AsSingle;
+//          Periscope_Height_Above_Water := FieldByName
+//            ('Periscope_Height_Above_Water').AsSingle;
 //          Periscope_Front_Radar_Xsection := FieldByName
 //            ('Periscope_Front_Radar_Xsection').AsSingle;
 //          Periscope_Side_Radar_Xsection := FieldByName
@@ -2004,7 +2004,7 @@ begin
 //            ('Periscope_Front_IR_Xsection').AsSingle;
 //          Periscope_Side_IR_Xsection := FieldByName
 //            ('Periscope_Side_IR_Xsection').AsSingle;
-          Engagement_Range := FieldByName('Engagement_Range').AsSingle;
+//          Engagement_Range := FieldByName('Engagement_Range').AsSingle;
 //          Auto_Air_Defense_Capable := FieldByName('Auto_Air_Defense_Capable')
 //            .AsBoolean;
 //          Alert_State_Time := FieldByName('Alert_State_Time').AsSingle;
@@ -2109,16 +2109,16 @@ begin
 
         with rec.FDef do
         begin
-          Vehicle_Index := FieldByName('Vehicle_Index').AsInteger;
-          Vehicle_Identifier := FieldByName('Vehicle_Identifier').AsString;
-          Platform_Domain := FieldByName('Platform_Domain').AsInteger;
-          Platform_Category := FieldByName('Platform_Category').AsInteger;
-          Platform_Type := FieldByName('Platform_Type').AsInteger;
+//          Vehicle_Index := FieldByName('Vehicle_Index').AsInteger;
+//          Vehicle_Identifier := FieldByName('Vehicle_Identifier').AsString;
+//          Platform_Domain := FieldByName('Platform_Domain').AsInteger;
+//          Platform_Category := FieldByName('Platform_Category').AsInteger;
+//          Platform_Type := FieldByName('Platform_Type').AsInteger;
 //          Motion_Characteristics := FieldByName('Motion_Characteristics').AsInteger;
-          Length := FieldByName('Length').AsSingle;
-          Width := FieldByName('Width').AsSingle;
-          Height := FieldByName('Height').AsSingle;
-          Draft := FieldByName('Draft').AsSingle;
+//          Length := FieldByName('Length').AsSingle;
+//          Width := FieldByName('Width').AsSingle;
+//          Height := FieldByName('Height').AsSingle;
+//          Draft := FieldByName('Draft').AsSingle;
 //          Front_Radar_Cross := FieldByName('Front_Radar_Cross').AsSingle;
 //          Side_Radar_Cross := FieldByName('Side_Radar_Cross').AsSingle;
 //          Front_Acoustic_Cross := FieldByName('Front_Acoustic_Cross').AsSingle;
@@ -2171,8 +2171,8 @@ begin
 //          Readying_Time := FieldByName('Readying_Time').AsInteger;
 //          Sonobuoy_Capable := FieldByName('Sonobuoy_Capable').AsBoolean;
 //          Nav_Light_Capable := FieldByName('Nav_Light_Capable').AsBoolean;
-          Periscope_Depth := FieldByName('Periscope_Depth').AsSingle;
-          Periscope_Height_Above_Water := FieldByName('Periscope_Height_Above_Water').AsSingle;
+//          Periscope_Depth := FieldByName('Periscope_Depth').AsSingle;
+//          Periscope_Height_Above_Water := FieldByName('Periscope_Height_Above_Water').AsSingle;
 //          Periscope_Front_Radar_Xsection := FieldByName('Periscope_Front_Radar_Xsection').AsSingle;
 //          Periscope_Side_Radar_Xsection := FieldByName('Periscope_Side_Radar_Xsection').AsSingle;
 //          Periscope_Front_Vis_Xsection := FieldByName('Periscope_Front_Vis_Xsection').AsSingle;
@@ -2258,16 +2258,16 @@ begin
 
         with rec.FDef do
         begin
-          Vehicle_Index := FieldByName('Vehicle_Index').AsInteger;
-          Vehicle_Identifier := FieldByName('Vehicle_Identifier').AsString;
-          Platform_Domain := FieldByName('Platform_Domain').AsInteger;
-          Platform_Category := FieldByName('Platform_Category').AsInteger;
-          Platform_Type := FieldByName('Platform_Type').AsInteger;
+//          Vehicle_Index := FieldByName('Vehicle_Index').AsInteger;
+//          Vehicle_Identifier := FieldByName('Vehicle_Identifier').AsString;
+//          Platform_Domain := FieldByName('Platform_Domain').AsInteger;
+//          Platform_Category := FieldByName('Platform_Category').AsInteger;
+//          Platform_Type := FieldByName('Platform_Type').AsInteger;
 //          Motion_Characteristics := FieldByName('Motion_Characteristics').AsInteger;
-          Length := FieldByName('Length').AsSingle;
-          Width := FieldByName('Width').AsSingle;
-          Height := FieldByName('Height').AsSingle;
-          Draft := FieldByName('Draft').AsSingle;
+//          Length := FieldByName('Length').AsSingle;
+//          Width := FieldByName('Width').AsSingle;
+//          Height := FieldByName('Height').AsSingle;
+//          Draft := FieldByName('Draft').AsSingle;
 ////          Front_Radar_Cross := FieldByName('Front_Radar_Cross').AsSingle;
 //          Side_Radar_Cross := FieldByName('Side_Radar_Cross').AsSingle;
 //          Front_Acoustic_Cross := FieldByName('Front_Acoustic_Cross').AsSingle;
@@ -2320,8 +2320,8 @@ begin
 //          Readying_Time := FieldByName('Readying_Time').AsInteger;
 //          Sonobuoy_Capable := FieldByName('Sonobuoy_Capable').AsBoolean;
 //          Nav_Light_Capable := FieldByName('Nav_Light_Capable').AsBoolean;
-          Periscope_Depth := FieldByName('Periscope_Depth').AsSingle;
-          Periscope_Height_Above_Water := FieldByName('Periscope_Height_Above_Water').AsSingle;
+//          Periscope_Depth := FieldByName('Periscope_Depth').AsSingle;
+//          Periscope_Height_Above_Water := FieldByName('Periscope_Height_Above_Water').AsSingle;
 //          Periscope_Front_Radar_Xsection := FieldByName('Periscope_Front_Radar_Xsection').AsSingle;
 //          Periscope_Side_Radar_Xsection := FieldByName('Periscope_Side_Radar_Xsection').AsSingle;
 //          Periscope_Front_Vis_Xsection := FieldByName('Periscope_Front_Vis_Xsection').AsSingle;
@@ -2348,14 +2348,14 @@ begin
 //          Platform_Capability_Index := FieldByName('Platform_Capability_Index').AsInteger;
 //          Logistics_Index := FieldByName('Logistics_Index').AsInteger;
 ////          SATCOM_Mid_Course_Update_Capable := FieldByName('SATCOM_Mid_Course_Update_Capable').AsBoolean;
-          Font_id := FieldByName('font_id').AsInteger;
-          VBS_Class_Name := FieldByName('vbs_class_name').AsString;
+//          Font_id := FieldByName('font_id').AsInteger;
+//          VBS_Class_Name := FieldByName('vbs_class_name').AsString;
 //          Quantity_Group_Personal := FieldByName('Quantity_Group_Personal').AsInteger;
 //          GangwayPosition := FieldByName('GangwayPosition').AsInteger;
-          FrontGangway := FieldByName('FrontGangway').AsBoolean;
-          RearGangway := FieldByName('RearGangway').AsBoolean;
-          PortGangway := FieldByName('PortGangway').AsBoolean;
-          StarBoardGangway := FieldByName('StarBoardGangway').AsBoolean;
+//          FrontGangway := FieldByName('FrontGangway').AsBoolean;
+//          RearGangway := FieldByName('RearGangway').AsBoolean;
+//          PortGangway := FieldByName('PortGangway').AsBoolean;
+//          StarBoardGangway := FieldByName('StarBoardGangway').AsBoolean;
 //          DWT := FieldByName('DWT').AsSingle;
         end;
 
@@ -2418,16 +2418,16 @@ begin
 
       with aResult.FDef do
       begin
-        Vehicle_Index := FieldByName('Vehicle_Index').AsInteger;
-        Vehicle_Identifier := FieldByName('Vehicle_Identifier').AsString;
-        Platform_Domain := FieldByName('Platform_Domain').AsInteger;
-        Platform_Category := FieldByName('Platform_Category').AsInteger;
-        Platform_Type := FieldByName('Platform_Type').AsInteger;
+//        Vehicle_Index := FieldByName('Vehicle_Index').AsInteger;
+//        Vehicle_Identifier := FieldByName('Vehicle_Identifier').AsString;
+//        Platform_Domain := FieldByName('Platform_Domain').AsInteger;
+//        Platform_Category := FieldByName('Platform_Category').AsInteger;
+//        Platform_Type := FieldByName('Platform_Type').AsInteger;
 //        Motion_Characteristics := FieldByName('Motion_Characteristics').AsInteger;
-        Length := FieldByName('Length').AsSingle;
-        Width := FieldByName('Width').AsSingle;
-        Height := FieldByName('Height').AsSingle;
-        Draft := FieldByName('Draft').AsSingle;
+//        Length := FieldByName('Length').AsSingle;
+//        Width := FieldByName('Width').AsSingle;
+//        Height := FieldByName('Height').AsSingle;
+//        Draft := FieldByName('Draft').AsSingle;
 //        Front_Radar_Cross := FieldByName('Front_Radar_Cross').AsSingle;
 //        Side_Radar_Cross := FieldByName('Side_Radar_Cross').AsSingle;
 //        Front_Acoustic_Cross := FieldByName('Front_Acoustic_Cross').AsSingle;
@@ -2480,8 +2480,8 @@ begin
 //        Readying_Time := FieldByName('Readying_Time').AsInteger;
 //        Sonobuoy_Capable := FieldByName('Sonobuoy_Capable').AsBoolean;
 //        Nav_Light_Capable := FieldByName('Nav_Light_Capable').AsBoolean;
-        Periscope_Depth := FieldByName('Periscope_Depth').AsSingle;
-        Periscope_Height_Above_Water := FieldByName('Periscope_Height_Above_Water').AsSingle;
+//        Periscope_Depth := FieldByName('Periscope_Depth').AsSingle;
+//        Periscope_Height_Above_Water := FieldByName('Periscope_Height_Above_Water').AsSingle;
 //        Periscope_Front_Radar_Xsection := FieldByName('Periscope_Front_Radar_Xsection').AsSingle;
 //        Periscope_Side_Radar_Xsection := FieldByName('Periscope_Side_Radar_Xsection').AsSingle;
 //        Periscope_Front_Vis_Xsection := FieldByName('Periscope_Front_Vis_Xsection').AsSingle;
@@ -2508,14 +2508,14 @@ begin
 //        Platform_Capability_Index := FieldByName('Platform_Capability_Index').AsInteger;
 //        Logistics_Index := FieldByName('Logistics_Index').AsInteger;
 ////        SATCOM_Mid_Course_Update_Capable := FieldByName('SATCOM_Mid_Course_Update_Capable').AsBoolean;
-        Font_id := FieldByName('font_id').AsInteger;
-        VBS_Class_Name := FieldByName('vbs_class_name').AsString;
+//        Font_id := FieldByName('font_id').AsInteger;
+//        VBS_Class_Name := FieldByName('vbs_class_name').AsString;
 //        Quantity_Group_Personal := FieldByName('Quantity_Group_Personal').AsInteger;
 //        GangwayPosition := FieldByName('GangwayPosition').AsInteger;
-        FrontGangway := FieldByName('FrontGangway').AsBoolean;
-        RearGangway := FieldByName('RearGangway').AsBoolean;
-        PortGangway := FieldByName('PortGangway').AsBoolean;
-        StarBoardGangway := FieldByName('StarBoardGangway').AsBoolean;
+//        FrontGangway := FieldByName('FrontGangway').AsBoolean;
+//        RearGangway := FieldByName('RearGangway').AsBoolean;
+//        PortGangway := FieldByName('PortGangway').AsBoolean;
+//        StarBoardGangway := FieldByName('StarBoardGangway').AsBoolean;
 //        DWT := FieldByName('DWT').AsSingle;
       end;
     end;
@@ -2534,33 +2534,72 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('INSERT INTO Vehicle_Definition');
-    SQL.Add('(Vehicle_Identifier, Platform_Domain, Platform_Category,');
-    SQL.Add('Motion_Characteristics,');
-    SQL.Add('font_id, vbs_class_name,');
-    SQL.Add('FrontGangway,');
-    SQL.Add('RearGangway,');
-    SQL.Add('PortGangway,');
-    SQL.Add('StarBoardGangway)');
-    SQL.Add('VALUES (');
+    SQL.Add('(VehicleIdentifier, VehicleClass, VehicleNation, PlatformDomain, PlatformCategory, HullNumber, CallSign, ');
+    SQL.Add('LengthDimension, WidthDimensionm, HeightDimension, WeightDimension, DraftDimension, VbsClassName, ');
+    SQL.Add('EnduranceType, LubricantsCapacity, WaterCapacity, FoodCapacity, FuelCapacity, MaxRange, MaxTime, ');
+    SQL.Add('LubricantsConsumption, WaterConsumption, FoodConsumption, FuelConsumption, MinFuelConsumption, MaxFuelConsumption, ');
+    SQL.Add('CruiseFuelConsumption, HighFuelConsumption, ');
+    SQL.Add('Officer, FrontGangway, RearGangway, PortGangway, StarBoardGangway, CarriableUnit, PersonelUnitCarried, ');
+    SQL.Add('MaxPersonelCapacity, DeckUnitCarried, AmphibiousCarried, LandCarried, MaxWeightDeck, WidthDeck, LengthDeck, ');
+    SQL.Add('HangarUnitCarried, FikWingCarried, RotaryCarried, MaxCapacityHangar, MaxWeightHangar');
 
     with aRec do
     begin
-      SQL.Add(QuotedStr(Vehicle_Identifier) + ', ');
-      SQL.Add(IntToStr(Platform_Domain) + ', ');
-      SQL.Add(IntToStr(Platform_Category) + ', ');
-      SQL.Add(IntToStr(11) + ', ');
-      SQL.Add(IntToStr(Font_id) + ', ');
-      SQL.Add(QuotedStr(VBS_Class_Name) + ', ');
+      SQL.Add(QuotedStr(VehicleIdentifier) + ', ');
+      SQL.Add(QuotedStr(VehicleClass) + ', ');
+      SQL.Add(QuotedStr(VehicleNation) + ', ');
+      SQL.Add(IntToStr(PlatformDomain) + ', ');
+      SQL.Add(IntToStr(PlatformCategory) + ', ');
+      SQL.Add(QuotedStr(HullNumber) + ', ');
+      SQL.Add(QuotedStr(CallSign) + ', ');
+      SQL.Add(FloatToStr(LengthDimension) + ', ');
+      SQL.Add(FloatToStr(WidthDimension) + ', ');
+      SQL.Add(FloatToStr(HeightDimension) + ', ');
+      SQL.Add(FloatToStr(WeightDimension) + ', ');
+      SQL.Add(FloatToStr(DraftDimension) + ', ');
+      SQL.Add(QuotedStr(VbsClassName) + ', ');
+      SQL.Add(IntToStr(EnduranceType) + ', ');
+      SQL.Add(FloatToStr(LubricantsCapacity) + ', ');
+      SQL.Add(FloatToStr(WaterCapacity) + ', ');
+      SQL.Add(FloatToStr(FoodCapacity) + ', ');
+      SQL.Add(FloatToStr(FuelCapacity) + ', ');
+      SQL.Add(FloatToStr(MaxRange) + ', ');
+      SQL.Add(FloatToStr(MaxTime) + ', ');
+      SQL.Add(FloatToStr(LubricantsConsumption) + ', ');
+      SQL.Add(FloatToStr(WaterConsumption) + ', ');
+      SQL.Add(FloatToStr(FoodConsumption) + ', ');
+      SQL.Add(FloatToStr(FuelConsumption) + ', ');
+      SQL.Add(FloatToStr(MinFuelConsumption) + ', ');
+      SQL.Add(FloatToStr(MaxFuelConsumption) + ', ');
+      SQL.Add(FloatToStr(CruiseFuelConsumption) + ', ');
+      SQL.Add(FloatToStr(HighFuelConsumption) + ', ');
+      SQL.Add(QuotedStr(Officer) + ', ');
       SQL.Add(BoolToStr(FrontGangway) + ', ');
       SQL.Add(BoolToStr(RearGangway) + ', ');
       SQL.Add(BoolToStr(PortGangway) + ', ');
+      SQL.Add(BoolToStr(StarBoardGangway) + ', ');
+      SQL.Add(BoolToStr(CarriableUnit) + ', ');
+      SQL.Add(BoolToStr(PersonelUnitCarried) + ', ');
+      SQL.Add(QuotedStr(MaxPersonelCapacity) + ', ');
+      SQL.Add(BoolToStr(DeckUnitCarried) + ', ');
+      SQL.Add(BoolToStr(AmphibiousCarried) + ', ');
+      SQL.Add(BoolToStr(LandCarried) + ', ');
+      SQL.Add(FloatToStr(MaxWeightDeck) + ', ');
+      SQL.Add(FloatToStr(WidthDeck) + ', ');
+      SQL.Add(FloatToStr(LengthDeck) + ', ');
+      SQL.Add(BoolToStr(HangarUnitCarried) + ', ');
+      SQL.Add(BoolToStr(FikWingCarried) + ', ');
+      SQL.Add(BoolToStr(RotaryCarried) + ', ');
+      SQL.Add(QuotedStr(MaxCapacityHangar) + ', ');
+      SQL.Add(FloatToStr(MaxWeightHangar) + ', ');
+
       SQL.Add(BoolToStr(StarBoardGangway) + ')');
       ExecSQL;
 
       SQL.Clear;
       SQL.Add('SELECT *');
       SQL.Add('FROM Vehicle_Definition');
-      SQL.Add('WHERE Vehicle_Identifier = ' + QuotedStr(Vehicle_Identifier));
+      SQL.Add('WHERE VehicleIdentifier = ' + QuotedStr(VehicleIdentifier));
       Open;
 
       Result := RecordCount > 0;
@@ -2569,181 +2608,8 @@ begin
       begin
         First;
 
-        Vehicle_Index := FieldByName('Vehicle_Index').AsInteger;
+        VehicleIndex := FieldByName('VehicleIndex').AsInteger;
       end;
-
-      {$REGION ' bukan kodingan ku'}
-//    SQL.Clear;
-//    SQL.Add('INSERT INTO Vehicle_Definition');
-//    SQL.Add('(Vehicle_Identifier, Platform_Domain, Platform_Category,');
-////    SQL.Add('Platform_Type, Length, Width, Height,');
-//    SQL.Add('Platform_Type, Motion_Characteristics, Length, Width, Height,');
-////    SQL.Add('Draft, Front_Radar_Cross, Side_Radar_Cross,');
-////    SQL.Add('Front_Acoustic_Cross, Side_Acoustic_Cross,Magnetic_Cross,');
-////    SQL.Add('Front_Visual_EO_Cross, Side_Visual_EO_Cross,');
-////    SQL.Add('Front_Infrared_Cross, Side_Infrared_Cross,');
-////    SQL.Add('LSpeed_Acoustic_Intens, Below_Cav_Acoustic_Intens,');
-////    SQL.Add('Above_Cav_Acoustic_Intens, HSpeed_Acoustic_Intens,');
-////    SQL.Add('Cavitation_Speed_Switch, Time_of_Weapon_Impact,');
-////    SQL.Add('Chaff_Seduction_Capable, Seduction_Mode_Prob,');
-////    SQL.Add('Min_Delay_Between_Chaff_Rounds, Max_Chaff_Salvo_Size,');
-////    SQL.Add('SARH_POH_Modifier, CG_POH_Modifier, TARH_POH_Modifier,');
-////    SQL.Add('IR_POH_Modifier, AR_POH_Modifier,');
-////    SQL.Add('Active_Acoustic_Tor_POH_Mod, Passive_Acoustic_Tor_POH_Mod,');
-////    SQL.Add('Active_Passive_Tor_POH_Mod, Wake_Home_POH_Modifier,');
-////    SQL.Add('Wire_Guide_POH_Modifier, Mag_Mine_POH_Modifier,');
-////    SQL.Add('Press_Mine_POH_Modifier, Impact_Mine_POH_Modifier,');
-////    SQL.Add('Acoustic_Mine_POH_Modifier, Sub_Comm_Antenna_Height,');
-////    SQL.Add('Rel_Comm_Antenna_Height, Max_Comm_Operating_Depth,');
-////    SQL.Add('HF_Link_Capable, UHF_Link_Capable, HF_Voice_Capable,');
-////    SQL.Add('VHF_Voice_Capable, UHF_Voice_Capable, SATCOM_Voice_Capable,');
-////    SQL.Add('UWT_Voice_Capable, HF_MHS_Capable, UHF_MHS_Capable,');
-////    SQL.Add('Satcom_MHS_Capable, Damage_Capacity, Plat_Basing_Capability,');
-////    SQL.Add('Chaff_Capability, Readying_Time, Sonobuoy_Capable,');
-////    SQL.Add('Nav_Light_Capable, Periscope_Depth,');
-////    SQL.Add('Periscope_Height_Above_Water, Periscope_Front_Radar_Xsection,');
-////    SQL.Add('Periscope_Side_Radar_Xsection, Periscope_Front_Vis_Xsection,');
-////    SQL.Add('Periscope_Side_Vis_Xsection, Periscope_Front_IR_Xsection,');
-////    SQL.Add('Periscope_Side_IR_Xsection, Engagement_Range,');
-////    SQL.Add('Auto_Air_Defense_Capable, Alert_State_Time,');
-////    SQL.Add('Detectability_Type, Max_Sonobuoys_To_Monitor,');
-////    SQL.Add('Sonobuoy_Deploy_Max_Altitude, Sonobuoy_Deploy_Min_Altitude,');
-////    SQL.Add('Sonobuoy_Deploy_Max_Speed, Air_Drop_Torpedo_Max_Altitude,');
-////    SQL.Add('Air_Drop_Torpedo_Min_Altitude, Air_Drop_Torpedo_Max_Speed,');
-////    SQL.Add('TMA_Rate_Factor, HMS_Noise_Reduction_Factor,');
-////    SQL.Add('TAS_Noise_Reduction_Factor, Infrared_Decoy_Capable,');
-////    SQL.Add('HF_Mid_Course_Update_Capable, UHF_Mid_Course_Update_Capable,');
-////    SQL.Add('Platform_Capability_Index,');
-////    SQL.Add('Logistics_Index,');
-////    SQL.Add('SATCOM_Mid_Course_Update_Capable,');
-//    SQL.Add('font_id, vbs_class_name, ');
-////    SQL.Add('Quantity_Group_Personal,');
-//    SQL.Add('GangwayPosition,');
-//    SQL.Add('FrontGangway,');
-//    SQL.Add('RearGangway,');
-//    SQL.Add('PortGangway,');
-//    SQL.Add('StarBoardGangway)');
-////    SQL.Add('DWT)');
-//    SQL.Add('VALUES (');
-//
-//    with aRec do
-//    begin
-//      SQL.Add(QuotedStr(Vehicle_Identifier) + ', ');
-//      SQL.Add(IntToStr(Platform_Domain) + ', ');
-//      SQL.Add(IntToStr(Platform_Category) + ', ');
-//      SQL.Add(IntToStr(Platform_Type) + ', ');
-//      SQL.Add(IntToStr(Motion_Characteristics) + ', ');
-//      SQL.Add(FloatToStr(Length) + ', ');
-//      SQL.Add(FloatToStr(Width) + ', ');
-//      SQL.Add(FloatToStr(Height) + ', ');
-//      SQL.Add(FloatToStr(Draft) + ', ');
-////      SQL.Add(FloatToStr(Front_Radar_Cross) + ', ');
-////      SQL.Add(FloatToStr(Side_Radar_Cross) + ', ');
-////      SQL.Add(FloatToStr(Front_Acoustic_Cross) + ', ');
-////      SQL.Add(FloatToStr(Side_Acoustic_Cross) + ', ');
-////      SQL.Add(FloatToStr(Magnetic_Cross) + ', ');
-////      SQL.Add(FloatToStr(Front_Visual_EO_Cross) + ', ');
-////      SQL.Add(FloatToStr(Side_Visual_EO_Cross) + ', ');
-////      SQL.Add(FloatToStr(Front_Infrared_Cross) + ', ');
-////      SQL.Add(FloatToStr(Side_Infrared_Cross) + ', ');
-////      SQL.Add(FloatToStr(LSpeed_Acoustic_Intens) + ', ');
-////      SQL.Add(FloatToStr(Below_Cav_Acoustic_Intens) + ', ');
-////      SQL.Add(FloatToStr(Above_Cav_Acoustic_Intens) + ', ');
-////      SQL.Add(FloatToStr(HSpeed_Acoustic_Intens) + ', ');
-////      SQL.Add(FloatToStr(Cavitation_Speed_Switch) + ', ');
-////      SQL.Add(IntToStr(Time_of_Weapon_Impact) + ', ');
-////      SQL.Add(BoolToStr(Chaff_Seduction_Capable) + ', ');
-////      SQL.Add(FloatToStr(Seduction_Mode_Prob) + ', ');
-////      SQL.Add(IntToStr(Min_Delay_Between_Chaff_Rounds) + ', ');
-////      SQL.Add(IntToStr(Max_Chaff_Salvo_Size) + ', ');
-////      SQL.Add(FloatToStr(SARH_POH_Modifier) + ', ');
-////      SQL.Add(FloatToStr(CG_POH_Modifier) + ', ');
-////      SQL.Add(FloatToStr(TARH_POH_Modifier) + ', ');
-////      SQL.Add(FloatToStr(IR_POH_Modifier) + ', ');
-////      SQL.Add(FloatToStr(AR_POH_Modifier) + ', ');
-////      SQL.Add(FloatToStr(Active_Acoustic_Tor_POH_Mod) + ', ');
-////      SQL.Add(FloatToStr(Passive_Acoustic_Tor_POH_Mod) + ', ');
-////      SQL.Add(FloatToStr(Active_Passive_Tor_POH_Mod) + ', ');
-////      SQL.Add(FloatToStr(Wake_Home_POH_Modifier) + ', ');
-////      SQL.Add(FloatToStr(Wire_Guide_POH_Modifier) + ', ');
-////      SQL.Add(FloatToStr(Mag_Mine_POH_Modifier) + ', ');
-////      SQL.Add(FloatToStr(Press_Mine_POH_Modifier) + ', ');
-////      SQL.Add(FloatToStr(Impact_Mine_POH_Modifier) + ', ');
-////      SQL.Add(FloatToStr(Acoustic_Mine_POH_Modifier) + ', ');
-////      SQL.Add(FloatToStr(Sub_Comm_Antenna_Height) + ', ');
-////      SQL.Add(FloatToStr(Rel_Comm_Antenna_Height) + ', ');
-////      SQL.Add(FloatToStr(Max_Comm_Operating_Depth) + ', ');
-////      SQL.Add(BoolToStr(HF_Link_Capable) + ', ');
-////      SQL.Add(BoolToStr(UHF_Link_Capable) + ', ');
-////      SQL.Add(BoolToStr(HF_Voice_Capable) + ', ');
-////      SQL.Add(BoolToStr(VHF_Voice_Capable) + ', ');
-////      SQL.Add(BoolToStr(UHF_Voice_Capable) + ', ');
-////      SQL.Add(BoolToStr(SATCOM_Voice_Capable) + ', ');
-////      SQL.Add(BoolToStr(UWT_Voice_Capable) + ', ');
-////      SQL.Add(BoolToStr(HF_MHS_Capable) + ', ');
-////      SQL.Add(BoolToStr(UHF_MHS_Capable) + ', ');
-////      SQL.Add(BoolToStr(SATCOM_MHS_Capable) + ', ');
-////      SQL.Add(IntToStr(Damage_Capacity) + ', ');
-////      SQL.Add(BoolToStr(Plat_Basing_Capability) + ', ');
-////      SQL.Add(BoolToStr(Chaff_Capability) + ', ');
-////      SQL.Add(IntToStr(Readying_Time) + ', ');
-////      SQL.Add(BoolToStr(Sonobuoy_Capable) + ', ');
-////      SQL.Add(BoolToStr(Nav_Light_Capable) + ', ');
-//      SQL.Add(FloatToStr(Periscope_Depth) + ', ');
-//      SQL.Add(FloatToStr(Periscope_Height_Above_Water) + ', ');
-////      SQL.Add(FloatToStr(Periscope_Front_Radar_Xsection) + ', ');
-////      SQL.Add(FloatToStr(Periscope_Side_Radar_Xsection) + ', ');
-////      SQL.Add(FloatToStr(Periscope_Front_Vis_Xsection) + ', ');
-////      SQL.Add(FloatToStr(Periscope_Side_Vis_Xsection) + ', ');
-////      SQL.Add(FloatToStr(Periscope_Front_IR_Xsection) + ', ');
-////      SQL.Add(FloatToStr(Periscope_Side_IR_Xsection) + ', ');
-//      SQL.Add(FloatToStr(Engagement_Range) + ', ');
-////      SQL.Add(BoolToStr(Auto_Air_Defense_Capable) + ', ');
-////      SQL.Add(FloatToStr(Alert_State_Time) + ', ');
-////      SQL.Add(IntToStr(Detectability_Type) + ', ');
-////      SQL.Add(IntToStr(Max_Sonobuoys_To_Monitor) + ', ');
-////      SQL.Add(IntToStr(Sonobuoy_Deploy_Max_Altitude) + ', ');
-////      SQL.Add(IntToStr(Sonobuoy_Deploy_Min_Altitude) + ', ');
-////      SQL.Add(IntToStr(Sonobuoy_Deploy_Max_Speed) + ', ');
-////      SQL.Add(IntToStr(Air_Drop_Torpedo_Max_Altitude) + ', ');
-////      SQL.Add(IntToStr(Air_Drop_Torpedo_Min_Altitude) + ', ');
-////      SQL.Add(IntToStr(Air_Drop_Torpedo_Max_Speed) + ', ');
-////      SQL.Add(FloatToStr(TMA_Rate_Factor) + ', ');
-////      SQL.Add(FloatToStr(HMS_Noise_Reduction_Factor) + ', ');
-////      SQL.Add(FloatToStr(TAS_Noise_Reduction_Factor) + ', ');
-////      SQL.Add(BoolToStr(Infrared_Decoy_Capable) + ', ');
-////      SQL.Add(BoolToStr(HF_Mid_Course_Update_Capable) + ', ');
-////      SQL.Add(BoolToStr(UHF_Mid_Course_Update_Capable) + ', ');
-////      SQL.Add(IntToStr(Platform_Capability_Index) + ', ');
-////      SQL.Add(IntToStr(Logistics_Index) + ', ');
-////      SQL.Add(BoolToStr(SATCOM_Mid_Course_Update_Capable) + ',');
-//      SQL.Add(IntToStr(Font_id) + ', ');
-//      SQL.Add(QuotedStr(VBS_Class_Name) + ', ');
-////      SQL.Add(IntToStr(Quantity_Group_Personal) + ', ');
-////      SQL.Add(IntToStr(GangwayPosition) + ', ');
-//      SQL.Add(BoolToStr(FrontGangway) + ', ');
-//      SQL.Add(BoolToStr(RearGangway) + ', ');
-//      SQL.Add(BoolToStr(PortGangway) + ', ');
-////      SQL.Add(BoolToStr(StarBoardGangway) + ', ');
-//      SQL.Add(BoolToStr(StarBoardGangway) + ')');
-////      SQL.Add(FloatToStr(DWT) + ')');
-//      ExecSQL;
-//
-//      SQL.Clear;
-//      SQL.Add('SELECT *');
-//      SQL.Add('FROM Vehicle_Definition');
-//      SQL.Add('WHERE Vehicle_Identifier = ' + QuotedStr(Vehicle_Identifier));
-//      Open;
-//
-//      Result := RecordCount > 0;
-//
-//      if not IsEmpty then
-//      begin
-//        First;
-//
-//        Vehicle_Index := FieldByName('Vehicle_Index').AsInteger;
-//      end;
-{$ENDREGION}
     end;
   end;
 end;
@@ -2763,9 +2629,9 @@ begin
 
     with aRec do
     begin
-      SQL.Add('SET Vehicle_Identifier = ' + QuotedStr(Vehicle_Identifier));
-      SQL.Add(', Platform_Domain = ' + IntToStr(Platform_Domain));
-      SQL.Add(', Platform_Category = ' + IntToStr(Platform_Category));
+//      SQL.Add('SET Vehicle_Identifier = ' + QuotedStr(Vehicle_Identifier));
+//      SQL.Add(', Platform_Domain = ' + IntToStr(Platform_Domain));
+//      SQL.Add(', Platform_Category = ' + IntToStr(Platform_Category));
 //      SQL.Add(', Platform_Type = ' + IntToStr(Platform_Type));
       SQL.Add(', Motion_Characteristics = ' + IntToStr(11));
 //      SQL.Add(', Length = ' + FloatToStr(Length));
@@ -2852,8 +2718,8 @@ begin
 //      SQL.Add(', Platform_Capability_Index = ' + IntToStr(Platform_Capability_Index));
 //      SQL.Add(', Logistics_Index = ' + IntToStr(Logistics_Index));
 //      SQL.Add(', SATCOM_Mid_Course_Update_Capable = ' + BoolToStr(SATCOM_Mid_Course_Update_Capable));
-      SQL.Add(', font_id = ' + IntToStr(Font_id));
-      SQL.Add(', vbs_class_name = ' + QuotedStr(VBS_Class_Name));
+//      SQL.Add(', font_id = ' + IntToStr(Font_id));
+//      SQL.Add(', vbs_class_name = ' + QuotedStr(VBS_Class_Name));
 //      SQL.Add(', Quantity_Group_Personal = ' + IntToStr(Quantity_Group_Personal));
 //      SQL.Add(', GangwayPosition = ' + IntToStr(GangwayPosition));
       SQL.Add(', FrontGangway = ' + BoolToStr(FrontGangway));
@@ -2861,7 +2727,7 @@ begin
       SQL.Add(', PortGangway = ' + BoolToStr(PortGangway));
       SQL.Add(', StarBoardGangway = ' + BoolToStr(StarBoardGangway));
 //      SQL.Add(', DWT = ' + FloatToStr(DWT));
-      SQL.Add('WHERE Vehicle_Index = ' + IntToStr(Vehicle_Index));
+//      SQL.Add('WHERE Vehicle_Index = ' + IntToStr(Vehicle_Index));
       ExecSQL;
     end;
     Result := True;
@@ -2936,10 +2802,10 @@ begin
 
         with rec.FDef do
         begin
-          Vehicle_Identifier := FieldByName('Vehicle_Identifier').AsString;
-          Platform_Domain := FieldByName('Platform_Domain').AsInteger;
-          Platform_Category := FieldByName('Platform_Category').AsInteger;
-          Platform_Type := FieldByName('Platform_Type').AsInteger;
+//          Vehicle_Identifier := FieldByName('Vehicle_Identifier').AsString;
+//          Platform_Domain := FieldByName('Platform_Domain').AsInteger;
+//          Platform_Category := FieldByName('Platform_Category').AsInteger;
+//          Platform_Type := FieldByName('Platform_Type').AsInteger;
         end;
 
         aList.Add(rec);

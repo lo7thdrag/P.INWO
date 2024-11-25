@@ -698,9 +698,9 @@ begin
 
     li := lvAsset.Items.Add;
     li.Caption := IntToStr(i+1);
-    li.SubItems.Add(AssetTemp.FData.Vehicle_Identifier);
+    li.SubItems.Add(AssetTemp.FData.VehicleIdentifier);
 
-    case AssetTemp.FData.Platform_Domain of
+    case AssetTemp.FData.PlatformDomain of
       0 : val_Domain := 'Air';
       1 : val_Domain := 'Surface';
       2 : val_Domain := 'Subsurface';
@@ -709,7 +709,7 @@ begin
     end;
     li.SubItems.Add(val_Domain);
 
-    case AssetTemp.FData.Platform_Category of
+    case AssetTemp.FData.PlatformCategory of
       0 : val_Category := 'Combatant';
       1 : val_Category := 'Non-Combatant';
       2 : val_Category := 'Non-Naval';
@@ -749,7 +749,7 @@ begin
     begin
       with FSelectedAsset.FData do
       begin
-        if dmINWO.DeleteVehicleDef(Vehicle_Index) then
+        if dmINWO.DeleteVehicleDef(VehicleIndex) then
           ShowMessage('Data has been deleted');
       end;
 
