@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ExtCtrls, ComCtrls, Vcl.Imaging.pngimage,
-  uDBAsset_Vehicle, uDBAsset_Weapon , uSimContainers;
+
+  uDBAsset_Weapon, uClassData, uSimContainers;
 
 type
   TfrmMineOnBoardPickList = class(TForm)
@@ -40,14 +41,13 @@ type
     FAllMineDefList : TList;
     FAllMineOnBoardList : TList;
 
-    FSelectedVehicle : TVehicle_Definition;
+    FSelectedVehicle : TAsset;
     FSelectedMine : TMine_On_Board;
 
     procedure UpdateMineList;
 
   public
-    AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, btn Cancel di summary menyala}
-    property SelectedVehicle : TVehicle_Definition read FSelectedVehicle write FSelectedVehicle;
+    property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
   end;
 
 var
@@ -56,7 +56,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmMineMount{, tttData};
+  uDataModule, ufrmMineMount;
 
 {$R *.dfm}
 
@@ -86,58 +86,55 @@ end;
 
 procedure TfrmMineOnBoardPickList.btnAddClick(Sender: TObject);
 begin
-//  if lbAllMineDef.ItemIndex = -1 then
-//    Exit;
-//
-//  frmMineMount := TfrmMineMount.Create(Self);
-//  try
-//    with frmMineMount do
-//    begin
-//      SelectedVehicle := FSelectedVehicle;
-//      SelectedMine := FSelectedMine;
-//      ShowModal;
-//    end;
-//    AfterClose := frmMineMount.AfterClose;
-//  finally
-//    frmMineMount.Free;
-//  end;
-//
+  if lbAllMineDef.ItemIndex = -1 then
+    Exit;
+
+  if not Assigned(frmMineMount) then
+    frmMineMount := TfrmMineMount.Create(Self);
+  try
+    with frmMineMount do
+    begin
+      SelectedVehicle := FSelectedVehicle;
+      SelectedMine := FSelectedMine;
+      Show;
+    end;
+  finally
+  end;
+
 //  UpdateMineList;
 end;
 
 procedure TfrmMineOnBoardPickList.btnEditClick(Sender: TObject);
 begin
-//  if lbMineOnBoard.ItemIndex = -1 then
-//    Exit;
-//
-//  frmMineMount := TfrmMineMount.Create(Self);
-//  try
-//    with frmMineMount do
-//    begin
-//      SelectedVehicle := FSelectedVehicle;
-//      SelectedMine := FSelectedMine;
-//      ShowModal;
-//    end;
-//    AfterClose := frmMineMount.AfterClose;
-//  finally
-//    frmMineMount.Free;
-//  end;
-//
+  if lbMineOnBoard.ItemIndex = -1 then
+    Exit;
+
+  if not Assigned(frmMineMount) then
+    frmMineMount := TfrmMineMount.Create(Self);
+  try
+    with frmMineMount do
+    begin
+      SelectedVehicle := FSelectedVehicle;
+      SelectedMine := FSelectedMine;
+      Show;
+    end;
+  finally
+  end;
+
 //  UpdateMineList;
 end;
 
 procedure TfrmMineOnBoardPickList.btnRemoveClick(Sender: TObject);
 begin
-//  if lbMineOnBoard.ItemIndex = -1 then
-//    Exit;
-//
-//  with FSelectedMine.FData do
-//  begin
-//    dmTTT.DeleteFittedWeaponOnBoard(2, Fitted_Weap_Index);
-//  end;
-//
-//  AfterClose := True;
-//  UpdateMineList;
+  if lbMineOnBoard.ItemIndex = -1 then
+    Exit;
+
+  with FSelectedMine.FData do
+  begin
+    dmINWO.DeleteFittedWeaponOnBoard(2, Fitted_Weap_Index);
+  end;
+
+  UpdateMineList;
 end;
 
 procedure TfrmMineOnBoardPickList.btnCloseClick(Sender: TObject);
@@ -162,27 +159,27 @@ begin
 end;
 
 procedure TfrmMineOnBoardPickList.UpdateMineList;
-//var
-//  i : Integer;
-//  mine : TMine_On_Board;
+var
+  i : Integer;
+  mine : TMine_On_Board;
 begin
-//  lbAllMineDef.Items.Clear;
-//  lbMineOnBoard.Items.Clear;
-//
-//  dmTTT.GetAllMineDef(FAllMineDefList);
-//  dmTTT.GetMineOnBoard(FSelectedVehicle.FData.Vehicle_Index,FAllMineOnBoardList);
-//
-//  for i := 0 to FAllMineDefList.Count - 1 do
-//  begin
-//    mine := FAllMineDefList.Items[i];
-//    lbAllMineDef.Items.AddObject(mine.FMine_Def.Mine_Identifier, mine);
-//  end;
-//
-//  for i := 0 to FAllMineOnBoardList.Count - 1 do
-//  begin
-//    mine := FAllMineOnBoardList.Items[i];
-//    lbMineOnBoard.Items.AddObject(mine.FData.Instance_Identifier, mine);
-//  end;
+  lbAllMineDef.Items.Clear;
+  lbMineOnBoard.Items.Clear;
+
+  dmINWO.GetAllMineDef(FAllMineDefList);
+  dmINWO.GetMineOnBoard(FSelectedVehicle.FData.VehicleIndex,FAllMineOnBoardList);
+
+  for i := 0 to FAllMineDefList.Count - 1 do
+  begin
+    mine := FAllMineDefList.Items[i];
+    lbAllMineDef.Items.AddObject(mine.FDef.Mine_Identifier, mine);
+  end;
+
+  for i := 0 to FAllMineOnBoardList.Count - 1 do
+  begin
+    mine := FAllMineOnBoardList.Items[i];
+    lbMineOnBoard.Items.AddObject(mine.FData.Instance_Identifier, mine);
+  end;
 end;
 
 {$ENDREGION}

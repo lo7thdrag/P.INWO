@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ExtCtrls, Vcl.Imaging.pngimage,
-  uDBAsset_Vehicle, {uDBAsset_Sonar,}uSimContainers;
+
+  uDBAsset_Sensor, uClassData, uSimContainers ;
 
 type
   TfrmSonarOnBoardPickList = class(TForm)
@@ -39,14 +40,13 @@ type
     FAllSonarDefList : TList;
     FAllSonarOnBoardList : TList;
 
-    FSelectedVehicle : TVehicle_Definition;
-//    FSelectedSonar : TSonar_On_Board;
+    FSelectedVehicle : TAsset;
+    FSelectedSonar : TSonar_On_Board;
 
     procedure UpdateSonarList;
 
   public
-    AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, btn Cancel di summary menyala}
-    property SelectedVehicle : TVehicle_Definition read FSelectedVehicle write FSelectedVehicle;
+    property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
   end;
 
 var
@@ -56,7 +56,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmSonarMount{, tttData};
+  uDataModule, ufrmSonarMount;
 
 {$R *.dfm}
 
@@ -87,59 +87,57 @@ end;
 
 procedure TfrmSonarOnBoardPickList.btnAddClick(Sender: TObject);
 begin
-//  if lbAllSonarDef.ItemIndex = -1 then
-//    Exit;
-//
-//  frmSonarMount := TfrmSonarMount.Create(Self);
-//  try
-//    with frmSonarMount do
-//    begin
-//      SelectedVehicle := FSelectedVehicle;
-//      SelectedSonar := FSelectedSonar;
-//      ShowModal;
-//    end;
-//    AfterClose := frmSonarMount.AfterClose;
-//  finally
-//    frmSonarMount.Free;
-//  end;
-//
+  if lbAllSonarDef.ItemIndex = -1 then
+    Exit;
+
+  if not Assigned(frmSonarMount) then
+    frmSonarMount := TfrmSonarMount.Create(Self);
+
+  try
+    with frmSonarMount do
+    begin
+      SelectedVehicle := FSelectedVehicle;
+      SelectedSonar := FSelectedSonar;
+      Show;
+    end;
+  finally
+  end;
+
 //  UpdateSonarList;
 end;
 
 procedure TfrmSonarOnBoardPickList.btnEditClick(Sender: TObject);
 begin
-//  if lbAllSonarOnBoard.ItemIndex = -1 then
-//    Exit;
-//
-//  frmSonarMount := TfrmSonarMount.Create(Self);
-//  try
-//    with frmSonarMount do
-//    begin
-//      SelectedVehicle := FSelectedVehicle;
-//      SelectedSonar := FSelectedSonar;
-//      ShowModal;
-//    end;
-//    AfterClose := frmSonarMount.AfterClose;
-//  finally
-//    frmSonarMount.Free;
-//  end;
-//
+  if lbAllSonarOnBoard.ItemIndex = -1 then
+    Exit;
+
+  if not Assigned(frmSonarMount) then
+    frmSonarMount := TfrmSonarMount.Create(Self);
+
+  try
+    with frmSonarMount do
+    begin
+      SelectedVehicle := FSelectedVehicle;
+      SelectedSonar := FSelectedSonar;
+      Show;
+    end;
+  finally
+  end;
+
 //  UpdateSonarList;
 end;
 
 procedure TfrmSonarOnBoardPickList.btnRemoveClick(Sender: TObject);
 begin
-//  if lbAllSonarOnBoard.ItemIndex = -1 then
-//    Exit;
-//
-//  with FSelectedSonar.FData do
-//  begin
-//    dmTTT.DeleteBlindZone(Ord(bzcSonar), Sonar_Instance_Index);
-//    dmTTT.DeleteSonarOnBoard(2, Sonar_Instance_Index);
-//  end;
-//
-//  AfterClose := True;
-//  UpdateSonarList;
+  if lbAllSonarOnBoard.ItemIndex = -1 then
+    Exit;
+
+  with FSelectedSonar.FData do
+  begin
+    dmINWO.DeleteSonarOnBoard(2, Sonar_Instance_Index);
+  end;
+
+  UpdateSonarList;
 end;
 
 procedure TfrmSonarOnBoardPickList.btnCloseClick(Sender: TObject);
@@ -149,42 +147,42 @@ end;
 
 procedure TfrmSonarOnBoardPickList.lbAllSonarDefClick(Sender: TObject);
 begin
-//  if lbAllSonarDef.ItemIndex = -1 then
-//    Exit;
-//
-//  FSelectedSonar := TSonar_On_Board(lbAllSonarDef.Items.Objects[lbAllSonarDef.ItemIndex]);
+  if lbAllSonarDef.ItemIndex = -1 then
+    Exit;
+
+  FSelectedSonar := TSonar_On_Board(lbAllSonarDef.Items.Objects[lbAllSonarDef.ItemIndex]);
 end;
 
 procedure TfrmSonarOnBoardPickList.lbAllSonarOnBoardClick(Sender: TObject);
 begin
-//  if lbAllSonarOnBoard.ItemIndex = -1 then
-//    Exit;
-//
-//  FSelectedSonar := TSonar_On_Board(lbAllSonarOnBoard.Items.Objects[lbAllSonarOnBoard.ItemIndex]);
+  if lbAllSonarOnBoard.ItemIndex = -1 then
+    Exit;
+
+  FSelectedSonar := TSonar_On_Board(lbAllSonarOnBoard.Items.Objects[lbAllSonarOnBoard.ItemIndex]);
 end;
 
 procedure TfrmSonarOnBoardPickList.UpdateSonarList;
-//var
-//  i : Integer;
-//  sonar : TSonar_On_Board;
+var
+  i : Integer;
+  sonar : TSonar_On_Board;
 begin
-//  lbAllSonarDef.Items.Clear;
-//  lbAllSonarOnBoard.Items.Clear;
-//
-//  dmTTT.GetAllSonarDef(FAllSonarDefList);
-//  dmTTT.GetSonarOnBoard(FSelectedVehicle.FData.Vehicle_Index,FAllSonarOnBoardList);
-//
-//  for i := 0 to FAllSonarDefList.Count - 1 do
-//  begin
-//    sonar := FAllSonarDefList.Items[i];
-//    lbAllSonarDef.Items.AddObject(sonar.FDef.Sonar_Identifier, sonar);
-//  end;
-//
-//  for i := 0 to FAllSonarOnBoardList.Count - 1 do
-//  begin
-//    sonar := FAllSonarOnBoardList.Items[i];
-//    lbAllSonarOnBoard.Items.AddObject(sonar.FData.Instance_Identifier, sonar);
-//  end;
+  lbAllSonarDef.Items.Clear;
+  lbAllSonarOnBoard.Items.Clear;
+
+  dmINWO.GetAllSonarDef(FAllSonarDefList);
+  dmINWO.GetSonarOnBoard(FSelectedVehicle.FData.VehicleIndex,FAllSonarOnBoardList);
+
+  for i := 0 to FAllSonarDefList.Count - 1 do
+  begin
+    sonar := FAllSonarDefList.Items[i];
+    lbAllSonarDef.Items.AddObject(sonar.FDef.Sonar_Identifier, sonar);
+  end;
+
+  for i := 0 to FAllSonarOnBoardList.Count - 1 do
+  begin
+    sonar := FAllSonarOnBoardList.Items[i];
+    lbAllSonarOnBoard.Items.AddObject(sonar.FData.Instance_Identifier, sonar);
+  end;
 end;
 
 {$ENDREGION}

@@ -4,9 +4,9 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ExtCtrls, ComCtrls, Vcl.Imaging.pngimage, uBaseCoordSystem{,
-  uDBBlind_Zone, uBlindZoneView, uDBAsset_Vehicle, tttData,
-  uDBAsset_Fitted, uDBAsset_Weapon};
+  Dialogs, StdCtrls, ExtCtrls, ComCtrls, Vcl.Imaging.pngimage, uBaseCoordSystem,
+
+  uDBAsset_Weapon, uClassData, uSimContainers;
 
 type
   TfrmGunMount = class(TForm)
@@ -43,29 +43,26 @@ type
     procedure ValidationFormatInput();
 
     procedure cbMountExtensionChange(Sender: TObject);
-    procedure pnlBlindZoneClick(Sender: TObject);
 
     procedure btnOKClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
     procedure btnApplyClick(Sender: TObject);
 
   private
-//    FSelectedVehicle : TVehicle_Definition;
-//    FSelectedGun : TGun_Definition;
-//
+    FSelectedVehicle : TAsset;
+    FSelectedGun : TGun_On_Board;
+
 //    FBlindZoneView : TBlindZoneView;
 
     function CekInput: Boolean;
     procedure UpdateGunData;
-    procedure DrawBlindZone;
+//    procedure DrawBlindZone;
 
   public
-    isOK  : Boolean; {Penanda jika gagal cek input, btn OK tidak langsung close}
-    AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, btn Cancel di summary menyala}
     LastName : string;
 
-//    property SelectedVehicle : TVehicle_Definition read FSelectedVehicle write FSelectedVehicle;
-//    property SelectedGun : TGun_Definition read FSelectedGun write FSelectedGun;
+    property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
+    property SelectedGun : TGun_On_Board read FSelectedGun write FSelectedGun;
   end;
 
 var
@@ -103,14 +100,12 @@ end;
 
 procedure TfrmGunMount.FormShow(Sender: TObject);
 begin
-//  UpdateGunData;
-//
-//  with FSelectedGun.FData do
-//    btnApply.Enabled := Gun_Index = 0;
-//
-//  isOK := True;
-//  AfterClose := True;
-//  btnCancel.Enabled := True;
+  UpdateGunData;
+
+  with FSelectedGun.FData do
+    btnApply.Enabled := Gun_Index = 0;
+
+  btnCancel.Enabled := True;
 end;
 
 {$ENDREGION}
@@ -122,45 +117,40 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
-  if isOk then
     Close;
 end;
 
 procedure TfrmGunMount.btnApplyClick(Sender: TObject);
 begin
-//  if not CekInput then
-//  begin
-//    isOK := False;
-//    Exit;
-//  end;
-//
-//  ValidationFormatInput;
-//
-//  with FSelectedGun do
-//  begin
-//    LastName := edtName.Text;
-//    FPoint.FData.Instance_Identifier := edtName.Text;
-//    FPoint.FData.Vehicle_Index := FSelectedVehicle.FData.Vehicle_Index;
-//    FPoint.FData.Mount_Type := cbMountExtension.ItemIndex;
-//    FPoint.FData.Quantity := StrToInt(edtQuantity.Text);
-////    FPoint.FData.TurretID := StrToInt(edtTurretID.Text);
-//    FPoint.FData.Gun_Index := FData.Gun_Index;
-//
-//    if FPoint.FData.Point_Effect_Index = 0 then
-//      dmTTT.InsertPointEffectOnBoard(1, FPoint.FData)
-//    else
-//      dmTTT.UpdatePointEffectOnBoard(1, FPoint.FData)
-//  end;
-//
-//  isOK := True;
-//  AfterClose := True;
-//  btnApply.Enabled := False;
-//  btnCancel.Enabled := False;
+  if not CekInput then
+  begin
+    Exit;
+  end;
+
+  ValidationFormatInput;
+
+  with FSelectedGun do
+  begin
+    LastName := edtName.Text;
+    FData.Instance_Identifier := edtName.Text;
+    FData.Vehicle_Index := FSelectedVehicle.FData.VehicleIndex;
+    FData.Mount_Type := cbMountExtension.ItemIndex;
+    FData.Quantity := StrToInt(edtQuantity.Text);
+//    FPoint.FData.TurretID := StrToInt(edtTurretID.Text);
+    FData.Gun_Index := FData.Gun_Index;
+
+    if FData.Point_Effect_Index = 0 then
+      dmINWO.InsertPointEffectOnBoard(1, FData)
+    else
+      dmINWO.UpdatePointEffectOnBoard(1, FData)
+  end;
+
+  btnApply.Enabled := False;
+  btnCancel.Enabled := False;
 end;
 
 procedure TfrmGunMount.btnCancelClick(Sender: TObject);
 begin
-  AfterClose := False;
   Close;
 end;
 
@@ -174,123 +164,46 @@ end;
 
 function TfrmGunMount.CekInput: Boolean;
 begin
-//  Result := False;
-//
-//  {Jika Mount Name sudah ada}
-//  if dmTTT.GetPointEffectOnBoardCount(FSelectedVehicle.FData.Vehicle_Index, edtName.Text) then
-//  begin
-//    {Jika inputan baru}
-//    if FSelectedGun.FPoint.FData.Point_Effect_Index = 0 then
-//    begin
-//      ShowMessage('Duplicate radar mount!' + Char(13) +
-//      'Choose different name to continue.');
-//      Exit;
-//    end
-//    else if LastName <> edtName.Text then
-//    begin
-//      ShowMessage('Please use another class name');
-//      Exit;
-//    end;
-//  end;
-//
-//  Result := True;
-end;
+  Result := False;
 
-procedure TfrmGunMount.DrawBlindZone;
-var
-  i : Integer;
-//  blindZone : TBlind_Zone;
-//  zoneSector : TZoneSector;
+  {Jika Mount Name sudah ada}
+  if dmINWO.GetPointEffectOnBoardCount(FSelectedVehicle.FData.VehicleIndex, edtName.Text) then
+  begin
+    {Jika inputan baru}
+    if FSelectedGun.FData.Point_Effect_Index = 0 then
+    begin
+      ShowMessage('Duplicate radar mount!' + Char(13) +
+      'Choose different name to continue.');
+      Exit;
+    end
+    else if LastName <> edtName.Text then
+    begin
+      ShowMessage('Please use another class name');
+      Exit;
+    end;
+  end;
 
-begin
-//  FBlindZoneView.ClearZone;
-//
-//  with FSelectedGun.FPoint do
-//  begin
-//    dmTTT.GetBlindZone(Ord(bzcPointEffect), FData.Point_Effect_Index, FBlind);
-//
-//    blindZone := TBlind_Zone.Create;
-//    FBZone_1 := blindZone.FData;
-//    FBZone_2 := blindZone.FData;
-//    blindZone.Free;
-//
-//    for i := 0 to FBlind.Count - 1 do
-//    begin
-//      blindZone := FBlind.Items[i];
-//
-//      case blindZone.FData.BlindZone_Number of
-//        1: FBZone_1 := blindZone.FData;
-//        2: FBZone_2 := blindZone.FData;
-//      end;
-//    end;
-//
-//    if (FBZone_1.BlindZone_Number <> 0) and
-//      (FBZone_1.Start_Angle <> FBZone_1.End_Angle) then
-//    begin
-//      zoneSector := FBlindZoneView.AddZone;
-//      zoneSector.StartAngle := FBZone_1.Start_Angle;
-//      zoneSector.EndAngle := FBZone_1.End_Angle;
-//    end;
-//
-//    if (FBZone_2.BlindZone_Number <> 0) and
-//      (FBZone_2.Start_Angle <> FBZone_2.End_Angle) then
-//    begin
-//      zoneSector := FBlindZoneView.AddZone;
-//      zoneSector.StartAngle := FBZone_2.Start_Angle;
-//      zoneSector.EndAngle := FBZone_2.End_Angle;
-//    end;
-//  end;
-//
-//  FBlindZoneView.Repaint;
-end;
-
-procedure TfrmGunMount.pnlBlindZoneClick(Sender: TObject);
-begin
-//  if FSelectedGun.FPoint.FData.Point_Effect_Index = 0 then
-//  begin
-//    ShowMessage('Save data before edit blind zone ');
-//    Exit;
-//  end;
-//
-//  frmBlindZonesAttachment := TfrmBlindZonesAttachment.Create(Self);
-//  try
-//    with frmBlindZonesAttachment do
-//    begin
-//      OnBoardType := bzcPointEffect;
-//      OnBoardOwner := FSelectedGun;
-//      ShowModal;
-//    end;
-//
-//    btnApply.Enabled := frmBlindZonesAttachment.AfterClose;
-//    btnCancel.Enabled := not frmBlindZonesAttachment.AfterClose;
-//
-//  finally
-//    frmBlindZonesAttachment.Free;
-//  end;
-//
-//  DrawBlindZone;
+  Result := True;
 end;
 
 procedure TfrmGunMount.UpdateGunData;
 begin
-//  with FSelectedGun do
-//  begin
-//    cbMountExtension.ItemIndex := FPoint.FData.Mount_Type;
-//
-//    if FPoint.FData.Point_Effect_Index = 0 then
-//      edtName.Text := FData.Gun_Identifier + ' ' + cbMountExtension.Text
-//    else
-//      edtName.Text := FPoint.FData.Instance_Identifier;
-//
-//    LastName := edtName.Text;
-//    edtClassName.Caption := FData.Gun_Identifier;
-//
-//    DrawBlindZone;
-//
-//    edtQuantity.Text := FormatFloat('0', FPoint.FData.Quantity);
-////    edtTurretID.Text := FormatFloat('0', FPoint.FData.TurretID);
-//
-//  end;
+  with FSelectedGun do
+  begin
+    cbMountExtension.ItemIndex := FData.Mount_Type;
+
+    if FData.Point_Effect_Index = 0 then
+      edtName.Text := FDef.Gun_Identifier + ' ' + cbMountExtension.Text
+    else
+      edtName.Text := FData.Instance_Identifier;
+
+    LastName := edtName.Text;
+    edtClassName.Caption := FDef.Gun_Identifier;
+
+    edtQuantity.Text := FormatFloat('0', FData.Quantity);
+//    edtTurretID.Text := FormatFloat('0', FPoint.FData.TurretID);
+
+  end;
 end;
 
 {$ENDREGION}

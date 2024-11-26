@@ -4,7 +4,9 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ExtCtrls, StdCtrls,uDBAsset_Vehicle,uDBAsset_Sensor, Vcl.Imaging.pngimage, uSimContainers;
+  Dialogs, ExtCtrls, StdCtrls, Vcl.Imaging.pngimage,
+
+  uDBAsset_Sensor, uClassData, uSimContainers ;
 
 type
   TfrmESMOnBoardPickList = class(TForm)
@@ -39,15 +41,14 @@ type
     FAllESMDefList : TList;
     FAllESMOnBoardList : TList;
 
-    FSelectedVehicle : TVehicle_Definition;
+    FSelectedVehicle : TAsset;
     FSelectedESM : TESM_On_Board;
 
     procedure UpdateESMList;
 
   public
-    AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, btn Cancel di summary menyala}
-    property SelectedVehicle : TVehicle_Definition read FSelectedVehicle write FSelectedVehicle;
 
+    property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
   end;
 
 var
@@ -56,8 +57,7 @@ var
 implementation
 
 uses
-  uDataModule,ufrmESMMount{, tttData};
-
+  uDataModule,ufrmESMMount;
 
 {$R *.dfm}
 
@@ -87,59 +87,55 @@ end;
 
 procedure TfrmESMOnBoardPickList.btnAddClick(Sender: TObject);
 begin
-//  if lbAllESMDef.ItemIndex = -1 then
-//    Exit;
-//
-//  frmESMMount := TfrmESMMount.Create(Self);
-//  try
-//    with frmESMMount do
-//    begin
-//      SelectedVehicle := FSelectedVehicle;
-//      SelectedESM := FSelectedESM;
-//      ShowModal;
-//    end;
-//    AfterClose := frmESMMount.AfterClose;
-//  finally
-//    frmESMMount.Free;
-//  end;
-//
+  if lbAllESMDef.ItemIndex = -1 then
+    Exit;
+
+  if not Assigned(frmESMMount) then
+    frmESMMount := TfrmESMMount.Create(Self);
+  try
+    with frmESMMount do
+    begin
+      SelectedVehicle := FSelectedVehicle;
+      SelectedESM := FSelectedESM;
+      Show;
+    end;
+  finally
+  end;
+
 //  UpdateESMList;
 end;
 
 procedure TfrmESMOnBoardPickList.btnEditClick(Sender: TObject);
 begin
-//  if lbESMOnBoard.ItemIndex = -1 then
-//    Exit;
-//
-//  frmESMMount := TfrmESMMount.Create(Self);
-//  try
-//    with frmESMMount do
-//    begin
-//      SelectedVehicle := FSelectedVehicle;
-//      SelectedESM := FSelectedESM;
-//      ShowModal;
-//    end;
-//    AfterClose := frmESMMount.AfterClose;
-//  finally
-//    frmESMMount.Free;
-//  end;
-//
+  if lbESMOnBoard.ItemIndex = -1 then
+    Exit;
+
+  if not Assigned(frmESMMount) then
+    frmESMMount := TfrmESMMount.Create(Self);
+  try
+    with frmESMMount do
+    begin
+      SelectedVehicle := FSelectedVehicle;
+      SelectedESM := FSelectedESM;
+      Show;
+    end;
+  finally
+  end;
+
 //  UpdateESMList;
 end;
 
 procedure TfrmESMOnBoardPickList.btnRemoveClick(Sender: TObject);
 begin
-//  if lbESMOnBoard.ItemIndex = -1 then
-//    Exit;
-//
-//  with FSelectedESM.FData do
-//  begin
-//    dmTTT.DeleteBlindZone(Ord(bzcESM), ESM_Instance_Index);
-//    dmTTT.DeleteESMOnBoard(2, ESM_Instance_Index);
-//  end;
-//
-//  AfterClose := True;
-//  UpdateESMList;
+  if lbESMOnBoard.ItemIndex = -1 then
+    Exit;
+
+  with FSelectedESM.FData do
+  begin
+    dmINWO.DeleteESMOnBoard(2, ESM_Instance_Index);
+  end;
+
+  UpdateESMList;
 end;
 
 procedure TfrmESMOnBoardPickList.btnCloseClick(Sender: TObject);
@@ -164,27 +160,27 @@ begin
 end;
 
 procedure TfrmESMOnBoardPickList.UpdateESMList;
-//var
-//  i : Integer;
-//  esm : TESM_On_Board;
+var
+  i : Integer;
+  esm : TESM_On_Board;
 begin
-//  lbAllESMDef.Items.Clear;
-//  lbESMOnBoard.Items.Clear;
-//
-//  dmTTT.GetAllESMDef(FAllESMDefList);
-//  dmTTT.GetESMOnBoard(FSelectedVehicle.FData.Vehicle_Index,FAllESMOnBoardList);
-//
-//  for i := 0 to FAllESMDefList.Count - 1 do
-//  begin
-//    esm := FAllESMDefList.Items[i];
-//    lbAllESMDef.Items.AddObject(esm.FESM_Def.Class_Identifier, esm);
-//  end;
-//
-//  for i := 0 to FAllESMOnBoardList.Count - 1 do
-//  begin
-//    esm := FAllESMOnBoardList.Items[i];
-//    lbESMOnBoard.Items.AddObject(esm.FData.Instance_Identifier, esm);
-//  end;
+  lbAllESMDef.Items.Clear;
+  lbESMOnBoard.Items.Clear;
+
+  dmINWO.GetAllESMDef(FAllESMDefList);
+  dmINWO.GetESMOnBoard(FSelectedVehicle.FData.VehicleIndex,FAllESMOnBoardList);
+
+  for i := 0 to FAllESMDefList.Count - 1 do
+  begin
+    esm := FAllESMDefList.Items[i];
+    lbAllESMDef.Items.AddObject(esm.FDef.class_Identifier, esm);
+  end;
+
+  for i := 0 to FAllESMOnBoardList.Count - 1 do
+  begin
+    esm := FAllESMOnBoardList.Items[i];
+    lbESMOnBoard.Items.AddObject(esm.FData.Instance_Identifier, esm);
+  end;
 end;
 
 {$ENDREGION}

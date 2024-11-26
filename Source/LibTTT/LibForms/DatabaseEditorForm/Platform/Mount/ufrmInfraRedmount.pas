@@ -4,8 +4,9 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ComCtrls, StdCtrls, ExtCtrls, {uDBAsset_Vehicle,
-  uDBAsset_Countermeasure,} Vcl.Imaging.pngimage;
+  Dialogs, ComCtrls, StdCtrls, ExtCtrls, Vcl.Imaging.pngimage,
+
+  uDBAsset_Countermeasure, uClassData, uSimContainers;
 
 type
   TfrmInfraredmount = class(TForm)
@@ -36,19 +37,19 @@ type
     procedure btnCancelClick(Sender: TObject);
     procedure btnApplyClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+
   private
-//    FSelectedVehicle : TVehicle_Definition;
-//    FSelectedInfraredDecoy : TInfrared_Decoy_On_Board;
+    FSelectedVehicle : TAsset;
+    FSelectedInfraredDecoy : TInfrared_Decoy_On_Board;
 
     function CekInput: Boolean;
     procedure UpdateInfraredDecoyData;
+
   public
-    isOK  : Boolean; {Penanda jika gagal cek input, btn OK tidak langsung close}
-    AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, btn Cancel di summary menyala}
     LastName : string;
 
-//    property SelectedVehicle : TVehicle_Definition read FSelectedVehicle write FSelectedVehicle;
-//    property SelectedInfraredDecoy : TInfrared_Decoy_On_Board read FSelectedInfraredDecoy write FSelectedInfraredDecoy;
+    property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
+    property SelectedInfraredDecoy : TInfrared_Decoy_On_Board read FSelectedInfraredDecoy write FSelectedInfraredDecoy;
 
   end;
 
@@ -71,14 +72,12 @@ end;
 
 procedure TfrmInfraredmount.FormShow(Sender: TObject);
 begin
-//  UpdateInfraredDecoyData;
-//
-//  with FSelectedInfraredDecoy.FData do
-//    btnApply.Enabled := Infrared_Decoy_Instance_Index = 0;
-//
-//  isOK := True;
-//  AfterClose := True;
-//  btnCancel.Enabled := True;
+  UpdateInfraredDecoyData;
+
+  with FSelectedInfraredDecoy.FData do
+    btnApply.Enabled := Infrared_Decoy_Instance_Index = 0;
+
+  btnCancel.Enabled := True;
 end;
 
 {$ENDREGION}
@@ -90,45 +89,40 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
-  if isOk then
     Close;
 end;
 
 procedure TfrmInfraredmount.btnApplyClick(Sender: TObject);
 begin
-//  if not CekInput then
-//  begin
-//    isOK := False;
-//    Exit;
-//  end;
-//
-//  ValidationFormatInput;
-//
-//  with FSelectedInfraredDecoy do
-//  begin
-//    LastName := edtName.Text;
-//
-//    FData.Instance_Identifier := edtName.Text;
-//    FData.Instance_Type := 1;
-//    FData.Infrared_Decoy_Qty_On_Board := StrToInt(edtQuantity.Text);
-//    FData.Vehicle_Index := FSelectedVehicle.FData.Vehicle_Index;
-//    FData.Infrared_Decoy_Index := FInfraRedDecoy_Def.Infrared_Decoy_Index;
-//
-//    if FData.Infrared_Decoy_Instance_Index = 0 then
-//      dmTTT.InsertInfraredDecoyOnBoard(FData)
-//    else
-//      dmTTT.UpdateInfraredDecoyOnBoard(FData);
-//  end;
-//
-//  isOK := True;
-//  AfterClose := True;
-//  btnApply.Enabled := False;
-//  btnCancel.Enabled := False;
+  if not CekInput then
+  begin
+    Exit;
+  end;
+
+  ValidationFormatInput;
+
+  with FSelectedInfraredDecoy do
+  begin
+    LastName := edtName.Text;
+
+    FData.Instance_Identifier := edtName.Text;
+    FData.Instance_Type := 1;
+    FData.Infrared_Decoy_Qty_On_Board := StrToInt(edtQuantity.Text);
+    FData.Vehicle_Index := FSelectedVehicle.FData.VehicleIndex;
+    FData.Infrared_Decoy_Index := FDef.Infrared_Decoy_Index;
+
+    if FData.Infrared_Decoy_Instance_Index = 0 then
+      dmINWO.InsertInfraredDecoyOnBoard(FData)
+    else
+      dmINWO.UpdateInfraredDecoyOnBoard(FData);
+  end;
+
+  btnApply.Enabled := False;
+  btnCancel.Enabled := False;
 end;
 
 procedure TfrmInfraredmount.btnCancelClick(Sender: TObject);
 begin
-  AfterClose := False;
   Close;
 end;
 
@@ -137,7 +131,7 @@ begin
 //  Result := False;
 //
 //  {Jika Mount Name sudah ada}
-//  if dmTTT.GetInfraredDecoyOnBoardCount(FSelectedVehicle.FData.Vehicle_Index, edtName.Text) then
+//  if dmINWO.GetInfraredDecoyOnBoardCount(FSelectedVehicle.FData.Vehicle_Index, edtName.Text) then
 //  begin
 //    {Jika inputan baru}
 //    if FSelectedInfraredDecoy.FData.Infrared_Decoy_Instance_Index = 0 then

@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, StdCtrls, Vcl.Imaging.pngimage,
-  uDBAsset_Vehicle, uDBAsset_Countermeasure, uSimContainers ;
+
+  uClassData, uDBAsset_Countermeasure, uSimContainers ;
 
 type
   TfrmRadarNoiseJammerOnBoardPickList = class(TForm)
@@ -40,14 +41,13 @@ type
     FAllRadarJammerDefList : TList;
     FAllRadarJammerOnBoardList : TList;
 
-    FSelectedVehicle : TVehicle_Definition;
+    FSelectedVehicle : TAsset;
     FSelectedRadarJammer : TRadar_Noise_Jammer_On_Board;
 
     procedure UpdateRadarJammerList;
 
   public
-    AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, btn Cancel di summary menyala}
-    property SelectedVehicle : TVehicle_Definition read FSelectedVehicle write FSelectedVehicle;
+    property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
 
   end;
 
@@ -87,43 +87,41 @@ end;
 
 procedure TfrmRadarNoiseJammerOnBoardPickList.btnAddClick(Sender: TObject);
 begin
-//  if lbAllRadarJammerDef.ItemIndex = -1 then
-//    Exit;
-//
-//  frmRadarJammerMount := TfrmRadarJammerMount.Create(Self);
-//  try
-//    with frmRadarJammerMount do
-//    begin
-//      SelectedVehicle := FSelectedVehicle;
-//      SelectedRadarJammer := FSelectedRadarJammer;
-//      ShowModal;
-//    end;
-//    AfterClose := frmRadarJammerMount.AfterClose;
-//  finally
-//    frmRadarJammerMount.Free;
-//  end;
-//
+  if lbAllRadarJammerDef.ItemIndex = -1 then
+    Exit;
+
+  if not Assigned(frmRadarJammerMount) then
+    frmRadarJammerMount := TfrmRadarJammerMount.Create(Self);
+  try
+    with frmRadarJammerMount do
+    begin
+      SelectedVehicle := FSelectedVehicle;
+      SelectedRadarJammer := FSelectedRadarJammer;
+      Show;
+    end;
+  finally
+  end;
+
 //  UpdateRadarJammerList;
 end;
 
 procedure TfrmRadarNoiseJammerOnBoardPickList.btnEditClick(Sender: TObject);
 begin
-//  if lbAllRadarJammerOnBoard.ItemIndex = -1 then
-//    Exit;
-//
-//  frmRadarJammerMount := TfrmRadarJammerMount.Create(Self);
-//  try
-//    with frmRadarJammerMount do
-//    begin
-//      SelectedVehicle := FSelectedVehicle;
-//      SelectedRadarJammer := FSelectedRadarJammer;
-//      ShowModal;
-//    end;
-//    AfterClose := frmRadarJammerMount.AfterClose;
-//  finally
-//    frmRadarJammerMount.Free;
-//  end;
-//
+  if lbAllRadarJammerOnBoard.ItemIndex = -1 then
+    Exit;
+
+  if not Assigned(frmRadarJammerMount) then
+    frmRadarJammerMount := TfrmRadarJammerMount.Create(Self);
+  try
+    with frmRadarJammerMount do
+    begin
+      SelectedVehicle := FSelectedVehicle;
+      SelectedRadarJammer := FSelectedRadarJammer;
+      Show;
+    end;
+  finally
+  end;
+
 //  UpdateRadarJammerList;
 end;
 
@@ -134,7 +132,7 @@ begin
 //
 //  with FSelectedRadarJammer.FData do
 //  begin
-//    dmTTT.DeleteRadarNoiseJammerOnBoard(2, Jammer_Instance_Index);
+//    dmINWO.DeleteRadarNoiseJammerOnBoard(2, Jammer_Instance_Index);
 //  end;
 //
 //  AfterClose := True;
@@ -170,8 +168,8 @@ begin
 //  lbAllRadarJammerDef.Items.Clear;
 //  lbAllRadarJammerOnBoard.Items.Clear;
 //
-//  dmTTT.GetAllRadarNoiseJammerDef(FAllRadarJammerDefList);
-//  dmTTT.GetRadarNoiseJammerOnBoard(FSelectedVehicle.FData.Vehicle_Index,FAllRadarJammerOnBoardList);
+//  dmINWO.GetAllRadarNoiseJammerDef(FAllRadarJammerDefList);
+//  dmINWO.GetRadarNoiseJammerOnBoard(FSelectedVehicle.FData.VehicleIndex,FAllRadarJammerOnBoardList);
 //
 //  for i := 0 to FAllRadarJammerDefList.Count - 1 do
 //  begin

@@ -4,9 +4,9 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ExtCtrls, ComCtrls, Vcl.Imaging.pngimage, uBaseCoordSystem,
-  {uDBBlind_Zone, uBlindZoneView, uDBAsset_Vehicle, tttData,
-  uDBAsset_Fitted, uDBAsset_Weapon,} Vcl.Mask ;
+  Dialogs, StdCtrls, ExtCtrls, ComCtrls, Vcl.Imaging.pngimage, uBaseCoordSystem, Vcl.Mask,
+
+  uDBAsset_Weapon, uClassData, uSimContainers ;
 
 type
   TfrmMissileMount = class(TForm)
@@ -45,7 +45,7 @@ type
     procedure ValidationFormatInput();
 
     procedure cbMountExtensionChange(Sender: TObject);
-    procedure pnlBlindZoneClick(Sender: TObject);
+//    procedure pnlBlindZoneClick(Sender: TObject);
 
     procedure btnOKClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
@@ -54,22 +54,18 @@ type
 
 
   private
-//    FSelectedVehicle : TVehicle_Definition;
-//    FSelectedMissile : TMissile_On_Board;
-
-//    FBlindZoneView : TBlindZoneView;
+    FSelectedVehicle : TAsset;
+    FSelectedMissile : TMissile_On_Board;
 
     function CekInput: Boolean;
     procedure UpdateMissileData;
-    procedure DrawBlindZone;
+//    procedure DrawBlindZone;
 
   public
-    isOK  : Boolean; {Penanda jika gagal cek input, btn OK tidak langsung close}
-    AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, btn Cancel di summary menyala}
     LastName : string;
 
-//    property SelectedVehicle : TVehicle_Definition read FSelectedVehicle write FSelectedVehicle;
-//    property SelectedMissile : TMissile_On_Board read FSelectedMissile write FSelectedMissile;
+    property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
+    property SelectedMissile : TMissile_On_Board read FSelectedMissile write FSelectedMissile;
   end;
 
 var
@@ -78,8 +74,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmBlindZoneAttachment, ufrmLauncherList{,
-  newClassASTT};
+  uDataModule, ufrmBlindZoneAttachment;
 
 {$R *.dfm}
 
@@ -108,14 +103,12 @@ end;
 
 procedure TfrmMissileMount.FormShow(Sender: TObject);
 begin
-//  UpdateMissileData;
-//
-//  with FSelectedMissile.FData do
-//    btnApply.Enabled := Fitted_Weap_Index = 0;
-//
-//  isOK := True;
-//  AfterClose := True;
-//  btnCancel.Enabled := True;
+  UpdateMissileData;
+
+  with FSelectedMissile.FData do
+    btnApply.Enabled := Fitted_Weap_Index = 0;
+
+  btnCancel.Enabled := True;
 end;
 
 {$ENDREGION}
@@ -127,51 +120,48 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
-  if isOk then
     Close;
 end;
 
 procedure TfrmMissileMount.btnApplyClick(Sender: TObject);
 var
   reloadTime : Integer;
+
 begin
-//  if not CekInput then
-//  begin
-//    isOK := False;
-//    Exit;
-//  end;
-//
-//  ValidationFormatInput;
-//
-//  with FSelectedMissile do
-//  begin
-//    LastName := edtName.Text;
-//    FData.Instance_Identifier := edtName.Text;
-//    FData.Vehicle_Index := FSelectedVehicle.FData.Vehicle_Index;
-//    FData.Mount_Type := cbMountExtension.ItemIndex;
-//    FData.Quantity := StrToInt(edtQuantity.Text);
-//
-//    TimeToSecond(edtReload.Text, reloadTime);
-//    FData.Firing_Delay := reloadTime;
-//
-//    FData.Missile_Index := FDef.Missile_Index;
-//
-//    if FData.Fitted_Weap_Index = 0 then
-//      dmTTT.InsertFittedWeaponOnBoard(1, FData)
-//    else
-//      dmTTT.UpdateFittedWeaponOnBoard(1, FData);
-//  end;
-//
+  if not CekInput then
+  begin
+    Exit;
+  end;
+
+  ValidationFormatInput;
+
+  with FSelectedMissile do
+  begin
+    LastName := edtName.Text;
+    FData.Instance_Identifier := edtName.Text;
+    FData.Vehicle_Index := FSelectedVehicle.FData.VehicleIndex;
+    FData.Mount_Type := cbMountExtension.ItemIndex;
+    FData.Quantity := StrToInt(edtQuantity.Text);
+
+    TimeToSecond(edtReload.Text, reloadTime);
+    FData.Firing_Delay := reloadTime;
+
+    FData.Missile_Index := FDef.Missile_Index;
+
+    if FData.Fitted_Weap_Index = 0 then
+      dmINWO.InsertFittedWeaponOnBoard(1, FData)
+    else
+      dmINWO.UpdateFittedWeaponOnBoard(1, FData);
+  end;
+
 //  UpdateMissileData;
-//
-//  isOK := True;
-//  btnApply.Enabled := False;
-//  btnCancel.Enabled := False;
+
+  btnApply.Enabled := False;
+  btnCancel.Enabled := False;
 end;
 
 procedure TfrmMissileMount.btnCancelClick(Sender: TObject);
 begin
-  AfterClose := False;
   Close;
 end;
 
@@ -204,100 +194,25 @@ end;
 
 function TfrmMissileMount.CekInput: Boolean;
 begin
-//  Result := False;
-//
-//  {Jika Mount Name sudah ada}
-//  if dmTTT.GetFittedWeaponOnBoardCount(FSelectedVehicle.FData.Vehicle_Index, edtName.Text) then
-//  begin
-//    {Jika inputan baru}
-//    if FSelectedMissile.FData.Fitted_Weap_Index = 0 then
-//    begin
-//      ShowMessage('Duplicate missile mount!' + Char(13) + 'Choose different name to continue.');
-//      Exit;
-//    end
-//    else if LastName <> edtName.Text then
-//    begin
-//      ShowMessage('Please use another class name');
-//      Exit;
-//    end;
-//  end;
-//
-//  Result := True;
-end;
+  Result := False;
 
-procedure TfrmMissileMount.DrawBlindZone;
-var
-  i : Integer;
-//  blindZone : TBlind_Zone;
-//  zoneSector : TZoneSector;
+  {Jika Mount Name sudah ada}
+  if dmINWO.GetFittedWeaponOnBoardCount(FSelectedVehicle.FData.VehicleIndex, edtName.Text) then
+  begin
+    {Jika inputan baru}
+    if FSelectedMissile.FData.Fitted_Weap_Index = 0 then
+    begin
+      ShowMessage('Duplicate missile mount!' + Char(13) + 'Choose different name to continue.');
+      Exit;
+    end
+    else if LastName <> edtName.Text then
+    begin
+      ShowMessage('Please use another class name');
+      Exit;
+    end;
+  end;
 
-begin
-//  FBlindZoneView.ClearZone;
-//
-//  with FSelectedMissile do
-//  begin
-//    dmTTT.GetBlindZone(Ord(bzcWeapon), FData.Fitted_Weap_Index, FBlind);
-//
-//    blindZone := TBlind_Zone.Create;
-//    FBZone_1 := blindZone.FData;
-//    FBZone_2 := blindZone.FData;
-//    blindZone.Free;
-//
-//    for i := 0 to FBlind.Count - 1 do
-//    begin
-//      blindZone := FBlind.Items[i];
-//
-//      case blindZone.FData.BlindZone_Number of
-//        1: FBZone_1 := blindZone.FData;
-//        2: FBZone_2 := blindZone.FData;
-//      end;
-//    end;
-//
-//    if (FBZone_1.BlindZone_Number <> 0) and
-//      (FBZone_1.Start_Angle <> FBZone_1.End_Angle) then
-//    begin
-//      zoneSector := FBlindZoneView.AddZone;
-//      zoneSector.StartAngle := FBZone_1.Start_Angle;
-//      zoneSector.EndAngle := FBZone_1.End_Angle;
-//    end;
-//
-//    if (FBZone_2.BlindZone_Number <> 0) and
-//      (FBZone_2.Start_Angle <> FBZone_2.End_Angle) then
-//    begin
-//      zoneSector := FBlindZoneView.AddZone;
-//      zoneSector.StartAngle := FBZone_2.Start_Angle;
-//      zoneSector.EndAngle := FBZone_2.End_Angle;
-//    end;
-//  end;
-//
-//  FBlindZoneView.Repaint;
-end;
-
-procedure TfrmMissileMount.pnlBlindZoneClick(Sender: TObject);
-begin
-//  if FSelectedMissile.FData.Fitted_Weap_Index = 0 then
-//  begin
-//    ShowMessage('Save data before edit blind zone ');
-//    Exit;
-//  end;
-//
-//  frmBlindZonesAttachment := TfrmBlindZonesAttachment.Create(Self);
-//  try
-//    with frmBlindZonesAttachment do
-//    begin
-//      OnBoardType := bzcWeapon;
-//      OnBoardOwner := FSelectedMissile;
-//      ShowModal;
-//    end;
-//
-//    btnApply.Enabled := frmBlindZonesAttachment.AfterClose;
-//    btnCancel.Enabled := not frmBlindZonesAttachment.AfterClose;
-//
-//  finally
-//    frmBlindZonesAttachment.Free;
-//  end;
-//
-//  DrawBlindZone;
+  Result := True;
 end;
 
 procedure TfrmMissileMount.UpdateMissileData;

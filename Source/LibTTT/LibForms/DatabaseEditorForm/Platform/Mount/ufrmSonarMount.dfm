@@ -14242,6 +14242,7 @@ object frmSonarMount: TfrmSonarMount
           Width = 66
           Height = 15
           Caption = 'Blind Zones :'
+          Visible = False
         end
         object lbl5: TLabel
           Left = 104
@@ -14249,6 +14250,7 @@ object frmSonarMount: TfrmSonarMount
           Width = 148
           Height = 15
           Caption = 'Hull-Mounted Sonar Depth :'
+          Visible = False
         end
         object lbl6: TLabel
           Left = 104
@@ -14256,6 +14258,7 @@ object frmSonarMount: TfrmSonarMount
           Width = 71
           Height = 15
           Caption = 'Deploy Time :'
+          Visible = False
         end
         object lbl7: TLabel
           Left = 104
@@ -14263,6 +14266,7 @@ object frmSonarMount: TfrmSonarMount
           Width = 61
           Height = 15
           Caption = 'Stow Time :'
+          Visible = False
         end
         object lbl8: TLabel
           Left = 327
@@ -14270,6 +14274,7 @@ object frmSonarMount: TfrmSonarMount
           Width = 20
           Height = 15
           Caption = 'feet'
+          Visible = False
         end
         object lbl9: TLabel
           Left = 327
@@ -14277,6 +14282,7 @@ object frmSonarMount: TfrmSonarMount
           Width = 36
           Height = 15
           Caption = 'second'
+          Visible = False
         end
         object lbl10: TLabel
           Left = 327
@@ -14284,6 +14290,7 @@ object frmSonarMount: TfrmSonarMount
           Width = 36
           Height = 15
           Caption = 'second'
+          Visible = False
         end
         object edtClassName: TLabel
           Left = 81
@@ -14321,6 +14328,7 @@ object frmSonarMount: TfrmSonarMount
           Height = 23
           TabOrder = 1
           Text = '0'
+          Visible = False
           OnChange = edtChange
           OnKeyPress = edtNumeralKeyPress
         end
@@ -14332,6 +14340,7 @@ object frmSonarMount: TfrmSonarMount
           NumbersOnly = True
           TabOrder = 2
           Text = '0'
+          Visible = False
           OnChange = edtChange
           OnKeyPress = edtNumeralKeyPress
         end
@@ -14343,6 +14352,7 @@ object frmSonarMount: TfrmSonarMount
           NumbersOnly = True
           TabOrder = 3
           Text = '0'
+          Visible = False
           OnChange = edtChange
           OnKeyPress = edtNumeralKeyPress
         end
@@ -14352,6 +14362,7 @@ object frmSonarMount: TfrmSonarMount
           Width = 66
           Height = 65
           TabOrder = 4
+          Visible = False
           OnClick = pnlBlindZoneClick
         end
       end

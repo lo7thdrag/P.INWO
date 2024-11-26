@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, StdCtrls, Vcl.Imaging.pngimage,
-  uDBAsset_Vehicle, uDBAsset_Countermeasure, uSimContainers ;
+
+  uClassData, uDBAsset_Countermeasure, uSimContainers ;
 
 type
   TfrmInfraredDecoyOnBoardPickList = class(TForm)
@@ -39,15 +40,13 @@ type
     FAllInfraredDecoyDefList : TList;
     FAllInfraredDecoyOnBoardList : TList;
 
-    FSelectedVehicle : TVehicle_Definition;
+    FSelectedVehicle : TAsset;
     FSelectedInfraredDecoy : TInfrared_Decoy_On_Board;
 
     procedure UpdateInfraredDecoyList;
 
   public
-    AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, btn Cancel di summary menyala}
-    property SelectedVehicle : TVehicle_Definition read FSelectedVehicle write FSelectedVehicle;
-
+    property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
   end;
 
 var
@@ -87,43 +86,41 @@ end;
 
 procedure TfrmInfraredDecoyOnBoardPickList.btnAddClick(Sender: TObject);
 begin
-//  if lbAllInfraredDecoyDef.ItemIndex = -1 then
-//    Exit;
-//
-//  frmInfraRedmount := TfrmInfraRedmount.Create(Self);
-//  try
-//    with frmInfraRedmount do
-//    begin
-//      SelectedVehicle := FSelectedVehicle;
-//      SelectedInfraredDecoy := FSelectedInfraredDecoy;
-//      ShowModal;
-//    end;
-//    AfterClose := frmInfraRedmount.AfterClose;
-//  finally
-//    frmInfraRedmount.Free;
-//  end;
-//
+  if lbAllInfraredDecoyDef.ItemIndex = -1 then
+    Exit;
+
+  if not Assigned(frmInfraredmount) then
+    frmInfraredmount := TfrmInfraredmount.Create(Self);
+  try
+    with frmInfraredmount do
+    begin
+      SelectedVehicle := FSelectedVehicle;
+      SelectedInfraredDecoy := FSelectedInfraredDecoy;
+      Show;
+    end;
+  finally
+  end;
+
 //  UpdateInfraredDecoyList;
 end;
 
 procedure TfrmInfraredDecoyOnBoardPickList.btnEditClick(Sender: TObject);
 begin
-//  if lbAllInfraredDecoyOnBoard.ItemIndex = -1 then
-//    Exit;
-//
-// frmInfraRedmount := TfrmInfraRedmount.Create(Self);
-//  try
-//    with frmInfraRedmount do
-//    begin
-//      SelectedVehicle := FSelectedVehicle;
-//      SelectedInfraredDecoy := FSelectedInfraredDecoy;
-//      ShowModal;
-//    end;
-//    AfterClose := frmInfraRedmount.AfterClose;
-//  finally
-//    frmInfraRedmount.Free;
-//  end;
-//
+  if lbAllInfraredDecoyOnBoard.ItemIndex = -1 then
+    Exit;
+
+ if not Assigned(frmInfraredmount) then
+    frmInfraredmount := TfrmInfraredmount.Create(Self);
+  try
+    with frmInfraRedmount do
+    begin
+      SelectedVehicle := FSelectedVehicle;
+      SelectedInfraredDecoy := FSelectedInfraredDecoy;
+      ShowModal;
+    end;
+  finally
+  end;
+
 //  UpdateInfraredDecoyList;
 end;
 
@@ -170,8 +167,8 @@ begin
 //  lbAllInfraredDecoyDef.Items.Clear;
 //  lbAllInfraredDecoyOnBoard.Items.Clear;
 //
-//  dmTTT.GetAllInfraredDecoyDef(FAllInfraredDecoyDefList);
-//  dmTTT.GetInfraredDecoyOnBoard(FSelectedVehicle.FData.Vehicle_Index,FAllInfraredDecoyOnBoardList);
+//  dmINWO.GetAllInfraredDecoyDef(FAllInfraredDecoyDefList);
+//  dmINWO.GetInfraredDecoyOnBoard(FSelectedVehicle.FData.VehicleIndex,FAllInfraredDecoyOnBoardList);
 //
 //  for i := 0 to FAllInfraredDecoyDefList.Count - 1 do
 //  begin

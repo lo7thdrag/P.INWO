@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, StdCtrls, Vcl.Imaging.pngimage,
-  uDBAsset_Vehicle, uDBAsset_Countermeasure, uSimContainers ;
+
+  uClassData, uDBAsset_Countermeasure, uSimContainers ;
 
 type
   TfrmTowedJammerDecoyOnBoardPickList = class(TForm)
@@ -40,15 +41,13 @@ type
     FAllTowedJammerDecoyDefList : TList;
     FAllTowedJammerDecoyOnBoardList : TList;
 
-    FSelectedVehicle : TVehicle_Definition;
-//    FSelectedTowedJammerDecoy : TTowed_Jammer_Decoy_On_Board;
+    FSelectedVehicle : TAsset;
+    FSelectedTowedJammerDecoy : TTowed_Decoy_On_Board;
 
     procedure UpdateTowedJammerDecoyList;
 
   public
-    AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, btn Cancel di summary menyala}
-    property SelectedVehicle : TVehicle_Definition read FSelectedVehicle write FSelectedVehicle;
-
+    property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
   end;
 
 var
@@ -88,23 +87,21 @@ end;
 
 procedure TfrmTowedJammerDecoyOnBoardPickList.btnAddClick(Sender: TObject);
 begin
-//  if lbAllTowedJammerDecoyDef.ItemIndex = -1 then
-//    Exit;
-//
-//  frmTowedJammerMount := TfrmTowedJammerMount.Create(Self);
-//  try
-//    with frmTowedJammerMount do
-//    begin
-//      SelectedVehicle := FSelectedVehicle;
-//       SelectedTowedJammerDecoy := FSelectedTowedJammerDecoy;
-//      ShowModal;
-//    end;
-//    AfterClose := frmTowedJammerMount.AfterClose;
-//
-//  finally
-//    frmTowedJammerMount.Free;
-//  end;
-//
+  if lbAllTowedJammerDecoyDef.ItemIndex = -1 then
+    Exit;
+
+  if not Assigned(frmTowedJammerMount) then
+    frmTowedJammerMount := TfrmTowedJammerMount.Create(Self);
+  try
+    with frmTowedJammerMount do
+    begin
+      SelectedVehicle := FSelectedVehicle;
+       SelectedTowedJammerDecoy := FSelectedTowedJammerDecoy;
+      Show;
+    end;
+  finally
+  end;
+
 //  UpdateTowedJammerDecoyList;
 end;
 
@@ -113,19 +110,18 @@ begin
 //  if lbAllTowedJammerDecoyOnBoard.ItemIndex = -1 then
 //    Exit;
 //
-//  frmTowedJammerMount := TfrmTowedJammerMount.Create(Self);
+//  if not Assigned(frmTowedJammerMount) then
+//    frmTowedJammerMount := TfrmTowedJammerMount.Create(Self);
+//  try
 //  try
 //    with frmTowedJammerMount do
 //    begin
 //      SelectedVehicle := FSelectedVehicle;
 //      SelectedTowedJammerDecoy := FSelectedTowedJammerDecoy;
-//      ShowModal;
+//      Show;
 //    end;
-//    AfterClose := frmTowedJammerMount.AfterClose;
 //  finally
-//    frmTowedJammerMount.Free;
 //  end;
-//
 //  UpdateTowedJammerDecoyList;
 end;
 
@@ -136,7 +132,7 @@ begin
 //
 //  with FSelectedTowedJammerDecoy.FData do
 //  begin
-//    dmTTT.DeleteTowedJammerDecoyOnBoard(2, Towed_Decoy_Instance_Index);
+//    dmINWO.DeleteTowedJammerDecoyOnBoard(2, Towed_Decoy_Instance_Index);
 //  end;
 //
 //  AfterClose := True;
@@ -150,18 +146,18 @@ end;
 
 procedure TfrmTowedJammerDecoyOnBoardPickList.lbAllTowedJammerDecoyDefClick(Sender: TObject);
 begin
-//  if lbAllTowedJammerDecoyDef.ItemIndex = -1 then
-//    Exit;
-//
-//  FSelectedTowedJammerDecoy := TTowed_Jammer_Decoy_On_Board(lbAllTowedJammerDecoyDef.Items.Objects[lbAllTowedJammerDecoyDef.ItemIndex]);
+  if lbAllTowedJammerDecoyDef.ItemIndex = -1 then
+    Exit;
+
+  FSelectedTowedJammerDecoy := TTowed_Decoy_On_Board(lbAllTowedJammerDecoyDef.Items.Objects[lbAllTowedJammerDecoyDef.ItemIndex]);
 end;
 
 procedure TfrmTowedJammerDecoyOnBoardPickList.lbAllTowedJammerDecoyOnBoardClick(Sender: TObject);
 begin
-//  if lbAllTowedJammerDecoyOnBoard.ItemIndex = -1 then
-//    Exit;
-//
-//  FSelectedTowedJammerDecoy := TTowed_Jammer_Decoy_On_Board(lbAllTowedJammerDecoyOnBoard.Items.Objects[lbAllTowedJammerDecoyOnBoard.ItemIndex]);
+  if lbAllTowedJammerDecoyOnBoard.ItemIndex = -1 then
+    Exit;
+
+  FSelectedTowedJammerDecoy := TTowed_Decoy_On_Board(lbAllTowedJammerDecoyOnBoard.Items.Objects[lbAllTowedJammerDecoyOnBoard.ItemIndex]);
 end;
 
 procedure TfrmTowedJammerDecoyOnBoardPickList.UpdateTowedJammerDecoyList;
@@ -172,8 +168,8 @@ begin
 //  lbAllTowedJammerDecoyDef.Items.Clear;
 //  lbAllTowedJammerDecoyOnBoard.Items.Clear;
 //
-//  dmTTT.GetAllTowedJammerDecoyDef(FAllTowedJammerDecoyDefList);
-//  dmTTT.GetTowedJammerDecoyOnBoard(FSelectedVehicle.FData.Vehicle_Index,FAllTowedJammerDecoyOnBoardList);
+//  dmINWO.GetAllTowedJammerDecoyDef(FAllTowedJammerDecoyDefList);
+//  dmINWO.GetTowedJammerDecoyOnBoard(FSelectedVehicle.FData.Vehicle_Index,FAllTowedJammerDecoyOnBoardList);
 //
 //  for i := 0 to FAllTowedJammerDecoyDefList.Count - 1 do
 //  begin

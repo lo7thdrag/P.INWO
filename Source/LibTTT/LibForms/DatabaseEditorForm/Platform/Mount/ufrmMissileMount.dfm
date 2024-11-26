@@ -14237,10 +14237,6 @@ object frmMissileMount: TfrmMissileMount
       TabWidth = 100
       object General: TTabSheet
         Caption = 'General'
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object lbl2: TLabel
           Left = 10
           Top = 8
@@ -14338,7 +14334,6 @@ object frmMissileMount: TfrmMissileMount
           Width = 66
           Height = 65
           TabOrder = 3
-          OnClick = pnlBlindZoneClick
         end
         object edtReload: TMaskEdit
           Left = 239

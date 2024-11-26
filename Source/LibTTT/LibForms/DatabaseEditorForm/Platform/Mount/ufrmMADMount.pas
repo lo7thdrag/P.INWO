@@ -4,8 +4,9 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ComCtrls, ExtCtrls, {uDBAsset_Sensor, uDBAsset_Vehicle, tttData,}
-  Vcl.Imaging.pngimage;
+  Dialogs, StdCtrls, ComCtrls, ExtCtrls, Vcl.Imaging.pngimage,
+
+  uDBAsset_Sensor, uClassData, uSimContainers;
 
 type
   TfrmMADMount = class(TForm)
@@ -38,19 +39,18 @@ type
     procedure btnApplyClick(Sender: TObject);
 
   private
-//    FSelectedVehicle : TVehicle_Definition;
-//    FSelectedMAD : TMAD_On_Board;
+    FSelectedVehicle : TAsset;
+    FSelectedMAD : TMAD_On_Board;
 
     function CekInput: Boolean;
     procedure UpdateMADData;
+//    procedure DrawBlindZone;
 
   public
-    isOK  : Boolean; {Penanda jika gagal cek input, btn OK tidak langsung close}
-    AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, btn Cancel di summary menyala}
     LastName : string;
 
-//    property SelectedVehicle : TVehicle_Definition read FSelectedVehicle write FSelectedVehicle;
-//    property SelectedMAD : TMAD_On_Board read FSelectedMAD write FSelectedMAD;
+    property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
+    property SelectedMAD : TMAD_On_Board read FSelectedMAD write FSelectedMAD;
 
   end;
 
@@ -61,7 +61,7 @@ var
 implementation
 
 uses
-  ufrmAsset, uDataModule{, ufrmMADOnBoardPickList};
+  uDataModule, ufrmBlindZoneAttachment;
 
 {$R *.dfm}
 
@@ -75,14 +75,12 @@ end;
 
 procedure TfrmMADMount.FormShow(Sender: TObject);
 begin
-//  UpdateMADData;
-//
-//  with FSelectedMAD.FData do
-//    btnApply.Enabled := MAD_Instance_Index = 0;
-//
-//  isOK := True;
-//  AfterClose := True;
-//  btnCancel.Enabled := True;
+  UpdateMADData;
+
+  with FSelectedMAD.FData do
+    btnApply.Enabled := MAD_Instance_Index = 0;
+
+  btnCancel.Enabled := True;
 end;
 
 {$ENDREGION}
@@ -94,81 +92,76 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
-  if isOk then
     Close;
 end;
 
 procedure TfrmMADMount.btnApplyClick(Sender: TObject);
 begin
-//  if not CekInput then
-//  begin
-//    isOK := False;
-//    Exit;
-//  end;
-//
-//  ValidationFormatInput;
-//
-//  with FSelectedMAD do
-//  begin
-//    LastName := edtName.Text;
-//    FData.Instance_Identifier := edtName.Text;
-//    FData.Vehicle_Index := FSelectedVehicle.FData.Vehicle_Index;
-//    FData.Antenna_Height := StrToInt(edtAntenna.Text);
-//    FData.MAD_Index := FMAD_Def.MAD_Index;
-//
-//    if FData.MAD_Instance_Index = 0 then
-//      dmTTT.InsertMADOnBoard(FData)
-//    else
-//      dmTTT.UpdateMADOnBoard(FData);
-//  end;
-//
-//  isOK := True;
-//  AfterClose := True;
-//  btnApply.Enabled := False;
-//  btnCancel.Enabled := False;
+  if not CekInput then
+  begin
+    Exit;
+  end;
+
+  ValidationFormatInput;
+
+  with FSelectedMAD do
+  begin
+    LastName := edtName.Text;
+    FData.Instance_Identifier := edtName.Text;
+    FData.Vehicle_Index := FSelectedVehicle.FData.VehicleIndex;
+    FData.Antenna_Height := StrToInt(edtAntenna.Text);
+    FData.MAD_Index := FDef.MAD_Index;
+
+    if FData.MAD_Instance_Index = 0 then
+      dmINWO.InsertMADOnBoard(FData)
+    else
+      dmINWO.UpdateMADOnBoard(FData);
+  end;
+
+  btnApply.Enabled := False;
+  btnCancel.Enabled := False;
 end;
 
 procedure TfrmMADMount.btnCancelClick(Sender: TObject);
 begin
-  AfterClose := False;
   Close;
 end;
 
 function TfrmMADMount.CekInput: Boolean;
 begin
-//  Result := False;
-//
-//  {Jika Mount Name sudah ada}
-//  if dmTTT.GetMADOnBoardCount(FSelectedVehicle.FData.Vehicle_Index, edtName.Text) then
-//  begin
-//    {Jika inputan baru}
-//    if FSelectedMAD.FData.MAD_Instance_Index = 0 then
-//    begin
-//      ShowMessage('Duplicate MAD!' + Char(13) + 'Choose different MAD.');
-//      Exit;
-//    end
-//    else if LastName <> edtName.Text then
-//    begin
-//      ShowMessage('Please use another class name');
-//      Exit;
-//    end;
-//  end;
-//
-//  Result := True;
+  Result := False;
+
+  {Jika Mount Name sudah ada}
+  if dmINWO.GetMADOnBoardCount(FSelectedVehicle.FData.VehicleIndex, edtName.Text) then
+  begin
+    {Jika inputan baru}
+    if FSelectedMAD.FData.MAD_Instance_Index = 0 then
+    begin
+      ShowMessage('Duplicate MAD!' + Char(13) + 'Choose different MAD.');
+      Exit;
+    end
+    else if LastName <> edtName.Text then
+    begin
+      ShowMessage('Please use another class name');
+      Exit;
+    end;
+  end;
+
+  Result := True;
 end;
 
 procedure TfrmMADMount.UpdateMADData;
 begin
-//  with FSelectedMAD do
-//  begin
-//    if FData.MAD_Instance_Index = 0 then
-//      edtName.Text := FMAD_Def.Class_Identifier
-//    else
-//      edtName.Text := FData.Instance_Identifier;
-//
-//      LastName := edtName.Text;
-//    edtAntenna.Text := FormatFloat('0', FData.Antenna_Height);
-//  end;
+  with FSelectedMAD do
+  begin
+    if FData.MAD_Instance_Index = 0 then
+      edtName.Text := FDef.Class_Identifier
+    else
+      edtName.Text := FData.Instance_Identifier;
+
+      LastName := edtName.Text;
+    edtAntenna.Text := FormatFloat('0', FData.Antenna_Height);
+  end;
 end;
 
 {$ENDREGION}

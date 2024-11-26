@@ -4,9 +4,9 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ExtCtrls, ComCtrls, Vcl.Imaging.pngimage{,
-  uDBBlind_Zone, uBlindZoneView, uDBAsset_Vehicle, tttData,
-  uDBAsset_Sensor};
+  Dialogs, StdCtrls, ExtCtrls, ComCtrls, Vcl.Imaging.pngimage,
+
+  uDBAsset_Sensor, uClassData, uSimContainers ;
 
 type
   TfrmESMMount = class(TForm)
@@ -57,22 +57,18 @@ type
 
 
   private
-//    FSelectedVehicle : TVehicle_Definition;
-//    FSelectedESM : TESM_On_Board;
-//
-//    FBlindZoneView : TBlindZoneView;
+    FSelectedVehicle : TAsset;
+    FSelectedESM : TESM_On_Board;
 
     function CekInput: Boolean;
     procedure UpdateESMData;
     procedure DrawBlindZone;
 
   public
-    isOK  : Boolean; {Penanda jika gagal cek input, btn OK tidak langsung close}
-    AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, btn Cancel di summary menyala}
     LastName : string;
 
-//    property SelectedVehicle : TVehicle_Definition read FSelectedVehicle write FSelectedVehicle;
-//    property SelectedESM : TESM_On_Board read FSelectedESM write FSelectedESM;
+    property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
+    property SelectedESM : TESM_On_Board read FSelectedESM write FSelectedESM;
 
   end;
 
@@ -112,14 +108,12 @@ end;
 
 procedure TfrmESMMount.FormShow(Sender: TObject);
 begin
-//  UpdateESMData;
-//
-//  with FSelectedESM.FData do
-//    btnApply.Enabled := ESM_Instance_Index = 0;
-//
-//  isOK := True;
-//  AfterClose := True;
-//  btnCancel.Enabled := True;
+  UpdateESMData;
+
+  with FSelectedESM.FData do
+    btnApply.Enabled := ESM_Instance_Index = 0;
+
+  btnCancel.Enabled := True;
 end;
 
 {$ENDREGION}
@@ -131,79 +125,72 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
-  if isOk then
     Close;
 end;
 
 procedure TfrmESMMount.btnApplyClick(Sender: TObject);
 begin
-//  if not CekInput then
-//  begin
-//    isOK := False;
-//    Exit;
-//  end;
-//
-//  ValidationFormatInput;
-//
-//  with FSelectedESM do
-//  begin
-//    LastName := edtName.Text;
-//
-//    FData.Instance_Identifier := edtName.Text;
-//    FData.Instance_Type := cbMountExtension.ItemIndex;
-//    FData.Vehicle_Index := FSelectedVehicle.FData.Vehicle_Index;
-//    FData.ESM_Index := FESM_Def.ESM_Index;
-//    FData.Rel_Antenna_Height := StrToFloat(edtAntenna.Text);
-//    FData.Submerged_Antenna_Height := StrToFloat(edtSubmerged.Text);
-//    FData.Max_Operational_Depth := StrToFloat(edtMaxOperational.Text);
-//
-//    if FData.ESM_Instance_Index = 0 then
-//      dmTTT.InsertESMOnBoard(FData)
-//    else
-//      dmTTT.UpdateESMOnBoard(FData);
-//  end;
-//
-//  isOK := True;
-//  AfterClose := True;
-//  btnApply.Enabled := False;
-//  btnCancel.Enabled := False;
+  if not CekInput then
+  begin
+    Exit;
+  end;
+
+  ValidationFormatInput;
+
+  with FSelectedESM do
+  begin
+    LastName := edtName.Text;
+    FData.Instance_Identifier := edtName.Text;
+    FData.Instance_Type := cbMountExtension.ItemIndex;
+    FData.Vehicle_Index := FSelectedVehicle.FData.VehicleIndex;
+    FData.ESM_Index := FDef.ESM_Index;
+    FData.Rel_Antenna_Height := StrToFloat(edtAntenna.Text);
+    FData.Submerged_Antenna_Height := StrToFloat(edtSubmerged.Text);
+    FData.Max_Operational_Depth := StrToFloat(edtMaxOperational.Text);
+
+    if FData.ESM_Instance_Index = 0 then
+      dmINWO.InsertESMOnBoard(FData)
+    else
+      dmINWO.UpdateESMOnBoard(FData);
+  end;
+
+  btnApply.Enabled := False;
+  btnCancel.Enabled := False;
 end;
 
 procedure TfrmESMMount.btnCancelClick(Sender: TObject);
 begin
-  AfterClose := False;
   Close;
 end;
 
 procedure TfrmESMMount.cbMountExtensionChange(Sender: TObject);
 begin
-//  edtName.Text := FSelectedESM.FESM_Def.Class_Identifier + ' ' +
-//    cbMountExtension.Text;
-//
-//  btnApply.Enabled := True;
+  edtName.Text := FSelectedESM.FDef.Class_Identifier + ' ' + cbMountExtension.Text;
+
+  btnApply.Enabled := True;
 end;
 
 function TfrmESMMount.CekInput: Boolean;
 begin
-//  Result := False;
-//
-//  {Jika Mount Name sudah ada}
-//  if dmTTT.GetESMOnBoardCount(FSelectedVehicle.FData.Vehicle_Index, edtName.Text) then
-//  begin
-//    {Jika inputan baru}
-//    if FSelectedESM.FData.ESM_Instance_Index = 0 then
-//    begin
-//      ShowMessage('Duplicate ESM mount!' + Char(13) + 'Choose different mount to continue.');
-//      Exit;
-//    end
-//    else if LastName <> edtName.Text then
-//    begin
-//      ShowMessage('Please use another class name');
-//      Exit;
-//    end;
-//  end;
-//
-//  Result := True;
+  Result := False;
+
+  {Jika Mount Name sudah ada}
+  if dmINWO.GetESMOnBoardCount(FSelectedVehicle.FData.VehicleIndex, edtName.Text) then
+  begin
+    {Jika inputan baru}
+    if FSelectedESM.FData.ESM_Instance_Index = 0 then
+    begin
+      ShowMessage('Duplicate ESM mount!' + Char(13) + 'Choose different mount to continue.');
+      Exit;
+    end
+    else if LastName <> edtName.Text then
+    begin
+      ShowMessage('Please use another class name');
+      Exit;
+    end;
+  end;
+
+  Result := True;
 end;
 
 procedure TfrmESMMount.DrawBlindZone;
@@ -282,24 +269,24 @@ end;
 
 procedure TfrmESMMount.UpdateESMData;
 begin
-//  with FSelectedESM do
-//  begin
-//    cbMountExtension.ItemIndex := FData.Instance_Type;
-//
-//    if FData.ESM_Instance_Index = 0 then
-//      edtName.Text := FESM_Def.Class_Identifier + ' ' + cbMountExtension.Text
-//    else
-//      edtName.Text := FData.Instance_Identifier;
-//
-//    LastName := edtName.Text;
-//    edtClassName.Caption := FESM_Def.Class_Identifier;
-//
+  with FSelectedESM do
+  begin
+    cbMountExtension.ItemIndex := FData.Instance_Type;
+
+    if FData.ESM_Instance_Index = 0 then
+      edtName.Text := FDef.Class_Identifier + ' ' + cbMountExtension.Text
+    else
+      edtName.Text := FData.Instance_Identifier;
+
+    LastName := edtName.Text;
+    edtClassName.Caption := FDef.Class_Identifier;
+
 //    DrawBlindZone;
-//
-//    edtAntenna.Text := FormatFloat('0', FData.Rel_Antenna_Height);
-//    edtSubmerged.Text := FormatFloat('0', FData.Submerged_Antenna_Height);
-//    edtMaxOperational.Text := FormatFloat('0', FData.Max_Operational_Depth);
-//  end;
+
+    edtAntenna.Text := FormatFloat('0', FData.Rel_Antenna_Height);
+    edtSubmerged.Text := FormatFloat('0', FData.Submerged_Antenna_Height);
+    edtMaxOperational.Text := FormatFloat('0', FData.Max_Operational_Depth);
+  end;
 end;
 
 {$ENDREGION}

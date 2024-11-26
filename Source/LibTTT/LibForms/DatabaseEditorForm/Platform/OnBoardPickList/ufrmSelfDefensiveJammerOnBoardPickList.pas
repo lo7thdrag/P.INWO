@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, StdCtrls, Vcl.Imaging.pngimage,
-  uDBAsset_Vehicle, uDBAsset_Countermeasure ;
+
+  uClassData, uDBAsset_Countermeasure, uSimContainers ;
 
 type
   TfrmSelfDefensiveJammerOnBoardPickList = class(TForm)
@@ -36,15 +37,14 @@ type
     FAllDefensiveJammerDefList : TList;
     FAllDefensiveJammerOnBoardList : TList;
 
-    FSelectedVehicle : TVehicle_Definition;
+    FSelectedVehicle : TAsset;
     FSelectedDefensiveJammer : TDefensive_Jammer_On_Board;
 
     function CekInput: Boolean;
     procedure UpdateDefensiveJammerList;
 
   public
-    AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, btn Cancel di summary menyala}
-    property SelectedVehicle : TVehicle_Definition read FSelectedVehicle write FSelectedVehicle;
+    property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
 
   end;
 
@@ -80,24 +80,23 @@ begin
 //  if lbAllDefensiveJammerDef.ItemIndex = -1 then
 //    Exit;
 //
-//  if not CekInput then
-//  begin
-//    Exit;
-//  end;
+//  if not Assigned(frmChaffMount) then
+//    frmChaffMount := TfrmChaffMount.Create(Self);
 //
+//  try
 //  with FSelectedDefensiveJammer do
 //  begin
 //    FData.Instance_Identifier := FDefensiveJammer_Def.Defensive_Jammer_Identifier;
 //    FData.Instance_Type := 0;
-//    FData.Vehicle_Index := FSelectedVehicle.FData.Vehicle_Index;
-//    FData.Defensive_Jammer_Index := FDefensiveJammer_Def.Defensive_Jammer_Index;
+//    FData.Vehicle_Index := FSelectedVehicle.FData.VehicleIndex;
+//    FData.Defensive_Jammer_Index := FDef.Defensive_Jammer_Index;
 //
 //    if FData.Defensive_Jammer_Instance_Index = 0 then
-//      dmTTT.InsertSelfDefensiveJammerOnBoard(FData)
+//      dmINWO.InsertSelfDefensiveJammerOnBoard(FData)
 //    else
-//      dmTTT.UpdateSelfDefensiveJammerOnBoard(FData);
+//      dmINWO.UpdateSelfDefensiveJammerOnBoard(FData);
 //  end;
-//
+
 //  UpdateDefensiveJammerList;
 end;
 
@@ -127,7 +126,7 @@ begin
 //
 //  with FSelectedDefensiveJammer.FData do
 //  begin
-//    dmTTT.DeleteSelfDefensiveJammerOnBoard(2, Defensive_Jammer_Instance_Index);
+//    dmINWO.DeleteSelfDefensiveJammerOnBoard(2, Defensive_Jammer_Instance_Index);
 //  end;
 //
 //  UpdateDefensiveJammerList;

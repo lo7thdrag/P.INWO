@@ -4,9 +4,9 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ExtCtrls, ComCtrls, Vcl.Imaging.pngimage, uBaseCoordSystem,
-  {uDBBlind_Zone, uBlindZoneView, uDBAsset_Vehicle, tttData,
-  uDBAsset_Fitted, uDBAsset_Weapon,} Vcl.Mask ;
+  Dialogs, StdCtrls, ExtCtrls, ComCtrls, Vcl.Imaging.pngimage, uBaseCoordSystem, Vcl.Mask,
+
+  uDBAsset_Weapon, uClassData, uSimContainers ;
 
 type
   TfrmTorpedoMount = class(TForm)
@@ -54,8 +54,8 @@ type
 
 
   private
-//    FSelectedVehicle : TVehicle_Definition;
-//    FSelectedTorpedo : TTorpedo_On_Board;
+    FSelectedVehicle : TAsset;
+    FSelectedTorpedo : TTorpedo_On_Board;
 //
 //    FBlindZoneView : TBlindZoneView;
 
@@ -64,12 +64,10 @@ type
     procedure DrawBlindZone;
 
   public
-    isOK  : Boolean; {Penanda jika gagal cek input, btn OK tidak langsung close}
-    AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, btn Cancel di summary menyala}
     LastName : string;
 
-//    property SelectedVehicle : TVehicle_Definition read FSelectedVehicle write FSelectedVehicle;
-//    property SelectedTorpedo : TTorpedo_On_Board read FSelectedTorpedo write FSelectedTorpedo;
+    property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
+    property SelectedTorpedo : TTorpedo_On_Board read FSelectedTorpedo write FSelectedTorpedo;
   end;
 
 var
@@ -78,11 +76,9 @@ var
 implementation
 
 uses
-  uDataModule, ufrmBlindZoneAttachment, ufrmLauncherList{,
-  newClassASTT};
+  uDataModule, ufrmBlindZoneAttachment;
 
 {$R *.dfm}
-
 
 {$REGION ' Form Handle '}
 
@@ -109,14 +105,12 @@ end;
 
 procedure TfrmTorpedoMount.FormShow(Sender: TObject);
 begin
-//  UpdateTorpedoData;
-//
-//  with FSelectedTorpedo.FData do
-//    btnApply.Enabled := Fitted_Weap_Index = 0;
-//
-//  isOK := True;
-//  AfterClose := True;
-//  btnCancel.Enabled := True;
+  UpdateTorpedoData;
+
+  with FSelectedTorpedo.FData do
+    btnApply.Enabled := Fitted_Weap_Index = 0;
+
+  btnCancel.Enabled := True;
 end;
 
 {$ENDREGION}
@@ -128,7 +122,6 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
-  if isOk then
     Close;
 end;
 
@@ -136,44 +129,40 @@ procedure TfrmTorpedoMount.btnApplyClick(Sender: TObject);
 var
   reloadTime : Integer;
 begin
-//  if not CekInput then
-//  begin
-//    isOK := False;
-//    Exit;
-//  end;
-//
-//  ValidationFormatInput;
-//
-//  with FSelectedTorpedo do
-//  begin
-//    LastName := edtName.Text;
-//    FData.Instance_Identifier := edtName.Text;
-//    FData.Vehicle_Index := FSelectedVehicle.FData.Vehicle_Index;
-//    FData.Mount_Type := cbMountExtension.ItemIndex;
-//    FData.Quantity := StrToInt(edtQuantity.Text);
-//
-//    TimeToSecond(edtReload.Text, reloadTime);
-//    FData.Firing_Delay := reloadTime;
-//
-//    FData.Torpedo_Index := FDef.Torpedo_Index;
-//
-//    if FData.Fitted_Weap_Index = 0 then
-//      dmTTT.InsertFittedWeaponOnBoard(2, FData)
-//    else
-//      dmTTT.UpdateFittedWeaponOnBoard(2, FData);
-//  end;
-//
+  if not CekInput then
+  begin
+    Exit;
+  end;
+
+  ValidationFormatInput;
+
+  with FSelectedTorpedo do
+  begin
+    LastName := edtName.Text;
+    FData.Instance_Identifier := edtName.Text;
+    FData.Vehicle_Index := FSelectedVehicle.FData.VehicleIndex;
+    FData.Mount_Type := cbMountExtension.ItemIndex;
+    FData.Quantity := StrToInt(edtQuantity.Text);
+
+    TimeToSecond(edtReload.Text, reloadTime);
+    FData.Firing_Delay := reloadTime;
+
+    FData.Torpedo_Index := FDef.Torpedo_Index;
+
+    if FData.Fitted_Weap_Index = 0 then
+      dmINWO.InsertFittedWeaponOnBoard(2, FData)
+    else
+      dmINWO.UpdateFittedWeaponOnBoard(2, FData);
+  end;
+
 //  UpdateTorpedoData;
-//
-//  isOK := True;
-//  AfterClose := True;
-//  btnApply.Enabled := False;
-//  btnCancel.Enabled := False;
+
+  btnApply.Enabled := False;
+  btnCancel.Enabled := False;
 end;
 
 procedure TfrmTorpedoMount.btnCancelClick(Sender: TObject);
 begin
-  AfterClose := False;
   Close;
 end;
 
@@ -206,25 +195,25 @@ end;
 
 function TfrmTorpedoMount.CekInput: Boolean;
 begin
-//  Result := False;
-//
-//  {Jika Mount Name sudah ada}
-//  if dmTTT.GetFittedWeaponOnBoardCount(FSelectedVehicle.FData.Vehicle_Index, edtName.Text) then
-//  begin
-//    {Jika inputan baru}
-//    if FSelectedTorpedo.FData.Fitted_Weap_Index = 0 then
-//    begin
-//      ShowMessage('Duplicate torpedo mount!' + Char(13) + 'Choose different name to continue.');
-//      Exit;
-//    end
-//    else if LastName <> edtName.Text then
-//    begin
-//      ShowMessage('Please use another class name');
-//      Exit;
-//    end;
-//  end;
-//
-//  Result := True;
+  Result := False;
+
+  {Jika Mount Name sudah ada}
+  if dmINWO.GetFittedWeaponOnBoardCount(FSelectedVehicle.FData.VehicleIndex, edtName.Text) then
+  begin
+    {Jika inputan baru}
+    if FSelectedTorpedo.FData.Fitted_Weap_Index = 0 then
+    begin
+      ShowMessage('Duplicate torpedo mount!' + Char(13) + 'Choose different name to continue.');
+      Exit;
+    end
+    else if LastName <> edtName.Text then
+    begin
+      ShowMessage('Please use another class name');
+      Exit;
+    end;
+  end;
+
+  Result := True;
 end;
 
 procedure TfrmTorpedoMount.DrawBlindZone;

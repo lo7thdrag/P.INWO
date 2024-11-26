@@ -4,8 +4,9 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ComCtrls, StdCtrls, ExtCtrls, {uDBAsset_Vehicle,
-  uDBAsset_Countermeasure,} Vcl.Imaging.pngimage;
+  Dialogs, ComCtrls, StdCtrls, ExtCtrls, Vcl.Imaging.pngimage,
+
+  uDBAsset_Countermeasure, uClassData, uSimContainers;
 
 type
   TfrmAirBubbleMount = class(TForm)
@@ -39,18 +40,16 @@ type
     procedure btnApplyClick(Sender: TObject);
 
   private
-//    FSelectedVehicle : TVehicle_Definition;
-//    FSelectedAirBubble : TAir_Bubble_On_Board;
+    FSelectedVehicle : TAsset;
+    FSelectedAirBubble : TAir_Bubble_On_Board;
 
     function CekInput: Boolean;
     procedure UpdateAirBubbleData;
   public
-    isOK  : Boolean; {Penanda jika gagal cek input, btn OK tidak langsung close}
-    AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, btn Cancel di summary menyala}
     LastName : string;
 
-//    property SelectedVehicle : TVehicle_Definition read FSelectedVehicle write FSelectedVehicle;
-//    property SelectedAirBubble : TAir_Bubble_On_Board read FSelectedAirBubble write FSelectedAirBubble;
+    property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
+    property SelectedAirBubble : TAir_Bubble_On_Board read FSelectedAirBubble write FSelectedAirBubble;
   end;
 
 var
@@ -72,14 +71,12 @@ end;
 
 procedure TfrmAirBubbleMount.FormShow(Sender: TObject);
 begin
-//  UpdateAirBubbleData;
-//
-//  with FSelectedAirBubble.FData do
-//    btnApply.Enabled := Air_Bubble_Instance_Index = 0;
-//
-//  isOK := True;
-//  AfterClose := True;
-//  btnCancel.Enabled := True;
+  UpdateAirBubbleData;
+
+  with FSelectedAirBubble.FData do
+    btnApply.Enabled := Air_Bubble_Instance_Index = 0;
+
+  btnCancel.Enabled := True;
 end;
 
 {$ENDREGION}
@@ -91,44 +88,39 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
-  if isOk then
     Close;
 end;
 
 procedure TfrmAirBubbleMount.btnApplyClick(Sender: TObject);
 begin
-//  if not CekInput then
-//  begin
-//    isOK := False;
-//    Exit;
-//  end;
-//
-//  ValidationFormatInput;
-//
-//  with FSelectedAirBubble do
-//  begin
-//    LastName := edtName.Text;
-//    FData.Instance_Identifier := edtName.Text;
-//    FData.Instance_Type := 0;
-//    FData.Bubble_Qty_On_Board := StrToInt(edtQuantity.Text);
-//    FData.Vehicle_Index := FSelectedVehicle.FData.Vehicle_Index;
-//    FData.Air_Bubble_Index := FAirBubble_Def.Air_Bubble_Index;
-//
-//    if FData.Air_Bubble_Instance_Index = 0 then
-//      dmTTT.InsertAirBubbleOnBoard(FData)
-//    else
-//      dmTTT.UpdateAirBubbleOnBoard(FData);
-//  end;
-//
-//  isOK := True;
-//  AfterClose := True;
-//  btnApply.Enabled := False;
-//  btnCancel.Enabled := False;
+  if not CekInput then
+  begin
+    Exit;
+  end;
+
+  ValidationFormatInput;
+
+  with FSelectedAirBubble do
+  begin
+    LastName := edtName.Text;
+    FData.Instance_Identifier := edtName.Text;
+    FData.Instance_Type := 0;
+    FData.Bubble_Qty_On_Board := StrToInt(edtQuantity.Text);
+    FData.Vehicle_Index := FSelectedVehicle.FData.VehicleIndex;
+    FData.Air_Bubble_Index := FDef.Air_Bubble_Index;
+
+    if FData.Air_Bubble_Instance_Index = 0 then
+      dmINWO.InsertAirBubbleOnBoard(FData)
+    else
+      dmINWO.UpdateAirBubbleOnBoard(FData);
+  end;
+
+  btnApply.Enabled := False;
+  btnCancel.Enabled := False;
 end;
 
 procedure TfrmAirBubbleMount.btnCancelClick(Sender: TObject);
 begin
-  AfterClose := False;
   Close;
 end;
 

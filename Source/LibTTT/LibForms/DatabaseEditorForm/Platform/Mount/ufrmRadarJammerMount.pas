@@ -4,8 +4,9 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ComCtrls, StdCtrls, ExtCtrls, {uDBAsset_Vehicle,
-  uDBAsset_Countermeasure,} Vcl.Imaging.pngimage;
+  Dialogs, ComCtrls, StdCtrls, ExtCtrls, Vcl.Imaging.pngimage,
+
+  uDBAsset_Countermeasure, uClassData, uSimContainers;
 
 type
   TfrmRadarJammerMount = class(TForm)
@@ -40,19 +41,17 @@ type
     procedure btnApplyClick(Sender: TObject);
 
   private
-//    FSelectedVehicle : TVehicle_Definition;
-//    FSelectedRadarJammer : TRadar_Noise_Jammer_On_Board;
+    FSelectedVehicle : TAsset;
+    FSelectedRadarJammer : TRadar_Noise_Jammer_On_Board;
 
     function CekInput: Boolean;
     procedure UpdateRadarJammerData;
 
   public
-    isOK  : Boolean; {Penanda jika gagal cek input, btn OK tidak langsung close}
-    AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, btn Cancel di summary menyala}
     LastName : string;
 
-//    property SelectedVehicle : TVehicle_Definition read FSelectedVehicle write FSelectedVehicle;
-//    property SelectedRadarJammer : TRadar_Noise_Jammer_On_Board read FSelectedRadarJammer write FSelectedRadarJammer;
+    property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
+    property SelectedRadarJammer : TRadar_Noise_Jammer_On_Board read FSelectedRadarJammer write FSelectedRadarJammer;
   end;
 
 var
@@ -75,14 +74,12 @@ end;
 
 procedure TfrmRadarJammerMount.FormShow(Sender: TObject);
 begin
-//  UpdateRadarJammerData;
-//
-//  with FSelectedRadarJammer.FData do
-//    btnApply.Enabled := Jammer_Instance_Index = 0;
-//
-//  isOK := True;
-//  AfterClose := True;
-//  btnCancel.Enabled := True;
+  UpdateRadarJammerData;
+
+  with FSelectedRadarJammer.FData do
+    btnApply.Enabled := Jammer_Instance_Index = 0;
+
+  btnCancel.Enabled := True;
 end;
 
 {$ENDREGION}
@@ -94,44 +91,39 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
-  if isOk then
     Close;
 end;
 
 procedure TfrmRadarJammerMount.btnApplyClick(Sender: TObject);
 begin
-//  if not CekInput then
-//  begin
-//    isOK := False;
-//    Exit;
-//  end;
-//
-//  ValidationFormatInput;
-//
-//  with FSelectedRadarJammer do
-//  begin
-//    LastName := edtName.Text;
-//    FData.Instance_Identifier := edtName.Text;
-//    FData.Instance_Type := 0;
-//    FData.Vehicle_Index := FSelectedVehicle.FData.Vehicle_Index;
-//    FData.Jammer_Index := FDef.Jammer_Index;
-//    FData.Antenna_Height := StrToFloat(edtAntenna.Text);
-//
-//    if FData.Jammer_Instance_Index = 0 then
-//      dmTTT.InsertRadarNoiseJammerOnBoard(FData)
-//    else
-//      dmTTT.UpdateRadarNoiseJammerOnBoard(FData);
-//  end;
-//
-//  isOK := True;
-//  AfterClose := True;
-//  btnApply.Enabled := False;
-//  btnCancel.Enabled := False;
+  if not CekInput then
+  begin
+    Exit;
+  end;
+
+  ValidationFormatInput;
+
+  with FSelectedRadarJammer do
+  begin
+    LastName := edtName.Text;
+    FData.Instance_Identifier := edtName.Text;
+    FData.Instance_Type := 0;
+    FData.Vehicle_Index := FSelectedVehicle.FData.VehicleIndex;
+    FData.Jammer_Index := FDef.Jammer_Index;
+    FData.Antenna_Height := StrToFloat(edtAntenna.Text);
+
+    if FData.Jammer_Instance_Index = 0 then
+      dmINWO.InsertRadarNoiseJammerOnBoard(FData)
+    else
+      dmINWO.UpdateRadarNoiseJammerOnBoard(FData);
+  end;
+
+  btnApply.Enabled := False;
+  btnCancel.Enabled := False;
 end;
 
 procedure TfrmRadarJammerMount.btnCancelClick(Sender: TObject);
 begin
-  AfterClose := False;
   Close;
 end;
 
@@ -140,7 +132,7 @@ begin
 //  Result := False;
 //
 //  {Jika Mount Name sudah ada}
-//  if dmTTT.GetRadarNoiseJammerOnBoardCount(FSelectedVehicle.FData.Vehicle_Index, edtName.Text) then
+//  if dmINWO.GetRadarNoiseJammerOnBoardCount(FSelectedVehicle.FData.Vehicle_Index, edtName.Text) then
 //  begin
 //    {Jika inputan baru}
 //    if FSelectedRadarJammer.FData.Jammer_Instance_Index = 0 then

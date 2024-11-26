@@ -4,8 +4,9 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ComCtrls, ExtCtrls, Vcl.Imaging.pngimage{,
-  uDBAsset_Vehicle, tttData, uDBAsset_Countermeasure} ;
+  Dialogs, StdCtrls, ComCtrls, ExtCtrls, Vcl.Imaging.pngimage,
+
+  uDBAsset_Countermeasure, uClassData, uSimContainers;
 
 type
   TfrmChaffMount = class(TForm)
@@ -42,19 +43,17 @@ type
 
 
   private
-//    FSelectedVehicle : TVehicle_Definition;
-//    FSelectedChaff : TChaff_On_Board;
+    FSelectedVehicle : TAsset;
+    FSelectedChaff : TChaff_On_Board;
 
     function CekInput: Boolean;
     procedure UpdateChaffData;
 
   public
-    isOK  : Boolean; {Penanda jika gagal cek input, btn OK tidak langsung close}
-    AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, btn Cancel di summary menyala}
     LastName : string;
 
-//    property SelectedVehicle : TVehicle_Definition read FSelectedVehicle write FSelectedVehicle;
-//    property SelectedChaff : TChaff_On_Board read FSelectedChaff write FSelectedChaff;
+    property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
+    property SelectedChaff : TChaff_On_Board read FSelectedChaff write FSelectedChaff;
   end;
 
 var
@@ -76,14 +75,12 @@ end;
 
 procedure TfrmChaffMount.FormShow(Sender: TObject);
 begin
-//  UpdateChaffData;
-//
-//  with FSelectedChaff.FData do
-//    btnApply.Enabled := Chaff_Instance_Index = 0;
-//
-//  isOK := True;
-//  AfterClose := True;
-//  btnCancel.Enabled := True;
+  UpdateChaffData;
+
+  with FSelectedChaff.FData do
+    btnApply.Enabled := Chaff_Instance_Index = 0;
+
+  btnCancel.Enabled := True;
 end;
 
 {$ENDREGION}
@@ -95,39 +92,35 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
-  if isOk then
-    Close;
+  Close;
 end;
 
 procedure TfrmChaffMount.btnApplyClick(Sender: TObject);
 begin
-//  if not CekInput then
-//  begin
-//    isOK := False;
-//    Exit;
-//  end;
-//
-//  ValidationFormatInput;
-//
-//  with FSelectedChaff do
-//  begin
-//    LastName := edtClassName.Caption;
-//    FData.Instance_Identifier := edtClassName.Caption;
-//    FData.Instance_Type := cbbName.ItemIndex;
-//    FData.Chaff_Qty_On_Board := StrToInt(edtQuantity.Text);
-//    FData.Vehicle_Index := FSelectedVehicle.FData.Vehicle_Index;
-//    FData.Chaff_Index := FChaff_Def.Chaff_Index;
-//
-//    if FData.Chaff_Instance_Index = 0 then
-//      dmTTT.InsertChaffOnBoard(FData)
-//    else
-//      dmTTT.UpdateChaffOnBoard(FData);
-//  end;
-//
-//  isOK := True;
-//  AfterClose := True;
-//  btnApply.Enabled := False;
-//  btnCancel.Enabled := False;
+  if not CekInput then
+  begin
+    Exit;
+  end;
+
+  ValidationFormatInput;
+
+  with FSelectedChaff do
+  begin
+    LastName := edtClassName.Caption;
+    FData.Instance_Identifier := edtClassName.Caption;
+    FData.Instance_Type := cbbName.ItemIndex;
+    FData.Chaff_Qty_On_Board := StrToInt(edtQuantity.Text);
+    FData.Vehicle_Index := FSelectedVehicle.FData.VehicleIndex;
+    FData.Chaff_Index := FDef.Chaff_Index;
+
+    if FData.Chaff_Instance_Index = 0 then
+      dmINWO.InsertChaffOnBoard(FData)
+    else
+      dmINWO.UpdateChaffOnBoard(FData);
+  end;
+
+  btnApply.Enabled := False;
+  btnCancel.Enabled := False;
 end;
 
 function TfrmChaffMount.CekInput: Boolean;
@@ -155,7 +148,7 @@ end;
 
 procedure TfrmChaffMount.btnCancelClick(Sender: TObject);
 begin
-  AfterClose := False;
+
   Close;
 end;
 

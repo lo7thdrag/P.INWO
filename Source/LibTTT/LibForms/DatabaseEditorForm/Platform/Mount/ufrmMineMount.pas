@@ -4,9 +4,9 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ExtCtrls, ComCtrls, Vcl.Imaging.pngimage, uBaseCoordSystem,
-  {uDBBlind_Zone, uBlindZoneView, uDBAsset_Vehicle, tttData,
-  uDBAsset_Weapon,} Vcl.Mask ;
+  Dialogs, StdCtrls, ExtCtrls, ComCtrls, Vcl.Imaging.pngimage, uBaseCoordSystem, Vcl.Mask,
+
+  uDBAsset_Weapon, uClassData, uSimContainers ;
 
 type
   TfrmMineMount = class(TForm)
@@ -48,19 +48,17 @@ type
 
 
   private
-//    FSelectedVehicle : TVehicle_Definition;
-//    FSelectedMine : TMine_On_Board;
+    FSelectedVehicle : TAsset;
+    FSelectedMine : TMine_On_Board;
 
     function CekInput: Boolean;
     procedure UpdateMineData;
 
   public
-    isOK  : Boolean; {Penanda jika gagal cek input, btn OK tidak langsung close}
-    AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, btn Cancel di summary menyala}
     LastName : string;
 
-//    property SelectedVehicle : TVehicle_Definition read FSelectedVehicle write FSelectedVehicle;
-//    property SelectedMine : TMine_On_Board read FSelectedMine write FSelectedMine;
+    property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
+    property SelectedMine : TMine_On_Board read FSelectedMine write FSelectedMine;
   end;
 
 var
@@ -69,7 +67,7 @@ var
 implementation
 
 uses
-  uDataModule;
+  uDataModule, ufrmBlindZoneAttachment;
 
 {$R *.dfm}
 
@@ -83,14 +81,12 @@ end;
 
 procedure TfrmMineMount.FormShow(Sender: TObject);
 begin
-//  UpdateMineData;
-//
-//  with FSelectedMine.FData do
-//    btnApply.Enabled := Fitted_Weap_Index = 0;
-//
-//  isOK := True;
-//  AfterClose := True;
-//  btnCancel.Enabled := True;
+  UpdateMineData;
+
+  with FSelectedMine.FData do
+    btnApply.Enabled := Fitted_Weap_Index = 0;
+
+  btnCancel.Enabled := True;
 end;
 
 {$ENDREGION}
@@ -102,7 +98,6 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
-  if isOk then
     Close;
 end;
 
@@ -110,42 +105,38 @@ procedure TfrmMineMount.btnApplyClick(Sender: TObject);
 var
   reloadTime : Integer;
 begin
-//  if not CekInput then
-//  begin
-//    isOK := False;
-//    Exit;
-//  end;
-//
-//  ValidationFormatInput;
-//
-//  with FSelectedMine do
-//  begin
-//    LastName := edtName.Text;
-//    FData.Instance_Identifier := edtName.Text;
-//    FData.Vehicle_Index := FSelectedVehicle.FData.Vehicle_Index;
-//    FData.Mount_Type := cbMountExtension.ItemIndex;
-//    FData.Quantity := StrToInt(edtQuantity.Text);
-//
-//    TimeToSecond(edtReload.Text, reloadTime);
-//    FData.Firing_Delay := reloadTime;
-//
-//    FData.Mine_Index := FMine_Def.Mine_Index;
-//
-//    if FData.Fitted_Weap_Index = 0 then
-//      dmTTT.InsertFittedWeaponOnBoard(3, FData)
-//    else
-//      dmTTT.UpdateFittedWeaponOnBoard(3, FData);
-//  end;
-//
-//  isOK := True;
-//  AfterClose := True;
-//  btnApply.Enabled := False;
-//  btnCancel.Enabled := False;
+  if not CekInput then
+  begin
+    Exit;
+  end;
+
+  ValidationFormatInput;
+
+  with FSelectedMine do
+  begin
+    LastName := edtName.Text;
+    FData.Instance_Identifier := edtName.Text;
+    FData.Vehicle_Index := FSelectedVehicle.FData.VehicleIndex;
+    FData.Mount_Type := cbMountExtension.ItemIndex;
+    FData.Quantity := StrToInt(edtQuantity.Text);
+
+    TimeToSecond(edtReload.Text, reloadTime);
+    FData.Firing_Delay := reloadTime;
+
+    FData.Mine_Index := FDef.Mine_Index;
+
+    if FData.Fitted_Weap_Index = 0 then
+      dmINWO.InsertFittedWeaponOnBoard(3, FData)
+    else
+      dmINWO.UpdateFittedWeaponOnBoard(3, FData);
+  end;
+
+  btnApply.Enabled := False;
+  btnCancel.Enabled := False;
 end;
 
 procedure TfrmMineMount.btnCancelClick(Sender: TObject);
 begin
-  AfterClose := False;
   Close;
 end;
 
@@ -158,25 +149,25 @@ end;
 
 function TfrmMineMount.CekInput: Boolean;
 begin
-//  Result := False;
-//
-//  {Jika Mount Name sudah ada}
-//  if dmTTT.GetFittedWeaponOnBoardCount(FSelectedVehicle.FData.Vehicle_Index, edtName.Text) then
-//  begin
-//    {Jika inputan baru}
-//    if FSelectedMine.FData.Fitted_Weap_Index = 0 then
-//    begin
-//      ShowMessage('Duplicate mine mount!' + Char(13) + 'Choose different name to continue.');
-//      Exit;
-//    end
-//    else if LastName <> edtName.Text then
-//    begin
-//      ShowMessage('Please use another class name');
-//      Exit;
-//    end;
-//  end;
-//
-//  Result := True;
+  Result := False;
+
+  {Jika Mount Name sudah ada}
+  if dmINWO.GetFittedWeaponOnBoardCount(FSelectedVehicle.FData.VehicleIndex, edtName.Text) then
+  begin
+    {Jika inputan baru}
+    if FSelectedMine.FData.Fitted_Weap_Index = 0 then
+    begin
+      ShowMessage('Duplicate mine mount!' + Char(13) + 'Choose different name to continue.');
+      Exit;
+    end
+    else if LastName <> edtName.Text then
+    begin
+      ShowMessage('Please use another class name');
+      Exit;
+    end;
+  end;
+
+  Result := True;
 end;
 
 procedure TfrmMineMount.UpdateMineData;

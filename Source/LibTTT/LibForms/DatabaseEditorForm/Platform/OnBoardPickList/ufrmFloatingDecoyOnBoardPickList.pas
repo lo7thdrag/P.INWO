@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, StdCtrls, Vcl.Imaging.pngimage,
-  uDBAsset_Vehicle, uDBAsset_Countermeasure, uSimContainers ;
+
+  uClassData, uDBAsset_Countermeasure, uSimContainers ;
 
 type
   TfrmFloatingDecoyOnBoardPickList = class(TForm)
@@ -39,15 +40,13 @@ type
     FAllFloatingDecoyDefList : TList;
     FAllFloatingDecoyOnBoardList : TList;
 
-    FSelectedVehicle : TVehicle_Definition;
+    FSelectedVehicle : TAsset;
     FSelectedFloatingDecoy : TFloating_Decoy_On_Board;
 
     procedure UpdateFloatingDecoyList;
 
   public
-    AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, btn Cancel di summary menyala}
-    property SelectedVehicle : TVehicle_Definition read FSelectedVehicle write FSelectedVehicle;
-
+    property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
   end;
 
 var
@@ -86,43 +85,41 @@ end;
 
 procedure TfrmFloatingDecoyOnBoardPickList.btnAddClick(Sender: TObject);
 begin
-//  if lbAllFloatingDecoyDef.ItemIndex = -1 then
-//    Exit;
-//
-//   frmFloatingDecoyMount := TfrmFloatingDecoyMount.Create(Self);
-//  try
-//    with frmFloatingDecoyMount do
-//    begin
-//      SelectedVehicle := FSelectedVehicle;
-//      SelectedFloatingDecoy := FSelectedFloatingDecoy;
-//      ShowModal;
-//    end;
-//    AfterClose := frmFloatingDecoyMount.AfterClose;
-//  finally
-//    frmFloatingDecoyMount.Free;
-//  end;
-//
+  if lbAllFloatingDecoyDef.ItemIndex = -1 then
+    Exit;
+
+  if not Assigned(frmFloatingDecoyMount) then
+    frmFloatingDecoyMount := TfrmFloatingDecoyMount.Create(Self);
+  try
+    with frmFloatingDecoyMount do
+    begin
+      SelectedVehicle := FSelectedVehicle;
+      SelectedFloatingDecoy := FSelectedFloatingDecoy;
+      Show;
+    end;
+  finally
+  end;
+
 //  UpdateFloatingDecoyList;
 end;
 
 procedure TfrmFloatingDecoyOnBoardPickList.btnEditClick(Sender: TObject);
 begin
-//  if lbAllFloatingDecoyOnBoard.ItemIndex = -1 then
-//    Exit;
-//
-//  frmFloatingDecoyMount := TfrmFloatingDecoyMount.Create(Self);
-//  try
-//    with frmFloatingDecoyMount do
-//    begin
-//      SelectedVehicle := FSelectedVehicle;
-//      SelectedFloatingDecoy := FSelectedFloatingDecoy;
-//      ShowModal;
-//    end;
-//    AfterClose := frmFloatingDecoyMount.AfterClose;
-//  finally
-//    frmFloatingDecoyMount.Free;
-//  end;
-//
+  if lbAllFloatingDecoyOnBoard.ItemIndex = -1 then
+    Exit;
+
+  if not Assigned(frmFloatingDecoyMount) then
+    frmFloatingDecoyMount := TfrmFloatingDecoyMount.Create(Self);
+  try
+    with frmFloatingDecoyMount do
+    begin
+      SelectedVehicle := FSelectedVehicle;
+      SelectedFloatingDecoy := FSelectedFloatingDecoy;
+      Show;
+    end;
+  finally
+  end;
+
 //  UpdateFloatingDecoyList;
 end;
 
@@ -133,7 +130,7 @@ begin
 //
 //  with FSelectedFloatingDecoy.FData do
 //  begin
-//    dmTTT.DeleteFloatingDecoyOnBoard(2,Floating_Decoy_Instance_Index);
+//    dmINWO.DeleteFloatingDecoyOnBoard(2,Floating_Decoy_Instance_Index);
 //  end;
 //
 //  AfterClose := True;
@@ -169,8 +166,8 @@ begin
 //  lbAllFloatingDecoyDef.Items.Clear;
 //  lbAllFloatingDecoyOnBoard.Items.Clear;
 //
-//  dmTTT.GetAllFloatingDecoyDef(FAllFloatingDecoyDefList);
-//  dmTTT.GetFloatingDecoyOnBoard(FSelectedVehicle.FData.Vehicle_Index,FAllFloatingDecoyOnBoardList);
+//  dmINWO.GetAllFloatingDecoyDef(FAllFloatingDecoyDefList);
+//  dmINWO.GetFloatingDecoyOnBoard(FSelectedVehicle.FData.VehicleIndex,FAllFloatingDecoyOnBoardList);
 //
 //  for i := 0 to FAllFloatingDecoyDefList.Count - 1 do
 //  begin

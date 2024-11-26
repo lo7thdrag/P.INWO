@@ -4,8 +4,9 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ComCtrls, ExtCtrls{, uDBAsset_Vehicle,
-  uDBAsset_Countermeasure}, Vcl.Imaging.pngimage;
+  Dialogs, StdCtrls, ComCtrls, ExtCtrls, Vcl.Imaging.pngimage,
+
+  uDBAsset_Countermeasure, uClassData, uSimContainers;
 
 type
   TfrmFloatingDecoyMount = class(TForm)
@@ -39,18 +40,16 @@ type
     procedure btnApplyClick(Sender: TObject);
 
   private
-//    FSelectedVehicle : TVehicle_Definition;
-//    FSelectedFloatingDecoy : TFloating_Decoy_On_Board;
+    FSelectedVehicle : TAsset;
+    FSelectedFloatingDecoy : TFloating_Decoy_On_Board;
 
     function CekInput: Boolean;
     procedure UpdateFloatingDecoyData;
   public
-    isOK  : Boolean; {Penanda jika gagal cek input, btn OK tidak langsung close}
-    AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, btn Cancel di summary menyala}
     LastName : string;
 
-//    property SelectedVehicle : TVehicle_Definition read FSelectedVehicle write FSelectedVehicle;
-//    property SelectedFloatingDecoy : TFloating_Decoy_On_Board read FSelectedFloatingDecoy write FSelectedFloatingDecoy;
+    property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
+    property SelectedFloatingDecoy : TFloating_Decoy_On_Board read FSelectedFloatingDecoy write FSelectedFloatingDecoy;
   end;
 
 var
@@ -72,14 +71,12 @@ end;
 
 procedure TfrmFloatingDecoyMount.FormShow(Sender: TObject);
 begin
-//  UpdateFloatingDecoyData;
-//
-//  with FSelectedFloatingDecoy.FData do
-//    btnApply.Enabled := Floating_Decoy_Instance_Index = 0;
-//
-//  isOK := True;
-//  AfterClose := True;
-//  btnCancel.Enabled := True;
+  UpdateFloatingDecoyData;
+
+  with FSelectedFloatingDecoy.FData do
+    btnApply.Enabled := Floating_Decoy_Instance_Index = 0;
+
+  btnCancel.Enabled := True;
 end;
 
 {$ENDREGION}
@@ -91,44 +88,39 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
-  if isOk then
     Close;
 end;
 
 procedure TfrmFloatingDecoyMount.btnApplyClick(Sender: TObject);
 begin
-//  if not CekInput then
-//  begin
-//    isOK := False;
-//    Exit;
-//  end;
-//
-//  ValidationFormatInput;
-//
-//  with FSelectedFloatingDecoy do
-//  begin
-//    LastName := edtName.Text;
-//    FData.Instance_Identifier := edtName.Text;
-//    FData.Instance_Type := 0;
-//    FData.Quantity := StrToInt(edtQuantity.Text);
-//    FData.Vehicle_Index := FSelectedVehicle.FData.Vehicle_Index;
-//    FData.Floating_Decoy_Index := FFloatingDecoy_Def.Floating_Decoy_Index;
-//
-//    if FData.Floating_Decoy_Instance_Index = 0 then
-//      dmTTT.InsertFloatingDecoyOnBoard(FData)
-//    else
-//      dmTTT.UpdateFloatingDecoyOnBoard(FData);
-//  end;
-//
-//  isOK := True;
-//  AfterClose := True;
-//  btnApply.Enabled := False;
-//  btnCancel.Enabled := False;
+  if not CekInput then
+  begin
+    Exit;
+  end;
+
+  ValidationFormatInput;
+
+  with FSelectedFloatingDecoy do
+  begin
+    LastName := edtName.Text;
+    FData.Instance_Identifier := edtName.Text;
+    FData.Instance_Type := 0;
+    FData.Quantity := StrToInt(edtQuantity.Text);
+    FData.Vehicle_Index := FSelectedVehicle.FData.VehicleIndex;
+    FData.Floating_Decoy_Index := FDef.Floating_Decoy_Index;
+
+    if FData.Floating_Decoy_Instance_Index = 0 then
+      dmINWO.InsertFloatingDecoyOnBoard(FData)
+    else
+      dmINWO.UpdateFloatingDecoyOnBoard(FData);
+  end;
+
+  btnApply.Enabled := False;
+  btnCancel.Enabled := False;
 end;
 
 procedure TfrmFloatingDecoyMount.btnCancelClick(Sender: TObject);
 begin
-  AfterClose := False;
   Close;
 end;
 

@@ -4,8 +4,9 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ExtCtrls, ComCtrls, {uDBAsset_Sensor,  uBlindZoneView,
-  uDBBlind_Zone,uDBAsset_Vehicle, tttData,}Vcl.Imaging.pngimage;
+  Dialogs, StdCtrls, ExtCtrls, ComCtrls, Vcl.Imaging.pngimage,
+
+  uDBAsset_Sensor, uClassData, uSimContainers;
 
 type
   TfrmEODMount = class(TForm)
@@ -49,23 +50,19 @@ type
 
 
   private
-//    FSelectedVehicle : TVehicle_Definition;
-//    FSelectedEOD : TEOD_On_Board;
-//
-//    FBlindZoneView : TBlindZoneView;
+    FSelectedVehicle : TAsset;
+    FSelectedEOD : TEOD_On_Board;
+
 
     function CekInput: Boolean;
     procedure UpdateEODData;
     procedure DrawBlindZone;
 
   public
-    isOK  : Boolean; {Penanda jika gagal cek input, btn OK tidak langsung close}
-    AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, btn Cancel di summary menyala}
     LastName : string;
 
-//    property SelectedVehicle : TVehicle_Definition read FSelectedVehicle write FSelectedVehicle;
-//    property SelectedEOD : TEOD_On_Board read FSelectedEOD write FSelectedEOD;
-
+    property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
+    property SelectedEOD : TEOD_On_Board read FSelectedEOD write FSelectedEOD;
   end;
 
 var
@@ -103,14 +100,12 @@ end;
 
 procedure TfrmEODMount.FormShow(Sender: TObject);
 begin
-//  UpdateEODData;
-//
-//  with FSelectedEOD.FData do
-//    btnApply.Enabled := EO_Instance_Index = 0;
-//
-//  isOK := True;
-//  AfterClose := True;
-//  btnCancel.Enabled := True;
+  UpdateEODData;
+
+  with FSelectedEOD.FData do
+    btnApply.Enabled := EOD_Instance_Index = 0;
+
+  btnCancel.Enabled := True;
 end;
 
 {$ENDREGION}
@@ -122,76 +117,70 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
-  if isOk then
     Close;
 end;
 
 procedure TfrmEODMount.btnApplyClick(Sender: TObject);
 begin
-//  if not CekInput then
-//  begin
-//    isOK := False;
-//    Exit;
-//  end;
-//
-//  ValidationFormatInput;
-//
-//  with FSelectedEOD do
-//  begin
-//    LastName := edtName.Text;
-//    FData.Instance_Identifier := edtName.Text;
-//    FData.Instance_Type := cbMountExtension.ItemIndex;
-//    FData.Vehicle_Index := FSelectedVehicle.FData.Vehicle_Index;
-//    FData.Antenna_Height := StrToFloat(edtAntenna.Text);
-//    FData.EO_Index := FEO_Def.EO_Index;
-//
-//    if FData.EO_Instance_Index = 0 then
-//      dmTTT.InsertEOOnBoard(FData)
-//    else
-//      dmTTT.UpdateEOOnBoard(FData);
-//  end;
-//
-//  isOK := True;
-//  AfterClose := True;
-//  btnApply.Enabled := False;
-//  btnCancel.Enabled := False;
+  if not CekInput then
+  begin
+    Exit;
+  end;
+
+  ValidationFormatInput;
+
+  with FSelectedEOD do
+  begin
+    LastName := edtName.Text;
+    FData.Instance_Identifier := edtName.Text;
+    FData.Instance_Type := cbMountExtension.ItemIndex;
+    FData.Vehicle_Index := FSelectedVehicle.FData.VehicleIndex;
+    FData.Antenna_Height := StrToFloat(edtAntenna.Text);
+    FData.EOD_Index := FDef.EOD_Index;
+
+    if FData.EOD_Instance_Index = 0 then
+      dmINWO.InsertEODOnBoard(FData)
+    else
+      dmINWO.UpdateEODOnBoard(FData);
+  end;
+
+  btnApply.Enabled := False;
+  btnCancel.Enabled := False;
 end;
 
 procedure TfrmEODMount.btnCancelClick(Sender: TObject);
 begin
-  AfterClose := False;
   Close;
 end;
 
 procedure TfrmEODMount.cbMountExtensionChange(Sender: TObject);
 begin
-//  edtName.Text := FSelectedEOD.FEO_Def.Class_Identifier + ' ' +
-//    cbMountExtension.Text;
-//
-//  btnApply.Enabled := True;
+  edtName.Text := FSelectedEOD.FDef.Class_Identifier + ' ' + cbMountExtension.Text;
+
+  btnApply.Enabled := True;
 end;
 
 function TfrmEODMount.CekInput: Boolean;
 begin
-//  Result := False;
-//
-//  {Jika Mount Name sudah ada}
-//  if dmTTT.GetEOOnBoardCount(FSelectedVehicle.FData.Vehicle_Index, edtName.Text) then
-//  begin
-//    {Jika inputan baru}
-//    if FSelectedEOD.FData.EO_Instance_Index = 0 then
-//    begin
-//      ShowMessage('Duplicate EOD mount!' + Char(13) + 'Choose different mount to continue.');
-//      Exit;
-//    end
-//    else if LastName <> edtName.Text then
-//    begin
-//      ShowMessage('Please use another class name');
-//      Exit;
-//    end;
-//  end;
-//
-//  Result := True;
+  Result := False;
+
+  {Jika Mount Name sudah ada}
+  if dmINWO.GetEODOnBoardCount(FSelectedVehicle.FData.VehicleIndex, edtName.Text) then
+  begin
+    {Jika inputan baru}
+    if FSelectedEOD.FData.EOD_Instance_Index = 0 then
+    begin
+      ShowMessage('Duplicate EOD mount!' + Char(13) + 'Choose different mount to continue.');
+      Exit;
+    end
+    else if LastName <> edtName.Text then
+    begin
+      ShowMessage('Please use another class name');
+      Exit;
+    end;
+  end;
+
+  Result := True;
 end;
 
 procedure TfrmEODMount.DrawBlindZone;
@@ -270,22 +259,22 @@ end;
 
 procedure TfrmEODMount.UpdateEODData;
 begin
-//  with FSelectedEOD do
-//  begin
-//    cbMountExtension.ItemIndex := FData.Instance_Type;
-//
-//    if FData.EO_Instance_Index = 0 then
-//      edtName.Text := FEO_Def.Class_Identifier + ' ' + cbMountExtension.Text
-//    else
-//      edtName.Text := FData.Instance_Identifier;
-//
-//    LastName := edtName.Text;
-//    edtClassName.Caption := FEO_Def.Class_Identifier;
-//
+  with FSelectedEOD do
+  begin
+    cbMountExtension.ItemIndex := FData.Instance_Type;
+
+    if FData.EOD_Instance_Index = 0 then
+      edtName.Text := FDef.Class_Identifier + ' ' + cbMountExtension.Text
+    else
+      edtName.Text := FData.Instance_Identifier;
+
+    LastName := edtName.Text;
+    edtClassName.Caption := FDef.Class_Identifier;
+
 //    DrawBlindZone;
-//
-//    edtAntenna.Text := FormatFloat('0', FData.Antenna_Height);
-//  end;
+
+    edtAntenna.Text := FormatFloat('0', FData.Antenna_Height);
+  end;
 end;
 
 {$ENDREGION}

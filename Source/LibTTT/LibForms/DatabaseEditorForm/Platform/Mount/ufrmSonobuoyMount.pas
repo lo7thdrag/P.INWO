@@ -4,8 +4,9 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ComCtrls, ExtCtrls, {uDBAsset_Sonobuoy, uDBAsset_Sonar,
-  uDBAsset_Vehicle, tttData,} Vcl.Imaging.pngimage;
+  Dialogs, StdCtrls, ComCtrls, ExtCtrls, Vcl.Imaging.pngimage,
+
+  uDBAsset_Sensor, uClassData, uSimContainers;
 
 type
   TfrmSonobuoyMount = class(TForm)
@@ -47,20 +48,18 @@ type
 
 
   private
-//    FSelectedVehicle : TVehicle_Definition;
-//    FSelectedSonobuoy : TSonobuoy_On_Board;
+    FSelectedVehicle : TAsset;
+    FSelectedSonobuoy : TSonobuoy_On_Board;
 
     function CekInput: Boolean;
     procedure UpdateSonobuoyData;
+//    procedure DrawBlindZone;
 
   public
-    isOK  : Boolean; {Penanda jika gagal cek input, btn OK tidak langsung close}
-    AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, btn Cancel di summary menyala}
     LastName : string;
 
-//    property SelectedVehicle : TVehicle_Definition read FSelectedVehicle write FSelectedVehicle;
-//    property SelectedSonobuoy : TSonobuoy_On_Board read FSelectedSonobuoy write FSelectedSonobuoy;
-
+    property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
+    property SelectedSonobuoy : TSonobuoy_On_Board read FSelectedSonobuoy write FSelectedSonobuoy;
   end;
 
 var
@@ -69,7 +68,7 @@ var
 implementation
 
 uses
-  uDataModule{, ufrmSonobuoyOnBoardPickList} ;
+  uDataModule, ufrmBlindZoneAttachment ;
 
 {$R *.dfm}
 
@@ -83,14 +82,12 @@ end;
 
 procedure TfrmSonobuoyMount.FormShow(Sender: TObject);
 begin
-//  UpdateSonobuoyData;
-//
-//  with FSelectedSonobuoy.FData do
-//    btnApply.Enabled := Sonobuoy_Instance_Index = 0;
-//
-//  isOK := True;
-//  AfterClose := True;
-//  btnCancel.Enabled := True;
+  UpdateSonobuoyData;
+
+  with FSelectedSonobuoy.FData do
+    btnApply.Enabled := Sonobuoy_Instance_Index = 0;
+
+  btnCancel.Enabled := True;
 end;
 
 {$ENDREGION}
@@ -102,99 +99,93 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
-  if isOk then
     Close;
 end;
 
 procedure TfrmSonobuoyMount.btnApplyClick(Sender: TObject);
 begin
-//  if not CekInput then
-//  begin
-//    isOK := False;
-//    Exit;
-//  end;
-//
-//  ValidationFormatInput;
-//
-//  with FSelectedSonobuoy do
-//  begin
-//    LastName := edtName.Text;
-//    FData.Instance_Identifier := edtName.Text;
-//    FData.Instance_Type := cbMountExtension.ItemIndex;
-//    FData.Vehicle_Index := FSelectedVehicle.FData.Vehicle_Index;
-//    FData.Sonobuoy_Index := FDef.Sonobuoy_Index;
-//    FData.Quantity := StrToInt(edtQuantity.Text);
-//    FData.Sonar_Instance_Index := FDef.Sonar_Index;
-//
-//    if FData.Sonobuoy_Instance_Index = 0 then
-//      dmTTT.InsertSonobuoyOnBoard(FData)
-//    else
-//      dmTTT.UpdateSonobuoyOnBoard(FData);
-//  end;
-//
-//  isOK := True;
-//  AfterClose := True;
-//  btnApply.Enabled := False;
-//  btnCancel.Enabled := False;
+  if not CekInput then
+  begin
+    Exit;
+  end;
+
+  ValidationFormatInput;
+
+  with FSelectedSonobuoy do
+  begin
+    LastName := edtName.Text;
+    FData.Instance_Identifier := edtName.Text;
+    FData.Instance_Type := cbMountExtension.ItemIndex;
+    FData.Vehicle_Index := FSelectedVehicle.FData.VehicleIndex;
+    FData.Sonobuoy_Index := FDef.Sonobuoy_Index;
+    FData.Quantity := StrToInt(edtQuantity.Text);
+    FData.Sonar_Instance_Index := FDef.Sonar_Index;
+
+    if FData.Sonobuoy_Instance_Index = 0 then
+      dmINWO.InsertSonobuoyOnBoard(FData)
+    else
+      dmINWO.UpdateSonobuoyOnBoard(FData);
+  end;
+
+  btnApply.Enabled := False;
+  btnCancel.Enabled := False;
 end;
 
 procedure TfrmSonobuoyMount.btnCancelClick(Sender: TObject);
 begin
-  AfterClose := False;
   Close;
 end;
 
 procedure TfrmSonobuoyMount.cbMountExtensionChange(Sender: TObject);
 begin
-//  edtName.Text := FSelectedSonobuoy.FDef.Class_Identifier + ' ' +
-//    cbMountExtension.Text;
-//
-//  btnApply.Enabled := True;
+  edtName.Text := FSelectedSonobuoy.FDef.Class_Identifier + ' ' + cbMountExtension.Text;
+
+  btnApply.Enabled := True;
 end;
 
 function TfrmSonobuoyMount.CekInput: Boolean;
 begin
-//  Result := False;
-//
-//  {Jika Mount Name sudah ada}
-//  if dmTTT.GetSonobuoyOnBoardCount(FSelectedVehicle.FData.Vehicle_Index, edtName.Text)then
-//  begin
-//    {Jika inputan baru}
-//    if FSelectedSonobuoy.FData.Sonobuoy_Instance_Index = 0 then
-//    begin
-//      ShowMessage('Duplicate Sonobuoy mount!' + Char(13) + 'Choose different mount to continue.');
-//      Exit;
-//    end
-//    else if LastName <> edtName.Text then
-//    begin
-//      ShowMessage('Please use another class name');
-//      Exit;
-//    end;
-//  end;
-//
-//  Result := True;
+  Result := False;
+
+  {Jika Mount Name sudah ada}
+  if dmINWO.GetSonobuoyOnBoardCount(FSelectedVehicle.FData.VehicleIndex, edtName.Text)then
+  begin
+    {Jika inputan baru}
+    if FSelectedSonobuoy.FData.Sonobuoy_Instance_Index = 0 then
+    begin
+      ShowMessage('Duplicate Sonobuoy mount!' + Char(13) + 'Choose different mount to continue.');
+      Exit;
+    end
+    else if LastName <> edtName.Text then
+    begin
+      ShowMessage('Please use another class name');
+      Exit;
+    end;
+  end;
+
+  Result := True;
 end;
 
 procedure TfrmSonobuoyMount.UpdateSonobuoyData;
 begin
-//  with FSelectedSonobuoy do
-//  begin
-//    cbMountExtension.ItemIndex := FData.Instance_Type;
-//
-//    if FData.Sonobuoy_Instance_Index = 0 then
-//      edtName.Text := FDef.Class_Identifier + ' ' + cbMountExtension.Text
-//    else
-//      edtName.Text := FData.Instance_Identifier;
-//
-//    LastName := edtName.Text;
-//    edtClassName.Caption := FDef.Class_Identifier;
-//
-//    FData.Quantity := StrToInt(edtQuantity.Text);
-//    FData.Sonar_Instance_Index := FDef.Sonar_Index;
-//
-//    edtQuantity.Text := FormatFloat('0', FData.Quantity);
+  with FSelectedSonobuoy do
+  begin
+    cbMountExtension.ItemIndex := FData.Instance_Type;
+
+    if FData.Sonobuoy_Instance_Index = 0 then
+      edtName.Text := FDef.Class_Identifier + ' ' + cbMountExtension.Text
+    else
+      edtName.Text := FData.Instance_Identifier;
+
+    LastName := edtName.Text;
+    edtClassName.Caption := FDef.Class_Identifier;
+
+    FData.Quantity := StrToInt(edtQuantity.Text);
+    FData.Sonar_Instance_Index := FDef.Sonar_Index;
+
+    edtQuantity.Text := FormatFloat('0', FData.Quantity);
 //    edtSonarMount.Text := FSonar.FDef.Sonar_Identifier;
-//  end;
+  end;
 end;
 
 {$ENDREGION}

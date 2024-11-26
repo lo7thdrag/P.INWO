@@ -4,8 +4,9 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ComCtrls, ExtCtrls, {uDBAsset_Vehicle,
-  uDBAsset_Countermeasure,} Vcl.Imaging.pngimage;
+  Dialogs, StdCtrls, ComCtrls, ExtCtrls, Vcl.Imaging.pngimage,
+
+  uDBAsset_Countermeasure, uClassData, uSimContainers;
 
 type
   TfrmTowedJammerMount = class(TForm)
@@ -37,18 +38,16 @@ type
     procedure btnApplyClick(Sender: TObject);
 
   private
-//    FSelectedVehicle : TVehicle_Definition;
-//    FSelectedTowedJammerDecoy : TTowed_Jammer_Decoy_On_Board;
+    FSelectedVehicle : TAsset;
+    FSelectedTowedJammerDecoy : TTowed_Decoy_On_Board;
 
     function CekInput: Boolean;
     procedure UpdateTowedJammerDecoyData;
   public
-    isOK  : Boolean; {Penanda jika gagal cek input, btn OK tidak langsung close}
-    AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, btn Cancel di summary menyala}
     LastName : string;
 
-//    property SelectedVehicle : TVehicle_Definition read FSelectedVehicle write FSelectedVehicle;
-//    property SelectedTowedJammerDecoy : TTowed_Jammer_Decoy_On_Board read FSelectedTowedJammerDecoy write FSelectedTowedJammerDecoy;
+    property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
+    property SelectedTowedJammerDecoy : TTowed_Decoy_On_Board read FSelectedTowedJammerDecoy write FSelectedTowedJammerDecoy;
 
   end;
 
@@ -72,14 +71,12 @@ end;
 
 procedure TfrmTowedJammerMount.FormShow(Sender: TObject);
 begin
-//  UpdateTowedJammerDecoyData;
-//
-//  with FSelectedTowedJammerDecoy.FData do
-//    btnApply.Enabled := Towed_Decoy_Instance_Index = 0;
-//
-//  isOK := True;
-//  AfterClose := True;
-//  btnCancel.Enabled := True;
+  UpdateTowedJammerDecoyData;
+
+  with FSelectedTowedJammerDecoy.FData do
+    btnApply.Enabled := Towed_Decoy_Instance_Index = 0;
+
+  btnCancel.Enabled := True;
 end;
 
 {$ENDREGION}
@@ -91,44 +88,39 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
-  if isOk then
     Close;
 end;
 
 procedure TfrmTowedJammerMount.btnApplyClick(Sender: TObject);
 begin
-//  if not CekInput then
-//  begin
-//    isOK := False;
-//    Exit;
-//  end;
-//
-//  ValidationFormatInput;
-//
-//  with FSelectedTowedJammerDecoy do
-//  begin
-//    LastName := edtName.Text;
-//    FData.Instance_Identifier := edtName.Text;
-//    FData.Instance_Type := 0;
-//    FData.Quantity := StrToInt(edtQuantity.Text);
-//    FData.Vehicle_Index := FSelectedVehicle.FData.Vehicle_Index;
-//    FData.Towed_Decoy_Index := FDef.Towed_Decoy_Index;
-//
-//    if FData.Towed_Decoy_Instance_Index = 0 then
-//      dmTTT.InsertTowedJammerDecoyOnBoard(FData)
-//    else
-//      dmTTT.UpdateTowedJammerDecoyOnBoard(FData);
-//  end;
-//
-//  isOK := True;
-//  AfterClose := True;
-//  btnApply.Enabled := False;
-//  btnCancel.Enabled := False;
+  if not CekInput then
+  begin
+    Exit;
+  end;
+
+  ValidationFormatInput;
+
+  with FSelectedTowedJammerDecoy do
+  begin
+    LastName := edtName.Text;
+    FData.Instance_Identifier := edtName.Text;
+    FData.Instance_Type := 0;
+    FData.Quantity := StrToInt(edtQuantity.Text);
+    FData.Vehicle_Index := FSelectedVehicle.FData.VehicleIndex;
+    FData.Towed_Decoy_Index := FDef.Towed_Decoy_Index;
+
+    if FData.Towed_Decoy_Instance_Index = 0 then
+      dmINWO.InsertTowedJammerDecoyOnBoard(FData)
+    else
+      dmINWO.UpdateTowedJammerDecoyOnBoard(FData);
+  end;
+
+  btnApply.Enabled := False;
+  btnCancel.Enabled := False;
 end;
 
 procedure TfrmTowedJammerMount.btnCancelClick(Sender: TObject);
 begin
-  AfterClose := False;
   Close;
 end;
 
@@ -137,7 +129,7 @@ begin
 //  Result := False;
 //
 //  {Jika Mount Name sudah ada}
-//  if dmTTT.GetTowedJammerOnBoardCount(FSelectedVehicle.FData.Vehicle_Index, edtName.Text) then
+//  if dmINWO.GetTowedJammerOnBoardCount(FSelectedVehicle.FData.Vehicle_Index, edtName.Text) then
 //  begin
 //    {Jika inputan baru}
 //    if FSelectedTowedJammerDecoy.FData.Towed_Decoy_Instance_Index = 0 then

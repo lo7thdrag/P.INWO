@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, StdCtrls, Vcl.Imaging.pngimage,
-  uDBAsset_Vehicle, uDBAsset_Countermeasure, uSimContainers ;
+
+  uClassData, uDBAsset_Countermeasure, uSimContainers;
 
 type
   TfrmAcousticDecoyOnBoardPickList = class(TForm)
@@ -40,14 +41,13 @@ type
     FAllAcousticDecoyDefList : TList;
     FAllAcousticDecoyOnBoardList : TList;
 
-    FSelectedVehicle : TVehicle_Definition;
+    FSelectedVehicle : TAsset;
     FSelectedAcousticDecoy : TAcoustic_Decoy_On_Board;
 
     procedure UpdateAcousticDecoyList;
 
   public
-    AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, btn Cancel di summary menyala}
-    property SelectedVehicle : TVehicle_Definition read FSelectedVehicle write FSelectedVehicle;
+    property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
   end;
 
 var
@@ -58,7 +58,7 @@ implementation
 {$R *.dfm}
 
 uses
-  uDataModule{TTT, ufrmAcousticDecoyMount};
+  uDataModule, ufrmAcousticDecoyMount;
 
 {$REGION ' Form Handle '}
 
@@ -86,59 +86,55 @@ end;
 
 procedure TfrmAcousticDecoyOnBoardPickList.btnAddClick(Sender: TObject);
 begin
-//  if lbAllAcousticDecoyDef.ItemIndex = -1 then
-//    Exit;
-//
-//  frmAcousticDecoyMount := TfrmAcousticDecoyMount.Create(Self);
-//  try
-//    with frmAcousticDecoyMount do
-//    begin
-//      SelectedVehicle := FSelectedVehicle;
-//      SelectedAcousticDecoy := FSelectedAcousticDecoy;
-//      ShowModal;
-//    end;
-//    AfterClose := frmAcousticDecoyMount.AfterClose;
-//  finally
-//    frmAcousticDecoyMount.Free;
-//  end;
-//
+  if lbAllAcousticDecoyDef.ItemIndex = -1 then
+    Exit;
+
+  if not Assigned(frmAcousticDecoyMount) then
+    frmAcousticDecoyMount := TfrmAcousticDecoyMount.Create(Self);
+  try
+    with frmAcousticDecoyMount do
+    begin
+      SelectedVehicle := FSelectedVehicle;
+      SelectedAcousticDecoy := FSelectedAcousticDecoy;
+      Show;
+    end;
+  finally
+  end;
+
 //  UpdateAcousticDecoyList;
 end;
 
 procedure TfrmAcousticDecoyOnBoardPickList.btnEditClick(Sender: TObject);
 begin
-//  if lbAllAcousticDecoyOnBoard.ItemIndex = -1 then
-//    Exit;
-//
-//  frmAcousticDecoyMount := TfrmAcousticDecoyMount.Create(Self);
-//  try
-//    with frmAcousticDecoyMount do
-//    begin
-//      SelectedVehicle := FSelectedVehicle;
-//      SelectedAcousticDecoy := FSelectedAcousticDecoy;
-//      ShowModal;
-//    end;
-//    AfterClose := frmAcousticDecoyMount.AfterClose;
-//
-//  finally
-//    frmAcousticDecoyMount.Free;
-//  end;
-//
+  if lbAllAcousticDecoyOnBoard.ItemIndex = -1 then
+    Exit;
+
+  if not Assigned(frmAcousticDecoyMount) then
+    frmAcousticDecoyMount := TfrmAcousticDecoyMount.Create(Self);
+  try
+    with frmAcousticDecoyMount do
+    begin
+      SelectedVehicle := FSelectedVehicle;
+      SelectedAcousticDecoy := FSelectedAcousticDecoy;
+      Show;
+    end;
+  finally
+  end;
+
 //  UpdateAcousticDecoyList;
 end;
 
 procedure TfrmAcousticDecoyOnBoardPickList.btnRemoveClick(Sender: TObject);
 begin
-//  if lbAllAcousticDecoyOnBoard.ItemIndex = -1 then
-//    Exit;
-//
-//  with FSelectedAcousticDecoy.FData do
-//  begin
-//    dmTTT.DeleteAcousticDecoyOnBoard(2, Acoustic_Instance_Index);
-//  end;
-//
-//  AfterClose := True;
-//  UpdateAcousticDecoyList;
+  if lbAllAcousticDecoyOnBoard.ItemIndex = -1 then
+    Exit;
+
+  with FSelectedAcousticDecoy.FData do
+  begin
+    dmINWO.DeleteAcousticDecoyOnBoard(2, Acoustic_Instance_Index);
+  end;
+
+  UpdateAcousticDecoyList;
 end;
 
 procedure TfrmAcousticDecoyOnBoardPickList.btnCloseClick(Sender: TObject);
@@ -170,9 +166,9 @@ begin
 //  lbAllAcousticDecoyDef.Items.Clear;
 //  lbAllAcousticDecoyOnBoard.Items.Clear;
 //
-//  dmTTT.GetAllAcousticDecoyDef(FAllAcousticDecoyDefList);
-//  dmTTT.GetAcousticDecoyOnBoard(FSelectedVehicle.FData.Vehicle_Index,FAllAcousticDecoyOnBoardList);
-//
+//  dmINWO.GetAllAcousticDecoyDef(FAllAcousticDecoyDefList);
+//  dmINWO.GetAcousticDecoyOnBoard(FSelectedVehicle.FData.VehicleIndex,FAllAcousticDecoyOnBoardList);
+
 //  for i := 0 to FAllAcousticDecoyDefList.Count - 1 do
 //  begin
 //    acousticdecoy := FAllAcousticDecoyDefList.Items[i];

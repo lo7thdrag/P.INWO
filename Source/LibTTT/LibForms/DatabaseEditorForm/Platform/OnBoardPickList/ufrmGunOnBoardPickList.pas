@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ExtCtrls, ComCtrls, Vcl.Imaging.pngimage,
-  uDBAsset_Vehicle, uDBAsset_Weapon, uSimContainers ;
+
+  uDBAsset_Weapon, uClassData, uSimContainers ;
 
 type
   TfrmGunOnBoardPickList = class(TForm)
@@ -40,14 +41,13 @@ type
     FAllGunDefList : TList;
     FAllGunOnBoardList : TList;
 
-    FSelectedVehicle : TVehicle_Definition;
-//    FSelectedGun : TGun_Definition;
+    FSelectedVehicle : TAsset;
+    FSelectedGun : TGun_On_Board;
 
     procedure UpdateGunList;
 
   public
-    AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, btn Cancel di summary menyala}
-    property SelectedVehicle : TVehicle_Definition read FSelectedVehicle write FSelectedVehicle;
+    property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
   end;
 
 var
@@ -56,7 +56,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmGunMount{, tttData};
+  uDataModule, ufrmGunMount;
 
 {$R *.dfm}
 
@@ -86,58 +86,55 @@ end;
 
 procedure TfrmGunOnBoardPickList.btnAddClick(Sender: TObject);
 begin
-//  if lbAllGunDef.ItemIndex = -1 then
-//    Exit;
-//
-//  frmGunMount := TfrmGunMount.Create(Self);
-//  try
-//    with frmGunMount do
-//    begin
-//      SelectedVehicle := FSelectedVehicle;
-//      SelectedGun := FSelectedGun;
-//      ShowModal;
-//    end;
-//    AfterClose := frmGunMount.AfterClose;
-//  finally
-//    frmGunMount.Free;
-//  end;
-//
+  if lbAllGunDef.ItemIndex = -1 then
+    Exit;
+
+  if not Assigned(frmGunMount) then
+    frmGunMount := TfrmGunMount.Create(Self);
+  try
+    with frmGunMount do
+    begin
+      SelectedVehicle := FSelectedVehicle;
+      SelectedGun := FSelectedGun;
+      Show;
+    end;
+  finally
+  end;
+
 //  UpdateGunList;
 end;
 
 procedure TfrmGunOnBoardPickList.btnEditClick(Sender: TObject);
 begin
-//  if lbAllGunOnBoard.ItemIndex = -1 then
-//    Exit;
-//
-//  frmGunMount := TfrmGunMount.Create(Self);
-//  try
-//    with frmGunMount do
-//    begin
-//      SelectedVehicle := FSelectedVehicle;
-//      SelectedGun := FSelectedGun;
-//      ShowModal;
-//    end;
-//    AfterClose := frmGunMount.AfterClose;
-//  finally
-//    frmGunMount.Free;
-//  end;
-//
+  if lbAllGunOnBoard.ItemIndex = -1 then
+    Exit;
+
+  if not Assigned(frmGunMount) then
+    frmGunMount := TfrmGunMount.Create(Self);
+  try
+    with frmGunMount do
+    begin
+      SelectedVehicle := FSelectedVehicle;
+      SelectedGun := FSelectedGun;
+      Show;
+    end;
+  finally
+  end;
+
 //  UpdateGunList;
 end;
 
 procedure TfrmGunOnBoardPickList.btnRemoveClick(Sender: TObject);
 begin
-//  if lbAllGunOnBoard.ItemIndex = -1 then
-//    Exit;
-//
-//  with FSelectedGun.FPoint.FData do
-//  begin
-//    dmTTT.DeleteBlindZone(Ord(bzcPointEffect), Point_Effect_Index);
-//    dmTTT.DeletePointEffectOnBoard(2, Point_Effect_Index);
-//  end;
-//
-//  AfterClose := True;
+  if lbAllGunOnBoard.ItemIndex = -1 then
+    Exit;
+
+  with FSelectedGun.FData do
+  begin
+//    dmINWO.DeleteBlindZone(Ord(bzcPointEffect), Point_Effect_Index);
+    dmINWO.DeletePointEffectOnBoard(2, Point_Effect_Index);
+  end;
+
 //  UpdateGunList;
 end;
 
@@ -148,42 +145,42 @@ end;
 
 procedure TfrmGunOnBoardPickList.lbAllGunDefClick(Sender: TObject);
 begin
-//  if lbAllGunDef.ItemIndex = -1 then
-//    Exit;
-//
-//  FSelectedGun := TGun_Definition(lbAllGunDef.Items.Objects[lbAllGunDef.ItemIndex]);
+  if lbAllGunDef.ItemIndex = -1 then
+    Exit;
+
+  FSelectedGun := TGun_On_Board(lbAllGunDef.Items.Objects[lbAllGunDef.ItemIndex]);
 end;
 
 procedure TfrmGunOnBoardPickList.lbAllGunOnBoardClick(Sender: TObject);
 begin
-//  if lbAllGunOnBoard.ItemIndex = -1 then
-//    Exit;
-//
-//  FSelectedGun := TGun_Definition(lbAllGunOnBoard.Items.Objects[lbAllGunOnBoard.ItemIndex]);
+  if lbAllGunOnBoard.ItemIndex = -1 then
+    Exit;
+
+  FSelectedGun := TGun_On_Board(lbAllGunOnBoard.Items.Objects[lbAllGunOnBoard.ItemIndex]);
 end;
 
 procedure TfrmGunOnBoardPickList.UpdateGunList;
-//var
-//  i : Integer;
-//  gun : TGun_Definition;
+var
+  i : Integer;
+  gun : TGun_On_Board;
 begin
-//  lbAllGunDef.Items.Clear;
-//  lbAllGunOnBoard.Items.Clear;
-//
-//  dmTTT.GetAllGunDef(FAllGunDefList);
-//  dmTTT.GetGunOnBoard(FSelectedVehicle.FData.Vehicle_Index,FAllGunOnBoardList);
-//
-//  for i := 0 to FAllGunDefList.Count - 1 do
-//  begin
-//    gun := FAllGunDefList.Items[i];
-//    lbAllGunDef.Items.AddObject(gun.FData.Gun_Identifier, gun);
-//  end;
-//
-//  for i := 0 to FAllGunOnBoardList.Count - 1 do
-//  begin
-//    gun := FAllGunOnBoardList.Items[i];
-//    lbAllGunOnBoard.Items.AddObject(gun.FPoint.FData.Instance_Identifier, gun);
-//  end;
+  lbAllGunDef.Items.Clear;
+  lbAllGunOnBoard.Items.Clear;
+
+  dmINWO.GetAllGunDef(FAllGunDefList);
+  dmINWO.GetGunOnBoard(FSelectedVehicle.FData.VehicleIndex,FAllGunOnBoardList);
+
+  for i := 0 to FAllGunDefList.Count - 1 do
+  begin
+    gun := FAllGunDefList.Items[i];
+    lbAllGunDef.Items.AddObject(gun.FDef.Gun_Identifier, gun);
+  end;
+
+  for i := 0 to FAllGunOnBoardList.Count - 1 do
+  begin
+    gun := FAllGunOnBoardList.Items[i];
+    lbAllGunOnBoard.Items.AddObject(gun.FData.Instance_Identifier, gun);
+  end;
 end;
 
 {$ENDREGION}

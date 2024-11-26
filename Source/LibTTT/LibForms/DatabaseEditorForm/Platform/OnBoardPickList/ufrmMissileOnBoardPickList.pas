@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ExtCtrls, ComCtrls, Vcl.Imaging.pngimage,
-  uDBAsset_Vehicle, uDBAsset_Weapon , uSimContainers;
+
+  uDBAsset_Weapon, uClassData, uSimContainers ;
 
 type
   TfrmMissileOnBoardPickList = class(TForm)
@@ -40,14 +41,13 @@ type
     FAllMissileDefList : TList;
     FAllMissileOnBoardList : TList;
 
-    FSelectedVehicle : TVehicle_Definition;
+    FSelectedVehicle : TAsset;
     FSelectedMissile : TMissile_On_Board;
 
     procedure UpdateMissileList;
 
   public
-    AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, btn Cancel di summary menyala}
-    property SelectedVehicle : TVehicle_Definition read FSelectedVehicle write FSelectedVehicle;
+    property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
   end;
 
 var
@@ -56,7 +56,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmMissileMount{, tttData};
+  uDataModule, ufrmMissileMount;
 
 {$R *.dfm}
 
@@ -86,60 +86,58 @@ end;
 
 procedure TfrmMissileOnBoardPickList.btnAddClick(Sender: TObject);
 begin
-//  if lbAllMissileDef.ItemIndex = -1 then
-//    Exit;
-//
-//  frmMissileMount := TfrmMissileMount.Create(Self);
-//  try
-//    with frmMissileMount do
-//    begin
-//      SelectedVehicle := FSelectedVehicle;
-//      SelectedMissile := FSelectedMissile;
-//      ShowModal;
-//    end;
-//    AfterClose := frmMissileMount.AfterClose;
-//  finally
-//    frmMissileMount.Free;
-//  end;
-//
+  if lbAllMissileDef.ItemIndex = -1 then
+    Exit;
+
+  if not Assigned(frmMissileMount) then
+    frmMissileMount := TfrmMissileMount.Create(Self);
+
+  try
+    with frmMissileMount do
+    begin
+      SelectedVehicle := FSelectedVehicle;
+      SelectedMissile := FSelectedMissile;
+      Show;
+    end;
+  finally
+  end;
+
 //  UpdateMissileList;
 end;
 
 procedure TfrmMissileOnBoardPickList.btnEditClick(Sender: TObject);
 begin
-//  if lbAllMissileOnBoard.ItemIndex = -1 then
-//    Exit;
-//
-//  frmMissileMount := TfrmMissileMount.Create(Self);
-//  try
-//    with frmMissileMount do
-//    begin
-//      SelectedVehicle := FSelectedVehicle;
-//      SelectedMissile := FSelectedMissile;
-//      ShowModal;
-//    end;
-//    AfterClose := frmMissileMount.AfterClose;
-//  finally
-//    frmMissileMount.Free;
-//  end;
-//
+  if lbAllMissileOnBoard.ItemIndex = -1 then
+    Exit;
+
+  if not Assigned(frmMissileMount) then
+    frmMissileMount := TfrmMissileMount.Create(Self);
+
+  try
+    with frmMissileMount do
+    begin
+      SelectedVehicle := FSelectedVehicle;
+      SelectedMissile := FSelectedMissile;
+      Show;
+    end;
+  finally
+  end;
+
 //  UpdateMissileList;
 end;
 
 procedure TfrmMissileOnBoardPickList.btnRemoveClick(Sender: TObject);
 begin
-//  if lbAllMissileOnBoard.ItemIndex = -1 then
-//    Exit;
-//
-//  with FSelectedMissile.FData do
-//  begin
-//    dmTTT.DeleteBlindZone(Ord(bzcWeapon), Fitted_Weap_Index);
-//    dmTTT.DeleteFittedWeaponLauncherOnBoard(2, Fitted_Weap_Index);
-//    dmTTT.DeleteFittedWeaponOnBoard(2, Fitted_Weap_Index);
-//  end;
-//
-//  AfterClose := True;
-//  UpdateMissileList;
+  if lbAllMissileOnBoard.ItemIndex = -1 then
+    Exit;
+
+  with FSelectedMissile.FData do
+  begin
+//    .DeleteFittedWeaponLauncherOnBoard(2, Fitted_Weap_Index);
+    dmINWO.DeleteFittedWeaponOnBoard(2, Fitted_Weap_Index);
+  end;
+
+  UpdateMissileList;
 end;
 
 procedure TfrmMissileOnBoardPickList.btnCloseClick(Sender: TObject);
@@ -164,27 +162,27 @@ begin
 end;
 
 procedure TfrmMissileOnBoardPickList.UpdateMissileList;
-//var
-//  i : Integer;
-//  missile : TMissile_On_Board;
+var
+  i : Integer;
+  missile : TMissile_On_Board;
 begin
-//  lbAllMissileDef.Items.Clear;
-//  lbAllMissileOnBoard.Items.Clear;
-//
-//  dmTTT.GetAllMissileDef(FAllMissileDefList);
-//  dmTTT.GetMissileOnBoard(FSelectedVehicle.FData.Vehicle_Index,FAllMissileOnBoardList);
-//
-//  for i := 0 to FAllMissileDefList.Count - 1 do
-//  begin
-//    missile := FAllMissileDefList.Items[i];
-//    lbAllMissileDef.Items.AddObject(missile.FDef.Class_Identifier, missile);
-//  end;
-//
-//  for i := 0 to FAllMissileOnBoardList.Count - 1 do
-//  begin
-//    missile := FAllMissileOnBoardList.Items[i];
-//    lbAllMissileOnBoard.Items.AddObject(missile.FData.Instance_Identifier, missile);
-//  end;
+  lbAllMissileDef.Items.Clear;
+  lbAllMissileOnBoard.Items.Clear;
+
+  dmINWO.GetAllMissileDef(FAllMissileDefList);
+  dmINWO.GetMissileOnBoard(FSelectedVehicle.FData.VehicleIndex,FAllMissileOnBoardList);
+
+  for i := 0 to FAllMissileDefList.Count - 1 do
+  begin
+    missile := FAllMissileDefList.Items[i];
+    lbAllMissileDef.Items.AddObject(missile.FDef.Class_Identifier, missile);
+  end;
+
+  for i := 0 to FAllMissileOnBoardList.Count - 1 do
+  begin
+    missile := FAllMissileOnBoardList.Items[i];
+    lbAllMissileOnBoard.Items.AddObject(missile.FData.Instance_Identifier, missile);
+  end;
 end;
 
 {$ENDREGION}

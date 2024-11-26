@@ -4,9 +4,9 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ExtCtrls, ComCtrls, Vcl.Imaging.pngimage{,
-  uDBBlind_Zone, uBlindZoneView, uDBAsset_Vehicle, tttData,
-  uDBAsset_Sonar} ;
+  Dialogs, StdCtrls, ExtCtrls, ComCtrls, Vcl.Imaging.pngimage,
+
+  uDBAsset_Sensor, uClassData, uSimContainers ;
 
 type
   TfrmSonarMount = class(TForm)
@@ -55,22 +55,18 @@ type
     procedure btnApplyClick(Sender: TObject);
 
   private
-//    FSelectedVehicle : TVehicle_Definition;
-//    FSelectedSonar : TSonar_On_Board;
-//
-//    FBlindZoneView : TBlindZoneView;
+    FSelectedVehicle : TAsset;
+    FSelectedSonar : TSonar_On_Board;
 
     function CekInput: Boolean;
     procedure UpdateSonarData;
     procedure DrawBlindZone;
 
   public
-    isOK  : Boolean; {Penanda jika gagal cek input, btn OK tidak langsung close}
-    AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, btn Cancel di summary menyala}
     LastName : string;
 
-//    property SelectedVehicle : TVehicle_Definition read FSelectedVehicle write FSelectedVehicle;
-//    property SelectedSonar : TSonar_On_Board read FSelectedSonar write FSelectedSonar;
+    property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
+    property SelectedSonar : TSonar_On_Board read FSelectedSonar write FSelectedSonar;
 
   end;
 
@@ -109,14 +105,12 @@ end;
 
 procedure TfrmSonarMount.FormShow(Sender: TObject);
 begin
-//  UpdateSonarData;
-//
-//  with FSelectedSonar.FData do
-//    btnApply.Enabled := Sonar_Instance_Index = 0;
-//
-//  isOK := True;
-//  AfterClose := True;
-//  btnCancel.Enabled := True;
+  UpdateSonarData;
+
+  with FSelectedSonar.FData do
+    btnApply.Enabled := Sonar_Instance_Index = 0;
+
+  btnCancel.Enabled := True;
 end;
 
 {$ENDREGION}
@@ -128,78 +122,72 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
-  if isOk then
-    Close;
+   Close;
 end;
 
 procedure TfrmSonarMount.btnApplyClick(Sender: TObject);
 begin
-//  if not CekInput then
-//  begin
-//    isOK := False;
-//    Exit;
-//  end;
-//
-//  ValidationFormatInput;
-//
-//  with FSelectedSonar do
-//  begin
-//    LastName := edtName.Text;
-//    FData.Instance_Identifier := edtName.Text;
-//    FData.Instance_Type := cbMountExtension.ItemIndex;
-//    FData.Vehicle_Index := FSelectedVehicle.FData.Vehicle_Index;
-//    FData.Sonar_Index := FDef.Sonar_Index;
-//    FData.Minimum_Depth := StrToFloat(edtHullMounted.Text);
-//    FData.Time_2_Deploy := StrToInt(edtDeployTime.Text);
-//    FData.Time_2_Stow := StrToInt(edtStowTime.Text);
-//
-//    if FData.Sonar_Instance_Index = 0 then
-//      dmTTT.InsertSonarOnBoard(FData)
-//    else
-//      dmTTT.UpdateSonarOnBoard(FData);
-//  end;
-//
-//  isOK := True;
-//  AfterClose := True;
-//  btnApply.Enabled := False;
-//  btnCancel.Enabled := False;
+  if not CekInput then
+  begin
+    Exit;
+  end;
+
+  ValidationFormatInput;
+
+  with FSelectedSonar do
+  begin
+    LastName := edtName.Text;
+    FData.Instance_Identifier := edtName.Text;
+    FData.Instance_Type := cbMountExtension.ItemIndex;
+    FData.Vehicle_Index := FSelectedVehicle.FData.VehicleIndex;
+    FData.Sonar_Index := FDef.Sonar_Index;
+    FData.Minimum_Depth := StrToFloat(edtHullMounted.Text);
+    FData.Time_2_Deploy := StrToInt(edtDeployTime.Text);
+    FData.Time_2_Stow := StrToInt(edtStowTime.Text);
+
+    if FData.Sonar_Instance_Index = 0 then
+      dmINWO.InsertSonarOnBoard(FData)
+    else
+      dmINWO.UpdateSonarOnBoard(FData);
+  end;
+
+  btnApply.Enabled := False;
+  btnCancel.Enabled := False;
 end;
 
 procedure TfrmSonarMount.btnCancelClick(Sender: TObject);
 begin
-  AfterClose := False;
   Close;
 end;
 
 procedure TfrmSonarMount.cbMountExtensionChange(Sender: TObject);
 begin
-//  edtName.Text := FSelectedSonar.FDef.Sonar_Identifier + ' ' +
-//    cbMountExtension.Text;
-//
-//  btnApply.Enabled := True;
+  edtName.Text := FSelectedSonar.FDef.Sonar_Identifier + ' ' + cbMountExtension.Text;
+
+  btnApply.Enabled := True;
 end;
 
 function TfrmSonarMount.CekInput: Boolean;
 begin
-//  Result := False;
-//
-//  {Jika Mount Name sudah ada}
-//  if dmTTT.GetSonarOnBoardCount(FSelectedVehicle.FData.Vehicle_Index, edtName.Text) then
-//  begin
-//    {Jika inputan baru}
-//    if FSelectedSonar.FData.Sonar_Instance_Index = 0 then
-//    begin
-//      ShowMessage('Duplicate sonar mount!' + Char(13) + 'Choose different mount to continue.');
-//      Exit;
-//    end
-//    else if LastName <> edtName.Text then
-//    begin
-//      ShowMessage('Please use another class name');
-//      Exit;
-//    end;
-//  end;
-//
-//  Result := True;
+  Result := False;
+
+  {Jika Mount Name sudah ada}
+  if dmINWO.GetSonarOnBoardCount(FSelectedVehicle.FData.VehicleIndex, edtName.Text) then
+  begin
+    {Jika inputan baru}
+    if FSelectedSonar.FData.Sonar_Instance_Index = 0 then
+    begin
+      ShowMessage('Duplicate sonar mount!' + Char(13) + 'Choose different mount to continue.');
+      Exit;
+    end
+    else if LastName <> edtName.Text then
+    begin
+      ShowMessage('Please use another class name');
+      Exit;
+    end;
+  end;
+
+  Result := True;
 end;
 
 procedure TfrmSonarMount.DrawBlindZone;
@@ -278,24 +266,24 @@ end;
 
 procedure TfrmSonarMount.UpdateSonarData;
 begin
-//  with FSelectedSonar do
-//  begin
-//    cbMountExtension.ItemIndex := FData.Instance_Type;
-//
-//    if FData.Sonar_Instance_Index = 0 then
-//      edtName.Text := FDef.Sonar_Identifier + ' ' + cbMountExtension.Text
-//    else
-//      edtName.Text := FData.Instance_Identifier;
-//
-//    LastName := edtName.Text;
-//    edtClassName.Caption := FDef.Sonar_Identifier;
-//
+  with FSelectedSonar do
+  begin
+    cbMountExtension.ItemIndex := FData.Instance_Type;
+
+    if FData.Sonar_Instance_Index = 0 then
+      edtName.Text := FDef.Sonar_Identifier + ' ' + cbMountExtension.Text
+    else
+      edtName.Text := FData.Instance_Identifier;
+
+    LastName := edtName.Text;
+    edtClassName.Caption := FDef.Sonar_Identifier;
+
 //    DrawBlindZone;
-//
-//    edtHullMounted.Text := FormatFloat('0', FData.Minimum_Depth);
-//    edtDeployTime.Text := FormatFloat('0', FData.Time_2_Deploy);
-//    edtStowTime.Text := FormatFloat('0', FData.Time_2_Stow);
-//  end;
+
+    edtHullMounted.Text := FormatFloat('0', FData.Minimum_Depth);
+    edtDeployTime.Text := FormatFloat('0', FData.Time_2_Deploy);
+    edtStowTime.Text := FormatFloat('0', FData.Time_2_Stow);
+  end;
 end;
 
 {$ENDREGION}

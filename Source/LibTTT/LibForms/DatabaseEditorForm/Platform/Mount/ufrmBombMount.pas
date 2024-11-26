@@ -4,9 +4,9 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ExtCtrls, ComCtrls, Vcl.Imaging.pngimage, uBaseCoordSystem{,
-  uDBBlind_Zone, uBlindZoneView, uDBAsset_Vehicle, tttData,
-  uDBAsset_Fitted, uDBAsset_Weapon};
+  Dialogs, StdCtrls, ExtCtrls, ComCtrls, Vcl.Imaging.pngimage, uBaseCoordSystem,
+
+  uDBAsset_Weapon, uClassData, uSimContainers;
 
 type
   TfrmBombMount = class(TForm)
@@ -44,8 +44,8 @@ type
     procedure btnApplyClick(Sender: TObject);
 
   private
-//    FSelectedVehicle : TVehicle_Definition;
-//    FSelectedBomb : TBomb_Definition;
+    FSelectedVehicle : TAsset;
+    FSelectedBomb : TBomb_On_Board;
 
 //    FBlindZoneView : TBlindZoneView;
 
@@ -54,12 +54,10 @@ type
 
 
   public
-    isOK  : Boolean; {Penanda jika gagal cek input, btn OK tidak langsung close}
-    AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, btn Cancel di summary menyala}
     LastName : string;
 
-//    property SelectedVehicle : TVehicle_Definition read FSelectedVehicle write FSelectedVehicle;
-//    property SelectedBomb : TBomb_Definition read FSelectedBomb write FSelectedBomb;
+    property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
+    property SelectedBomb : TBomb_On_Board read FSelectedBomb write FSelectedBomb;
 
   end;
 
@@ -69,7 +67,7 @@ var
 implementation
 
 uses
-  uDataModule;
+  uDataModule, ufrmBlindZoneAttachment;
 
 {$R *.dfm}
 
@@ -82,14 +80,12 @@ end;
 
 procedure TfrmBombMount.FormShow(Sender: TObject);
 begin
-//  UpdateBombData;
-//
-//  with FSelectedBomb.FData do
-//    btnApply.Enabled := Bomb_Index = 0;
-//
-//  isOK := True;
-//  AfterClose := True;
-//  btnCancel.Enabled := True;
+  UpdateBombData;
+
+  with FSelectedBomb.FData do
+    btnApply.Enabled := Point_Effect_Index = 0;
+
+  btnCancel.Enabled := True;
 end;
 
 {$ENDREGION}
@@ -101,44 +97,39 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
-  if isOk then
     Close;
 end;
 
 procedure TfrmBombMount.btnApplyClick(Sender: TObject);
 begin
-//  if not CekInput then
-//  begin
-//    isOK := False;
-//    Exit;
-//  end;
-//
-//  ValidationFormatInput;
-//
-//  with FSelectedBomb do
-//  begin
-//    LastName := edtName.Text;
-//    FPoint.FData.Instance_Identifier := edtName.Text;
-//    FPoint.FData.Vehicle_Index := FSelectedVehicle.FData.Vehicle_Index;
-//    FPoint.FData.Mount_Type := cbMountExtension.ItemIndex;
-//    FPoint.FData.Quantity := StrToInt(edtQuantity.Text);
-//    FPoint.FData.Bomb_Index := FData.Bomb_Index;
-//
-//    if FPoint.FData.Point_Effect_Index = 0 then
-//      dmTTT.InsertPointEffectOnBoard(2, FPoint.FData)
-//    else
-//      dmTTT.UpdatePointEffectOnBoard(2, FPoint.FData)
-//  end;
-//
-//  isOK := True;
-//  AfterClose := False;
-//  btnApply.Enabled := False;
-//  btnCancel.Enabled := False;
+  if not CekInput then
+  begin
+    Exit;
+  end;
+
+  ValidationFormatInput;
+
+  with FSelectedBomb do
+  begin
+    LastName := edtName.Text;
+    FData.Instance_Identifier := edtName.Text;
+    FData.Vehicle_Index := FSelectedVehicle.FData.VehicleIndex;
+    FData.Mount_Type := cbMountExtension.ItemIndex;
+    FData.Quantity := StrToInt(edtQuantity.Text);
+    FData.Bomb_Index := FData.Bomb_Index;
+
+    if FData.Point_Effect_Index = 0 then
+      dmINWO.InsertPointEffectOnBoard(2, FData)
+    else
+      dmINWO.UpdatePointEffectOnBoard(2, FData)
+  end;
+
+  btnApply.Enabled := False;
+  btnCancel.Enabled := False;
 end;
 
 procedure TfrmBombMount.btnCancelClick(Sender: TObject);
 begin
-  AfterClose := False;
   Close;
 end;
 
@@ -151,25 +142,25 @@ end;
 
 function TfrmBombMount.CekInput: Boolean;
 begin
-//  Result := False;
-//
-//  {Jika Mount Name sudah ada}
-//  if dmTTT.GetPointEffectOnBoardCount(FSelectedVehicle.FData.Vehicle_Index, edtName.Text) then
-//  begin
-//    {Jika inputan baru}
-//    if FSelectedBomb.FPoint.FData.Point_Effect_Index = 0 then
-//    begin
-//      ShowMessage('Duplicate bomb mount!' + Char(13) + 'Choose different name to continue.');
-//      Exit;
-//    end
-//    else if LastName <> edtName.Text then
-//    begin
-//      ShowMessage('Please use another class name');
-//      Exit;
-//    end;
-//  end;
-//
-//  Result := True;
+  Result := False;
+
+  {Jika Mount Name sudah ada}
+  if dmINWO.GetPointEffectOnBoardCount(FSelectedVehicle.FData.VehicleIndex, edtName.Text) then
+  begin
+    {Jika inputan baru}
+    if FSelectedBomb.FData.Point_Effect_Index = 0 then
+    begin
+      ShowMessage('Duplicate bomb mount!' + Char(13) + 'Choose different name to continue.');
+      Exit;
+    end
+    else if LastName <> edtName.Text then
+    begin
+      ShowMessage('Please use another class name');
+      Exit;
+    end;
+  end;
+
+  Result := True;
 end;
 
 procedure TfrmBombMount.UpdateBombData;

@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ExtCtrls, Vcl.Imaging.pngimage,
-  uDBAsset_Vehicle, uDBAsset_Countermeasure, uSimContainers;
+
+  uClassData, uDBAsset_Countermeasure, uSimContainers;
 
 type
   TfrmChaffOnBoardPickList = class(TForm)
@@ -40,14 +41,13 @@ type
     FAllChaffDefList : TList;
     FAllChaffOnBoardList : TList;
 
-    FSelectedVehicle : TVehicle_Definition;
+    FSelectedVehicle : TAsset;
     FSelectedChaff : TChaff_On_Board;
 
     procedure UpdateChaffList;
 
   public
-    AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, btn Cancel di summary menyala}
-    property SelectedVehicle : TVehicle_Definition read FSelectedVehicle write FSelectedVehicle;
+    property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
 
   end;
 
@@ -57,7 +57,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmChaffMount{, tttData};
+  uDataModule, ufrmChaffMount;
 
 {$R *.dfm}
 
@@ -88,23 +88,21 @@ end;
 
 procedure TfrmChaffOnBoardPickList.btnAddClick(Sender: TObject);
 begin
-//  if lbAllChaffDef.ItemIndex = -1 then
-//    Exit;
-//
-//  frmChaffMount := TfrmChaffMount.Create(Self);
-//  try
-//    with frmChaffMount do
-//    begin
-//      SelectedVehicle := FSelectedVehicle;
-//      SelectedChaff := FSelectedChaff;
-//      ShowModal;
-//    end;
-//    AfterClose := frmChaffMount.AfterClose;
-//  finally
-//    frmChaffMount.Free;
-//  end;
-//
-//  UpdateChaffList;
+  if lbAllChaffDef.ItemIndex = -1 then
+    Exit;
+
+  if not Assigned(frmChaffMount) then
+    frmChaffMount := TfrmChaffMount.Create(Self);
+
+  try
+    with frmChaffMount do
+    begin
+      SelectedVehicle := FSelectedVehicle;
+      SelectedChaff := FSelectedChaff;
+      ShowModal;
+    end;
+  finally
+  end;
 end;
 
 procedure TfrmChaffOnBoardPickList.btnEditClick(Sender: TObject);

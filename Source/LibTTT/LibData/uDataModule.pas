@@ -150,20 +150,20 @@ type
     function GetMineOnBoard(const aVehicleID: Integer; var aList: TList): Integer;
     function GetGunOnBoard(const aVehicleID: Integer; var aList: TList): Integer;
     function GetBombOnBoard(const aVehicleID: Integer; var aList: TList): Integer;
-//
-//    function GetFittedWeaponOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
-//    function GetPointEffectOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
+
+    function GetFittedWeaponOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
+    function GetPointEffectOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
 //    function GetFittedWeaponLauncherOnBoardCount(const aFittedWeapID: Integer; const aType: Integer): Boolean;
 //    function GetFittedWeaponLauncherOnBoard(const aWeaponID: Integer; var aList: TList): Boolean;
-//
-//    function InsertFittedWeaponOnBoard(const aInsertType: Byte;var aRec: TRecFitted_Weapon_On_Board): Boolean;
-//    function UpdateFittedWeaponOnBoard(const aUpdateType: Byte;var aRec: TRecFitted_Weapon_On_Board): Boolean;
-//    function DeleteFittedWeaponOnBoard(const aDeleteType: Byte; const aIndex: Integer): Boolean;
-//
-//    function InsertPointEffectOnBoard(const aInsertType: Byte;var aRec: TRecPoint_Effect_On_Board): Boolean;
-//    function UpdatePointEffectOnBoard(const aUpdateType: Byte;var aRec: TRecPoint_Effect_On_Board): Boolean;
-//    function DeletePointEffectOnBoard(const aDeleteType: Byte; const aIndex: Integer): Boolean;
-//
+
+    function InsertFittedWeaponOnBoard(const aInsertType: Byte;var aRec: TRecFitted_Weapon_On_Board): Boolean;
+    function UpdateFittedWeaponOnBoard(const aUpdateType: Byte;var aRec: TRecFitted_Weapon_On_Board): Boolean;
+    function DeleteFittedWeaponOnBoard(const aDeleteType: Byte; const aIndex: Integer): Boolean;
+
+    function InsertPointEffectOnBoard(const aInsertType: Byte;var aRec: TRecPoint_Effect_On_Board): Boolean;
+    function UpdatePointEffectOnBoard(const aUpdateType: Byte;var aRec: TRecPoint_Effect_On_Board): Boolean;
+    function DeletePointEffectOnBoard(const aDeleteType: Byte; const aIndex: Integer): Boolean;
+
 //    function InsertFittedWeaponLauncherOnBoard(const aRec: TRecFitted_Weap_Launcher_On_Board): Boolean;
 //    function UpdateFittedWeaponLauncherOnBoard(const aRec: TRecFitted_Weap_Launcher_On_Board): Boolean;
 //    function DeleteFittedWeaponLauncherOnBoard(const aWeaponID, aLauncherType: Integer): Boolean; overload;
@@ -365,7 +365,7 @@ type
     {$REGION ' Countermeasure On Board '}
 
 //    function GetCountermeasure_On_Board_By_Index(const typeOnBoard, id: Integer): Boolean; {New}
-//
+
     function GetAcousticDecoyOnBoard(const aVehicleID: Integer; var aList: TList): Integer;
     function GetAirBubbleOnBoard(const aVehicleID: Integer; var aList: TList): Integer;
     function GetRadarNoiseJammerOnBoard(const aVehicleID: Integer; var aList: TList): Integer;
@@ -375,48 +375,48 @@ type
     function GetInfraredDecoyOnBoard(const aVehicleID: Integer; var aList: TList): Integer;
     function GetChaffOnBoard(const aVehicleID: Integer; var aList: TList): Integer;
 //    function GetChaffLauncherOnBoard(const aVehicleID: Integer; var aList: TList): Integer;
-//
-//    {Digunakan untuk pengecekan 1 jenis sensor tidak boleh menempati mount yg sama}
-//    function GetAcousticDecoyOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
-//    function GetAirBubbleOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
-//    function GetChaffOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
-//    function GetFloatingDecoyOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
-//    function GetInfraredDecoyOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
-//    function GetRadarNoiseJammerOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
-//    function GetSelfDefensiveJammerOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
-//    function GetTowedJammerOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
-//    function GetChaffLauncherOnBoardCount(const aVehicleID, aLauncherID: Integer): Boolean;
-//
-//    function InsertRadarNoiseJammerOnBoard(var aRec: TRecRadar_Noise_Jammer_On_Board): Boolean;
-//    function InsertAirBubbleOnBoard(var aRec: TRecAir_Bubble_On_Board): Boolean;
-//    function InsertAcousticDecoyOnBoard(var aRec: TRecAcoustic_Decoy_On_Board): Boolean;
-//    function InsertSelfDefensiveJammerOnBoard(var aRec: TRecDefensive_Jammer_On_Board): Boolean;
-//    function InsertTowedJammerDecoyOnBoard(var aRec: TRecTowed_Jammer_Decoy_On_Board): Boolean;
-//    function InsertFloatingDecoyOnBoard( var aRec: TRecFloating_Decoy_On_Board): Boolean;
-//    function InsertInfraredDecoyOnBoard(var aRec: TRecInfrared_Decoy_On_Board): Boolean;
-//    function InsertChaffOnBoard(var aRec: TRecChaff_On_Board): Boolean;
+
+    {Digunakan untuk pengecekan 1 jenis sensor tidak boleh menempati mount yg sama}
+    function GetAcousticDecoyOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
+    function GetAirBubbleOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
+    function GetChaffOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
+    function GetFloatingDecoyOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
+    function GetInfraredDecoyOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
+    function GetRadarNoiseJammerOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
+    function GetSelfDefensiveJammerOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
+    function GetTowedJammerOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
+    function GetChaffLauncherOnBoardCount(const aVehicleID, aLauncherID: Integer): Boolean;
+
+    function InsertRadarNoiseJammerOnBoard(var aRec: TRecRadar_Noise_Jammer_On_Board): Boolean;
+    function InsertAirBubbleOnBoard(var aRec: TRecAir_Bubble_On_Board): Boolean;
+    function InsertAcousticDecoyOnBoard(var aRec: TRecAcoustic_Decoy_On_Board): Boolean;
+    function InsertSelfDefensiveJammerOnBoard(var aRec: TRecDefensive_Jammer_On_Board): Boolean;
+    function InsertTowedJammerDecoyOnBoard(var aRec: TRecTowed_Decoy_On_Board): Boolean;
+    function InsertFloatingDecoyOnBoard( var aRec: TRecFloating_Decoy_On_Board): Boolean;
+    function InsertInfraredDecoyOnBoard(var aRec: TRecInfrared_Decoy_On_Board): Boolean;
+    function InsertChaffOnBoard(var aRec: TRecChaff_On_Board): Boolean;
 //    function InsertChaffLauncherOnBoard( var aRec: TRecChaff_Launcher_On_Board): Boolean;
-//
-//    function UpdateRadarNoiseJammerOnBoard( var aRec: TRecRadar_Noise_Jammer_On_Board): Boolean;
-//    function UpdateAirBubbleOnBoard(var aRec: TRecAir_Bubble_On_Board): Boolean;
-//    function UpdateAcousticDecoyOnBoard(var aRec: TRecAcoustic_Decoy_On_Board): Boolean;
-//    function UpdateSelfDefensiveJammerOnBoard(var aRec: TRecDefensive_Jammer_On_Board): Boolean;
-//    function UpdateTowedJammerDecoyOnBoard(var aRec: TRecTowed_Jammer_Decoy_On_Board): Boolean;
-//    function UpdateFloatingDecoyOnBoard(var aRec: TRecFloating_Decoy_On_Board): Boolean;
-//    function UpdateInfraredDecoyOnBoard(var aRec: TRecInfrared_Decoy_On_Board): Boolean;
-//    function UpdateChaffOnBoard(var aRec: TRecChaff_On_Board): Boolean;
+
+    function UpdateRadarNoiseJammerOnBoard( var aRec: TRecRadar_Noise_Jammer_On_Board): Boolean;
+    function UpdateAirBubbleOnBoard(var aRec: TRecAir_Bubble_On_Board): Boolean;
+    function UpdateAcousticDecoyOnBoard(var aRec: TRecAcoustic_Decoy_On_Board): Boolean;
+    function UpdateSelfDefensiveJammerOnBoard(var aRec: TRecDefensive_Jammer_On_Board): Boolean;
+    function UpdateTowedJammerDecoyOnBoard(var aRec: TRecTowed_Decoy_On_Board): Boolean;
+    function UpdateFloatingDecoyOnBoard(var aRec: TRecFloating_Decoy_On_Board): Boolean;
+    function UpdateInfraredDecoyOnBoard(var aRec: TRecInfrared_Decoy_On_Board): Boolean;
+    function UpdateChaffOnBoard(var aRec: TRecChaff_On_Board): Boolean;
 //    function UpdateChaffLauncherOnBoard( var aRec: TRecChaff_Launcher_On_Board): Boolean;
-//
-//    function DeleteAcousticDecoyOnBoard(const aDeleteType: Byte; aIndex: Integer): Boolean;
-//    function DeleteAirBubbleOnBoard(const aDeleteType: Byte; aIndex: Integer): Boolean;
-//    function DeleteRadarNoiseJammerOnBoard(const aDeleteType: Byte; aIndex: Integer): Boolean;
-//    function DeleteSelfDefensiveJammerOnBoard(const aDeleteType: Byte; aIndex: Integer): Boolean;
-//    function DeleteTowedJammerDecoyOnBoard(const aDeleteType: Byte; aIndex: Integer): Boolean;
-//    function DeleteFloatingDecoyOnBoard(const aDeleteType: Byte; aIndex: Integer): Boolean;
-//    function DeleteInfraredDecoyOnBoard(const aDeleteType: Byte; aIndex: Integer): Boolean;
-//    function DeleteChaffOnBoard(const aDeleteType: Byte; aIndex: Integer): Boolean;
-//    function DeleteChaffLauncherOnBoard( const aVehicleIndex: Integer): Boolean; overload;
-//    function DeleteChaffLauncherOnBoard(const aVehicleIndex, aLauncherNumber: Integer): Boolean; overload;
+
+    function DeleteAcousticDecoyOnBoard(const aDeleteType: Byte; aIndex: Integer): Boolean;
+    function DeleteAirBubbleOnBoard(const aDeleteType: Byte; aIndex: Integer): Boolean;
+    function DeleteRadarNoiseJammerOnBoard(const aDeleteType: Byte; aIndex: Integer): Boolean;
+    function DeleteSelfDefensiveJammerOnBoard(const aDeleteType: Byte; aIndex: Integer): Boolean;
+    function DeleteTowedJammerDecoyOnBoard(const aDeleteType: Byte; aIndex: Integer): Boolean;
+    function DeleteFloatingDecoyOnBoard(const aDeleteType: Byte; aIndex: Integer): Boolean;
+    function DeleteInfraredDecoyOnBoard(const aDeleteType: Byte; aIndex: Integer): Boolean;
+    function DeleteChaffOnBoard(const aDeleteType: Byte; aIndex: Integer): Boolean;
+    function DeleteChaffLauncherOnBoard( const aVehicleIndex: Integer): Boolean; overload;
+    function DeleteChaffLauncherOnBoard(const aVehicleIndex, aLauncherNumber: Integer): Boolean; overload;
 
     {$ENDREGION}
 
@@ -4789,50 +4789,50 @@ begin
   end;
 end;
 
-//
-//function TdmTTT.GetFittedWeaponOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('SELECT *');
-//    SQL.Add('FROM Fitted_Weapon_On_Board');
-//    SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aVehicleID));
-//    SQL.Add('AND Instance_Identifier = ' + QuotedStr(aIdentifier));
-//    Open;
-//
-//    Result := RecordCount > 0;
-//  end;
-//end;
-//
-//function TdmTTT.GetPointEffectOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('SELECT *');
-//    SQL.Add('FROM Point_Effect_On_Board');
-//    SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aVehicleID));
-//    SQL.Add('AND Instance_Identifier = ' + QuotedStr(aIdentifier));
-//    Open;
-//
-//    Result := RecordCount > 0;
-//  end;
-//end;
-//
-//function TdmTTT.GetFittedWeaponLauncherOnBoard(const aWeaponID: Integer;   var aList: TList): Boolean;
+
+function TdmINWO.GetFittedWeaponOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT *');
+    SQL.Add('FROM Fitted_Weapon_On_Board');
+    SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aVehicleID));
+    SQL.Add('AND Instance_Identifier = ' + QuotedStr(aIdentifier));
+    Open;
+
+    Result := RecordCount > 0;
+  end;
+end;
+
+function TdmINWO.GetPointEffectOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT *');
+    SQL.Add('FROM Point_Effect_On_Board');
+    SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aVehicleID));
+    SQL.Add('AND Instance_Identifier = ' + QuotedStr(aIdentifier));
+    Open;
+
+    Result := RecordCount > 0;
+  end;
+end;
+
+//function TdmINWO.GetFittedWeaponLauncherOnBoard(const aWeaponID: Integer;   var aList: TList): Boolean;
 //var
 //  i : Integer;
 //  rec : TFitted_Weap_Launcher_On_Board;
@@ -4892,7 +4892,7 @@ end;
 //  end;
 //end;
 //
-//function TdmTTT.GetFittedWeaponLauncherOnBoardCount(const aFittedWeapID: Integer; const aType: Integer): Boolean;
+//function TdmINWO.GetFittedWeaponLauncherOnBoardCount(const aFittedWeapID: Integer; const aType: Integer): Boolean;
 //begin
 //  Result := False;
 //
@@ -4912,196 +4912,196 @@ end;
 //    Result := RecordCount > 0;
 //  end;
 //end;
-//
-//function TdmTTT.InsertFittedWeaponOnBoard(const aInsertType: Byte;var aRec: TRecFitted_Weapon_On_Board): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('INSERT INTO Fitted_Weapon_On_Board');
-//    SQL.Add('(Instance_Identifier, Vehicle_Index, Instance_Type, Mount_Type,');
-//    SQL.Add('Quantity, Firing_Delay,');
-//
-//    case aInsertType of
-//      1: SQL.Add('Missile_Index)');
-//      2: SQL.Add('Torpedo_Index)');
-//      3: SQL.Add('Mine_Index)');
-//      4: SQL.Add('Hybrid_Index)');
-//    end;
-//
-//    SQL.Add('VALUES ( ');
-//
-//    with aRec do
-//    begin
-//      SQL.Add(QuotedStr(Instance_Identifier) + ', ');
-//      SQL.Add(IntToStr(Vehicle_Index) + ', ');
-//      SQL.Add(IntToStr(Instance_Type) + ', ');
-//      SQL.Add(IntToStr(Mount_Type) + ', ');
-//      SQL.Add(IntToStr(Quantity) + ', ');
-//      SQL.Add(FloatToStr(Firing_Delay) + ', ');
-//
-//      case aInsertType of
-//        1: SQL.Add(IntToStr(Missile_Index) + ')');
-//        2: SQL.Add(IntToStr(Torpedo_Index) + ')');
-//        3: SQL.Add(IntToStr(Mine_Index) + ')');
-//        4: SQL.Add(IntToStr(Hybrid_Index) + ')');
-//      end;
-//    end;
-//
-//    ExecSQL;
-//
-//    SQL.Clear;
-//    SQL.Add('SELECT *');
-//    SQL.Add('FROM Fitted_Weapon_On_Board');
-//    SQL.Add('WHERE Instance_Identifier = ' + QuotedStr(aRec.Instance_Identifier));
-//    SQL.Add('AND Vehicle_Index = ' + IntToStr(aRec.Vehicle_Index));
-//    Open;
-//
-//    Result := RecordCount > 0;
-//
-//    if not IsEmpty then
-//    begin
-//      First;
-//
-//      aRec.Fitted_Weap_Index := FieldByName('Fitted_Weap_Index').AsInteger;
-//    end;
-//  end;
-//end;
-//
-//function TdmTTT.UpdateFittedWeaponOnBoard(const aUpdateType: Byte;var aRec: TRecFitted_Weapon_On_Board): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('UPDATE Fitted_Weapon_On_Board');
-//
-//    with aRec do
-//    begin
-//      SQL.Add('SET Instance_Identifier = ' + QuotedStr(Instance_Identifier));
-//      SQL.Add(', Vehicle_Index = ' + IntToStr(Vehicle_Index));
-//      SQL.Add(', Instance_Type = ' + IntToStr(Instance_Type));
-//      SQL.Add(', Mount_Type = ' + IntToStr(Mount_Type));
-//      SQL.Add(', Firing_Delay = '+ FloatToStr(Firing_Delay));
-//      SQL.Add(', Quantity = ' + IntToStr(Quantity));
-//
-//      case aUpdateType of
-//        1: SQL.Add(', Missile_Index = ' + IntToStr(Missile_Index));
-//        2: SQL.Add(', Torpedo_Index = ' + IntToStr(Torpedo_Index));
-//        3: SQL.Add(', Mine_Index = ' + IntToStr(Mine_Index));
-//        4: SQL.Add(', Hybrid_Index = ' + IntToStr(Hybrid_Index));
-//      end;
-//
-//      SQL.Add('WHERE Fitted_Weap_index = ' + IntToStr(Fitted_Weap_Index));
-//    end;
-//
-//    ExecSQL;
-//  end;
-//end;
 
-//function TdmTTT.InsertPointEffectOnBoard(const aInsertType: Byte;var aRec: TRecPoint_Effect_On_Board): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('INSERT INTO Point_Effect_On_Board');
-//    SQL.Add('(Instance_Identifier, Instance_Type, Vehicle_Index, Mount_Type,');
-//    SQL.Add('Quantity,');
-//
-//    case aInsertType of
-//      1: SQL.Add('Gun_Index)');
-//      2: SQL.Add('Bomb_Index)');
-//    end;
-//
-//    SQL.Add('VALUES (');
-//
-//    with aRec do
-//    begin
-//      SQL.Add(QuotedStr(Instance_Identifier) + ', ');
-//      SQL.Add(IntToStr(Instance_Type) + ', ');
-//      SQL.Add(IntToStr(Vehicle_Index) + ', ');
-//      SQL.Add(IntToStr(Mount_Type) + ', ');
-//      SQL.Add(IntToStr(Quantity) + ', ');
-//
-//      case aInsertType of
-//        1: SQL.Add(IntToStr(Gun_Index) + ')');
-//        2: SQL.Add(IntToStr(Bomb_Index) + ')');
-//      end;
-//    end;
-//
-//    ExecSQL;
-//
-//    SQL.Clear;
-//    SQL.Add('SELECT *');
-//    SQL.Add('FROM Point_Effect_On_Board');
-//    SQL.Add('WHERE Instance_Identifier = ' + QuotedStr(aRec.Instance_Identifier));
-//    SQL.Add('AND Vehicle_Index = ' + IntToStr(aRec.Vehicle_Index));
-//    Open;
-//
-//    Result := RecordCount > 0;
-//
-//    if not IsEmpty then
-//    begin
-//      First;
-//
-//      aRec.Point_Effect_Index := FieldByName('Point_Effect_Index').AsInteger;
-//    end;
-//  end;
-//end;
+function TdmINWO.InsertFittedWeaponOnBoard(const aInsertType: Byte;var aRec: TRecFitted_Weapon_On_Board): Boolean;
+begin
+  Result := False;
 
-//function TdmTTT.UpdatePointEffectOnBoard(const aUpdateType: Byte;var aRec: TRecPoint_Effect_On_Board): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('UPDATE Point_Effect_On_Board');
-//
-//    with aRec do
-//    begin
-//      SQL.Add('SET Instance_Identifier = ' + QuotedStr(Instance_Identifier));
-//      SQL.Add(', Vehicle_Index = '+ IntToStr(Vehicle_Index));
-//      SQL.Add(', Instance_Type = '+ IntToStr(Instance_Type));
-//      SQL.Add(', Mount_Type = ' + IntToStr(Mount_Type));
-//      SQL.Add(', Quantity = ' + IntToStr(Quantity));
-//
-//      case aUpdateType of
-//        1: SQL.Add(', Gun_Index = ' + IntToStr(Gun_Index));
-//        2: SQL.Add(', Bomb_Index = ' + IntToStr(Bomb_Index));
-//      end;
-//
-//      SQL.Add('WHERE Point_Effect_Index = ' + IntToStr(Point_Effect_Index));
-//    end;
-//
-//    ExecSQL;
-//
-//    Result := True;
-//  end;
-//end;
+  if not ZConn.Connected then
+    Exit;
 
-//function TdmTTT.DeleteFittedWeaponLauncherOnBoard(const aDeleteType: Byte; const aIndex: Integer): Boolean;
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('INSERT INTO Fitted_Weapon_On_Board');
+    SQL.Add('(Instance_Identifier, Vehicle_Index, Instance_Type, Mount_Type,');
+    SQL.Add('Quantity, Firing_Delay,');
+
+    case aInsertType of
+      1: SQL.Add('Missile_Index)');
+      2: SQL.Add('Torpedo_Index)');
+      3: SQL.Add('Mine_Index)');
+      4: SQL.Add('Hybrid_Index)');
+    end;
+
+    SQL.Add('VALUES ( ');
+
+    with aRec do
+    begin
+      SQL.Add(QuotedStr(Instance_Identifier) + ', ');
+      SQL.Add(IntToStr(Vehicle_Index) + ', ');
+      SQL.Add(IntToStr(Instance_Type) + ', ');
+      SQL.Add(IntToStr(Mount_Type) + ', ');
+      SQL.Add(IntToStr(Quantity) + ', ');
+      SQL.Add(FloatToStr(Firing_Delay) + ', ');
+
+      case aInsertType of
+        1: SQL.Add(IntToStr(Missile_Index) + ')');
+        2: SQL.Add(IntToStr(Torpedo_Index) + ')');
+        3: SQL.Add(IntToStr(Mine_Index) + ')');
+        4: SQL.Add(IntToStr(Hybrid_Index) + ')');
+      end;
+    end;
+
+    ExecSQL;
+
+    SQL.Clear;
+    SQL.Add('SELECT *');
+    SQL.Add('FROM Fitted_Weapon_On_Board');
+    SQL.Add('WHERE Instance_Identifier = ' + QuotedStr(aRec.Instance_Identifier));
+    SQL.Add('AND Vehicle_Index = ' + IntToStr(aRec.Vehicle_Index));
+    Open;
+
+    Result := RecordCount > 0;
+
+    if not IsEmpty then
+    begin
+      First;
+
+      aRec.Fitted_Weap_Index := FieldByName('Fitted_Weap_Index').AsInteger;
+    end;
+  end;
+end;
+
+function TdmINWO.UpdateFittedWeaponOnBoard(const aUpdateType: Byte;var aRec: TRecFitted_Weapon_On_Board): Boolean;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('UPDATE Fitted_Weapon_On_Board');
+
+    with aRec do
+    begin
+      SQL.Add('SET Instance_Identifier = ' + QuotedStr(Instance_Identifier));
+      SQL.Add(', Vehicle_Index = ' + IntToStr(Vehicle_Index));
+      SQL.Add(', Instance_Type = ' + IntToStr(Instance_Type));
+      SQL.Add(', Mount_Type = ' + IntToStr(Mount_Type));
+      SQL.Add(', Firing_Delay = '+ FloatToStr(Firing_Delay));
+      SQL.Add(', Quantity = ' + IntToStr(Quantity));
+
+      case aUpdateType of
+        1: SQL.Add(', Missile_Index = ' + IntToStr(Missile_Index));
+        2: SQL.Add(', Torpedo_Index = ' + IntToStr(Torpedo_Index));
+        3: SQL.Add(', Mine_Index = ' + IntToStr(Mine_Index));
+        4: SQL.Add(', Hybrid_Index = ' + IntToStr(Hybrid_Index));
+      end;
+
+      SQL.Add('WHERE Fitted_Weap_index = ' + IntToStr(Fitted_Weap_Index));
+    end;
+
+    ExecSQL;
+  end;
+end;
+
+function TdmINWO.InsertPointEffectOnBoard(const aInsertType: Byte;var aRec: TRecPoint_Effect_On_Board): Boolean;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('INSERT INTO Point_Effect_On_Board');
+    SQL.Add('(Instance_Identifier, Instance_Type, Vehicle_Index, Mount_Type,');
+    SQL.Add('Quantity,');
+
+    case aInsertType of
+      1: SQL.Add('Gun_Index)');
+      2: SQL.Add('Bomb_Index)');
+    end;
+
+    SQL.Add('VALUES (');
+
+    with aRec do
+    begin
+      SQL.Add(QuotedStr(Instance_Identifier) + ', ');
+      SQL.Add(IntToStr(Instance_Type) + ', ');
+      SQL.Add(IntToStr(Vehicle_Index) + ', ');
+      SQL.Add(IntToStr(Mount_Type) + ', ');
+      SQL.Add(IntToStr(Quantity) + ', ');
+
+      case aInsertType of
+        1: SQL.Add(IntToStr(Gun_Index) + ')');
+        2: SQL.Add(IntToStr(Bomb_Index) + ')');
+      end;
+    end;
+
+    ExecSQL;
+
+    SQL.Clear;
+    SQL.Add('SELECT *');
+    SQL.Add('FROM Point_Effect_On_Board');
+    SQL.Add('WHERE Instance_Identifier = ' + QuotedStr(aRec.Instance_Identifier));
+    SQL.Add('AND Vehicle_Index = ' + IntToStr(aRec.Vehicle_Index));
+    Open;
+
+    Result := RecordCount > 0;
+
+    if not IsEmpty then
+    begin
+      First;
+
+      aRec.Point_Effect_Index := FieldByName('Point_Effect_Index').AsInteger;
+    end;
+  end;
+end;
+
+function TdmINWO.UpdatePointEffectOnBoard(const aUpdateType: Byte;var aRec: TRecPoint_Effect_On_Board): Boolean;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('UPDATE Point_Effect_On_Board');
+
+    with aRec do
+    begin
+      SQL.Add('SET Instance_Identifier = ' + QuotedStr(Instance_Identifier));
+      SQL.Add(', Vehicle_Index = '+ IntToStr(Vehicle_Index));
+      SQL.Add(', Instance_Type = '+ IntToStr(Instance_Type));
+      SQL.Add(', Mount_Type = ' + IntToStr(Mount_Type));
+      SQL.Add(', Quantity = ' + IntToStr(Quantity));
+
+      case aUpdateType of
+        1: SQL.Add(', Gun_Index = ' + IntToStr(Gun_Index));
+        2: SQL.Add(', Bomb_Index = ' + IntToStr(Bomb_Index));
+      end;
+
+      SQL.Add('WHERE Point_Effect_Index = ' + IntToStr(Point_Effect_Index));
+    end;
+
+    ExecSQL;
+
+    Result := True;
+  end;
+end;
+
+//function TdmINWO.DeleteFittedWeaponLauncherOnBoard(const aDeleteType: Byte; const aIndex: Integer): Boolean;
 //begin
 //  Result := False;
 //
@@ -5130,77 +5130,77 @@ end;
 //  end;
 //end;
 
-//function TdmTTT.DeleteFittedWeaponOnBoard(const aDeleteType: Byte; const aIndex: Integer): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('DELETE FROM Fitted_Weapon_On_Board');
-//
-//    case aDeleteType of
-//      1: SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aIndex));
-//      2: SQL.Add('WHERE Fitted_Weap_Index = ' + IntToStr(aIndex));
-//    end;
-//
-//    ExecSQL;
-//
-//    SQL.Clear;
-//    SQL.Add('SELECT *');
-//    SQL.Add('FROM Fitted_Weapon_On_Board');
-//
-//    case aDeleteType of
-//      1: SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aIndex));
-//      2: SQL.Add('WHERE Fitted_Weap_Index = ' + IntToStr(aIndex));
-//    end;
-//
-//    Open;
-//
-//    Result := RecordCount = 0;
-//  end;
-//end;
+function TdmINWO.DeleteFittedWeaponOnBoard(const aDeleteType: Byte; const aIndex: Integer): Boolean;
+begin
+  Result := False;
 
-//function TdmTTT.DeletePointEffectOnBoard(const aDeleteType: Byte; const aIndex: Integer): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('DELETE FROM Point_Effect_On_Board');
-//
-//    case aDeleteType of
-//      1: SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aIndex));
-//      2: SQL.Add('WHERE Point_Effect_Index = ' + IntToStr(aIndex));
-//    end;
-//
-//    ExecSQL;
-//
-//    SQL.Clear;
-//    SQL.Add('SELECT *');
-//    SQL.Add('FROM Point_Effect_On_Board');
-//
-//    case aDeleteType of
-//      1: SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aIndex));
-//      2: SQL.Add('WHERE Point_Effect_Index = ' + IntToStr(aIndex));
-//    end;
-//
-//    Open;
-//
-//    Result := RecordCount = 0;
-//  end;
-//end;
+  if not ZConn.Connected then
+    Exit;
 
-//function TdmTTT.InsertFittedWeaponLauncherOnBoard(const aRec: TRecFitted_Weap_Launcher_On_Board): Boolean;
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('DELETE FROM Fitted_Weapon_On_Board');
+
+    case aDeleteType of
+      1: SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aIndex));
+      2: SQL.Add('WHERE Fitted_Weap_Index = ' + IntToStr(aIndex));
+    end;
+
+    ExecSQL;
+
+    SQL.Clear;
+    SQL.Add('SELECT *');
+    SQL.Add('FROM Fitted_Weapon_On_Board');
+
+    case aDeleteType of
+      1: SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aIndex));
+      2: SQL.Add('WHERE Fitted_Weap_Index = ' + IntToStr(aIndex));
+    end;
+
+    Open;
+
+    Result := RecordCount = 0;
+  end;
+end;
+
+function TdmINWO.DeletePointEffectOnBoard(const aDeleteType: Byte; const aIndex: Integer): Boolean;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('DELETE FROM Point_Effect_On_Board');
+
+    case aDeleteType of
+      1: SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aIndex));
+      2: SQL.Add('WHERE Point_Effect_Index = ' + IntToStr(aIndex));
+    end;
+
+    ExecSQL;
+
+    SQL.Clear;
+    SQL.Add('SELECT *');
+    SQL.Add('FROM Point_Effect_On_Board');
+
+    case aDeleteType of
+      1: SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aIndex));
+      2: SQL.Add('WHERE Point_Effect_Index = ' + IntToStr(aIndex));
+    end;
+
+    Open;
+
+    Result := RecordCount = 0;
+  end;
+end;
+
+//function TdmINWO.InsertFittedWeaponLauncherOnBoard(const aRec: TRecFitted_Weap_Launcher_On_Board): Boolean;
 //begin
 //  Result := False;
 //
@@ -5231,7 +5231,7 @@ end;
 //  end;
 //end;
 
-//function TdmTTT.UpdateFittedWeaponLauncherOnBoard(const aRec: TRecFitted_Weap_Launcher_On_Board): Boolean;
+//function TdmINWO.UpdateFittedWeaponLauncherOnBoard(const aRec: TRecFitted_Weap_Launcher_On_Board): Boolean;
 //begin
 //  Result := False;
 //
@@ -5260,7 +5260,7 @@ end;
 //  end;
 //end;
 
-//function TdmTTT.DeleteFittedWeaponLauncherOnBoard(const aWeaponID, aLauncherType: Integer): Boolean;
+//function TdmINWO.DeleteFittedWeaponLauncherOnBoard(const aWeaponID, aLauncherType: Integer): Boolean;
 //begin
 //  Result := False;
 //
@@ -5692,8 +5692,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM Sonar_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.Sonar_Index = b.Sonar_Index');
+    SQL.Add('FROM Sonar_Definition');
     SQL.Add('ORDER BY Sonar_Identifier');
     Open;
 
@@ -5807,8 +5806,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM Sonar_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.Sonar_Index = b.Sonar_Index');
+    SQL.Add('FROM Sonar_Definition');
     SQL.Add('WHERE Sonar_Identifier like '  + quotedStr('%' + aFilter + '%'));
     SQL.Add('ORDER BY Sonar_Identifier');
     Open;
@@ -5920,9 +5918,8 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM Sonar_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.Sonar_Index = b.Sonar_Index');
-    SQL.Add('WHERE a.Sonar_Identifier LIKE ' + QuotedStr(aClassName));
+    SQL.Add('FROM Sonar_Definition');
+    SQL.Add('WHERE Sonar_Identifier LIKE ' + QuotedStr(aClassName));
     Open;
 
     Result := RecordCount;
@@ -8370,6 +8367,8 @@ begin
     Result := RecordCount = 0;
   end;
 end;
+
+{$ENDREGION}
 
 {$ENDREGION}
 
@@ -11333,516 +11332,516 @@ end;
 //  end;
 //end;
 
-//function TdmINWO.GetAcousticDecoyOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('SELECT *');
-//    SQL.Add('FROM Acoustic_Decoy_On_Board');
-//    SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aVehicleID));
-//    SQL.Add('AND Instance_Identifier = ' + QuotedStr(aIdentifier));
-//    Open;
-//
-//    Result := RecordCount > 0;
-//  end;
-//end;
+function TdmINWO.GetAcousticDecoyOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
+begin
+  Result := False;
 
-//function TdmINWO.GetAirBubbleOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('SELECT *');
-//    SQL.Add('FROM Air_Bubble_Mount');
-//    SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aVehicleID));
-//    SQL.Add('AND Instance_Identifier = ' + QuotedStr(aIdentifier));
-//    Open;
-//
-//    Result := RecordCount > 0;
-//  end;
-//end;
+  if not ZConn.Connected then
+    Exit;
 
-//function TdmINWO.GetRadarNoiseJammerOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('SELECT *');
-//    SQL.Add('FROM Jammer_On_Board');
-//    SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aVehicleID));
-//    SQL.Add('AND Instance_Identifier = ' + QuotedStr(aIdentifier));
-//    Open;
-//
-//    Result := RecordCount > 0;
-//  end;
-//end;
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT *');
+    SQL.Add('FROM Acoustic_Decoy_On_Board');
+    SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aVehicleID));
+    SQL.Add('AND Instance_Identifier = ' + QuotedStr(aIdentifier));
+    Open;
 
-//function TdmINWO.GetFloatingDecoyOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('SELECT *');
-//    SQL.Add('FROM Floating_Decoy_On_Board');
-//    SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aVehicleID));
-//    SQL.Add('AND Instance_Identifier = ' + QuotedStr(aIdentifier));
-//    Open;
-//
-//    Result := RecordCount > 0;
-//  end;
-//end;
+    Result := RecordCount > 0;
+  end;
+end;
 
-//function TdmINWO.GetSelfDefensiveJammerOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('SELECT *');
-//    SQL.Add('FROM Defensive_Jammer_On_Board');
-//    SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aVehicleID));
-//    SQL.Add('AND Instance_Identifier = ' + QuotedStr(aIdentifier));
-//    Open;
-//
-//    Result := RecordCount > 0;
-//  end;
-//end;
+function TdmINWO.GetAirBubbleOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
+begin
+  Result := False;
 
-//function TdmINWO.GetTowedJammerOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('SELECT *');
-//    SQL.Add('FROM Towed_Jammer_Decoy_On_Board');
-//    SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aVehicleID));
-//    SQL.Add('AND Instance_Identifier = ' + QuotedStr(aIdentifier));
-//    Open;
-//
-//    Result := RecordCount > 0;
-//  end;
-//end;
+  if not ZConn.Connected then
+    Exit;
 
-//function TdmINWO.GetInfraredDecoyOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('SELECT *');
-//    SQL.Add('FROM Infrared_Decoy_On_Board');
-//    SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aVehicleID));
-//    SQL.Add('AND Instance_Identifier = ' + QuotedStr(aIdentifier));
-//    Open;
-//
-//    Result := RecordCount > 0;
-//  end;
-//end;
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT *');
+    SQL.Add('FROM Air_Bubble_Mount');
+    SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aVehicleID));
+    SQL.Add('AND Instance_Identifier = ' + QuotedStr(aIdentifier));
+    Open;
 
-//function TdmINWO.GetChaffOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('SELECT *');
-//    SQL.Add('FROM Chaff_On_Board');
-//    SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aVehicleID));
-//    SQL.Add('AND Instance_Identifier = ' + QuotedStr(aIdentifier));
-//    Open;
-//
-//    Result := RecordCount > 0;
-//  end;
-//end;
+    Result := RecordCount > 0;
+  end;
+end;
 
-//function TdmINWO.GetChaffLauncherOnBoardCount(const aVehicleID, aLauncherID: Integer): Boolean;
-//begin
-//  result := false;
-//
-//  if not zConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('SELECT * ');
-//    SQL.Add('FROM Chaff_Launcher_On_Board ' );
-//    SQL.Add('WHERE (Vehicle_Index = ' +  IntToStr(aVehicleID) + ') ' );
-//    SQL.Add('AND (Launcher_Number = ' +  IntToStr(aLauncherID) + ')' );
-//
-//    Open;
-//
-//    result := RecordCount > 0;
-//  end;
-//end;
+function TdmINWO.GetRadarNoiseJammerOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
+begin
+  Result := False;
 
-//function TdmINWO.InsertRadarNoiseJammerOnBoard(var aRec: TRecRadar_Noise_Jammer_On_Board): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('INSERT INTO Jammer_On_Board');
-//    SQL.Add('(Instance_Identifier, Instance_Type, Vehicle_Index,');
-//    SQL.Add('Jammer_Index, Antenna_Height)');
-//    SQL.Add('VALUES (');
-//
-//    with aRec do
-//    begin
-//      SQL.Add(QuotedStr(Instance_Identifier) + ', ');
-//      SQL.Add(IntToStr(Instance_Type) + ', ');
-//      SQL.Add(IntToStr(Vehicle_Index) + ', ');
-//      SQL.Add(IntToStr(Jammer_Index) + ', ');
-//      SQL.Add(FloatToStr(Antenna_Height) + ')');
-//      ExecSQL;
-//
-//      Result := True;
-//
-//      SQL.Clear;
-//      SQL.Add('SELECT *');
-//      SQL.Add('FROM Jammer_On_Board');
-//      SQL.Add('WHERE Vehicle_Index = ' + IntToStr(Vehicle_Index));
-//      SQL.Add('AND Jammer_Index = ' + IntToStr(Jammer_Index));
-//      Open;
-//
-//      Jammer_Instance_Index := FieldByName('Jammer_Instance_Index').AsInteger;
-//    end;
-//  end;
-//end;
+  if not ZConn.Connected then
+    Exit;
 
-//function TdmINWO.InsertAirBubbleOnBoard(var aRec: TRecAir_Bubble_On_Board): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('INSERT INTO Air_Bubble_Mount');
-//    SQL.Add('(Instance_Identifier, Instance_Type, Bubble_Qty_On_Board,');
-//    SQL.Add('Vehicle_Index, Air_Bubble_Index)');
-//    SQL.Add('VALUES (');
-//
-//    with aRec do
-//    begin
-//      SQL.Add(QuotedStr(Instance_Identifier) + ', ');
-//      SQL.Add(IntToStr(Instance_Type) + ', ');
-//      SQL.Add(IntToStr(Bubble_Qty_On_Board) + ', ');
-//      SQL.Add(IntToStr(Vehicle_Index) + ', ');
-//      SQL.Add(IntToStr(Air_Bubble_Index) + ')');
-//      ExecSQL;
-//
-//      Result := True;
-//
-//      SQL.Clear;
-//      SQL.Add('SELECT *');
-//      SQL.Add('FROM Air_Bubble_Mount');
-//      SQL.Add('WHERE Vehicle_Index = ' + IntToStr(Vehicle_Index));
-//      SQL.Add('AND Air_Bubble_Index = ' + IntToStr(Air_Bubble_Index));
-//      Open;
-//
-//      Air_Bubble_Instance_Index := FieldByName('Air_Bubble_Instance_Index')
-//        .AsInteger;
-//    end;
-//  end;
-//end;
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT *');
+    SQL.Add('FROM Jammer_On_Board');
+    SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aVehicleID));
+    SQL.Add('AND Instance_Identifier = ' + QuotedStr(aIdentifier));
+    Open;
 
-//function TdmINWO.InsertAcousticDecoyOnBoard( var aRec: TRecAcoustic_Decoy_On_Board): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('INSERT INTO Acoustic_Decoy_On_Board');
-//    SQL.Add('(Instance_Identifier, Instance_Type, Quantity, Vehicle_Index,');
-//    SQL.Add('Decoy_Index)');
-//    SQL.Add('VALUES (');
-//
-//    with aRec do
-//    begin
-//      SQL.Add(QuotedStr(Instance_Identifier) + ', ');
-//      SQL.Add(IntToStr(Instance_Type) + ', ');
-//      SQL.Add(IntToStr(Quantity) + ', ');
-//      SQL.Add(IntToStr(Vehicle_Index) + ', ');
-//      SQL.Add(IntToStr(Decoy_Index) + ')');
-//    end;
-//
-//    ExecSQL;
-//
-//    Result := True;
-//
-//    SQL.Clear;
-//    SQL.Add('SELECT *');
-//    SQL.Add('FROM Acoustic_Decoy_On_Board');
-//    SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aRec.Vehicle_Index));
-//    SQL.Add('AND Decoy_Index = ' + IntToStr(aRec.Decoy_Index));
-//    Open;
-//
-//    if not IsEmpty then
-//    begin
-//      First;
-//
-//      aRec.Acoustic_Instance_Index := FieldByName('Acoustic_Instance_Index')
-//        .AsInteger;
-//    end;
-//  end;
-//end;
+    Result := RecordCount > 0;
+  end;
+end;
 
-//function TdmINWO.InsertSelfDefensiveJammerOnBoard( var aRec: TRecDefensive_Jammer_On_Board): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('INSERT INTO Defensive_Jammer_On_Board');
-//    SQL.Add('(Instance_Identifier, Instance_Type, Vehicle_Index,');
-//    SQL.Add('Defensive_Jammer_Index)');
-//    SQL.Add('VALUES (');
-//
-//    with aRec do
-//    begin
-//      SQL.Add(QuotedStr(Instance_Identifier) + ', ');
-//      SQL.Add(IntToStr(Instance_Type) + ', ');
-//      SQL.Add(IntToStr(Vehicle_Index) + ', ');
-//      SQL.Add(IntToStr(Defensive_Jammer_Index) + ')');
-//      ExecSQL;
-//
-//      SQL.Clear;
-//      SQL.Add('SELECT *');
-//      SQL.Add('FROM Defensive_Jammer_On_Board');
-//      SQL.Add('WHERE Vehicle_Index = ' + IntToStr(Vehicle_Index));
-//      SQL.Add('AND Defensive_Jammer_Index = ' +
-//        IntToStr(Defensive_Jammer_Index));
-//      Open;
-//
-//      Defensive_Jammer_Instance_Index := FieldByName
-//        ('Defensive_Jammer_Instance_Id').AsInteger;
-//    end;
-//  end;
-//end;
+function TdmINWO.GetFloatingDecoyOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
+begin
+  Result := False;
 
-//function TdmINWO.InsertTowedJammerDecoyOnBoard( var aRec: TRecTowed_Jammer_Decoy_On_Board): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    ExecSQL;
-//    SQL.Clear;
-//    SQL.Add('INSERT INTO Towed_Jammer_Decoy_On_Board');
-//    SQL.Add('(Instance_Identifier, Instance_Type, Quantity, Vehicle_Index,');
-//    SQL.Add('Towed_Decoy_Index)');
-//    SQL.Add('VALUES (');
-//
-//    with aRec do
-//    begin
-//      SQL.Add(QuotedStr(Instance_Identifier) + ', ');
-//      SQL.Add(IntToStr(Instance_Type) + ', ');
-//      SQL.Add(IntToStr(Quantity) + ', ');
-//      SQL.Add(IntToStr(Vehicle_Index) + ', ');
-//      SQL.Add(FloatToStr(Towed_Decoy_Index) + ')');
-//      ExecSQL;
-//
-//      SQL.Clear;
-//      SQL.Add('SELECT *');
-//      SQL.Add('FROM Towed_Jammer_Decoy_On_Board');
-//      SQL.Add('WHERE Vehicle_Index = ' + IntToStr(Vehicle_Index));
-//      SQL.Add('AND Towed_Decoy_Index = ' + IntToStr(Towed_Decoy_Index));
-//      Open;
-//
-//      Towed_Decoy_Instance_Index := FieldByName('Towed_Decoy_Instance_Index')
-//        .AsInteger;
-//    end;
-//  end;
-//end;
+  if not ZConn.Connected then
+    Exit;
 
-//function TdmINWO.InsertFloatingDecoyOnBoard(var aRec: TRecFloating_Decoy_On_Board): Boolean;
-//begin
-//  Result := False;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    ExecSQL;
-//    SQL.Clear;
-//    SQL.Add('INSERT INTO Floating_Decoy_On_Board');
-//    SQL.Add('(Instance_Identifier, Instance_Type, Quantity, Vehicle_Index,');
-//    SQL.Add('Floating_Decoy_Index)');
-//    SQL.Add('VALUES (');
-//
-//    with aRec do
-//    begin
-//      SQL.Add(QuotedStr(Instance_Identifier) + ', ');
-//      SQL.Add(IntToStr(Instance_Type) + ', ');
-//      SQL.Add(IntToStr(Quantity) + ', ');
-//      SQL.Add(IntToStr(Vehicle_Index) + ', ');
-//      SQL.Add(FloatToStr(Floating_Decoy_Index) + ')');
-//      ExecSQL;
-//
-//      Result := True;
-//
-//      SQL.Clear;
-//      SQL.Add('SELECT *');
-//      SQL.Add('FROM Floating_Decoy_On_Board ');
-//      SQL.Add('WHERE Vehicle_Index = ' + IntToStr(Vehicle_Index));
-//      SQL.Add('AND Floating_Decoy_Index = ' + IntToStr(Floating_Decoy_Index));
-//      Open;
-//
-//      Floating_Decoy_Instance_Index := FieldByName
-//        ('Floating_Decoy_Instance_Index').AsInteger;
-//    end;
-//  end;
-//end;
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT *');
+    SQL.Add('FROM Floating_Decoy_On_Board');
+    SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aVehicleID));
+    SQL.Add('AND Instance_Identifier = ' + QuotedStr(aIdentifier));
+    Open;
 
-//function TdmINWO.InsertChaffOnBoard(var aRec: TRecChaff_On_Board): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('INSERT INTO Chaff_On_Board');
-//    SQL.Add('(Instance_Identifier, Instance_Type, Chaff_Qty_On_Board,');
-//    SQL.Add('Vehicle_Index, Chaff_Index)');
-//    SQL.Add('VALUES (');
-//
-//    with aRec do
-//    begin
-//      SQL.Add(QuotedStr(Instance_Identifier) + ', ');
-//      SQL.Add(IntToStr(Instance_Type) + ', ');
-//      SQL.Add(IntToStr(Chaff_Qty_On_Board) + ', ');
-//      SQL.Add(IntToStr(Vehicle_Index) + ', ');
-//      SQL.Add(IntToStr(Chaff_Index) + ')');
-//      ExecSQL;
-//
-//      Result := True;
-//
-//      SQL.Clear;
-//      SQL.Add('SELECT *');
-//      SQL.Add('FROM Chaff_On_Board');
-//      SQL.Add('WHERE Vehicle_Index = ' + IntToStr(Vehicle_Index));
-//      SQL.Add('AND Chaff_Index = ' + IntToStr(Chaff_Index));
-//      SQL.Add('AND Instance_Type = ' + IntToStr(Instance_Type));
-//      Open;
-//
-//      Chaff_Instance_Index := FieldByName('Chaff_Instance_Index').AsInteger;
-//    end;
-//  end;
-//end;
+    Result := RecordCount > 0;
+  end;
+end;
 
-//function TdmINWO.InsertInfraredDecoyOnBoard( var aRec: TRecInfrared_Decoy_On_Board): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('INSERT INTO Infrared_Decoy_On_Board');
-//    SQL.Add('(Instance_Identifier, Instance_Type,');
-//    SQL.Add('Infrared_Decoy_Qty_On_Board, Vehicle_Index,');
-//    SQL.Add('Infrared_Decoy_Index)');
-//    SQL.Add('VALUES (');
-//
-//    with aRec do
-//    begin
-//      SQL.Add(QuotedStr(Instance_Identifier) + ', ');
-//      SQL.Add(IntToStr(Instance_Type) + ', ');
-//      SQL.Add(IntToStr(Infrared_Decoy_Qty_On_Board) + ', ');
-//      SQL.Add(IntToStr(Vehicle_Index) + ', ');
-//      SQL.Add(IntToStr(Infrared_Decoy_Index) + ')');
-//      ExecSQL;
-//
-//      Result := True;
-//
-//      SQL.Clear;
-//      SQL.Add('SELECT *');
-//      SQL.Add('FROM Infrared_Decoy_On_Board');
-//      SQL.Add('WHERE Vehicle_Index = ' + IntToStr(Vehicle_Index));
-//      SQL.Add('AND Instance_Identifier = ' + QuotedStr(Instance_Identifier));
-//      Open;
-//
-//      Infrared_Decoy_Instance_Index := FieldByName
-//        ('Infrared_Decoy_Instance_Index').AsInteger;
-//    end;
-//  end;
-//end;
+function TdmINWO.GetSelfDefensiveJammerOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT *');
+    SQL.Add('FROM Defensive_Jammer_On_Board');
+    SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aVehicleID));
+    SQL.Add('AND Instance_Identifier = ' + QuotedStr(aIdentifier));
+    Open;
+
+    Result := RecordCount > 0;
+  end;
+end;
+
+function TdmINWO.GetTowedJammerOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT *');
+    SQL.Add('FROM Towed_Jammer_Decoy_On_Board');
+    SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aVehicleID));
+    SQL.Add('AND Instance_Identifier = ' + QuotedStr(aIdentifier));
+    Open;
+
+    Result := RecordCount > 0;
+  end;
+end;
+
+function TdmINWO.GetInfraredDecoyOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT *');
+    SQL.Add('FROM Infrared_Decoy_On_Board');
+    SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aVehicleID));
+    SQL.Add('AND Instance_Identifier = ' + QuotedStr(aIdentifier));
+    Open;
+
+    Result := RecordCount > 0;
+  end;
+end;
+
+function TdmINWO.GetChaffOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT *');
+    SQL.Add('FROM Chaff_On_Board');
+    SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aVehicleID));
+    SQL.Add('AND Instance_Identifier = ' + QuotedStr(aIdentifier));
+    Open;
+
+    Result := RecordCount > 0;
+  end;
+end;
+
+function TdmINWO.GetChaffLauncherOnBoardCount(const aVehicleID, aLauncherID: Integer): Boolean;
+begin
+  result := false;
+
+  if not zConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT * ');
+    SQL.Add('FROM Chaff_Launcher_On_Board ' );
+    SQL.Add('WHERE (Vehicle_Index = ' +  IntToStr(aVehicleID) + ') ' );
+    SQL.Add('AND (Launcher_Number = ' +  IntToStr(aLauncherID) + ')' );
+
+    Open;
+
+    result := RecordCount > 0;
+  end;
+end;
+
+function TdmINWO.InsertRadarNoiseJammerOnBoard(var aRec: TRecRadar_Noise_Jammer_On_Board): Boolean;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('INSERT INTO Jammer_On_Board');
+    SQL.Add('(Instance_Identifier, Instance_Type, Vehicle_Index,');
+    SQL.Add('Jammer_Index, Antenna_Height)');
+    SQL.Add('VALUES (');
+
+    with aRec do
+    begin
+      SQL.Add(QuotedStr(Instance_Identifier) + ', ');
+      SQL.Add(IntToStr(Instance_Type) + ', ');
+      SQL.Add(IntToStr(Vehicle_Index) + ', ');
+      SQL.Add(IntToStr(Jammer_Index) + ', ');
+      SQL.Add(FloatToStr(Antenna_Height) + ')');
+      ExecSQL;
+
+      Result := True;
+
+      SQL.Clear;
+      SQL.Add('SELECT *');
+      SQL.Add('FROM Jammer_On_Board');
+      SQL.Add('WHERE Vehicle_Index = ' + IntToStr(Vehicle_Index));
+      SQL.Add('AND Jammer_Index = ' + IntToStr(Jammer_Index));
+      Open;
+
+      Jammer_Instance_Index := FieldByName('Jammer_Instance_Index').AsInteger;
+    end;
+  end;
+end;
+
+function TdmINWO.InsertAirBubbleOnBoard(var aRec: TRecAir_Bubble_On_Board): Boolean;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('INSERT INTO Air_Bubble_Mount');
+    SQL.Add('(Instance_Identifier, Instance_Type, Bubble_Qty_On_Board,');
+    SQL.Add('Vehicle_Index, Air_Bubble_Index)');
+    SQL.Add('VALUES (');
+
+    with aRec do
+    begin
+      SQL.Add(QuotedStr(Instance_Identifier) + ', ');
+      SQL.Add(IntToStr(Instance_Type) + ', ');
+      SQL.Add(IntToStr(Bubble_Qty_On_Board) + ', ');
+      SQL.Add(IntToStr(Vehicle_Index) + ', ');
+      SQL.Add(IntToStr(Air_Bubble_Index) + ')');
+      ExecSQL;
+
+      Result := True;
+
+      SQL.Clear;
+      SQL.Add('SELECT *');
+      SQL.Add('FROM Air_Bubble_Mount');
+      SQL.Add('WHERE Vehicle_Index = ' + IntToStr(Vehicle_Index));
+      SQL.Add('AND Air_Bubble_Index = ' + IntToStr(Air_Bubble_Index));
+      Open;
+
+      Air_Bubble_Instance_Index := FieldByName('Air_Bubble_Instance_Index')
+        .AsInteger;
+    end;
+  end;
+end;
+
+function TdmINWO.InsertAcousticDecoyOnBoard( var aRec: TRecAcoustic_Decoy_On_Board): Boolean;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('INSERT INTO Acoustic_Decoy_On_Board');
+    SQL.Add('(Instance_Identifier, Instance_Type, Quantity, Vehicle_Index,');
+    SQL.Add('Decoy_Index)');
+    SQL.Add('VALUES (');
+
+    with aRec do
+    begin
+      SQL.Add(QuotedStr(Instance_Identifier) + ', ');
+      SQL.Add(IntToStr(Instance_Type) + ', ');
+      SQL.Add(IntToStr(Quantity) + ', ');
+      SQL.Add(IntToStr(Vehicle_Index) + ', ');
+      SQL.Add(IntToStr(Decoy_Index) + ')');
+    end;
+
+    ExecSQL;
+
+    Result := True;
+
+    SQL.Clear;
+    SQL.Add('SELECT *');
+    SQL.Add('FROM Acoustic_Decoy_On_Board');
+    SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aRec.Vehicle_Index));
+    SQL.Add('AND Decoy_Index = ' + IntToStr(aRec.Decoy_Index));
+    Open;
+
+    if not IsEmpty then
+    begin
+      First;
+
+      aRec.Acoustic_Instance_Index := FieldByName('Acoustic_Instance_Index')
+        .AsInteger;
+    end;
+  end;
+end;
+
+function TdmINWO.InsertSelfDefensiveJammerOnBoard( var aRec: TRecDefensive_Jammer_On_Board): Boolean;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('INSERT INTO Defensive_Jammer_On_Board');
+    SQL.Add('(Instance_Identifier, Instance_Type, Vehicle_Index,');
+    SQL.Add('Defensive_Jammer_Index)');
+    SQL.Add('VALUES (');
+
+    with aRec do
+    begin
+      SQL.Add(QuotedStr(Instance_Identifier) + ', ');
+      SQL.Add(IntToStr(Instance_Type) + ', ');
+      SQL.Add(IntToStr(Vehicle_Index) + ', ');
+      SQL.Add(IntToStr(Defensive_Jammer_Index) + ')');
+      ExecSQL;
+
+      SQL.Clear;
+      SQL.Add('SELECT *');
+      SQL.Add('FROM Defensive_Jammer_On_Board');
+      SQL.Add('WHERE Vehicle_Index = ' + IntToStr(Vehicle_Index));
+      SQL.Add('AND Defensive_Jammer_Index = ' +
+        IntToStr(Defensive_Jammer_Index));
+      Open;
+
+      Defensive_Jammer_Instance_Index := FieldByName
+        ('Defensive_Jammer_Instance_Id').AsInteger;
+    end;
+  end;
+end;
+
+function TdmINWO.InsertTowedJammerDecoyOnBoard( var aRec: TRecTowed_Decoy_On_Board): Boolean;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    ExecSQL;
+    SQL.Clear;
+    SQL.Add('INSERT INTO Towed_Jammer_Decoy_On_Board');
+    SQL.Add('(Instance_Identifier, Instance_Type, Quantity, Vehicle_Index,');
+    SQL.Add('Towed_Decoy_Index)');
+    SQL.Add('VALUES (');
+
+    with aRec do
+    begin
+      SQL.Add(QuotedStr(Instance_Identifier) + ', ');
+      SQL.Add(IntToStr(Instance_Type) + ', ');
+      SQL.Add(IntToStr(Quantity) + ', ');
+      SQL.Add(IntToStr(Vehicle_Index) + ', ');
+      SQL.Add(FloatToStr(Towed_Decoy_Index) + ')');
+      ExecSQL;
+
+      SQL.Clear;
+      SQL.Add('SELECT *');
+      SQL.Add('FROM Towed_Jammer_Decoy_On_Board');
+      SQL.Add('WHERE Vehicle_Index = ' + IntToStr(Vehicle_Index));
+      SQL.Add('AND Towed_Decoy_Index = ' + IntToStr(Towed_Decoy_Index));
+      Open;
+
+      Towed_Decoy_Instance_Index := FieldByName('Towed_Decoy_Instance_Index')
+        .AsInteger;
+    end;
+  end;
+end;
+
+function TdmINWO.InsertFloatingDecoyOnBoard(var aRec: TRecFloating_Decoy_On_Board): Boolean;
+begin
+  Result := False;
+
+  with ZQ do
+  begin
+    Close;
+    ExecSQL;
+    SQL.Clear;
+    SQL.Add('INSERT INTO Floating_Decoy_On_Board');
+    SQL.Add('(Instance_Identifier, Instance_Type, Quantity, Vehicle_Index,');
+    SQL.Add('Floating_Decoy_Index)');
+    SQL.Add('VALUES (');
+
+    with aRec do
+    begin
+      SQL.Add(QuotedStr(Instance_Identifier) + ', ');
+      SQL.Add(IntToStr(Instance_Type) + ', ');
+      SQL.Add(IntToStr(Quantity) + ', ');
+      SQL.Add(IntToStr(Vehicle_Index) + ', ');
+      SQL.Add(FloatToStr(Floating_Decoy_Index) + ')');
+      ExecSQL;
+
+      Result := True;
+
+      SQL.Clear;
+      SQL.Add('SELECT *');
+      SQL.Add('FROM Floating_Decoy_On_Board ');
+      SQL.Add('WHERE Vehicle_Index = ' + IntToStr(Vehicle_Index));
+      SQL.Add('AND Floating_Decoy_Index = ' + IntToStr(Floating_Decoy_Index));
+      Open;
+
+      Floating_Decoy_Instance_Index := FieldByName
+        ('Floating_Decoy_Instance_Index').AsInteger;
+    end;
+  end;
+end;
+
+function TdmINWO.InsertChaffOnBoard(var aRec: TRecChaff_On_Board): Boolean;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('INSERT INTO Chaff_On_Board');
+    SQL.Add('(Instance_Identifier, Instance_Type, Chaff_Qty_On_Board,');
+    SQL.Add('Vehicle_Index, Chaff_Index)');
+    SQL.Add('VALUES (');
+
+    with aRec do
+    begin
+      SQL.Add(QuotedStr(Instance_Identifier) + ', ');
+      SQL.Add(IntToStr(Instance_Type) + ', ');
+      SQL.Add(IntToStr(Chaff_Qty_On_Board) + ', ');
+      SQL.Add(IntToStr(Vehicle_Index) + ', ');
+      SQL.Add(IntToStr(Chaff_Index) + ')');
+      ExecSQL;
+
+      Result := True;
+
+      SQL.Clear;
+      SQL.Add('SELECT *');
+      SQL.Add('FROM Chaff_On_Board');
+      SQL.Add('WHERE Vehicle_Index = ' + IntToStr(Vehicle_Index));
+      SQL.Add('AND Chaff_Index = ' + IntToStr(Chaff_Index));
+      SQL.Add('AND Instance_Type = ' + IntToStr(Instance_Type));
+      Open;
+
+      Chaff_Instance_Index := FieldByName('Chaff_Instance_Index').AsInteger;
+    end;
+  end;
+end;
+
+function TdmINWO.InsertInfraredDecoyOnBoard( var aRec: TRecInfrared_Decoy_On_Board): Boolean;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('INSERT INTO Infrared_Decoy_On_Board');
+    SQL.Add('(Instance_Identifier, Instance_Type,');
+    SQL.Add('Infrared_Decoy_Qty_On_Board, Vehicle_Index,');
+    SQL.Add('Infrared_Decoy_Index)');
+    SQL.Add('VALUES (');
+
+    with aRec do
+    begin
+      SQL.Add(QuotedStr(Instance_Identifier) + ', ');
+      SQL.Add(IntToStr(Instance_Type) + ', ');
+      SQL.Add(IntToStr(Infrared_Decoy_Qty_On_Board) + ', ');
+      SQL.Add(IntToStr(Vehicle_Index) + ', ');
+      SQL.Add(IntToStr(Infrared_Decoy_Index) + ')');
+      ExecSQL;
+
+      Result := True;
+
+      SQL.Clear;
+      SQL.Add('SELECT *');
+      SQL.Add('FROM Infrared_Decoy_On_Board');
+      SQL.Add('WHERE Vehicle_Index = ' + IntToStr(Vehicle_Index));
+      SQL.Add('AND Instance_Identifier = ' + QuotedStr(Instance_Identifier));
+      Open;
+
+      Infrared_Decoy_Instance_Index := FieldByName
+        ('Infrared_Decoy_Instance_Index').AsInteger;
+    end;
+  end;
+end;
 
 //function TdmINWO.InsertChaffLauncherOnBoard(var aRec: TRecChaff_Launcher_On_Board): Boolean;
 //begin
@@ -11882,210 +11881,210 @@ end;
 //  end;
 //end;
 
-//function TdmINWO.UpdateRadarNoiseJammerOnBoard( var aRec: TRecRadar_Noise_Jammer_On_Board): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('UPDATE Jammer_On_Board');
-//
-//    with aRec do
-//    begin
-//      SQL.Add('SET Jammer_Index = ' + IntToStr(Jammer_Index));
-//      SQL.Add(', Instance_Identifier = ' + QuotedStr(Instance_Identifier));
-//      SQL.Add(', Instance_Type = ' + IntToStr(Instance_Type));
-//      SQL.Add(', Vehicle_Index = ' + IntToStr(Vehicle_Index));
-//      SQL.Add(', Antenna_Height = ' + FloatToStr(Antenna_Height));
-//      SQL.Add('WHERE Jammer_Instance_Index = ' +
-//        FloatToStr(Jammer_Instance_Index));
-//    end;
-//
-//    ExecSQL;
-//
-//    Result := True;
-//  end;
-//end;
-//
-//function TdmINWO.UpdateAirBubbleOnBoard(var aRec: TRecAir_Bubble_On_Board): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('UPDATE Air_Bubble_Mount');
-//
-//    with aRec do
-//    begin
-//      SQL.Add('SET Air_Bubble_Index = ' + IntToStr(Air_Bubble_Index));
-//      SQL.Add(', Instance_Identifier = ' + QuotedStr(Instance_Identifier));
-//      SQL.Add(', Instance_Type =' + IntToStr(Instance_Type));
-//      SQL.Add(', Bubble_Qty_On_Board =' + IntToStr(Bubble_Qty_On_Board));
-//      SQL.Add(', Vehicle_Index =' + IntToStr(Vehicle_Index));
-//      SQL.Add('WHERE Air_Bubble_Instance_Index = ' +
-//        IntToStr(Air_Bubble_Instance_Index));
-//    end;
-//
-//    ExecSQL;
-//
-//    Result := True;
-//  end;
-//end;
-//
-//function TdmINWO.UpdateAcousticDecoyOnBoard(var aRec: TRecAcoustic_Decoy_On_Board): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('UPDATE Acoustic_Decoy_On_Board');
-//
-//    with aRec do
-//    begin
-//      SQL.Add('SET Instance_Identifier = ' + QuotedStr(Instance_Identifier));
-//      SQL.Add(', Instance_Type = ' + IntToStr(Instance_Type));
-//      SQL.Add(', Quantity = ' + IntToStr(Quantity));
-//      SQL.Add(', Vehicle_Index = ' + IntToStr(Vehicle_Index));
-//      SQL.Add(', Decoy_Index = ' + IntToStr(Decoy_Index));
-//      SQL.Add('WHERE Acoustic_Instance_Index = ' +
-//        IntToStr(Acoustic_Instance_Index));
-//    end;
-//
-//    ExecSQL;
-//
-//    Result := True;
-//  end;
-//end;
-//
-//function TdmINWO.UpdateSelfDefensiveJammerOnBoard(var aRec: TRecDefensive_Jammer_On_Board): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('UPDATE Defensive_Jammer_On_Board');
-//
-//    with aRec do
-//    begin
-//      SQL.Add('SET Instance_Identifier = ' + QuotedStr(Instance_Identifier));
-//      SQL.Add(', Instance_Type = ' + IntToStr(Instance_Type));
-//      SQL.Add(', Vehicle_Index = ' + IntToStr(Vehicle_Index));
-//      SQL.Add(', Defensive_Jammer_Index = ' + IntToStr(Defensive_Jammer_Index));
-//      SQL.Add('WHERE Defensive_Jammer_Instance_Id = ' +
-//        IntToStr(Defensive_Jammer_Instance_Index));
-//    end;
-//
-//    ExecSQL;
-//
-//    Result := True;
-//  end;
-//end;
-//
-//function TdmINWO.UpdateTowedJammerDecoyOnBoard(var aRec: TRecTowed_Jammer_Decoy_On_Board): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('UPDATE Towed_Jammer_Decoy_On_Board');
-//
-//    with aRec do
-//    begin
-//      SQL.Add('SET Instance_Identifier = ' + QuotedStr(Instance_Identifier));
-//      SQL.Add(', Instance_Type = ' + IntToStr(Instance_Type));
-//      SQL.Add(', Quantity = ' + IntToStr(Quantity));
-//      SQL.Add(', Vehicle_Index = ' + IntToStr(Vehicle_Index));
-//      SQL.Add(', Towed_Decoy_Index = ' + IntToStr(Towed_Decoy_Index));
-//      SQL.Add('WHERE Towed_Decoy_Instance_Index = ' +
-//        IntToStr(Towed_Decoy_Instance_Index));
-//    end;
-//
-//    ExecSQL;
-//
-//    Result := True;
-//  end;
-//end;
-//
-//function TdmINWO.UpdateFloatingDecoyOnBoard( var aRec: TRecFloating_Decoy_On_Board): Boolean;
-//begin
-//  Result := False;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('UPDATE Floating_Decoy_On_Board');
-//
-//    with aRec do
-//    begin
-//      SQL.Add('SET Instance_Identifier = ' + QuotedStr(Instance_Identifier));
-//      SQL.Add(', Instance_Type = ' + IntToStr(Instance_Type));
-//      SQL.Add(', Quantity = ' + IntToStr(Quantity));
-//      SQL.Add(', Vehicle_Index = ' + FloatToStr(Vehicle_Index));
-//      SQL.Add('WHERE Floating_Decoy_Instance_Index = ' +
-//        IntToStr(Floating_Decoy_Instance_Index));
-//    end;
-//
-//    ExecSQL;
-//
-//    Result := True;
-//  end;
-//end;
-//
-//function TdmINWO.UpdateChaffOnBoard(var aRec: TRecChaff_On_Board): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('UPDATE Chaff_On_Board');
-//
-//    with aRec do
-//    begin
-//      SQL.Add('SET Instance_Identifier = ' + QuotedStr(Instance_Identifier));
-//      SQL.Add(', Instance_Type = ' + IntToStr(Instance_Type));
-//      SQL.Add(', Chaff_Qty_On_Board = ' + IntToStr(Chaff_Qty_On_Board));
-//      SQL.Add(', Vehicle_Index = ' + IntToStr(Vehicle_Index));
-//      SQL.Add(', Chaff_Index = ' + IntToStr(Chaff_Index));
-//      SQL.Add('WHERE Chaff_Instance_Index = ' + IntToStr(Chaff_Instance_Index));
-//    end;
-//
-//    ExecSQL;
-//
-//    Result := True;
-//  end;
-//end;
-//
+function TdmINWO.UpdateRadarNoiseJammerOnBoard( var aRec: TRecRadar_Noise_Jammer_On_Board): Boolean;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('UPDATE Jammer_On_Board');
+
+    with aRec do
+    begin
+      SQL.Add('SET Jammer_Index = ' + IntToStr(Jammer_Index));
+      SQL.Add(', Instance_Identifier = ' + QuotedStr(Instance_Identifier));
+      SQL.Add(', Instance_Type = ' + IntToStr(Instance_Type));
+      SQL.Add(', Vehicle_Index = ' + IntToStr(Vehicle_Index));
+      SQL.Add(', Antenna_Height = ' + FloatToStr(Antenna_Height));
+      SQL.Add('WHERE Jammer_Instance_Index = ' +
+        FloatToStr(Jammer_Instance_Index));
+    end;
+
+    ExecSQL;
+
+    Result := True;
+  end;
+end;
+
+function TdmINWO.UpdateAirBubbleOnBoard(var aRec: TRecAir_Bubble_On_Board): Boolean;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('UPDATE Air_Bubble_Mount');
+
+    with aRec do
+    begin
+      SQL.Add('SET Air_Bubble_Index = ' + IntToStr(Air_Bubble_Index));
+      SQL.Add(', Instance_Identifier = ' + QuotedStr(Instance_Identifier));
+      SQL.Add(', Instance_Type =' + IntToStr(Instance_Type));
+      SQL.Add(', Bubble_Qty_On_Board =' + IntToStr(Bubble_Qty_On_Board));
+      SQL.Add(', Vehicle_Index =' + IntToStr(Vehicle_Index));
+      SQL.Add('WHERE Air_Bubble_Instance_Index = ' +
+        IntToStr(Air_Bubble_Instance_Index));
+    end;
+
+    ExecSQL;
+
+    Result := True;
+  end;
+end;
+
+function TdmINWO.UpdateAcousticDecoyOnBoard(var aRec: TRecAcoustic_Decoy_On_Board): Boolean;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('UPDATE Acoustic_Decoy_On_Board');
+
+    with aRec do
+    begin
+      SQL.Add('SET Instance_Identifier = ' + QuotedStr(Instance_Identifier));
+      SQL.Add(', Instance_Type = ' + IntToStr(Instance_Type));
+      SQL.Add(', Quantity = ' + IntToStr(Quantity));
+      SQL.Add(', Vehicle_Index = ' + IntToStr(Vehicle_Index));
+      SQL.Add(', Decoy_Index = ' + IntToStr(Decoy_Index));
+      SQL.Add('WHERE Acoustic_Instance_Index = ' +
+        IntToStr(Acoustic_Instance_Index));
+    end;
+
+    ExecSQL;
+
+    Result := True;
+  end;
+end;
+
+function TdmINWO.UpdateSelfDefensiveJammerOnBoard(var aRec: TRecDefensive_Jammer_On_Board): Boolean;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('UPDATE Defensive_Jammer_On_Board');
+
+    with aRec do
+    begin
+      SQL.Add('SET Instance_Identifier = ' + QuotedStr(Instance_Identifier));
+      SQL.Add(', Instance_Type = ' + IntToStr(Instance_Type));
+      SQL.Add(', Vehicle_Index = ' + IntToStr(Vehicle_Index));
+      SQL.Add(', Defensive_Jammer_Index = ' + IntToStr(Defensive_Jammer_Index));
+      SQL.Add('WHERE Defensive_Jammer_Instance_Id = ' +
+        IntToStr(Defensive_Jammer_Instance_Index));
+    end;
+
+    ExecSQL;
+
+    Result := True;
+  end;
+end;
+
+function TdmINWO.UpdateTowedJammerDecoyOnBoard(var aRec: TRecTowed_Decoy_On_Board): Boolean;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('UPDATE Towed_Jammer_Decoy_On_Board');
+
+    with aRec do
+    begin
+      SQL.Add('SET Instance_Identifier = ' + QuotedStr(Instance_Identifier));
+      SQL.Add(', Instance_Type = ' + IntToStr(Instance_Type));
+      SQL.Add(', Quantity = ' + IntToStr(Quantity));
+      SQL.Add(', Vehicle_Index = ' + IntToStr(Vehicle_Index));
+      SQL.Add(', Towed_Decoy_Index = ' + IntToStr(Towed_Decoy_Index));
+      SQL.Add('WHERE Towed_Decoy_Instance_Index = ' +
+        IntToStr(Towed_Decoy_Instance_Index));
+    end;
+
+    ExecSQL;
+
+    Result := True;
+  end;
+end;
+
+function TdmINWO.UpdateFloatingDecoyOnBoard( var aRec: TRecFloating_Decoy_On_Board): Boolean;
+begin
+  Result := False;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('UPDATE Floating_Decoy_On_Board');
+
+    with aRec do
+    begin
+      SQL.Add('SET Instance_Identifier = ' + QuotedStr(Instance_Identifier));
+      SQL.Add(', Instance_Type = ' + IntToStr(Instance_Type));
+      SQL.Add(', Quantity = ' + IntToStr(Quantity));
+      SQL.Add(', Vehicle_Index = ' + FloatToStr(Vehicle_Index));
+      SQL.Add('WHERE Floating_Decoy_Instance_Index = ' +
+        IntToStr(Floating_Decoy_Instance_Index));
+    end;
+
+    ExecSQL;
+
+    Result := True;
+  end;
+end;
+
+function TdmINWO.UpdateChaffOnBoard(var aRec: TRecChaff_On_Board): Boolean;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('UPDATE Chaff_On_Board');
+
+    with aRec do
+    begin
+      SQL.Add('SET Instance_Identifier = ' + QuotedStr(Instance_Identifier));
+      SQL.Add(', Instance_Type = ' + IntToStr(Instance_Type));
+      SQL.Add(', Chaff_Qty_On_Board = ' + IntToStr(Chaff_Qty_On_Board));
+      SQL.Add(', Vehicle_Index = ' + IntToStr(Vehicle_Index));
+      SQL.Add(', Chaff_Index = ' + IntToStr(Chaff_Index));
+      SQL.Add('WHERE Chaff_Instance_Index = ' + IntToStr(Chaff_Instance_Index));
+    end;
+
+    ExecSQL;
+
+    Result := True;
+  end;
+end;
+
 //function TdmINWO.UpdateChaffLauncherOnBoard(var aRec: TRecChaff_Launcher_On_Board): Boolean;
 //begin
 //  Result := False;
@@ -12120,277 +12119,277 @@ end;
 //    Result := True;
 //  end;
 //end;
-//
-//function TdmINWO.UpdateInfraredDecoyOnBoard(var aRec: TRecInfrared_Decoy_On_Board): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('UPDATE Infrared_Decoy_On_Board');
-//
-//    with aRec do
-//    begin
-//      SQL.Add('SET Instance_Identifier = ' + QuotedStr(Instance_Identifier));
-//      SQL.Add(', Instance_Type = ' + IntToStr(Instance_Type));
-//      SQL.Add(', Infrared_Decoy_Qty_On_Board = ' +
-//        IntToStr(Infrared_Decoy_Qty_On_Board));
-//      SQL.Add(', Vehicle_Index= ' + IntToStr(Vehicle_Index));
-//      SQL.Add(', Infrared_Decoy_Index = ' + IntToStr(Infrared_Decoy_Index));
-//      SQL.Add('WHERE Infrared_Decoy_Instance_Index = ' +
-//        IntToStr(Infrared_Decoy_Instance_Index));
-//    end;
-//
-//    ExecSQL;
-//
-//    Result := True;
-//  end;
-//end;
-//
-//function TdmINWO.DeleteAcousticDecoyOnBoard(const aDeleteType: Byte; aIndex: Integer): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('DELETE FROM Acoustic_Decoy_On_Board');
-//
-//    case aDeleteType of
-//      1: SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aIndex));
-//      2: SQL.Add('WHERE Acoustic_Instance_Index = ' + IntToStr(aIndex));
-//    end;
-//
-//    ExecSQL;
-//
-//    SQL.Clear;
-//    SQL.Add('SELECT *');
-//    SQL.Add('FROM Acoustic_Decoy_On_Board');
-//
-//    case aDeleteType of
-//      1: SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aIndex));
-//      2: SQL.Add('WHERE Acoustic_Instance_Index = ' + IntToStr(aIndex));
-//    end;
-//
-//    Open;
-//
-//    Result := RecordCount = 0;
-//  end;
-//end;
-//
-//function TdmINWO.DeleteAirBubbleOnBoard(const aDeleteType: Byte; aIndex: Integer): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('DELETE FROM Air_Bubble_Mount');
-//
-//    case aDeleteType of
-//      1: SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aIndex));
-//      2: SQL.Add('WHERE Air_Bubble_Instance_Index = ' + IntToStr(aIndex));
-//    end;
-//
-//    ExecSQL;
-//
-//    Result := True;
-//  end;
-//end;
-//
-//function TdmINWO.DeleteRadarNoiseJammerOnBoard(const aDeleteType: Byte; aIndex: Integer): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('DELETE Jammer_On_Board');
-//
-//    case aDeleteType of
-//      1: SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aIndex));
-//      2: SQL.Add('WHERE Jammer_Instance_Index = ' + IntToStr(aIndex));
-//    end;
-//
-//    ExecSQL;
-//
-//    Result := True;
-//  end;
-//end;
-//
-//function TdmINWO.DeleteSelfDefensiveJammerOnBoard(const aDeleteType: Byte; aIndex: Integer): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('DELETE FROM Defensive_Jammer_On_Board');
-//
-//    case aDeleteType of
-//      1: SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aIndex));
-//      2: SQL.Add('WHERE Defensive_Jammer_Instance_Id = ' + IntToStr(aIndex));
-//    end;
-//
-//    ExecSQL;
-//
-//    Result := True;
-//  end;
-//end;
-//
-//function TdmINWO.DeleteTowedJammerDecoyOnBoard(const aDeleteType: Byte;  aIndex: Integer): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('DELETE Towed_Jammer_Decoy_On_Board');
-//
-//    case aDeleteType of
-//      1: SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aIndex));
-//      2: SQL.Add('WHERE Towed_Decoy_Instance_Index = ' + IntToStr(aIndex));
-//    end;
-//
-//    ExecSQL;
-//
-//    Result := True;
-//  end;
-//end;
-//
-//function TdmINWO.DeleteFloatingDecoyOnBoard(const aDeleteType: Byte;  aIndex: Integer): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('DELETE FROM Floating_Decoy_On_Board');
-//
-//    case aDeleteType of
-//      1: SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aIndex));
-//      2: SQL.Add('WHERE Floating_Decoy_Instance_Index = ' + IntToStr(aIndex));
-//    end;
-//
-//    ExecSQL;
-//
-//    Result := True;
-//  end;
-//end;
-//
-//function TdmINWO.DeleteInfraredDecoyOnBoard(const aDeleteType: Byte;  aIndex: Integer): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Add('DELETE FROM Infrared_Decoy_On_Board');
-//
-//    case aDeleteType of
-//      1: SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aIndex));
-//      2: SQL.Add('WHERE Infrared_Decoy_Instance_Index = ' + IntToStr(aIndex));
-//    end;
-//
-//    ExecSQL;
-//
-//    Result := True;
-//  end;
-//end;
-//
-//function TdmINWO.DeleteChaffOnBoard(const aDeleteType: Byte;  aIndex: Integer): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Add('DELETE FROM Chaff_On_Board');
-//
-//    case aDeleteType of
-//      1: SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aIndex));
-//      2: SQL.Add('WHERE Chaff_Instance_Index = ' + IntToStr(aIndex));
-//    end;
-//
-//    ExecSQL;
-//
-//    Result := True;
-//  end;
-//end;
-//
-//function TdmINWO.DeleteChaffLauncherOnBoard(const aVehicleIndex: Integer): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('DELETE FROM Chaff_Launcher_On_Board');
-//    SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aVehicleIndex));
-//    ExecSQL;
-//
-//    Result := True;
-//  end;
-//end;
-//
-//function TdmINWO.DeleteChaffLauncherOnBoard(const aVehicleIndex, aLauncherNumber: Integer): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('DELETE FROM Chaff_Launcher_On_Board');
-//    SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aVehicleIndex));
-//    SQL.Add('AND Launcher_Number = ' + IntToStr(aLauncherNumber));
-//    ExecSQL;
-//
-//    Result := True;
-//  end;
-//end;
+
+function TdmINWO.UpdateInfraredDecoyOnBoard(var aRec: TRecInfrared_Decoy_On_Board): Boolean;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('UPDATE Infrared_Decoy_On_Board');
+
+    with aRec do
+    begin
+      SQL.Add('SET Instance_Identifier = ' + QuotedStr(Instance_Identifier));
+      SQL.Add(', Instance_Type = ' + IntToStr(Instance_Type));
+      SQL.Add(', Infrared_Decoy_Qty_On_Board = ' +
+        IntToStr(Infrared_Decoy_Qty_On_Board));
+      SQL.Add(', Vehicle_Index= ' + IntToStr(Vehicle_Index));
+      SQL.Add(', Infrared_Decoy_Index = ' + IntToStr(Infrared_Decoy_Index));
+      SQL.Add('WHERE Infrared_Decoy_Instance_Index = ' +
+        IntToStr(Infrared_Decoy_Instance_Index));
+    end;
+
+    ExecSQL;
+
+    Result := True;
+  end;
+end;
+
+function TdmINWO.DeleteAcousticDecoyOnBoard(const aDeleteType: Byte; aIndex: Integer): Boolean;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('DELETE FROM Acoustic_Decoy_On_Board');
+
+    case aDeleteType of
+      1: SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aIndex));
+      2: SQL.Add('WHERE Acoustic_Instance_Index = ' + IntToStr(aIndex));
+    end;
+
+    ExecSQL;
+
+    SQL.Clear;
+    SQL.Add('SELECT *');
+    SQL.Add('FROM Acoustic_Decoy_On_Board');
+
+    case aDeleteType of
+      1: SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aIndex));
+      2: SQL.Add('WHERE Acoustic_Instance_Index = ' + IntToStr(aIndex));
+    end;
+
+    Open;
+
+    Result := RecordCount = 0;
+  end;
+end;
+
+function TdmINWO.DeleteAirBubbleOnBoard(const aDeleteType: Byte; aIndex: Integer): Boolean;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('DELETE FROM Air_Bubble_Mount');
+
+    case aDeleteType of
+      1: SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aIndex));
+      2: SQL.Add('WHERE Air_Bubble_Instance_Index = ' + IntToStr(aIndex));
+    end;
+
+    ExecSQL;
+
+    Result := True;
+  end;
+end;
+
+function TdmINWO.DeleteRadarNoiseJammerOnBoard(const aDeleteType: Byte; aIndex: Integer): Boolean;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('DELETE Jammer_On_Board');
+
+    case aDeleteType of
+      1: SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aIndex));
+      2: SQL.Add('WHERE Jammer_Instance_Index = ' + IntToStr(aIndex));
+    end;
+
+    ExecSQL;
+
+    Result := True;
+  end;
+end;
+
+function TdmINWO.DeleteSelfDefensiveJammerOnBoard(const aDeleteType: Byte; aIndex: Integer): Boolean;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('DELETE FROM Defensive_Jammer_On_Board');
+
+    case aDeleteType of
+      1: SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aIndex));
+      2: SQL.Add('WHERE Defensive_Jammer_Instance_Id = ' + IntToStr(aIndex));
+    end;
+
+    ExecSQL;
+
+    Result := True;
+  end;
+end;
+
+function TdmINWO.DeleteTowedJammerDecoyOnBoard(const aDeleteType: Byte;  aIndex: Integer): Boolean;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('DELETE Towed_Jammer_Decoy_On_Board');
+
+    case aDeleteType of
+      1: SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aIndex));
+      2: SQL.Add('WHERE Towed_Decoy_Instance_Index = ' + IntToStr(aIndex));
+    end;
+
+    ExecSQL;
+
+    Result := True;
+  end;
+end;
+
+function TdmINWO.DeleteFloatingDecoyOnBoard(const aDeleteType: Byte;  aIndex: Integer): Boolean;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('DELETE FROM Floating_Decoy_On_Board');
+
+    case aDeleteType of
+      1: SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aIndex));
+      2: SQL.Add('WHERE Floating_Decoy_Instance_Index = ' + IntToStr(aIndex));
+    end;
+
+    ExecSQL;
+
+    Result := True;
+  end;
+end;
+
+function TdmINWO.DeleteInfraredDecoyOnBoard(const aDeleteType: Byte;  aIndex: Integer): Boolean;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Add('DELETE FROM Infrared_Decoy_On_Board');
+
+    case aDeleteType of
+      1: SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aIndex));
+      2: SQL.Add('WHERE Infrared_Decoy_Instance_Index = ' + IntToStr(aIndex));
+    end;
+
+    ExecSQL;
+
+    Result := True;
+  end;
+end;
+
+function TdmINWO.DeleteChaffOnBoard(const aDeleteType: Byte;  aIndex: Integer): Boolean;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Add('DELETE FROM Chaff_On_Board');
+
+    case aDeleteType of
+      1: SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aIndex));
+      2: SQL.Add('WHERE Chaff_Instance_Index = ' + IntToStr(aIndex));
+    end;
+
+    ExecSQL;
+
+    Result := True;
+  end;
+end;
+
+function TdmINWO.DeleteChaffLauncherOnBoard(const aVehicleIndex: Integer): Boolean;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('DELETE FROM Chaff_Launcher_On_Board');
+    SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aVehicleIndex));
+    ExecSQL;
+
+    Result := True;
+  end;
+end;
+
+function TdmINWO.DeleteChaffLauncherOnBoard(const aVehicleIndex, aLauncherNumber: Integer): Boolean;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('DELETE FROM Chaff_Launcher_On_Board');
+    SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aVehicleIndex));
+    SQL.Add('AND Launcher_Number = ' + IntToStr(aLauncherNumber));
+    ExecSQL;
+
+    Result := True;
+  end;
+end;
 
 {$ENDREGION}
 

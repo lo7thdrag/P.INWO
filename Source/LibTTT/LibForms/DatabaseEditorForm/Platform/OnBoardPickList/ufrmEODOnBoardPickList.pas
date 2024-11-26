@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, StdCtrls, Vcl.Imaging.pngimage,
-  uDBAsset_Vehicle,uDBAsset_Sensor, uSimContainers ;
+
+  uDBAsset_Sensor, uClassData, uSimContainers ;
 
 type
   TfrmEODOnBoardPickList = class(TForm)
@@ -40,15 +41,13 @@ type
     FAllEODDefList : TList;
     FAllEODOnBoardList : TList;
 
-    FSelectedVehicle : TVehicle_Definition;
+    FSelectedVehicle : TAsset;
     FSelectedEOD : TEOD_On_Board;
 
     procedure UpdateEODList;
 
   public
-    AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, btn Cancel di summary menyala}
-    property SelectedVehicle : TVehicle_Definition read FSelectedVehicle write FSelectedVehicle;
-
+    property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
   end;
 
 var
@@ -57,7 +56,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmEODMount{, tttData};
+  uDataModule, ufrmEODMount;
 
 
 {$R *.dfm}
@@ -75,8 +74,6 @@ procedure TfrmEODOnBoardPickList.FormCreate(Sender: TObject);
 begin
   FAllEODDefList := TList.Create;
   FAllEODOnBoardList := TList.Create;
-
-  AfterClose := False;
 end;
 
 procedure TfrmEODOnBoardPickList.FormShow(Sender: TObject);
@@ -90,59 +87,55 @@ end;
 
 procedure TfrmEODOnBoardPickList.btnAddClick(Sender: TObject);
 begin
-//  if lbAllEODef.ItemIndex = -1 then
-//    Exit;
-//
-//  frmEODMount := TfrmEODMount.Create(Self);
-//  try
-//    with frmEODMount do
-//    begin
-//      SelectedVehicle := FSelectedVehicle;
-//      SelectedEOD := FSelectedEOD;
-//      ShowModal;
-//    end;
-//    AfterClose := frmEODMount.AfterClose;
-//  finally
-//    frmEODMount.Free;
-//  end;
-//
+  if lbAllEODef.ItemIndex = -1 then
+    Exit;
+
+  if not Assigned(frmEODMount) then
+    frmEODMount := TfrmEODMount.Create(Self);
+  try
+    with frmEODMount do
+    begin
+      SelectedVehicle := FSelectedVehicle;
+      SelectedEOD := FSelectedEOD;
+      Show;
+    end;
+  finally
+  end;
+
 //  UpdateEODList;
 end;
 
 procedure TfrmEODOnBoardPickList.btnEditClick(Sender: TObject);
 begin
-//  if lbAllEODOnBoard.ItemIndex = -1 then
-//    Exit;
-//
-//  frmEODMount := TfrmEODMount.Create(Self);
-//  try
-//    with frmEODMount do
-//    begin
-//      SelectedVehicle := FSelectedVehicle;
-//      SelectedEOD := FSelectedEOD;
-//      ShowModal;
-//    end;
-//    AfterClose := frmEODMount.AfterClose;
-//  finally
-//    frmEODMount.Free;
-//  end;
-//
+  if lbAllEODOnBoard.ItemIndex = -1 then
+    Exit;
+
+  if not Assigned(frmEODMount) then
+    frmEODMount := TfrmEODMount.Create(Self);
+  try
+    with frmEODMount do
+    begin
+      SelectedVehicle := FSelectedVehicle;
+      SelectedEOD := FSelectedEOD;
+      Show;
+    end;
+  finally
+  end;
+
 //  UpdateEODList;
 end;
 
 procedure TfrmEODOnBoardPickList.btnRemoveClick(Sender: TObject);
 begin
-//  if lbAllEODOnBoard.ItemIndex = -1 then
-//    Exit;
-//
-//  with FSelectedEOD.FData do
-//  begin
-//    dmTTT.DeleteBlindZone(Ord(bzcEO), EO_Instance_Index);
-//    dmTTT.DeleteEOOnBoard(2, EO_Instance_Index);
-//  end;
-//
-//  AfterClose := True;
-//  UpdateEODList;
+  if lbAllEODOnBoard.ItemIndex = -1 then
+    Exit;
+
+  with FSelectedEOD.FData do
+  begin
+    dmINWO.DeleteEODOnBoard(2, EOD_Instance_Index);
+  end;
+
+  UpdateEODList;
 end;
 
 procedure TfrmEODOnBoardPickList.btnCloseClick(Sender: TObject);
@@ -167,27 +160,27 @@ begin
 end;
 
 procedure TfrmEODOnBoardPickList.UpdateEODList;
-//var
-//  i : Integer;
-//  eod : TEOD_On_Board;
+var
+  i : Integer;
+  eod : TEOD_On_Board;
 begin
-//  lbAllEODef.Items.Clear;
-//  lbAllEODOnBoard.Items.Clear;
-//
-//  dmTTT.GetAllEODef(FAllEODDefList);
-//  dmTTT.GetEOOnBoard(FSelectedVehicle.FData.Vehicle_Index,FAllEODOnBoardList);
-//
-//  for i := 0 to FAllEODDefList.Count - 1 do
-//  begin
-//    eod := FAllEODDefList.Items[i];
-//    lbAllEODef.Items.AddObject(eod.FEO_Def.Class_Identifier, eod);
-//  end;
-//
-//  for i := 0 to FAllEODOnBoardList.Count - 1 do
-//  begin
-//    eod := FAllEODOnBoardList.Items[i];
-//    lbAllEODOnBoard.Items.AddObject(eod.FData.Instance_Identifier, eod);
-//  end;
+  lbAllEODef.Items.Clear;
+  lbAllEODOnBoard.Items.Clear;
+
+  dmINWO.GetAllEODDef(FAllEODDefList);
+  dmINWO.GetEODOnBoard(FSelectedVehicle.FData.VehicleIndex,FAllEODOnBoardList);
+
+  for i := 0 to FAllEODDefList.Count - 1 do
+  begin
+    eod := FAllEODDefList.Items[i];
+    lbAllEODef.Items.AddObject(eod.FDef.Class_Identifier, eod);
+  end;
+
+  for i := 0 to FAllEODOnBoardList.Count - 1 do
+  begin
+    eod := FAllEODOnBoardList.Items[i];
+    lbAllEODOnBoard.Items.AddObject(eod.FData.Instance_Identifier, eod);
+  end;
 end;
 
 {$ENDREGION}

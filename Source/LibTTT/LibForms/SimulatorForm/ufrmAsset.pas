@@ -201,14 +201,7 @@ type
     procedure cbbCategoryChange(Sender: TObject);
     procedure cbbTypeChange(Sender: TObject);
     procedure btnOpenDialogImageClick(Sender: TObject);
-//    procedure btnRadarClick(Sender: TObject);
-    procedure btnSonarClick(Sender: TObject);
-    procedure btnESMClick(Sender: TObject);
-    procedure btnEODClick(Sender: TObject);
-    procedure btnMADClick(Sender: TObject);
-    procedure btnSonobuoyClick(Sender: TObject);
-    procedure btnVisualDetectorClick(Sender: TObject);
-    procedure btnIFFClick(Sender: TObject);
+
     procedure btnMissilesClick(Sender: TObject);
     procedure btnTorpedosClick(Sender: TObject);
     procedure btnMinesClick(Sender: TObject);
@@ -234,6 +227,8 @@ type
     procedure cbbWeaponsChange(Sender: TObject);
     procedure cbbCountermeasuresChange(Sender: TObject);
     procedure btnSensorsClick(Sender: TObject);
+    procedure btnWeaponClick(Sender: TObject);
+    procedure btnCountermeasuresClick(Sender: TObject);
 
   private
     FSelectedAsset : TAsset ;
@@ -264,9 +259,9 @@ implementation
 uses
   ufrmRadarOnBoardPickList, ufrmSonarOnBoardPickList, ufrmESMOnBoardPickList,
   ufrmEODOnBoardPickList, ufrmMADOnBoardPickList, ufrmSonobuoyOnBoardPickList,
-  ufrmVisualDetectorOnBoardPickList, ufrmIFFOnBoardPickList, ufrmMissileOnBoardPickList,
-  ufrmTorpedoOnBoardPickList, ufrmMineOnBoardPickList, ufrmGunOnBoardPickList,
-  ufrmBombOnBoardPickList, ufrmAcousticDecoyOnBoardPickList, ufrmAirBubbleOnBoardPickList,
+  ufrmMissileOnBoardPickList, ufrmTorpedoOnBoardPickList, ufrmMineOnBoardPickList,
+  ufrmGunOnBoardPickList, ufrmBombOnBoardPickList,
+  ufrmAcousticDecoyOnBoardPickList, ufrmAirBubbleOnBoardPickList,
   ufrmChaffOnBoardPickList, ufrmFloatingDecoyOnBoardPickList, ufrmInfraredDecoyOnBoardPickList,
   ufrmRadarNoiseJammerOnBoardPickList, ufrmSelfDefensiveJammerOnBoardPickList,
   ufrmTowedJammerDecoyOnBoardPickList, ufrmEmbarkedOnBoardPickList, uSimbolTaktis;
@@ -490,438 +485,245 @@ begin
     1:
     begin
       {$REGION ' Sonar '}
-//      dmINWO.GetSonarOnBoard(FSelectedAsset.FData.VehicleIndex, FAssetList);
+      if not Assigned(frmSonarOnBoardPickList) then
+        frmSonarOnBoardPickList := TfrmSonarOnBoardPickList.Create(Self);
 
-//      for i := 0 to FAssetList.Count - 1 do
-//      begin
-//        sonarOnboardTemp := FAssetList.Items[i];
-//
-//        li := lvSensors.Items.Add;
-//        li.Caption := sonarOnboardTemp.FData.Instance_Identifier;
-//
-//        li.Data := sonarOnboardTemp;
-//      end;
+      try
+        with frmSonarOnBoardPickList do
+        begin
+          SelectedVehicle := FSelectedAsset;
+          Show;
+        end;
+      finally
+      end;
       {$ENDREGION}
     end;
     2:
     begin
       {$REGION ' ESM '}
-//      dmINWO.GetESMOnBoard(FSelectedAsset.FData.VehicleIndex, FAssetList);
-//
-//      for i := 0 to FAssetList.Count - 1 do
-//      begin
-//        esmOnboardTemp := FAssetList.Items[i];
-//
-//        li := lvSensors.Items.Add;
-//        li.Caption := esmOnboardTemp.FData.Instance_Identifier;
-//
-//        li.Data := esmOnboardTemp;
-//      end;
+      if not Assigned(frmESMOnBoardPickList) then
+        frmESMOnBoardPickList := TfrmESMOnBoardPickList.Create(Self);
+
+      try
+        with frmESMOnBoardPickList do
+        begin
+          SelectedVehicle := FSelectedAsset;
+          Show;
+        end;
+      finally
+      end;
       {$ENDREGION}
     end;
     3:
     begin
       {$REGION ' MAD '}
-//      dmINWO.GetMADOnBoard(FSelectedAsset.FData.VehicleIndex, FAssetList);
-//
-//      for i := 0 to FAssetList.Count - 1 do
-//      begin
-//        madOnboardTemp := FAssetList.Items[i];
-//
-//        li := lvSensors.Items.Add;
-//        li.Caption := madOnboardTemp.FData.Instance_Identifier;
-//
-//        li.Data := madOnboardTemp;
-//      end;
+      if not Assigned(frmMADOnBoardPickList) then
+        frmMADOnBoardPickList := TfrmMADOnBoardPickList.Create(Self);
+
+      try
+        with frmMADOnBoardPickList do
+        begin
+          SelectedVehicle := FSelectedAsset;
+          Show;
+        end;
+      finally
+      end;
       {$ENDREGION}
     end;
     4:
     begin
       {$REGION ' EOD '}
-//      dmINWO.GetEODOnBoard(FSelectedAsset.FData.VehicleIndex, FAssetList);
-//
-//      for i := 0 to FAssetList.Count - 1 do
-//      begin
-//        eodOnboardTemp := FAssetList.Items[i];
-//
-//        li := lvSensors.Items.Add;
-//        li.Caption := eodOnboardTemp.FData.Instance_Identifier;
-//
-//        li.Data := eodOnboardTemp;
-//      end;
+      if not Assigned(frmEODOnBoardPickList) then
+        frmEODOnBoardPickList := TfrmEODOnBoardPickList.Create(Self);
+
+      try
+        with frmEODOnBoardPickList do
+        begin
+          SelectedVehicle := FSelectedAsset;
+          Show;
+        end;
+      finally
+      end;
       {$ENDREGION}
     end;
     5:
     begin
       {$REGION ' Sonobuoy '}
-//      dmINWO.GetSonobuoyOnBoard(FSelectedAsset.FData.VehicleIndex, FAssetList);
-//
-//      for i := 0 to FAssetList.Count - 1 do
-//      begin
-//        sonobuoyOnboardTemp := FAssetList.Items[i];
-//
-//        li := lvSensors.Items.Add;
-//        li.Caption := sonobuoyOnboardTemp.FData.Instance_Identifier;
-//
-//        li.Data := sonobuoyOnboardTemp;
-//      end;
+      if not Assigned(frmSonobuoyOnBoardPickList) then
+        frmSonobuoyOnBoardPickList := TfrmSonobuoyOnBoardPickList.Create(Self);
+
+      try
+        with frmSonobuoyOnBoardPickList do
+        begin
+          SelectedVehicle := FSelectedAsset;
+          Show;
+        end;
+      finally
+      end;
       {$ENDREGION}
     end;
   end;
-
 end;
-
-procedure TfrmAsset.btnSonarClick(Sender: TObject);
-begin
-  {$REGION 'jika class belum tersimpan'}
-  if FSelectedAsset.FData.VehicleIndex = 0 then
-  begin
-    ShowMessage('Save data class before continue');
-    Exit;
-  end;
-  {$ENDREGION}
-
-  frmSonarOnBoardPickList := TfrmSonarOnBoardPickList.Create(Self);
-  try
-    with frmSonarOnBoardPickList do
-    begin
-      SelectedAsset := FSelectedAsset;
-      ShowModal;
-    end;
-
-    AfterClose := frmSonarOnBoardPickList.AfterClose;
-  finally
-    frmSonarOnBoardPickList.Free;
-  end;
-
-  btnCancel.Enabled := not afterClose;
-  btnApply.Enabled := afterClose;
-end;
-
-procedure TfrmAsset.btnSonobuoyClick(Sender: TObject);
-begin
-  {$REGION 'jika class belum tersimpan'}
-  if FSelectedAsset.FData.VehicleIndex = 0 then
-  begin
-    ShowMessage('Save data class before continue');
-    Exit;
-  end;
-  {$ENDREGION}
-
-  frmSonobuoyOnBoardPickList := TfrmSonobuoyOnBoardPickList.Create(Self);
-  try
-    with frmSonobuoyOnBoardPickList do
-    begin
-      SelectedAsset := FSelectedAsset;
-      ShowModal;
-    end;
-
-    AfterClose := frmSonobuoyOnBoardPickList.AfterClose;
-  finally
-    frmSonobuoyOnBoardPickList.Free;
-  end;
-
-  btnCancel.Enabled := not afterClose;
-  btnApply.Enabled := afterClose;
-end;
-
-procedure TfrmAsset.btnESMClick(Sender: TObject);
-begin
-  {$REGION 'jika class belum tersimpan'}
-  if FSelectedAsset.FData.VehicleIndex = 0 then
-  begin
-    ShowMessage('Save data class before continue');
-    Exit;
-  end;
-  {$ENDREGION}
-
-  frmESMOnBoardPickList := TfrmESMOnBoardPickList.Create(Self);
-  try
-    with frmESMOnBoardPickList do
-    begin
-      SelectedAsset := FSelectedAsset;
-      ShowModal;
-    end;
-
-    AfterClose := frmESMOnBoardPickList.AfterClose;
-  finally
-    frmESMOnBoardPickList.Free;
-  end;
-
-  btnCancel.Enabled := not afterClose;
-  btnApply.Enabled := afterClose;
-end;
-
-procedure TfrmAsset.btnIFFClick(Sender: TObject);
-begin
-  {$REGION 'jika class belum tersimpan'}
-  if FSelectedAsset.FData.VehicleIndex = 0 then
-  begin
-    ShowMessage('Save data class before continue');
-    Exit;
-  end;
-  {$ENDREGION}
-
-  frmIFFOnBoardPickList := TfrmIFFOnBoardPickList.Create(Self);
-  try
-    with frmIFFOnBoardPickList do
-    begin
-      SelectedAsset := FSelectedAsset;
-      ShowModal;
-    end;
-
-    AfterClose := frmIFFOnBoardPickList.AfterClose;
-  finally
-    frmIFFOnBoardPickList.Free;
-  end;
-
-  btnCancel.Enabled := not afterClose;
-  btnApply.Enabled := afterClose;
-end;
-
-procedure TfrmAsset.btnMADClick(Sender: TObject);
-begin
-  {$REGION 'jika class belum tersimpan'}
-  if FSelectedAsset.FData.VehicleIndex = 0 then
-  begin
-    ShowMessage('Save data class before continue');
-    Exit;
-  end;
-  {$ENDREGION}
-
-  frmMADOnBoardPickList := TfrmMADOnBoardPickList.Create(Self);
-  try
-    with frmMADOnBoardPickList do
-    begin
-      SelectedAsset := FSelectedAsset;
-      ShowModal;
-    end;
-
-    AfterClose := frmMADOnBoardPickList.AfterClose;
-  finally
-    frmMADOnBoardPickList.Free;
-  end;
-
-  btnCancel.Enabled := not afterClose;
-  btnApply.Enabled := afterClose;
-end;
-
-procedure TfrmAsset.btnEODClick(Sender: TObject);
-begin
-  {$REGION 'jika class belum tersimpan'}
-  if FSelectedAsset.FData.VehicleIndex = 0 then
-  begin
-    ShowMessage('Save data class before continue');
-    Exit;
-  end;
-  {$ENDREGION}
-
-  frmEODOnBoardPickList := TfrmEODOnBoardPickList.Create(Self);
-  try
-    with frmEODOnBoardPickList do
-    begin
-      SelectedAsset := FSelectedAsset;
-      ShowModal;
-    end;
-
-    AfterClose := frmEODOnBoardPickList.AfterClose;
-  finally
-    frmEODOnBoardPickList.Free;
-  end;
-
-  btnCancel.Enabled := not afterClose;
-  btnApply.Enabled := afterClose;
-end;
-
-procedure TfrmAsset.btnVisualDetectorClick(Sender: TObject);
-begin
-  {$REGION 'jika class belum tersimpan'}
-  if FSelectedAsset.FData.VehicleIndex = 0 then
-  begin
-    ShowMessage('Save data class before continue');
-    Exit;
-  end;
-  {$ENDREGION}
-
-  frmVisualDetectorOnBoardPickList := TfrmVisualDetectorOnBoardPickList.Create(Self);
-  try
-    with frmVisualDetectorOnBoardPickList do
-    begin
-      SelectedAsset := FSelectedAsset;
-      ShowModal;
-    end;
-
-    AfterClose := frmVisualDetectorOnBoardPickList.AfterClose;
-  finally
-    frmVisualDetectorOnBoardPickList.Free;
-  end;
-
-  btnCancel.Enabled := not afterClose;
-  btnApply.Enabled := afterClose;
-end;
-
 
 procedure TfrmAsset.btnMissilesClick(Sender: TObject);
 begin
-  {$REGION 'jika class belum tersimpan'}
-  if FSelectedAsset.FData.VehicleIndex = 0 then
-  begin
-    ShowMessage('Save data class before continue');
-    Exit;
-  end;
-  {$ENDREGION}
-
-  frmMissileOnBoardPickList := TfrmMissileOnBoardPickList.Create(Self);
-  try
-    with frmMissileOnBoardPickList do
-    begin
-      SelectedAsset := FSelectedAsset;
-      ShowModal;
-    end;
-
-    AfterClose := frmMissileOnBoardPickList.AfterClose;
-  finally
-    frmMissileOnBoardPickList.Free;
-  end;
-
-  btnCancel.Enabled := not afterClose;
-  btnApply.Enabled := afterClose;
+//  {$REGION 'jika class belum tersimpan'}
+//  if FSelectedAsset.FData.VehicleIndex = 0 then
+//  begin
+//    ShowMessage('Save data class before continue');
+//    Exit;
+//  end;
+//  {$ENDREGION}
+//
+//  frmMissileOnBoardPickList := TfrmMissileOnBoardPickList.Create(Self);
+//  try
+//    with frmMissileOnBoardPickList do
+//    begin
+//      SelectedAsset := FSelectedAsset;
+//      Show;
+//    end;
+//  finally
+//    frmMissileOnBoardPickList.Free;
+//  end;
+//
+//  btnCancel.Enabled := not afterClose;
+//  btnApply.Enabled := afterClose;
 end;
 
 procedure TfrmAsset.btnTorpedosClick(Sender: TObject);
 begin
-  {$REGION 'jika class belum tersimpan'}
-  if FSelectedAsset.FData.VehicleIndex = 0 then
-  begin
-    ShowMessage('Save data class before continue');
-    Exit;
-  end;
-  {$ENDREGION}
-
-  frmTorpedoOnBoardPickList := TfrmTorpedoOnBoardPickList.Create(Self);
-  try
-    with frmTorpedoOnBoardPickList do
-    begin
-      SelectedAsset := FSelectedAsset;
-      ShowModal;
-    end;
-
-    AfterClose := frmTorpedoOnBoardPickList.AfterClose;
-  finally
-    frmTorpedoOnBoardPickList.Free;
-  end;
-
-  btnCancel.Enabled := not afterClose;
-  btnApply.Enabled := afterClose;
+//  {$REGION 'jika class belum tersimpan'}
+//  if FSelectedAsset.FData.VehicleIndex = 0 then
+//  begin
+//    ShowMessage('Save data class before continue');
+//    Exit;
+//  end;
+//  {$ENDREGION}
+//
+//  frmTorpedoOnBoardPickList := TfrmTorpedoOnBoardPickList.Create(Self);
+//  try
+//    with frmTorpedoOnBoardPickList do
+//    begin
+//      SelectedAsset := FSelectedAsset;
+//      ShowModal;
+//    end;
+//
+//    AfterClose := frmTorpedoOnBoardPickList.AfterClose;
+//  finally
+//    frmTorpedoOnBoardPickList.Free;
+//  end;
+//
+//  btnCancel.Enabled := not afterClose;
+//  btnApply.Enabled := afterClose;
 end;
 
 procedure TfrmAsset.btnMinesClick(Sender: TObject);
 begin
-  {$REGION 'jika class belum tersimpan'}
-  if FSelectedAsset.FData.VehicleIndex = 0 then
-  begin
-    ShowMessage('Save data class before continue');
-    Exit;
-  end;
-  {$ENDREGION}
-
-  frmMineOnBoardPickList := TfrmMineOnBoardPickList.Create(Self);
-  try
-    with frmMineOnBoardPickList do
-    begin
-      SelectedAsset := FSelectedAsset;
-      ShowModal;
-    end;
-
-    AfterClose := frmMineOnBoardPickList.AfterClose;
-  finally
-    frmMineOnBoardPickList.Free;
-  end;
-
-  btnCancel.Enabled := not afterClose;
-  btnApply.Enabled := afterClose;
+//  {$REGION 'jika class belum tersimpan'}
+//  if FSelectedAsset.FData.VehicleIndex = 0 then
+//  begin
+//    ShowMessage('Save data class before continue');
+//    Exit;
+//  end;
+//  {$ENDREGION}
+//
+//  frmMineOnBoardPickList := TfrmMineOnBoardPickList.Create(Self);
+//  try
+//    with frmMineOnBoardPickList do
+//    begin
+//      SelectedAsset := FSelectedAsset;
+//      ShowModal;
+//    end;
+//
+//    AfterClose := frmMineOnBoardPickList.AfterClose;
+//  finally
+//    frmMineOnBoardPickList.Free;
+//  end;
+//
+//  btnCancel.Enabled := not afterClose;
+//  btnApply.Enabled := afterClose;
 end;
 
 procedure TfrmAsset.btnGunsClick(Sender: TObject);
 begin
-  {$REGION 'jika class belum tersimpan'}
-  if FSelectedAsset.FData.VehicleIndex = 0 then
-  begin
-    ShowMessage('Save data class before continue');
-    Exit;
-  end;
-  {$ENDREGION}
-
-  frmGunOnBoardPickList := TfrmGunOnBoardPickList.Create(Self);
-  try
-    with frmGunOnBoardPickList do
-    begin
-      SelectedAsset := FSelectedAsset;
-      ShowModal;
-    end;
-
-    AfterClose := frmGunOnBoardPickList.AfterClose;
-  finally
-    frmGunOnBoardPickList.Free;
-  end;
-
-  btnCancel.Enabled := not afterClose;
-  btnApply.Enabled := afterClose;
+//  {$REGION 'jika class belum tersimpan'}
+//  if FSelectedAsset.FData.VehicleIndex = 0 then
+//  begin
+//    ShowMessage('Save data class before continue');
+//    Exit;
+//  end;
+//  {$ENDREGION}
+//
+//  frmGunOnBoardPickList := TfrmGunOnBoardPickList.Create(Self);
+//  try
+//    with frmGunOnBoardPickList do
+//    begin
+//      SelectedAsset := FSelectedAsset;
+//      ShowModal;
+//    end;
+//
+//    AfterClose := frmGunOnBoardPickList.AfterClose;
+//  finally
+//    frmGunOnBoardPickList.Free;
+//  end;
+//
+//  btnCancel.Enabled := not afterClose;
+//  btnApply.Enabled := afterClose;
 end;
 
 procedure TfrmAsset.btnBomb_DepthChargesClick(Sender: TObject);
 begin
-  {$REGION 'jika class belum tersimpan'}
-  if FSelectedAsset.FData.VehicleIndex = 0 then
-  begin
-    ShowMessage('Save data class before continue');
-    Exit;
-  end;
-  {$ENDREGION}
-
-  frmBombOnBoardPickList := TfrmBombOnBoardPickList.Create(Self);
-  try
-    with frmBombOnBoardPickList do
-    begin
-      SelectedAsset := FSelectedAsset;
-      ShowModal;
-    end;
-
-    AfterClose := frmBombOnBoardPickList.AfterClose;
-  finally
-    frmBombOnBoardPickList.Free;
-  end;
-
-  btnCancel.Enabled := not afterClose;
-  btnApply.Enabled := afterClose;
+//  {$REGION 'jika class belum tersimpan'}
+//  if FSelectedAsset.FData.VehicleIndex = 0 then
+//  begin
+//    ShowMessage('Save data class before continue');
+//    Exit;
+//  end;
+//  {$ENDREGION}
+//
+//  frmBombOnBoardPickList := TfrmBombOnBoardPickList.Create(Self);
+//  try
+//    with frmBombOnBoardPickList do
+//    begin
+//      SelectedAsset := FSelectedAsset;
+//      ShowModal;
+//    end;
+//
+//    AfterClose := frmBombOnBoardPickList.AfterClose;
+//  finally
+//    frmBombOnBoardPickList.Free;
+//  end;
+//
+//  btnCancel.Enabled := not afterClose;
+//  btnApply.Enabled := afterClose;
 end;
 
 
 procedure TfrmAsset.btnAccousticDecoyClick(Sender: TObject);
 begin
-  {$REGION 'jika class belum tersimpan'}
-  if FSelectedAsset.FData.VehicleIndex = 0 then
-  begin
-    ShowMessage('Save data class before continue');
-    Exit;
-  end;
-  {$ENDREGION}
-
-  frmAcousticDecoyOnBoardPickList := TfrmAcousticDecoyOnBoardPickList.Create(Self);
-  try
-    with frmAcousticDecoyOnBoardPickList do
-    begin
-      SelectedAsset := FSelectedAsset;
-      ShowModal;
-    end;
-
-    AfterClose := frmAcousticDecoyOnBoardPickList.AfterClose;
-  finally
-    frmAcousticDecoyOnBoardPickList.Free;
-  end;
-
-//  btnCancel.Enabled := not afterClose;
-  btnApply.Enabled := afterClose;
+//  {$REGION 'jika class belum tersimpan'}
+//  if FSelectedAsset.FData.VehicleIndex = 0 then
+//  begin
+//    ShowMessage('Save data class before continue');
+//    Exit;
+//  end;
+//  {$ENDREGION}
+//
+//  frmAcousticDecoyOnBoardPickList := TfrmAcousticDecoyOnBoardPickList.Create(Self);
+//  try
+//    with frmAcousticDecoyOnBoardPickList do
+//    begin
+//      SelectedAsset := FSelectedAsset;
+//      ShowModal;
+//    end;
+//
+//    AfterClose := frmAcousticDecoyOnBoardPickList.AfterClose;
+//  finally
+//    frmAcousticDecoyOnBoardPickList.Free;
+//  end;
+//
+////  btnCancel.Enabled := not afterClose;
+//  btnApply.Enabled := afterClose;
 end;
 
 procedure TfrmAsset.btnAirBubbleClick(Sender: TObject);
@@ -935,47 +737,187 @@ begin
   {$ENDREGION}
 
   frmAirBubbleOnBoardPickList := TfrmAirBubbleOnBoardPickList.Create(Self);
-  try
-    with frmAirBubbleOnBoardPickList do
-    begin
-      SelectedAsset := FSelectedAsset;
-      ShowModal;
-    end;
-
-    AfterClose := frmAirBubbleOnBoardPickList.AfterClose;
-  finally
-    frmAirBubbleOnBoardPickList.Free;
-  end;
-
-  btnCancel.Enabled := not afterClose;
-  btnApply.Enabled := afterClose;
+//  try
+//    with frmAirBubbleOnBoardPickList do
+//    begin
+//      SelectedAsset := FSelectedAsset;
+//      ShowModal;
+//    end;
+//
+//    AfterClose := frmAirBubbleOnBoardPickList.AfterClose;
+//  finally
+//    frmAirBubbleOnBoardPickList.Free;
+//  end;
+//
+//  btnCancel.Enabled := not afterClose;
+//  btnApply.Enabled := afterClose;
 end;
 
 procedure TfrmAsset.btnChaffClick(Sender: TObject);
 begin
-  {$REGION 'jika class belum tersimpan'}
+//  {$REGION 'jika class belum tersimpan'}
+//  if FSelectedAsset.FData.VehicleIndex = 0 then
+//  begin
+//    ShowMessage('Save data class before continue');
+//    Exit;
+//  end;
+//  {$ENDREGION}
+//
+//  frmChaffOnBoardPickList := TfrmChaffOnBoardPickList.Create(Self);
+//  try
+//    with frmChaffOnBoardPickList do
+//    begin
+//      SelectedAsset := FSelectedAsset;
+//      ShowModal;
+//    end;
+//
+//    AfterClose := frmChaffOnBoardPickList.AfterClose;
+//  finally
+//    frmChaffOnBoardPickList.Free;
+//  end;
+//
+//  btnCancel.Enabled := not afterClose;
+//  btnApply.Enabled := afterClose;
+end;
+
+procedure TfrmAsset.btnCountermeasuresClick(Sender: TObject);
+begin
   if FSelectedAsset.FData.VehicleIndex = 0 then
   begin
-    ShowMessage('Save data class before continue');
+    ShowMessage('Save data before continue  ');
     Exit;
   end;
-  {$ENDREGION}
 
-  frmChaffOnBoardPickList := TfrmChaffOnBoardPickList.Create(Self);
-  try
-    with frmChaffOnBoardPickList do
+  case cbbWeapons.ItemIndex of
+    0:
     begin
-      SelectedAsset := FSelectedAsset;
-      ShowModal;
+      {$REGION ' Chaff '}
+      if not Assigned(frmChaffOnBoardPickList) then
+        frmChaffOnBoardPickList := TfrmChaffOnBoardPickList.Create(Self);
+
+      try
+        with frmChaffOnBoardPickList do
+        begin
+          SelectedVehicle := FSelectedAsset;
+          Show;
+        end;
+      finally
+      end;
+      {$ENDREGION}
     end;
+    1:
+    begin
+      {$REGION ' Air Bubble '}
+      if not Assigned(frmAirBubbleOnBoardPickList) then
+        frmAirBubbleOnBoardPickList := TfrmAirBubbleOnBoardPickList.Create(Self);
 
-    AfterClose := frmChaffOnBoardPickList.AfterClose;
-  finally
-    frmChaffOnBoardPickList.Free;
+      try
+        with frmAirBubbleOnBoardPickList do
+        begin
+          SelectedVehicle := FSelectedAsset;
+          Show;
+        end;
+      finally
+      end;
+      {$ENDREGION}
+    end;
+    2:
+    begin
+      {$REGION ' Acoustic Decoy '}
+      if not Assigned(frmAcousticDecoyOnBoardPickList) then
+        frmAcousticDecoyOnBoardPickList := TfrmAcousticDecoyOnBoardPickList.Create(Self);
+
+      try
+        with frmAcousticDecoyOnBoardPickList do
+        begin
+          SelectedVehicle := FSelectedAsset;
+          Show;
+        end;
+      finally
+      end;
+      {$ENDREGION}
+    end;
+    3:
+    begin
+      {$REGION ' Floating Decoy '}
+      if not Assigned(frmFloatingDecoyOnBoardPickList) then
+        frmFloatingDecoyOnBoardPickList := TfrmFloatingDecoyOnBoardPickList.Create(Self);
+
+      try
+        with frmFloatingDecoyOnBoardPickList do
+        begin
+          SelectedVehicle := FSelectedAsset;
+          Show;
+        end;
+      finally
+      end;
+      {$ENDREGION}
+    end;
+    4:
+    begin
+      {$REGION ' Infrared Decoy '}
+      if not Assigned(frmInfraredDecoyOnBoardPickList) then
+        frmInfraredDecoyOnBoardPickList := TfrmInfraredDecoyOnBoardPickList.Create(Self);
+
+      try
+        with frmInfraredDecoyOnBoardPickList do
+        begin
+          SelectedVehicle := FSelectedAsset;
+          Show;
+        end;
+      finally
+      end;
+      {$ENDREGION}
+    end;
+    5:
+    begin
+      {$REGION ' Towed Decoy '}
+      if not Assigned(frmTowedJammerDecoyOnBoardPickList) then
+        frmTowedJammerDecoyOnBoardPickList := TfrmTowedJammerDecoyOnBoardPickList.Create(Self);
+
+      try
+        with frmTowedJammerDecoyOnBoardPickList do
+        begin
+          SelectedVehicle := FSelectedAsset;
+          Show;
+        end;
+      finally
+      end;
+      {$ENDREGION}
+    end;
+    6:
+    begin
+      {$REGION ' Self Defensive Jammer '}
+      if not Assigned(frmSelfDefensiveJammerOnBoardPickList) then
+        frmSelfDefensiveJammerOnBoardPickList := TfrmSelfDefensiveJammerOnBoardPickList.Create(Self);
+
+      try
+        with frmSelfDefensiveJammerOnBoardPickList do
+        begin
+          SelectedVehicle := FSelectedAsset;
+          Show;
+        end;
+      finally
+      end;
+      {$ENDREGION}
+    end;
+    7:
+    begin
+      {$REGION ' Radar Noise Jammer '}
+      if not Assigned(frmRadarNoiseJammerOnBoardPickList) then
+        frmRadarNoiseJammerOnBoardPickList := TfrmRadarNoiseJammerOnBoardPickList.Create(Self);
+
+      try
+        with frmRadarNoiseJammerOnBoardPickList do
+        begin
+          SelectedVehicle := FSelectedAsset;
+          Show;
+        end;
+      finally
+      end;
+      {$ENDREGION}
+    end;
   end;
-
-  btnCancel.Enabled := not afterClose;
-  btnApply.Enabled := afterClose;
 end;
 
 procedure TfrmAsset.btnDefensiveJummerClick(Sender: TObject);
@@ -989,20 +931,20 @@ begin
   {$ENDREGION}
 
   frmSelfDefensiveJammerOnBoardPickList := TfrmSelfDefensiveJammerOnBoardPickList.Create(Self);
-  try
-    with frmSelfDefensiveJammerOnBoardPickList do
-    begin
-      SelectedAsset := FSelectedAsset;
-      ShowModal;
-    end;
-
-    AfterClose := frmSelfDefensiveJammerOnBoardPickList.AfterClose;
-  finally
-    frmSelfDefensiveJammerOnBoardPickList.Free;
-  end;
-
-  btnCancel.Enabled := not afterClose;
-  btnApply.Enabled := afterClose;
+//  try
+//    with frmSelfDefensiveJammerOnBoardPickList do
+//    begin
+//      SelectedAsset := FSelectedAsset;
+//      ShowModal;
+//    end;
+//
+//    AfterClose := frmSelfDefensiveJammerOnBoardPickList.AfterClose;
+//  finally
+//    frmSelfDefensiveJammerOnBoardPickList.Free;
+//  end;
+//
+//  btnCancel.Enabled := not afterClose;
+//  btnApply.Enabled := afterClose;
 end;
 
 procedure TfrmAsset.btnFloatingDecoyClick(Sender: TObject);
@@ -1016,20 +958,20 @@ begin
   {$ENDREGION}
 
   frmFloatingDecoyOnBoardPickList := TfrmFloatingDecoyOnBoardPickList.Create(Self);
-  try
-    with frmFloatingDecoyOnBoardPickList do
-    begin
-      SelectedAsset := FSelectedAsset;
-      ShowModal;
-    end;
-
-    AfterClose := frmFloatingDecoyOnBoardPickList.AfterClose;
-  finally
-    frmFloatingDecoyOnBoardPickList.Free;
-  end;
-
-  btnCancel.Enabled := not afterClose;
-  btnApply.Enabled := afterClose;
+//  try
+//    with frmFloatingDecoyOnBoardPickList do
+//    begin
+//      SelectedAsset := FSelectedAsset;
+//      ShowModal;
+//    end;
+//
+//    AfterClose := frmFloatingDecoyOnBoardPickList.AfterClose;
+//  finally
+//    frmFloatingDecoyOnBoardPickList.Free;
+//  end;
+//
+//  btnCancel.Enabled := not afterClose;
+//  btnApply.Enabled := afterClose;
 end;
 
 procedure TfrmAsset.btnInfraredDecoyClick(Sender: TObject);
@@ -1043,20 +985,20 @@ begin
   {$ENDREGION}
 
   frmInfraredDecoyOnBoardPickList := TfrmInfraredDecoyOnBoardPickList.Create(Self);
-  try
-    with frmInfraredDecoyOnBoardPickList do
-    begin
-      SelectedAsset := FSelectedAsset;
-      ShowModal;
-    end;
-
-    AfterClose := frmInfraredDecoyOnBoardPickList.AfterClose;
-  finally
-    frmInfraredDecoyOnBoardPickList.Free;
-  end;
-
-  btnCancel.Enabled := not afterClose;
-  btnApply.Enabled := afterClose;
+//  try
+//    with frmInfraredDecoyOnBoardPickList do
+//    begin
+//      SelectedAsset := FSelectedAsset;
+//      ShowModal;
+//    end;
+//
+//    AfterClose := frmInfraredDecoyOnBoardPickList.AfterClose;
+//  finally
+//    frmInfraredDecoyOnBoardPickList.Free;
+//  end;
+//
+//  btnCancel.Enabled := not afterClose;
+//  btnApply.Enabled := afterClose;
 end;
 
 procedure TfrmAsset.btnRadarJummerClick(Sender: TObject);
@@ -1070,20 +1012,20 @@ begin
   {$ENDREGION}
 
   frmRadarNoiseJammerOnBoardPickList := TfrmRadarNoiseJammerOnBoardPickList.Create(Self);
-  try
-    with frmRadarNoiseJammerOnBoardPickList do
-    begin
-      SelectedAsset := FSelectedAsset;
-      ShowModal;
-    end;
-
-    AfterClose := frmRadarNoiseJammerOnBoardPickList.AfterClose;
-  finally
-    frmRadarNoiseJammerOnBoardPickList.Free;
-  end;
-
-  btnCancel.Enabled := not afterClose;
-  btnApply.Enabled := afterClose;
+//  try
+//    with frmRadarNoiseJammerOnBoardPickList do
+//    begin
+//      SelectedAsset := FSelectedAsset;
+//      ShowModal;
+//    end;
+//
+//    AfterClose := frmRadarNoiseJammerOnBoardPickList.AfterClose;
+//  finally
+//    frmRadarNoiseJammerOnBoardPickList.Free;
+//  end;
+//
+//  btnCancel.Enabled := not afterClose;
+//  btnApply.Enabled := afterClose;
 end;
 
 procedure TfrmAsset.btnTowedJummer_DecoyClick(Sender: TObject);
@@ -1097,20 +1039,112 @@ begin
   {$ENDREGION}
 
   frmTowedJammerDecoyOnBoardPickList := TfrmTowedJammerDecoyOnBoardPickList.Create(Self);
-  try
-    with frmTowedJammerDecoyOnBoardPickList do
-    begin
-      SelectedAsset := FSelectedAsset;
-      ShowModal;
-    end;
+//  try
+//    with frmTowedJammerDecoyOnBoardPickList do
+//    begin
+//      SelectedAsset := FSelectedAsset;
+//      ShowModal;
+//    end;
+//
+//    AfterClose := frmTowedJammerDecoyOnBoardPickList.AfterClose;
+//  finally
+//    frmTowedJammerDecoyOnBoardPickList.Free;
+//  end;
+//
+//  btnCancel.Enabled := not afterClose;
+//  btnApply.Enabled := afterClose;
+end;
 
-    AfterClose := frmTowedJammerDecoyOnBoardPickList.AfterClose;
-  finally
-    frmTowedJammerDecoyOnBoardPickList.Free;
+procedure TfrmAsset.btnWeaponClick(Sender: TObject);
+begin
+  if FSelectedAsset.FData.VehicleIndex = 0 then
+  begin
+    ShowMessage('Save data before continue  ');
+    Exit;
   end;
 
-  btnCancel.Enabled := not afterClose;
-  btnApply.Enabled := afterClose;
+  case cbbWeapons.ItemIndex of
+    0:
+    begin
+      {$REGION ' Missiles '}
+      if not Assigned(frmMissileOnBoardPickList) then
+        frmMissileOnBoardPickList := TfrmMissileOnBoardPickList.Create(Self);
+
+      try
+        with frmMissileOnBoardPickList do
+        begin
+          SelectedVehicle := FSelectedAsset;
+          Show;
+        end;
+      finally
+      end;
+      {$ENDREGION}
+    end;
+    1:
+    begin
+      {$REGION ' Torpedoes '}
+      if not Assigned(frmTorpedoOnBoardPickList) then
+        frmTorpedoOnBoardPickList := TfrmTorpedoOnBoardPickList.Create(Self);
+
+      try
+        with frmTorpedoOnBoardPickList do
+        begin
+          SelectedVehicle := FSelectedAsset;
+          Show;
+        end;
+      finally
+      end;
+      {$ENDREGION}
+    end;
+    2:
+    begin
+      {$REGION ' Mines '}
+      if not Assigned(frmMineOnBoardPickList) then
+        frmMineOnBoardPickList := TfrmMineOnBoardPickList.Create(Self);
+
+      try
+        with frmMineOnBoardPickList do
+        begin
+          SelectedVehicle := FSelectedAsset;
+          Show;
+        end;
+      finally
+      end;
+      {$ENDREGION}
+    end;
+    3:
+    begin
+      {$REGION ' Bombs '}
+      if not Assigned(frmBombOnBoardPickList) then
+        frmBombOnBoardPickList := TfrmBombOnBoardPickList.Create(Self);
+
+      try
+        with frmBombOnBoardPickList do
+        begin
+          SelectedVehicle := FSelectedAsset;
+          Show;
+        end;
+      finally
+      end;
+      {$ENDREGION}
+    end;
+    4:
+    begin
+      {$REGION ' Guns '}
+     if not Assigned(frmGunOnBoardPickList) then
+        frmGunOnBoardPickList := TfrmGunOnBoardPickList.Create(Self);
+
+      try
+        with frmGunOnBoardPickList do
+        begin
+          SelectedVehicle := FSelectedAsset;
+          Show;
+        end;
+      finally
+      end;
+      {$ENDREGION}
+    end;
+  end;
 end;
 
 procedure TfrmAsset.btnEmbarkedPlatformsClick(Sender: TObject);
@@ -1433,6 +1467,7 @@ begin
 
         li.Data := radarOnboardTemp;
       end;
+
       {$ENDREGION}
     end;
     1:

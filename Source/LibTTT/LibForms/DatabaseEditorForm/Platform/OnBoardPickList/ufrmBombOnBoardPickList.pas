@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ExtCtrls, Vcl.Imaging.pngimage,
-  uDBAsset_Weapon, uDBAsset_Vehicle, uSimContainers;
+
+  uDBAsset_Weapon, uClassData, uSimContainers;
 
 type
   TfrmBombOnBoardPickList = class(TForm)
@@ -40,14 +41,13 @@ type
     FAllBombDefList : TList;
     FAllBombOnBoardList : TList;
 
-    FSelectedVehicle : TVehicle_Definition;
-//    FSelectedBomb : TBomb_Definition;
+    FSelectedVehicle : TAsset;
+    FSelectedBomb : TBomb_On_Board;
 
     procedure UpdateBombList;
 
   public
-    AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, btn Cancel di summary menyala}
-    property SelectedVehicle : TVehicle_Definition read FSelectedVehicle write FSelectedVehicle;
+    property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
   end;
 
 var
@@ -56,7 +56,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmBombMount{, tttData};
+  uDataModule, ufrmBombMount;
 
 {$R *.dfm}
 
@@ -86,57 +86,54 @@ end;
 
 procedure TfrmBombOnBoardPickList.btnAddClick(Sender: TObject);
 begin
-//  if lbAllBombDef.ItemIndex = -1 then
-//    Exit;
-//
-//  frmBombMount := TfrmBombMount.Create(Self);
-//  try
-//    with frmBombMount do
-//    begin
-//      SelectedVehicle := FSelectedVehicle;
-//      SelectedBomb := FSelectedBomb;
-//      ShowModal;
-//    end;
-//    AfterClose := frmBombMount.AfterClose;
-//  finally
-//    frmBombMount.Free;
-//  end;
-//
+  if lbAllBombDef.ItemIndex = -1 then
+    Exit;
+
+  if not Assigned(frmBombMount) then
+    frmBombMount := TfrmBombMount.Create(Self);
+  try
+    with frmBombMount do
+    begin
+      SelectedVehicle := FSelectedVehicle;
+      SelectedBomb := FSelectedBomb;
+      Show;
+    end;
+  finally
+  end;
+
 //  UpdateBombList;
 end;
 
 procedure TfrmBombOnBoardPickList.btnEditClick(Sender: TObject);
 begin
-//  if lbAllBombOnBoard.ItemIndex = -1 then
-//    Exit;
-//
-//  frmBombMount := TfrmBombMount.Create(Self);
-//  try
-//    with frmBombMount do
-//    begin
-//      SelectedVehicle := FSelectedVehicle;
-//      SelectedBomb := FSelectedBomb;
-//      ShowModal;
-//    end;
-//    AfterClose := frmBombMount.AfterClose;
-//  finally
-//    frmBombMount.Free;
-//  end;
-//
+  if lbAllBombOnBoard.ItemIndex = -1 then
+    Exit;
+
+  if not Assigned(frmBombMount) then
+    frmBombMount := TfrmBombMount.Create(Self);
+  try
+    with frmBombMount do
+    begin
+      SelectedVehicle := FSelectedVehicle;
+      SelectedBomb := FSelectedBomb;
+      Show;
+    end;
+  finally
+  end;
+
 //  UpdateBombList;
 end;
 
 procedure TfrmBombOnBoardPickList.btnRemoveClick(Sender: TObject);
 begin
-//  if lbAllBombOnBoard.ItemIndex = -1 then
-//    Exit;
-//
-//  with FSelectedBomb.FPoint.FData do
-//  begin
-//    dmTTT.DeletePointEffectOnBoard(2, Point_Effect_Index);
-//  end;
-//
-//  AfterClose := True;
+  if lbAllBombOnBoard.ItemIndex = -1 then
+    Exit;
+
+  with FSelectedBomb.FData do
+  begin
+    dmINWO.DeletePointEffectOnBoard(2, Point_Effect_Index);
+  end;
+
 //  UpdateBombList;
 end;
 
@@ -147,42 +144,42 @@ end;
 
 procedure TfrmBombOnBoardPickList.lbAllBombDefClick(Sender: TObject);
 begin
-//  if lbAllBombDef.ItemIndex = -1 then
-//    Exit;
-//
-//  FSelectedBomb := TBomb_Definition(lbAllBombDef.Items.Objects[lbAllBombDef.ItemIndex]);
+  if lbAllBombDef.ItemIndex = -1 then
+    Exit;
+
+  FSelectedBomb := TBomb_On_Board(lbAllBombDef.Items.Objects[lbAllBombDef.ItemIndex]);
 end;
 
 procedure TfrmBombOnBoardPickList.lbAllBombOnBoardClick(Sender: TObject);
 begin
-//  if lbAllBombOnBoard.ItemIndex = -1 then
-//    Exit;
-//
-//  FSelectedBomb := TBomb_Definition(lbAllBombOnBoard.Items.Objects[lbAllBombOnBoard.ItemIndex]);
+  if lbAllBombOnBoard.ItemIndex = -1 then
+    Exit;
+
+  FSelectedBomb := TBomb_On_Board(lbAllBombOnBoard.Items.Objects[lbAllBombOnBoard.ItemIndex]);
 end;
 
 procedure TfrmBombOnBoardPickList.UpdateBombList;
-//var
-//  i : Integer;
-//  bomb :  TBomb_Definition;
+var
+  i : Integer;
+  bomb :  TBomb_On_Board;
 begin
-//  lbAllBombDef.Items.Clear;
-//  lbAllBombOnBoard.Items.Clear;
-//
-//  dmTTT.GetAllBombDef(FAllBombDefList);
-//  dmTTT.GetBombOnBoard(FSelectedVehicle.FData.Vehicle_Index,FAllBombOnBoardList);
-//
-//  for i := 0 to FAllBombDefList.Count - 1 do
-//  begin
-//    bomb := FAllBombDefList.Items[i];
-//    lbAllBombDef.Items.AddObject(bomb.FData.Bomb_Identifier, bomb);
-//  end;
-//
-//  for i := 0 to FAllBombOnBoardList.Count - 1 do
-//  begin
-//    bomb := FAllBombOnBoardList.Items[i];
-//    lbAllBombOnBoard.Items.AddObject(bomb.FData.Bomb_Identifier, bomb);
-//  end;
+  lbAllBombDef.Items.Clear;
+  lbAllBombOnBoard.Items.Clear;
+
+  dmINWO.GetAllBombDef(FAllBombDefList);
+  dmINWO.GetBombOnBoard(FSelectedVehicle.FData.VehicleIndex,FAllBombOnBoardList);
+
+  for i := 0 to FAllBombDefList.Count - 1 do
+  begin
+    bomb := FAllBombDefList.Items[i];
+    lbAllBombDef.Items.AddObject(bomb.FDef.Bomb_Identifier, bomb);
+  end;
+
+  for i := 0 to FAllBombOnBoardList.Count - 1 do
+  begin
+    bomb := FAllBombOnBoardList.Items[i];
+    lbAllBombOnBoard.Items.AddObject(bomb.FData.Instance_Identifier, bomb);
+  end;
 end;
 
 {$ENDREGION}

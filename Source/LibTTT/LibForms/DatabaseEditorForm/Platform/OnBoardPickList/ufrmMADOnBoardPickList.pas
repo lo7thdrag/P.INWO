@@ -4,7 +4,9 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ExtCtrls, StdCtrls,uDBAsset_Vehicle, uDBAsset_Sensor, Vcl.Imaging.pngimage, uSimContainers;
+  Dialogs, ExtCtrls, StdCtrls, Vcl.Imaging.pngimage,
+
+  uDBAsset_Sensor, uClassData, uSimContainers;
 
 type
   TfrmMADOnBoardPickList = class(TForm)
@@ -39,15 +41,13 @@ type
     FAllMADDefList : TList;
     FAllMADOnBoardList : TList;
 
-    FSelectedVehicle : TVehicle_Definition;
+    FSelectedVehicle : TAsset;
     FSelectedMAD : TMAD_On_Board;
 
     procedure UpdateMADList;
 
   public
-    AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, btn Cancel di summary menyala}
-    property SelectedVehicle : TVehicle_Definition read FSelectedVehicle write FSelectedVehicle;
-
+    property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
   end;
 
 var
@@ -86,58 +86,55 @@ end;
 
 procedure TfrmMADOnBoardPickList.btnAddClick(Sender: TObject);
 begin
-//  if lbAllMADDef.ItemIndex = -1 then
-//    Exit;
-//
-//  frmMADMount := TfrmMADMount.Create(Self);
-//  try
-//    with frmMADMount do
-//    begin
-//      SelectedVehicle := FSelectedVehicle;
-//      SelectedMAD := FSelectedMAD;
-//      ShowModal;
-//    end;
-//    AfterClose := frmMADMount.AfterClose;
-//  finally
-//    frmMADMount.Free;
-//  end;
-//
+  if lbAllMADDef.ItemIndex = -1 then
+    Exit;
+
+  if not Assigned(frmMADMount) then
+    frmMADMount := TfrmMADMount.Create(Self);
+  try
+    with frmMADMount do
+    begin
+      SelectedVehicle := FSelectedVehicle;
+      SelectedMAD := FSelectedMAD;
+      Show;
+    end;
+  finally
+  end;
+
 //  UpdateMADList;
 end;
 
 procedure TfrmMADOnBoardPickList.btnEditClick(Sender: TObject);
 begin
-//  if lbAllMADOnBoard.ItemIndex = -1 then
-//    Exit;
-//
-//  frmMADMount := TfrmMADMount.Create(Self);
-//  try
-//    with frmMADMount do
-//    begin
-//      SelectedVehicle := FSelectedVehicle;
-//      SelectedMAD := FSelectedMAD;
-//      ShowModal;
-//    end;
-//    AfterClose := frmMADMount.AfterClose;
-//  finally
-//    frmMADMount.Free;
-//  end;
-//
+  if lbAllMADOnBoard.ItemIndex = -1 then
+    Exit;
+
+  if not Assigned(frmMADMount) then
+    frmMADMount := TfrmMADMount.Create(Self);
+  try
+    with frmMADMount do
+    begin
+      SelectedVehicle := FSelectedVehicle;
+      SelectedMAD := FSelectedMAD;
+      Show;
+    end;
+  finally
+  end;
+
 //  UpdateMADList;
 end;
 
 procedure TfrmMADOnBoardPickList.btnRemoveClick(Sender: TObject);
 begin
-//  if lbAllMADOnBoard.ItemIndex = -1 then
-//    Exit;
-//
-//  with FSelectedMAD.FData do
-//  begin
-//    dmTTT.DeleteMADOnBoard(2, MAD_Instance_Index);
-//  end;
-//
-//  AfterClose := True;
-//  UpdateMADList;
+  if lbAllMADOnBoard.ItemIndex = -1 then
+    Exit;
+
+  with FSelectedMAD.FData do
+  begin
+    dmINWO.DeleteMADOnBoard(2, MAD_Instance_Index);
+  end;
+
+  UpdateMADList;
 end;
 
 procedure TfrmMADOnBoardPickList.btnCloseClick(Sender: TObject);
@@ -162,27 +159,27 @@ begin
 end;
 
 procedure TfrmMADOnBoardPickList.UpdateMADList;
-//var
-//  i : Integer;
-//  mad : TMAD_On_Board;
+var
+  i : Integer;
+  mad : TMAD_On_Board;
 begin
-//  lbAllMADDef.Items.Clear;
-//  lbAllMADOnBoard.Items.Clear;
-//
-//  dmTTT.GetAllMADDef(FAllMADDefList);
-//  dmTTT.GetMADOnBoard(FSelectedVehicle.FData.Vehicle_Index,FAllMADOnBoardList);
-//
-//  for i := 0 to FAllMADDefList.Count - 1 do
-//  begin
-//    mad := FAllMADDefList.Items[i];
-//    lbAllMADDef.Items.AddObject(mad.FMAD_Def.Class_Identifier, mad);
-//  end;
-//
-//  for i := 0 to FAllMADOnBoardList.Count - 1 do
-//  begin
-//    mad := FAllMADOnBoardList.Items[i];
-//    lbAllMADOnBoard.Items.AddObject(mad.FData.Instance_Identifier, mad);
-//  end;
+  lbAllMADDef.Items.Clear;
+  lbAllMADOnBoard.Items.Clear;
+
+  dmINWO.GetAllMADDef(FAllMADDefList);
+  dmINWO.GetMADOnBoard(FSelectedVehicle.FData.VehicleIndex,FAllMADOnBoardList);
+
+  for i := 0 to FAllMADDefList.Count - 1 do
+  begin
+    mad := FAllMADDefList.Items[i];
+    lbAllMADDef.Items.AddObject(mad.FDef.Class_Identifier, mad);
+  end;
+
+  for i := 0 to FAllMADOnBoardList.Count - 1 do
+  begin
+    mad := FAllMADOnBoardList.Items[i];
+    lbAllMADOnBoard.Items.AddObject(mad.FData.Instance_Identifier, mad);
+  end;
 end;
 
 {$ENDREGION}

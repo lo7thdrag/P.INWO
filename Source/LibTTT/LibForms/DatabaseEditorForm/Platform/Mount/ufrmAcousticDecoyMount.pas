@@ -4,8 +4,9 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ComCtrls, StdCtrls, ExtCtrls, {uDBAsset_Vehicle,
-  uDBAsset_Countermeasure,} Vcl.Imaging.pngimage;
+  Dialogs, ComCtrls, StdCtrls, ExtCtrls, Vcl.Imaging.pngimage,
+
+  uDBAsset_Countermeasure, uClassData, uSimContainers;
 
 type
   TfrmAcousticDecoyMount = class(TForm)
@@ -21,8 +22,7 @@ type
     btnCancel: TButton;
     btnOK: TButton;
     ImgBackgroundForm: TImage;
-    ImgHeader: TImage;
-    Label1: TLabel;
+    lblPlatform: TLabel;
 
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
@@ -40,19 +40,17 @@ type
     procedure btnApplyClick(Sender: TObject);
 
   private
-//    FSelectedVehicle : TVehicle_Definition;
-//    FSelectedAcousticDecoy : TAcoustic_Decoy_On_Board;
+    FSelectedVehicle : TAsset;
+    FSelectedAcousticDecoy : TAcoustic_Decoy_On_Board;
 
     function CekInput: Boolean;
     procedure UpdateAcouticDecoyData;
 
   public
-    isOK  : Boolean; {Penanda jika gagal cek input, btn OK tidak langsung close}
-    AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, btn Cancel di summary menyala}
     LastName : string;
 
-//    property SelectedVehicle : TVehicle_Definition read FSelectedVehicle write FSelectedVehicle;
-//    property SelectedAcousticDecoy : TAcoustic_Decoy_On_Board read FSelectedAcousticDecoy write FSelectedAcousticDecoy;
+    property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
+    property SelectedAcousticDecoy : TAcoustic_Decoy_On_Board read FSelectedAcousticDecoy write FSelectedAcousticDecoy;
 
   end;
 
@@ -75,14 +73,12 @@ end;
 
 procedure TfrmAcousticDecoyMount.FormShow(Sender: TObject);
 begin
-//  UpdateAcouticDecoyData;
-//
-//  with FSelectedAcousticDecoy.FData do
-//    btnApply.Enabled := Acoustic_Instance_Index = 0;
-//
-//  isOK := True;
-//  AfterClose := True;
-//  btnCancel.Enabled := True;
+  UpdateAcouticDecoyData;
+
+  with FSelectedAcousticDecoy.FData do
+    btnApply.Enabled := Acoustic_Instance_Index = 0;
+
+  btnCancel.Enabled := True;
 end;
 
 {$ENDREGION}
@@ -94,39 +90,35 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
-  if isOk then
     Close;
 end;
 
 procedure TfrmAcousticDecoyMount.btnApplyClick(Sender: TObject);
 begin
-//  if not CekInput then
-//  begin
-//    isOK := False;
-//    Exit;
-//  end;
-//
-//  ValidationFormatInput;
-//
-//  with FSelectedAcousticDecoy do
-//  begin
-//    LastName := edtName.Text;
-//    FData.Instance_Identifier := edtName.Text;
-//    FData.Instance_Type := 0;
-//    FData.Quantity := StrToInt(edtQuantity.Text);
-//    FData.Vehicle_Index := FSelectedVehicle.FData.Vehicle_Index;
-//    FData.Decoy_Index := FAccousticDecoy_Def.Decoy_Index;
-//
-//    if FData.Acoustic_Instance_Index = 0 then
-//      dmTTT.InsertAcousticDecoyOnBoard(FData)
-//    else
-//      dmTTT.UpdateAcousticDecoyOnBoard(FData);
-//  end;
-//
-//  isOK := True;
-//  AfterClose := True;
-//  btnApply.Enabled := False;
-//  btnCancel.Enabled := False;
+  if not CekInput then
+  begin
+    Exit;
+  end;
+
+  ValidationFormatInput;
+
+  with FSelectedAcousticDecoy do
+  begin
+    LastName := edtName.Text;
+    FData.Instance_Identifier := edtName.Text;
+    FData.Instance_Type := 0;
+    FData.Quantity := StrToInt(edtQuantity.Text);
+    FData.Vehicle_Index := FSelectedVehicle.FData.VehicleIndex;
+    FData.Decoy_Index := FDef.Decoy_Index;
+
+    if FData.Acoustic_Instance_Index = 0 then
+      dmINWO.InsertAcousticDecoyOnBoard(FData)
+    else
+      dmINWO.UpdateAcousticDecoyOnBoard(FData);
+  end;
+
+  btnApply.Enabled := False;
+  btnCancel.Enabled := False;
 end;
 
 function TfrmAcousticDecoyMount.CekInput: Boolean;
@@ -154,14 +146,13 @@ end;
 
 procedure TfrmAcousticDecoyMount.btnCancelClick(Sender: TObject);
 begin
-  AfterClose := False;
   Close;
 end;
 
 procedure TfrmAcousticDecoyMount.UpdateAcouticDecoyData;
 begin
-//  with FSelectedAcousticDecoy do
-//  begin
+  with FSelectedAcousticDecoy do
+  begin
 //    if FData.Acoustic_Instance_Index = 0 then
 //      edtName.Text := FAccousticDecoy_Def.Decoy_Identifier
 //    else
@@ -170,7 +161,7 @@ begin
 //      LastName := edtName.Text;
 //
 //    edtQuantity.Text := FormatFloat('0', FData.Quantity);
-//  end;
+  end;
 end;
 
 {$ENDREGION}
