@@ -139,15 +139,10 @@ begin
 
     {$ENDREGION}
 
-    {$REGION ' Notes '}
-    FNote.Notes := mmoNotes.Text;
-    {$ENDREGION}
-
     if FDef.Bomb_Index = 0 then
     begin
       if dmINWO.InsertBombDef(FDef) then
       begin
-        dmINWO.InsertNoteStorage(Byte(stBomb), FDef.Bomb_Index, FNote);
         ShowMessage('Data has been saved');
       end;
     end
@@ -155,7 +150,6 @@ begin
     begin
       if dmINWO.UpdateBombDef(FDef) then
       begin
-        dmINWO.UpdateNoteStorage(FDef.Bomb_Index, FNote);
         ShowMessage('Data has been updated');
       end;
     end;

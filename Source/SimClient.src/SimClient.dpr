@@ -148,7 +148,20 @@ uses
   ufrmSummaryMAD in '..\LibTTT\LibForms\DatabaseEditorForm\Sensor\ufrmSummaryMAD.pas' {frmSummaryMAD},
   ufrmSummaryRadar in '..\LibTTT\LibForms\DatabaseEditorForm\Sensor\ufrmSummaryRadar.pas' {frmSummaryRadar},
   ufrmSummarySonar in '..\LibTTT\LibForms\DatabaseEditorForm\Sensor\ufrmSummarySonar.pas' {frmSummarySonar},
-  ufrmSummarySonobuoy in '..\LibTTT\LibForms\DatabaseEditorForm\Sensor\ufrmSummarySonobuoy.pas' {frmSummarySonobuoy};
+  ufrmSummarySonobuoy in '..\LibTTT\LibForms\DatabaseEditorForm\Sensor\ufrmSummarySonobuoy.pas' {frmSummarySonobuoy},
+  ufrmSummaryBomb in '..\LibTTT\LibForms\DatabaseEditorForm\Weapon\ufrmSummaryBomb.pas' {frmSummaryBomb},
+  ufrmSummaryGun in '..\LibTTT\LibForms\DatabaseEditorForm\Weapon\ufrmSummaryGun.pas' {frmSummaryGun},
+  ufrmSummaryMine in '..\LibTTT\LibForms\DatabaseEditorForm\Weapon\ufrmSummaryMine.pas' {frmSummaryMine},
+  ufrmSummaryMissile in '..\LibTTT\LibForms\DatabaseEditorForm\Weapon\ufrmSummaryMissile.pas' {frmSummaryMissile},
+  ufrmSummaryTorpedo in '..\LibTTT\LibForms\DatabaseEditorForm\Weapon\ufrmSummaryTorpedo.pas' {frmSummaryTorpedo},
+  ufrmSummaryAcousticDecoy in '..\LibTTT\LibForms\DatabaseEditorForm\Countermeasure\ufrmSummaryAcousticDecoy.pas' {frmSummaryAcousticDecoy},
+  ufrmSummaryAirBubble in '..\LibTTT\LibForms\DatabaseEditorForm\Countermeasure\ufrmSummaryAirBubble.pas' {frmSummaryAirBubble},
+  ufrmSummaryChaff in '..\LibTTT\LibForms\DatabaseEditorForm\Countermeasure\ufrmSummaryChaff.pas' {frmSummaryChaff},
+  ufrmSummaryFloatingDecoy in '..\LibTTT\LibForms\DatabaseEditorForm\Countermeasure\ufrmSummaryFloatingDecoy.pas' {frmSummaryFloatingDecoy},
+  ufrmSummaryInfraredDecoy in '..\LibTTT\LibForms\DatabaseEditorForm\Countermeasure\ufrmSummaryInfraredDecoy.pas' {frmSummaryInfraredDecoy},
+  ufrmSummaryRadarNoiseJammer in '..\LibTTT\LibForms\DatabaseEditorForm\Countermeasure\ufrmSummaryRadarNoiseJammer.pas' {frmSummaryRadarNoiseJammer},
+  ufrmSummarySelfDefensiveJammer in '..\LibTTT\LibForms\DatabaseEditorForm\Countermeasure\ufrmSummarySelfDefensiveJammer.pas' {frmSummarySelfDefensiveJammer},
+  ufrmSummaryTowedJammerDecoy in '..\LibTTT\LibForms\DatabaseEditorForm\Countermeasure\ufrmSummaryTowedJammerDecoy.pas' {frmSummaryTowedjammerDecoy};
 
 {$R *.res}
 
@@ -176,6 +189,19 @@ begin
   Application.CreateForm(TfrmSummaryRadar, frmSummaryRadar);
   Application.CreateForm(TfrmSummarySonar, frmSummarySonar);
   Application.CreateForm(TfrmSummarySonobuoy, frmSummarySonobuoy);
+  Application.CreateForm(TfrmSummaryBomb, frmSummaryBomb);
+  Application.CreateForm(TfrmSummaryGun, frmSummaryGun);
+  Application.CreateForm(TfrmSummaryMine, frmSummaryMine);
+  Application.CreateForm(TfrmSummaryMissile, frmSummaryMissile);
+  Application.CreateForm(TfrmSummaryTorpedo, frmSummaryTorpedo);
+  Application.CreateForm(TfrmSummaryAcousticDecoy, frmSummaryAcousticDecoy);
+  Application.CreateForm(TfrmSummaryAirBubble, frmSummaryAirBubble);
+  Application.CreateForm(TfrmSummaryChaff, frmSummaryChaff);
+  Application.CreateForm(TfrmSummaryFloatingDecoy, frmSummaryFloatingDecoy);
+  Application.CreateForm(TfrmSummaryInfraredDecoy, frmSummaryInfraredDecoy);
+  Application.CreateForm(TfrmSummaryRadarNoiseJammer, frmSummaryRadarNoiseJammer);
+  Application.CreateForm(TfrmSummarySelfDefensiveJammer, frmSummarySelfDefensiveJammer);
+  Application.CreateForm(TfrmSummaryTowedjammerDecoy, frmSummaryTowedjammerDecoy);
   frmDisplayArea := nil;
   frmSituationBoard := nil;
   Application.CreateForm(TfrmOverlayTools, frmOverlayTools);
