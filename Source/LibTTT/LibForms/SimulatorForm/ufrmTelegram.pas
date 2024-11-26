@@ -63,6 +63,8 @@ type
     procedure imgBtnKirimTelegramClick(Sender: TObject);
     procedure lblPilihFileClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure imgbtnDraftClick(Sender: TObject);
+    procedure cbbxToSelect(Sender: TObject);
   private
     { Private declarations }
     addressTempFileTelegram : PWideChar;
@@ -234,6 +236,8 @@ begin
     begin
     CopyFile(addressTempFileTelegram, PWideChar(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + '\\' + 'SENT' + '\\' + fileNameTempTelegram), False);
     end;
+
+    pnlSendTelegram.Visible := False;
   end
   else
   ShowMessage('Please choose Telegram File first!');
@@ -275,7 +279,7 @@ begin
 
   If (VarIsNull(WordApplication) = False) then
   begin
-    if LstBxTelegram.ItemIndex <> null then
+    if LstBxTelegram.ItemIndex <> -1 then
     begin
      try
         WordApplication.Visible := True; //set to False if you do not want to see the activity in the background
@@ -298,6 +302,19 @@ end;
 procedure TfrmTelegram.cbbxToDropDown(Sender: TObject);
 begin
   UpdateClientTelegramList;
+end;
+
+procedure TfrmTelegram.cbbxToSelect(Sender: TObject);
+var
+  userRoleTemp : TUserRole;
+  ipTemp : string;
+
+begin
+  if cbbxTo.ItemIndex = -1 then
+    Exit;
+
+  userRoleTemp := TUserRole(cbbxTo.Items.Objects[cbbxTo.ItemIndex]);
+  lblNamaFile.Caption := userRoleTemp.ConsoleIP;
 end;
 
 procedure TfrmTelegram.FormShow(Sender: TObject);
@@ -390,7 +407,27 @@ begin
 
   if not TDirectory.Exists(path) then
   begin
-  ShowMessage('Inbox masih kosong');
+  ShowMessage('Inbox still empty');
+  Exit
+  end
+  else
+  LstBxTelegram.Items.AddStrings(TDirectory.GetFiles(path));
+end;
+
+procedure TfrmTelegram.imgbtnDraftClick(Sender: TObject);
+var
+path : string;
+begin
+  path := 'D:\Telegram\';
+  lblTelegramMasuk.Visible := True;
+  lblTelegramMasuk.Caption := 'Draft';
+
+  lblTelegramTerkirim.Visible := False;
+  LstBxTelegram.Items.Clear;
+
+  if not TDirectory.Exists(path) then
+  begin
+  ShowMessage('Inbox still empty');
   Exit
   end
   else
@@ -408,7 +445,7 @@ begin
 
   if not TDirectory.Exists(path) then
   begin
-  ShowMessage('Belum ada Telegram terkirim');
+  ShowMessage('Sentbox still empty');
   Exit
   end
   else

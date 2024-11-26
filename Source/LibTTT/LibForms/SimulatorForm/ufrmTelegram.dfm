@@ -27,9 +27,9 @@ object frmTelegram: TfrmTelegram
     object lblTelegramTerkirim: TLabel
       Left = 24
       Top = 14
-      Width = 259
+      Width = 66
       Height = 40
-      Caption = 'Telegram Terkirim'
+      Caption = 'Sent'
       Font.Charset = ANSI_CHARSET
       Font.Color = 12826787
       Font.Height = -37
@@ -41,9 +41,9 @@ object frmTelegram: TfrmTelegram
     object lblTelegramMasuk: TLabel
       Left = 24
       Top = 14
-      Width = 233
+      Width = 71
       Height = 40
-      Caption = 'Telegram Masuk'
+      Caption = 'Inbox'
       Font.Charset = ANSI_CHARSET
       Font.Color = 12826787
       Font.Height = -37
@@ -188,6 +188,7 @@ object frmTelegram: TfrmTelegram
         ParentFont = False
         TabOrder = 0
         OnDropDown = cbbxToDropDown
+        OnSelect = cbbxToSelect
       end
       object pnlChooseFile: TPanel
         Left = 158
@@ -2765,7 +2766,7 @@ object frmTelegram: TfrmTelegram
         Top = 1
         Width = 158
         Height = 40
-        Visible = False
+        OnClick = imgbtnDraftClick
         Picture.Data = {
           02630000424D026300000000000042000000280000009E000000280000000100
           200003000000C0620000130B0000130B000000000000000000000000FF0000FF
@@ -3575,7 +3576,7 @@ object frmTelegram: TfrmTelegram
         Font.Name = 'Jefferies'
         Font.Style = []
         ParentFont = False
-        Visible = False
+        OnClick = imgbtnDraftClick
       end
     end
     object pnlTelegramTerkirim: TPanel
