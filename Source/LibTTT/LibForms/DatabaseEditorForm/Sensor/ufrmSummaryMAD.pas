@@ -118,15 +118,10 @@ begin
     FDef.Known_Cross_Section := StrToFloat(edtAssociatedCross.Text);
     {$ENDREGION}
 
-    {$REGION ' Notes '}
-    FNote.Notes := mmoNotes.Text;
-    {$ENDREGION}
-
     if FDef.MAD_Index = 0 then
     begin
       if dmINWO.InsertMADDef(FDef) then
       begin
-        dmINWO.InsertNoteStorage(11, FDef.MAD_Index, FNote);
         ShowMessage('Data has been saved');
       end;
     end
@@ -134,7 +129,6 @@ begin
     begin
       if dmINWO.UpdateMADDef(FDef) then
       begin
-        dmINWO.UpdateNoteStorage(FDef.MAD_Index, FNote);
         ShowMessage('Data has been updated');
       end;
     end;
@@ -168,9 +162,6 @@ begin
     edtAssociatedCross.Text := FormatFloat('0', FDef.Known_Cross_Section);
     {$ENDREGION}
 
-    {$REGION ' Notes '}
-    mmoNotes.Text := FNote.Notes;
-    {$ENDREGION}
   end;
 end;
 

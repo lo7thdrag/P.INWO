@@ -43,9 +43,9 @@ type
     FSelectedVehicle : TAsset;
     FSelectedRadar : TRadar_On_Board;
 
+  public
     procedure UpdateRadarList;
 
-  public
     property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
   end;
 
@@ -55,7 +55,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmRadarMount;
+  uDataModule, ufrmRadarMount, ufrmAsset;
 
 {$R *.dfm}
 
@@ -64,9 +64,9 @@ uses
 
 procedure TfrmRadarOnBoardPickList.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  FreeItemsAndFreeList(FAllRadarDefList);
-  FreeItemsAndFreeList(FAllRadarOnBoardList);
-  Action := cafree;
+//  FreeItemsAndFreeList(FAllRadarDefList);
+//  FreeItemsAndFreeList(FAllRadarOnBoardList);
+
 end;
 
 procedure TfrmRadarOnBoardPickList.FormCreate(Sender: TObject);
@@ -101,8 +101,6 @@ begin
     end;
   finally
   end;
-
-//  UpdateRadarList;
 end;
 
 procedure TfrmRadarOnBoardPickList.btnEditClick(Sender: TObject);
@@ -122,8 +120,6 @@ begin
     end;
   finally
   end;
-
-//  UpdateRadarList;
 end;
 
 procedure TfrmRadarOnBoardPickList.btnRemoveClick(Sender: TObject);
@@ -141,6 +137,7 @@ end;
 
 procedure TfrmRadarOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
+  frmAsset.UpdateSensorData;
   Close;
 end;
 

@@ -121,15 +121,10 @@ begin
     fdef.Num_FC_Channels := Ord(chkFC_Capable.Checked);
     {$ENDREGION}
 
-    {$REGION ' Notes '}
-    FNote.Notes := mmoNotes.Text;
-    {$ENDREGION}
-
     if fdef.EOD_Index = 0 then
     begin
       if dmINWO.InsertEODDef(fdef) then
       begin
-        dmINWO.InsertNoteStorage(12, fdef.EOD_Index, FNote);
         ShowMessage('Data has been saved');
       end;
     end
@@ -137,7 +132,6 @@ begin
     begin
       if dmINWO.UpdateEODDef(fdef) then
       begin
-        dmINWO.UpdateNoteStorage(fdef.EOD_Index, FNote);
         ShowMessage('Data has been updated');
       end;
     end;
@@ -180,10 +174,6 @@ begin
     edtAssociatedCross.Text := FormatFloat('0.0', fdef.Known_Cross_Section);
     edtMaxPossible.Text := FormatFloat('0.00', fdef.Max_Range);
     chkFC_Capable.Checked := Boolean(fdef.Num_FC_Channels);
-    {$ENDREGION}
-
-    {$REGION ' Notes '}
-    mmoNotes.Text := FNote.Notes;
     {$ENDREGION}
 
   end;

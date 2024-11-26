@@ -280,15 +280,10 @@ begin
     FDef.Bearing_Processing := chkBearingAmbiguity.Checked;
     {$ENDREGION}
 
-    {$REGION ' Notes '}
-    FNote.Notes := mmoNotes.Text;
-    {$ENDREGION}
-
     if FDef.Sonar_Index = 0 then
     begin
       if dmINWO.InsertSonarDef(FDef) then
       begin
-        dmINWO.InsertNoteStorage(9, FDef.Sonar_Index, FNote);
         ShowMessage('Data has been saved');
       end;
     end
@@ -296,7 +291,6 @@ begin
     begin
       if dmINWO.UpdateSonarDef(FDef) then
       begin
-        dmINWO.UpdateNoteStorage(FDef.Sonar_Index, FNote);
         ShowMessage('Data has been updated');
       end;
     end;
@@ -434,10 +428,6 @@ begin
     edtMaxBearingError.Text := FormatFloat('0', FDef.Maximum_Reported_Bearing_Error);
     edtAverageBeamWidth.Text := FormatFloat('0', FDef.Average_Beam_Width);
     chkBearingAmbiguity.Checked := FDef.Bearing_Processing;
-    {$ENDREGION}
-
-    {$REGION ' Notes '}
-    mmoNotes.Text := FNote.Notes;
     {$ENDREGION}
 
   end;

@@ -154,15 +154,10 @@ begin
 
     {$ENDREGION}
 
-    {$REGION ' Notes '}
-    FNote.Notes := mmoNotes.Text;
-    {$ENDREGION}
-
     if FDef.Sonobuoy_Index = 0 then
     begin
       if dmINWO.InsertSonobuoyDef(FDef) then
       begin
-        dmINWO.InsertNoteStorage(6, FDef.Sonobuoy_Index, FNote);
         ShowMessage('Data has been saved');
       end;
     end
@@ -170,7 +165,6 @@ begin
     begin
       if dmINWO.UpdateSonobuoyDef(FDef) then
       begin
-        dmINWO.UpdateNoteStorage(FDef.Sonobuoy_Index, FNote);
         ShowMessage('Data has been updated');
       end;
     end;
@@ -234,10 +228,6 @@ begin
     edtWidth.Text := FormatFloat('0', FDef.Width);
     edtHeight.Text := FormatFloat('0', FDef.Height);
 
-    {$ENDREGION}
-
-    {$REGION ' Notes '}
-    mmoNotes.Text := FNote.Notes;
     {$ENDREGION}
 
   end;

@@ -14363,7 +14363,6 @@ object frmRadarMount: TfrmRadarMount
           Height = 65
           TabOrder = 4
           Visible = False
-          OnClick = pnlBlindZoneClick
         end
       end
     end

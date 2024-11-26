@@ -142,7 +142,13 @@ uses
   ufrmVehicleInputToBase in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\ufrmVehicleInputToBase.pas' {frmVehicleInputToBase},
   uSimbolTaktis in '..\LibTTT\LibForms\DatabaseEditorForm\Platform\Additional\uSimbolTaktis.pas' {SimbolTaktis},
   ufrmReferensi in '..\LibTTT\LibForms\SimulatorForm\ufrmReferensi.pas' {frmReferensi},
-  ufrmToteDisplay in '..\LibTTT\LibForms\SimulatorForm\ufrmToteDisplay.pas' {frmToteDisplay};
+  ufrmToteDisplay in '..\LibTTT\LibForms\SimulatorForm\ufrmToteDisplay.pas' {frmToteDisplay},
+  ufrmSummaryEOD in '..\LibTTT\LibForms\DatabaseEditorForm\Sensor\ufrmSummaryEOD.pas' {frmSummaryEOD},
+  ufrmSummaryESM in '..\LibTTT\LibForms\DatabaseEditorForm\Sensor\ufrmSummaryESM.pas' {frmSummaryESM},
+  ufrmSummaryMAD in '..\LibTTT\LibForms\DatabaseEditorForm\Sensor\ufrmSummaryMAD.pas' {frmSummaryMAD},
+  ufrmSummaryRadar in '..\LibTTT\LibForms\DatabaseEditorForm\Sensor\ufrmSummaryRadar.pas' {frmSummaryRadar},
+  ufrmSummarySonar in '..\LibTTT\LibForms\DatabaseEditorForm\Sensor\ufrmSummarySonar.pas' {frmSummarySonar},
+  ufrmSummarySonobuoy in '..\LibTTT\LibForms\DatabaseEditorForm\Sensor\ufrmSummarySonobuoy.pas' {frmSummarySonobuoy};
 
 {$R *.res}
 
@@ -163,11 +169,16 @@ begin
   Application.CreateForm(TdmINWO, dmINWO);
   Application.CreateForm(TfrmTacticalDisplay, frmTacticalDisplay);
   Application.CreateForm(TfrmToteDisplay, frmToteDisplay);
+  Application.CreateForm(TfrmSummaryRadar, frmSummaryRadar);
+  Application.CreateForm(TfrmSummaryEOD, frmSummaryEOD);
+  Application.CreateForm(TfrmSummaryESM, frmSummaryESM);
+  Application.CreateForm(TfrmSummaryMAD, frmSummaryMAD);
+  Application.CreateForm(TfrmSummaryRadar, frmSummaryRadar);
+  Application.CreateForm(TfrmSummarySonar, frmSummarySonar);
+  Application.CreateForm(TfrmSummarySonobuoy, frmSummarySonobuoy);
   frmDisplayArea := nil;
   frmSituationBoard := nil;
-//  Application.CreateForm(TfrmSituationBoard, frmSituationBoard);
   Application.CreateForm(TfrmOverlayTools, frmOverlayTools);
-//  Application.CreateForm(TfrmBrowseMap, frmBrowseMap);
   uScriptSimClients.BeginGame;
 
   Application.Run;

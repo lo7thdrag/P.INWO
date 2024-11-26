@@ -771,7 +771,7 @@ begin
     finally
     end;
 
-    UpdateDataAset;
+//    UpdateDataAset;
   end;
 end;
 

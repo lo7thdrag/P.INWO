@@ -259,7 +259,6 @@ begin
     begin
       if dmINWO.InsertRadarDef(FDef) then
       begin
-        dmINWO.InsertNoteStorage(7, FDef.Radar_Index, FNote);
         ShowMessage('Data has been saved');
       end;
     end
@@ -267,7 +266,6 @@ begin
     begin
      if dmINWO.UpdateRadarDef(FDef) then
       begin
-        dmINWO.UpdateNoteStorage(FDef.Radar_Index, FNote);
         ShowMessage('Data has been updated');
       end;
     end;
@@ -435,10 +433,6 @@ begin
     chkCancelTypeB.Checked := FDef.Anti_Jamming_B_Resistant;
     chkCancelTypeC.Checked := FDef.Anti_Jamming_C_Resistant;
     trckbrPercentageMaxUnambigous.Position := Round(FDef.Anti_Jamming_Range_Reduction);
-    {$ENDREGION}
-
-    {$REGION ' Notes '}
-   mmoNotes.Text := FNote.Notes;
     {$ENDREGION}
 
  end;

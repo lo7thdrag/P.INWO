@@ -45,7 +45,6 @@ type
     procedure ValidationFormatInput();
 
     procedure cbMountExtensionChange(Sender: TObject);
-    procedure pnlBlindZoneClick(Sender: TObject);
 
     procedure btnOKClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
@@ -57,7 +56,6 @@ type
 
     function CekInput: Boolean;
     procedure UpdateRadarData;
-    procedure DrawBlindZone;
 
   public
     LastName : string; {dicopy}
@@ -72,7 +70,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmBlindZoneAttachment;
+  uDataModule, ufrmRadarOnBoardPickList;
 
 {$R *.dfm}
 
@@ -97,6 +95,7 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
+  frmRadarOnBoardPickList.UpdateRadarList;
   Close;
 end;
 
@@ -162,81 +161,6 @@ begin
   Result := True;
 end;
 
-procedure TfrmRadarMount.DrawBlindZone;
-var
-  i : Integer;
-//  blindZone : TBlind_Zone;
-//  zoneSector : TZoneSector;
-
-begin
-//  FBlindZoneView.ClearZone;
-//
-//  with FSelectedRadar do
-//  begin
-//    dmTTT.GetBlindZone(Ord(bzcRadar), FData.Radar_Instance_Index, FBlind);
-//
-//    blindZone := TBlind_Zone.Create;
-//    FBZone_1 := blindZone.FData;
-//    FBZone_2 := blindZone.FData;
-//    blindZone.Free;
-//
-//    for i := 0 to FBlind.Count - 1 do
-//    begin
-//      blindZone := FBlind.Items[i];
-//
-//      case blindZone.FData.BlindZone_Number of
-//        1: FBZone_1 := blindZone.FData;
-//        2: FBZone_2 := blindZone.FData;
-//      end;
-//    end;
-//
-//    if (FBZone_1.BlindZone_Number <> 0) and
-//      (FBZone_1.Start_Angle <> FBZone_1.End_Angle) then
-//    begin
-//      zoneSector := FBlindZoneView.AddZone;
-//      zoneSector.StartAngle := FBZone_1.Start_Angle;
-//      zoneSector.EndAngle := FBZone_1.End_Angle;
-//    end;
-//
-//    if (FBZone_2.BlindZone_Number <> 0) and
-//      (FBZone_2.Start_Angle <> FBZone_2.End_Angle) then
-//    begin
-//      zoneSector := FBlindZoneView.AddZone;
-//      zoneSector.StartAngle := FBZone_2.Start_Angle;
-//      zoneSector.EndAngle := FBZone_2.End_Angle;
-//    end;
-//  end;
-//
-//  FBlindZoneView.Repaint;
-end;
-
-procedure TfrmRadarMount.pnlBlindZoneClick(Sender: TObject);
-begin
-//  if FSelectedRadar.FData.Radar_Instance_Index = 0 then
-//  begin
-//    ShowMessage('Save data before edit blind zone ');
-//    Exit;
-//  end;
-//
-//  frmBlindZonesAttachment := TfrmBlindZonesAttachment.Create(Self);
-//  try
-//    with frmBlindZonesAttachment do
-//    begin
-//      OnBoardType := bzcRadar;
-//      OnBoardOwner := FSelectedRadar;
-//      ShowModal;
-//    end;
-//
-//    btnApply.Enabled := frmBlindZonesAttachment.AfterClose;
-//    btnCancel.Enabled := not frmBlindZonesAttachment.AfterClose;
-//
-//  finally
-//    frmBlindZonesAttachment.Free;
-//  end;
-//
-//  DrawBlindZone;
-end;
-
 procedure TfrmRadarMount.UpdateRadarData;
 begin
   with FSelectedRadar do
@@ -250,12 +174,6 @@ begin
 
     LastName := edtName.Text;   {dicopy}
     edtClassName.Caption := FDef.Radar_Identifier;
-
-//    DrawBlindZone;
-
-    edtAntenna.Text := FormatFloat('0', FData.Rel_Antenna_Height);
-    edtSubmerged.Text := FormatFloat('0', FData.Submerged_Antenna_Height);
-    edtMaxOperational.Text := FormatFloat('0', FData.Max_Operational_Depth);
   end;
 end;
 

@@ -176,15 +176,10 @@ begin
 
     {$ENDREGION}
 
-    {$REGION ' Notes '}
-    FNote.Notes := mmoNotes.Text;
-    {$ENDREGION}
-
     if FDef.ESM_Index = 0 then
     begin
       if dmINWO.InsertESMDef(FDef) then
       begin
-        dmINWO.InsertNoteStorage(10, FDef.ESM_Index, FNote);
         ShowMessage('Data has been saved');
       end;
     end
@@ -192,7 +187,6 @@ begin
     begin
       if dmINWO.UpdateESMDef(FDef) then
       begin
-        dmINWO.UpdateNoteStorage(FDef.ESM_Index, FNote);
         ShowMessage('Data has been updated');
       end;
     end;
@@ -267,10 +261,6 @@ begin
     chkSecondFrequencyDetectionBand.Checked := Boolean(FDef.Second_Frequency_Detection_Capable);
     edtMinimum.Text := FormatFloat('0', FDef.Minimum_Bearing_Error_Variance);
     edtInitial.Text := FormatFloat('0', FDef.Initial_Bearing_Error_Variance);
-    {$ENDREGION}
-
-    {$REGION ' Notes '}
-    mmoNotes.Text := FNote.Notes;
     {$ENDREGION}
 
   end;

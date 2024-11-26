@@ -64,10 +64,10 @@ uses
 
 procedure TfrmSonarOnBoardPickList.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  FreeItemsAndFreeList(FAllSonarDefList);
-  FreeItemsAndFreeList(FAllSonarOnBoardList);
-
-  Action := cafree;
+//  FreeItemsAndFreeList(FAllSonarDefList);
+//  FreeItemsAndFreeList(FAllSonarOnBoardList);
+//
+//  Action := cafree;
 end;
 
 procedure TfrmSonarOnBoardPickList.FormCreate(Sender: TObject);
