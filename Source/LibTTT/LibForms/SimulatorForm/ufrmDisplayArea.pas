@@ -75,7 +75,6 @@ type
     pnlBottomChat: TPanel;
     btnSendChat: TButton;
     pnlHeaderChat: TPanel;
-    btnMessageChat: TSpeedButton;
     btnCloseChat: TSpeedButton;
     btnUserChat: TSpeedButton;
     pnlMainOfficeEditor: TPanel;
@@ -213,6 +212,8 @@ type
     btnDownloadTacticalSymbol: TRzBmpButton;
     btnDeleteTacticalSymbol: TRzBmpButton;
     ilClientStateColor: TImageList;
+    lblNamaChat: TLabel;
+    Panel2: TPanel;
 
     procedure btnAOTCClick(Sender: TObject);
 
@@ -369,6 +370,8 @@ type
     FSelectedGameArea : TGame_Area_Definition;
     FSelectedTacticalSymbol : TTactical_Symbol;
     FSelectedAsset : TAsset;
+
+    selectedUserChat : string;
 
     procedure RoundCornerOf(Control: TWinControl; val1, val2: Integer);
     procedure AddSearchTypeItems;
@@ -1889,6 +1892,7 @@ procedure TfrmDisplayArea.ObrolanClick(Sender: TObject);
 begin
   pnlRight.Width := 430;
   pnlMainChatting.BringToFront;
+  lblNamaChat.Caption := 'CHAT';
   UpdateClientChatting;
 end;
 
@@ -1896,6 +1900,7 @@ procedure TfrmDisplayArea.btnCloseChatClick(Sender: TObject);
 begin
   pnlRight.Width := 0;
   lstUserChat.BringToFront;
+  lblNamaChat.Caption := 'CHAT';
   mmoChat.Clear;
   edtChatBox.Clear;
   pnlBottomChat.Visible := False;
@@ -1904,7 +1909,7 @@ end;
 
 procedure TfrmDisplayArea.btnMessageChatClick(Sender: TObject);
 begin
-  mmoChat.BringToFront;
+//  mmoChat.BringToFront;
 end;
 
 procedure TfrmDisplayArea.btnUserChatClick(Sender: TObject);
@@ -1912,6 +1917,7 @@ begin
   edtChatBox.Clear;
   pnlBottomChat.Visible := False;
   mmoChat.Clear;
+  lblNamaChat.Caption := 'CHAT';
   lstUserChat.BringToFront;
   UpdateClientChatting;
 end;
@@ -1923,6 +1929,8 @@ begin
 
   FSelectedUserChat := TUserRole(lstUserChat.Items.Objects[lstUserChat.ItemIndex]);
   mmoChat.BringToFront;
+//  selectedUserChat := FSelectedUserChat.FData.UserRoleIdentifier + ' - ' + FSelectedUserChat.FSubRoleData.SubRoleIdentifier;
+  lblNamaChat.Caption := FSelectedUserChat.FData.UserRoleIdentifier + ' - ' + FSelectedUserChat.FSubRoleData.SubRoleIdentifier;
   pnlBottomChat.Visible := True;
   UpdateClientHistoryChat(FSelectedUserChat.FData.UserRoleIndex, simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex);
 end;
@@ -2017,7 +2025,7 @@ begin
       if (userRoleTemp.isInUse) and (userRoleTemp.FData.UserRoleIndex <> simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex) then
 //      if userRoleTemp.FData.UserRoleIndex <> simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex then
       begin
-        lstUserChat.Items.AddObject(userRoleTemp.FData.UserRoleIdentifier, userRoleTemp);
+        lstUserChat.Items.AddObject(userRoleTemp.FData.UserRoleIdentifier + '-' + userRoleTemp.FSubRoleData.SubRoleIdentifier, userRoleTemp);
       end;
     end;
   end;
