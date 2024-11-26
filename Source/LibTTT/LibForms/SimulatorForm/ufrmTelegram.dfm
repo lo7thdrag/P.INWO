@@ -23,7 +23,6 @@ object frmTelegram: TfrmTelegram
     Color = 3023637
     ParentBackground = False
     TabOrder = 0
-    ExplicitLeft = 216
     object lblTelegramTerkirim: TLabel
       Left = 24
       Top = 14
@@ -164,8 +163,8 @@ object frmTelegram: TfrmTelegram
         Tag = 3
         Left = 90
         Top = 72
-        Width = 209
-        Height = 23
+        Width = 9
+        Height = 17
         Cursor = crHandPoint
         Caption = '...'
         Font.Charset = ANSI_CHARSET
