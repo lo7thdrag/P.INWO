@@ -10,6 +10,7 @@ object frmTelegram: TfrmTelegram
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object pnlRight: TPanel
@@ -67,7 +68,7 @@ object frmTelegram: TfrmTelegram
     object pnlSendTelegram: TPanel
       Left = 6
       Top = 231
-      Width = 306
+      Width = 435
       Height = 214
       Caption = ' '
       Color = 3023637
@@ -89,7 +90,7 @@ object frmTelegram: TfrmTelegram
         ParentFont = False
       end
       object btnClosePanelSendTelegram: TImageButton
-        Left = 283
+        Left = 411
         Top = 4
         Width = 19
         Height = 19
@@ -177,7 +178,7 @@ object frmTelegram: TfrmTelegram
       object cbbxTo: TComboBox
         Left = 90
         Top = 34
-        Width = 191
+        Width = 311
         Height = 24
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBackground
@@ -189,7 +190,7 @@ object frmTelegram: TfrmTelegram
         OnDropDown = cbbxToDropDown
       end
       object pnlChooseFile: TPanel
-        Left = 78
+        Left = 158
         Top = 108
         Width = 151
         Height = 39
@@ -761,7 +762,7 @@ object frmTelegram: TfrmTelegram
         end
       end
       object pnlSend: TPanel
-        Left = 115
+        Left = 197
         Top = 177
         Width = 86
         Height = 32
@@ -6910,7 +6911,6 @@ object frmTelegram: TfrmTelegram
         Font.Name = 'Jefferies'
         Font.Style = []
         ParentFont = False
-        Visible = False
         OnClick = imgBtnKirimTelegramClick
       end
     end

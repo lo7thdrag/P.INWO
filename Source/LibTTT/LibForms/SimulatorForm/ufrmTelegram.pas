@@ -62,8 +62,11 @@ type
     procedure btnClosePanelSendTelegramClick(Sender: TObject);
     procedure imgBtnKirimTelegramClick(Sender: TObject);
     procedure lblPilihFileClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
+    addressTempFileTelegram : PWideChar;
+    fileNameTempTelegram : string;
   public
     { Public declarations }
     procedure UpdateClientTelegramList;
@@ -72,8 +75,6 @@ type
 
 var
   frmTelegram: TfrmTelegram;
-  addressTempFileTelegram : PWideChar;
-  fileNameTempTelegram : string;
 
 implementation
 
@@ -183,7 +184,7 @@ end;
 procedure TfrmTelegram.btnClosePanelSendTelegramClick(Sender: TObject);
 begin
   addressTempFileTelegram := '';
-  fileNameTempTelegram := null;
+  fileNameTempTelegram := '';
   pnlSendTelegram.Visible := False;
 end;
 
@@ -299,12 +300,17 @@ begin
   UpdateClientTelegramList;
 end;
 
+procedure TfrmTelegram.FormShow(Sender: TObject);
+begin
+  pnlSendTelegram.Visible := False;
+end;
+
 procedure TfrmTelegram.imgBtnKirimTelegramClick(Sender: TObject);
 begin
   pnlSendTelegram.Visible := True;
   pnlSendTelegram.BringToFront;
   addressTempFileTelegram := '';
-  fileNameTempTelegram := null;
+  fileNameTempTelegram := '';
   lblNamaFile.Caption := '...';
 end;
 
@@ -336,8 +342,11 @@ begin
   begin
     addressTemp := PWideChar(saveDialog.FileName);
     filNameTemp := ExtractFileName(saveDialog.FileName);
+//    lblNamaFile.Caption
     addressTempFileTelegram := addressTemp;
     fileNameTempTelegram := filNameTemp;
+
+    lblNamaFile.Caption := fileNameTempTelegram;
 
     // SAVE FILE KE INBOX FOLDER ROLE TUJUAN
 //    if not (TDirectory.Exists(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' +  cbbxTo.Text + '\\' + 'INBOX')) then
@@ -420,7 +429,7 @@ begin
     begin
       if (userRoleTemp.isInUse) and (userRoleTemp.FData.UserRoleIndex <> simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex) then
       begin
-        cbbxTo.Items.AddObject(userRoleTemp.FData.UserRoleIdentifier, userRoleTemp);
+        cbbxTo.Items.AddObject(userRoleTemp.FData.UserRoleIdentifier + '-' + userRoleTemp.FSubRoleData.SubRoleIdentifier, userRoleTemp);
       end;
     end;
   end;
