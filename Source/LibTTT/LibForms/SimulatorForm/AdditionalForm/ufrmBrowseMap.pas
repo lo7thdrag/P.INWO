@@ -5,7 +5,9 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ComCtrls, ToolWin, CheckLst, ExtCtrls, OleCtrls, StrUtils,
-  MapXLib_TLB, ImgList, uLibSetting, uMapXHandler, System.ImageList;
+  MapXLib_TLB, ImgList, uLibSetting, uMapXHandler, System.ImageList,
+
+  uRecordData, uT3SimManager, uSimMgr_Client;
 
 type
   TfrmBrowseMap = class(TForm)
@@ -44,14 +46,17 @@ type
     procedure btnDragFilterClick(Sender: TObject);
     procedure btnOkClick(Sender: TObject);
   private
-    { Private declarations }
     FLyrDraw : CMapXLayer;
 
     procedure GetFilename(const dir : string; list : TStrings);
     procedure Load_Map(geoSet : string);
+
   public
+    TabId : Integer;
+    TabCaption : string;
     gGSTGame : string;
-    { Public declarations }
+    gFilename : string;
+
   end;
 
 var
@@ -59,6 +64,8 @@ var
 
 implementation
 
+uses
+  ufrmSituationBoard;
 {$R *.dfm}
 
 procedure InitOleVariant(var TheVar: OleVariant);
@@ -185,17 +192,19 @@ end;
 
 procedure TfrmBrowseMap.btnOkClick(Sender: TObject);
 var
-  lastZoom, lastCX, lastCY : Double;
+  rec : TRecTCPSendSituationBoardTabProperties;
+
 begin
-  lastZoom := VSimMap.FMap.Zoom;
-  lastCX := VSimMap.FMap.CenterX;
-  lastCY := VSimMap.FMap.CenterY;
+  rec.OrderID := EDIT_TAB;
+  rec.TabId := TabId;
+  rec.UserRoleId := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
+  rec.TabAddres := '\' + gFilename + '\' + gFilename + '.gst';
 
-  VSimMap.LoadMap(gGSTGame);
+  simMgrClient.netSend_CmdSituationBoardTabProperties(rec);
 
-  VSimMap.FMap.ZoomTo(lastZoom, lastCX, lastCY);
+  frmSituationBoard.RefreshTab;
 
-  frmBrowseMap.Close;
+  Close;
 end;
 
 procedure TfrmBrowseMap.btnZoomClick(Sender: TObject);
@@ -322,8 +331,6 @@ begin
 end;
 
 procedure TfrmBrowseMap.lstGSTGameClick(Sender: TObject);
-var
-  gFilename : string;
 begin
   gFilename := lstGSTGame.Items[(Sender as TListBox).ItemIndex];
   gGSTGame := vMapSetting.MapGSTGame + '\' + gFilename + '\' + gFilename + '.gst';

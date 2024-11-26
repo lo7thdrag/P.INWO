@@ -322,6 +322,8 @@ begin
   try
     with frmBrowseMap do
     begin
+      TabId := FSelectedTabProperties.IdTab;
+      TabCaption := FSelectedTabProperties.CaptionTab;
       Show;
     end;
   finally

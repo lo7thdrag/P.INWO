@@ -687,35 +687,29 @@ begin
   lvAsset.Items.Clear;
 
   if flagTable = True then
-    dmINWO.GetSearchVehicle(ItemSearchIndex, SearchName, FAssetList)
+    dmINWO.GetSearchVehicleDef(ItemSearchIndex, SearchName, FAssetList)
   else
     dmINWO.GetAllVehicleDef(FAssetList);
 
   for i := 0 to FAssetList.Count - 1 do
   begin
-
     AssetTemp := FAssetList.Items[i];
 
     li := lvAsset.Items.Add;
     li.Caption := IntToStr(i+1);
-    li.SubItems.Add(AssetTemp.FData.Vehicle_Identifier);
+    li.SubItems.Add(AssetTemp.FData.VehicleIdentifier);
+    li.SubItems.Add(AssetTemp.FData.VehicleClass);
+    li.SubItems.Add(AssetTemp.FData.VehicleNation);
 
-    case AssetTemp.FData.Platform_Domain of
-      0 : val_Domain := 'Air';
-      1 : val_Domain := 'Surface';
-      2 : val_Domain := 'Subsurface';
-      3 : val_Domain := 'Land';
-      4 : val_Domain := 'Amphibious';
+    case AssetTemp.FData.PlatformDomain of
+      0: val_Domain := 'Air';
+      1: val_Domain := 'Surface';
+      2: val_Domain := 'Subsurface';
+      3: val_Domain := 'Land';
+      4: val_Domain := 'Amphibious';
     end;
+
     li.SubItems.Add(val_Domain);
-
-    case AssetTemp.FData.Platform_Category of
-      0 : val_Category := 'Combatant';
-      1 : val_Category := 'Non-Combatant';
-      2 : val_Category := 'Non-Naval';
-      3 : val_Category := 'Other';
-    end;
-    li.SubItems.Add(val_Category);
 
     li.Data := AssetTemp;
   end;
@@ -749,7 +743,7 @@ begin
     begin
       with FSelectedAsset.FData do
       begin
-        if dmINWO.DeleteVehicleDef(Vehicle_Index) then
+        if dmINWO.DeleteVehicleDef(VehicleIndex) then
           ShowMessage('Data has been deleted');
       end;
 
@@ -782,30 +776,30 @@ procedure TfrmDisplayArea.cbbFilterSelect(Sender: TObject);
 begin
   cbbSearch.ItemIndex := 0;
 
-  if cbbFilter.ItemIndex = 0 then
-  begin
-    editSearch.Clear;
-    flagTable := False;
-    UpdateDataAset;
-    editSearch.BringToFront;
-  end
-  else if cbbFilter.ItemIndex = 1 then
-  begin
-    AddSearchAssetItems;
-    cbbSearch.BringToFront;
-    cbbSearch.ItemIndex := 0;
-  end
-  else if cbbFilter.ItemIndex = 2 then
-  begin
-    AddSearchAssetItems;
-    cbbSearch.BringToFront;
-    cbbSearch.ItemIndex := 0;
-  end
-  else if cbbFilter.ItemIndex = 3 then
-  begin
-    AddSearchAssetItems;
-    cbbSearch.BringToFront;
-    cbbSearch.ItemIndex := 0;
+  case cbbFilter.ItemIndex of
+    0 : {All}
+    begin
+      editSearch.Clear;
+      flagTable := False;
+      UpdateDataAset;
+      editSearch.BringToFront;
+    end;
+    1 : {Class}
+    begin
+      editSearch.Clear;
+      editSearch.BringToFront;
+    end;
+    2 : {Nation}
+    begin
+      editSearch.Clear;
+      editSearch.BringToFront;
+    end;
+    3 : {Domain}
+    begin
+      AddSearchAssetItems;
+      cbbSearch.BringToFront;
+      cbbSearch.ItemIndex := 0;
+    end;
   end;
 end;
 
@@ -889,40 +883,13 @@ end;
 
 procedure TfrmDisplayArea.AddSearchAssetItems;
 begin
-  if cbbFilter.ItemIndex = 1 then
-  begin
-    cbbSearch.Items.Clear;
-    cbbSearch.Items.Add('Air');
-    cbbSearch.Items.Add('Surface');
-    cbbSearch.Items.Add('Subsurface');
-    cbbSearch.Items.Add('Land');
-    cbbSearch.Items.Add('Amphibious');
-  end
-  else if cbbFilter.ItemIndex = 2 then
-  begin
-    cbbSearch.Items.Clear;
-    cbbSearch.Items.Add('Combatant');
-    cbbSearch.Items.Add('Non-Combatant');
-    cbbSearch.Items.Add('Non-Naval');
-    cbbSearch.Items.Add('Other');
-  end
-  else if cbbFilter.ItemIndex = 3 then
-  begin
-    cbbSearch.Items.Clear;
-    cbbSearch.Items.Add('Frigate, Guided Missile (FFG)');
-    cbbSearch.Items.Add('Destroyer, Guided Missile (DDG)');
-    cbbSearch.Items.Add('Cruiser, Guided Missile (CG/CGN)');
-    cbbSearch.Items.Add('Aircraft Carrier (CV/CVN)');
-    cbbSearch.Items.Add('Patrol Craft (PT/PTG)');
-    cbbSearch.Items.Add('Mine Warfare');
-    cbbSearch.Items.Add('Auxiliary');
-    cbbSearch.Items.Add('Merchant');
-    cbbSearch.Items.Add('utility Vessel');
-    cbbSearch.Items.Add('Destroyer (DD)');
-    cbbSearch.Items.Add('Frigate (FF)');
-    cbbSearch.Items.Add('Amphibious Warfare');
-    cbbSearch.Items.Add('other');
-  end;
+  cbbSearch.Items.Clear;
+
+  cbbSearch.Items.Add('Air');
+  cbbSearch.Items.Add('Surface');
+  cbbSearch.Items.Add('Subsurface');
+  cbbSearch.Items.Add('Land');
+  cbbSearch.Items.Add('Amphibious');
 end;
 
 procedure TfrmDisplayArea.lvAssetSelectItem(Sender: TObject; Item: TListItem;

@@ -3,7 +3,7 @@ object frmRadarMount: TfrmRadarMount
   Top = 0
   BorderStyle = bsNone
   Caption = 'Radar Mount'
-  ClientHeight = 460
+  ClientHeight = 429
   ClientWidth = 490
   Color = 1119507
   TransparentColor = True
@@ -15,8 +15,6 @@ object frmRadarMount: TfrmRadarMount
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
-  OnClose = FormClose
-  OnCreate = FormCreate
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -24,7 +22,7 @@ object frmRadarMount: TfrmRadarMount
     Left = 0
     Top = 0
     Width = 490
-    Height = 460
+    Height = 429
     Align = alClient
     Picture.Data = {
       0954506E67496D61676589504E470D0A1A0A0000000D49484452000004930000
@@ -14173,7 +14171,6 @@ object frmRadarMount: TfrmRadarMount
     Height = 50
     BevelOuter = bvNone
     Color = 5523492
-    ParentBackground = False
     TabOrder = 0
     object txtClass: TLabel
       Left = 0
@@ -14225,8 +14222,6 @@ object frmRadarMount: TfrmRadarMount
       TabHeight = 30
       TabOrder = 0
       TabWidth = 100
-      ExplicitLeft = 4
-      ExplicitTop = -8
       object General: TTabSheet
         Caption = 'General'
         object lbl2: TLabel
@@ -14249,6 +14244,7 @@ object frmRadarMount: TfrmRadarMount
           Width = 66
           Height = 15
           Caption = 'Blind Zones :'
+          Visible = False
         end
         object lbl5: TLabel
           Left = 104
@@ -14256,6 +14252,7 @@ object frmRadarMount: TfrmRadarMount
           Width = 90
           Height = 15
           Caption = 'Antenna Height :'
+          Visible = False
         end
         object lbl6: TLabel
           Left = 104
@@ -14263,6 +14260,7 @@ object frmRadarMount: TfrmRadarMount
           Width = 153
           Height = 15
           Caption = 'Submerged Antenna Height :'
+          Visible = False
         end
         object lbl7: TLabel
           Left = 104
@@ -14270,6 +14268,7 @@ object frmRadarMount: TfrmRadarMount
           Width = 160
           Height = 15
           Caption = 'Maximum Operational Depth :'
+          Visible = False
         end
         object lbl8: TLabel
           Left = 351
@@ -14277,6 +14276,7 @@ object frmRadarMount: TfrmRadarMount
           Width = 20
           Height = 15
           Caption = 'feet'
+          Visible = False
         end
         object lbl9: TLabel
           Left = 351
@@ -14284,6 +14284,7 @@ object frmRadarMount: TfrmRadarMount
           Width = 20
           Height = 15
           Caption = 'feet'
+          Visible = False
         end
         object lbl10: TLabel
           Left = 351
@@ -14291,6 +14292,7 @@ object frmRadarMount: TfrmRadarMount
           Width = 20
           Height = 15
           Caption = 'feet'
+          Visible = False
         end
         object edtClassName: TLabel
           Left = 81
@@ -14328,6 +14330,7 @@ object frmRadarMount: TfrmRadarMount
           Height = 23
           TabOrder = 1
           Text = '0'
+          Visible = False
           OnChange = edtChange
           OnKeyPress = edtNumeralKeyPress
         end
@@ -14338,6 +14341,7 @@ object frmRadarMount: TfrmRadarMount
           Height = 23
           TabOrder = 2
           Text = '0'
+          Visible = False
           OnChange = edtChange
           OnKeyPress = edtNumeralKeyPress
         end
@@ -14348,6 +14352,7 @@ object frmRadarMount: TfrmRadarMount
           Height = 23
           TabOrder = 3
           Text = '0'
+          Visible = False
           OnChange = edtChange
           OnKeyPress = edtNumeralKeyPress
         end
@@ -14357,6 +14362,7 @@ object frmRadarMount: TfrmRadarMount
           Width = 66
           Height = 65
           TabOrder = 4
+          Visible = False
           OnClick = pnlBlindZoneClick
         end
       end
