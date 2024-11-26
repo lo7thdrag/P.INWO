@@ -5,7 +5,8 @@ interface
 uses
   Winapi.Windows, System.IOUtils, Winapi.Messages, System.SysUtils, System.Variants, System.Win.ComObj, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Imaging.pngimage, Winapi.ShellAPI,
-  Vcl.ExtCtrls, Vcl.Buttons, ImageButton, Vcl.ComCtrls, Vcl.Imaging.jpeg, uSimMgr_Client, uClassData, uT3SimManager, uRecordData, uLibSetting;
+  Vcl.ExtCtrls, Vcl.Buttons, ImageButton, Vcl.ComCtrls, Vcl.Imaging.jpeg, uSimMgr_Client, uClassData, uT3SimManager, uRecordData, uLibSetting,
+  AdvGroupBox;
 
 type
   TfrmTelegram = class(TForm)
@@ -19,16 +20,12 @@ type
     pnlDraft: TPanel;
     pnlTelegramTerkirim: TPanel;
     lblTo: TLabel;
-    btnKirim: TButton;
     cbbxTo: TComboBox;
-    btnBuatTelegramTerbatas: TButton;
-    btnBuatTelegramRahasia: TButton;
     LstBxTelegram: TListBox;
-    btnOpenTelegram: TButton;
     lblTelegram: TLabel;
     lblTelegramMasuk: TLabel;
     lblTelegramTerkirim: TLabel;
-    Panel1: TPanel;
+    pnlSendTelegram: TPanel;
     ImgBtnTelegramMasuk: TImageButton;
     ImgBtnTelegramTerkirim: TImageButton;
     ImgBtnBuatTelegramTerbatas: TImageButton;
@@ -37,6 +34,22 @@ type
     pnlBuatTelegramRahasia: TPanel;
     ImgBtnBuatTelegramRahasia: TImageButton;
     lblBuatTelegramRahasia: TLabel;
+    AdvGroupBox1: TAdvGroupBox;
+    imgBtnKirimTelegram: TImageButton;
+    ImgBtnPilihFile: TImageButton;
+    pnlChooseFile: TPanel;
+    lblPilihFile: TLabel;
+    pnlKirimTelegram: TPanel;
+    lblKirimTelegram: TLabel;
+    btnClosePanelSendTelegram: TImageButton;
+    lblFile: TLabel;
+    lblNamaFile: TLabel;
+    imgBtnKirim: TImageButton;
+    pnlSend: TPanel;
+    lblSend: TLabel;
+    imgbtnOpenTelegram: TImageButton;
+    pnlOpenTelegram: TPanel;
+    lblOpenTelegram: TLabel;
     procedure btnBuatTelegramTerbatasClick(Sender: TObject);
     procedure btnBuatTelegramRahasiaClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
@@ -46,6 +59,9 @@ type
     procedure pnlTelegramMasukClick(Sender: TObject);
     procedure pnlTelegramTerkirimClick(Sender: TObject);
     procedure Label1Click(Sender: TObject);
+    procedure btnClosePanelSendTelegramClick(Sender: TObject);
+    procedure imgBtnKirimTelegramClick(Sender: TObject);
+    procedure lblPilihFileClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -56,6 +72,8 @@ type
 
 var
   frmTelegram: TfrmTelegram;
+  addressTempFileTelegram : PWideChar;
+  fileNameTempTelegram : string;
 
 implementation
 
@@ -162,55 +180,69 @@ begin
   end;
 end;
 
-procedure TfrmTelegram.btnKirimClick(Sender: TObject);
-var
-  addressTemp : PWideChar;
-  filNameTemp : string;
-  saveDialog : TSaveDialog;
-  saveFileTemp : TFile_Data;
-  fileDataTemp : TRecTCPSendTelegramUserRole;
-
+procedure TfrmTelegram.btnClosePanelSendTelegramClick(Sender: TObject);
 begin
-  saveDialog := TSaveDialog.Create(self);
-  saveDialog.InitialDir := GetCurrentDir;
-  saveDialog.Filter := 'Word file|*.docx|Excel file|*.xlsx|Power Point file|*.pptx';
-  saveDialog.DefaultExt := 'docx';
-  saveDialog.FilterIndex := 1;
+  addressTempFileTelegram := '';
+  fileNameTempTelegram := null;
+  pnlSendTelegram.Visible := False;
+end;
 
-  if saveDialog.Execute then
-  begin
-    addressTemp := PWideChar(saveDialog.FileName);
-    filNameTemp := ExtractFileName(saveDialog.FileName);
+procedure TfrmTelegram.btnKirimClick(Sender: TObject);
+//var
+//  addressTemp : PWideChar;
+//  filNameTemp : string;
+//  saveDialog : TSaveDialog;
+//  saveFileTemp : TFile_Data;
+//  fileDataTemp : TRecTCPSendTelegramUserRole;
+//
+begin
+//  saveDialog := TSaveDialog.Create(self);
+//  saveDialog.InitialDir := GetCurrentDir;
+//  saveDialog.Filter := 'Word file|*.docx|Excel file|*.xlsx|Power Point file|*.pptx';
+//  saveDialog.DefaultExt := 'docx';
+//  saveDialog.FilterIndex := 1;
+//
+//  if saveDialog.Execute then
+//  begin
+//    addressTemp := PWideChar(saveDialog.FileName);
+//    filNameTemp := ExtractFileName(saveDialog.FileName);
+//    addressTempFileTelegram := addressTemp;
+//    fileNameTempTelegram := filNameTemp;
 
     // SAVE FILE KE INBOX FOLDER ROLE TUJUAN
+  if (addressTempFileTelegram <> '') and (fileNameTempTelegram <> null) then
+  begin
     if not (TDirectory.Exists(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' +  cbbxTo.Text + '\\' + 'INBOX')) then
     begin
       TDirectory.CreateDirectory(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + cbbxTo.Text + '\\' + 'INBOX');
-      CopyFile(addressTemp, PWideChar(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + cbbxTo.Text + '\\' + 'INBOX' + '\\' + filNameTemp), False);
+      CopyFile(addressTempFileTelegram, PWideChar(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + cbbxTo.Text + '\\' + 'INBOX' + '\\' + fileNameTempTelegram), False);
 //      TDirectory.de
     end
     else
     begin
-    CopyFile(addressTemp, PWideChar(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + cbbxTo.Text + '\\' + 'INBOX' + '\\' + filNameTemp), False);
+    CopyFile(addressTempFileTelegram, PWideChar(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + cbbxTo.Text + '\\' + 'INBOX' + '\\' + fileNameTempTelegram), False);
     end;
 
     // SAVE FILE KE SENT BOX FOLDER ROLE PENGIRIM
     if not (TDirectory.Exists(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' +  simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIdentifier + '\\' + 'SENT')) then
     begin
       TDirectory.CreateDirectory(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIdentifier + '\\' + 'SENT');
-      CopyFile(addressTemp, PWideChar(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIdentifier + '\\' + 'SENT' + '\\' + filNameTemp), False);
+      CopyFile(addressTempFileTelegram, PWideChar(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIdentifier + '\\' + 'SENT' + '\\' + fileNameTempTelegram), False);
     end
     else
     begin
-    CopyFile(addressTemp, PWideChar(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIdentifier + '\\' + 'SENT' + '\\' + filNameTemp), False);
+    CopyFile(addressTempFileTelegram, PWideChar(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIdentifier + '\\' + 'SENT' + '\\' + fileNameTempTelegram), False);
     end;
   end
   else
-    ShowMessage('Save file was cancelled');
-
-  saveDialog.Free;
-
-//  UpdateDataFile;
+  ShowMessage('Please choose Telegram File first!');
+//  end
+//  else
+//    ShowMessage('Save file was cancelled');
+//
+//  saveDialog.Free;
+//
+////  UpdateDataFile;
 end;
 
 procedure TfrmTelegram.Button1Click(Sender: TObject);
@@ -267,6 +299,15 @@ begin
   UpdateClientTelegramList;
 end;
 
+procedure TfrmTelegram.imgBtnKirimTelegramClick(Sender: TObject);
+begin
+  pnlSendTelegram.Visible := True;
+  pnlSendTelegram.BringToFront;
+  addressTempFileTelegram := '';
+  fileNameTempTelegram := null;
+  lblNamaFile.Caption := '...';
+end;
+
 procedure TfrmTelegram.Label1Click(Sender: TObject);
 begin
 //  if not TDirectory.Exists(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM') then
@@ -274,6 +315,59 @@ begin
 //
 //   ShellExecute(0, 'open', ('C:\[DENTA]\removeDir.bat'), nil, nil, SW_SHOW);
 
+end;
+
+procedure TfrmTelegram.lblPilihFileClick(Sender: TObject);
+var
+  addressTemp : PWideChar;
+  filNameTemp : string;
+  saveDialog : TSaveDialog;
+  saveFileTemp : TFile_Data;
+  fileDataTemp : TRecTCPSendTelegramUserRole;
+
+begin
+  saveDialog := TSaveDialog.Create(self);
+  saveDialog.InitialDir := 'D:\Telegram\';
+  saveDialog.Filter := 'Word file|*.docx|Excel file|*.xlsx|Power Point file|*.pptx';
+  saveDialog.DefaultExt := 'docx';
+  saveDialog.FilterIndex := 1;
+
+  if saveDialog.Execute then
+  begin
+    addressTemp := PWideChar(saveDialog.FileName);
+    filNameTemp := ExtractFileName(saveDialog.FileName);
+    addressTempFileTelegram := addressTemp;
+    fileNameTempTelegram := filNameTemp;
+
+    // SAVE FILE KE INBOX FOLDER ROLE TUJUAN
+//    if not (TDirectory.Exists(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' +  cbbxTo.Text + '\\' + 'INBOX')) then
+//    begin
+//      TDirectory.CreateDirectory(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + cbbxTo.Text + '\\' + 'INBOX');
+//      CopyFile(addressTempFileTelegram, PWideChar(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + cbbxTo.Text + '\\' + 'INBOX' + '\\' + fileNameTempTelegram), False);
+////      TDirectory.de
+//    end
+//    else
+//    begin
+//    CopyFile(addressTempFileTelegram, PWideChar(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + cbbxTo.Text + '\\' + 'INBOX' + '\\' + fileNameTempTelegram), False);
+//    end;
+//
+//    // SAVE FILE KE SENT BOX FOLDER ROLE PENGIRIM
+//    if not (TDirectory.Exists(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' +  simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIdentifier + '\\' + 'SENT')) then
+//    begin
+//      TDirectory.CreateDirectory(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIdentifier + '\\' + 'SENT');
+//      CopyFile(addressTempFileTelegram, PWideChar(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIdentifier + '\\' + 'SENT' + '\\' + fileNameTempTelegram), False);
+//    end
+//    else
+//    begin
+//    CopyFile(addressTempFileTelegram, PWideChar(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIdentifier + '\\' + 'SENT' + '\\' + fileNameTempTelegram), False);
+//    end;
+  end
+  else
+    ShowMessage('Save file was cancelled');
+
+  saveDialog.Free;
+
+//  UpdateDataFile;
 end;
 
 procedure TfrmTelegram.pnlTelegramMasukClick(Sender: TObject);
