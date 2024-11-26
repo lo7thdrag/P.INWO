@@ -2760,7 +2760,6 @@ object frmTelegram: TfrmTelegram
       ParentBackground = False
       ParentFont = False
       TabOrder = 1
-      Visible = False
       object imgbtnDraft: TImageButton
         Left = 1
         Top = 1

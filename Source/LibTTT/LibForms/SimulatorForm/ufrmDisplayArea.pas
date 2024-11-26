@@ -2025,7 +2025,7 @@ begin
       if (userRoleTemp.isInUse) and (userRoleTemp.FData.UserRoleIndex <> simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex) then
 //      if userRoleTemp.FData.UserRoleIndex <> simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex then
       begin
-        lstUserChat.Items.AddObject(userRoleTemp.FData.UserRoleIdentifier + '-' + userRoleTemp.FSubRoleData.SubRoleIdentifier, userRoleTemp);
+        lstUserChat.Items.AddObject(userRoleTemp.FData.UserRoleAcronim + ' - ' + userRoleTemp.FSubRoleData.SubRoleIdentifier, userRoleTemp);
       end;
     end;
   end;

@@ -211,7 +211,7 @@ begin
 //    fileNameTempTelegram := filNameTemp;
 
     // SAVE FILE KE INBOX FOLDER ROLE TUJUAN
-  if (addressTempFileTelegram <> '') and (fileNameTempTelegram <> null) then
+  if (addressTempFileTelegram <> '') and (fileNameTempTelegram <> '') then
   begin
     if not (TDirectory.Exists(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' +  cbbxTo.Text + '\\' + 'INBOX')) then
     begin
@@ -225,14 +225,14 @@ begin
     end;
 
     // SAVE FILE KE SENT BOX FOLDER ROLE PENGIRIM
-    if not (TDirectory.Exists(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' +  simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIdentifier + '\\' + 'SENT')) then
+    if not (TDirectory.Exists(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' +  simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + ' - ' + simMgrClient.MyConsoleData.UserRoleData.FSubRoleData.SubRoleIdentifier + '\\' + 'SENT')) then
     begin
-      TDirectory.CreateDirectory(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIdentifier + '\\' + 'SENT');
-      CopyFile(addressTempFileTelegram, PWideChar(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIdentifier + '\\' + 'SENT' + '\\' + fileNameTempTelegram), False);
+      TDirectory.CreateDirectory(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + ' - ' + simMgrClient.MyConsoleData.UserRoleData.FSubRoleData.SubRoleIdentifier + '\\' + 'SENT');
+      CopyFile(addressTempFileTelegram, PWideChar(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + ' - ' + simMgrClient.MyConsoleData.UserRoleData.FSubRoleData.SubRoleIdentifier + '\\' + 'SENT' + '\\' + fileNameTempTelegram), False);
     end
     else
     begin
-    CopyFile(addressTempFileTelegram, PWideChar(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIdentifier + '\\' + 'SENT' + '\\' + fileNameTempTelegram), False);
+    CopyFile(addressTempFileTelegram, PWideChar(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + '\\' + 'SENT' + '\\' + fileNameTempTelegram), False);
     end;
   end
   else
@@ -383,7 +383,7 @@ procedure TfrmTelegram.pnlTelegramMasukClick(Sender: TObject);
 var
 path : string;
 begin
-  path := vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIdentifier + '\\' + 'INBOX';
+  path := vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + ' - ' + simMgrClient.MyConsoleData.UserRoleData.FSubRoleData.SubRoleIdentifier + '\\' + 'INBOX';
   lblTelegramMasuk.Visible := True;
   lblTelegramTerkirim.Visible := False;
   LstBxTelegram.Items.Clear;
@@ -401,7 +401,7 @@ procedure TfrmTelegram.pnlTelegramTerkirimClick(Sender: TObject);
 var
 path : string;
 begin
-  path := vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIdentifier + '\\' + 'SENT';
+  path := vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + ' - ' + simMgrClient.MyConsoleData.UserRoleData.FSubRoleData.SubRoleIdentifier + '\\' + 'SENT';
   lblTelegramMasuk.Visible := False;
   lblTelegramTerkirim.Visible := True;
   LstBxTelegram.Items.Clear;
@@ -429,7 +429,7 @@ begin
     begin
       if (userRoleTemp.isInUse) and (userRoleTemp.FData.UserRoleIndex <> simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex) then
       begin
-        cbbxTo.Items.AddObject(userRoleTemp.FData.UserRoleIdentifier + '-' + userRoleTemp.FSubRoleData.SubRoleIdentifier, userRoleTemp);
+        cbbxTo.Items.AddObject(userRoleTemp.FData.UserRoleAcronim + ' - ' + userRoleTemp.FSubRoleData.SubRoleIdentifier, userRoleTemp);
       end;
     end;
   end;
