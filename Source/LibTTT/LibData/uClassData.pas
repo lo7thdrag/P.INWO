@@ -166,6 +166,7 @@ type
     function GetActiveTab(IdRole, IdTag : Integer): Boolean;
     function GetCaptionTab(IdRole, IdTag : Integer): string;
     function GetTapProperties(IdRole, IdTag : Integer): TTabProperties;
+    function DeleteTapProperties(OverlayTab : Integer):Boolean;
 
     property TabList : TList read FTabList write FTabList;
   end;
@@ -909,6 +910,29 @@ end;
 constructor TTabPropertiesContainer.Create;
 begin
   TabList := TList.Create;
+end;
+
+function TTabPropertiesContainer.DeleteTapProperties(OverlayTab: Integer): Boolean;
+var
+  i : Integer;
+  tabPropertiesTemp : TTabProperties;
+
+begin
+
+  Result := False;
+
+  for i := 0 to FTabList.Count - 1 do
+  begin
+    tabPropertiesTemp := FTabList.Items[i];
+
+    if (tabPropertiesTemp.FIdOverlayTab = OverlayTab) then
+    begin
+      FTabList.Remove(tabPropertiesTemp);
+      Result := True;
+
+      Break;
+    end;
+  end;
 end;
 
 destructor TTabPropertiesContainer.Destroy;

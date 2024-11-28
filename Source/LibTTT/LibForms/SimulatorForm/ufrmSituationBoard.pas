@@ -10,7 +10,8 @@ uses
 
   {Project Uses}
   MapXLib_TLB, uCoordConvertor, uLibSetting, uT3SimManager, uSimMgr_Client, uRecordData, uNetBaseSocket, uClassData, ufrmCreateTab,
-  ufrmImageInsert, ufrmOverlayTools, uConstantaData, ufrmBrowseMap, uBaseCoordSystem;
+  ufrmImageInsert, ufrmOverlayTools, uConstantaData, ufrmBrowseMap, uBaseCoordSystem,
+  Vcl.Menus;
 
 type
 
@@ -57,6 +58,9 @@ type
     pnlMain: TPanel;
     pnlCloseMap: TPanel;
     btnselect: TToolButton;
+    pmTabProperties: TPopupMenu;
+    miRename: TMenuItem;
+    miDelete: TMenuItem;
 
     procedure FormShow(Sender: TObject);
     procedure Button1Click(Sender: TObject);
@@ -74,22 +78,18 @@ type
     procedure btnoutClick(Sender: TObject);
     procedure btnGameAreaClick(Sender: TObject);
     procedure btnRullerClick(Sender: TObject);
-    procedure Map1DrawUserLayer(ASender: TObject; const Layer: IDispatch;
-      hOutputDC, hAttributeDC: Integer; const RectFull, RectInvalid: IDispatch);
+    procedure Map1DrawUserLayer(ASender: TObject; const Layer: IDispatch; hOutputDC, hAttributeDC: Integer; const RectFull, RectInvalid: IDispatch);
     procedure Map1MapViewChanged(Sender: TObject);
-    procedure Map1MouseDown(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
+    procedure Map1MouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
     procedure Map1MouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
-    procedure Map1MouseUp(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
+    procedure Map1MouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
     procedure btnOverlayToolsClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
-    procedure btn1MouseDown(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
+    procedure tabMouseDown(Sender: TObject; Button: TMouseButton;Shift: TShiftState; X, Y: Integer);
     procedure btnselectClick(Sender: TObject);
-//    procedure Map1DrawUserLayer(Sender: TObject);
-
+    procedure miRenameClick(Sender: TObject);
+    procedure miDeleteClick(Sender: TObject);
 
   private
     FCanvas: TCanvas;
@@ -168,12 +168,20 @@ begin
   TVarData(TheVar).vError := DISP_E_PARAMNOTFOUND;
 end;
 
-procedure TfrmSituationBoard.btn1MouseDown(Sender: TObject;
-  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-begin
-  FSelectedTabProperties := SimManager.SimTabProperties.GetTapProperties(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, TSpeedButton(Sender).Tag);
+procedure TfrmSituationBoard.tabMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+var
+  pos: Winapi.Windows.TPoint;
 
-  RefreshTab;
+begin
+
+  if Button = mbRight then
+  begin
+    GetCursorPos(pos);
+    pmTabProperties.Popup(pos.X, pos.Y);
+    FSelectedTabProperties := SimManager.SimTabProperties.GetTapProperties(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, TSpeedButton(Sender).Tag);
+  end;
+
+//  RefreshTab;
 end;
 
 procedure TfrmSituationBoard.btnCreateTabClick(Sender: TObject);
@@ -669,6 +677,7 @@ begin
       Map1.Refresh;
       Map1.Repaint;
     end;
+
 //    else if  FMapCursor = mcRulerStart then
 //    begin
 //      OnAddRuller(mx,my);
@@ -759,6 +768,31 @@ begin
 //    end;
 //  end;
 //  Map1.Repaint; // dimatikan dl, msh coba polygon nya
+end;
+
+procedure TfrmSituationBoard.miDeleteClick(Sender: TObject);
+var
+  rec : TRecTCPSendSituationBoardTabProperties;
+
+begin
+
+  if Assigned(FSelectedTabProperties) then
+  begin
+    rec.OrderID := DELETE_TAB;
+    rec.TabId := FSelectedTabProperties.IdTab;
+    rec.OverlayTab := FSelectedTabProperties.IdOverlayTab;
+    rec.UserRoleId := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
+    rec.TabCaption := '';
+    rec.TabType := 0;
+    rec.TabAddres := '';
+
+    simMgrClient.netSend_CmdSituationBoardTabProperties(rec);
+  end;
+end;
+
+procedure TfrmSituationBoard.miRenameClick(Sender: TObject);
+begin
+//
 end;
 
 end.

@@ -100,6 +100,7 @@ type
     TabType     : Byte;
     TabActive   : Boolean;
     TabAddres   : string[255];
+    OverlayTab  : Integer;
   end;
 
   //CPID_CHAT_USER_ROLE_CMD
@@ -1009,6 +1010,7 @@ const
   CPID_CMD_SITUATIONBOARD_TAB_PROPERTIES  = CPID_TCP + 5;
     NEW_TAB = 0;
     EDIT_TAB = 1;
+    DELETE_TAB = 2;
   CPID_CMD_CHAT_USER_ROLE                 = CPID_TCP + 6;
     SEND_CHAT = 0;
   CPID_CMD_OVERLAYSHAPE                   = CPID_TCP + 7;
