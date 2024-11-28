@@ -105,6 +105,7 @@ object frmSituationBoard: TfrmSituationBoard
         Font.Style = []
         ParentFont = False
         OnClick = btnTabClick
+        OnMouseDown = tabMouseDown
       end
       object btn5: TSpeedButton
         Tag = 5
@@ -121,6 +122,7 @@ object frmSituationBoard: TfrmSituationBoard
         Font.Style = []
         ParentFont = False
         OnClick = btnTabClick
+        OnMouseDown = tabMouseDown
       end
       object btn6: TSpeedButton
         Tag = 6
@@ -137,6 +139,7 @@ object frmSituationBoard: TfrmSituationBoard
         Font.Style = []
         ParentFont = False
         OnClick = btnTabClick
+        OnMouseDown = tabMouseDown
       end
       object btn7: TSpeedButton
         Tag = 7
@@ -153,6 +156,7 @@ object frmSituationBoard: TfrmSituationBoard
         Font.Style = []
         ParentFont = False
         OnClick = btnTabClick
+        OnMouseDown = tabMouseDown
       end
       object btn8: TSpeedButton
         Tag = 8
@@ -169,6 +173,7 @@ object frmSituationBoard: TfrmSituationBoard
         Font.Style = []
         ParentFont = False
         OnClick = btnTabClick
+        OnMouseDown = tabMouseDown
       end
       object btn9: TSpeedButton
         Tag = 9
@@ -186,6 +191,7 @@ object frmSituationBoard: TfrmSituationBoard
         ParentFont = False
         Transparent = False
         OnClick = btnTabClick
+        OnMouseDown = tabMouseDown
       end
       object btn10: TSpeedButton
         Tag = 10
@@ -202,6 +208,7 @@ object frmSituationBoard: TfrmSituationBoard
         Font.Style = []
         ParentFont = False
         OnClick = btnTabClick
+        OnMouseDown = tabMouseDown
         ExplicitLeft = 40
       end
       object btn11: TSpeedButton
@@ -219,6 +226,7 @@ object frmSituationBoard: TfrmSituationBoard
         Font.Style = []
         ParentFont = False
         OnClick = btnTabClick
+        OnMouseDown = tabMouseDown
         ExplicitLeft = 40
       end
       object btn12: TSpeedButton
@@ -236,6 +244,7 @@ object frmSituationBoard: TfrmSituationBoard
         Font.Style = []
         ParentFont = False
         OnClick = btnTabClick
+        OnMouseDown = tabMouseDown
         ExplicitLeft = 40
       end
       object btn13: TSpeedButton
@@ -253,6 +262,7 @@ object frmSituationBoard: TfrmSituationBoard
         Font.Style = []
         ParentFont = False
         OnClick = btnTabClick
+        OnMouseDown = tabMouseDown
         ExplicitLeft = 40
       end
       object btnCreateTab: TSpeedButton
@@ -45080,7 +45090,7 @@ object frmSituationBoard: TfrmSituationBoard
           0B918FCE119DE300AA004BB851010000009001DC7C010005417269616C000352
           E30B918FCE119DE300AA004BB851010200009001A42C02000B4D61702053796D
           626F6C730000000000000001000100FFFFFF000200FFFFFF0000000000000100
-          000001000118010000E002482B01000000000000001C00000000000000000000
+          000001000118010000F067111001000000A56912C21C00000000000000000000
           0000000000000000000000000000000000000000000000000000000000000000
           0000000000000000000000000000000000000000000000000000000000000000
           0002000000000000000000000000000000000000000000000000000000000000
@@ -45089,15 +45099,15 @@ object frmSituationBoard: TfrmSituationBoard
           0000000000000000000000000000000000000000000000000000000000000000
           0000000000000000000000000000000000000000000000000000000000000000
           00008076C000000000008056C000000000008076400000000000805640010000
-          0018010000E002482B01000000000000001C0000000000000000000000000000
+          0018010000F067111001000000000000001C0000000000000000000000000000
           0000000000000000000000000000000000000000000000000000000000000000
           0000000000000000000000000000000000000000000000000000000000020000
           0000000000000000000000000000000000000000000000000000000000000000
           0000000000000000000000000000000000000000000000000000000000000000
           0000000000000000000000000000000000000000000000000000000000000000
           0000000000000000000000000000000000000000000000000000000000000000
-          0000000000000000000000000000000000000000000000000002000000000000
-          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000080000
+          00C0A6D050C0A6D05090C716097624B0D5AD24D337D8DE80C000000000000000
           0000000088B3400000000000408F400001000001}
       end
       object pnlToolBar: TPanel
