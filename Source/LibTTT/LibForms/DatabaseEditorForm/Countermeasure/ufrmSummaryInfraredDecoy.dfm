@@ -8930,6 +8930,10 @@ object frmSummaryInfraredDecoy: TfrmSummaryInfraredDecoy
       TabWidth = 100
       object tsGeneral: TTabSheet
         Caption = 'General'
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object lblMaxIRCrossSection: TLabel
           Left = 15
           Top = 22

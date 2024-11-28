@@ -44,9 +44,9 @@ type
     FSelectedVehicle : TAsset;
     FSelectedSonobuoy : TSonobuoy_On_Board;
 
-    procedure UpdateRadarList;
-
   public
+    procedure UpdateSonobuoyList;
+
     property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
   end;
 
@@ -64,9 +64,9 @@ uses
 
 procedure TfrmSonobuoyOnBoardPickList.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  FreeItemsAndFreeList(FAllSonobuoyDefList);
-  FreeItemsAndFreeList(FAllSonobuoyOnBoardList);
-  Action := cafree;
+//  FreeItemsAndFreeList(FAllSonobuoyDefList);
+//  FreeItemsAndFreeList(FAllSonobuoyOnBoardList);
+//  Action := cafree;
 end;
 
 procedure TfrmSonobuoyOnBoardPickList.FormCreate(Sender: TObject);
@@ -77,7 +77,7 @@ end;
 
 procedure TfrmSonobuoyOnBoardPickList.FormShow(Sender: TObject);
 begin
-  UpdateRadarList;
+  UpdateSonobuoyList;
 end;
 
 {$ENDREGION}
@@ -136,7 +136,7 @@ begin
     dmINWO.DeleteSonobuoyOnBoard(2, Sonobuoy_Instance_Index);
   end;
 
-  UpdateRadarList;
+  UpdateSonobuoyList;
 end;
 
 procedure TfrmSonobuoyOnBoardPickList.btnCloseClick(Sender: TObject);
@@ -160,7 +160,7 @@ begin
   FSelectedSonobuoy := TSonobuoy_On_Board(lbAllSonobuoyOnBoard.Items.Objects[lbAllSonobuoyOnBoard.ItemIndex]);
 end;
 
-procedure TfrmSonobuoyOnBoardPickList.UpdateRadarList;
+procedure TfrmSonobuoyOnBoardPickList.UpdateSonobuoyList;
 var
   i : Integer;
   sonobuoy : TSonobuoy_On_Board;

@@ -44,9 +44,9 @@ type
     FSelectedVehicle : TAsset;
     FSelectedChaff : TChaff_On_Board;
 
+  public
     procedure UpdateChaffList;
 
-  public
     property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
 
   end;
@@ -66,9 +66,9 @@ uses
 
 procedure TfrmChaffOnBoardPickList.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  FreeItemsAndFreeList(FAllChaffDefList);
-  FreeItemsAndFreeList(FAllChaffOnBoardList);
-  Action := cafree;
+//  FreeItemsAndFreeList(FAllChaffDefList);
+//  FreeItemsAndFreeList(FAllChaffOnBoardList);
+//  Action := cafree;
 end;
 
 procedure TfrmChaffOnBoardPickList.FormCreate(Sender: TObject);
@@ -99,7 +99,7 @@ begin
     begin
       SelectedVehicle := FSelectedVehicle;
       SelectedChaff := FSelectedChaff;
-      ShowModal;
+      Show;
     end;
   finally
   end;
@@ -107,37 +107,35 @@ end;
 
 procedure TfrmChaffOnBoardPickList.btnEditClick(Sender: TObject);
 begin
-//  if lbAllChaffOnBoard.ItemIndex = -1 then
-//    Exit;
-//
-//  frmChaffMount := TfrmChaffMount.Create(Self);
-//  try
-//    with frmChaffMount do
-//    begin
-//      SelectedVehicle := FSelectedVehicle;
-//      SelectedChaff := FSelectedChaff;
-//      ShowModal;
-//    end;
-//    AfterClose := frmChaffMount.AfterClose;
-//  finally
-//    frmChaffMount.Free;
-//  end;
-//
+  if lbAllChaffOnBoard.ItemIndex = -1 then
+    Exit;
+
+  if not Assigned(frmChaffMount) then
+    frmChaffMount := TfrmChaffMount.Create(Self);
+
+  try
+    with frmChaffMount do
+    begin
+      SelectedVehicle := FSelectedVehicle;
+      SelectedChaff := FSelectedChaff;
+      Show;
+    end;
+  finally
+  end;
+
 //  UpdateChaffList;
 end;
 
 procedure TfrmChaffOnBoardPickList.btnRemoveClick(Sender: TObject);
 begin
-//  if lbAllChaffOnBoard.ItemIndex = -1 then
-//    Exit;
-//
-//  with FSelectedChaff.FData do
-//  begin
-//    dmTTT.DeleteChaffOnBoard(2, Chaff_Instance_Index);
-//  end;
-//
-//  AfterClose := True;
-//  UpdateChaffList;
+  if lbAllChaffOnBoard.ItemIndex = -1 then
+    Exit;
+
+  with FSelectedChaff.FData do
+  begin
+    dmINWO.DeleteChaffOnBoard(2, Chaff_Instance_Index);
+  end;
+  UpdateChaffList;
 end;
 
 procedure TfrmChaffOnBoardPickList.btnCloseClick(Sender: TObject);
@@ -162,31 +160,29 @@ begin
 end;
 
 procedure TfrmChaffOnBoardPickList.UpdateChaffList;
-//var
-//  i : Integer;
-//  chaff : TChaff_On_Board;
+var
+  i : Integer;
+  chaff : TChaff_On_Board;
 begin
-//  lbAllChaffDef.Items.Clear;
-//  lbAllChaffOnBoard.Items.Clear;
-//
-//  dmTTT.GetAllChaffDef(FAllChaffDefList);
-//  dmTTT.GetChaffOnBoard(FSelectedVehicle.FData.Vehicle_Index,FAllChaffOnBoardList);
-//
-//  for i := 0 to FAllChaffDefList.Count - 1 do
-//  begin
-//    chaff := FAllChaffDefList.Items[i];
-//    lbAllChaffDef.Items.AddObject(chaff.FChaff_Def.Chaff_Identifier, chaff);
-//  end;
-//
-//  for i := 0 to FAllChaffOnBoardList.Count - 1 do
-//  begin
-//    chaff := FAllChaffOnBoardList.Items[i];
-//    lbAllChaffOnBoard.Items.AddObject(chaff.FData.Instance_Identifier, chaff);
-//  end;
+  lbAllChaffDef.Items.Clear;
+  lbAllChaffOnBoard.Items.Clear;
+
+  dmINWO.GetAllChaffDef(FAllChaffDefList);
+  dmINWO.GetChaffOnBoard(FSelectedVehicle.FData.VehicleIndex,FAllChaffOnBoardList);
+
+  for i := 0 to FAllChaffDefList.Count - 1 do
+  begin
+    chaff := FAllChaffDefList.Items[i];
+    lbAllChaffDef.Items.AddObject(chaff.FDef.Chaff_Identifier, chaff);
+  end;
+
+  for i := 0 to FAllChaffOnBoardList.Count - 1 do
+  begin
+    chaff := FAllChaffOnBoardList.Items[i];
+    lbAllChaffOnBoard.Items.AddObject(chaff.FData.Instance_Identifier, chaff);
+  end;
 end;
 
 {$ENDREGION}
-
-
 
 end.

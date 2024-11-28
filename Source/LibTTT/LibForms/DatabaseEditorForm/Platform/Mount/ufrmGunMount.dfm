@@ -14232,6 +14232,10 @@ object frmGunMount: TfrmGunMount
       TabWidth = 100
       object General: TTabSheet
         Caption = 'General'
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object lbl2: TLabel
           Left = 13
           Top = 8

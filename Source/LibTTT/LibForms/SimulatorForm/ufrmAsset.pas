@@ -8,7 +8,8 @@ uses
   Vcl.StdCtrls, Vcl.Mask, Vcl.Buttons, Vcl.ComCtrls,
 
   {uses project}
-   uSimMgr_Client, uLibSetting, uClassData, uDataModule, uRecordData, uDBAsset_Vehicle, uDBAsset_Sensor;
+   uSimMgr_Client, uLibSetting, uClassData, uDataModule, uRecordData, uDBAsset_Sensor,
+   uDBAsset_Weapon, uDBAsset_Countermeasure;
 
 type
   TfrmAsset = class(TForm)
@@ -75,11 +76,7 @@ type
     cbbSensors: TComboBox;
     btnSensors: TButton;
     cbbWeapons: TComboBox;
-    GroupBox8: TGroupBox;
-    lvWeapon: TListView;
     cbbCountermeasures: TComboBox;
-    GroupBox9: TGroupBox;
-    lvCountermeasures: TListView;
     btnWeapon: TButton;
     btnCountermeasures: TButton;
     tsLogistic: TTabSheet;
@@ -191,8 +188,12 @@ type
     chkPortGangway: TCheckBox;
     chkStarBoardGangway: TCheckBox;
     Button1: TButton;
-    pnl1: TPanel;
+    pnlListSensor: TPanel;
     lvSensors: TListView;
+    pnlListWeapon: TPanel;
+    lvWeapon: TListView;
+    pnlCountermeasures: TPanel;
+    lvCountermeasures: TListView;
     procedure btnOKClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
     procedure btnApplyClick(Sender: TObject);
@@ -562,7 +563,7 @@ begin
     Exit;
   end;
 
-  case cbbWeapons.ItemIndex of
+  case cbbCountermeasures.ItemIndex of
     0:
     begin
       {$REGION ' Chaff '}
@@ -1198,19 +1199,260 @@ end;
 procedure TfrmAsset.UpdateWeaponData;
 var
   i : Integer;
+  li: TListItem;
+  FAssetList : TList;
+
+  missileOnboardTemp  : TMissile_On_Board;
+  torpedoOnboardTemp  : TTorpedo_On_Board;
+  mineOnboardTemp    : TMine_On_Board;
+  bombOnboardTemp    : TBomb_On_Board;
+  gunOnboardTemp    : TGun_On_Board;
 
 begin
   lvWeapon.Clear;
 
+  FAssetList := TList.Create;
+
+  case cbbWeapons.ItemIndex of
+    0:
+    begin
+      {$REGION ' Missile '}
+      dmINWO.GetMissileOnBoard(FSelectedAsset.FData.VehicleIndex, FAssetList);
+
+      for i := 0 to FAssetList.Count - 1 do
+      begin
+        missileOnboardTemp := FAssetList.Items[i];
+
+        li := lvWeapon.Items.Add;
+        li.Caption := missileOnboardTemp.FData.Instance_Identifier;
+
+        li.Data := missileOnboardTemp;
+      end;
+
+      {$ENDREGION}
+    end;
+    1:
+    begin
+      {$REGION ' Torpedo '}
+      dmINWO.GetTorpedoOnBoard(FSelectedAsset.FData.VehicleIndex, FAssetList);
+
+      for i := 0 to FAssetList.Count - 1 do
+      begin
+        torpedoOnboardTemp := FAssetList.Items[i];
+
+        li := lvWeapon.Items.Add;
+        li.Caption := torpedoOnboardTemp.FData.Instance_Identifier;
+
+        li.Data := torpedoOnboardTemp;
+      end;
+      {$ENDREGION}
+    end;
+    2:
+    begin
+      {$REGION ' Mine '}
+      dmINWO.GetMineOnBoard(FSelectedAsset.FData.VehicleIndex, FAssetList);
+
+      for i := 0 to FAssetList.Count - 1 do
+      begin
+        mineOnboardTemp := FAssetList.Items[i];
+
+        li := lvWeapon.Items.Add;
+        li.Caption := mineOnboardTemp.FData.Instance_Identifier;
+
+        li.Data := mineOnboardTemp;
+      end;
+      {$ENDREGION}
+    end;
+    3:
+    begin
+      {$REGION ' Bomb '}
+      dmINWO.GetBombOnBoard(FSelectedAsset.FData.VehicleIndex, FAssetList);
+
+      for i := 0 to FAssetList.Count - 1 do
+      begin
+        bombOnboardTemp := FAssetList.Items[i];
+
+        li := lvWeapon.Items.Add;
+        li.Caption := bombOnboardTemp.FData.Instance_Identifier;
+
+        li.Data := bombOnboardTemp;
+      end;
+      {$ENDREGION}
+    end;
+    4:
+    begin
+      {$REGION ' Gun '}
+      dmINWO.GetGunOnBoard(FSelectedAsset.FData.VehicleIndex, FAssetList);
+
+      for i := 0 to FAssetList.Count - 1 do
+      begin
+        gunOnboardTemp := FAssetList.Items[i];
+
+        li := lvWeapon.Items.Add;
+        li.Caption := gunOnboardTemp.FData.Instance_Identifier;
+
+        li.Data := gunOnboardTemp;
+      end;
+      {$ENDREGION}
+    end;
+  end;
+
+  FAssetList.Free;
 end;
 
 procedure TfrmAsset.UpdateCountermeasureData;
 var
   i : Integer;
+  li: TListItem;
+  FAssetList : TList;
+
+  chaffOnboardTemp                  : TChaff_On_Board;
+  airbubbleOnboardTemp              : TAir_Bubble_On_Board;
+  acousticdecoyOnboardTemp          : TAcoustic_Decoy_On_Board;
+  floatingdecoyOnboardTemp          : TFloating_Decoy_On_Board;
+  infrareddecoyOnboardTemp          : TInfrared_Decoy_On_Board;
+  toweddecoyOnboardTemp             : TTowed_Decoy_On_Board;
+  selfdefensivejammerOnboardTemp    : TDefensive_Jammer_On_Board;
+  radarnoisejammerOnboardTemp       : TRadar_Noise_Jammer_On_Board;
 
 begin
   lvCountermeasures.Clear;
 
+  FAssetList := TList.Create;
+
+  case cbbCountermeasures.ItemIndex of
+    0:
+    begin
+      {$REGION ' Chaff '}
+      dmINWO.GetChaffOnBoard(FSelectedAsset.FData.VehicleIndex, FAssetList);
+
+      for i := 0 to FAssetList.Count - 1 do
+      begin
+        chaffOnboardTemp := FAssetList.Items[i];
+
+        li := lvCountermeasures.Items.Add;
+        li.Caption := chaffOnboardTemp.FData.Instance_Identifier;
+
+        li.Data := chaffOnboardTemp;
+      end;
+
+      {$ENDREGION}
+    end;
+    1:
+    begin
+      {$REGION ' Air Bubble '}
+      dmINWO.GetAirBubbleOnBoard(FSelectedAsset.FData.VehicleIndex, FAssetList);
+
+      for i := 0 to FAssetList.Count - 1 do
+      begin
+        airbubbleOnboardTemp := FAssetList.Items[i];
+
+        li := lvCountermeasures.Items.Add;
+        li.Caption := airbubbleOnboardTemp.FData.Instance_Identifier;
+
+        li.Data := airbubbleOnboardTemp;
+      end;
+      {$ENDREGION}
+    end;
+    2:
+    begin
+      {$REGION ' Acoustic Decoy '}
+      dmINWO.GetAcousticDecoyOnBoard(FSelectedAsset.FData.VehicleIndex, FAssetList);
+
+      for i := 0 to FAssetList.Count - 1 do
+      begin
+        acousticdecoyOnboardTemp := FAssetList.Items[i];
+
+        li := lvCountermeasures.Items.Add;
+        li.Caption := acousticdecoyOnboardTemp.FData.Instance_Identifier;
+
+        li.Data := acousticdecoyOnboardTemp;
+      end;
+      {$ENDREGION}
+    end;
+    3:
+    begin
+      {$REGION ' Floating Decoy '}
+      dmINWO.GetFloatingDecoyOnBoard(FSelectedAsset.FData.VehicleIndex, FAssetList);
+
+      for i := 0 to FAssetList.Count - 1 do
+      begin
+        floatingdecoyOnboardTemp := FAssetList.Items[i];
+
+        li := lvCountermeasures.Items.Add;
+        li.Caption := floatingdecoyOnboardTemp.FData.Instance_Identifier;
+
+        li.Data := floatingdecoyOnboardTemp;
+      end;
+      {$ENDREGION}
+    end;
+    4:
+    begin
+      {$REGION ' Infrared Decoy '}
+      dmINWO.GetInfraredDecoyOnBoard(FSelectedAsset.FData.VehicleIndex, FAssetList);
+
+      for i := 0 to FAssetList.Count - 1 do
+      begin
+        infrareddecoyOnboardTemp := FAssetList.Items[i];
+
+        li := lvCountermeasures.Items.Add;
+        li.Caption := infrareddecoyOnboardTemp.FData.Instance_Identifier;
+
+        li.Data := infrareddecoyOnboardTemp;
+      end;
+      {$ENDREGION}
+    end;
+    5:
+    begin
+      {$REGION ' Towed Decoy '}
+      dmINWO.GetTowedJammerDecoyOnBoard(FSelectedAsset.FData.VehicleIndex, FAssetList);
+
+      for i := 0 to FAssetList.Count - 1 do
+      begin
+        toweddecoyOnboardTemp := FAssetList.Items[i];
+
+        li := lvCountermeasures.Items.Add;
+        li.Caption := toweddecoyOnboardTemp.FData.Instance_Identifier;
+
+        li.Data := toweddecoyOnboardTemp;
+      end;
+      {$ENDREGION}
+    end;
+    6:
+    begin
+      {$REGION ' Self Defensive Jammer '}
+      dmINWO.GetSelfDefensiveJammerOnBoard(FSelectedAsset.FData.VehicleIndex, FAssetList);
+
+      for i := 0 to FAssetList.Count - 1 do
+      begin
+        selfdefensivejammerOnboardTemp := FAssetList.Items[i];
+
+        li := lvCountermeasures.Items.Add;
+        li.Caption := selfdefensivejammerOnboardTemp.FData.Instance_Identifier;
+
+        li.Data := selfdefensivejammerOnboardTemp;
+      end;
+      {$ENDREGION}
+    end;
+    7:
+    begin
+      {$REGION ' Radar Noise Jammer '}
+      dmINWO.GetRadarNoiseJammerOnBoard(FSelectedAsset.FData.VehicleIndex, FAssetList);
+
+      for i := 0 to FAssetList.Count - 1 do
+      begin
+        radarnoisejammerOnboardTemp := FAssetList.Items[i];
+
+        li := lvCountermeasures.Items.Add;
+        li.Caption := radarnoisejammerOnboardTemp.FData.Instance_Identifier;
+
+        li.Data := radarnoisejammerOnboardTemp;
+      end;
+      {$ENDREGION}
+    end;
+  end;
+
+  FAssetList.Free;
 end;
 
 procedure TfrmAsset.ValidationFormatInput;

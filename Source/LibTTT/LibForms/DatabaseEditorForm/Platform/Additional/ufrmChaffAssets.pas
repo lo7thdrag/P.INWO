@@ -99,8 +99,8 @@ implementation
 
 procedure TfrmChaffAssets.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  FreeItemsAndFreeList(FChaffLauncherList);
-  Action := cafree;
+//  FreeItemsAndFreeList(FChaffLauncherList);
+//  Action := cafree;
 end;
 
 procedure TfrmChaffAssets.FormCreate(Sender: TObject);

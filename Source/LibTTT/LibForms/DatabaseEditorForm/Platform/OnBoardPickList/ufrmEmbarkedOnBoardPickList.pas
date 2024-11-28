@@ -66,9 +66,9 @@ uses
 
 procedure TfrmEmbarkedOnBoardPickList.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  FreeItemsAndFreeList(FAllVehicleDefList);
-  FreeItemsAndFreeList(FAllVehicleOnBoardList);
-  Action := cafree;
+//  FreeItemsAndFreeList(FAllVehicleDefList);
+//  FreeItemsAndFreeList(FAllVehicleOnBoardList);
+//  Action := cafree;
 end;
 
 procedure TfrmEmbarkedOnBoardPickList.FormCreate(Sender: TObject);

@@ -43,9 +43,9 @@ type
     FSelectedVehicle : TAsset;
     FSelectedFloatingDecoy : TFloating_Decoy_On_Board;
 
+  public
     procedure UpdateFloatingDecoyList;
 
-  public
     property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
   end;
 
@@ -63,9 +63,9 @@ uses
 
 procedure TfrmFloatingDecoyOnBoardPickList.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  FreeItemsAndFreeList(FAllFloatingDecoyDefList);
-  FreeItemsAndFreeList(FAllFloatingDecoyOnBoardList);
-  Action := cafree;
+//  FreeItemsAndFreeList(FAllFloatingDecoyDefList);
+//  FreeItemsAndFreeList(FAllFloatingDecoyOnBoardList);
+//  Action := cafree;
 end;
 
 procedure TfrmFloatingDecoyOnBoardPickList.FormCreate(Sender: TObject);
@@ -125,15 +125,14 @@ end;
 
 procedure TfrmFloatingDecoyOnBoardPickList.btnRemoveClick(Sender: TObject);
 begin
-//  if lbAllFloatingDecoyOnBoard.ItemIndex = -1 then
-//    Exit;
-//
-//  with FSelectedFloatingDecoy.FData do
-//  begin
-//    dmINWO.DeleteFloatingDecoyOnBoard(2,Floating_Decoy_Instance_Index);
-//  end;
-//
-//  AfterClose := True;
+  if lbAllFloatingDecoyOnBoard.ItemIndex = -1 then
+    Exit;
+
+  with FSelectedFloatingDecoy.FData do
+  begin
+    dmINWO.DeleteFloatingDecoyOnBoard(2,Floating_Decoy_Instance_Index);
+  end;
+
 //  UpdateFloatingDecoyList;
 end;
 
@@ -159,27 +158,27 @@ begin
 end;
 
 procedure TfrmFloatingDecoyOnBoardPickList.UpdateFloatingDecoyList;
-//var
-//  i : Integer;
-//  floatingdecoy : TFloating_Decoy_On_Board;
+var
+  i : Integer;
+  floatingdecoy : TFloating_Decoy_On_Board;
 begin
-//  lbAllFloatingDecoyDef.Items.Clear;
-//  lbAllFloatingDecoyOnBoard.Items.Clear;
-//
-//  dmINWO.GetAllFloatingDecoyDef(FAllFloatingDecoyDefList);
-//  dmINWO.GetFloatingDecoyOnBoard(FSelectedVehicle.FData.VehicleIndex,FAllFloatingDecoyOnBoardList);
-//
-//  for i := 0 to FAllFloatingDecoyDefList.Count - 1 do
-//  begin
-//    floatingdecoy := FAllFloatingDecoyDefList.Items[i];
-//    lbAllFloatingDecoyDef.Items.AddObject(floatingdecoy.FFloatingDecoy_Def.Floating_Decoy_Identifier, floatingdecoy);
-//  end;
-//
-//  for i := 0 to FAllFloatingDecoyOnBoardList.Count - 1 do
-//  begin
-//    floatingdecoy := FAllFloatingDecoyOnBoardList.Items[i];
-//    lbAllFloatingDecoyOnBoard.Items.AddObject(floatingdecoy.FData.Instance_Identifier, floatingdecoy);
-//  end;
+  lbAllFloatingDecoyDef.Items.Clear;
+  lbAllFloatingDecoyOnBoard.Items.Clear;
+
+  dmINWO.GetAllFloatingDecoyDef(FAllFloatingDecoyDefList);
+  dmINWO.GetFloatingDecoyOnBoard(FSelectedVehicle.FData.VehicleIndex,FAllFloatingDecoyOnBoardList);
+
+  for i := 0 to FAllFloatingDecoyDefList.Count - 1 do
+  begin
+    floatingdecoy := FAllFloatingDecoyDefList.Items[i];
+    lbAllFloatingDecoyDef.Items.AddObject(floatingdecoy.FDef.Floating_Decoy_Identifier, floatingdecoy);
+  end;
+
+  for i := 0 to FAllFloatingDecoyOnBoardList.Count - 1 do
+  begin
+    floatingdecoy := FAllFloatingDecoyOnBoardList.Items[i];
+    lbAllFloatingDecoyOnBoard.Items.AddObject(floatingdecoy.FData.Instance_Identifier, floatingdecoy);
+  end;
 end;
 
 {$ENDREGION}

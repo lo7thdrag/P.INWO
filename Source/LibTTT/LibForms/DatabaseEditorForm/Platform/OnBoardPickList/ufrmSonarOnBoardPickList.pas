@@ -43,9 +43,9 @@ type
     FSelectedVehicle : TAsset;
     FSelectedSonar : TSonar_On_Board;
 
+  public
     procedure UpdateSonarList;
 
-  public
     property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
   end;
 
@@ -56,7 +56,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmSonarMount;
+  uDataModule, ufrmSonarMount, ufrmAsset;
 
 {$R *.dfm}
 
@@ -142,6 +142,7 @@ end;
 
 procedure TfrmSonarOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
+  frmAsset.UpdateSensorData;
   Close;
 end;
 

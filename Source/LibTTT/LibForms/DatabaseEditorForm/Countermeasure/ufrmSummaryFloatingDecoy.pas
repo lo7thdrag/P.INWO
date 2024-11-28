@@ -167,16 +167,10 @@ begin
 //    TimeToSecond(edtLifetimeDuration.Text, second);
 //    FFloatingDecoy_Def.Lifetime_Duration := second;
 //    {$ENDREGION}
-//
-//    {$REGION ' Notes '}
-//    FNote.Notes := mmoNotes.Text;
-//    {$ENDREGION}
-//
 //    if FFloatingDecoy_Def.Floating_Decoy_Index = 0 then
 //    begin
 //      if dmTTT.InsertFloatingDecoyDef(FFloatingDecoy_Def) then
 //      begin
-//        dmTTT.InsertNoteStorage(18, FFloatingDecoy_Def.Floating_Decoy_Index, FNote);
 //        ShowMessage('Data has been saved');
 //      end;
 //    end
@@ -184,7 +178,6 @@ begin
 //    begin
 //      if dmTTT.UpdateFloatingDecoyDef(FFloatingDecoy_Def) then
 //      begin
-//        dmTTT.UpdateNoteStorage(FFloatingDecoy_Def.Floating_Decoy_Index, FNote);
 //        ShowMessage('Data has been updated');
 //      end;
 //    end;
@@ -270,11 +263,6 @@ begin
 //    SecondToTime(Round(FFloatingDecoy_Def.Lifetime_Duration), timeStr);
 //    edtLifetimeDuration.Text := timeStr;
 //    {$ENDREGION}
-//
-//    {$REGION ' Notes '}
-//    mmoNotes.Text := FNote.Notes;
-//    {$ENDREGION}
-//
 //  end;
 end;
 

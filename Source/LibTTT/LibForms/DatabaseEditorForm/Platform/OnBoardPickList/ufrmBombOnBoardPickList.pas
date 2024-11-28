@@ -44,9 +44,9 @@ type
     FSelectedVehicle : TAsset;
     FSelectedBomb : TBomb_On_Board;
 
+  public
     procedure UpdateBombList;
 
-  public
     property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
   end;
 
@@ -64,9 +64,9 @@ uses
 
 procedure TfrmBombOnBoardPickList.FormClose(Sender: TObject;  var Action: TCloseAction);
 begin
-  FreeItemsAndFreeList(FAllBombDefList);
-  FreeItemsAndFreeList(FAllBombOnBoardList);
-  Action := cafree;
+//  FreeItemsAndFreeList(FAllBombDefList);
+//  FreeItemsAndFreeList(FAllBombOnBoardList);
+//  Action := cafree;
 end;
 
 procedure TfrmBombOnBoardPickList.FormCreate(Sender: TObject);

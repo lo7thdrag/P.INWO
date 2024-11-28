@@ -177,16 +177,10 @@ begin
 //
 //    FMine_Def.Mine_Lethality := trckbrLethality.Position;
 //    {$ENDREGION}
-//
-//    {$REGION ' Notes '}
-//    FNote.Notes := mmoNotes.Text;
-//    {$ENDREGION}
-//
 //    if FMine_Def.Mine_Index = 0 then
 //    begin
 //      if dmTTT.InsertMineDef(FMine_Def) then
 //      begin
-//        dmTTT.InsertNoteStorage(3, FMine_Def.Mine_Index, FNote);
 //        ShowMessage('Data has been saved');
 //      end;
 //    end
@@ -194,7 +188,6 @@ begin
 //    begin
 //      if dmTTT.UpdateMineDef(FMine_Def) then
 //      begin
-//        dmTTT.UpdateNoteStorage(FMine_Def.Mine_Index, FNote);
 //        ShowMessage('Data has been updated');
 //      end;
 //    end;
@@ -284,11 +277,6 @@ begin
 //
 //    trckbrLethality.Position := FMine_Def.Mine_Lethality;
 //    {$ENDREGION}
-//
-//    {$REGION ' Notes '}
-//    mmoNotes.Text := FNote.Notes;
-//    {$ENDREGION}
-//
 //  end;
 end;
 

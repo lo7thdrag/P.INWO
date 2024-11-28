@@ -133,16 +133,10 @@ begin
     FDef.Platform_Category := 0;
     FDef.Platform_Type := 0;
     {$ENDREGION}
-
-    {$REGION ' Notes '}
-    FNote.Notes := mmoNotes.Text;
-    {$ENDREGION}
-
     if FDef.Air_Bubble_Index = 0 then
     begin
       if dmINWO.InsertAirBubbleDef(FDef) then
       begin
-        dmINWO.InsertNoteStorage(21, FDef.Air_Bubble_Index, FNote);
         ShowMessage('Data has been saved');
       end;
     end
@@ -150,7 +144,6 @@ begin
     begin
       if dmINWO.UpdateAirBubbleDef(FDef) then
       begin
-        dmINWO.UpdateNoteStorage(FDef.Air_Bubble_Index, FNote);
         ShowMessage('Data has been updated');
       end;
     end;
@@ -184,11 +177,6 @@ begin
     edtAscentRate.Text := FormatFloat('0.00', FDef.Ascent_Rate);
     edtDescentRate.Text := FormatFloat('0.00', FDef.Descent_Rate);
     {$ENDREGION}
-
-    {$REGION ' Notes '}
-    mmoNotes.Text := FNote.Notes;
-    {$ENDREGION}
-
   end;
 end;
 

@@ -76,7 +76,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmBlindZoneAttachment ;
+  uDataModule, ufrmSonarOnBoardPickList ;
 
 {$R *.dfm}
 
@@ -85,7 +85,7 @@ uses
 procedure TfrmSonarMount.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
 //  FBlindZoneView.Free;
-  Action := cafree;
+//  Action := cafree;
 end;
 
 procedure TfrmSonarMount.FormCreate(Sender: TObject);
@@ -122,6 +122,7 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
+   frmSonarOnBoardPickList.UpdateSonarList;
    Close;
 end;
 

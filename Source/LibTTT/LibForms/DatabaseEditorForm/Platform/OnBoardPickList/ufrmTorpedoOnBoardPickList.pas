@@ -46,9 +46,9 @@ type
     FSelectedVehicle : TAsset;
     FSelectedTorpedo : TTorpedo_On_Board;
 
+  public
     procedure UpdateTorpedoList;
 
-  public
     property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
   end;
 
@@ -66,9 +66,9 @@ uses
 
 procedure TfrmTorpedoOnBoardPickList.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  FreeItemsAndFreeList(FAllTorpedoDefList);
-  FreeItemsAndFreeList(FAllTorpedoOnBoardList);
-  Action := cafree;
+//  FreeItemsAndFreeList(FAllTorpedoDefList);
+//  FreeItemsAndFreeList(FAllTorpedoOnBoardList);
+//  Action := cafree;
 end;
 
 procedure TfrmTorpedoOnBoardPickList.FormCreate(Sender: TObject);

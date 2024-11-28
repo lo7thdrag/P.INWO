@@ -251,10 +251,6 @@ begin
 //    FDef.Anti_Jamming_Range_Reduction := trckbrPercentageMaxUnambigous.Position;
     {$ENDREGION}
 
-    {$REGION ' Notes '}
-//    FNote.Notes := mmoNotes.Text;
-    {$ENDREGION}
-
     if FDef.Radar_Index = 0 then
     begin
       if dmINWO.InsertRadarDef(FDef) then

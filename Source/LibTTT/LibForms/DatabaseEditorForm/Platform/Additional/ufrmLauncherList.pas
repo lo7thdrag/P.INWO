@@ -68,8 +68,8 @@ end;
 
 procedure TfrmLauncherList.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  FreeItemsAndFreeList(FLauncherList);
-  Action := cafree;
+//  FreeItemsAndFreeList(FLauncherList);
+//  Action := cafree;
 end;
 
 {$ENDREGION}

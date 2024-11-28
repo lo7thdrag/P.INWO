@@ -44,9 +44,9 @@ type
     FSelectedVehicle : TAsset;
     FSelectedTowedJammerDecoy : TTowed_Decoy_On_Board;
 
+  public
     procedure UpdateTowedJammerDecoyList;
 
-  public
     property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
   end;
 
@@ -65,9 +65,9 @@ uses
 
 procedure TfrmTowedJammerDecoyOnBoardPickList.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  FreeItemsAndFreeList(FAllTowedJammerDecoyDefList);
-  FreeItemsAndFreeList(FAllTowedJammerDecoyOnBoardList);
-  Action := cafree;
+//  FreeItemsAndFreeList(FAllTowedJammerDecoyDefList);
+//  FreeItemsAndFreeList(FAllTowedJammerDecoyOnBoardList);
+//  Action := cafree;
 end;
 
 procedure TfrmTowedJammerDecoyOnBoardPickList.FormCreate(Sender: TObject);
@@ -107,35 +107,33 @@ end;
 
 procedure TfrmTowedJammerDecoyOnBoardPickList.btnEditClick(Sender: TObject);
 begin
-//  if lbAllTowedJammerDecoyOnBoard.ItemIndex = -1 then
-//    Exit;
-//
-//  if not Assigned(frmTowedJammerMount) then
-//    frmTowedJammerMount := TfrmTowedJammerMount.Create(Self);
-//  try
-//  try
-//    with frmTowedJammerMount do
-//    begin
-//      SelectedVehicle := FSelectedVehicle;
-//      SelectedTowedJammerDecoy := FSelectedTowedJammerDecoy;
-//      Show;
-//    end;
-//  finally
-//  end;
+  if lbAllTowedJammerDecoyOnBoard.ItemIndex = -1 then
+    Exit;
+
+  if not Assigned(frmTowedJammerMount) then
+    frmTowedJammerMount := TfrmTowedJammerMount.Create(Self);
+  try
+    with frmTowedJammerMount do
+    begin
+      SelectedVehicle := FSelectedVehicle;
+      SelectedTowedJammerDecoy := FSelectedTowedJammerDecoy;
+      Show;
+    end;
+  finally
+  end;
 //  UpdateTowedJammerDecoyList;
 end;
 
 procedure TfrmTowedJammerDecoyOnBoardPickList.btnRemoveClick(Sender: TObject);
 begin
-//  if lbAllTowedJammerDecoyOnBoard.ItemIndex = -1 then
-//    Exit;
-//
-//  with FSelectedTowedJammerDecoy.FData do
-//  begin
-//    dmINWO.DeleteTowedJammerDecoyOnBoard(2, Towed_Decoy_Instance_Index);
-//  end;
-//
-//  AfterClose := True;
+  if lbAllTowedJammerDecoyOnBoard.ItemIndex = -1 then
+    Exit;
+
+  with FSelectedTowedJammerDecoy.FData do
+  begin
+    dmINWO.DeleteTowedJammerDecoyOnBoard(2, Towed_Decoy_Instance_Index);
+  end;
+
 //  UpdateTowedJammerDecoyList;
 end;
 
@@ -161,27 +159,27 @@ begin
 end;
 
 procedure TfrmTowedJammerDecoyOnBoardPickList.UpdateTowedJammerDecoyList;
-//var
-//  i : Integer;
-//  towedjammerdecoy : TTowed_Jammer_Decoy_On_Board;
+var
+  i : Integer;
+  towedjammerdecoy : TTowed_Decoy_On_Board;
 begin
-//  lbAllTowedJammerDecoyDef.Items.Clear;
-//  lbAllTowedJammerDecoyOnBoard.Items.Clear;
-//
-//  dmINWO.GetAllTowedJammerDecoyDef(FAllTowedJammerDecoyDefList);
-//  dmINWO.GetTowedJammerDecoyOnBoard(FSelectedVehicle.FData.Vehicle_Index,FAllTowedJammerDecoyOnBoardList);
-//
-//  for i := 0 to FAllTowedJammerDecoyDefList.Count - 1 do
-//  begin
-//    towedjammerdecoy := FAllTowedJammerDecoyDefList.Items[i];
-//    lbAllTowedJammerDecoyDef.Items.AddObject(towedjammerdecoy.FDef.Towed_Decoy_Identifier, towedjammerdecoy);
-//  end;
-//
-//  for i := 0 to FAllTowedJammerDecoyOnBoardList.Count - 1 do
-//  begin
-//    towedjammerdecoy := FAllTowedJammerDecoyOnBoardList.Items[i];
-//    lbAllTowedJammerDecoyOnBoard.Items.AddObject(towedjammerdecoy.FData.Instance_Identifier, towedjammerdecoy);
-//  end;
+  lbAllTowedJammerDecoyDef.Items.Clear;
+  lbAllTowedJammerDecoyOnBoard.Items.Clear;
+
+  dmINWO.GetAllTowedDecoyDef(FAllTowedJammerDecoyDefList);
+  dmINWO.GetTowedJammerDecoyOnBoard(FSelectedVehicle.FData.VehicleIndex,FAllTowedJammerDecoyOnBoardList);
+
+  for i := 0 to FAllTowedJammerDecoyDefList.Count - 1 do
+  begin
+    towedjammerdecoy := FAllTowedJammerDecoyDefList.Items[i];
+    lbAllTowedJammerDecoyDef.Items.AddObject(towedjammerdecoy.FDef.Towed_Decoy_Identifier, towedjammerdecoy);
+  end;
+
+  for i := 0 to FAllTowedJammerDecoyOnBoardList.Count - 1 do
+  begin
+    towedjammerdecoy := FAllTowedJammerDecoyOnBoardList.Items[i];
+    lbAllTowedJammerDecoyOnBoard.Items.AddObject(towedjammerdecoy.FData.Instance_Identifier, towedjammerdecoy);
+  end;
 end;
 
 {$ENDREGION}

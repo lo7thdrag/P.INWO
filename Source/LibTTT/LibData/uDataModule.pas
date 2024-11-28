@@ -2250,8 +2250,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT * ');
-    SQL.Add('FROM Missile_Definition a LEFT JOIN Note_Storage b ');
-    SQL.Add('ON a.Missile_Index = b.Missile_Index ');
+    SQL.Add('FROM Missile_Definition');
     SQL.Add('ORDER BY Class_Identifier');
     Open;
 
@@ -2375,13 +2374,6 @@ begin
             Sea_State_Modelling_Capable := FieldByName('Sea_State_Modelling_Capable').AsInteger;
           end;
 
-          with rec.FNote do
-          begin
-            Note_Index := FieldByName('Note_Index').AsInteger;
-            Note_Type := FieldByName('Note_Type').AsInteger;
-            Notes := FieldByName('Notes').AsString;
-          end;
-
           {$ENDREGION}
 
           aList.Add(rec);
@@ -2409,8 +2401,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT * ');
-    SQL.Add('FROM Missile_Definition a LEFT JOIN Note_Storage b ');
-    SQL.Add('ON a.Missile_Index = b.Missile_Index ');
+    SQL.Add('FROM Missile_Definition');
     SQL.Add('WHERE Class_Identifier like '  + quotedStr('%' + aFilter + '%'));
     SQL.Add('ORDER BY Class_Identifier');
     Open;
@@ -2543,13 +2534,6 @@ begin
               ('Sea_State_Modelling_Capable').AsInteger;
           end;
 
-          with rec.FNote do
-          begin
-            Note_Index := FieldByName('Note_Index').AsInteger;
-            Note_Type := FieldByName('Note_Type').AsInteger;
-            Notes := FieldByName('Notes').AsString;
-          end;
-
           {$ENDREGION}
 
           aList.Add(rec);
@@ -2574,8 +2558,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT * ');
-    SQL.Add('FROM Missile_Definition a LEFT JOIN Note_Storage b ');
-    SQL.Add('ON a.Missile_Index = b.Missile_Index ');
+    SQL.Add('FROM Missile_Definition');
     SQL.Add('WHERE Class_Identifier LIKE ' + QuotedStr(aClassName));
     Open;
 
@@ -2913,8 +2896,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT * ');
-    SQL.Add('FROM Torpedo_Definition a LEFT JOIN Note_Storage b ');
-    SQL.Add('ON a.Torpedo_Index = b.Torpedo_Index ');
+    SQL.Add('FROM Torpedo_Definition');
     SQL.Add('ORDER BY Class_Identifier');
     Open;
 
@@ -3032,14 +3014,6 @@ begin
             .AsSingle;
           Detectability_Type := FieldByName('Detectability_Type').AsInteger;
         end;
-
-        with rec.FNote do
-        begin
-          Note_Index := FieldByName('Note_Index').AsInteger;
-          Note_Type := FieldByName('Note_Type').AsInteger;
-          Notes := FieldByName('Notes').AsString;
-        end;
-
         aList.Add(rec);
         Next;
       end;
@@ -3062,8 +3036,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT * ');
-    SQL.Add('FROM Torpedo_Definition a LEFT JOIN Note_Storage b ');
-    SQL.Add('ON a.Torpedo_Index = b.Torpedo_Index ');
+    SQL.Add('FROM Torpedo_Definition');
     SQL.Add('WHERE Class_Identifier like '  + quotedStr('%' + aFilter + '%'));
     SQL.Add('ORDER BY Class_Identifier');
     Open;
@@ -3182,14 +3155,6 @@ begin
             .AsSingle;
           Detectability_Type := FieldByName('Detectability_Type').AsInteger;
         end;
-
-        with rec.FNote do
-        begin
-          Note_Index := FieldByName('Note_Index').AsInteger;
-          Note_Type := FieldByName('Note_Type').AsInteger;
-          Notes := FieldByName('Notes').AsString;
-        end;
-
         aList.Add(rec);
         Next;
       end;
@@ -3209,8 +3174,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM Torpedo_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.Torpedo_Index = b.Torpedo_Index');
+    SQL.Add('FROM Torpedo_Definition');
     SQL.Add('WHERE Class_Identifier LIKE ' + QuotedStr(aClassName));
     Open;
 
@@ -3485,8 +3449,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT * ');
-    SQL.Add('FROM Mine_Definition a LEFT JOIN Note_Storage b ');
-    SQL.Add('ON a.Mine_Index = b.Mine_Index ');
+    SQL.Add('FROM Mine_Definition');
     SQL.Add('ORDER BY Mine_Identifier');
     Open;
 
@@ -3534,14 +3497,6 @@ begin
           Anti_SubSur_Capable := FieldByName('Anti_SubSur_Capable').AsInteger;
           Detectability_Type := FieldByName('Detectability_Type').AsInteger;
         end;
-
-        with rec.FNote do
-        begin
-          Note_Index := FieldByName('Note_Index').AsInteger;
-          Note_Type := FieldByName('Note_Type').AsInteger;
-          Notes := FieldByName('Notes').AsString;
-        end;
-
         aList.Add(rec);
         Next;
       end;
@@ -3564,8 +3519,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT * ');
-    SQL.Add('FROM Mine_Definition a LEFT JOIN Note_Storage b ');
-    SQL.Add('ON a.Mine_Index = b.Mine_Index ');
+    SQL.Add('FROM Mine_Definition');
     SQL.Add('WHERE Mine_Identifier like '  + quotedStr('%' + aFilter + '%'));
     SQL.Add('ORDER BY Mine_Identifier');
     Open;
@@ -3614,14 +3568,6 @@ begin
           Anti_SubSur_Capable := FieldByName('Anti_SubSur_Capable').AsInteger;
           Detectability_Type := FieldByName('Detectability_Type').AsInteger;
         end;
-
-        with rec.FNote do
-        begin
-          Note_Index := FieldByName('Note_Index').AsInteger;
-          Note_Type := FieldByName('Note_Type').AsInteger;
-          Notes := FieldByName('Notes').AsString;
-        end;
-
         aList.Add(rec);
         Next;
       end;
@@ -3641,8 +3587,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM Mine_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.Mine_Index = b.Mine_Index');
+    SQL.Add('FROM Mine_Definition');
     SQL.Add('WHERE Mine_Identifier LIKE ' + QuotedStr(aClassName));
     Open;
 
@@ -3789,8 +3734,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT * ');
-    SQL.Add('FROM Gun_Definition a LEFT JOIN Note_Storage b ');
-    SQL.Add('ON a.Gun_Index = b.Gun_Index ');
+    SQL.Add('FROM Gun_Definition');
     SQL.Add('WHERE a.Gun_Identifier like '  + quotedStr('%' + aFilter + '%'));
     SQL.Add('ORDER BY Gun_Identifier');
     Open;
@@ -3869,14 +3813,6 @@ begin
           NGS_EffectiveRadius := FieldByName('NGS_EffectiveRadius').AsSingle;
           NGS_DamageRating := FieldByName('NGS_DamageRating').AsInteger;
         end;
-
-        with rec.FNote do
-        begin
-          Note_Index := FieldByName('Note_Index').AsInteger;
-          Note_Type := FieldByName('Note_Type').AsInteger;
-          Notes := FieldByName('Notes').AsString;
-        end;
-
         aList.Add(rec);
         Next;
       end;
@@ -3899,8 +3835,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT * ');
-    SQL.Add('FROM Gun_Definition a LEFT JOIN Note_Storage b ');
-    SQL.Add('ON a.Gun_Index = b.Gun_Index ');
+    SQL.Add('FROM Gun_Definition');
     SQL.Add('ORDER BY Gun_Identifier');
     Open;
 
@@ -3978,14 +3913,6 @@ begin
           NGS_EffectiveRadius := FieldByName('NGS_EffectiveRadius').AsSingle;
           NGS_DamageRating := FieldByName('NGS_DamageRating').AsInteger;
         end;
-
-        with rec.FNote do
-        begin
-          Note_Index := FieldByName('Note_Index').AsInteger;
-          Note_Type := FieldByName('Note_Type').AsInteger;
-          Notes := FieldByName('Notes').AsString;
-        end;
-
         aList.Add(rec);
         Next;
       end;
@@ -4005,8 +3932,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM Gun_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.Gun_Index = b.Gun_Index');
+    SQL.Add('FROM Gun_Definition');
     SQL.Add('WHERE Gun_Identifier LIKE ' + QuotedStr(aClassName));
     Open;
 
@@ -4203,8 +4129,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT * ');
-    SQL.Add('FROM Bomb_Definition a LEFT JOIN Note_Storage b ');
-    SQL.Add('ON a.Bomb_Index = b.Bomb_Index ');
+    SQL.Add('FROM Bomb_Definition');
     SQL.Add('ORDER BY Bomb_Identifier');
     Open;
 
@@ -4246,14 +4171,6 @@ begin
           Rocket_Launcher := FieldByName('Rocket_Launcher').AsInteger;
 
         end;
-
-        with rec.FNote do
-        begin
-          Note_Index := FieldByName('Note_Index').AsInteger;
-          Note_Type := FieldByName('Note_Type').AsInteger;
-          Notes := FieldByName('Notes').AsString;
-        end;
-
         aList.Add(rec);
         Next;
       end;
@@ -4276,8 +4193,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT * ');
-    SQL.Add('FROM Bomb_Definition a LEFT JOIN Note_Storage b ');
-    SQL.Add('ON a.Bomb_Index = b.Bomb_Index ');
+    SQL.Add('FROM Bomb_Definition');
     SQL.Add('WHERE Bomb_Identifier like '  + quotedStr('%' + aFilter + '%'));
     SQL.Add('ORDER BY Bomb_Identifier');
     Open;
@@ -4319,14 +4235,6 @@ begin
           Anti_Amphibious_Capable := FieldByName('Anti_Amphibious_Capable').AsInteger;
           Rocket_Launcher := FieldByName('Rocket_Launcher').AsInteger;
         end;
-
-        with rec.FNote do
-        begin
-          Note_Index := FieldByName('Note_Index').AsInteger;
-          Note_Type := FieldByName('Note_Type').AsInteger;
-          Notes := FieldByName('Notes').AsString;
-        end;
-
         aList.Add(rec);
         Next;
       end;
@@ -4346,8 +4254,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM Bomb_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.Bomb_Index = b.Bomb_Index');
+    SQL.Add('FROM Bomb_Definition');
     SQL.Add('WHERE Bomb_Identifier LIKE ' + QuotedStr(aClassName));
     Open;
 
@@ -6141,9 +6048,8 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM ESM_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.ESM_Index = b.ESM_Index');
-    SQL.Add('ORDER BY a.Class_Identifier');
+    SQL.Add('FROM ESM_Definition');
+    SQL.Add('ORDER BY Class_Identifier');
     Open;
 
     Result := RecordCount;
@@ -6214,8 +6120,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM ESM_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.ESM_Index = b.ESM_Index');
+    SQL.Add('FROM ESM_Definition');
     SQL.Add('WHERE a.Class_Identifier like '  + quotedStr('%' + aFilter + '%'));
     SQL.Add('ORDER BY a.Class_Identifier');
     Open;
@@ -6285,8 +6190,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM ESM_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.ESM_Index = b.ESM_Index');
+    SQL.Add('FROM ESM_Definition');
     SQL.Add('WHERE a.Class_Identifier LIKE ' + QuotedStr(aClassName));
     Open;
 
@@ -6443,8 +6347,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM EO_Detection_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.EO_Index = b.EO_Index');
+    SQL.Add('FROM EO_Detection_Definition');
     SQL.Add('ORDER BY Class_Identifier');
     Open;
 
@@ -6473,7 +6376,7 @@ begin
 
         with rec.FDef do
         begin
-          EOD_Index := FieldByName('EOD_Index').AsInteger;
+          EOD_Index := FieldByName('EO_Index').AsInteger;
           Class_Identifier := FieldByName('Class_Identifier').AsString;
           Sensor_Type := FieldByName('Sensor_Type').AsInteger;
           Detection_Range := FieldByName('Detection_Range').AsSingle;
@@ -6505,8 +6408,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM EO_Detection_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.EO_Index = b.EO_Index');
+    SQL.Add('FROM EO_Detection_Definition');
     SQL.Add('WHERE Class_Identifier like '  + quotedStr('%' + aFilter + '%'));
     SQL.Add('ORDER BY Class_Identifier');
     Open;
@@ -6565,8 +6467,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM EO_Detection_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.EO_Index = b.EO_Index');
+    SQL.Add('FROM EO_Detection_Definition');
     SQL.Add('WHERE a.Class_Identifier LIKE ' + QuotedStr(aClassName));
     Open;
 
@@ -6684,9 +6585,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT * ');
-    SQL.Add('FROM Sonobuoy_Definition a LEFT JOIN Sonar_Definition b ');
-    SQL.Add('ON a.Sonar_Index = b.Sonar_Index LEFT JOIN Note_Storage c ');
-    SQL.Add('ON a.Sonobuoy_Index = c.Sonobuoy_Index ');
+    SQL.Add('FROM Sonobuoy_Definition');
     SQL.Add('ORDER BY Class_Identifier');
     Open;
 
@@ -6757,9 +6656,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT * ');
-    SQL.Add('FROM Sonobuoy_Definition a LEFT JOIN Sonar_Definition b ');
-    SQL.Add('ON a.Sonar_Index = b.Sonar_Index LEFT JOIN Note_Storage c ');
-    SQL.Add('ON a.Sonobuoy_Index = c.Sonobuoy_Index ');
+    SQL.Add('FROM Sonobuoy_Definition');
     SQL.Add('WHERE Class_Identifier like '  + quotedStr('%' + aFilter + '%'));
     SQL.Add('ORDER BY Class_Identifier');
     Open;
@@ -6828,8 +6725,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM Sonobuoy_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.Sonobuoy_Index = b.Sonobuoy_Index');
+    SQL.Add('FROM Sonobuoy_Definition');
     SQL.Add('WHERE a.Class_Identifier LIKE ' + QuotedStr(aClassName));
     Open;
 
@@ -6968,8 +6864,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT * ');
-    SQL.Add('FROM MAD_Definition a LEFT JOIN Note_Storage b ');
-    SQL.Add('ON a.MAD_Index = b.MAD_Index ');
+    SQL.Add('FROM MAD_Definition');
     SQL.Add('ORDER BY Class_Identifier');
     Open;
 
@@ -7027,8 +6922,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT * ');
-    SQL.Add('FROM MAD_Definition a LEFT JOIN Note_Storage b ');
-    SQL.Add('ON a.MAD_Index = b.MAD_Index ');
+    SQL.Add('FROM MAD_Definition');
     SQL.Add('WHERE Class_Identifier like '  + quotedStr('%' + aFilter + '%'));
     SQL.Add('ORDER BY Class_Identifier');
     Open;
@@ -7083,8 +6977,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM MAD_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.MAD_Index = b.MAD_Index');
+    SQL.Add('FROM MAD_Definition');
     SQL.Add('WHERE a.Class_Identifier LIKE ' + QuotedStr(aClassName));
     Open;
 
@@ -8391,9 +8284,8 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM Chaff_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.Chaff_Index = b.Chaff_Index');
-    SQL.Add('ORDER BY a.Chaff_Identifier');
+    SQL.Add('FROM Chaff_Definition');
+    SQL.Add('ORDER BY Chaff_Identifier');
     Open;
 
     Result := RecordCount;
@@ -8439,14 +8331,6 @@ begin
           Radar_Affect_Upper_Freq := FieldByName('Radar_Affect_Upper_Freq')
             .AsSingle;
         end;
-
-        with rec.FNote do
-        begin
-          Note_Index := FieldByName('Note_Index').AsInteger;
-          Note_Type := FieldByName('Note_Type').AsInteger;
-          Notes := FieldByName('Notes').AsString;
-        end;
-
         aList.Add(rec);
         Next;
       end;
@@ -8469,8 +8353,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM Chaff_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.Chaff_Index = b.Chaff_Index');
+    SQL.Add('FROM Chaff_Definition');
     SQL.Add('WHERE a.Chaff_Identifier like '  + quotedStr('%' + aFilter + '%'));
     SQL.Add('ORDER BY a.Chaff_Identifier');
     Open;
@@ -8518,14 +8401,6 @@ begin
           Radar_Affect_Upper_Freq := FieldByName('Radar_Affect_Upper_Freq')
             .AsSingle;
         end;
-
-        with rec.FNote do
-        begin
-          Note_Index := FieldByName('Note_Index').AsInteger;
-          Note_Type := FieldByName('Note_Type').AsInteger;
-          Notes := FieldByName('Notes').AsString;
-        end;
-
         aList.Add(rec);
         Next;
       end;
@@ -8545,8 +8420,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM Chaff_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.Chaff_Index = b.Chaff_Index');
+    SQL.Add('FROM Chaff_Definition');
     SQL.Add('WHERE Chaff_Identifier LIKE ' + QuotedStr(aClassName));
     Open;
 
@@ -8677,9 +8551,8 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM Air_Bubble_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.Air_Bubble_Index = b.Air_Bubble_Index');
-    SQL.Add('ORDER BY a.Air_Bubble_Identifier');
+    SQL.Add('FROM Air_Bubble_Definition');
+    SQL.Add('ORDER BY Air_Bubble_Identifier');
     Open;
 
     Result := RecordCount;
@@ -8718,14 +8591,6 @@ begin
           Ascent_Rate := FieldByName('Ascent_Rate').AsSingle;
           Descent_Rate := FieldByName('Descent_Rate').AsSingle;
         end;
-
-        with rec.FNote do
-        begin
-          Note_Index := FieldByName('Note_Index').AsInteger;
-          Note_Type := FieldByName('Note_Type').AsInteger;
-          Notes := FieldByName('Notes').AsString;
-        end;
-
         aList.Add(rec);
         Next;
       end;
@@ -8748,8 +8613,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM Air_Bubble_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.Air_Bubble_Index = b.Air_Bubble_Index');
+    SQL.Add('FROM Air_Bubble_Definition');
     SQL.Add('WHERE a.Air_Bubble_Identifier like '  + quotedStr('%' + aFilter + '%'));
     SQL.Add('ORDER BY a.Air_Bubble_Identifier');
     Open;
@@ -8790,14 +8654,6 @@ begin
           Ascent_Rate := FieldByName('Ascent_Rate').AsSingle;
           Descent_Rate := FieldByName('Descent_Rate').AsSingle;
         end;
-
-        with rec.FNote do
-        begin
-          Note_Index := FieldByName('Note_Index').AsInteger;
-          Note_Type := FieldByName('Note_Type').AsInteger;
-          Notes := FieldByName('Notes').AsString;
-        end;
-
         aList.Add(rec);
         Next;
       end;
@@ -8817,8 +8673,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM Air_Bubble_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.Air_Bubble_Index = b.Air_Bubble_Index');
+    SQL.Add('FROM Air_Bubble_Definition');
     SQL.Add('WHERE Air_Bubble_Identifier LIKE ' + QuotedStr(aClassName));
     Open;
 
@@ -8938,9 +8793,8 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM Acoustic_Decoy_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.Decoy_Index = b.Decoy_Index');
-    SQL.Add('ORDER BY a.Decoy_Identifier');
+    SQL.Add('FROM Acoustic_Decoy_Definition');
+    SQL.Add('ORDER BY Decoy_Identifier');
     Open;
 
     Result := RecordCount;
@@ -8973,14 +8827,6 @@ begin
           Acoustic_Intensity_Increase := FieldByName
             ('Acoustic_Intensity_Increase').AsSingle;
         end;
-
-        with rec.FNote do
-        begin
-          Note_Index := FieldByName('Note_Index').AsInteger;
-          Note_Type := FieldByName('Note_Type').AsInteger;
-          Notes := FieldByName('Notes').AsString;
-        end;
-
         aList.Add(rec);
         Next;
       end;
@@ -9003,10 +8849,9 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM Acoustic_Decoy_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.Decoy_Index = b.Decoy_Index');
+    SQL.Add('FROM Acoustic_Decoy_Definition');
     SQL.Add('WHERE a.Decoy_Identifier like '  + quotedStr('%' + aFilter + '%'));
-    SQL.Add('ORDER BY a.Decoy_Identifier');
+    SQL.Add('ORDER BY Decoy_Identifier');
     Open;
 
     Result := RecordCount;
@@ -9039,14 +8884,6 @@ begin
           Acoustic_Intensity_Increase := FieldByName
             ('Acoustic_Intensity_Increase').AsSingle;
         end;
-
-        with rec.FNote do
-        begin
-          Note_Index := FieldByName('Note_Index').AsInteger;
-          Note_Type := FieldByName('Note_Type').AsInteger;
-          Notes := FieldByName('Notes').AsString;
-        end;
-
         aList.Add(rec);
         Next;
       end;
@@ -9066,8 +8903,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM Acoustic_Decoy_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.Decoy_Index = b.Decoy_Index');
+    SQL.Add('FROM Acoustic_Decoy_Definition');
     SQL.Add('WHERE Decoy_Identifier LIKE ' + QuotedStr(aClassName));
     Open;
 
@@ -9172,9 +9008,8 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM Infrared_Decoy_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.Infrared_Decoy_Index = b.Infrared_Decoy_Index');
-    SQL.Add('ORDER BY a.Infrared_Decoy_Identifier');
+    SQL.Add('FROM Infrared_Decoy_Definition');
+    SQL.Add('ORDER BY Infrared_Decoy_Identifier');
     Open;
 
     Result := RecordCount;
@@ -9215,14 +9050,6 @@ begin
           Min_Dissipation_Time := FieldByName('Min_Dissipation_Time').AsInteger;
           Descent_Rate := FieldByName('Descent_Rate').AsSingle;
         end;
-
-        with rec.FNote do
-        begin
-          Note_Index := FieldByName('Note_Index').AsInteger;
-          Note_Type := FieldByName('Note_Type').AsInteger;
-          Notes := FieldByName('Notes').AsString;
-        end;
-
         aList.Add(rec);
         Next;
       end;
@@ -9245,10 +9072,9 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM Infrared_Decoy_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.Infrared_Decoy_Index = b.Infrared_Decoy_Index');
+    SQL.Add('FROM Infrared_Decoy_Definition');
     SQL.Add('WHERE a.Infrared_Decoy_Identifier like '  + quotedStr('%' + aFilter + '%'));
-    SQL.Add('ORDER BY a.Infrared_Decoy_Identifier');
+    SQL.Add('ORDER BY Infrared_Decoy_Identifier');
     Open;
 
     Result := RecordCount;
@@ -9289,14 +9115,6 @@ begin
           Min_Dissipation_Time := FieldByName('Min_Dissipation_Time').AsInteger;
           Descent_Rate := FieldByName('Descent_Rate').AsSingle;
         end;
-
-        with rec.FNote do
-        begin
-          Note_Index := FieldByName('Note_Index').AsInteger;
-          Note_Type := FieldByName('Note_Type').AsInteger;
-          Notes := FieldByName('Notes').AsString;
-        end;
-
         aList.Add(rec);
         Next;
       end;
@@ -9316,8 +9134,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM Infrared_Decoy_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.Infrared_Decoy_Index = b.Infrared_Decoy_Index');
+    SQL.Add('FROM Infrared_Decoy_Definition');
     SQL.Add('WHERE Infrared_Decoy_Identifier LIKE ' + QuotedStr(aClassName));
     Open;
 
@@ -9440,9 +9257,8 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM Floating_Decoy_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.Floating_Decoy_Index = b.Floating_Decoy_Index');
-    SQL.Add('ORDER BY a.Floating_Decoy_Identifier');
+    SQL.Add('FROM Floating_Decoy_Definition');
+    SQL.Add('ORDER BY Floating_Decoy_Identifier');
     Open;
 
     Result := RecordCount;
@@ -9487,14 +9303,6 @@ begin
           Side_Acoustic_Cross := FieldByName('Side_Acoustic_Cross').AsSingle;
           Lifetime_Duration := FieldByName('Lifetime_Duration').AsSingle;
         end;
-
-        with rec.FNote do
-        begin
-          Note_Index := FieldByName('Note_Index').AsInteger;
-          Note_Type := FieldByName('Note_Type').AsInteger;
-          Notes := FieldByName('Notes').AsString;
-        end;
-
         aList.Add(rec);
         Next;
       end;
@@ -9568,10 +9376,9 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM Floating_Decoy_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.Floating_Decoy_Index = b.Floating_Decoy_Index');
+    SQL.Add('FROM Floating_Decoy_Definition');
     SQL.Add('WHERE a.Floating_Decoy_Identifier like '  + quotedStr('%' + aFilter + '%'));
-    SQL.Add('ORDER BY a.Floating_Decoy_Identifier');
+    SQL.Add('ORDER BY Floating_Decoy_Identifier');
     Open;
 
     Result := RecordCount;
@@ -9616,15 +9423,7 @@ begin
           Side_Acoustic_Cross := FieldByName('Side_Acoustic_Cross').AsSingle;
           Lifetime_Duration := FieldByName('Lifetime_Duration').AsSingle;
         end;
-
-        with rec.FNote do
-        begin
-          Note_Index := FieldByName('Note_Index').AsInteger;
-          Note_Type := FieldByName('Note_Type').AsInteger;
-          Notes := FieldByName('Notes').AsString;
-        end;
-
-        aList.Add(rec);
+          aList.Add(rec);
         Next;
       end;
     end;
@@ -9643,8 +9442,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM Floating_Decoy_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.Floating_Decoy_Index = b.Floating_Decoy_Index');
+    SQL.Add('FROM Floating_Decoy_Definition');
     SQL.Add('WHERE Floating_Decoy_Identifier LIKE ' + QuotedStr(aClassName));
     Open;
 
@@ -9807,9 +9605,8 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM Towed_Jammer_Decoy_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.Towed_Decoy_Index = b.Towed_Decoy_Index');
-    SQL.Add('ORDER BY a.Towed_Decoy_Identifier');
+    SQL.Add('FROM Towed_Jammer_Decoy_Definition');
+    SQL.Add('ORDER BY Towed_Decoy_Identifier');
     Open;
 
     Result := RecordCount;
@@ -9862,14 +9659,6 @@ begin
           Tow_Length := FieldByName('Tow_Length').AsSingle;
           ECM_Type := FieldByName('ECM_Type').AsInteger;
         end;
-
-        with rec.FNote do
-        begin
-          Note_Index := FieldByName('Note_Index').AsInteger;
-          Note_Type := FieldByName('Note_Type').AsInteger;
-          Notes := FieldByName('Notes').AsString;
-        end;
-
         aList.Add(rec);
         Next;
       end;
@@ -9892,10 +9681,9 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM Towed_Jammer_Decoy_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.Towed_Decoy_Index = b.Towed_Decoy_Index');
+    SQL.Add('FROM Towed_Jammer_Decoy_Definition');
     SQL.Add('WHERE a.Towed_Decoy_Identifier like '  + quotedStr('%' + aFilter + '%'));
-    SQL.Add('ORDER BY a.Towed_Decoy_Identifier');
+    SQL.Add('ORDER BY Towed_Decoy_Identifier');
     Open;
 
     Result := RecordCount;
@@ -9948,14 +9736,6 @@ begin
           Tow_Length := FieldByName('Tow_Length').AsSingle;
           ECM_Type := FieldByName('ECM_Type').AsInteger;
         end;
-
-        with rec.FNote do
-        begin
-          Note_Index := FieldByName('Note_Index').AsInteger;
-          Note_Type := FieldByName('Note_Type').AsInteger;
-          Notes := FieldByName('Notes').AsString;
-        end;
-
         aList.Add(rec);
         Next;
       end;
@@ -9975,8 +9755,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM Towed_Jammer_Decoy_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.Towed_Decoy_Index = b.Towed_Decoy_Index');
+    SQL.Add('FROM Towed_Jammer_Decoy_Definition');
     SQL.Add('WHERE Towed_Decoy_Identifier LIKE ' + QuotedStr(aClassName));
     Open;
 
@@ -10127,9 +9906,8 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM Defensive_Jammer_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.Defensive_Jammer_Index = b.Defensive_Jammer_Index');
-    SQL.Add('ORDER BY a.Defensive_Jammer_Identifier');
+    SQL.Add('FROM Defensive_Jammer_Definition');
+    SQL.Add('ORDER BY Defensive_Jammer_Identifier');
     Open;
 
     Result := RecordCount;
@@ -10168,14 +9946,6 @@ begin
           Type_C_Seducing_Prob := FieldByName('Type_C_Seducing_Prob').AsSingle;
           ECM_Type := FieldByName('ECM_Type').AsInteger;
         end;
-
-        with rec.FNote do
-        begin
-          Note_Index := FieldByName('Note_Index').AsInteger;
-          Note_Type := FieldByName('Note_Type').AsInteger;
-          Notes := FieldByName('Notes').AsString;
-        end;
-
         aList.Add(rec);
         Next;
       end;
@@ -10198,10 +9968,9 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM Defensive_Jammer_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.Defensive_Jammer_Index = b.Defensive_Jammer_Index');
+    SQL.Add('FROM Defensive_Jammer_Definition');
     SQL.Add('WHERE a.Defensive_Jammer_Identifier like '  + quotedStr('%' + aFilter + '%'));
-    SQL.Add('ORDER BY a.Defensive_Jammer_Identifier');
+    SQL.Add('ORDER BY Defensive_Jammer_Identifier');
     Open;
 
     Result := RecordCount;
@@ -10240,14 +10009,6 @@ begin
           Type_C_Seducing_Prob := FieldByName('Type_C_Seducing_Prob').AsSingle;
           ECM_Type := FieldByName('ECM_Type').AsInteger;
         end;
-
-        with rec.FNote do
-        begin
-          Note_Index := FieldByName('Note_Index').AsInteger;
-          Note_Type := FieldByName('Note_Type').AsInteger;
-          Notes := FieldByName('Notes').AsString;
-        end;
-
         aList.Add(rec);
         Next;
       end;
@@ -10321,8 +10082,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM Defensive_Jammer_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.Defensive_Jammer_Index = b.Defensive_Jammer_Index');
+    SQL.Add('FROM Defensive_Jammer_Definition');
     SQL.Add('WHERE Defensive_Jammer_Identifier LIKE ' + QuotedStr(aClassName));
     Open;
 
@@ -10442,8 +10202,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM Jammer_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.Jammer_Index = b.Jammer_Index');
+    SQL.Add('FROM Jammer_Definition');
     SQL.Add('ORDER BY Jammer_Identifier ');
     Open;
 
@@ -10485,14 +10244,6 @@ begin
           Lower_Vert_Coverage_Angle := FieldByName('Lower_Vert_Coverage_Angle')
             .AsFloat;
         end;
-
-        with rec.FNote do
-        begin
-          Note_Index := FieldByName('Note_Index').AsInteger;
-          Note_Type := FieldByName('Note_Type').AsInteger;
-          Notes := FieldByName('Notes').AsString;
-        end;
-
         aList.Add(rec);
         Next;
       end;
@@ -10515,8 +10266,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM Jammer_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.Jammer_Index = b.Jammer_Index');
+    SQL.Add('FROM Jammer_Definition');
     SQL.Add('WHERE Jammer_Identifier like '  + quotedStr('%' + aFilter + '%'));
     SQL.Add('ORDER BY Jammer_Identifier ');
     Open;
@@ -10559,14 +10309,6 @@ begin
           Lower_Vert_Coverage_Angle := FieldByName('Lower_Vert_Coverage_Angle')
             .AsFloat;
         end;
-
-        with rec.FNote do
-        begin
-          Note_Index := FieldByName('Note_Index').AsInteger;
-          Note_Type := FieldByName('Note_Type').AsInteger;
-          Notes := FieldByName('Notes').AsString;
-        end;
-
         aList.Add(rec);
         Next;
       end;
@@ -10586,8 +10328,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('SELECT *');
-    SQL.Add('FROM Jammer_Definition a LEFT JOIN Note_Storage b');
-    SQL.Add('ON a.Jammer_Index = b.Jammer_Index');
+    SQL.Add('FROM Jammer_Definition');
     SQL.Add('WHERE Jammer_Identifier LIKE ' + QuotedStr(aClassName));
     Open;
 

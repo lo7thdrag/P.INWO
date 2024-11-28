@@ -58,7 +58,7 @@ var
 implementation
 
 uses
-  uDataModule;
+  uDataModule,ufrmFloatingDecoyOnBoardPickList;
 
 {$R *.dfm}
 
@@ -88,6 +88,7 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
+    frmFloatingDecoyOnBoardPickList.UpdateFloatingDecoyList;
     Close;
 end;
 
@@ -126,35 +127,35 @@ end;
 
 function TfrmFloatingDecoyMount.CekInput: Boolean;
 begin
-//  Result := False;
-//
-//  {Jika Mount Name sudah ada}
-//  if dmTTT.GetFloatingDecoyOnBoardCount(FSelectedVehicle.FData.Vehicle_Index, edtName.Text) then
-//  begin
-//    {Jika inputan baru}
-//    if FSelectedFloatingDecoy.FData.Floating_Decoy_Instance_Index = 0 then
-//    begin
-//      ShowMessage('Duplicate Floating Decoy!' + Char(13) + 'Choose Floating Decoy to continue.');
-//      Exit;
-//    end;
-//  end;
-//
-//  Result := True;
+  Result := False;
+
+  {Jika Mount Name sudah ada}
+  if dmINWO.GetFloatingDecoyOnBoardCount(FSelectedVehicle.FData.VehicleIndex, edtName.Text) then
+  begin
+    {Jika inputan baru}
+    if FSelectedFloatingDecoy.FData.Floating_Decoy_Instance_Index = 0 then
+    begin
+      ShowMessage('Duplicate Floating Decoy!' + Char(13) + 'Choose Floating Decoy to continue.');
+      Exit;
+    end;
+  end;
+
+  Result := True;
 end;
 
 procedure TfrmFloatingDecoyMount.UpdateFloatingDecoyData;
 begin
-//  with FSelectedFloatingDecoy do
-//  begin
-//    if FData.Floating_Decoy_Instance_Index = 0 then
-//      edtName.Text := FFloatingDecoy_Def.Floating_Decoy_Identifier
-//    else
-//      edtName.Text := FData.Instance_Identifier;
-//
-//     LastName := edtName.Text;
-//
-//    edtQuantity.Text := IntToStr(FData.Quantity);
-//  end;
+  with FSelectedFloatingDecoy do
+  begin
+    if FData.Floating_Decoy_Instance_Index = 0 then
+      edtName.Text := FDef.Floating_Decoy_Identifier
+    else
+      edtName.Text := FData.Instance_Identifier;
+
+     LastName := edtName.Text;
+
+    edtQuantity.Text := IntToStr(FData.Quantity);
+  end;
 end;
 
 {$ENDREGION}

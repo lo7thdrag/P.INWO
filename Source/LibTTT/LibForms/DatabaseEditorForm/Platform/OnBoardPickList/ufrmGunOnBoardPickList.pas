@@ -44,9 +44,9 @@ type
     FSelectedVehicle : TAsset;
     FSelectedGun : TGun_On_Board;
 
+  public
     procedure UpdateGunList;
 
-  public
     property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
   end;
 
@@ -64,9 +64,9 @@ uses
 
 procedure TfrmGunOnBoardPickList.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  FreeItemsAndFreeList(FAllGunDefList);
-  FreeItemsAndFreeList(FAllGunOnBoardList);
-  Action := cafree;
+//  FreeItemsAndFreeList(FAllGunDefList);
+//  FreeItemsAndFreeList(FAllGunOnBoardList);
+//  Action := cafree;
 end;
 
 procedure TfrmGunOnBoardPickList.FormCreate(Sender: TObject);

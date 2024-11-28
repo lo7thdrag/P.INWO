@@ -76,7 +76,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmBlindZoneAttachment;
+  uDataModule, ufrmTorpedoOnBoardPickList;
 
 {$R *.dfm}
 
@@ -122,6 +122,7 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
+    frmTorpedoOnBoardPickList.UpdateTorpedoList;
     Close;
 end;
 

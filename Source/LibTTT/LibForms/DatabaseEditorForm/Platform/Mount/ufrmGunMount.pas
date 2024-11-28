@@ -71,7 +71,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmBlindZoneAttachment;
+  uDataModule, ufrmGunOnBoardPickList;
 
 {$R *.dfm}
 
@@ -117,6 +117,7 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
+    frmGunOnBoardPickList.UpdateGunList;
     Close;
 end;
 

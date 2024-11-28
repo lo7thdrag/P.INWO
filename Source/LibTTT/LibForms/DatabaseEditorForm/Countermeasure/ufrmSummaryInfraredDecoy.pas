@@ -153,16 +153,10 @@ begin
     FDef.Platform_Category := 1;
     FDef.Platform_Type := 1;
     {$ENDREGION}
-
-    {$REGION ' Notes '}
-    FNote.Notes := mmoNotes.Text;
-    {$ENDREGION}
-
     if FDef.Infrared_Decoy_Index = 0 then
     begin
       if dmINWO.InsertInfraredDecoyDef(FDef) then
       begin
-        dmINWO.InsertNoteStorage(23, FDef.Infrared_Decoy_Index, FNote);
         ShowMessage('Data has been saved');
       end;
     end
@@ -170,7 +164,6 @@ begin
     begin
       if dmINWO.UpdateInfraredDecoyDef(FDef) then
       begin
-        dmINWO.UpdateNoteStorage(FDef.Infrared_Decoy_Index, FNote);
         ShowMessage('Data has been updated');
       end;
     end;
@@ -216,10 +209,6 @@ begin
     edtDissipationIn100.Text := timeStr;
 
     edtDescentRate.Text := FormatFloat('0.00', FDef.Descent_Rate);
-    {$ENDREGION}
-
-    {$REGION ' Notes '}
-    mmoNotes.Text := FNote.Notes;
     {$ENDREGION}
   end;
 end;

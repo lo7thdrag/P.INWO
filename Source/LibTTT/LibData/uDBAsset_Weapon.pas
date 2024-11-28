@@ -16,7 +16,6 @@ type
   public
     FData : TRecFitted_Weapon_On_Board;
     FDef  : TRecMissile_Definition;
-    FNote : TRecNote_Storage;
 
     constructor Create;
     destructor Destroy;override;
@@ -27,7 +26,6 @@ type
   public
     FData : TRecFitted_Weapon_On_Board;
     FDef  : TRecTorpedo_Definition;
-    FNote : TRecNote_Storage;
 
     constructor Create;
     destructor Destroy;override;
@@ -38,7 +36,6 @@ type
   public
     FData : TRecPoint_Effect_On_Board;
     FDef  : TRecGun_Definition;
-    FNote : TRecNote_Storage;
 
     constructor Create;
     destructor Destroy;override;
@@ -49,7 +46,6 @@ type
   public
     FData : TRecPoint_Effect_On_Board;
     FDef  : TRecBomb_Definition;
-    FNote : TRecNote_Storage;
 
     constructor Create;
     destructor Destroy;override;
@@ -60,7 +56,6 @@ type
   public
     FData : TRecFitted_Weapon_On_Board;
     FDef  : TRecMine_Definition;
-    FNote : TRecNote_Storage;
 
     constructor Create;
     destructor Destroy;override;

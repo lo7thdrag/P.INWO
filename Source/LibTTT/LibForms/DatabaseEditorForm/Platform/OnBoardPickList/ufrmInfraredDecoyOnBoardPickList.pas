@@ -43,9 +43,9 @@ type
     FSelectedVehicle : TAsset;
     FSelectedInfraredDecoy : TInfrared_Decoy_On_Board;
 
+  public
     procedure UpdateInfraredDecoyList;
 
-  public
     property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
   end;
 
@@ -64,9 +64,9 @@ uses
 
 procedure TfrmInfraredDecoyOnBoardPickList.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  FreeItemsAndFreeList(FAllInfraredDecoyDefList);
-  FreeItemsAndFreeList(FAllInfraredDecoyOnBoardList);
-  Action := cafree;
+//  FreeItemsAndFreeList(FAllInfraredDecoyDefList);
+//  FreeItemsAndFreeList(FAllInfraredDecoyOnBoardList);
+//  Action := cafree;
 end;
 
 procedure TfrmInfraredDecoyOnBoardPickList.FormCreate(Sender: TObject);
@@ -116,7 +116,7 @@ begin
     begin
       SelectedVehicle := FSelectedVehicle;
       SelectedInfraredDecoy := FSelectedInfraredDecoy;
-      ShowModal;
+      Show;
     end;
   finally
   end;
@@ -126,15 +126,14 @@ end;
 
 procedure TfrmInfraredDecoyOnBoardPickList.btnRemoveClick(Sender: TObject);
 begin
-//  if lbAllInfraredDecoyOnBoard.ItemIndex = -1 then
-//    Exit;
-//
-//  with FSelectedInfraredDecoy.FData do
-//  begin
-//    dmTTT.DeleteInfraredDecoyOnBoard(2, Infrared_Decoy_Instance_Index);
-//  end;
-//
-//  AfterClose := True;
+  if lbAllInfraredDecoyOnBoard.ItemIndex = -1 then
+    Exit;
+
+  with FSelectedInfraredDecoy.FData do
+  begin
+    dmINWO.DeleteInfraredDecoyOnBoard(2, Infrared_Decoy_Instance_Index);
+  end;
+
 //  UpdateInfraredDecoyList;
 end;
 
@@ -160,27 +159,27 @@ begin
 end;
 
 procedure TfrmInfraredDecoyOnBoardPickList.UpdateInfraredDecoyList;
-//var
-//  i : Integer;
-//  infrareddecoy : TInfrared_Decoy_On_Board;
+var
+  i : Integer;
+  infrareddecoy : TInfrared_Decoy_On_Board;
 begin
-//  lbAllInfraredDecoyDef.Items.Clear;
-//  lbAllInfraredDecoyOnBoard.Items.Clear;
-//
-//  dmINWO.GetAllInfraredDecoyDef(FAllInfraredDecoyDefList);
-//  dmINWO.GetInfraredDecoyOnBoard(FSelectedVehicle.FData.VehicleIndex,FAllInfraredDecoyOnBoardList);
-//
-//  for i := 0 to FAllInfraredDecoyDefList.Count - 1 do
-//  begin
-//    infrareddecoy := FAllInfraredDecoyDefList.Items[i];
-//    lbAllInfraredDecoyDef.Items.AddObject(infrareddecoy.FInfraRedDecoy_Def.Infrared_Decoy_Identifier, infrareddecoy);
-//  end;
-//
-//  for i := 0 to FAllInfraredDecoyOnBoardList.Count - 1 do
-//  begin
-//    infrareddecoy := FAllInfraredDecoyOnBoardList.Items[i];
-//    lbAllInfraredDecoyOnBoard.Items.AddObject(infrareddecoy.FData.Instance_Identifier, infrareddecoy);
-//  end;
+  lbAllInfraredDecoyDef.Items.Clear;
+  lbAllInfraredDecoyOnBoard.Items.Clear;
+
+  dmINWO.GetAllInfraredDecoyDef(FAllInfraredDecoyDefList);
+  dmINWO.GetInfraredDecoyOnBoard(FSelectedVehicle.FData.VehicleIndex,FAllInfraredDecoyOnBoardList);
+
+  for i := 0 to FAllInfraredDecoyDefList.Count - 1 do
+  begin
+    infrareddecoy := FAllInfraredDecoyDefList.Items[i];
+    lbAllInfraredDecoyDef.Items.AddObject(infrareddecoy.FDef.Infrared_Decoy_Identifier, infrareddecoy);
+  end;
+
+  for i := 0 to FAllInfraredDecoyOnBoardList.Count - 1 do
+  begin
+    infrareddecoy := FAllInfraredDecoyOnBoardList.Items[i];
+    lbAllInfraredDecoyOnBoard.Items.AddObject(infrareddecoy.FData.Instance_Identifier, infrareddecoy);
+  end;
 end;
 
 {$ENDREGION}

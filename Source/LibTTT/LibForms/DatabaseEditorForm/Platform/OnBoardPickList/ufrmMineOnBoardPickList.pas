@@ -44,9 +44,8 @@ type
     FSelectedVehicle : TAsset;
     FSelectedMine : TMine_On_Board;
 
-    procedure UpdateMineList;
-
   public
+    procedure UpdateMineList;
     property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
   end;
 
@@ -64,9 +63,9 @@ uses
 
 procedure TfrmMineOnBoardPickList.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  FreeItemsAndFreeList(FAllMineDefList);
-  FreeItemsAndFreeList(FAllMineOnBoardList);
-  Action := cafree;
+//  FreeItemsAndFreeList(FAllMineDefList);
+//  FreeItemsAndFreeList(FAllMineOnBoardList);
+//  Action := cafree;
 end;
 
 procedure TfrmMineOnBoardPickList.FormCreate(Sender: TObject);

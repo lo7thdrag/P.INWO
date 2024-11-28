@@ -122,16 +122,10 @@ begin
 
     Fdef.Acoustic_Intensity_Increase := trckbrDecoyNoise.Position;
     {$ENDREGION}
-
-    {$REGION ' Notes '}
-    FNote.Notes := mmoNotes.Text;
-    {$ENDREGION}
-
     if Fdef.Decoy_Index = 0 then
     begin
       if dmINWO.InsertAcousticDecoyDef(Fdef) then
       begin
-        dmINWO.InsertNoteStorage(20, Fdef.Decoy_Index, FNote);
         ShowMessage('Data has been saved');
       end;
     end
@@ -139,7 +133,6 @@ begin
     begin
       if dmINWO.UpdateAcousticDecoyDef(Fdef) then
       begin
-        dmINWO.UpdateNoteStorage(Fdef.Decoy_Index, FNote);
         ShowMessage('Data has been updated');
       end;
     end;
@@ -206,11 +199,6 @@ begin
     trckbrDecoyNoise.Position := Round(Fdef.Acoustic_Intensity_Increase);
     btnEdtProbOfHit.Enabled := Fdef.Decoy_Index <> 0;
     {$ENDREGION}
-
-    {$REGION ' Notes '}
-    mmoNotes.Text := FNote.Notes;
-    {$ENDREGION}
-
   end;
 end;
 

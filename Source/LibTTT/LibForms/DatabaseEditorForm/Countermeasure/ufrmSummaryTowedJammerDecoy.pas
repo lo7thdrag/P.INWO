@@ -208,16 +208,10 @@ begin
     FDef.Type_B_Seducing_Prob := TrackBarTypeB.Position / 100;
     FDef.Type_C_Seducing_Prob := TrackBarTypeC.Position / 100;
     {$ENDREGION}
-
-    {$REGION ' Notes '}
-    FNote.Notes := mmoNotes.Text;
-    {$ENDREGION}
-
     if FDef.Towed_Decoy_Index = 0 then
     begin
       if dmINWO.InsertTowedDecoyDef(FDef) then
       begin
-        dmINWO.InsertNoteStorage(17, FDef.Towed_Decoy_Index, FNote);
         ShowMessage('Data has been saved');
       end;
     end
@@ -225,7 +219,6 @@ begin
     begin
       if dmINWO.UpdateTowedDecoyDef(FDef) then
       begin
-        dmINWO.UpdateNoteStorage(FDef.Towed_Decoy_Index, FNote);
         ShowMessage('Data has been updated');
       end;
     end;
@@ -361,11 +354,6 @@ begin
     edtFrontVisualCross.Text := FormatFloat('0.0', FDef.Front_Visual_Cross);
     edtSideVisualCross.Text := FormatFloat('0.0', FDef.Side_Visual_Cross);
     {$ENDREGION}
-
-    {$REGION ' Notes '}
-    mmoNotes.Text := FNote.Notes;
-    {$ENDREGION}
-
   end;
 end;
 

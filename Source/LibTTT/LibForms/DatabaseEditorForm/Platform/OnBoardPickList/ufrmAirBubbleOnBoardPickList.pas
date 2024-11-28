@@ -44,9 +44,9 @@ type
     FSelectedVehicle : TAsset;
     FSelectedAirBubble : TAir_Bubble_On_Board;
 
+  public
     procedure UpdateAirBubbleList;
 
-  public
     property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
   end;
 
@@ -64,9 +64,9 @@ uses
 
 procedure TfrmAirBubbleOnBoardPickList.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  FreeItemsAndFreeList(FAllAirBubbleDefList);
-  FreeItemsAndFreeList(FAllAirBubbleOnBoardList);
-  Action := cafree;
+//  FreeItemsAndFreeList(FAllAirBubbleDefList);
+//  FreeItemsAndFreeList(FAllAirBubbleOnBoardList);
+//  Action := cafree;
 end;
 
 procedure TfrmAirBubbleOnBoardPickList.FormCreate(Sender: TObject);
@@ -159,27 +159,27 @@ begin
 end;
 
 procedure TfrmAirBubbleOnBoardPickList.UpdateAirBubbleList;
-//var
-//  i : Integer;
-//  airbubble : TAir_Bubble_On_Board;
+var
+  i : Integer;
+  airbubble : TAir_Bubble_On_Board;
 begin
-//  lbAllAirBubbleDef.Items.Clear;
-//  lbAllAirBubbleOnBoard.Items.Clear;
-//
-//  dmINWO.GetAllAirBubbleDef(FAllAirBubbleDefList);
-//  dmINWO.GetAirBubbleOnBoard(FSelectedVehicle.FData.VehicleIndex,FAllAirBubbleOnBoardList);
-//
-//  for i := 0 to FAllAirBubbleDefList.Count - 1 do
-//  begin
-//    airbubble := FAllAirBubbleDefList.Items[i];
-//    lbAllAirBubbleDef.Items.AddObject(airbubble.FAirBubble_Def.Air_Bubble_Identifier, airbubble);
-//  end;
-//
-//  for i := 0 to FAllAirBubbleOnBoardList.Count - 1 do
-//  begin
-//    airbubble := FAllAirBubbleOnBoardList.Items[i];
-//    lbAllAirBubbleOnBoard.Items.AddObject(airbubble.FData.Instance_Identifier, airbubble);
-//  end;
+  lbAllAirBubbleDef.Items.Clear;
+  lbAllAirBubbleOnBoard.Items.Clear;
+
+  dmINWO.GetAllAirBubbleDef(FAllAirBubbleDefList);
+  dmINWO.GetAirBubbleOnBoard(FSelectedVehicle.FData.VehicleIndex,FAllAirBubbleOnBoardList);
+
+  for i := 0 to FAllAirBubbleDefList.Count - 1 do
+  begin
+    airbubble := FAllAirBubbleDefList.Items[i];
+    lbAllAirBubbleDef.Items.AddObject(airbubble.FDef.Air_Bubble_Identifier, airbubble);
+  end;
+
+  for i := 0 to FAllAirBubbleOnBoardList.Count - 1 do
+  begin
+    airbubble := FAllAirBubbleOnBoardList.Items[i];
+    lbAllAirBubbleOnBoard.Items.AddObject(airbubble.FData.Instance_Identifier, airbubble);
+  end;
 end;
 
 {$ENDREGION}

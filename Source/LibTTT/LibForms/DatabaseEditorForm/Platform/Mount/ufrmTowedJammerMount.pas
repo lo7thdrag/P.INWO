@@ -40,9 +40,9 @@ type
   private
     FSelectedVehicle : TAsset;
     FSelectedTowedJammerDecoy : TTowed_Decoy_On_Board;
-
-    function CekInput: Boolean;
     procedure UpdateTowedJammerDecoyData;
+    function CekInput: Boolean;
+
   public
     LastName : string;
 
@@ -58,7 +58,7 @@ var
 implementation
 
 uses
-  uDataModule;
+  uDataModule, ufrmTowedJammerDecoyOnBoardPickList;
 
 {$R *.dfm}
 
@@ -66,7 +66,7 @@ uses
 
 procedure TfrmTowedJammerMount.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  Action := cafree;
+//  Action := cafree;
 end;
 
 procedure TfrmTowedJammerMount.FormShow(Sender: TObject);
@@ -88,6 +88,7 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
+    frmTowedJammerDecoyOnBoardPickList.UpdateTowedJammerDecoyList;
     Close;
 end;
 
@@ -126,40 +127,40 @@ end;
 
 function TfrmTowedJammerMount.CekInput: Boolean;
 begin
-//  Result := False;
-//
-//  {Jika Mount Name sudah ada}
-//  if dmINWO.GetTowedJammerOnBoardCount(FSelectedVehicle.FData.Vehicle_Index, edtName.Text) then
-//  begin
-//    {Jika inputan baru}
-//    if FSelectedTowedJammerDecoy.FData.Towed_Decoy_Instance_Index = 0 then
-//    begin
-//      ShowMessage('Duplicate Towed Jammer Decoy!' + Char(13) + 'Choose Towed Jammer Decoy to continue.');
-//      Exit;
-//    end
-//    else if LastName <> edtName.Text then
-//    begin
-//      ShowMessage('Please use another class name');
-//      Exit;
-//    end;
-//  end;
-//
-//  Result := True;
+  Result := False;
+
+  {Jika Mount Name sudah ada}
+  if dmINWO.GetTowedJammerOnBoardCount(FSelectedVehicle.FData.VehicleIndex, edtName.Text) then
+  begin
+    {Jika inputan baru}
+    if FSelectedTowedJammerDecoy.FData.Towed_Decoy_Instance_Index = 0 then
+    begin
+      ShowMessage('Duplicate Towed Jammer Decoy!' + Char(13) + 'Choose Towed Jammer Decoy to continue.');
+      Exit;
+    end
+    else if LastName <> edtName.Text then
+    begin
+      ShowMessage('Please use another class name');
+      Exit;
+    end;
+  end;
+
+  Result := True;
 end;
 
 procedure TfrmTowedJammerMount.UpdateTowedJammerDecoyData;
 begin
-//  with FSelectedTowedJammerDecoy do
-//  begin
-//    if FData.Towed_Decoy_Instance_Index = 0 then
-//      edtName.Text := FDef.Towed_Decoy_Identifier
-//    else
-//      edtName.Text := FData.Instance_Identifier;
-//
-//      LastName := edtName.Text;
-//
-//    edtQuantity.Text := IntToStr(FData.Quantity);
-//  end;
+  with FSelectedTowedJammerDecoy do
+  begin
+    if FData.Towed_Decoy_Instance_Index = 0 then
+      edtName.Text := FDef.Towed_Decoy_Identifier
+    else
+      edtName.Text := FData.Instance_Identifier;
+
+      LastName := edtName.Text;
+
+    edtQuantity.Text := IntToStr(FData.Quantity);
+  end;
 end;
 
 {$ENDREGION}

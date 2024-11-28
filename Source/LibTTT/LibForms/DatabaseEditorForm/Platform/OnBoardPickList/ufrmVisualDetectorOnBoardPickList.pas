@@ -63,9 +63,9 @@ uses
 
 procedure TfrmVisualDetectorOnBoardPickList.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  FreeItemsAndFreeList(FAllVisualOnBoardList);
-  FreeItemsAndFreeList(FAllVisualDefList);
-  Action := cafree;
+//  FreeItemsAndFreeList(FAllVisualOnBoardList);
+//  FreeItemsAndFreeList(FAllVisualDefList);
+//  Action := cafree;
 end;
 
 procedure TfrmVisualDetectorOnBoardPickList.FormCreate(Sender: TObject);

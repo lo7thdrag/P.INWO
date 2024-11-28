@@ -67,7 +67,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmBlindZoneAttachment;
+  uDataModule, ufrmMineOnBoardPickList;
 
 {$R *.dfm}
 
@@ -98,6 +98,7 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
+    frmMineOnBoardPickList.UpdateMineList;
     Close;
 end;
 
