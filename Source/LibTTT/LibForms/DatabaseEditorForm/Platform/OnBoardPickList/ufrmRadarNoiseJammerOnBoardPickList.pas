@@ -61,7 +61,7 @@ implementation
 {$R *.dfm}
 
 uses
-  uDataModule,ufrmRadarJammerMount;
+  uDataModule,ufrmRadarJammerMount, ufrmAsset;
 
 {$REGION ' Form Handle '}
 
@@ -142,6 +142,7 @@ end;
 
 procedure TfrmRadarNoiseJammerOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
+  frmAsset.UpdateCountermeasureData;
   Close;
 end;
 

@@ -55,7 +55,7 @@ var
 implementation
 
 uses
-  uDataModule;
+  uDataModule, ufrmAsset;
 
 {$R *.dfm}
 
@@ -98,7 +98,7 @@ begin
       dmINWO.UpdateSelfDefensiveJammerOnBoard(FData);
   end;
 
-//  UpdateDefensiveJammerList;
+  UpdateDefensiveJammerList;
 end;
 
 
@@ -135,6 +135,7 @@ end;
 
 procedure TfrmSelfDefensiveJammerOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
+  frmAsset.UpdateCountermeasureData;
   Close;
 end;
 

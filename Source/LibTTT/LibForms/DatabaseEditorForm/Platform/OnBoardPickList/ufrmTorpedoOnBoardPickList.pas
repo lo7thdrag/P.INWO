@@ -58,7 +58,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmTorpedoMount;
+  uDataModule, ufrmTorpedoMount, ufrmAsset;
 
 {$R *.dfm}
 
@@ -142,6 +142,7 @@ end;
 
 procedure TfrmTorpedoOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
+  frmAsset.UpdateWeaponData;
   Close;
 end;
 

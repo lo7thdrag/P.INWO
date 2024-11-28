@@ -16,7 +16,6 @@ object frmBombMount: TfrmBombMount
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
-  OnClose = FormClose
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -14239,10 +14238,6 @@ object frmBombMount: TfrmBombMount
       TabWidth = 100
       object General: TTabSheet
         Caption = 'General'
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object lbl2: TLabel
           Left = 10
           Top = 8

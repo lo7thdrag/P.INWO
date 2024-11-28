@@ -3,7 +3,7 @@ object frmGunMount: TfrmGunMount
   Top = 0
   BorderStyle = bsNone
   Caption = 'Gun Mount'
-  ClientHeight = 460
+  ClientHeight = 436
   ClientWidth = 490
   Color = 1119507
   TransparentColor = True
@@ -15,8 +15,6 @@ object frmGunMount: TfrmGunMount
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
-  OnClose = FormClose
-  OnCreate = FormCreate
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -24,7 +22,7 @@ object frmGunMount: TfrmGunMount
     Left = 0
     Top = 0
     Width = 490
-    Height = 460
+    Height = 436
     Align = alClient
     Picture.Data = {
       0954506E67496D61676589504E470D0A1A0A0000000D49484452000004930000
@@ -14174,7 +14172,6 @@ object frmGunMount: TfrmGunMount
     Height = 50
     BevelOuter = bvNone
     Color = 5523492
-    ParentBackground = False
     TabOrder = 0
     object lbl1: TLabel
       Left = 0
@@ -14211,7 +14208,6 @@ object frmGunMount: TfrmGunMount
     Font.Height = -13
     Font.Name = 'Berlin Sans FB'
     Font.Style = []
-    ParentBackground = False
     ParentFont = False
     TabOrder = 1
     object PageControl1: TPageControl
@@ -14232,10 +14228,6 @@ object frmGunMount: TfrmGunMount
       TabWidth = 100
       object General: TTabSheet
         Caption = 'General'
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object lbl2: TLabel
           Left = 13
           Top = 8
@@ -14256,6 +14248,7 @@ object frmGunMount: TfrmGunMount
           Width = 66
           Height = 15
           Caption = 'Blind Zones :'
+          Visible = False
         end
         object lbl5: TLabel
           Left = 104
@@ -14263,6 +14256,7 @@ object frmGunMount: TfrmGunMount
           Width = 52
           Height = 15
           Caption = 'Quantity :'
+          Visible = False
         end
         object lbl6: TLabel
           Left = 104
@@ -14307,6 +14301,7 @@ object frmGunMount: TfrmGunMount
           Width = 68
           Height = 23
           TabOrder = 1
+          Visible = False
           OnChange = edtChange
           OnKeyPress = edtNumeralKeyPress
         end
@@ -14316,6 +14311,7 @@ object frmGunMount: TfrmGunMount
           Width = 66
           Height = 65
           TabOrder = 2
+          Visible = False
         end
         object edtTurretID: TEdit
           Left = 181

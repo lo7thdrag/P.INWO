@@ -33,9 +33,6 @@ type
     edtClassName: TLabel;
     edtReload: TMaskEdit;
     lblPlatform: TLabel;
-
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
 
     //Global
@@ -45,7 +42,6 @@ type
     procedure ValidationFormatInput();
 
     procedure cbMountExtensionChange(Sender: TObject);
-    procedure pnlBlindZoneClick(Sender: TObject);
 
     procedure btnOKClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
@@ -56,12 +52,9 @@ type
   private
     FSelectedVehicle : TAsset;
     FSelectedTorpedo : TTorpedo_On_Board;
-//
-//    FBlindZoneView : TBlindZoneView;
 
     function CekInput: Boolean;
     procedure UpdateTorpedoData;
-    procedure DrawBlindZone;
 
   public
     LastName : string;
@@ -82,27 +75,6 @@ uses
 
 {$REGION ' Form Handle '}
 
-procedure TfrmTorpedoMount.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-//  FBlindZoneView.Free;
-  Action := cafree;
-end;
-
-procedure TfrmTorpedoMount.FormCreate(Sender: TObject);
-begin
-//  FBlindZoneView := TBlindZoneView.Create(Self);
-//
-//  with FBlindZoneView do
-//  begin
-//    Parent := pnlBlindZone;
-//    Left := 0;
-//    Top := 0;
-//    Height := pnlBlindZone.Height;
-//    Width := pnlBlindZone.Width;
-//    OnClick := pnlBlindZoneClick;
-//  end;
-end;
-
 procedure TfrmTorpedoMount.FormShow(Sender: TObject);
 begin
   UpdateTorpedoData;
@@ -122,8 +94,8 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
-    frmTorpedoOnBoardPickList.UpdateTorpedoList;
-    Close;
+  frmTorpedoOnBoardPickList.UpdateTorpedoList;
+  Close;
 end;
 
 procedure TfrmTorpedoMount.btnApplyClick(Sender: TObject);
@@ -156,7 +128,7 @@ begin
       dmINWO.UpdateFittedWeaponOnBoard(2, FData);
   end;
 
-//  UpdateTorpedoData;
+  UpdateTorpedoData;
 
   btnApply.Enabled := False;
   btnCancel.Enabled := False;
@@ -188,10 +160,9 @@ end;
 
 procedure TfrmTorpedoMount.cbMountExtensionChange(Sender: TObject);
 begin
-//  edtName.Text := FSelectedTorpedo.FDef.Class_Identifier + ' ' +
-//    cbMountExtension.Text;
-//
-//  btnApply.Enabled := True;
+  edtName.Text := FSelectedTorpedo.FDef.Class_Identifier + ' ' + cbMountExtension.Text;
+
+  btnApply.Enabled := True;
 end;
 
 function TfrmTorpedoMount.CekInput: Boolean;
@@ -217,105 +188,28 @@ begin
   Result := True;
 end;
 
-procedure TfrmTorpedoMount.DrawBlindZone;
-var
-  i : Integer;
-//  blindZone : TBlind_Zone;
-//  zoneSector : TZoneSector;
-
-begin
-//  FBlindZoneView.ClearZone;
-//
-//  with FSelectedTorpedo do
-//  begin
-//    dmTTT.GetBlindZone(Ord(bzcWeapon), FData.Fitted_Weap_Index, FBlind);
-//
-//    blindZone := TBlind_Zone.Create;
-//    FBZone_1 := blindZone.FData;
-//    FBZone_2 := blindZone.FData;
-//    blindZone.Free;
-//
-//    for i := 0 to FBlind.Count - 1 do
-//    begin
-//      blindZone := FBlind.Items[i];
-//
-//      case blindZone.FData.BlindZone_Number of
-//        1: FBZone_1 := blindZone.FData;
-//        2: FBZone_2 := blindZone.FData;
-//      end;
-//    end;
-//
-//    if (FBZone_1.BlindZone_Number <> 0) and
-//      (FBZone_1.Start_Angle <> FBZone_1.End_Angle) then
-//    begin
-//      zoneSector := FBlindZoneView.AddZone;
-//      zoneSector.StartAngle := FBZone_1.Start_Angle;
-//      zoneSector.EndAngle := FBZone_1.End_Angle;
-//    end;
-//
-//    if (FBZone_2.BlindZone_Number <> 0) and
-//      (FBZone_2.Start_Angle <> FBZone_2.End_Angle) then
-//    begin
-//      zoneSector := FBlindZoneView.AddZone;
-//      zoneSector.StartAngle := FBZone_2.Start_Angle;
-//      zoneSector.EndAngle := FBZone_2.End_Angle;
-//    end;
-//  end;
-//
-//  FBlindZoneView.Repaint;
-end;
-
-procedure TfrmTorpedoMount.pnlBlindZoneClick(Sender: TObject);
-begin
-//  if FSelectedTorpedo.FData.Fitted_Weap_Index = 0 then
-//  begin
-//    ShowMessage('Save data before edit blind zone ');
-//    Exit;
-//  end;
-//
-//  frmBlindZonesAttachment := TfrmBlindZonesAttachment.Create(Self);
-//  try
-//    with frmBlindZonesAttachment do
-//    begin
-//      OnBoardType := bzcWeapon;
-//      OnBoardOwner := FSelectedTorpedo;
-//      ShowModal;
-//    end;
-//
-//    btnApply.Enabled := frmBlindZonesAttachment.AfterClose;
-//    btnCancel.Enabled := not frmBlindZonesAttachment.AfterClose;
-//
-//  finally
-//    frmBlindZonesAttachment.Free;
-//  end;
-//
-//  DrawBlindZone;
-end;
-
 procedure TfrmTorpedoMount.UpdateTorpedoData;
 var
   timeStr : string;
 begin
-//  with FSelectedTorpedo do
-//  begin
-//    cbMountExtension.ItemIndex := FData.Instance_Type;
-//
-//    if FData.Fitted_Weap_Index = 0 then
-//      edtName.Text := FDef.Class_Identifier + ' ' + cbMountExtension.Text
-//    else
-//      edtName.Text := FData.Instance_Identifier;
-//
-//    LastName := edtName.Text;
-//    edtClassName.Caption := FDef.Class_Identifier;
-//
-//    DrawBlindZone;
-//
-//    edtQuantity.Text := FormatFloat('0',FData.Quantity);
-//    SecondToTime(Round(FData.Firing_Delay), timeStr);
-//    edtReload.Text := timeStr;
-//
-//    btnEditLaunchers.Enabled := FData.Fitted_Weap_Index <> 0;
-//  end;
+  with FSelectedTorpedo do
+  begin
+    cbMountExtension.ItemIndex := FData.Instance_Type;
+
+    if FData.Fitted_Weap_Index = 0 then
+      edtName.Text := FDef.Class_Identifier + ' ' + cbMountExtension.Text
+    else
+      edtName.Text := FData.Instance_Identifier;
+
+    LastName := edtName.Text;
+    edtClassName.Caption := FDef.Class_Identifier;
+
+    edtQuantity.Text := FormatFloat('0',FData.Quantity);
+    SecondToTime(Round(FData.Firing_Delay), timeStr);
+    edtReload.Text := timeStr;
+
+    btnEditLaunchers.Enabled := FData.Fitted_Weap_Index <> 0;
+  end;
 end;
 
 {$ENDREGION}

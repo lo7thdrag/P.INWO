@@ -57,7 +57,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmChaffMount;
+  uDataModule, ufrmChaffMount, ufrmAsset;
 
 {$R *.dfm}
 
@@ -140,6 +140,7 @@ end;
 
 procedure TfrmChaffOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
+  frmAsset.UpdateCountermeasureData;
   Close;
 end;
 

@@ -56,7 +56,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmMissileMount;
+  uDataModule, ufrmMissileMount, ufrmAsset;
 
 {$R *.dfm}
 
@@ -142,6 +142,7 @@ end;
 
 procedure TfrmMissileOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
+  frmAsset.UpdateWeaponData;
   Close;
 end;
 

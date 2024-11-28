@@ -56,7 +56,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmEODMount;
+  uDataModule, ufrmEODMount, ufrmAsset;
 
 
 {$R *.dfm}
@@ -140,6 +140,7 @@ end;
 
 procedure TfrmEODOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
+  frmAsset.UpdateSensorData;
   Close;
 end;
 

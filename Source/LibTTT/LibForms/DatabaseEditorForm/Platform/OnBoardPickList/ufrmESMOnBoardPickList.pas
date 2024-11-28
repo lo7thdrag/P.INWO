@@ -56,7 +56,7 @@ var
 implementation
 
 uses
-  uDataModule,ufrmESMMount;
+  uDataModule,ufrmESMMount, ufrmAsset;
 
 {$R *.dfm}
 
@@ -139,6 +139,7 @@ end;
 
 procedure TfrmESMOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
+  frmAsset.UpdateSensorData;
   Close;
 end;
 

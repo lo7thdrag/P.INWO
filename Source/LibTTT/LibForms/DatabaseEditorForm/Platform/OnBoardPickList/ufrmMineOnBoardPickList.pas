@@ -55,7 +55,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmMineMount;
+  uDataModule, ufrmMineMount, ufrmAsset;
 
 {$R *.dfm}
 
@@ -138,6 +138,7 @@ end;
 
 procedure TfrmMineOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
+  frmAsset.UpdateWeaponData;
   Close;
 end;
 

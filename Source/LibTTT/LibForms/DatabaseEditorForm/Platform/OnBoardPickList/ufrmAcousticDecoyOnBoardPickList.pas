@@ -58,7 +58,7 @@ implementation
 {$R *.dfm}
 
 uses
-  uDataModule, ufrmAcousticDecoyMount;
+  uDataModule, ufrmAcousticDecoyMount, ufrmAsset;
 
 {$REGION ' Form Handle '}
 
@@ -139,6 +139,7 @@ end;
 
 procedure TfrmAcousticDecoyOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
+  frmAsset.UpdateCountermeasureData;
   Close;
 end;
 

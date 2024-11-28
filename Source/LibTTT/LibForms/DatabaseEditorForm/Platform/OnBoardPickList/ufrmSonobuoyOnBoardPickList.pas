@@ -56,7 +56,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmSonobuoyMount;
+  uDataModule, ufrmSonobuoyMount, ufrmAsset;
 
 {$R *.dfm}
 
@@ -141,6 +141,7 @@ end;
 
 procedure TfrmSonobuoyOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
+  frmAsset.UpdateSensorData;
   Close;
 end;
 

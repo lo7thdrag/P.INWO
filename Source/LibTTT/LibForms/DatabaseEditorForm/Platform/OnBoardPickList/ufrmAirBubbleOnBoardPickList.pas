@@ -58,7 +58,7 @@ implementation
 {$R *.dfm}
 
 uses
-  uDataModule, ufrmAirBubbleMount;
+  uDataModule, ufrmAirBubbleMount, ufrmAsset;
 
 {$REGION ' Form Handle '}
 
@@ -139,6 +139,7 @@ end;
 
 procedure TfrmAirBubbleOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
+  frmAsset.UpdateCountermeasureData;
   Close;
 end;
 

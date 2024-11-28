@@ -56,7 +56,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmTowedJammerMount ;
+  uDataModule, ufrmTowedJammerMount, ufrmAsset ;
 
 
 {$R *.dfm}
@@ -139,6 +139,7 @@ end;
 
 procedure TfrmTowedJammerDecoyOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
+  frmAsset.UpdateCountermeasureData;
   Close;
 end;
 

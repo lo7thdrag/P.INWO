@@ -55,7 +55,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmInfraRedmount;
+  uDataModule, ufrmInfraRedmount, ufrmAsset;
 
 
 {$R *.dfm}
@@ -139,6 +139,7 @@ end;
 
 procedure TfrmInfraredDecoyOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
+  frmAsset.UpdateCountermeasureData;
   Close;
 end;
 

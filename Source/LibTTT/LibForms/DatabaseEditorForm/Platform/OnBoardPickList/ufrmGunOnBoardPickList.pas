@@ -56,7 +56,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmGunMount;
+  uDataModule, ufrmGunMount, ufrmAsset;
 
 {$R *.dfm}
 
@@ -140,6 +140,7 @@ end;
 
 procedure TfrmGunOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
+  frmAsset.UpdateWeaponData;
   Close;
 end;
 

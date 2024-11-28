@@ -55,7 +55,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmFloatingDecoyMount ;
+  uDataModule, ufrmFloatingDecoyMount, ufrmAsset ;
 
 {$R *.dfm}
 
@@ -138,6 +138,7 @@ end;
 
 procedure TfrmFloatingDecoyOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
+  frmAsset.UpdateCountermeasureData;
   Close;
 end;
 
