@@ -46,9 +46,9 @@ type
     FSelectedVehicle : TAsset;
     FSelectedTorpedo : TTorpedo_On_Board;
 
+  public
     procedure UpdateTorpedoList;
 
-  public
     property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
   end;
 
@@ -58,7 +58,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmTorpedoMount;
+  uDataModule, ufrmTorpedoMount, ufrmAsset;
 
 {$R *.dfm}
 
@@ -66,9 +66,9 @@ uses
 
 procedure TfrmTorpedoOnBoardPickList.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  FreeItemsAndFreeList(FAllTorpedoDefList);
-  FreeItemsAndFreeList(FAllTorpedoOnBoardList);
-  Action := cafree;
+//  FreeItemsAndFreeList(FAllTorpedoDefList);
+//  FreeItemsAndFreeList(FAllTorpedoOnBoardList);
+//  Action := cafree;
 end;
 
 procedure TfrmTorpedoOnBoardPickList.FormCreate(Sender: TObject);
@@ -142,6 +142,7 @@ end;
 
 procedure TfrmTorpedoOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
+  frmAsset.UpdateWeaponData;
   Close;
 end;
 

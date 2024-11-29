@@ -10394,6 +10394,10 @@ object frmSummaryTorpedo: TfrmSummaryTorpedo
       TabWidth = 100
       object tsGeneral: TTabSheet
         Caption = 'General'
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object lblDetectabilityType: TLabel
           Left = 14
           Top = 402

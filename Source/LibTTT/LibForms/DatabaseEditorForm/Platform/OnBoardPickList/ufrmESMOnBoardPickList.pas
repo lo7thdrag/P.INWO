@@ -44,9 +44,8 @@ type
     FSelectedVehicle : TAsset;
     FSelectedESM : TESM_On_Board;
 
-    procedure UpdateESMList;
-
   public
+    procedure UpdateESMList;
 
     property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
   end;
@@ -57,7 +56,7 @@ var
 implementation
 
 uses
-  uDataModule,ufrmESMMount;
+  uDataModule,ufrmESMMount, ufrmAsset;
 
 {$R *.dfm}
 
@@ -65,9 +64,9 @@ uses
 
 procedure TfrmESMOnBoardPickList.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  FreeItemsAndFreeList(FAllESMDefList);
-  FreeItemsAndFreeList(FAllESMOnBoardList);
-  Action := cafree;
+//  FreeItemsAndFreeList(FAllESMDefList);
+//  FreeItemsAndFreeList(FAllESMOnBoardList);
+//  Action := cafree;
 end;
 
 procedure TfrmESMOnBoardPickList.FormCreate(Sender: TObject);
@@ -140,6 +139,7 @@ end;
 
 procedure TfrmESMOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
+  frmAsset.UpdateSensorData;
   Close;
 end;
 

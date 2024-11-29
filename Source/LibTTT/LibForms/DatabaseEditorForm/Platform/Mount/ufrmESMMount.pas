@@ -78,7 +78,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmBlindZoneAttachment;
+  uDataModule, ufrmESMOnBoardPickList;
 
 {$R *.dfm}
 
@@ -125,7 +125,8 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
-    Close;
+  frmESMOnBoardPickList.UpdateESMList;
+  Close;
 end;
 
 procedure TfrmESMMount.btnApplyClick(Sender: TObject);

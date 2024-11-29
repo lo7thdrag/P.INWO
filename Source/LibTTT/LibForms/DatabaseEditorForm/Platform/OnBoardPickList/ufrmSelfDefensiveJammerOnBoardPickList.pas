@@ -41,9 +41,10 @@ type
     FSelectedDefensiveJammer : TDefensive_Jammer_On_Board;
 
     function CekInput: Boolean;
-    procedure UpdateDefensiveJammerList;
 
   public
+    procedure UpdateDefensiveJammerList;
+
     property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
 
   end;
@@ -54,7 +55,7 @@ var
 implementation
 
 uses
-  uDataModule;
+  uDataModule, ufrmAsset;
 
 {$R *.dfm}
 
@@ -77,63 +78,64 @@ end;
 
 procedure TfrmSelfDefensiveJammerOnBoardPickList.btnAddClick(Sender: TObject);
 begin
-//  if lbAllDefensiveJammerDef.ItemIndex = -1 then
-//    Exit;
-//
-//  if not Assigned(frmChaffMount) then
-//    frmChaffMount := TfrmChaffMount.Create(Self);
-//
-//  try
-//  with FSelectedDefensiveJammer do
-//  begin
-//    FData.Instance_Identifier := FDefensiveJammer_Def.Defensive_Jammer_Identifier;
-//    FData.Instance_Type := 0;
-//    FData.Vehicle_Index := FSelectedVehicle.FData.VehicleIndex;
-//    FData.Defensive_Jammer_Index := FDef.Defensive_Jammer_Index;
-//
-//    if FData.Defensive_Jammer_Instance_Index = 0 then
-//      dmINWO.InsertSelfDefensiveJammerOnBoard(FData)
-//    else
-//      dmINWO.UpdateSelfDefensiveJammerOnBoard(FData);
-//  end;
+  if lbAllDefensiveJammerDef.ItemIndex = -1 then
+    Exit;
 
-//  UpdateDefensiveJammerList;
+  if not Assigned(frmSelfDefensiveJammerOnBoardPickList) then
+    frmSelfDefensiveJammerOnBoardPickList := TfrmSelfDefensiveJammerOnBoardPickList.Create(Self);
+
+  with FSelectedDefensiveJammer do
+  begin
+    FData.Instance_Identifier := FDef
+    .Defensive_Jammer_Identifier;
+    FData.Instance_Type := 0;
+    FData.Vehicle_Index := FSelectedVehicle.FData.VehicleIndex;
+    FData.Defensive_Jammer_Index := FDef.Defensive_Jammer_Index;
+
+    if FData.Defensive_Jammer_Instance_Index = 0 then
+      dmINWO.InsertSelfDefensiveJammerOnBoard(FData)
+    else
+      dmINWO.UpdateSelfDefensiveJammerOnBoard(FData);
+  end;
+
+  UpdateDefensiveJammerList;
 end;
 
 
 function TfrmSelfDefensiveJammerOnBoardPickList.CekInput: Boolean;
 begin
-//  Result := False;
-//
-//  {Jika Mount Name sudah ada}
-//  if dmTTT.GetSelfDefensiveJammerOnBoardCount(FSelectedVehicle.FData.Vehicle_Index, FSelectedDefensiveJammer.FDefensiveJammer_Def.Defensive_Jammer_Identifier) then
-//  begin
-//    {Jika inputan baru}
-//    if FSelectedDefensiveJammer.FData.Defensive_Jammer_Instance_Index = 0 then
-//    begin
-//      ShowMessage('Duplicate Defensive Jammer!' + Char(13) + 'Choose another Defensive Jammer to continue.');
-//      Exit;
-//    end;
-//  end;
-//
-//  Result := True;
+  Result := False;
+
+  {Jika Mount Name sudah ada}
+  if dmINWO.GetSelfDefensiveJammerOnBoardCount(FSelectedVehicle.FData.VehicleIndex, FSelectedDefensiveJammer.FDef.Defensive_Jammer_Identifier) then
+  begin
+    {Jika inputan baru}
+    if FSelectedDefensiveJammer.FData.Defensive_Jammer_Instance_Index = 0 then
+    begin
+      ShowMessage('Duplicate Defensive Jammer!' + Char(13) + 'Choose another Defensive Jammer to continue.');
+      Exit;
+    end;
+  end;
+
+  Result := True;
 end;
 
 procedure TfrmSelfDefensiveJammerOnBoardPickList.btnRemoveClick(Sender: TObject);
 begin
-//  if lbAllDefensiveJammerOnBoard.ItemIndex = -1 then
-//    Exit;
-//
-//  with FSelectedDefensiveJammer.FData do
-//  begin
-//    dmINWO.DeleteSelfDefensiveJammerOnBoard(2, Defensive_Jammer_Instance_Index);
-//  end;
-//
+  if lbAllDefensiveJammerOnBoard.ItemIndex = -1 then
+    Exit;
+
+  with FSelectedDefensiveJammer.FData do
+  begin
+    dmINWO.DeleteSelfDefensiveJammerOnBoard(2, Defensive_Jammer_Instance_Index);
+  end;
+
 //  UpdateDefensiveJammerList;
 end;
 
 procedure TfrmSelfDefensiveJammerOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
+  frmAsset.UpdateCountermeasureData;
   Close;
 end;
 
@@ -154,27 +156,27 @@ begin
 end;
 
 procedure TfrmSelfDefensiveJammerOnBoardPickList.UpdateDefensiveJammerList;
-//var
-//  i : Integer;
-//  definsivejammer : TDefensive_Jammer_On_Board;
+var
+  i : Integer;
+  definsivejammer : TDefensive_Jammer_On_Board;
 begin
-//  lbAllDefensiveJammerDef.Items.Clear;
-//  lbAllDefensiveJammerOnBoard.Items.Clear;
-//
-//  dmTTT.GetAllSelfDefensiveJammerDef(FAllDefensiveJammerDefList);
-//  dmTTT.GetSelfDefensiveJammerOnBoard(FSelectedVehicle.FData.Vehicle_Index,FAllDefensiveJammerOnBoardList);
-//
-//  for i := 0 to FAllDefensiveJammerDefList.Count - 1 do
-//  begin
-//    definsivejammer := FAllDefensiveJammerDefList.Items[i];
-//    lbAllDefensiveJammerDef.Items.AddObject(definsivejammer.FDefensiveJammer_Def.Defensive_Jammer_Identifier, definsivejammer);
-//  end;
-//
-//  for i := 0 to FAllDefensiveJammerOnBoardList.Count - 1 do
-//  begin
-//    definsivejammer := FAllDefensiveJammerOnBoardList.Items[i];
-//    lbAllDefensiveJammerOnBoard.Items.AddObject(definsivejammer.FData.Instance_Identifier, definsivejammer);
-//  end;
+  lbAllDefensiveJammerDef.Items.Clear;
+  lbAllDefensiveJammerOnBoard.Items.Clear;
+
+  dmINWO.GetAllSelfDefensiveJammerDef(FAllDefensiveJammerDefList);
+  dmINWO.GetSelfDefensiveJammerOnBoard(FSelectedVehicle.FData.VehicleIndex,FAllDefensiveJammerOnBoardList);
+
+  for i := 0 to FAllDefensiveJammerDefList.Count - 1 do
+  begin
+    definsivejammer := FAllDefensiveJammerDefList.Items[i];
+    lbAllDefensiveJammerDef.Items.AddObject(definsivejammer.FDef.Defensive_Jammer_Identifier, definsivejammer);
+  end;
+
+  for i := 0 to FAllDefensiveJammerOnBoardList.Count - 1 do
+  begin
+    definsivejammer := FAllDefensiveJammerOnBoardList.Items[i];
+    lbAllDefensiveJammerOnBoard.Items.AddObject(definsivejammer.FData.Instance_Identifier, definsivejammer);
+  end;
 end;
 
 {$ENDREGION}

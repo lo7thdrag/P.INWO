@@ -764,7 +764,15 @@ begin
       if Assigned(tabPropertiesTemp) then
       begin
         tabPropertiesTemp.AddressTab := rec.TabAddres;
+        tabPropertiesTemp.CaptionTab := rec.TabCaption;
       end;
+    end;
+    DELETE_TAB :
+    begin
+      SimTabProperties.DeleteTapProperties(rec.OverlayTab);
+
+      tabOverlayTemp := SimOverlay.GetOverlayTabByID(rec.OverlayTab);
+      SimOverlay.RemoveOverlayTab(tabOverlayTemp);
     end;
   end;
 end;

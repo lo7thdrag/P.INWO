@@ -10393,6 +10393,10 @@ object frmSummaryTowedjammerDecoy: TfrmSummaryTowedjammerDecoy
       TabWidth = 100
       object tsGeneral: TTabSheet
         Caption = 'General'
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object lblECMType: TLabel
           Left = 14
           Top = 27
@@ -10901,6 +10905,10 @@ object frmSummaryTowedjammerDecoy: TfrmSummaryTowedjammerDecoy
         BorderWidth = 10
         Caption = 'Notes'
         ImageIndex = 1
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object mmoNotes: TMemo
           Left = 0
           Top = 0

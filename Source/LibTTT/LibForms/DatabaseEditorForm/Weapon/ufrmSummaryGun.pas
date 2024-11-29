@@ -238,16 +238,10 @@ begin
 //
 //    FData.NGS_DamageRating := trckbrDamageRating.Position;
 //    {$ENDREGION}
-//
-//    {$REGION ' Notes '}
-//    FNote.Notes := mmoNotes.Text;
-//    {$ENDREGION}
-//
-//    if FData.Gun_Index = 0 then
+///    if FData.Gun_Index = 0 then
 //    begin
 //      if dmTTT.InsertGunDef(FData) then
 //      begin
-//        dmTTT.InsertNoteStorage(13, FData.Gun_Index, FNote);
 //        ShowMessage('Data has been saved');
 //      end;
 //    end
@@ -255,7 +249,6 @@ begin
 //    begin
 //      if dmTTT.UpdateGunDef(FData) then
 //      begin
-//        dmTTT.UpdateNoteStorage(FData.Gun_Index, FNote);
 //        ShowMessage('Data has been updated');
 //      end;
 //    end;
@@ -400,11 +393,6 @@ begin
 //
 //    trckbrDamageRating.Position := FData.NGS_DamageRating;
 //    {$ENDREGION}
-//
-//    {$REGION ' Notes '}
-//    mmoNotes.Text := FNote.Notes;
-//    {$ENDREGION}
-//
 //  end;
 end;
 

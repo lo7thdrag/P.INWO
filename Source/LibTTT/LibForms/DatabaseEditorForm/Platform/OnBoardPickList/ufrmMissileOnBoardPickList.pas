@@ -44,9 +44,9 @@ type
     FSelectedVehicle : TAsset;
     FSelectedMissile : TMissile_On_Board;
 
+  public
     procedure UpdateMissileList;
 
-  public
     property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
   end;
 
@@ -56,7 +56,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmMissileMount;
+  uDataModule, ufrmMissileMount, ufrmAsset;
 
 {$R *.dfm}
 
@@ -64,9 +64,9 @@ uses
 
 procedure TfrmMissileOnBoardPickList.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  FreeItemsAndFreeList(FAllMissileDefList);
-  FreeItemsAndFreeList(FAllMissileOnBoardList);
-  Action := cafree;
+//  FreeItemsAndFreeList(FAllMissileDefList);
+//  FreeItemsAndFreeList(FAllMissileOnBoardList);
+//  Action := cafree;
 end;
 
 procedure TfrmMissileOnBoardPickList.FormCreate(Sender: TObject);
@@ -142,6 +142,7 @@ end;
 
 procedure TfrmMissileOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
+  frmAsset.UpdateWeaponData;
   Close;
 end;
 

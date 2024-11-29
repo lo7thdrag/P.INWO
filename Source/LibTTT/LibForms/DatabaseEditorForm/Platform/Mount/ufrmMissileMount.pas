@@ -33,9 +33,6 @@ type
     edtClassName: TLabel;
     edtReload: TMaskEdit;
     lblPlatform: TLabel;
-
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
 
     //Global
@@ -45,7 +42,6 @@ type
     procedure ValidationFormatInput();
 
     procedure cbMountExtensionChange(Sender: TObject);
-//    procedure pnlBlindZoneClick(Sender: TObject);
 
     procedure btnOKClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
@@ -59,7 +55,6 @@ type
 
     function CekInput: Boolean;
     procedure UpdateMissileData;
-//    procedure DrawBlindZone;
 
   public
     LastName : string;
@@ -74,32 +69,11 @@ var
 implementation
 
 uses
-  uDataModule, ufrmBlindZoneAttachment;
+  uDataModule, ufrmMissileOnBoardPickList;
 
 {$R *.dfm}
 
 {$REGION ' Form Handle '}
-
-procedure TfrmMissileMount.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-//  FBlindZoneView.Free;
-  Action := cafree;
-end;
-
-procedure TfrmMissileMount.FormCreate(Sender: TObject);
-begin
-//  FBlindZoneView := TBlindZoneView.Create(Self);
-//
-//  with FBlindZoneView do
-//  begin
-//    Parent := pnlBlindZone;
-//    Left := 0;
-//    Top := 0;
-//    Height := pnlBlindZone.Height;
-//    Width := pnlBlindZone.Width;
-//    OnClick := pnlBlindZoneClick;
-//  end;
-end;
 
 procedure TfrmMissileMount.FormShow(Sender: TObject);
 begin
@@ -120,6 +94,7 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
+    frmMissileOnBoardPickList.UpdateMissileList;
     Close;
 end;
 
@@ -154,7 +129,7 @@ begin
       dmINWO.UpdateFittedWeaponOnBoard(1, FData);
   end;
 
-//  UpdateMissileData;
+  UpdateMissileData;
 
   btnApply.Enabled := False;
   btnCancel.Enabled := False;
@@ -186,10 +161,10 @@ end;
 
 procedure TfrmMissileMount.cbMountExtensionChange(Sender: TObject);
 begin
-//  edtName.Text := FSelectedMissile.FDef.Class_Identifier + ' ' +
-//    cbMountExtension.Text;
-//
-//  btnApply.Enabled := True;
+  edtName.Text := FSelectedMissile.FDef.Class_Identifier + ' ' +
+    cbMountExtension.Text;
+
+  btnApply.Enabled := True;
 end;
 
 function TfrmMissileMount.CekInput: Boolean;
@@ -219,26 +194,24 @@ procedure TfrmMissileMount.UpdateMissileData;
 var
   timeStr : string;
 begin
-//  with FSelectedMissile do
-//  begin
-//    cbMountExtension.ItemIndex := FData.Instance_Type;
-//
-//    if FData.Fitted_Weap_Index = 0 then
-//      edtName.Text := FDef.Class_Identifier + ' ' + cbMountExtension.Text
-//    else
-//      edtName.Text := FData.Instance_Identifier;
-//
-//    LastName := edtName.Text;
-//    edtClassName.Caption := FDef.Class_Identifier;
-//
-//    DrawBlindZone;
-//
-//    edtQuantity.Text := FormatFloat('0', FData.Quantity);
-//    SecondToTime(Round(FData.Firing_Delay), timeStr);
-//    edtReload.Text := timeStr;
-//
-//    btnEditLaunchers.Enabled := FData.Fitted_Weap_Index <> 0;
-//  end;
+  with FSelectedMissile do
+  begin
+    cbMountExtension.ItemIndex := FData.Instance_Type;
+
+    if FData.Fitted_Weap_Index = 0 then
+      edtName.Text := FDef.Class_Identifier + ' ' + cbMountExtension.Text
+    else
+      edtName.Text := FData.Instance_Identifier;
+
+    LastName := edtName.Text;
+    edtClassName.Caption := FDef.Class_Identifier;
+
+    edtQuantity.Text := FormatFloat('0', FData.Quantity);
+    SecondToTime(Round(FData.Firing_Delay), timeStr);
+    edtReload.Text := timeStr;
+
+    btnEditLaunchers.Enabled := FData.Fitted_Weap_Index <> 0;
+  end;
 end;
 
 {$ENDREGION}

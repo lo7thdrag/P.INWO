@@ -44,9 +44,9 @@ type
     FSelectedVehicle : TAsset;
     FSelectedAcousticDecoy : TAcoustic_Decoy_On_Board;
 
+  public
     procedure UpdateAcousticDecoyList;
 
-  public
     property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
   end;
 
@@ -58,15 +58,15 @@ implementation
 {$R *.dfm}
 
 uses
-  uDataModule, ufrmAcousticDecoyMount;
+  uDataModule, ufrmAcousticDecoyMount, ufrmAsset;
 
 {$REGION ' Form Handle '}
 
 procedure TfrmAcousticDecoyOnBoardPickList.FormClose(Sender: TObject;  var Action: TCloseAction);
 begin
-  FreeItemsAndFreeList(FAllAcousticDecoyDefList);
-  FreeItemsAndFreeList(FAllAcousticDecoyOnBoardList);
-  Action := cafree;
+//  FreeItemsAndFreeList(FAllAcousticDecoyDefList);
+//  FreeItemsAndFreeList(FAllAcousticDecoyOnBoardList);
+//  Action := cafree;
 end;
 
 procedure TfrmAcousticDecoyOnBoardPickList.FormCreate(Sender: TObject);
@@ -139,6 +139,7 @@ end;
 
 procedure TfrmAcousticDecoyOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
+  frmAsset.UpdateCountermeasureData;
   Close;
 end;
 
@@ -159,27 +160,27 @@ begin
 end;
 
 procedure TfrmAcousticDecoyOnBoardPickList.UpdateAcousticDecoyList;
-//var
-//  i : Integer;
-//  acousticdecoy : TAcoustic_Decoy_On_Board;
+var
+  i : Integer;
+  acousticdecoy : TAcoustic_Decoy_On_Board;
 begin
-//  lbAllAcousticDecoyDef.Items.Clear;
-//  lbAllAcousticDecoyOnBoard.Items.Clear;
-//
-//  dmINWO.GetAllAcousticDecoyDef(FAllAcousticDecoyDefList);
-//  dmINWO.GetAcousticDecoyOnBoard(FSelectedVehicle.FData.VehicleIndex,FAllAcousticDecoyOnBoardList);
+  lbAllAcousticDecoyDef.Items.Clear;
+  lbAllAcousticDecoyOnBoard.Items.Clear;
 
-//  for i := 0 to FAllAcousticDecoyDefList.Count - 1 do
-//  begin
-//    acousticdecoy := FAllAcousticDecoyDefList.Items[i];
-//    lbAllAcousticDecoyDef.Items.AddObject(acousticdecoy.FAccousticDecoy_Def.Decoy_Identifier, acousticdecoy);
-//  end;
-//
-//  for i := 0 to FAllAcousticDecoyOnBoardList.Count - 1 do
-//  begin
-//    acousticdecoy := FAllAcousticDecoyOnBoardList.Items[i];
-//    lbAllAcousticDecoyOnBoard.Items.AddObject(acousticdecoy.FData.Instance_Identifier, acousticdecoy);
-//  end;
+  dmINWO.GetAllAcousticDecoyDef(FAllAcousticDecoyDefList);
+  dmINWO.GetAcousticDecoyOnBoard(FSelectedVehicle.FData.VehicleIndex,FAllAcousticDecoyOnBoardList);
+
+  for i := 0 to FAllAcousticDecoyDefList.Count - 1 do
+  begin
+    acousticdecoy := FAllAcousticDecoyDefList.Items[i];
+    lbAllAcousticDecoyDef.Items.AddObject(acousticdecoy.FDef.Decoy_Identifier, acousticdecoy);
+  end;
+
+  for i := 0 to FAllAcousticDecoyOnBoardList.Count - 1 do
+  begin
+    acousticdecoy := FAllAcousticDecoyOnBoardList.Items[i];
+    lbAllAcousticDecoyOnBoard.Items.AddObject(acousticdecoy.FData.Instance_Identifier, acousticdecoy);
+  end;
 end;
 
 {$ENDREGION}

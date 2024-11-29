@@ -60,7 +60,7 @@ var
 implementation
 
 uses
-  uDataModule;
+  uDataModule, ufrmAcousticDecoyOnBoardPickList;
 
 {$R *.dfm}
 
@@ -90,6 +90,7 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
+    frmAcousticDecoyOnBoardPickList.UpdateAcousticDecoyList;
     Close;
 end;
 
@@ -123,25 +124,25 @@ end;
 
 function TfrmAcousticDecoyMount.CekInput: Boolean;
 begin
-//  Result := False;
-//
-//  {Jika Mount Name sudah ada}
-//  if dmTTT.GetAcousticDecoyOnBoardCount(FSelectedVehicle.FData.Vehicle_Index, edtName.Text) then
-//  begin
-//    {Jika inputan baru}
-//    if FSelectedAcousticDecoy.FData.Acoustic_Instance_Index = 0 then
-//    begin
-//      ShowMessage('Duplicate Acoustic Decoy!' + Char(13) + 'Choose different Acoustic Decoy to continue.');
-//      Exit;
-//    end
-//    else if LastName <> edtName.Text then
-//    begin
-//      ShowMessage('Please use another class name');
-//      Exit;
-//    end;
-//  end;
-//
-//  Result := True;
+  Result := False;
+
+  {Jika Mount Name sudah ada}
+  if dmINWO.GetAcousticDecoyOnBoardCount(FSelectedVehicle.FData.VehicleIndex, edtName.Text) then
+  begin
+    {Jika inputan baru}
+    if FSelectedAcousticDecoy.FData.Acoustic_Instance_Index = 0 then
+    begin
+      ShowMessage('Duplicate Acoustic Decoy!' + Char(13) + 'Choose different Acoustic Decoy to continue.');
+      Exit;
+    end
+    else if LastName <> edtName.Text then
+    begin
+      ShowMessage('Please use another class name');
+      Exit;
+    end;
+  end;
+
+  Result := True;
 end;
 
 procedure TfrmAcousticDecoyMount.btnCancelClick(Sender: TObject);
@@ -153,14 +154,14 @@ procedure TfrmAcousticDecoyMount.UpdateAcouticDecoyData;
 begin
   with FSelectedAcousticDecoy do
   begin
-//    if FData.Acoustic_Instance_Index = 0 then
-//      edtName.Text := FAccousticDecoy_Def.Decoy_Identifier
-//    else
-//      edtName.Text := FData.Instance_Identifier;
-//
-//      LastName := edtName.Text;
-//
-//    edtQuantity.Text := FormatFloat('0', FData.Quantity);
+    if FData.Acoustic_Instance_Index = 0 then
+      edtName.Text := FDef.Decoy_Identifier
+    else
+      edtName.Text := FData.Instance_Identifier;
+
+      LastName := edtName.Text;
+
+    edtQuantity.Text := FormatFloat('0', FData.Quantity);
   end;
 end;
 

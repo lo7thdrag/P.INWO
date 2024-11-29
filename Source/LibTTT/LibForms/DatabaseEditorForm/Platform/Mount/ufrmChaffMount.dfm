@@ -16,7 +16,6 @@ object frmChaffMount: TfrmChaffMount
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
-  OnClose = FormClose
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -14244,10 +14243,6 @@ object frmChaffMount: TfrmChaffMount
       TabWidth = 100
       object General: TTabSheet
         Caption = 'General'
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object lb1: TLabel
           Left = 10
           Top = 21

@@ -412,16 +412,10 @@ begin
 //    FDef.First_Relative_Gyro_Angle := cbbFirstAngle.ItemIndex;
 //    FDef.Second_Relative_Gyro_Angle := cbbSecondAngle.ItemIndex;
 //    {$ENDREGION}
-//
-//    {$REGION ' Notes '}
-//    FNote.Notes := mmoNotes.Text;
-//    {$ENDREGION}
-//
 //    if FDef.Torpedo_Index = 0 then
 //    begin
 //      if dmTTT.InsertTorpedoDef(FDef) then
 //      begin
-//        dmTTT.InsertNoteStorage(4, FDef.Torpedo_Index, FNote);
 //        ShowMessage('Data has been saved');
 //      end;
 //    end
@@ -429,7 +423,6 @@ begin
 //    begin
 //      if dmTTT.UpdateTorpedoDef(FDef) then
 //      begin
-//        dmTTT.UpdateNoteStorage(FDef.Torpedo_Index, FNote);
 //        ShowMessage('Data has been updated');
 //      end;
 //    end;
@@ -791,11 +784,6 @@ begin
 //
 //    btnEditPOH.Enabled := FDef.Torpedo_Index <> 0;
 //    {$ENDREGION}
-//
-//    {$REGION ' Notes '}
-//    mmoNotes.Text := FNote.Notes;
-//    {$ENDREGION}
-//
 //  end;
 end;
 

@@ -31,9 +31,6 @@ type
     ImgBackgroundForm: TImage;
     edtClassName: TLabel;
     lblPlatform: TLabel;
-
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
 
     //Global
@@ -52,11 +49,8 @@ type
     FSelectedVehicle : TAsset;
     FSelectedGun : TGun_On_Board;
 
-//    FBlindZoneView : TBlindZoneView;
-
     function CekInput: Boolean;
     procedure UpdateGunData;
-//    procedure DrawBlindZone;
 
   public
     LastName : string;
@@ -71,32 +65,11 @@ var
 implementation
 
 uses
-  uDataModule, ufrmBlindZoneAttachment;
+  uDataModule, ufrmGunOnBoardPickList;
 
 {$R *.dfm}
 
 {$REGION ' Form Handle '}
-
-procedure TfrmGunMount.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-//  FBlindZoneView.Free;
-  Action := cafree;
-end;
-
-procedure TfrmGunMount.FormCreate(Sender: TObject);
-begin
-//  FBlindZoneView := TBlindZoneView.Create(Self);
-//
-//  with FBlindZoneView do
-//  begin
-//    Parent := pnlBlindZone;
-//    Left := 0;
-//    Top := 0;
-//    Height := pnlBlindZone.Height;
-//    Width := pnlBlindZone.Width;
-//    OnClick := pnlBlindZoneClick;
-//  end;
-end;
 
 procedure TfrmGunMount.FormShow(Sender: TObject);
 begin
@@ -117,6 +90,7 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
+    frmGunOnBoardPickList.UpdateGunList;
     Close;
 end;
 
@@ -156,10 +130,9 @@ end;
 
 procedure TfrmGunMount.cbMountExtensionChange(Sender: TObject);
 begin
-//  edtName.Text := FSelectedGun.FData.Gun_Identifier + ' ' +
-//    cbMountExtension.Text;
-//
-//  btnApply.Enabled := True;
+  edtName.Text := FSelectedGun.FDef.Gun_Identifier + ' ' + cbMountExtension.Text;
+
+  btnApply.Enabled := True;
 end;
 
 function TfrmGunMount.CekInput: Boolean;

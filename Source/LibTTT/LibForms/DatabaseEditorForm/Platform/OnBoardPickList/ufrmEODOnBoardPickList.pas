@@ -44,9 +44,9 @@ type
     FSelectedVehicle : TAsset;
     FSelectedEOD : TEOD_On_Board;
 
+  public
     procedure UpdateEODList;
 
-  public
     property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
   end;
 
@@ -56,7 +56,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmEODMount;
+  uDataModule, ufrmEODMount, ufrmAsset;
 
 
 {$R *.dfm}
@@ -65,9 +65,9 @@ uses
 
 procedure TfrmEODOnBoardPickList.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  FreeItemsAndFreeList(FAllEODDefList);
-  FreeItemsAndFreeList(FAllEODOnBoardList);
-  Action := cafree;
+//  FreeItemsAndFreeList(FAllEODDefList);
+//  FreeItemsAndFreeList(FAllEODOnBoardList);
+//  Action := cafree;
 end;
 
 procedure TfrmEODOnBoardPickList.FormCreate(Sender: TObject);
@@ -140,6 +140,7 @@ end;
 
 procedure TfrmEODOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
+  frmAsset.UpdateSensorData;
   Close;
 end;
 

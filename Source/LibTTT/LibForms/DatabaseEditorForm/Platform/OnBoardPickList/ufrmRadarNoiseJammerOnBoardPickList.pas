@@ -44,9 +44,11 @@ type
     FSelectedVehicle : TAsset;
     FSelectedRadarJammer : TRadar_Noise_Jammer_On_Board;
 
-    procedure UpdateRadarJammerList;
+
 
   public
+    procedure UpdateRadarJammerList;
+
     property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
 
   end;
@@ -59,15 +61,15 @@ implementation
 {$R *.dfm}
 
 uses
-  uDataModule,ufrmRadarJammerMount;
+  uDataModule,ufrmRadarJammerMount, ufrmAsset;
 
 {$REGION ' Form Handle '}
 
 procedure TfrmRadarNoiseJammerOnBoardPickList.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  FreeItemsAndFreeList(FAllRadarJammerDefList);
-  FreeItemsAndFreeList(FAllRadarJammerOnBoardList);
-  Action := cafree;
+//  FreeItemsAndFreeList(FAllRadarJammerDefList);
+//  FreeItemsAndFreeList(FAllRadarJammerOnBoardList);
+//  Action := cafree;
 end;
 
 procedure TfrmRadarNoiseJammerOnBoardPickList.FormCreate(Sender: TObject);
@@ -127,20 +129,20 @@ end;
 
 procedure TfrmRadarNoiseJammerOnBoardPickList.btnRemoveClick(Sender: TObject);
 begin
-//  if lbAllRadarJammerOnBoard.ItemIndex = -1 then
-//    Exit;
-//
-//  with FSelectedRadarJammer.FData do
-//  begin
-//    dmINWO.DeleteRadarNoiseJammerOnBoard(2, Jammer_Instance_Index);
-//  end;
-//
-//  AfterClose := True;
+  if lbAllRadarJammerOnBoard.ItemIndex = -1 then
+    Exit;
+
+  with FSelectedRadarJammer.FData do
+  begin
+    dmINWO.DeleteRadarNoiseJammerOnBoard(2, Jammer_Instance_Index);
+  end;
+
 //  UpdateRadarJammerList;
 end;
 
 procedure TfrmRadarNoiseJammerOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
+  frmAsset.UpdateCountermeasureData;
   Close;
 end;
 
@@ -161,27 +163,27 @@ begin
 end;
 
 procedure TfrmRadarNoiseJammerOnBoardPickList.UpdateRadarJammerList;
-//var
-//  i : Integer;
-//  radarjammer : TRadar_Noise_Jammer_On_Board;
+var
+  i : Integer;
+  radarjammer : TRadar_Noise_Jammer_On_Board;
 begin
-//  lbAllRadarJammerDef.Items.Clear;
-//  lbAllRadarJammerOnBoard.Items.Clear;
-//
-//  dmINWO.GetAllRadarNoiseJammerDef(FAllRadarJammerDefList);
-//  dmINWO.GetRadarNoiseJammerOnBoard(FSelectedVehicle.FData.VehicleIndex,FAllRadarJammerOnBoardList);
-//
-//  for i := 0 to FAllRadarJammerDefList.Count - 1 do
-//  begin
-//    radarjammer := FAllRadarJammerDefList.Items[i];
-//    lbAllRadarJammerDef.Items.AddObject(radarjammer.FDef.Jammer_Identifier, radarjammer);
-//  end;
-//
-//  for i := 0 to FAllRadarJammerOnBoardList.Count - 1 do
-//  begin
-//    radarjammer := FAllRadarJammerOnBoardList.Items[i];
-//    lbAllRadarJammerOnBoard.Items.AddObject(radarjammer.FData.Instance_Identifier, radarjammer);
-//  end;
+  lbAllRadarJammerDef.Items.Clear;
+  lbAllRadarJammerOnBoard.Items.Clear;
+
+  dmINWO.GetAllRadarNoiseJammerDef(FAllRadarJammerDefList);
+  dmINWO.GetRadarNoiseJammerOnBoard(FSelectedVehicle.FData.VehicleIndex,FAllRadarJammerOnBoardList);
+
+  for i := 0 to FAllRadarJammerDefList.Count - 1 do
+  begin
+    radarjammer := FAllRadarJammerDefList.Items[i];
+    lbAllRadarJammerDef.Items.AddObject(radarjammer.FDef.Jammer_Identifier, radarjammer);
+  end;
+
+  for i := 0 to FAllRadarJammerOnBoardList.Count - 1 do
+  begin
+    radarjammer := FAllRadarJammerOnBoardList.Items[i];
+    lbAllRadarJammerOnBoard.Items.AddObject(radarjammer.FData.Instance_Identifier, radarjammer);
+  end;
 end;
 
 {$ENDREGION}

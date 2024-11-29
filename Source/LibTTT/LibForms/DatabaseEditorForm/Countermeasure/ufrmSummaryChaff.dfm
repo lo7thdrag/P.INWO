@@ -10396,6 +10396,10 @@ object frmSummaryChaff: TfrmSummaryChaff
       OnChange = edtChange
       object tsGeneral: TTabSheet
         Caption = 'General'
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object lblDissipationTimein100kt: TLabel
           Left = 15
           Top = 105

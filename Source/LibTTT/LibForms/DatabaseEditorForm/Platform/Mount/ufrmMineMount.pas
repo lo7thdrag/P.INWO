@@ -67,7 +67,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmBlindZoneAttachment;
+  uDataModule, ufrmMineOnBoardPickList;
 
 {$R *.dfm}
 
@@ -98,6 +98,7 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
+    frmMineOnBoardPickList.UpdateMineList;
     Close;
 end;
 
@@ -142,9 +143,9 @@ end;
 
 procedure TfrmMineMount.cbMountExtensionChange(Sender: TObject);
 begin
-//  edtName.Text := FSelectedMine.FMine_Def.Mine_Identifier + ' ' + cbMountExtension.Text;
-//
-//  btnApply.Enabled := True;
+  edtName.Text := FSelectedMine.FDef.Mine_Identifier + ' ' + cbMountExtension.Text;
+
+  btnApply.Enabled := True;
 end;
 
 function TfrmMineMount.CekInput: Boolean;
@@ -174,22 +175,22 @@ procedure TfrmMineMount.UpdateMineData;
 var
   timeStr : string;
 begin
-//  with FSelectedMine do
-//  begin
-//    cbMountExtension.ItemIndex := FData.Instance_Type;
-//
-//    if FData.Fitted_Weap_Index = 0 then
-//      edtName.Text := FMine_Def.Mine_Identifier + ' ' + cbMountExtension.Text
-//    else
-//      edtName.Text := FData.Instance_Identifier;
-//
-//    LastName := edtName.Text;
-//    edtClassName.Caption := FData.Instance_Identifier;
-//
-//    edtQuantity.Text := FormatFloat('0',FData.Quantity);
-//    SecondToTime(Round(FData.Firing_Delay), timeStr);
-//    edtReload.Text := timeStr;
-//  end;
+  with FSelectedMine do
+  begin
+    cbMountExtension.ItemIndex := FData.Instance_Type;
+
+    if FData.Fitted_Weap_Index = 0 then
+      edtName.Text := FDef.Mine_Identifier + ' ' + cbMountExtension.Text
+    else
+      edtName.Text := FData.Instance_Identifier;
+
+    LastName := edtName.Text;
+    edtClassName.Caption := FData.Instance_Identifier;
+
+    edtQuantity.Text := FormatFloat('0',FData.Quantity);
+    SecondToTime(Round(FData.Firing_Delay), timeStr);
+    edtReload.Text := timeStr;
+  end;
 end;
 
 {$ENDREGION}

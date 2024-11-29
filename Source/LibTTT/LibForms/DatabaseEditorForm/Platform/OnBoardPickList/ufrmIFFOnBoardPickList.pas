@@ -64,9 +64,9 @@ uses
 
 procedure TfrmIFFOnBoardPickList.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  FreeItemsAndFreeList(FAllIFFDefList);
-  FreeItemsAndFreeList(FAllIFFOnBoardList);
-  Action := cafree;
+//  FreeItemsAndFreeList(FAllIFFDefList);
+//  FreeItemsAndFreeList(FAllIFFOnBoardList);
+//  Action := cafree;
 end;
 
 procedure TfrmIFFOnBoardPickList.FormCreate(Sender: TObject);

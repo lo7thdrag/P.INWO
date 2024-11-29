@@ -44,9 +44,9 @@ type
     FSelectedVehicle : TAsset;
     FSelectedMAD : TMAD_On_Board;
 
+  public
     procedure UpdateMADList;
 
-  public
     property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
   end;
 
@@ -56,7 +56,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmMADMount;
+  uDataModule, ufrmMADMount, ufrmAsset;
 
 {$R *.dfm}
 
@@ -64,9 +64,9 @@ uses
 
 procedure TfrmMADOnBoardPickList.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  FreeItemsAndFreeList(FAllMADDefList);
-  FreeItemsAndFreeList(FAllMADOnBoardList);
-  Action := cafree;
+//  FreeItemsAndFreeList(FAllMADDefList);
+//  FreeItemsAndFreeList(FAllMADOnBoardList);
+//  Action := cafree;
 end;
 
 procedure TfrmMADOnBoardPickList.FormCreate(Sender: TObject);
@@ -139,6 +139,7 @@ end;
 
 procedure TfrmMADOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
+  frmAsset.UpdateSensorData;
   Close;
 end;
 

@@ -489,16 +489,10 @@ begin
 //    FDef.Upper_Received_Freq := StrToFloat(edtUpperLimitReceivedFreqTARH.Text);
 //    FDef.Lower_Received_Freq := StrToFloat(edtLowerLimitReceivedFreqTARH.Text);
 //    {$ENDREGION}
-//
-//    {$REGION ' Notes '}
-//    FNote.Notes := mmoNotes.Text;
-//    {$ENDREGION}
-//
 //    if FDef.Missile_Index = 0 then
 //    begin
 //      if dmTTT.InsertMissileDef(FDef) then
 //      begin
-//        dmTTT.InsertNoteStorage(2, FDef.Missile_Index, FNote);
 //        ShowMessage('Data has been saved');
 //      end;
 //    end
@@ -506,7 +500,6 @@ begin
 //    begin
 //      if dmTTT.UpdateMissileDef(FDef) then
 //      begin
-//        dmTTT.UpdateNoteStorage(FDef.Missile_Index, FNote);
 //        ShowMessage('Data has been updated');
 //      end;
 //    end;
@@ -918,11 +911,6 @@ begin
 //    edtLowerLimitReceivedFreqTARH.Text := FormatFloat('0.000', FDef.Lower_Received_Freq);
 //
 //    {$ENDREGION}
-//
-//    {$REGION ' Notes '}
-//    mmoNotes.Text := FNote.Notes;
-//    {$ENDREGION}
-//
 //  end;
 end;
 

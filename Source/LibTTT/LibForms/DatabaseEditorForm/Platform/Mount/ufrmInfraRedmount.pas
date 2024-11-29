@@ -59,7 +59,7 @@ var
 implementation
 
 uses
-  uDataModule;
+  uDataModule, ufrmInfraredDecoyOnBoardPickList;
 
 {$R *.dfm}
 
@@ -67,7 +67,7 @@ uses
 
 procedure TfrmInfraredmount.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  Action := cafree;
+//  Action := cafree;
 end;
 
 procedure TfrmInfraredmount.FormShow(Sender: TObject);
@@ -89,6 +89,7 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
+    frmInfraredDecoyOnBoardPickList.UpdateInfraredDecoyList;
     Close;
 end;
 
@@ -128,39 +129,39 @@ end;
 
 function TfrmInfraredmount.CekInput: Boolean;
 begin
-//  Result := False;
-//
-//  {Jika Mount Name sudah ada}
-//  if dmINWO.GetInfraredDecoyOnBoardCount(FSelectedVehicle.FData.Vehicle_Index, edtName.Text) then
-//  begin
-//    {Jika inputan baru}
-//    if FSelectedInfraredDecoy.FData.Infrared_Decoy_Instance_Index = 0 then
-//    begin
-//      ShowMessage('Duplicate InfraredDecoy!' + Char(13) + 'Choose Infrared Decoy to continue.');
-//      Exit;
-//    end
-//    else if LastName <> edtName.Text then
-//    begin
-//      ShowMessage('Please use another class name');
-//      Exit;
-//    end;
-//  end;
-//
-//  Result := True;
+  Result := False;
+
+  {Jika Mount Name sudah ada}
+  if dmINWO.GetInfraredDecoyOnBoardCount(FSelectedVehicle.FData.VehicleIndex, edtName.Text) then
+  begin
+    {Jika inputan baru}
+    if FSelectedInfraredDecoy.FData.Infrared_Decoy_Instance_Index = 0 then
+    begin
+      ShowMessage('Duplicate InfraredDecoy!' + Char(13) + 'Choose Infrared Decoy to continue.');
+      Exit;
+    end
+    else if LastName <> edtName.Text then
+    begin
+      ShowMessage('Please use another class name');
+      Exit;
+    end;
+  end;
+
+  Result := True;
 end;
 
 procedure TfrmInfraredmount.UpdateInfraredDecoyData;
 begin
-//  with FSelectedInfraredDecoy do
-//  begin
-//    if FData.Infrared_Decoy_Instance_Index = 0 then
-//      edtName.Text := FInfraRedDecoy_Def.Infrared_Decoy_Identifier
-//    else
-//      edtName.Text := FData.Instance_Identifier;
-//
-//    LastName := edtName.Text;
-//    edtQuantity.Text := IntToStr(FData.Infrared_Decoy_Qty_On_Board);
-//  end;
+  with FSelectedInfraredDecoy do
+  begin
+    if FData.Infrared_Decoy_Instance_Index = 0 then
+      edtName.Text := FDef.Infrared_Decoy_Identifier
+    else
+      edtName.Text := FData.Instance_Identifier;
+
+    LastName := edtName.Text;
+    edtQuantity.Text := IntToStr(FData.Infrared_Decoy_Qty_On_Board);
+  end;
 end;
 
 {$ENDREGION}

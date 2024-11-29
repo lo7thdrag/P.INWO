@@ -25,8 +25,6 @@ type
     ImgBackgroundForm: TImage;
     edtClassName: TLabel;
     lblPlatform: TLabel;
-
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
 
     //Global
@@ -62,16 +60,11 @@ var
 implementation
 
 uses
-  uDataModule ;
+  uDataModule, ufrmChaffOnBoardPickList ;
 
 {$R *.dfm}
 
 {$REGION ' Form Handle '}
-
-procedure TfrmChaffMount.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-  Action := cafree;
-end;
 
 procedure TfrmChaffMount.FormShow(Sender: TObject);
 begin
@@ -92,6 +85,7 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
+  frmChaffOnBoardPickList.UpdateChaffList;
   Close;
 end;
 
@@ -125,58 +119,57 @@ end;
 
 function TfrmChaffMount.CekInput: Boolean;
 begin
-//  Result := False;
-//
-//  {Jika Mount Name sudah ada}
-//  if dmTTT.GetChaffOnBoardCount(FSelectedVehicle.FData.Vehicle_Index, edtClassName.Caption) then
-//  begin
-//    {Jika inputan baru}
-//    if FSelectedChaff.FData.Chaff_Instance_Index = 0 then
-//    begin
-//      ShowMessage('Duplicate Chaff!' + Char(13) + 'Choose different Chaff to continue.');
-//      Exit;
-//    end
-//    else if LastName <> edtClassName.Caption then
-//    begin
-//      ShowMessage('Please use another class name');
-//      Exit;
-//    end;
-//  end;
-//
-//  Result := True;
+  Result := False;
+
+  {Jika Mount Name sudah ada}
+  if dmINWO.GetChaffOnBoardCount(FSelectedVehicle.FData.VehicleIndex, edtClassName.Caption) then
+  begin
+    {Jika inputan baru}
+    if FSelectedChaff.FData.Chaff_Instance_Index = 0 then
+    begin
+      ShowMessage('Duplicate Chaff!' + Char(13) + 'Choose different Chaff to continue.');
+      Exit;
+    end
+    else if LastName <> edtClassName.Caption then
+    begin
+      ShowMessage('Please use another class name');
+      Exit;
+    end;
+  end;
+
+  Result := True;
 end;
 
 procedure TfrmChaffMount.btnCancelClick(Sender: TObject);
 begin
-
   Close;
 end;
 
 procedure TfrmChaffMount.cbbNameChange(Sender: TObject);
 begin
-//  if TComboBox(Sender).ItemIndex = -1 then
-//    TComboBox(Sender).ItemIndex := 0;
-//
-//  edtClassName.Caption := FSelectedChaff.FChaff_Def.Chaff_Identifier + ' ' + cbbName.Text;
-//
-//  btnApply.Enabled := True;
+  if TComboBox(Sender).ItemIndex = -1 then
+    TComboBox(Sender).ItemIndex := 0;
+
+  edtClassName.Caption := FSelectedChaff.FDef.Chaff_Identifier + ' ' + cbbName.Text;
+
+  btnApply.Enabled := True;
 end;
 
 procedure TfrmChaffMount.UpdateChaffData;
 begin
-//  with FSelectedChaff do
-//  begin
-//    cbbName.ItemIndex := FData.Instance_Type;
-//
-//    if FData.Chaff_Instance_Index = 0 then
-//      edtClassName.Caption := FChaff_Def.Chaff_Identifier + ' ' + cbbName.Text
-//    else
-//      edtClassName.Caption := FData.Instance_Identifier;
-//
-//    LastName := edtClassName.Caption;
-//
-//    edtQuantity.Text := FormatFloat('0', FData.Chaff_Qty_On_Board);
-//  end;
+  with FSelectedChaff do
+  begin
+    cbbName.ItemIndex := FData.Instance_Type;
+
+    if FData.Chaff_Instance_Index = 0 then
+      edtClassName.Caption := FDef.Chaff_Identifier + ' ' + cbbName.Text
+    else
+      edtClassName.Caption := FData.Instance_Identifier;
+
+    LastName := edtClassName.Caption;
+
+    edtQuantity.Text := FormatFloat('0', FData.Chaff_Qty_On_Board);
+  end;
 end;
 
 {$ENDREGION}

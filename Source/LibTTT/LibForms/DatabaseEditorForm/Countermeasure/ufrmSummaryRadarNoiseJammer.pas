@@ -150,16 +150,10 @@ begin
     FDef.Lower_Vert_Coverage_Angle := StrToFloat(edtLowerVerticalLimit.Text);
     FDef.Upper_Vert_Coverage_Angle := StrToFloat(edtUpperVerticalLimit.Text);
     {$ENDREGION}
-
-    {$REGION ' Notes '}
-    FNote.Notes := mmoNotes.Text;
-    {$ENDREGION}
-
     if FDef.Jammer_Index = 0 then
     begin
       if dminwo.InsertRadarNoiseJammerDef(FDef) then
       begin
-        dminwo.InsertNoteStorage(15, FDef.Jammer_Index, FNote);
         ShowMessage('Data has been saved');
       end;
     end
@@ -167,7 +161,6 @@ begin
     begin
       if dmINWO.UpdateRadarNoiseJammerDef(FDef) then
       begin
-        dmINWO.UpdateNoteStorage(FDef.Jammer_Index, FNote);
         ShowMessage('Data has been updated');
       end;
     end;
@@ -207,11 +200,6 @@ begin
     edtLowerVerticalLimit.Text := FormatFloat('0', FDef.Lower_Vert_Coverage_Angle);
     edtUpperVerticalLimit.Text := FormatFloat('0', FDef.Upper_Vert_Coverage_Angle);
     {$ENDREGION}
-
-    {$REGION ' Notes '}
-    mmoNotes.Text := FNote.Notes;
-    {$ENDREGION}
-
   end;
 end;
 

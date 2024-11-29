@@ -4,7 +4,7 @@ object frmTorpedoMount: TfrmTorpedoMount
   BorderIcons = []
   BorderStyle = bsNone
   Caption = 'Torpedo Mounts'
-  ClientHeight = 460
+  ClientHeight = 433
   ClientWidth = 490
   Color = 1119507
   TransparentColor = True
@@ -16,8 +16,6 @@ object frmTorpedoMount: TfrmTorpedoMount
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
-  OnClose = FormClose
-  OnCreate = FormCreate
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -25,7 +23,7 @@ object frmTorpedoMount: TfrmTorpedoMount
     Left = 0
     Top = 0
     Width = 490
-    Height = 460
+    Height = 433
     Align = alClient
     Picture.Data = {
       0954506E67496D61676589504E470D0A1A0A0000000D49484452000004930000
@@ -14178,7 +14176,6 @@ object frmTorpedoMount: TfrmTorpedoMount
     Font.Height = -13
     Font.Name = 'Tahoma'
     Font.Style = []
-    ParentBackground = False
     ParentFont = False
     TabOrder = 0
     object lbl1: TLabel
@@ -14216,7 +14213,6 @@ object frmTorpedoMount: TfrmTorpedoMount
     Font.Height = -13
     Font.Name = 'Berlin Sans FB'
     Font.Style = []
-    ParentBackground = False
     ParentFont = False
     TabOrder = 1
     object PageControl1: TPageControl
@@ -14251,6 +14247,7 @@ object frmTorpedoMount: TfrmTorpedoMount
           Width = 66
           Height = 15
           Caption = 'Blind Zones :'
+          Visible = False
         end
         object lbl5: TLabel
           Left = 104
@@ -14258,6 +14255,7 @@ object frmTorpedoMount: TfrmTorpedoMount
           Width = 52
           Height = 15
           Caption = 'Quantity :'
+          Visible = False
         end
         object lbl6: TLabel
           Left = 104
@@ -14265,6 +14263,7 @@ object frmTorpedoMount: TfrmTorpedoMount
           Width = 120
           Height = 15
           Caption = 'Reload/Launch Delay :'
+          Visible = False
         end
         object lbl7: TLabel
           Left = 312
@@ -14272,6 +14271,7 @@ object frmTorpedoMount: TfrmTorpedoMount
           Width = 48
           Height = 15
           Caption = 'hh:mm:ss'
+          Visible = False
         end
         object edtClassName: TLabel
           Left = 81
@@ -14309,6 +14309,7 @@ object frmTorpedoMount: TfrmTorpedoMount
           Height = 23
           NumbersOnly = True
           TabOrder = 1
+          Visible = False
           OnChange = edtChange
           OnKeyPress = edtNumeralKeyPress
         end
@@ -14319,6 +14320,7 @@ object frmTorpedoMount: TfrmTorpedoMount
           Height = 25
           Caption = 'Edit Launchers...'
           TabOrder = 2
+          Visible = False
           OnClick = btnEditLaunchersClick
         end
         object pnlBlindZone: TPanel
@@ -14327,7 +14329,7 @@ object frmTorpedoMount: TfrmTorpedoMount
           Width = 66
           Height = 65
           TabOrder = 3
-          OnClick = pnlBlindZoneClick
+          Visible = False
         end
         object edtReload: TMaskEdit
           Left = 241
@@ -14338,6 +14340,7 @@ object frmTorpedoMount: TfrmTorpedoMount
           MaxLength = 8
           TabOrder = 4
           Text = '  :  :  '
+          Visible = False
           OnChange = edtChange
         end
       end

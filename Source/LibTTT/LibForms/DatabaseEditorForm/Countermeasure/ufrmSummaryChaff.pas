@@ -165,15 +165,10 @@ begin
     FDef.Platform_Type := 0;
     {$ENDREGION}
 
-    {$REGION ' Notes '}
-    FNote.Notes := mmoNotes.Text;
-    {$ENDREGION}
-
     if FDef.Chaff_Index = 0 then
     begin
       if dmINWO.InsertChaffDef(FDef) then
       begin
-        dmINWO.InsertNoteStorage(19, FDef.Chaff_Index, FNote);
         ShowMessage('Data has been saved');
       end;
     end
@@ -181,7 +176,6 @@ begin
     begin
       if dmINWO.UpdateChaffDef(FDef) then
       begin
-        dmINWO.UpdateNoteStorage(FDef.Chaff_Index, FNote);
         ShowMessage('Data has been updated');
       end;
     end;
@@ -235,11 +229,6 @@ begin
     edtLowerLimit.Text := FormatFloat('0.0', FDef.Radar_Affect_Lower_Freq);
     edtUpperLimit.Text := FormatFloat('0.0', FDef.Radar_Affect_Upper_Freq);
     {$ENDREGION}
-
-    {$REGION ' Notes '}
-    mmoNotes.Text := FNote.Notes;
-    {$ENDREGION}
-
   end;
 end;
 

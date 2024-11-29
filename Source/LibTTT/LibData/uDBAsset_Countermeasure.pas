@@ -16,7 +16,6 @@ type
   public
     FData : TRecChaff_On_Board;
     FDef  : TRecChaff_Definition;
-    FNote : TRecNote_Storage;
 
     constructor Create;
     destructor Destroy;override;
@@ -27,7 +26,6 @@ type
   public
     FData           : TRecAir_Bubble_On_Board;
     FDef  : TRecAir_Bubble_Definition;
-    FNote : TRecNote_Storage;
 
     constructor Create;
     destructor Destroy;override;
@@ -38,7 +36,6 @@ type
   public
     FData  : TRecAcoustic_Decoy_On_Board;
     FDef  : TRecAcoustic_Decoy_Definition;
-    FNote : TRecNote_Storage;
 
     constructor Create;
     destructor Destroy;override;
@@ -49,7 +46,6 @@ type
   public
     FData               : TRecInfrared_Decoy_On_Board;
     FDef  : TRecInfrared_Decoy_Definition;
-    FNote : TRecNote_Storage;
 
     constructor Create;
     destructor Destroy;override;
@@ -60,7 +56,6 @@ type
   public
     FData              : TRecFloating_Decoy_On_Board;
     FDef  : TRecFloating_Decoy_Definition;
-    FNote : TRecNote_Storage;
 
     constructor Create;
     destructor Destroy;override;
@@ -71,7 +66,6 @@ type
   public
     FData : TRecTowed_Decoy_On_Board;
     FDef  : TRecTowed_Decoy_Definition;
-    FNote : TRecNote_Storage;
 
     constructor Create;
     destructor Destroy;override;
@@ -82,7 +76,6 @@ type
   public
     FData                : TRecDefensive_Jammer_On_Board;
     FDef  : TRecDefensive_Jammer_Definition;
-    FNote : TRecNote_Storage;
 
     constructor Create;
     destructor Destroy;override;
@@ -93,7 +86,6 @@ type
   public
     FData  : TRecRadar_Noise_Jammer_On_Board;
     FDef  : TRecRadar_Noise_Jammer_Definition;
-    FNote : TRecNote_Storage;
 
     constructor Create;
     destructor Destroy;override;

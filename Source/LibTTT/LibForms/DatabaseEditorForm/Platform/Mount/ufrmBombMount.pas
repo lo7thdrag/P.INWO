@@ -27,8 +27,6 @@ type
     ImgBackgroundForm: TImage;
     edtClassName: TLabel;
     lblPlatform: TLabel;
-
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
 
     //Global
@@ -67,16 +65,11 @@ var
 implementation
 
 uses
-  uDataModule, ufrmBlindZoneAttachment;
+  uDataModule, ufrmBombOnBoardPickList;
 
 {$R *.dfm}
 
 {$REGION ' Form Handle '}
-
-procedure TfrmBombMount.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-  Action := cafree;
-end;
 
 procedure TfrmBombMount.FormShow(Sender: TObject);
 begin
@@ -97,7 +90,8 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
-    Close;
+  frmBombOnBoardPickList.UpdateBombList;
+  Close;
 end;
 
 procedure TfrmBombMount.btnApplyClick(Sender: TObject);
@@ -135,9 +129,9 @@ end;
 
 procedure TfrmBombMount.cbMountExtensionChange(Sender: TObject);
 begin
-//  edtName.Text := FSelectedBomb.FData.Bomb_Identifier + ' ' + cbMountExtension.Text;
-//
-//  btnApply.Enabled := True;
+  edtName.Text := FSelectedBomb.FDef.Bomb_Identifier + ' ' + cbMountExtension.Text;
+
+  btnApply.Enabled := True;
 end;
 
 function TfrmBombMount.CekInput: Boolean;
@@ -165,21 +159,21 @@ end;
 
 procedure TfrmBombMount.UpdateBombData;
 begin
-//  with FSelectedBomb do
-//  begin
-//    cbMountExtension.ItemIndex := FPoint.FData.Mount_Type;
-//
-//    if FPoint.FData.Point_Effect_Index = 0 then
-//      edtName.Text := FData.Bomb_Identifier + ' ' + cbMountExtension.Text
-//    else
-//      edtName.Text := FPoint.FData.Instance_Identifier;
-//
-//    LastName := edtName.Text;
-//    edtClassName.Caption := FData.Bomb_Identifier;
-//
-//    edtQuantity.Text := FormatFloat('0', FPoint.FData.Quantity);
-//
-//  end;
+  with FSelectedBomb do
+  begin
+    cbMountExtension.ItemIndex := FData.Mount_Type;
+
+    if FData.Point_Effect_Index = 0 then
+      edtName.Text := FDef.Bomb_Identifier + ' ' + cbMountExtension.Text
+    else
+      edtName.Text := FData.Instance_Identifier;
+
+    LastName := edtName.Text;
+    edtClassName.Caption := FDef.Bomb_Identifier;
+
+    edtQuantity.Text := FormatFloat('0', FData.Quantity);
+
+  end;
 end;
 
 {$ENDREGION}

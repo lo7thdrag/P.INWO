@@ -10395,6 +10395,10 @@ object frmSummaryMine: TfrmSummaryMine
       OnChange = edtChange
       object tsGeneral: TTabSheet
         Caption = 'General'
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object lblCategory: TLabel
           Left = 20
           Top = 107

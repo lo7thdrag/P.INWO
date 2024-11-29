@@ -71,7 +71,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmBlindZoneAttachment;
+  uDataModule, ufrmEODOnBoardPickList;
 
 {$R *.dfm}
 
@@ -117,6 +117,7 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
+    frmEODOnBoardPickList.UpdateEODList;
     Close;
 end;
 

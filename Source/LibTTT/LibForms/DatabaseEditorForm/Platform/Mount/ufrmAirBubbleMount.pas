@@ -58,7 +58,7 @@ var
 implementation
 
 uses
-  uDataModule;
+  uDataModule, ufrmAirBubbleOnBoardPickList;
 
 {$R *.dfm}
 
@@ -88,6 +88,7 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
+    frmAirBubbleOnBoardPickList.UpdateAirBubbleList;
     Close;
 end;
 
@@ -126,40 +127,40 @@ end;
 
 function TfrmAirBubbleMount.CekInput: Boolean;
 begin
-//  Result := False;
-//
-//  {Jika Mount Name sudah ada}
-//  if dmTTT.GetAirBubbleOnBoardCount(FSelectedVehicle.FData.Vehicle_Index, edtName.Text) then
-//  begin
-//    {Jika inputan baru}
-//    if FSelectedAirBubble.FData.Air_Bubble_Instance_Index = 0 then
-//    begin
-//      ShowMessage('Duplicate Air Bubble!' + Char(13) + 'Choose Air Bubble Decoy to continue.');
-//      Exit;
-//    end
-//    else if LastName <> edtName.Text then
-//    begin
-//      ShowMessage('Please use another class name');
-//      Exit;
-//    end;
-//  end;
-//
-//  Result := True;
+  Result := False;
+
+  {Jika Mount Name sudah ada}
+  if dmINWO.GetAirBubbleOnBoardCount(FSelectedVehicle.FData.VehicleIndex, edtName.Text) then
+  begin
+    {Jika inputan baru}
+    if FSelectedAirBubble.FData.Air_Bubble_Instance_Index = 0 then
+    begin
+      ShowMessage('Duplicate Air Bubble!' + Char(13) + 'Choose Air Bubble Decoy to continue.');
+      Exit;
+    end
+    else if LastName <> edtName.Text then
+    begin
+      ShowMessage('Please use another class name');
+      Exit;
+    end;
+  end;
+
+  Result := True;
 end;
 
 procedure TfrmAirBubbleMount.UpdateAirBubbleData;
 begin
-//  with FSelectedAirBubble do
-//  begin
-//    if FData.Air_Bubble_Instance_Index = 0 then
-//      edtName.Text := FAirBubble_Def.Air_Bubble_Identifier
-//    else
-//      edtName.Text := FData.Instance_Identifier;
-//
-//      LastName := edtName.Text;
-//
-//    edtQuantity.Text := IntToStr(FData.Bubble_Qty_On_Board);
-//  end;
+  with FSelectedAirBubble do
+  begin
+    if FData.Air_Bubble_Instance_Index = 0 then
+      edtName.Text := FDef.Air_Bubble_Identifier
+    else
+      edtName.Text := FData.Instance_Identifier;
+
+      LastName := edtName.Text;
+
+    edtQuantity.Text := IntToStr(FData.Bubble_Qty_On_Board);
+  end;
 end;
 
 {$ENDREGION}

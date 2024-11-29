@@ -10397,6 +10397,10 @@ object frmSummaryMissile: TfrmSummaryMissile
         Caption = 'General'
         DoubleBuffered = True
         ParentDoubleBuffered = False
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object lblDetectabilityType: TLabel
           Left = 418
           Top = 92
@@ -10799,6 +10803,10 @@ object frmSummaryMissile: TfrmSummaryMissile
       object tsPhysical: TTabSheet
         Caption = 'Physical'
         ImageIndex = 1
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object lblMotionCharacteristic: TLabel
           Left = 18
           Top = 20
@@ -11397,6 +11405,10 @@ object frmSummaryMissile: TfrmSummaryMissile
       object tsGuidance: TTabSheet
         Caption = 'Guidance'
         ImageIndex = 3
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object Label76: TLabel
           Left = 8
           Top = 10
@@ -12003,6 +12015,10 @@ object frmSummaryMissile: TfrmSummaryMissile
       object tsSeekerSetting: TTabSheet
         Caption = 'Seeker Settings'
         ImageIndex = 4
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object lblPrimaryTARH: TLabel
           Left = 157
           Top = 24

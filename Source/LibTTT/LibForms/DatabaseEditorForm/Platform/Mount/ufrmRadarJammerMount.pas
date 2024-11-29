@@ -60,7 +60,7 @@ var
 implementation
 
 uses
-  uDataModule ;
+  uDataModule, ufrmRadarNoiseJammerOnBoardPickList ;
 
 {$R *.dfm}
 
@@ -69,7 +69,7 @@ uses
 
 procedure TfrmRadarJammerMount.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  Action := cafree;
+//  Action := cafree;
 end;
 
 procedure TfrmRadarJammerMount.FormShow(Sender: TObject);
@@ -91,7 +91,8 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
-    Close;
+  frmRadarNoiseJammerOnBoardPickList.UpdateRadarJammerList;
+  Close;
 end;
 
 procedure TfrmRadarJammerMount.btnApplyClick(Sender: TObject);
@@ -129,40 +130,40 @@ end;
 
 function TfrmRadarJammerMount.CekInput: Boolean;
 begin
-//  Result := False;
-//
-//  {Jika Mount Name sudah ada}
-//  if dmINWO.GetRadarNoiseJammerOnBoardCount(FSelectedVehicle.FData.Vehicle_Index, edtName.Text) then
-//  begin
-//    {Jika inputan baru}
-//    if FSelectedRadarJammer.FData.Jammer_Instance_Index = 0 then
-//    begin
-//      ShowMessage('Duplicate Radar Jammer!' + Char(13) + 'Choose Radar Jammer to continue.');
-//      Exit;
-//    end
-//    else if LastName <> edtName.Text then
-//    begin
-//      ShowMessage('Please use another class name');
-//      Exit;
-//    end;
-//  end;
-//
-//  Result := True;
+  Result := False;
+
+  {Jika Mount Name sudah ada}
+  if dmINWO.GetRadarNoiseJammerOnBoardCount(FSelectedVehicle.FData.VehicleIndex, edtName.Text) then
+  begin
+    {Jika inputan baru}
+    if FSelectedRadarJammer.FData.Jammer_Instance_Index = 0 then
+    begin
+      ShowMessage('Duplicate Radar Jammer!' + Char(13) + 'Choose Radar Jammer to continue.');
+      Exit;
+    end
+    else if LastName <> edtName.Text then
+    begin
+      ShowMessage('Please use another class name');
+      Exit;
+    end;
+  end;
+
+  Result := True;
 end;
 
 procedure TfrmRadarJammerMount.UpdateRadarJammerData;
 begin
-//  with FSelectedRadarJammer do
-//  begin
-//    if FData.Jammer_Instance_Index = 0 then
-//      edtName.Text := FDef.Jammer_Identifier
-//    else
-//      edtName.Text := FData.Instance_Identifier;
-//
-//      LastName := edtName.Text;
-//
-//    edtAntenna.Text := FormatFloat('0', FData.Antenna_Height);
-//  end;
+  with FSelectedRadarJammer do
+  begin
+    if FData.Jammer_Instance_Index = 0 then
+      edtName.Text := FDef.Jammer_Identifier
+    else
+      edtName.Text := FData.Instance_Identifier;
+
+      LastName := edtName.Text;
+
+    edtAntenna.Text := FormatFloat('0', FData.Antenna_Height);
+  end;
 end;
 
 {$ENDREGION}

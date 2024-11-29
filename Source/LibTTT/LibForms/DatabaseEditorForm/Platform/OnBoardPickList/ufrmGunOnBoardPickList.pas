@@ -44,9 +44,9 @@ type
     FSelectedVehicle : TAsset;
     FSelectedGun : TGun_On_Board;
 
+  public
     procedure UpdateGunList;
 
-  public
     property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
   end;
 
@@ -56,7 +56,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmGunMount;
+  uDataModule, ufrmGunMount, ufrmAsset;
 
 {$R *.dfm}
 
@@ -64,9 +64,9 @@ uses
 
 procedure TfrmGunOnBoardPickList.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  FreeItemsAndFreeList(FAllGunDefList);
-  FreeItemsAndFreeList(FAllGunOnBoardList);
-  Action := cafree;
+//  FreeItemsAndFreeList(FAllGunDefList);
+//  FreeItemsAndFreeList(FAllGunOnBoardList);
+//  Action := cafree;
 end;
 
 procedure TfrmGunOnBoardPickList.FormCreate(Sender: TObject);
@@ -140,6 +140,7 @@ end;
 
 procedure TfrmGunOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
+  frmAsset.UpdateWeaponData;
   Close;
 end;
 

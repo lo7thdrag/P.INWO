@@ -145,16 +145,10 @@ begin
     FDef.Type_B_Seducing_Prob := TrackBarTypeB.Position / 100;
     FDef.Type_C_Seducing_Prob := TrackBarTypeC.Position / 100;
     {$ENDREGION}
-
-    {$REGION ' Notes '}
-    FNote.Notes := mmoNotes.Text;
-    {$ENDREGION}
-
     if FDef.Defensive_Jammer_Index = 0 then
     begin
       if dmINWO.InsertSelfDefensiveJammerDef(FDef) then
       begin
-        dmINWO.InsertNoteStorage(16, FDef.Defensive_Jammer_Index, FNote);
         ShowMessage('Data has been saved');
       end;
     end
@@ -162,7 +156,6 @@ begin
     begin
       if dmINWO.UpdateSelfDefensiveJammerDef(FDef) then
       begin
-        dmINWO.UpdateNoteStorage(FDef.Defensive_Jammer_Index, FNote);
         ShowMessage('Data has been updated');
       end;
     end;
@@ -238,11 +231,6 @@ begin
     TrackBarTypeB.Position := Round(FDef.Type_B_Seducing_Prob * 100);
     TrackBarTypeC.Position := Round(FDef.Type_C_Seducing_Prob * 100);
     {$ENDREGION}
-
-    {$REGION ' Notes '}
-    mmoNotes.Text := FNote.Notes;
-    {$ENDREGION}
-
   end;
 end;
 

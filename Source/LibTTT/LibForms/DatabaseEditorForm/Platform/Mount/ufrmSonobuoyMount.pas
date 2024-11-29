@@ -68,7 +68,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmBlindZoneAttachment ;
+  uDataModule, ufrmSonobuoyOnBoardPickList ;
 
 {$R *.dfm}
 
@@ -99,6 +99,7 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
+    frmSonobuoyOnBoardPickList.UpdateSonobuoyList;
     Close;
 end;
 

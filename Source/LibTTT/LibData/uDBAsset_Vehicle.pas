@@ -16,7 +16,6 @@ type
 
   public
     FDef  : TRecVehicle_Definition;
-    FNote : TRecNote_Storage;
 
     {Weapon}
     Missiles : TList;

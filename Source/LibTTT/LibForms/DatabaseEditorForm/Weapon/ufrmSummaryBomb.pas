@@ -195,10 +195,6 @@ begin
     chkLaunchFromRocket.Checked := Boolean(FDef.Rocket_Launcher);
 
     {$ENDREGION}
-
-    {$REGION ' Notes '}
-    mmoNotes.Text := FNote.Notes;
-    {$ENDREGION}
   end;
 end;
 
