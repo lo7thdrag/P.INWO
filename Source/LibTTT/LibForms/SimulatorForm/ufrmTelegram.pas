@@ -6,7 +6,7 @@ uses
   Winapi.Windows, System.IOUtils, Winapi.Messages, System.SysUtils, System.Variants, System.Win.ComObj, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Imaging.pngimage, Winapi.ShellAPI,
   Vcl.ExtCtrls, Vcl.Buttons, ImageButton, Vcl.ComCtrls, Vcl.Imaging.jpeg, uSimMgr_Client, uClassData, uT3SimManager, uRecordData, uLibSetting,
-  AdvGroupBox;
+  AdvGroupBox, ufrmFileManager;
 
 type
   TfrmTelegram = class(TForm)
@@ -50,6 +50,7 @@ type
     imgbtnOpenTelegram: TImageButton;
     pnlOpenTelegram: TPanel;
     lblOpenTelegram: TLabel;
+    Button1: TButton;
     procedure btnBuatTelegramTerbatasClick(Sender: TObject);
     procedure btnBuatTelegramRahasiaClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
@@ -254,10 +255,10 @@ procedure TfrmTelegram.Button1Click(Sender: TObject);
 var
 path : string;
 begin
-  path := vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIdentifier;
+  if not Assigned(frmFileManager) then
+    frmFileManager := TFileManager.Create(Self);
 
-  LstBxTelegram.Items.AddStrings(TDirectory.GetFiles(path));
-
+  frmFileManager.Show;
 end;
 
 procedure TfrmTelegram.btnOpenTelegramClick(Sender: TObject);

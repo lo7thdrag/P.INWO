@@ -203,7 +203,7 @@ begin
   Application.CreateForm(TfrmSummaryRadarNoiseJammer, frmSummaryRadarNoiseJammer);
   Application.CreateForm(TfrmSummarySelfDefensiveJammer, frmSummarySelfDefensiveJammer);
   Application.CreateForm(TfrmSummaryTowedjammerDecoy, frmSummaryTowedjammerDecoy);
-  Application.CreateForm(TFileManager, FileManager);
+  Application.CreateForm(TFileManager, frmFileManager);
   frmDisplayArea := nil;
   frmSituationBoard := nil;
   Application.CreateForm(TfrmOverlayTools, frmOverlayTools);

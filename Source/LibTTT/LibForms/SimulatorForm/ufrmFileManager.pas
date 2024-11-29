@@ -42,7 +42,7 @@ type
   end;
 
 var
-  FileManager: TFileManager;
+  frmFileManager: TFileManager;
 
 implementation
 
