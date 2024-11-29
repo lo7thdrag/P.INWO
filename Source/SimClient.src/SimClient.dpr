@@ -161,7 +161,8 @@ uses
   ufrmSummaryInfraredDecoy in '..\LibTTT\LibForms\DatabaseEditorForm\Countermeasure\ufrmSummaryInfraredDecoy.pas' {frmSummaryInfraredDecoy},
   ufrmSummaryRadarNoiseJammer in '..\LibTTT\LibForms\DatabaseEditorForm\Countermeasure\ufrmSummaryRadarNoiseJammer.pas' {frmSummaryRadarNoiseJammer},
   ufrmSummarySelfDefensiveJammer in '..\LibTTT\LibForms\DatabaseEditorForm\Countermeasure\ufrmSummarySelfDefensiveJammer.pas' {frmSummarySelfDefensiveJammer},
-  ufrmSummaryTowedJammerDecoy in '..\LibTTT\LibForms\DatabaseEditorForm\Countermeasure\ufrmSummaryTowedJammerDecoy.pas' {frmSummaryTowedjammerDecoy};
+  ufrmSummaryTowedJammerDecoy in '..\LibTTT\LibForms\DatabaseEditorForm\Countermeasure\ufrmSummaryTowedJammerDecoy.pas' {frmSummaryTowedjammerDecoy},
+  ufrmFileManager in '..\LibTTT\LibForms\SimulatorForm\ufrmFileManager.pas' {FileManager};
 
 {$R *.res}
 
@@ -202,6 +203,7 @@ begin
   Application.CreateForm(TfrmSummaryRadarNoiseJammer, frmSummaryRadarNoiseJammer);
   Application.CreateForm(TfrmSummarySelfDefensiveJammer, frmSummarySelfDefensiveJammer);
   Application.CreateForm(TfrmSummaryTowedjammerDecoy, frmSummaryTowedjammerDecoy);
+  Application.CreateForm(TFileManager, FileManager);
   frmDisplayArea := nil;
   frmSituationBoard := nil;
   Application.CreateForm(TfrmOverlayTools, frmOverlayTools);
