@@ -344,21 +344,24 @@ procedure TfrmTelegram.lblPilihFileClick(Sender: TObject);
 var
   addressTemp : PWideChar;
   filNameTemp : string;
-  saveDialog : TSaveDialog;
+  openDialog : TOpenDialog;
   saveFileTemp : TFile_Data;
   fileDataTemp : TRecTCPSendTelegramUserRole;
 
 begin
-  saveDialog := TSaveDialog.Create(self);
-  saveDialog.InitialDir := 'D:\Telegram\';
-  saveDialog.Filter := 'Word file|*.docx|Excel file|*.xlsx|Power Point file|*.pptx';
-  saveDialog.DefaultExt := 'docx';
-  saveDialog.FilterIndex := 1;
+  openDialog := TOpenDialog.Create(self);
+  openDialog.InitialDir := 'D:\Telegram\';
+//  openDialog.Options := openDialog.Options + [ofAllowMultiSelect];
+//  openDialog.Filter := 'Word file|*.docx|Excel file|*.xlsx|Power Point file|*.pptx';
+  openDialog.Filter := 'All Files (*.*)|*.*';
+//  saveDialog.DefaultExt := 'docx';
 
-  if saveDialog.Execute then
+//  openDialog.FilterIndex := 1;
+
+  if openDialog.Execute then
   begin
-    addressTemp := PWideChar(saveDialog.FileName);
-    filNameTemp := ExtractFileName(saveDialog.FileName);
+    addressTemp := PWideChar(openDialog.FileName);
+    filNameTemp := ExtractFileName(openDialog.FileName);
 //    lblNamaFile.Caption
     addressTempFileTelegram := addressTemp;
     fileNameTempTelegram := filNameTemp;
@@ -391,7 +394,7 @@ begin
   else
     ShowMessage('Save file was cancelled');
 
-  saveDialog.Free;
+  openDialog.Free;
 
 //  UpdateDataFile;
 end;
