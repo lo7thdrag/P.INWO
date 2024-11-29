@@ -15,8 +15,6 @@ type
     btnApply: TButton;
     btnCancel: TButton;
     btnOK: TButton;
-    ImgBackgroundForm: TImage;
-    Label1: TLabel;
     pnl1Title: TPanel;
     txtClass: TLabel;
     edtClass: TEdit;
@@ -37,7 +35,8 @@ type
     cbbSensorType: TComboBox;
     tsNotes: TTabSheet;
     mmoNotes: TMemo;
-    ImgHeader: TImage;
+    imgBackgroundForm: TImage;
+    lblPlatform: TLabel;
 
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
@@ -65,7 +64,7 @@ type
     AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, list tdk perlu di update }
     LastName : string;
 
-    property SelectedEO : TEOD_On_Board read FSelectedEO write FSelectedEO;
+    property SelectedEOD : TEOD_On_Board read FSelectedEO write FSelectedEO;
   end;
 
 var

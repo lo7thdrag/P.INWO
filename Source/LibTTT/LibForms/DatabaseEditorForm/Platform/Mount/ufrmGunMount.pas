@@ -110,8 +110,8 @@ begin
     FData.Vehicle_Index := FSelectedVehicle.FData.VehicleIndex;
     FData.Mount_Type := cbMountExtension.ItemIndex;
     FData.Quantity := StrToInt(edtQuantity.Text);
-//    FPoint.FData.TurretID := StrToInt(edtTurretID.Text);
-    FData.Gun_Index := FData.Gun_Index;
+    FData.TurretID := StrToInt(edtTurretID.Text);
+    FData.Gun_Index := FDef.Gun_Index;
 
     if FData.Point_Effect_Index = 0 then
       dmINWO.InsertPointEffectOnBoard(1, FData)

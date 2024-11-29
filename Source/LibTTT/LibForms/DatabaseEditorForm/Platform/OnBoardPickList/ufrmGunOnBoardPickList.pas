@@ -23,6 +23,9 @@ type
     Label1: TLabel;
     Label2: TLabel;
     lblClose: TLabel;
+    btnDelete: TImage;
+    btnUpdate: TImage;
+    btnNew: TImage;
 
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -35,6 +38,9 @@ type
     procedure btnRemoveClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
     procedure btnCloseClick(Sender: TObject);
+    procedure btnNewClick(Sender: TObject);
+    procedure btnUpdateClick(Sender: TObject);
+    procedure btnDeleteClick(Sender: TObject);
 
 
   private
@@ -56,7 +62,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmGunMount, ufrmAsset;
+  uDataModule, ufrmGunMount, ufrmAsset, ufrmSummaryGun;
 
 {$R *.dfm}
 
@@ -124,6 +130,21 @@ begin
 //  UpdateGunList;
 end;
 
+procedure TfrmGunOnBoardPickList.btnNewClick(Sender: TObject);
+begin
+  if not Assigned(frmSummaryGun) then
+    frmSummaryGun := TfrmSummaryGun.Create(Self);
+
+  try
+    with frmSummaryGun do
+    begin
+      SelectedGun := TGun_On_Board.Create;
+      Show;
+    end;
+  finally
+  end;
+end;
+
 procedure TfrmGunOnBoardPickList.btnRemoveClick(Sender: TObject);
 begin
   if lbAllGunOnBoard.ItemIndex = -1 then
@@ -138,10 +159,64 @@ begin
 //  UpdateGunList;
 end;
 
+procedure TfrmGunOnBoardPickList.btnUpdateClick(Sender: TObject);
+begin
+  if lbAllGunDef.ItemIndex = -1 then
+  begin
+    ShowMessage('Select Gun Data ... !');
+    Exit;
+  end;
+
+  if not Assigned(frmSummaryGun) then
+    frmSummaryGun := TfrmSummaryGun.Create(Self);
+
+  try
+    with frmSummaryGun do
+    begin
+      SelectedGun := FSelectedGun;
+      Show;
+    end;
+  finally
+  end;
+end;
+
 procedure TfrmGunOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
   frmAsset.UpdateWeaponData;
   Close;
+end;
+
+procedure TfrmGunOnBoardPickList.btnDeleteClick(Sender: TObject);
+var
+  warning : Integer;
+begin
+  if lbAllGunDef.ItemIndex = -1 then
+  begin
+    ShowMessage('Select Gun Data ... !');
+    Exit;
+  end;
+
+  warning := MessageDlg('Are you sure to delete this item?', mtConfirmation, mbOKCancel, 0);
+
+  if warning = mrOK then
+  begin
+    with FSelectedGun.FDef do
+    begin
+
+      {Pengecekan Relasi Dengan Tabel On Board}
+      if dmINWO.GetSensor_On_Board_By_Index(1, Gun_Index) then
+      begin
+        ShowMessage('Cannot delete, because is already in used by some vehicles');
+        Exit;
+      end;
+
+      if dmINWO.DeleteRadarDef(Gun_Index) then
+        ShowMessage('Data has been deleted');
+
+    end;
+
+    UpdateGunList;
+  end;
 end;
 
 procedure TfrmGunOnBoardPickList.lbAllGunDefClick(Sender: TObject);

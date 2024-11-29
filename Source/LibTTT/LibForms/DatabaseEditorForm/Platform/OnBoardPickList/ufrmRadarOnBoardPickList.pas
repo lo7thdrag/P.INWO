@@ -23,6 +23,9 @@ type
     Label1: TLabel;
     Label2: TLabel;
     lblClose: TLabel;
+    btnNew: TImage;
+    btnUpdate: TImage;
+    btnDelete: TImage;
 
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -35,6 +38,9 @@ type
     procedure btnRemoveClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
     procedure btnCloseClick(Sender: TObject);
+    procedure btnNewClick(Sender: TObject);
+    procedure btnUpdateClick(Sender: TObject);
+    procedure btnDeleteClick(Sender: TObject);
 
   private
     FAllRadarDefList : TList;
@@ -55,7 +61,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmRadarMount, ufrmAsset;
+  uDataModule, ufrmRadarMount, ufrmAsset, ufrmSummaryRadar;
 
 {$R *.dfm}
 
@@ -122,6 +128,21 @@ begin
   end;
 end;
 
+procedure TfrmRadarOnBoardPickList.btnNewClick(Sender: TObject);
+begin
+  if not Assigned(frmSummaryRadar) then
+    frmSummaryRadar := TfrmSummaryRadar.Create(Self);
+
+  try
+    with frmSummaryRadar do
+    begin
+      SelectedRadar := TRadar_On_Board.Create;
+      Show;
+    end;
+  finally
+  end;
+end;
+
 procedure TfrmRadarOnBoardPickList.btnRemoveClick(Sender: TObject);
 begin
   if lbAllRadarOnBoard.ItemIndex = -1 then
@@ -135,10 +156,64 @@ begin
   UpdateRadarList;
 end;
 
+procedure TfrmRadarOnBoardPickList.btnUpdateClick(Sender: TObject);
+begin
+  if lbAllRadarDef.ItemIndex = -1 then
+  begin
+    ShowMessage('Select Radar Data ... !');
+    Exit;
+  end;
+
+  if not Assigned(frmSummaryRadar) then
+    frmSummaryRadar := TfrmSummaryRadar.Create(Self);
+
+  try
+    with frmSummaryRadar do
+    begin
+      SelectedRadar := FSelectedRadar;
+      Show;
+    end;
+  finally
+  end;
+end;
+
 procedure TfrmRadarOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
   frmAsset.UpdateSensorData;
   Close;
+end;
+
+procedure TfrmRadarOnBoardPickList.btnDeleteClick(Sender: TObject);
+var
+  warning : Integer;
+begin
+  if lbAllRadarDef.ItemIndex = -1 then
+  begin
+    ShowMessage('Select Radar Data ... !');
+    Exit;
+  end;
+
+  warning := MessageDlg('Are you sure to delete this item?', mtConfirmation, mbOKCancel, 0);
+
+  if warning = mrOK then
+  begin
+    with FSelectedRadar.FDef do
+    begin
+
+      {Pengecekan Relasi Dengan Tabel On Board}
+      if dmINWO.GetSensor_On_Board_By_Index(1, Radar_Index) then
+      begin
+        ShowMessage('Cannot delete, because is already in used by some vehicles');
+        Exit;
+      end;
+
+      if dmINWO.DeleteRadarDef(Radar_Index) then
+        ShowMessage('Data has been deleted');
+
+    end;
+
+    UpdateRadarList;
+  end;
 end;
 
 procedure TfrmRadarOnBoardPickList.lbAllRadarDefClick(Sender: TObject);

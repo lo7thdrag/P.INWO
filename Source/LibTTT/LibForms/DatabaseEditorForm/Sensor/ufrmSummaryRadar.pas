@@ -15,7 +15,6 @@ type
     pnl1Title: TPanel;
     txtClass: TLabel;
     edtClass: TEdit;
-    ImgBackgroundForm: TImage;
     btnApply: TButton;
     btnCancel: TButton;
     btnOK: TButton;
@@ -108,8 +107,8 @@ type
     chkAntiJammingCapable: TCheckBox;
     tsNotes: TTabSheet;
     mmoNotes: TMemo;
-    Label1: TLabel;
-    ImgHeader: TImage;
+    imgBackgroundForm: TImage;
+    lblPlatform: TLabel;
 
     procedure FormShow(Sender: TObject);
 
@@ -140,15 +139,12 @@ type
 
   private
     FSelectedRadar : TRadar_On_Board;
-//    FVerticalCoverage : TRadar_Vertical;
 
     function CekInput: Boolean;
     procedure UpdateRadarData;
     procedure UpdateSNRvsPODData;
 
   public
-    isOK  : Boolean; {Penanda jika gagal cek input, btn OK tidak langsung close}
-    AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, list tdk perlu di update }
     LastName : string;
 
     property SelectedRadar : TRadar_On_Board read FSelectedRadar write FSelectedRadar;
@@ -177,8 +173,6 @@ begin
   with FSelectedRadar.FDef do
     btnApply.Enabled := Radar_Index = 0;
 
-  isOK := True;
-  AfterClose := True;
   btnCancel.Enabled := True;
 end;
 
@@ -191,8 +185,7 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
-  if isOk then
-    Close;
+  Close;
 end;
 
 procedure TfrmSummaryRadar.btnApplyClick(Sender: TObject);
@@ -201,7 +194,6 @@ begin
   begin
     if not CekInput then
     begin
-      isOK := False;
       Exit;
     end;
 
@@ -267,15 +259,12 @@ begin
     end;
   end;
 
-  isOK := True;
-  AfterClose := True;
   btnApply.Enabled := False;
   btnCancel.Enabled := False;
 end;
 
 procedure TfrmSummaryRadar.btnCancelClick(Sender: TObject);
 begin
-  AfterClose := False;
   Close;
 end;
 
@@ -313,8 +302,6 @@ begin
 //    frmRadarCoverageGraphic.Free;
 //  end;
 
-  btnCancel.Enabled := not AfterClose;
-  btnApply.Enabled := AfterClose;
 end;
 
 procedure TfrmSummaryRadar.chkAntiJammingCapableClick(Sender: TObject);

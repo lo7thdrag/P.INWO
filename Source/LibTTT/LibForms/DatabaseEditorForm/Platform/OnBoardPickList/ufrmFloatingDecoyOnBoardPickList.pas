@@ -23,6 +23,9 @@ type
     Label1: TLabel;
     Label2: TLabel;
     lblClose: TLabel;
+    btnDelete: TImage;
+    btnUpdate: TImage;
+    btnNew: TImage;
 
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -35,6 +38,9 @@ type
     procedure btnRemoveClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
     procedure btnCloseClick(Sender: TObject);
+    procedure btnDeleteClick(Sender: TObject);
+    procedure btnUpdateClick(Sender: TObject);
+    procedure btnNewClick(Sender: TObject);
 
   private
     FAllFloatingDecoyDefList : TList;
@@ -55,7 +61,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmFloatingDecoyMount, ufrmAsset ;
+  uDataModule, ufrmFloatingDecoyMount, ufrmAsset, ufrmSummaryFloatingDecoy ;
 
 {$R *.dfm}
 
@@ -123,6 +129,21 @@ begin
 //  UpdateFloatingDecoyList;
 end;
 
+procedure TfrmFloatingDecoyOnBoardPickList.btnNewClick(Sender: TObject);
+begin
+  if not Assigned(frmSummaryFloatingDecoy) then
+    frmSummaryFloatingDecoy := TfrmSummaryFloatingDecoy.Create(Self);
+
+  try
+    with frmSummaryFloatingDecoy do
+    begin
+      FSelectedFloatingDecoy := TFloating_Decoy_On_Board.Create;
+      Show;
+    end;
+  finally
+  end;
+end;
+
 procedure TfrmFloatingDecoyOnBoardPickList.btnRemoveClick(Sender: TObject);
 begin
   if lbAllFloatingDecoyOnBoard.ItemIndex = -1 then
@@ -136,10 +157,64 @@ begin
 //  UpdateFloatingDecoyList;
 end;
 
+procedure TfrmFloatingDecoyOnBoardPickList.btnUpdateClick(Sender: TObject);
+begin
+  if lbAllFloatingDecoyDef.ItemIndex = -1 then
+  begin
+    ShowMessage('Select FloatingDecoy Data ... !');
+    Exit;
+  end;
+
+  if not Assigned(frmSummaryFloatingDecoy) then
+    frmSummaryFloatingDecoy := TfrmSummaryFloatingDecoy.Create(Self);
+
+  try
+    with frmSummaryFloatingDecoy do
+    begin
+      FSelectedFloatingDecoy := FSelectedFloatingDecoy;
+      Show;
+    end;
+  finally
+  end;
+end;
+
 procedure TfrmFloatingDecoyOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
   frmAsset.UpdateCountermeasureData;
   Close;
+end;
+
+procedure TfrmFloatingDecoyOnBoardPickList.btnDeleteClick(Sender: TObject);
+var
+  warning : Integer;
+begin
+  if lbAllFloatingDecoyDef.ItemIndex = -1 then
+  begin
+    ShowMessage('Select FloatingDecoy Data ... !');
+    Exit;
+  end;
+
+  warning := MessageDlg('Are you sure to delete this item?', mtConfirmation, mbOKCancel, 0);
+
+  if warning = mrOK then
+  begin
+    with FSelectedFloatingDecoy.FDef do
+    begin
+
+      {Pengecekan Relasi Dengan Tabel On Board}
+      if dmINWO.GetSensor_On_Board_By_Index(1, Floating_Decoy_Index) then
+      begin
+        ShowMessage('Cannot delete, because is already in used by some vehicles');
+        Exit;
+      end;
+
+      if dmINWO.DeleteRadarDef(Floating_Decoy_Index) then
+        ShowMessage('Data has been deleted');
+
+    end;
+
+    UpdateFloatingDecoyList;
+  end;
 end;
 
 procedure TfrmFloatingDecoyOnBoardPickList.lbAllFloatingDecoyDefClick(Sender: TObject);

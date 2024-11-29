@@ -23,6 +23,9 @@ type
     Label1: TLabel;
     Label2: TLabel;
     lblClose: TLabel;
+    btnNew: TImage;
+    btnUpdate: TImage;
+    btnDelete: TImage;
 
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -35,6 +38,9 @@ type
     procedure btnRemoveClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
     procedure btnCloseClick(Sender: TObject);
+    procedure btnNewClick(Sender: TObject);
+    procedure btnUpdateClick(Sender: TObject);
+    procedure btnDeleteClick(Sender: TObject);
 
   private
     FAllSonarDefList : TList;
@@ -56,7 +62,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmSonarMount, ufrmAsset;
+  uDataModule, ufrmSonarMount, ufrmAsset, ufrmSummarySonar;
 
 {$R *.dfm}
 
@@ -127,6 +133,21 @@ begin
 //  UpdateSonarList;
 end;
 
+procedure TfrmSonarOnBoardPickList.btnNewClick(Sender: TObject);
+begin
+  if not Assigned(frmSummarySonar) then
+    frmSummarySonar := TfrmSummarySonar.Create(Self);
+
+  try
+    with frmSummarySonar do
+    begin
+      SelectedSonar := TRadar_On_Board.Create;
+      Show;
+    end;
+  finally
+  end;
+end;
+
 procedure TfrmSonarOnBoardPickList.btnRemoveClick(Sender: TObject);
 begin
   if lbAllSonarOnBoard.ItemIndex = -1 then
@@ -140,10 +161,64 @@ begin
   UpdateSonarList;
 end;
 
+procedure TfrmSonarOnBoardPickList.btnUpdateClick(Sender: TObject);
+begin
+ if lbAllSonarDef.ItemIndex = -1 then
+  begin
+    ShowMessage('Select Sonar Data ... !');
+    Exit;
+  end;
+
+  if not Assigned(frmSummarySonar) then
+    frmSummarySonar := TfrmSummarySonar.Create(Self);
+
+  try
+    with frmSummarySonar do
+    begin
+      SelectedSonar := FSelectedSonar;
+      Show;
+    end;
+  finally
+  end;
+end;
+
 procedure TfrmSonarOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
   frmAsset.UpdateSensorData;
   Close;
+end;
+
+procedure TfrmSonarOnBoardPickList.btnDeleteClick(Sender: TObject);
+var
+  warning : Integer;
+begin
+  if lbAllSonarDef.ItemIndex = -1 then
+  begin
+    ShowMessage('Select Sonar Data ... !');
+    Exit;
+  end;
+
+  warning := MessageDlg('Are you sure to delete this item?', mtConfirmation, mbOKCancel, 0);
+
+  if warning = mrOK then
+  begin
+    with FSelectedSonar.FDef do
+    begin
+
+      {Pengecekan Relasi Dengan Tabel On Board}
+      if dmINWO.GetSensor_On_Board_By_Index(1, Sonar_Index) then
+      begin
+        ShowMessage('Cannot delete, because is already in used by some vehicles');
+        Exit;
+      end;
+
+      if dmINWO.DeleteRadarDef(Sonar_Index) then
+        ShowMessage('Data has been deleted');
+
+    end;
+
+    UpdateSonarList;
+  end;
 end;
 
 procedure TfrmSonarOnBoardPickList.lbAllSonarDefClick(Sender: TObject);

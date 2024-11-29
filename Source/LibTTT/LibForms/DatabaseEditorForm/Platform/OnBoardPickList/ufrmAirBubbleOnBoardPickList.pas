@@ -23,6 +23,9 @@ type
     Label3: TLabel;
     Label4: TLabel;
     lblClose: TLabel;
+    btnUpdate: TImage;
+    btnNew: TImage;
+    btnDelete: TImage;
 
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -35,6 +38,9 @@ type
     procedure btnRemoveClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
     procedure btnCloseClick(Sender: TObject);
+    procedure btnDeleteClick(Sender: TObject);
+    procedure btnUpdateClick(Sender: TObject);
+    procedure btnNewClick(Sender: TObject);
 
 
   private
@@ -58,7 +64,7 @@ implementation
 {$R *.dfm}
 
 uses
-  uDataModule, ufrmAirBubbleMount, ufrmAsset;
+  uDataModule, ufrmAirBubbleMount, ufrmAsset, ufrmSummaryAirBubble;
 
 {$REGION ' Form Handle '}
 
@@ -124,6 +130,21 @@ begin
 //  UpdateAirBubbleList;
 end;
 
+procedure TfrmAirBubbleOnBoardPickList.btnNewClick(Sender: TObject);
+begin
+  if not Assigned(frmSummaryAirBubble) then
+    frmSummaryAirBubble := TfrmSummaryAirBubble.Create(Self);
+
+  try
+    with frmSummaryAirBubble do
+    begin
+      SelectedAirBubble := TAir_Bubble_On_Board.Create;
+      Show;
+    end;
+  finally
+  end;
+end;
+
 procedure TfrmAirBubbleOnBoardPickList.btnRemoveClick(Sender: TObject);
 begin
   if lbAllAirBubbleOnBoard.ItemIndex = -1 then
@@ -137,10 +158,64 @@ begin
   UpdateAirBubbleList;
 end;
 
+procedure TfrmAirBubbleOnBoardPickList.btnUpdateClick(Sender: TObject);
+begin
+  if lbAllAirBubbleDef.ItemIndex = -1 then
+  begin
+    ShowMessage('Select AirBubble Data ... !');
+    Exit;
+  end;
+
+  if not Assigned(frmSummaryAirBubble) then
+    frmSummaryAirBubble := TfrmSummaryAirBubble.Create(Self);
+
+  try
+    with frmSummaryAirBubble do
+    begin
+      SelectedAirBubble := FSelectedAirBubble;
+      Show;
+    end;
+  finally
+  end;
+end;
+
 procedure TfrmAirBubbleOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
   frmAsset.UpdateCountermeasureData;
   Close;
+end;
+
+procedure TfrmAirBubbleOnBoardPickList.btnDeleteClick(Sender: TObject);
+var
+  warning : Integer;
+begin
+  if lbAllAirBubbleDef.ItemIndex = -1 then
+  begin
+    ShowMessage('Select AirBubble Data ... !');
+    Exit;
+  end;
+
+  warning := MessageDlg('Are you sure to delete this item?', mtConfirmation, mbOKCancel, 0);
+
+  if warning = mrOK then
+  begin
+    with FSelectedAirBubble.FDef do
+    begin
+
+      {Pengecekan Relasi Dengan Tabel On Board}
+      if dmINWO.GetSensor_On_Board_By_Index(1, Air_Bubble_Index) then
+      begin
+        ShowMessage('Cannot delete, because is already in used by some vehicles');
+        Exit;
+      end;
+
+      if dmINWO.DeleteRadarDef(Air_Bubble_Index) then
+        ShowMessage('Data has been deleted');
+
+    end;
+
+    UpdateAirBubbleList;
+  end;
 end;
 
 procedure TfrmAirBubbleOnBoardPickList.lbAllAirBubbleDefClick(Sender: TObject);

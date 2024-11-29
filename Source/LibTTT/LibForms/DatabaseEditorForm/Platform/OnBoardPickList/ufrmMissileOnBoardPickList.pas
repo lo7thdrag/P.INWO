@@ -23,6 +23,9 @@ type
     Label1: TLabel;
     Label2: TLabel;
     lblClose: TLabel;
+    btnNew: TImage;
+    btnUpdate: TImage;
+    btnDelete: TImage;
 
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -35,6 +38,9 @@ type
     procedure btnRemoveClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
     procedure btnCloseClick(Sender: TObject);
+    procedure btnNewClick(Sender: TObject);
+    procedure btnUpdateClick(Sender: TObject);
+    procedure btnDeleteClick(Sender: TObject);
 
 
   private
@@ -56,7 +62,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmMissileMount, ufrmAsset;
+  uDataModule, ufrmMissileMount, ufrmAsset, ufrmSummaryMissile;
 
 {$R *.dfm}
 
@@ -126,6 +132,21 @@ begin
 //  UpdateMissileList;
 end;
 
+procedure TfrmMissileOnBoardPickList.btnNewClick(Sender: TObject);
+begin
+  if not Assigned(frmSummaryMissile) then
+    frmSummaryMissile := TfrmSummaryMissile.Create(Self);
+
+  try
+    with frmSummaryMissile do
+    begin
+      SelectedMissile := TMissile_On_Board.Create;
+      Show;
+    end;
+  finally
+  end;
+end;
+
 procedure TfrmMissileOnBoardPickList.btnRemoveClick(Sender: TObject);
 begin
   if lbAllMissileOnBoard.ItemIndex = -1 then
@@ -140,10 +161,64 @@ begin
   UpdateMissileList;
 end;
 
+procedure TfrmMissileOnBoardPickList.btnUpdateClick(Sender: TObject);
+begin
+  if lbAllMissileDef.ItemIndex = -1 then
+  begin
+    ShowMessage('Select Missile Data ... !');
+    Exit;
+  end;
+
+  if not Assigned(frmSummaryMissile) then
+    frmSummaryMissile := TfrmSummaryMissile.Create(Self);
+
+  try
+    with frmSummaryMissile do
+    begin
+      SelectedMissile := FSelectedMissile;
+      Show;
+    end;
+  finally
+  end;
+end;
+
 procedure TfrmMissileOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
   frmAsset.UpdateWeaponData;
   Close;
+end;
+
+procedure TfrmMissileOnBoardPickList.btnDeleteClick(Sender: TObject);
+var
+  warning : Integer;
+begin
+  if lbAllMissileDef.ItemIndex = -1 then
+  begin
+    ShowMessage('Select Missile Data ... !');
+    Exit;
+  end;
+
+  warning := MessageDlg('Are you sure to delete this item?', mtConfirmation, mbOKCancel, 0);
+
+  if warning = mrOK then
+  begin
+    with FSelectedMissile.FDef do
+    begin
+
+      {Pengecekan Relasi Dengan Tabel On Board}
+      if dmINWO.GetSensor_On_Board_By_Index(1, Missile_Index) then
+      begin
+        ShowMessage('Cannot delete, because is already in used by some vehicles');
+        Exit;
+      end;
+
+      if dmINWO.DeleteRadarDef(Missile_Index) then
+        ShowMessage('Data has been deleted');
+
+    end;
+
+    UpdateMissileList;
+  end;
 end;
 
 procedure TfrmMissileOnBoardPickList.lbAllMissileDefClick(Sender: TObject);

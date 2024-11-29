@@ -23,6 +23,9 @@ type
     Label1: TLabel;
     Label2: TLabel;
     lblClose: TLabel;
+    btnNew: TImage;
+    btnUpdate: TImage;
+    btnDelete: TImage;
 
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -35,6 +38,9 @@ type
     procedure btnRemoveClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
     procedure btnCloseClick(Sender: TObject);
+    procedure btnNewClick(Sender: TObject);
+    procedure btnUpdateClick(Sender: TObject);
+    procedure btnDeleteClick(Sender: TObject);
 
 
   private
@@ -55,7 +61,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmMineMount, ufrmAsset;
+  uDataModule, ufrmMineMount, ufrmAsset, ufrmsummaryMine;
 
 {$R *.dfm}
 
@@ -123,6 +129,21 @@ begin
 //  UpdateMineList;
 end;
 
+procedure TfrmMineOnBoardPickList.btnNewClick(Sender: TObject);
+begin
+  if not Assigned(frmSummaryMine) then
+    frmSummaryMine := TfrmSummaryMine.Create(Self);
+
+  try
+    with frmSummaryMine do
+    begin
+      SelectedMine := TMine_On_Board.Create;
+      Show;
+    end;
+  finally
+  end;
+end;
+
 procedure TfrmMineOnBoardPickList.btnRemoveClick(Sender: TObject);
 begin
   if lbMineOnBoard.ItemIndex = -1 then
@@ -136,10 +157,64 @@ begin
   UpdateMineList;
 end;
 
+procedure TfrmMineOnBoardPickList.btnUpdateClick(Sender: TObject);
+begin
+  if lbAllMineDef.ItemIndex = -1 then
+  begin
+    ShowMessage('Select Mine Data ... !');
+    Exit;
+  end;
+
+  if not Assigned(frmSummaryMine) then
+    frmSummaryMine := TfrmSummaryMine.Create(Self);
+
+  try
+    with frmSummaryMine do
+    begin
+      SelectedMine := FSelectedMine;
+      Show;
+    end;
+  finally
+  end;
+end;
+
 procedure TfrmMineOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
   frmAsset.UpdateWeaponData;
   Close;
+end;
+
+procedure TfrmMineOnBoardPickList.btnDeleteClick(Sender: TObject);
+var
+  warning : Integer;
+begin
+  if lbAllMineDef.ItemIndex = -1 then
+  begin
+    ShowMessage('Select Mine Data ... !');
+    Exit;
+  end;
+
+  warning := MessageDlg('Are you sure to delete this item?', mtConfirmation, mbOKCancel, 0);
+
+  if warning = mrOK then
+  begin
+    with FSelectedMine.FDef do
+    begin
+
+      {Pengecekan Relasi Dengan Tabel On Board}
+      if dmINWO.GetSensor_On_Board_By_Index(1, Mine_Index) then
+      begin
+        ShowMessage('Cannot delete, because is already in used by some vehicles');
+        Exit;
+      end;
+
+      if dmINWO.DeleteRadarDef(Mine_Index) then
+        ShowMessage('Data has been deleted');
+
+    end;
+
+    UpdateMineList;
+  end;
 end;
 
 procedure TfrmMineOnBoardPickList.lbAllMineDefClick(Sender: TObject);

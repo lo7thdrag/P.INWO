@@ -23,6 +23,9 @@ type
     Label1: TLabel;
     Label2: TLabel;
     lblClose: TLabel;
+    btnNew: TImage;
+    btnUpdate: TImage;
+    btnDelete: TImage;
 
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -35,6 +38,9 @@ type
     procedure btnRemoveClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
     procedure btnCloseClick(Sender: TObject);
+    procedure btnNewClick(Sender: TObject);
+    procedure btnUpdateClick(Sender: TObject);
+    procedure btnDeleteClick(Sender: TObject);
 
 
   private
@@ -56,7 +62,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmMADMount, ufrmAsset;
+  uDataModule, ufrmMADMount, ufrmAsset, ufrmSummaryMAD;
 
 {$R *.dfm}
 
@@ -124,6 +130,21 @@ begin
 //  UpdateMADList;
 end;
 
+procedure TfrmMADOnBoardPickList.btnNewClick(Sender: TObject);
+begin
+  if not Assigned(frmSummaryMAD) then
+    frmSummaryMAD := TfrmSummaryMAD.Create(Self);
+
+  try
+    with frmSummaryMAD do
+    begin
+      FSelectedMAD := TRadar_On_Board.Create;
+      Show;
+    end;
+  finally
+  end;
+end;
+
 procedure TfrmMADOnBoardPickList.btnRemoveClick(Sender: TObject);
 begin
   if lbAllMADOnBoard.ItemIndex = -1 then
@@ -137,10 +158,64 @@ begin
   UpdateMADList;
 end;
 
+procedure TfrmMADOnBoardPickList.btnUpdateClick(Sender: TObject);
+begin
+  if lbAllMADDef.ItemIndex = -1 then
+  begin
+    ShowMessage('Select MAD Data ... !');
+    Exit;
+  end;
+
+  if not Assigned(frmSummaryMAD) then
+    frmSummaryMAD := TfrmSummaryMAD.Create(Self);
+
+  try
+    with frmSummaryMAD do
+    begin
+      SelectedMAD := FSelectedMAD;
+      Show;
+    end;
+  finally
+  end;
+end;
+
 procedure TfrmMADOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
   frmAsset.UpdateSensorData;
   Close;
+end;
+
+procedure TfrmMADOnBoardPickList.btnDeleteClick(Sender: TObject);
+var
+  warning : Integer;
+begin
+  if lbAllMADDef.ItemIndex = -1 then
+  begin
+    ShowMessage('Select MAD Data ... !');
+    Exit;
+  end;
+
+  warning := MessageDlg('Are you sure to delete this item?', mtConfirmation, mbOKCancel, 0);
+
+  if warning = mrOK then
+  begin
+    with FSelectedMAD.FDef do
+    begin
+
+      {Pengecekan Relasi Dengan Tabel On Board}
+      if dmINWO.GetSensor_On_Board_By_Index(1, MAD_Index) then
+      begin
+        ShowMessage('Cannot delete, because is already in used by some vehicles');
+        Exit;
+      end;
+
+      if dmINWO.DeleteRadarDef(MAD_Index) then
+        ShowMessage('Data has been deleted');
+
+    end;
+
+    UpdateMADList;
+  end;
 end;
 
 procedure TfrmMADOnBoardPickList.lbAllMADDefClick(Sender: TObject);

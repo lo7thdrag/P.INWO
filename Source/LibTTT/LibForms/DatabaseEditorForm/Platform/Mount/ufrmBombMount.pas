@@ -110,7 +110,7 @@ begin
     FData.Vehicle_Index := FSelectedVehicle.FData.VehicleIndex;
     FData.Mount_Type := cbMountExtension.ItemIndex;
     FData.Quantity := StrToInt(edtQuantity.Text);
-    FData.Bomb_Index := FData.Bomb_Index;
+    FData.Bomb_Index := FDef.Bomb_Index;
 
     if FData.Point_Effect_Index = 0 then
       dmINWO.InsertPointEffectOnBoard(2, FData)

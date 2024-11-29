@@ -23,6 +23,9 @@ type
     Label1: TLabel;
     Label2: TLabel;
     lblClose: TLabel;
+    btnNew: TImage;
+    btnUpdate: TImage;
+    btnDelete: TImage;
 
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -35,6 +38,9 @@ type
     procedure btnRemoveClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
     procedure btnCloseClick(Sender: TObject);
+    procedure btnNewClick(Sender: TObject);
+    procedure btnUpdateClick(Sender: TObject);
+    procedure btnDeleteClick(Sender: TObject);
 
 
   private
@@ -56,7 +62,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmSonobuoyMount, ufrmAsset;
+  uDataModule, ufrmSonobuoyMount, ufrmAsset, ufrmSummarySonobuoy;
 
 {$R *.dfm}
 
@@ -126,6 +132,21 @@ begin
 //  UpdateRadarList;
 end;
 
+procedure TfrmSonobuoyOnBoardPickList.btnNewClick(Sender: TObject);
+begin
+if not Assigned(frmSummarySonobuoy) then
+    frmSummarySonobuoy := TfrmSummarySonobuoy.Create(Self);
+
+  try
+    with frmSummarySonobuoy do
+    begin
+      SelectedSonobuoy := TSonobuoy_On_Board.Create;
+      Show;
+    end;
+  finally
+  end;
+end;
+
 procedure TfrmSonobuoyOnBoardPickList.btnRemoveClick(Sender: TObject);
 begin
   if lbAllSonobuoyOnBoard.ItemIndex = -1 then
@@ -139,10 +160,64 @@ begin
   UpdateSonobuoyList;
 end;
 
+procedure TfrmSonobuoyOnBoardPickList.btnUpdateClick(Sender: TObject);
+begin
+if lbAllSonobuoyDef.ItemIndex = -1 then
+  begin
+    ShowMessage('Select Sonobuoy Data ... !');
+    Exit;
+  end;
+
+  if not Assigned(frmSummarySonobuoy) then
+    frmSummarySonobuoy := TfrmSummarySonobuoy.Create(Self);
+
+  try
+    with frmSummarySonobuoy do
+    begin
+      SelectedSonobuoy := FSelectedSonobuoy;
+      Show;
+    end;
+  finally
+  end;
+end;
+
 procedure TfrmSonobuoyOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
   frmAsset.UpdateSensorData;
   Close;
+end;
+
+procedure TfrmSonobuoyOnBoardPickList.btnDeleteClick(Sender: TObject);
+var
+  warning : Integer;
+begin
+  if lbAllSonobuoyDef.ItemIndex = -1 then
+  begin
+    ShowMessage('Select Sonobuoy Data ... !');
+    Exit;
+  end;
+
+  warning := MessageDlg('Are you sure to delete this item?', mtConfirmation, mbOKCancel, 0);
+
+  if warning = mrOK then
+  begin
+    with FSelectedSonobuoy.FDef do
+    begin
+
+      {Pengecekan Relasi Dengan Tabel On Board}
+      if dmINWO.GetSensor_On_Board_By_Index(1, Sonobuoy_Index) then
+      begin
+        ShowMessage('Cannot delete, because is already in used by some vehicles');
+        Exit;
+      end;
+
+      if dmINWO.DeleteRadarDef(Sonobuoy_Index) then
+        ShowMessage('Data has been deleted');
+
+    end;
+
+    UpdateSonobuoyList;
+  end;
 end;
 
 procedure TfrmSonobuoyOnBoardPickList.lbAllSonobuoyDefClick(Sender: TObject);

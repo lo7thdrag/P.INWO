@@ -23,6 +23,9 @@ type
     Label2: TLabel;
     Label3: TLabel;
     lblClose: TLabel;
+    btnDelete: TImage;
+    btnUpdate: TImage;
+    btnNew: TImage;
 
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -35,6 +38,9 @@ type
     procedure btnRemoveClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
     procedure btnCloseClick(Sender: TObject);
+    procedure btnDeleteClick(Sender: TObject);
+    procedure btnUpdateClick(Sender: TObject);
+    procedure btnNewClick(Sender: TObject);
 
 
   private
@@ -57,7 +63,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmChaffMount, ufrmAsset;
+  uDataModule, ufrmChaffMount, ufrmAsset, ufrmSummaryChaff;
 
 {$R *.dfm}
 
@@ -126,6 +132,21 @@ begin
 //  UpdateChaffList;
 end;
 
+procedure TfrmChaffOnBoardPickList.btnNewClick(Sender: TObject);
+begin
+  if not Assigned(frmSummaryChaff) then
+    frmSummaryChaff := TfrmSummaryChaff.Create(Self);
+
+  try
+    with frmSummaryChaff do
+    begin
+      SelectedChaff := TChaff_On_Board.Create;
+      Show;
+    end;
+  finally
+  end;
+end;
+
 procedure TfrmChaffOnBoardPickList.btnRemoveClick(Sender: TObject);
 begin
   if lbAllChaffOnBoard.ItemIndex = -1 then
@@ -138,10 +159,64 @@ begin
   UpdateChaffList;
 end;
 
+procedure TfrmChaffOnBoardPickList.btnUpdateClick(Sender: TObject);
+begin
+  if lbAllChaffDef.ItemIndex = -1 then
+  begin
+    ShowMessage('Select Chaff Data ... !');
+    Exit;
+  end;
+
+  if not Assigned(frmSummaryChaff) then
+    frmSummaryChaff := TfrmSummaryChaff.Create(Self);
+
+  try
+    with frmSummaryChaff do
+    begin
+      SelectedChaff := FSelectedChaff;
+      Show;
+    end;
+  finally
+  end;
+end;
+
 procedure TfrmChaffOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
   frmAsset.UpdateCountermeasureData;
   Close;
+end;
+
+procedure TfrmChaffOnBoardPickList.btnDeleteClick(Sender: TObject);
+var
+  warning : Integer;
+begin
+  if lbAllChaffDef.ItemIndex = -1 then
+  begin
+    ShowMessage('Select Chaff Data ... !');
+    Exit;
+  end;
+
+  warning := MessageDlg('Are you sure to delete this item?', mtConfirmation, mbOKCancel, 0);
+
+  if warning = mrOK then
+  begin
+    with FSelectedChaff.FDef do
+    begin
+
+      {Pengecekan Relasi Dengan Tabel On Board}
+      if dmINWO.GetSensor_On_Board_By_Index(1, Chaff_Index) then
+      begin
+        ShowMessage('Cannot delete, because is already in used by some vehicles');
+        Exit;
+      end;
+
+      if dmINWO.DeleteRadarDef(Chaff_Index) then
+        ShowMessage('Data has been deleted');
+
+    end;
+
+    UpdateChaffList;
+  end;
 end;
 
 procedure TfrmChaffOnBoardPickList.lbAlChaffDefClick(Sender: TObject);

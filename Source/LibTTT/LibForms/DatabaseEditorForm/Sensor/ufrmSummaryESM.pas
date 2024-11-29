@@ -12,7 +12,6 @@ uses
 
 type
   TfrmSummaryESM = class(TForm)
-    ImgBackgroundForm: TImage;
     pnl1Title: TPanel;
     txtClass: TLabel;
     edtClass: TEdit;
@@ -61,8 +60,8 @@ type
     btnApply: TButton;
     btnCancel: TButton;
     btnOK: TButton;
-    ImgHeader: TImage;
-    Label1: TLabel;
+    imgBackgroundForm: TImage;
+    lblPlatform: TLabel;
 
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     Procedure FormShow(Sender: TObject);

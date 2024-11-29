@@ -23,6 +23,9 @@ type
     Label1: TLabel;
     Label2: TLabel;
     lblClose: TLabel;
+    btnNew: TImage;
+    btnUpdate: TImage;
+    btnDelete: TImage;
 
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -35,6 +38,9 @@ type
     procedure btnRemoveClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
     procedure btnCloseClick(Sender: TObject);
+    procedure btnNewClick(Sender: TObject);
+    procedure btnUpdateClick(Sender: TObject);
+    procedure btnDeleteClick(Sender: TObject);
 
 
   private
@@ -56,7 +62,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmEODMount, ufrmAsset;
+  uDataModule, ufrmEODMount, ufrmAsset, ufrmSummaryEOD;
 
 
 {$R *.dfm}
@@ -125,6 +131,21 @@ begin
 //  UpdateEODList;
 end;
 
+procedure TfrmEODOnBoardPickList.btnNewClick(Sender: TObject);
+begin
+  if not Assigned(frmSummaryEOD) then
+    frmSummaryEOD := TfrmSummaryEOD.Create(Self);
+
+  try
+    with frmSummaryEOD do
+    begin
+      SelectedEOD := TEOD_On_Board.Create;
+      Show;
+    end;
+  finally
+  end;
+end;
+
 procedure TfrmEODOnBoardPickList.btnRemoveClick(Sender: TObject);
 begin
   if lbAllEODOnBoard.ItemIndex = -1 then
@@ -138,10 +159,64 @@ begin
   UpdateEODList;
 end;
 
+procedure TfrmEODOnBoardPickList.btnUpdateClick(Sender: TObject);
+begin
+if lbAllEODef.ItemIndex = -1 then
+  begin
+    ShowMessage('Select EOD Data ... !');
+    Exit;
+  end;
+
+  if not Assigned(frmSummaryEOD) then
+    frmSummaryEOD := TfrmSummaryEOD.Create(Self);
+
+  try
+    with frmSummaryEOD do
+    begin
+      SelectedEOD := FSelectedEOD;
+      Show;
+    end;
+  finally
+  end;
+end;
+
 procedure TfrmEODOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
   frmAsset.UpdateSensorData;
   Close;
+end;
+
+procedure TfrmEODOnBoardPickList.btnDeleteClick(Sender: TObject);
+var
+  warning : Integer;
+begin
+  if lbAllEODef.ItemIndex = -1 then
+  begin
+    ShowMessage('Select EOD Data ... !');
+    Exit;
+  end;
+
+  warning := MessageDlg('Are you sure to delete this item?', mtConfirmation, mbOKCancel, 0);
+
+  if warning = mrOK then
+  begin
+    with FSelectedEOD.FDef do
+    begin
+
+      {Pengecekan Relasi Dengan Tabel On Board}
+      if dmINWO.GetSensor_On_Board_By_Index(1, EOD_Index) then
+      begin
+        ShowMessage('Cannot delete, because is already in used by some vehicles');
+        Exit;
+      end;
+
+      if dmINWO.DeleteRadarDef(EOD_Index) then
+        ShowMessage('Data has been deleted');
+
+    end;
+
+    UpdateEODList;
+  end;
 end;
 
 procedure TfrmEODOnBoardPickList.lbAllEODDefClick(Sender: TObject);

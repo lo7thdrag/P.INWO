@@ -14,7 +14,6 @@ type
   TfrmSummarySonar = class(TForm)
     pnl2ControlPage: TPanel;
     PageControl1: TPageControl;
-    ImgBackgroundForm: TImage;
     tsGeneral: TTabSheet;
     grpActiveDetectionCapabilities: TGroupBox;
     chkSurfaceDetecting: TCheckBox;
@@ -125,7 +124,8 @@ type
     btnApply: TButton;
     btnCancel: TButton;
     btnOK: TButton;
-    ImgHeader: TImage;
+    imgBackgroundForm: TImage;
+    lblPlatform: TLabel;
 
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);

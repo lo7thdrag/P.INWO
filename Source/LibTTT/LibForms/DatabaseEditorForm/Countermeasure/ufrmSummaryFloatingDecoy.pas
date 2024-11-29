@@ -12,7 +12,6 @@ type
     btnApply: TButton;
     btnCancel: TButton;
     btnOK: TButton;
-    ImgBackgroundForm: TImage;
     pnl1Title: TPanel;
     txtClass: TLabel;
     edtClass: TEdit;
@@ -55,8 +54,8 @@ type
     edtLifetimeDuration: TMaskEdit;
     tsNotes: TTabSheet;
     mmoNotes: TMemo;
-    Label1: TLabel;
-    ImgHeader: TImage;
+    imgBackgroundForm: TImage;
+    lblPlatform: TLabel;
 
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);

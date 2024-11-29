@@ -23,6 +23,9 @@ type
     Label1: TLabel;
     Label2: TLabel;
     lblClose: TLabel;
+    btnNew: TImage;
+    btnUpdate: TImage;
+    btnDelete: TImage;
 
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -35,6 +38,9 @@ type
     procedure btnRemoveClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
     procedure btnCloseClick(Sender: TObject);
+    procedure btnDeleteClick(Sender: TObject);
+    procedure btnUpdateClick(Sender: TObject);
+    procedure btnNewClick(Sender: TObject);
 
 
   private
@@ -58,7 +64,7 @@ implementation
 {$R *.dfm}
 
 uses
-  uDataModule, ufrmAcousticDecoyMount, ufrmAsset;
+  uDataModule, ufrmAcousticDecoyMount, ufrmAsset, ufrmSummaryAcousticDecoy;
 
 {$REGION ' Form Handle '}
 
@@ -124,6 +130,21 @@ begin
 //  UpdateAcousticDecoyList;
 end;
 
+procedure TfrmAcousticDecoyOnBoardPickList.btnNewClick(Sender: TObject);
+begin
+  if not Assigned(frmSummaryAcousticDecoy) then
+    frmSummaryAcousticDecoy := TfrmSummaryAcousticDecoy.Create(Self);
+
+  try
+    with frmSummaryAcousticDecoy do
+    begin
+      SelectedAcousticDecoy := TAcoustic_Decoy_On_Board.Create;
+      Show;
+    end;
+  finally
+  end;
+end;
+
 procedure TfrmAcousticDecoyOnBoardPickList.btnRemoveClick(Sender: TObject);
 begin
   if lbAllAcousticDecoyOnBoard.ItemIndex = -1 then
@@ -137,10 +158,64 @@ begin
   UpdateAcousticDecoyList;
 end;
 
+procedure TfrmAcousticDecoyOnBoardPickList.btnUpdateClick(Sender: TObject);
+begin
+  if lbAllAcousticDecoyDef.ItemIndex = -1 then
+  begin
+    ShowMessage('Select AcousticDecoy Data ... !');
+    Exit;
+  end;
+
+  if not Assigned(frmSummaryAcousticDecoy) then
+    frmSummaryAcousticDecoy := TfrmSummaryAcousticDecoy.Create(Self);
+
+  try
+    with frmSummaryAcousticDecoy do
+    begin
+      SelectedAcousticDecoy := FSelectedAcousticDecoy;
+      Show;
+    end;
+  finally
+  end;
+end;
+
 procedure TfrmAcousticDecoyOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
   frmAsset.UpdateCountermeasureData;
   Close;
+end;
+
+procedure TfrmAcousticDecoyOnBoardPickList.btnDeleteClick(Sender: TObject);
+var
+  warning : Integer;
+begin
+  if lbAllAcousticDecoyDef.ItemIndex = -1 then
+  begin
+    ShowMessage('Select AcousticDecoy Data ... !');
+    Exit;
+  end;
+
+  warning := MessageDlg('Are you sure to delete this item?', mtConfirmation, mbOKCancel, 0);
+
+  if warning = mrOK then
+  begin
+    with FSelectedAcousticDecoy.FDef do
+    begin
+
+      {Pengecekan Relasi Dengan Tabel On Board}
+      if dmINWO.GetSensor_On_Board_By_Index(1, Decoy_Index) then
+      begin
+        ShowMessage('Cannot delete, because is already in used by some vehicles');
+        Exit;
+      end;
+
+      if dmINWO.DeleteRadarDef(Decoy_Index) then
+        ShowMessage('Data has been deleted');
+
+    end;
+
+    UpdateAcousticDecoyList;
+  end;
 end;
 
 procedure TfrmAcousticDecoyOnBoardPickList.lbAllAcousticDecoyDefClick(Sender: TObject);

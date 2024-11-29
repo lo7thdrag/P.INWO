@@ -238,7 +238,7 @@ type
 
     {$REGION ' Sensor On Board '}
     {Digunakan untuk pengecekan data sensor apakah sedang terhubung dengan suatu kapal (untuk delete sensor definition)}
-//    function GetSensor_On_Board_By_Index(const typeOnBoard, id: Integer): Boolean;
+    function GetSensor_On_Board_By_Index(const typeOnBoard, id: Integer): Boolean;
 
     {Digunakan untuk mengambil data sensor yang ada di suatu kapal (OnBoard)}
     function GetRadarOnBoard(const aVehicleID: Integer; var aList: TList): Integer;
@@ -3873,8 +3873,7 @@ begin
           Max_Range := FieldByName('Max_Range').AsSingle;
           Air_Min_Range := FieldByName('Air_Min_Range').AsSingle;
           Air_Max_Range := FieldByName('Air_Max_Range').AsSingle;
-          Fire_Cntl_Director_Req := FieldByName('Fire_Cntl_Director_Req')
-            .AsInteger;
+          Fire_Cntl_Director_Req := FieldByName('Fire_Cntl_Director_Req').AsInteger;
           Chaff_Capable_Gun := FieldByName('Chaff_Capable_Gun').AsInteger;
           Anti_Sur_Capable := FieldByName('Anti_Sur_Capable').AsInteger;
           Anti_Land_Capable := FieldByName('Anti_Land_Capable').AsInteger;
@@ -4929,7 +4928,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('INSERT INTO Point_Effect_On_Board');
-    SQL.Add('(Instance_Identifier, Instance_Type, Vehicle_Index, Mount_Type,');
+    SQL.Add('(Instance_Identifier, Instance_Type, Vehicle_Index, Mount_Type, TurretID, ');
     SQL.Add('Quantity,');
 
     case aInsertType of
@@ -4946,6 +4945,7 @@ begin
       SQL.Add(IntToStr(Vehicle_Index) + ', ');
       SQL.Add(IntToStr(Mount_Type) + ', ');
       SQL.Add(IntToStr(Quantity) + ', ');
+      SQL.Add(IntToStr(TurretID) + ', ');
 
       case aInsertType of
         1: SQL.Add(IntToStr(Gun_Index) + ')');
@@ -7072,6 +7072,75 @@ end;
 {$ENDREGION}
 
 {$REGION ' Sensor On Board '}
+
+function TdmINWO.GetSensor_On_Board_By_Index(const typeOnBoard, id: Integer): Boolean;
+var
+  ssql,tabel, indexField: string;
+begin
+  result := False;
+  if not ZConn.Connected then
+    exit;
+
+  case typeOnBoard of
+    1:
+    begin
+      tabel := 'Radar_On_Board';
+      indexField := 'Radar_Index';
+    end;
+    2:
+    begin
+      tabel := 'MAD_Sensor_On_Board';
+      indexField := 'MAD_Index';
+    end;
+    3:
+    begin
+      tabel := 'ESM_On_Board';
+      indexField := 'ESM_Index';
+    end;
+    4:
+    begin
+      tabel := 'Sonar_On_Board';
+      indexField := 'Sonar_Index';
+    end;
+    5:
+    begin
+      tabel := 'EO_On_Board';
+      indexField := 'EO_Index';
+    end;
+    6:
+    begin
+      tabel := 'IFF_Sensor_On_Board';
+      indexField := 'Radar_Index';
+    end;
+    7:
+    begin
+      tabel := 'Visual_Sensor_On_Board';
+      indexField := 'Radar_Index';
+    end;
+    8:
+    begin
+      tabel := 'Sonobuoy_On_Board';
+      indexField := 'Sonobuoy_Index';
+    end;
+  end;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+
+    ssql := 'SELECT * ';
+    ssql := ssql + 'FROM ' + tabel;
+    ssql := ssql + ' WHERE ' + indexField + ' = ';
+    ssql := ssql + IntToStr(id);
+
+    SQL.Add(ssql);
+    Open;
+
+    if not IsEmpty then
+      Result := True;
+  end;
+end;
 
 function TdmINWO.GetRadarOnBoard(const aVehicleID: Integer; var aList: TList): Integer;
 var

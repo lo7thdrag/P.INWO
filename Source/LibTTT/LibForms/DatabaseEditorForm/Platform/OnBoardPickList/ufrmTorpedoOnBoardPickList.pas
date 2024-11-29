@@ -25,6 +25,9 @@ type
     Label3: TLabel;
     Label4: TLabel;
     lblClose: TLabel;
+    btnNew: TImage;
+    btnUpdate: TImage;
+    btnDelete: TImage;
 
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -37,6 +40,9 @@ type
     procedure btnRemoveClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
     procedure btnCloseClick(Sender: TObject);
+    procedure btnNewClick(Sender: TObject);
+    procedure btnUpdateClick(Sender: TObject);
+    procedure btnDeleteClick(Sender: TObject);
 
 
   private
@@ -58,7 +64,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmTorpedoMount, ufrmAsset;
+  uDataModule, ufrmTorpedoMount, ufrmAsset, ufrmSummaryTorpedo;
 
 {$R *.dfm}
 
@@ -126,6 +132,21 @@ begin
 //  UpdateTorpedoList;
 end;
 
+procedure TfrmTorpedoOnBoardPickList.btnNewClick(Sender: TObject);
+begin
+  if not Assigned(frmSummaryTorpedo) then
+    frmSummaryTorpedo := TfrmSummaryTorpedo.Create(Self);
+
+  try
+    with frmSummaryTorpedo do
+    begin
+      SelectedTorpedo := TTorpedo_On_Board.Create;
+      Show;
+    end;
+  finally
+  end;
+end;
+
 procedure TfrmTorpedoOnBoardPickList.btnRemoveClick(Sender: TObject);
 begin
   if lbTorpedoOnBoard.ItemIndex = -1 then
@@ -140,10 +161,64 @@ begin
   UpdateTorpedoList;
 end;
 
+procedure TfrmTorpedoOnBoardPickList.btnUpdateClick(Sender: TObject);
+begin
+  if lbAllTorpedoDef.ItemIndex = -1 then
+  begin
+    ShowMessage('Select Torpedo Data ... !');
+    Exit;
+  end;
+
+  if not Assigned(frmSummaryTorpedo) then
+    frmSummaryTorpedo := TfrmSummaryTorpedo.Create(Self);
+
+  try
+    with frmSummaryTorpedo do
+    begin
+      SelectedTorpedo := FSelectedTorpedo;
+      Show;
+    end;
+  finally
+  end;
+end;
+
 procedure TfrmTorpedoOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
   frmAsset.UpdateWeaponData;
   Close;
+end;
+
+procedure TfrmTorpedoOnBoardPickList.btnDeleteClick(Sender: TObject);
+var
+  warning : Integer;
+begin
+  if lbAllTorpedoDef.ItemIndex = -1 then
+  begin
+    ShowMessage('Select Torpedo Data ... !');
+    Exit;
+  end;
+
+  warning := MessageDlg('Are you sure to delete this item?', mtConfirmation, mbOKCancel, 0);
+
+  if warning = mrOK then
+  begin
+    with FSelectedTorpedo.FDef do
+    begin
+
+      {Pengecekan Relasi Dengan Tabel On Board}
+      if dmINWO.GetSensor_On_Board_By_Index(1, Torpedo_Index) then
+      begin
+        ShowMessage('Cannot delete, because is already in used by some vehicles');
+        Exit;
+      end;
+
+      if dmINWO.DeleteRadarDef(Torpedo_Index) then
+        ShowMessage('Data has been deleted');
+
+    end;
+
+    UpdateTorpedoList;
+  end;
 end;
 
 procedure TfrmTorpedoOnBoardPickList.lbAllTorpedoDefClick(Sender: TObject);
