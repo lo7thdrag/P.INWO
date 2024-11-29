@@ -1972,7 +1972,7 @@ begin
           mmoChat.Font.Color := clBlue;
   //        mmoChat.Lines.Add(FSelectedUserChat.FData.UserRoleIdentifier + ' :');
 //          mmoChat.Lines.Add(IntToStr(FSelectedUserChat.FData.UserRoleIndex) + ' :');
-            mmoChat.Lines.Add(FSelectedUserChat.FData.UserRoleIdentifier + ' :');
+          mmoChat.Lines.Add(FSelectedUserChat.FData.UserRoleAcronim + ' - ' + FSelectedUserChat.FSubRoleData.SubRoleIdentifier + ' :');
   //        mmoChat.Lines.Add('/n');
           mmoChat.Lines.Add(chattingTemp.ChatMessage);
           mmoChat.Lines.Add('');
