@@ -50,7 +50,6 @@ type
     imgbtnOpenTelegram: TImageButton;
     pnlOpenTelegram: TPanel;
     lblOpenTelegram: TLabel;
-    Button1: TButton;
     procedure btnBuatTelegramTerbatasClick(Sender: TObject);
     procedure btnBuatTelegramRahasiaClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);

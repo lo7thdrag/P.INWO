@@ -11,7 +11,7 @@ uses
   {Project Uses}
   uRecordData, uConstantaData, uSimMgr_Client, uT3SimManager, uClassData, ufrmVideoConference, ufrmSituationBoard,
   ufrmTelegram, uLibSetting, uSimContainers, ufrmSummaryUserRole, ufrmAvailableUserRole , UfrmMapEditor, ufrmSimbolTaktis,
-  ufrmAsset, ufrmReferensi, ufrmMapPreview, RzBmpBtn;
+  ufrmAsset, ufrmFileManager, ufrmReferensi, ufrmMapPreview, RzBmpBtn;
 
 type
   TfrmDisplayArea = class(TForm)
@@ -2051,11 +2051,22 @@ end;
 
 procedure TfrmDisplayArea.VideoConferenceClick(Sender: TObject);
 begin
-  if not Assigned(frmVideoConference) then
-    frmVideoConference := TfrmVideoConference.Create(Self);
+//  if not Assigned(frmVideoConference) then
+//    frmVideoConference := TfrmVideoConference.Create(Self);
+//
+//  try
+//    with frmVideoConference do
+//    begin
+//      Show;
+//    end;
+//  finally
+//  end;
+
+  if not Assigned(frmFileManager) then
+    frmFileManager := TFileManager.Create(Self);
 
   try
-    with frmVideoConference do
+    with frmFileManager do
     begin
       Show;
     end;

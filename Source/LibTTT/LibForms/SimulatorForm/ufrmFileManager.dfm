@@ -10,6 +10,7 @@ object FileManager: TFileManager
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object pnlMainFileManager: TPanel
@@ -668,6 +669,7 @@ object FileManager: TFileManager
           Font.Name = 'Jefferies'
           Font.Style = []
           ParentFont = False
+          OnClick = imgbtnChooseFileClick
         end
       end
       object lstbxFileShareName: TListBox
@@ -1078,6 +1080,7 @@ object FileManager: TFileManager
           Font.Name = 'Jefferies'
           Font.Style = []
           ParentFont = False
+          OnClick = imgbtnShareClick
         end
       end
     end

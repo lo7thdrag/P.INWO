@@ -26,6 +26,7 @@ type
     procedure cbbxShareToSelect(Sender: TObject);
     procedure imgbtnChooseFileClick(Sender: TObject);
     procedure imgbtnShareClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -66,6 +67,12 @@ begin
   userRoleTemp := TUserRole(cbbxShareTo.Items.Objects[cbbxShareTo.ItemIndex]);
   SelectedUserRoleIP := userRoleTemp.ConsoleIP;
 //  lblNamaFile.Caption := userRoleTemp.ConsoleIP;
+end;
+
+procedure TFileManager.FormShow(Sender: TObject);
+begin
+  cbbxShareTo.ItemIndex := -1;
+  lstbxFileShareName.Clear;
 end;
 
 procedure TFileManager.imgbtnChooseFileClick(Sender: TObject);
@@ -149,8 +156,12 @@ addressfiletemp : PWideChar;
 filenametemp : string;
 begin
 
-  if not (TDirectory.Exists('\\' + SelectedUserRoleIP + '\\File Sharing')) then
-    exit;
+  if cbbxShareTo.ItemIndex = -1 then
+    ShowMessage('Choose who you want to share file to!')
+  else if Length(fileNameArray) = 0 then
+    ShowMessage('Choose which file you want to share!')
+  else if not (TDirectory.Exists('\\' + SelectedUserRoleIP + '\\File Sharing')) then
+    ShowMessage('Share folder doesn''t exist');
 
   for i := 0 to Length(pathFileArray) - 1 do
   begin
@@ -158,6 +169,8 @@ begin
     filenametemp := fileNameArray[i];
     CopyFile(addressfiletemp, PWideChar('\\' + SelectedUserRoleIP + '\\File Sharing' + '\\' + filenametemp), False);
   end;
+
+  Close;
 
 end;
 
