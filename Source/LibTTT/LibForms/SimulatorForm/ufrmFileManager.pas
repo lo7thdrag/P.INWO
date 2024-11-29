@@ -80,7 +80,7 @@ var
 begin
   openDialog := TOpenDialog.Create(self);
   openDialog.InitialDir := 'D:\Telegram\';
-//  openDialog.Options := openDialog.Options + [ofAllowMultiSelect];
+  openDialog.Options := openDialog.Options + [ofAllowMultiSelect];
 //  openDialog.Filter := 'Word file|*.docx|Excel file|*.xlsx|Power Point file|*.pptx';
   openDialog.Filter := 'All Files (*.*)|*.*';
 //  saveDialog.DefaultExt := 'docx';
@@ -91,13 +91,14 @@ begin
 
   if openDialog.Execute then
   begin
-    SetLength(pathFileArray, openDialog.Files.Count-1);
-    SetLength(fileNameArray, openDialog.Files.Count-1);
+    SetLength(pathFileArray, openDialog.Files.Count);
+    SetLength(fileNameArray, openDialog.Files.Count);
 
-    for i := 0 to openDialog.Files.Count do
+    for i := 0 to openDialog.Files.Count - 1 do
     begin
-      addressTemp := PWideChar(openDialog.FileName);
-      filNameTemp := ExtractFileName(openDialog.FileName);
+      addressTemp := PWideChar(openDialog.Files[i]);
+      filNameTemp := ExtractFileName(openDialog.Files[i]);
+//      filNameTemp := openDialog.Files[i];
       fileNameArray[i] := filNameTemp;
       pathFileArray[i] := addressTemp;
 
@@ -106,9 +107,9 @@ begin
       addressTempFileFileSharing := addressTemp;
       fileNameTempFileSharing := filNameTemp;
 
-      lblNamaFile.Caption := fileNameTempFileSharing;
+//      lblNamaFile.Caption := fileNameTempFileSharing;
     end;
-    UpdateFilenameComboBox;
+//    UpdateFilenameComboBox;
 
     // SAVE FILE KE INBOX FOLDER ROLE TUJUAN
 //    if not (TDirectory.Exists(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' +  cbbxTo.Text + '\\' + 'INBOX')) then
@@ -162,6 +163,7 @@ end;
 
 procedure TFileManager.UpdateFilenameComboBox;
 begin
+  lstbxFileShareName.Clear;
   lstbxFileShareName.Items.AddStrings(TArray<string>(fileNameArray));
 end;
 
