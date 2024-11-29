@@ -23,6 +23,9 @@ type
     Label1: TLabel;
     Label2: TLabel;
     lblClose: TLabel;
+    btnDelete: TImage;
+    btnUpdate: TImage;
+    btnNew: TImage;
 
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -35,6 +38,9 @@ type
     procedure btnRemoveClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
     procedure btnCloseClick(Sender: TObject);
+    procedure btnDeleteClick(Sender: TObject);
+    procedure btnUpdateClick(Sender: TObject);
+    procedure btnNewClick(Sender: TObject);
 
 
   private
@@ -61,7 +67,7 @@ implementation
 {$R *.dfm}
 
 uses
-  uDataModule,ufrmRadarJammerMount, ufrmAsset;
+  uDataModule,ufrmRadarJammerMount, ufrmAsset, ufrmSummaryRadarNoiseJammer;
 
 {$REGION ' Form Handle '}
 
@@ -127,6 +133,21 @@ begin
 //  UpdateRadarJammerList;
 end;
 
+procedure TfrmRadarNoiseJammerOnBoardPickList.btnNewClick(Sender: TObject);
+begin
+  if not Assigned(frmSummaryRadarNoiseJammer) then
+    frmSummaryRadarNoiseJammer := TfrmSummaryRadarNoiseJammer.Create(Self);
+
+  try
+    with frmSummaryRadarNoiseJammer do
+    begin
+      SelectedRadarJammer := TRadar_Noise_Jammer_On_Board.Create;
+      Show;
+    end;
+  finally
+  end;
+end;
+
 procedure TfrmRadarNoiseJammerOnBoardPickList.btnRemoveClick(Sender: TObject);
 begin
   if lbAllRadarJammerOnBoard.ItemIndex = -1 then
@@ -140,10 +161,64 @@ begin
 //  UpdateRadarJammerList;
 end;
 
+procedure TfrmRadarNoiseJammerOnBoardPickList.btnUpdateClick(Sender: TObject);
+begin
+  if lbAllRadarJammerDef.ItemIndex = -1 then
+  begin
+    ShowMessage('Select RadarNoiseJammer Data ... !');
+    Exit;
+  end;
+
+  if not Assigned(frmSummaryRadarNoiseJammer) then
+    frmSummaryRadarNoiseJammer := TfrmSummaryRadarNoiseJammer.Create(Self);
+
+  try
+    with frmSummaryRadarNoiseJammer do
+    begin
+      SelectedRadarJammer := FSelectedRadarJammer;
+      Show;
+    end;
+  finally
+  end;
+end;
+
 procedure TfrmRadarNoiseJammerOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
   frmAsset.UpdateCountermeasureData;
   Close;
+end;
+
+procedure TfrmRadarNoiseJammerOnBoardPickList.btnDeleteClick(Sender: TObject);
+var
+  warning : Integer;
+begin
+  if lbAllRadarJammerDef.ItemIndex = -1 then
+  begin
+    ShowMessage('Select RadarNoiseJammer Data ... !');
+    Exit;
+  end;
+
+  warning := MessageDlg('Are you sure to delete this item?', mtConfirmation, mbOKCancel, 0);
+
+  if warning = mrOK then
+  begin
+    with FSelectedRadarJammer.FDef do
+    begin
+
+      {Pengecekan Relasi Dengan Tabel On Board}
+      if dmINWO.GetSensor_On_Board_By_Index(1, Jammer_Index) then
+      begin
+        ShowMessage('Cannot delete, because is already in used by some vehicles');
+        Exit;
+      end;
+
+      if dmINWO.DeleteRadarDef(Jammer_Index) then
+        ShowMessage('Data has been deleted');
+
+    end;
+
+    UpdateRadarJammerList;
+  end;
 end;
 
 procedure TfrmRadarNoiseJammerOnBoardPickList.lbAllRadarJammerDefClick(Sender: TObject);

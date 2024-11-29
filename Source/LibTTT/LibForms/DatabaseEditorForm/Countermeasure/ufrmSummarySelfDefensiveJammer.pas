@@ -15,7 +15,6 @@ type
     btnApply: TButton;
     btnCancel: TButton;
     btnOK: TButton;
-    ImgBackgroundForm: TImage;
     pnl1Title: TPanel;
     txtClass: TLabel;
     edtClass: TEdit;
@@ -45,8 +44,8 @@ type
     TrackBarTypeC: TTrackBar;
     tsNotes: TTabSheet;
     mmoNotes: TMemo;
-    ImgHeader: TImage;
-    Label2: TLabel;
+    lblPlatform: TLabel;
+    imgBackgroundForm: TImage;
 
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);

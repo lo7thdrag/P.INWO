@@ -15,8 +15,6 @@ type
     btnApply: TButton;
     btnCancel: TButton;
     btnOK: TButton;
-    ImgBackgroundForm: TImage;
-    Label1: TLabel;
     pnl1Title: TPanel;
     txtClass: TLabel;
     edtClass: TEdit;
@@ -50,7 +48,8 @@ type
     edtUpperVerticalLimit: TEdit;
     tsNotes: TTabSheet;
     mmoNotes: TMemo;
-    ImgHeader: TImage;
+    lblPlatform: TLabel;
+    imgBackgroundForm: TImage;
 
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);

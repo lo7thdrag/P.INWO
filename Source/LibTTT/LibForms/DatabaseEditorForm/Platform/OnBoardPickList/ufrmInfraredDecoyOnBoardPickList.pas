@@ -23,6 +23,9 @@ type
     Label1: TLabel;
     Label2: TLabel;
     lblClose: TLabel;
+    btnDelete: TImage;
+    btnUpdate: TImage;
+    btnNew: TImage;
 
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -35,6 +38,9 @@ type
     procedure btnEditClick(Sender: TObject);
     procedure btnCloseClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure btnDeleteClick(Sender: TObject);
+    procedure btnUpdateClick(Sender: TObject);
+    procedure btnNewClick(Sender: TObject);
 
   private
     FAllInfraredDecoyDefList : TList;
@@ -55,7 +61,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmInfraRedmount, ufrmAsset;
+  uDataModule, ufrmInfraRedmount, ufrmAsset, ufrmSummaryInfraredDecoy;
 
 
 {$R *.dfm}
@@ -124,6 +130,21 @@ begin
 //  UpdateInfraredDecoyList;
 end;
 
+procedure TfrmInfraredDecoyOnBoardPickList.btnNewClick(Sender: TObject);
+begin
+  if not Assigned(frmSummaryInfraredDecoy) then
+    frmSummaryInfraredDecoy := TfrmSummaryInfraredDecoy.Create(Self);
+
+  try
+    with frmSummaryInfraredDecoy do
+    begin
+      SelectedInfraredDecoy := TInfrared_Decoy_On_Board.Create;
+      Show;
+    end;
+  finally
+  end;
+end;
+
 procedure TfrmInfraredDecoyOnBoardPickList.btnRemoveClick(Sender: TObject);
 begin
   if lbAllInfraredDecoyOnBoard.ItemIndex = -1 then
@@ -137,10 +158,64 @@ begin
 //  UpdateInfraredDecoyList;
 end;
 
+procedure TfrmInfraredDecoyOnBoardPickList.btnUpdateClick(Sender: TObject);
+begin
+  if lbAllInfraredDecoyDef.ItemIndex = -1 then
+  begin
+    ShowMessage('Select InfraredDecoy Data ... !');
+    Exit;
+  end;
+
+  if not Assigned(frmSummaryInfraredDecoy) then
+    frmSummaryInfraredDecoy := TfrmSummaryInfraredDecoy.Create(Self);
+
+  try
+    with frmSummaryInfraredDecoy do
+    begin
+      SelectedInfraredDecoy := FSelectedInfraredDecoy;
+      Show;
+    end;
+  finally
+  end;
+end;
+
 procedure TfrmInfraredDecoyOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
   frmAsset.UpdateCountermeasureData;
   Close;
+end;
+
+procedure TfrmInfraredDecoyOnBoardPickList.btnDeleteClick(Sender: TObject);
+var
+  warning : Integer;
+begin
+  if lbAllInfraredDecoyDef.ItemIndex = -1 then
+  begin
+    ShowMessage('Select InfraredDecoy Data ... !');
+    Exit;
+  end;
+
+  warning := MessageDlg('Are you sure to delete this item?', mtConfirmation, mbOKCancel, 0);
+
+  if warning = mrOK then
+  begin
+    with FSelectedInfraredDecoy.FDef do
+    begin
+
+      {Pengecekan Relasi Dengan Tabel On Board}
+      if dmINWO.GetSensor_On_Board_By_Index(1, Infrared_Decoy_Index) then
+      begin
+        ShowMessage('Cannot delete, because is already in used by some vehicles');
+        Exit;
+      end;
+
+      if dmINWO.DeleteRadarDef(Infrared_Decoy_Index) then
+        ShowMessage('Data has been deleted');
+
+    end;
+
+    UpdateInfraredDecoyList;
+  end;
 end;
 
 procedure TfrmInfraredDecoyOnBoardPickList.lbAllInfraredDecoyDefClick(Sender: TObject);

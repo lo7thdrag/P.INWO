@@ -14150,8 +14150,8 @@ object frmSummaryInfraredDecoy: TfrmSummaryInfraredDecoy
     ExplicitHeight = 511
   end
   object lblPlatform: TLabel
-    Left = 10
-    Top = 73
+    Left = 2
+    Top = 72
     Width = 40
     Height = 222
     Caption = 'INFRARED DECOY'

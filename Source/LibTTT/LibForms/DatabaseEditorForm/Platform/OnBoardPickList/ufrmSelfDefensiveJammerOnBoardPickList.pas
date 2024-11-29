@@ -22,6 +22,9 @@ type
     Label2: TLabel;
     ImgBackgroundForm: TImage;
     lblClose: TLabel;
+    btnNew: TImage;
+    btnUpdate: TImage;
+    btnDelete: TImage;
 
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -32,6 +35,9 @@ type
     procedure btnAddClick(Sender: TObject);
     procedure btnRemoveClick(Sender: TObject);
     procedure btnCloseClick(Sender: TObject);
+    procedure btnDeleteClick(Sender: TObject);
+    procedure btnUpdateClick(Sender: TObject);
+    procedure btnNewClick(Sender: TObject);
 
   private
     FAllDefensiveJammerDefList : TList;
@@ -55,7 +61,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmAsset;
+  uDataModule, ufrmAsset, ufrmSummarySelfDefensiveJammer;
 
 {$R *.dfm}
 
@@ -133,10 +139,81 @@ begin
 //  UpdateDefensiveJammerList;
 end;
 
+procedure TfrmSelfDefensiveJammerOnBoardPickList.btnUpdateClick(
+  Sender: TObject);
+begin
+  if lbAllDefensiveJammerDef.ItemIndex = -1 then
+  begin
+    ShowMessage('Select SelfDefensiveJammer Data ... !');
+    Exit;
+  end;
+
+  if not Assigned(frmSummarySelfDefensiveJammer) then
+    frmSummarySelfDefensiveJammer := TfrmSummarySelfDefensiveJammer.Create(Self);
+
+  try
+    with frmSummarySelfDefensiveJammer do
+    begin
+      SelectedDefensiveJammer := FSelectedDefensiveJammer;
+      Show;
+    end;
+  finally
+  end;
+end;
+
 procedure TfrmSelfDefensiveJammerOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
   frmAsset.UpdateCountermeasureData;
   Close;
+end;
+
+procedure TfrmSelfDefensiveJammerOnBoardPickList.btnDeleteClick(
+  Sender: TObject);
+var
+  warning : Integer;
+begin
+  if lbAllDefensiveJammerDef.ItemIndex = -1 then
+  begin
+    ShowMessage('Select SelfDefensiveJammer Data ... !');
+    Exit;
+  end;
+
+  warning := MessageDlg('Are you sure to delete this item?', mtConfirmation, mbOKCancel, 0);
+
+  if warning = mrOK then
+  begin
+    with FSelectedDefensiveJammer.FDef do
+    begin
+
+      {Pengecekan Relasi Dengan Tabel On Board}
+      if dmINWO.GetSensor_On_Board_By_Index(1, Defensive_Jammer_Index) then
+      begin
+        ShowMessage('Cannot delete, because is already in used by some vehicles');
+        Exit;
+      end;
+
+      if dmINWO.DeleteRadarDef(Defensive_Jammer_Index) then
+        ShowMessage('Data has been deleted');
+
+    end;
+
+    UpdateDefensiveJammerList;
+  end;
+end;
+
+procedure TfrmSelfDefensiveJammerOnBoardPickList.btnNewClick(Sender: TObject);
+begin
+  if not Assigned(frmSummarySelfDefensiveJammer) then
+    frmSummarySelfDefensiveJammer := TfrmSummarySelfDefensiveJammer.Create(Self);
+
+  try
+    with frmSummarySelfDefensiveJammer do
+    begin
+      SelectedDefensiveJammer := TDefensive_Jammer_On_Board.Create;
+      Show;
+    end;
+  finally
+  end;
 end;
 
 procedure TfrmSelfDefensiveJammerOnBoardPickList.lbAllDefensiveJammerDefClick(Sender: TObject);
