@@ -76,6 +76,7 @@ end;
 
 procedure TfrmBrowseMap.btnCancelClick(Sender: TObject);
 begin
+  frmSituationBoard.btnGameArea.ImageIndex := 10;
   frmBrowseMap.Close;
 end;
 
@@ -199,10 +200,12 @@ begin
   rec.TabId := TabId;
   rec.UserRoleId := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
   rec.TabAddres := '\' + gFilename + '\' + gFilename + '.gst';
+  rec.TabCaption := TabCaption;
 
   simMgrClient.netSend_CmdSituationBoardTabProperties(rec);
 
   frmSituationBoard.RefreshTab;
+  frmSituationBoard.btnGameArea.ImageIndex := 10;
 
   Close;
 end;

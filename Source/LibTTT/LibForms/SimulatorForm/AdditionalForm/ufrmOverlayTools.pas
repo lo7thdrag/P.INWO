@@ -547,6 +547,7 @@ end;
 
 procedure TfrmOverlayTools.btnCloseClick(Sender: TObject);
 begin
+  frmSituationBoard.btnOverlayTools.ImageIndex := 12;
   Close;
 end;
 
