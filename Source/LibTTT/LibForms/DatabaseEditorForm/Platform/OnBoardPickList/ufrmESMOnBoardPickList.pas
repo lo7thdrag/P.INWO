@@ -138,7 +138,7 @@ begin
   try
     with frmSummaryESM do
     begin
-      SelectedESM := TRadar_On_Board.Create;
+      SelectedESM := TESM_On_Board.Create;
       Show;
     end;
   finally

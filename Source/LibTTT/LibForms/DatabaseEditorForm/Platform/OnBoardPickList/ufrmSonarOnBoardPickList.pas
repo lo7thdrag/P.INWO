@@ -141,7 +141,7 @@ begin
   try
     with frmSummarySonar do
     begin
-      SelectedSonar := TRadar_On_Board.Create;
+      SelectedSonar := TSonar_On_Board.Create;
       Show;
     end;
   finally
