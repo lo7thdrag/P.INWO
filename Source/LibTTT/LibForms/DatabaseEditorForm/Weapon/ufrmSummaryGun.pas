@@ -19,6 +19,8 @@ type
     txtClass: TLabel;
     edtClass: TEdit;
     pnl2ControlPage: TPanel;
+    imgBackgroundForm: TImage;
+    lblPlatform: TLabel;
     PageControl1: TPageControl;
     tsGeneral: TTabSheet;
     grpLethality: TGroupBox;
@@ -94,12 +96,6 @@ type
     edtEffectiveRadius: TEdit;
     edtMaxDamageRadius: TEdit;
     edtMaxDispersionError: TEdit;
-    tsNotes: TTabSheet;
-    mmoNotes: TMemo;
-    imgBackgroundForm: TImage;
-    lblPlatform: TLabel;
-
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
 
     //Global
@@ -147,16 +143,11 @@ implementation
 
 uses
   {Project Uses}
-    uDataModule{, ufrmGunPOHGraphic};
+    uDataModule, ufrmGunOnBoardPickList{, ufrmGunPOHGraphic};
 
  {$R *.dfm}
 
 {$REGION ' Form Handle '}
-
-procedure TfrmSummaryGun.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-  Action := cafree;
-end;
 
 procedure TfrmSummaryGun.FormShow(Sender: TObject);
 begin
@@ -180,85 +171,85 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
-  if isOk then
-    Close;
+  frmGunOnBoardPickList.UpdateGunList;
+  Close;
 end;
 
 procedure TfrmSummaryGun.btnApplyClick(Sender: TObject);
 begin
 
-//  with FSelectedGun do
-//  begin
-//    if not CekInput then
-//    begin
-//      isOK := False;
-//      Exit;
-//    end;
-//
-//    ValidationFormatInput;
-//
-//    {$REGION ' General '}
-//    LastName := edtClass.Text;
-//    FData.Gun_Identifier := edtClass.Text;
-//    FData.Gun_Category := GetWeaponCategory(cbbCategory.Text);
-//    FData.Rate_of_Fire := StrToInt(edtRateOfFire.Text);
-//    FData.Max_Target_Altitude_Delta := StrToInt(edtMaxAltitudeDiff.Text);
-//    FData.Gun_Average_Shell_Velocity := StrToFloat(edtAverageShellVelocity.Text);
-//
-//    FData.Fire_Cntl_Director_Req := Ord(chkFireControl.Checked);
-//
-//    FData.Air_Min_Range := StrToFloat(edtAirMinRange.Text);
-//    FData.Air_Max_Range := StrToFloat(edtAirMaxRange.Text);
-//
-//    FData.Min_Range := StrToFloat(edtSurLandMinRange.Text);
-//    FData.Max_Range := StrToFloat(edtSurLandMaxRange.Text);
-//
-//    FData.Anti_Sur_Capable := Ord(chkAntiSurface.Checked);
-//    FData.Anti_Land_Capable := Ord(chkAntiLand.Checked);
-//    FData.Anti_Air_Capable := Ord(chkAntiAir.Checked);
-//    FData.Anti_Amphibious_Capable := Ord(chkAntiAmphibious.Checked);
-//    FData.Automode_Capable := Ord(chkAutofireMode.Checked);
-//    FData.Chaff_Capable_Gun := Ord(chkDeployingChaff.Checked);
-//    FData.NGS_Capable := Ord(chkNavalGunSupport.Checked);
-//
-//    FData.Lethality_per_Round := trckbrLethality.Position;
-//    {$ENDREGION}
-//
-//    {$REGION ' Naval Gunfire Support '}
-//    FData.NGS_MinDeflectionError := StrToFloat(edtMinDeflectionError.Text);
-//    FData.NGS_MaxDeflectionError := StrToFloat(edtMaxDeflectionError.Text);
-//
-//    FData.NGS_MinRangeError := StrToFloat(edtMinRangeError.Text);
-//    FData.NGS_MaxRangeError := StrToFloat(edtMaxRangeError.Text);
-//
-//    FData.NGS_MaxDispersionError := StrToFloat(edtMaxDispersionError.Text);
-//    FData.NGS_MaxDamageRadius := StrToFloat(edtMaxDamageRadius.Text);
-//    FData.NGS_EffectiveRadius := StrToFloat(edtEffectiveRadius.Text);
-//
-//    FData.NGS_DamageRating := trckbrDamageRating.Position;
-//    {$ENDREGION}
-///    if FData.Gun_Index = 0 then
-//    begin
-//      if dmTTT.InsertGunDef(FData) then
-//      begin
-//        ShowMessage('Data has been saved');
-//      end;
-//    end
-//    else
-//    begin
-//      if dmTTT.UpdateGunDef(FData) then
-//      begin
-//        ShowMessage('Data has been updated');
-//      end;
-//    end;
-//  end;
-//
-//  UpdateGunData;
-//
+  with FSelectedGun do
+  begin
+    if not CekInput then
+    begin
+      isOK := False;
+      Exit;
+    end;
+
+    ValidationFormatInput;
+
+    {$REGION ' General '}
+    LastName := edtClass.Text;
+    FDef.Gun_Identifier := edtClass.Text;
+    FDef.Gun_Category := GetWeaponCategory(cbbCategory.Text);
+    FDef.Rate_of_Fire := StrToInt(edtRateOfFire.Text);
+    FDef.Max_Target_Altitude_Delta := StrToInt(edtMaxAltitudeDiff.Text);
+    FDef.Gun_Average_Shell_Velocity := StrToFloat(edtAverageShellVelocity.Text);
+
+    FDef.Fire_Cntl_Director_Req := Ord(chkFireControl.Checked);
+
+    FDef.Air_Min_Range := StrToFloat(edtAirMinRange.Text);
+    FDef.Air_Max_Range := StrToFloat(edtAirMaxRange.Text);
+
+    FDef.Min_Range := StrToFloat(edtSurLandMinRange.Text);
+    FDef.Max_Range := StrToFloat(edtSurLandMaxRange.Text);
+
+    FDef.Anti_Sur_Capable := Ord(chkAntiSurface.Checked);
+    FDef.Anti_Land_Capable := Ord(chkAntiLand.Checked);
+    FDef.Anti_Air_Capable := Ord(chkAntiAir.Checked);
+    FDef.Anti_Amphibious_Capable := Ord(chkAntiAmphibious.Checked);
+    FDef.Automode_Capable := Ord(chkAutofireMode.Checked);
+    FDef.Chaff_Capable_Gun := Ord(chkDeployingChaff.Checked);
+    FDef.NGS_Capable := Ord(chkNavalGunSupport.Checked);
+
+    FDef.Lethality_per_Round := trckbrLethality.Position;
+    {$ENDREGION}
+
+    {$REGION ' Naval Gunfire Support '}
+    FDef.NGS_MinDeflectionError := StrToFloat(edtMinDeflectionError.Text);
+    FDef.NGS_MaxDeflectionError := StrToFloat(edtMaxDeflectionError.Text);
+
+    FDef.NGS_MinRangeError := StrToFloat(edtMinRangeError.Text);
+    FDef.NGS_MaxRangeError := StrToFloat(edtMaxRangeError.Text);
+
+    FDef.NGS_MaxDispersionError := StrToFloat(edtMaxDispersionError.Text);
+    FDef.NGS_MaxDamageRadius := StrToFloat(edtMaxDamageRadius.Text);
+    FDef.NGS_EffectiveRadius := StrToFloat(edtEffectiveRadius.Text);
+
+    FDef.NGS_DamageRating := trckbrDamageRating.Position;
+    {$ENDREGION}
+    if FData.Gun_Index = 0 then
+    begin
+      if dmINWO.InsertGunDef(FDef) then
+      begin
+        ShowMessage('Data has been saved');
+      end;
+    end
+    else
+    begin
+      if dmINWO.UpdateGunDef(FDef) then
+      begin
+        ShowMessage('Data has been updated');
+      end;
+    end;
+  end;
+
+  UpdateGunData;
+
 //  isOK := True;
 //  AfterClose := True;
-//  btnApply.Enabled := False;
-//  btnCancel.Enabled := False;
+  btnApply.Enabled := False;
+  btnCancel.Enabled := False;
 end;
 
 procedure TfrmSummaryGun.btnCancelClick(Sender: TObject);
@@ -343,107 +334,107 @@ end;
 
 procedure TfrmSummaryGun.UpdateGunData;
 begin
-//  with FSelectedGun do
-//  begin
-//    if FData.Gun_Index = 0 then
-//      edtClass.Text := '(Unnamed)'
-//    else
-//      edtClass.Text := FData.Gun_Identifier;
-//
-//    {$REGION ' General '}
-//    LastName := edtClass.Text;
-//    cbbCategory.Text := SetWeaponCategory(FData.Gun_Category);
-//    edtRateOfFire.Text := IntToStr(FData.Rate_of_Fire);
-//    edtMaxAltitudeDiff.Text := IntToStr(FData.Max_Target_Altitude_Delta);
-//    edtAverageShellVelocity.Text := FormatFloat('0.00', FData.Gun_Average_Shell_Velocity);
-//
-//    chkFireControl.Checked := Boolean(FData.Fire_Cntl_Director_Req);
-//
-//    edtAirMinRange.Text := FormatFloat('0.00', FData.Air_Min_Range);
-//    edtAirMaxRange.Text := FormatFloat('0.00', FData.Air_Max_Range);
-//
-//    edtSurLandMinRange.Text := FormatFloat('0.00', FData.Min_Range);
-//    edtSurLandMaxRange.Text := FormatFloat('0.00', FData.Max_Range);
-//
-//    btnEditAirTargetCurve.Enabled := FData.Gun_Index <> 0;
-//    btnEditSurfaceLandTargetCurve.Enabled := FData.Gun_Index <> 0;
-//
-//    chkAntiSurface.Checked := Boolean(FData.Anti_Sur_Capable);
-//    chkAntiLand.Checked := Boolean(FData.Anti_Land_Capable);
-//    chkAntiAir.Checked := Boolean(FData.Anti_Air_Capable);
-//    chkAntiAmphibious.Checked := Boolean(FData.Anti_Amphibious_Capable);
-//    chkDeployingChaff.Checked := Boolean(FData.Chaff_Capable_Gun);
-//    chkAutofireMode.Checked := Boolean(FData.Automode_Capable);
-//    chkNavalGunSupport.Checked := Boolean(FData.NGS_Capable);
-//
-//    trckbrLethality.Position := FData.Lethality_per_Round;
-//    {$ENDREGION}
-//
-//    {$REGION ' Naval Gunfire Support '}
-//    edtMinDeflectionError.Text := FormatFloat('0.0', FData.NGS_MinDeflectionError);
-//    edtMaxDeflectionError.Text := FormatFloat('0.0', FData.NGS_MaxDeflectionError);
-//
-//    edtMinRangeError.Text := FormatFloat('0.0', FData.NGS_MinRangeError);
-//    edtMaxRangeError.Text := FormatFloat('0.0', FData.NGS_MaxRangeError);
-//
-//    edtMaxDispersionError.Text := FormatFloat('0.0', FData.NGS_MaxDispersionError);
-//    edtMaxDamageRadius.Text := FormatFloat('0.0', FData.NGS_MaxDamageRadius);
-//    edtEffectiveRadius.Text := FormatFloat('0.0', FData.NGS_EffectiveRadius);
-//
-//    trckbrDamageRating.Position := FData.NGS_DamageRating;
-//    {$ENDREGION}
-//  end;
+  with FSelectedGun do
+  begin
+    if FData.Gun_Index = 0 then
+      edtClass.Text := '(Unnamed)'
+    else
+      edtClass.Text := FDef.Gun_Identifier;
+
+    {$REGION ' General '}
+    LastName := edtClass.Text;
+    cbbCategory.Text := SetWeaponCategory(FDef.Gun_Category);
+    edtRateOfFire.Text := IntToStr(FDef.Rate_of_Fire);
+    edtMaxAltitudeDiff.Text := IntToStr(FDef.Max_Target_Altitude_Delta);
+    edtAverageShellVelocity.Text := FormatFloat('0.00', FDef.Gun_Average_Shell_Velocity);
+
+    chkFireControl.Checked := Boolean(FDef.Fire_Cntl_Director_Req);
+
+    edtAirMinRange.Text := FormatFloat('0.00', FDef.Air_Min_Range);
+    edtAirMaxRange.Text := FormatFloat('0.00', FDef.Air_Max_Range);
+
+    edtSurLandMinRange.Text := FormatFloat('0.00', FDef.Min_Range);
+    edtSurLandMaxRange.Text := FormatFloat('0.00', FDef.Max_Range);
+
+    btnEditAirTargetCurve.Enabled := FDef.Gun_Index <> 0;
+    btnEditSurfaceLandTargetCurve.Enabled := FDef.Gun_Index <> 0;
+
+    chkAntiSurface.Checked := Boolean(FDef.Anti_Sur_Capable);
+    chkAntiLand.Checked := Boolean(FDef.Anti_Land_Capable);
+    chkAntiAir.Checked := Boolean(FDef.Anti_Air_Capable);
+    chkAntiAmphibious.Checked := Boolean(FDef.Anti_Amphibious_Capable);
+    chkDeployingChaff.Checked := Boolean(FDef.Chaff_Capable_Gun);
+    chkAutofireMode.Checked := Boolean(FDef.Automode_Capable);
+    chkNavalGunSupport.Checked := Boolean(FDef.NGS_Capable);
+
+    trckbrLethality.Position := FDef.Lethality_per_Round;
+    {$ENDREGION}
+
+    {$REGION ' Naval Gunfire Support '}
+    edtMinDeflectionError.Text := FormatFloat('0.0', FDef.NGS_MinDeflectionError);
+    edtMaxDeflectionError.Text := FormatFloat('0.0', FDef.NGS_MaxDeflectionError);
+
+    edtMinRangeError.Text := FormatFloat('0.0', FDef.NGS_MinRangeError);
+    edtMaxRangeError.Text := FormatFloat('0.0', FDef.NGS_MaxRangeError);
+
+    edtMaxDispersionError.Text := FormatFloat('0.0', FDef.NGS_MaxDispersionError);
+    edtMaxDamageRadius.Text := FormatFloat('0.0', FDef.NGS_MaxDamageRadius);
+    edtEffectiveRadius.Text := FormatFloat('0.0', FDef.NGS_EffectiveRadius);
+
+    trckbrDamageRating.Position := FDef.NGS_DamageRating;
+    {$ENDREGION}
+  end;
 end;
 
 function TfrmSummaryGun.CekInput: Boolean;
 var
   i, chkSpace, numSpace: Integer;
 begin
-//  Result := False;
-//
-//  {Jika inputan class name kosong}
-//  if (edtClass.Text = '')then
-//  begin
-//    ShowMessage('Please insert class name');
-//    Exit;
-//  end;
-//
-//  {Jika berisi spasi semua}
-//  if Copy(edtClass.Text, 1, 1) = ' ' then
-//  begin
-//    chkSpace := Length(edtClass.Text);
-//    numSpace := 0;
-//
-//    for i := 1 to chkSpace do
-//    begin
-//      if edtClass.Text[i] = #32 then
-//      numSpace := numSpace + 1;
-//    end;
-//
-//    if chkSpace = numSpace then
-//    begin
-//      ShowMessage('Please use another class name');
-//      Exit;
-//    end;
-//  end;
-//
-//  {Jika Class Name sudah ada}
-//  if (dmTTT.GetGunDef(edtClass.Text)>0) then
-//  begin
-//    {Jika inputan baru}
-//    if FSelectedGun.FData.Gun_Index = 0 then
-//    begin
-//      ShowMessage('Please use another class name');
-//      Exit;
-//    end
-//    else if LastName <> edtClass.Text then
-//    begin
-//      ShowMessage('Please use another class name');
-//      Exit;
-//    end;
-//  end;
-//
-//  Result := True;
+  Result := False;
+
+  {Jika inputan class name kosong}
+  if (edtClass.Text = '')then
+  begin
+    ShowMessage('Please insert class name');
+    Exit;
+  end;
+
+  {Jika berisi spasi semua}
+  if Copy(edtClass.Text, 1, 1) = ' ' then
+  begin
+    chkSpace := Length(edtClass.Text);
+    numSpace := 0;
+
+    for i := 1 to chkSpace do
+    begin
+      if edtClass.Text[i] = #32 then
+      numSpace := numSpace + 1;
+    end;
+
+    if chkSpace = numSpace then
+    begin
+      ShowMessage('Please use another class name');
+      Exit;
+    end;
+  end;
+
+  {Jika Class Name sudah ada}
+  if (dmINWO.GetGunDef(edtClass.Text)>0) then
+  begin
+    {Jika inputan baru}
+    if FSelectedGun.FData.Gun_Index = 0 then
+    begin
+      ShowMessage('Please use another class name');
+      Exit;
+    end
+    else if LastName <> edtClass.Text then
+    begin
+      ShowMessage('Please use another class name');
+      Exit;
+    end;
+  end;
+
+  Result := True;
 end;
 
 {$ENDREGION}

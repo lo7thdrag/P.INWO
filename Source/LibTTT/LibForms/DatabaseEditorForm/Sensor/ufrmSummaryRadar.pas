@@ -69,7 +69,6 @@ type
     Label27: TLabel;
     Label28: TLabel;
     Label29: TLabel;
-    lblSignalToNoise: TLabel;
     edtFrequency: TEdit;
     edtScanRate: TEdit;
     edtPulseRepetitionFrequency: TEdit;
@@ -77,13 +76,6 @@ type
     edtPower: TEdit;
     edtClutterRejection: TEdit;
     edtBeamWidth: TEdit;
-    grpVerticalCoverageCurve1: TGroupBox;
-    btnVerticalCoverageCurve1: TButton;
-    grpVerticalCoverageCurve2: TGroupBox;
-    chkValidVertical2: TCheckBox;
-    btnEditVertical2: TButton;
-    edtSignalToNoise: TEdit;
-    btnPick: TButton;
     tsAntiJamming: TTabSheet;
     grbBasicCapabilities: TGroupBox;
     lblJammerStrength: TLabel;
@@ -105,8 +97,6 @@ type
     chkCancelTypeB: TCheckBox;
     chkCancelTypeC: TCheckBox;
     chkAntiJammingCapable: TCheckBox;
-    tsNotes: TTabSheet;
-    mmoNotes: TMemo;
     imgBackgroundForm: TImage;
     lblPlatform: TLabel;
 
@@ -122,7 +112,6 @@ type
 
     //Characteristic
     procedure btnVerticalCoverageCurve1Click(Sender: TObject);
-    procedure chkValidVertical2Click(Sender: TObject);
     procedure btnEditVertical2Click(Sender: TObject);
     procedure btnPickClick(Sender: TObject);
 
@@ -135,7 +124,6 @@ type
     procedure btnOKClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
     procedure btnApplyClick(Sender: TObject);
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
 
   private
     FSelectedRadar : TRadar_On_Board;
@@ -157,13 +145,10 @@ var
 implementation
 
 {$R *.dfm}
+uses
+  ufrmRadarOnBoardPickList;
 
 {$REGION ' Form Handle '}
-
-procedure TfrmSummaryRadar.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-  Action := cafree;
-end;
 
 procedure TfrmSummaryRadar.FormShow(Sender: TObject);
 begin
@@ -185,6 +170,7 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
+  frmRadarOnBoardPickList.UpdateRadarList;
   Close;
 end;
 
@@ -201,46 +187,45 @@ begin
 
     {$REGION ' General '}
     LastName := edtClass.Text;
-//    FDef.Radar_Identifier := edtClass.Text;
-//    FDef.Radar_Type := cbbRadarType.ItemIndex;
-//    FDef.ECCM_Type := cbbECCMType.ItemIndex;
-//    FDef.Radar_Emitter := edtEmitterType.Text;
-//    FDef.Detection_Range := StrToFloat(edtBaselineDelectionRange.Text);
-//    FDef.Known_Cross_Section := StrToFloat(edtAssociatedCrossSection.Text);
-//    FDef.Max_Unambig_Detect_Range := StrToFloat(edtMaxUnambigous.Text);
-//    FDef.Num_FCR_Channels := StrToInt(edtNumberofFCR.Text);
-//    FDef.Radar_Spot_Number := StrToInt(edtSpotNumber.Text);
-//    FDef.Radar_Horizon_Factor := StrToFloat(edtOTHRadarFactor.Text);
-//    FDef.Main_Lobe_Gain := StrToFloat(edtMainLobeGain.Text);
-//    FDef.Altitude_Data_Capability := chkAltitudeData.Checked;
-//    FDef.Plat_Type_Recog_Capability := chkPlatformTypeRecognition.Checked;
-//    FDef.Ground_Speed_Data_Capability := chkGroundSpeedData.Checked;
-//    FDef.Plat_Class_Recog_Capability := chkPlatformClassRecognition.Checked;
-//    FDef.Heading_Data_Capability := chkHeadingData.Checked;
-//    FDef.Sector_Scan_Capable := chkSectorscan.Checked;
+    FDef.Radar_Identifier := edtClass.Text;
+    FDef.Radar_Type := cbbRadarType.ItemIndex;
+    FDef.ECCM_Type := cbbECCMType.ItemIndex;
+    FDef.Radar_Emitter := edtEmitterType.Text;
+    FDef.Detection_Range := StrToFloat(edtBaselineDelectionRange.Text);
+    FDef.Known_Cross_Section := StrToFloat(edtAssociatedCrossSection.Text);
+    FDef.Max_Unambig_Detect_Range := StrToFloat(edtMaxUnambigous.Text);
+    FDef.Num_FCR_Channels := StrToInt(edtNumberofFCR.Text);
+    FDef.Radar_Spot_Number := StrToInt(edtSpotNumber.Text);
+    FDef.Radar_Horizon_Factor := StrToFloat(edtOTHRadarFactor.Text);
+    FDef.Main_Lobe_Gain := StrToFloat(edtMainLobeGain.Text);
+    FDef.Altitude_Data_Capability := chkAltitudeData.Checked;
+    FDef.Plat_Type_Recog_Capability := chkPlatformTypeRecognition.Checked;
+    FDef.Ground_Speed_Data_Capability := chkGroundSpeedData.Checked;
+    FDef.Plat_Class_Recog_Capability := chkPlatformClassRecognition.Checked;
+    FDef.Heading_Data_Capability := chkHeadingData.Checked;
+    FDef.Sector_Scan_Capable := chkSectorscan.Checked;
     {$ENDREGION}
 
     {$REGION ' Characteristics '}
-//    FDef.Frequency := StrToFloat(edtFrequency.Text);
-//    FDef.Scan_Rate := StrToFloat(edtScanRate.Text);
-//    FDef.Pulse_Rep_Freq := StrToFloat(edtPulseRepetitionFrequency.Text);
-//    FDef.Pulse_Width := StrToFloat(edtPulseWidth.Text);
-//    FDef.Radar_Power := StrToFloat(edtPower.Text);
-//    FDef.Clutter_Rejection := StrToFloat(edtClutterRejection.Text);
-//    FDef.Beam_Width := StrToFloat(edtBeamWidth.Text);
-//    FDef.Second_Vert_Coverage := chkValidVertical2.Checked;
+    FDef.Frequency := StrToFloat(edtFrequency.Text);
+    FDef.Scan_Rate := StrToFloat(edtScanRate.Text);
+    FDef.Pulse_Rep_Freq := StrToFloat(edtPulseRepetitionFrequency.Text);
+    FDef.Pulse_Width := StrToFloat(edtPulseWidth.Text);
+    FDef.Radar_Power := StrToFloat(edtPower.Text);
+    FDef.Clutter_Rejection := StrToFloat(edtClutterRejection.Text);
+    FDef.Beam_Width := StrToFloat(edtBeamWidth.Text);
     {$ENDREGION}
 
     {$REGION ' Anti Jamming '}
-//    FDef.Jamming_A_Resistant := chkTypeAJammingResistant.Checked;
-//    FDef.Jamming_B_Resistant := chkTypeBJammingResistant.Checked;
-//    FDef.Jamming_C_Resistant := chkTypeCJammingResistant.Checked;
-//    FDef.Off_Axis_Jammer_Reduction := trckbrJammerStrength.Position;
-//    FDef.Anti_Jamming_Capable := chkAntiJammingCapable.Checked;
-//    FDef.Anti_Jamming_A_Resistant := chkCancelTypeA.Checked;
-//    FDef.Anti_Jamming_B_Resistant := chkCancelTypeB.Checked;
-//    FDef.Anti_Jamming_C_Resistant := chkCancelTypeC.Checked;
-//    FDef.Anti_Jamming_Range_Reduction := trckbrPercentageMaxUnambigous.Position;
+    FDef.Jamming_A_Resistant := chkTypeAJammingResistant.Checked;
+    FDef.Jamming_B_Resistant := chkTypeBJammingResistant.Checked;
+    FDef.Jamming_C_Resistant := chkTypeCJammingResistant.Checked;
+    FDef.Off_Axis_Jammer_Reduction := trckbrJammerStrength.Position;
+    FDef.Anti_Jamming_Capable := chkAntiJammingCapable.Checked;
+    FDef.Anti_Jamming_A_Resistant := chkCancelTypeA.Checked;
+    FDef.Anti_Jamming_B_Resistant := chkCancelTypeB.Checked;
+    FDef.Anti_Jamming_C_Resistant := chkCancelTypeC.Checked;
+    FDef.Anti_Jamming_Range_Reduction := trckbrPercentageMaxUnambigous.Position;
     {$ENDREGION}
 
     if FDef.Radar_Index = 0 then
@@ -321,11 +306,6 @@ begin
 
 end;
 
-procedure TfrmSummaryRadar.chkValidVertical2Click(Sender: TObject);
-begin
-  btnEditVertical2.Enabled := chkValidVertical2.Checked;
-end;
-
 procedure TfrmSummaryRadar.btnEditVertical2Click(Sender: TObject);
 begin
 //  frmRadarCoverageGraphic := TfrmRadarCoverageGraphic.Create(Self);
@@ -399,10 +379,6 @@ begin
     edtPower.Text := FormatFloat('0', FDef.Radar_Power);
     edtClutterRejection.Text := FormatFloat('0.0', FDef.Clutter_Rejection);
     edtBeamWidth.Text := FormatFloat('0', FDef.Beam_Width);
-    chkValidVertical2.Checked :=FDef.Second_Vert_Coverage;
-    btnEditVertical2.Enabled := FDef.Second_Vert_Coverage;
-
-//    UpdateSNRvsPODData;
 
     {$ENDREGION}
 
@@ -418,7 +394,7 @@ begin
     trckbrPercentageMaxUnambigous.Position := Round(FDef.Anti_Jamming_Range_Reduction);
     {$ENDREGION}
 
- end;
+  end;
 end;
 
 procedure TfrmSummaryRadar.UpdateSNRvsPODData;

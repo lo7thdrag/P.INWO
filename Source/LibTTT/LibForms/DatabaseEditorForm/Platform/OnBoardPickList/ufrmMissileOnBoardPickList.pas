@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ExtCtrls, ComCtrls, Vcl.Imaging.pngimage,
 
-  uDBAsset_Weapon, uClassData, uSimContainers ;
+  uDBAsset_Weapon, uClassData, uSimContainers, uConstantaData ;
 
 type
   TfrmMissileOnBoardPickList = class(TForm)
@@ -191,6 +191,7 @@ end;
 procedure TfrmMissileOnBoardPickList.btnDeleteClick(Sender: TObject);
 var
   warning : Integer;
+  tempList: TList;
 begin
   if lbAllMissileDef.ItemIndex = -1 then
   begin
@@ -204,17 +205,20 @@ begin
   begin
     with FSelectedMissile.FDef do
     begin
+      tempList := TList.Create;
 
       {Pengecekan Relasi Dengan Tabel On Board}
-      if dmINWO.GetSensor_On_Board_By_Index(1, Missile_Index) then
+      if dmINWO.GetFittedWeaponAtVehicleOnBoard(1, Missile_Index, tempList) then
       begin
         ShowMessage('Cannot delete, because is already in used by some vehicles');
+        tempList.Free;
         Exit;
       end;
 
-      if dmINWO.DeleteRadarDef(Missile_Index) then
+      if dmINWO.DeleteMissileDef(Missile_Index) then
         ShowMessage('Data has been deleted');
 
+      tempList.Free;
     end;
 
     UpdateMissileList;

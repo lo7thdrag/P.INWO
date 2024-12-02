@@ -56,8 +56,6 @@ type
     mmoNotes: TMemo;
     imgBackgroundForm: TImage;
     lblPlatform: TLabel;
-
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
 
     //Global
@@ -94,16 +92,11 @@ var
 implementation
 
 uses
-  uDataModule, Math;
+  uDataModule, Math, ufrmFloatingDecoyOnBoardPickList;
 
 {$R *.dfm}
 
 {$REGION ' Form Handle '}
-
-procedure TfrmSummaryFloatingDecoy.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-  Action := cafree;
-end;
 
 procedure TfrmSummaryFloatingDecoy.FormShow(Sender: TObject);
 begin
@@ -127,8 +120,8 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
-  if isOk then
-    Close;
+  frmFloatingDecoyOnBoardPickList.UpdateFloatingDecoyList;
+  Close;
 end;
 
 procedure TfrmSummaryFloatingDecoy.btnApplyClick(Sender: TObject);

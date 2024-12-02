@@ -16,7 +16,6 @@ object frmSummaryMAD: TfrmSummaryMAD
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
-  OnClose = FormClose
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13

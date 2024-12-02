@@ -46,10 +46,6 @@ type
     cbbDetectabilityType: TComboBox;
     cbbMidCourseUpdateMode: TComboBox;
     edtMaxAltitudeDiff: TEdit;
-    grbHybridTorpedoDefinition: TGroupBox;
-    edtHybridTorpedoDef: TEdit;
-    btnHybridTorpedoDef: TButton;
-    chkHybridTorpedoDefinition: TCheckBox;
     grpLethality: TGroupBox;
     Label2: TLabel;
     Label3: TLabel;
@@ -66,7 +62,6 @@ type
     edtProbabilityofHit: TEdit;
     trckbrProbabilityofHit: TTrackBar;
     tsPhysical: TTabSheet;
-    lblMotionCharacteristic: TLabel;
     lblCroosSection: TLabel;
     grbDimensions: TGroupBox;
     lblLengthDimensions: TLabel;
@@ -81,8 +76,6 @@ type
     edtWidthDimensions: TEdit;
     edtHeightDimensions: TEdit;
     edtEngagementRangeDimensions: TEdit;
-    edtMotionCharacteristic: TEdit;
-    btnMotionCharacteristic: TButton;
     grbBoosterSeparation: TGroupBox;
     lblRangeBooster: TLabel;
     lblBoxWidthBooster: TLabel;
@@ -247,8 +240,6 @@ type
     Label96: TLabel;
     edtUpperLimitReceivedFreqTARH: TEdit;
     edtLowerLimitReceivedFreqTARH: TEdit;
-    tsNotes: TTabSheet;
-    mmoNotes: TMemo;
     imgBackgroundForm: TImage;
     lblPlatform: TLabel;
 
@@ -316,17 +307,17 @@ implementation
 
 uses
 {Form Uses}
-  uDataModule{, ufrmTorpedoPickList, ufrmMotionPickList, uDBAsset_MotionCharacteristics};
+  uDataModule,  ufrmMissileOnBoardPickList{, ufrmTorpedoPickList, ufrmMotionPickList, uDBAsset_MotionCharacteristics};
 
 {$R *.dfm}
+
 
 {$REGION ' Form Handle '}
 
 procedure TfrmSummaryMissile.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
 //  FSelectedHybrid.Free;
-//
-//  Action := cafree;
+
 end;
 
 procedure TfrmSummaryMissile.FormShow(Sender: TObject);
@@ -353,178 +344,161 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
-  if isOk then
-    Close;
+  frmMissileOnBoardPickList.UpdateMissileList;
+  Close;
 end;
 
 procedure TfrmSummaryMissile.btnApplyClick(Sender: TObject);
 begin
 
-//  with FSelectedMissile do
-//  begin
-//
-//    if not CekInput then
-//    begin
-//      isOK := False;
-//      Exit;
-//    end;
-//
-//    ValidationFormatInput;
-//
-//    {$REGION ' General '}
-//    LastName := edtClass.Text;
-//    FDef.Class_Identifier := edtClass.Text;
-//
-//    FDef.Launch_Method := cbbMethod.ItemIndex;
-//    FDef.Launch_Speed := cbbInitialCommandedSpeed.ItemIndex;
-//
-//    FDef.Home_On_Jam_Type_A_Capable := Ord(chkTypeA.Checked);
-//    FDef.Home_On_Jam_Type_B_Capable := Ord(chkTypeB.Checked);
-//    FDef.Home_On_Jam_Type_C_Capable := Ord(chkTypeC.Checked);
-//
-//    FDef.Anti_Air_Capable := Ord(chkAntiAir.Checked);
-//    FDef.Anti_Sur_Capable := Ord(chkAntiSurface.Checked);
-//    FDef.Anti_SubSur_Capable := Ord(chkAntiSubsurface.Checked);
-//    FDef.Anti_Land_Capable := Ord(chkAntiLand.Checked);
-//    FDef.Anti_Amphibious_Capable := Ord(chkAntiAmphibious.Checked);
-//    FDef.Sea_State_Modelling_Capable := Ord(chkSeaStateModelling.Checked);
-//
-//    FDef.Primary_Target_Domain := GetWeaponCategory(cbbPrimaryTargetDomain.Text);
-//
-//    FDef.Max_Target_Altitude_Delta := StrToInt(edtMaxAltitudeDiff.Text);
-//
-//    FDef.Detectability_Type := cbbDetectabilityType.ItemIndex;
-//    FDef.Mid_Course_Update_Mode := cbbMidCourseUpdateMode.ItemIndex;
-//
-//    FDef.Lethality := trckbrLethality.Position;
-//    FDef.Damage_Capacity := trckbrDamageSustainability.Position;
-//    FDef.Prob_of_Hit := trckbrProbabilityOfHit.Position/100;
-//
-//    {$ENDREGION}
-//
-//    {$REGION ' Physical '}
-//    FDef.Length := StrToFloat(edtLengthDimensions.Text);
-//    FDef.Width := StrToFloat(edtWidthDimensions.Text);
-//    FDef.Height := StrToFloat(edtHeightDimensions.Text);
-//    FDef.Engagement_Range := StrToFloat(edtEngagementRangeDimensions.Text);
-//
-//    FDef.Front_Radar_Cross := StrToFloat(edtFrontRadarPhysical.Text);
-//    FDef.Side_Radar_Cross := StrToFloat(edtSideRadarPhysical.Text);
-//
-//    FDef.Booster_Separation_Required := Ord(chkBoosterSeparation.Checked);
-//    FDef.Booster_Separation_Range := StrToFloat(edtRangeBooster.Text);
-//    FDef.Booster_Separation_Box_Width := StrToFloat(edtBoxWidthBooster.Text);
-//    FDef.Booster_Separation_Box_Length := StrToFloat(edtBoxHeightBooster.Text);
-//
-//    FDef.Front_Infrared_Cross := StrToFloat(edtFrontInfraredPhysical.Text);
-//    FDef.Side_Infrared_Cross := StrToFloat(edtSideInfraredPhysical.Text);
-//
-//    FDef.Front_Visual_Cross := StrToFloat(edtFrontVisualPhysical.Text);
-//    FDef.Side_Visual_Cross := StrToFloat(edtSideVisualPhysical.Text);
-//
-//    {$ENDREGION}
-//
-//    {$REGION ' POH modifier '}
-//    FDef.AR_POH_Modifier := trckbrAntiRadiationMissile.Position / 100;
-//    FDef.IR_POH_Modifier := trckbrInfraredMissile.Position / 100;
-//    FDef.TARH_POH_Modifier := trckbrTARHMissile.Position / 100;
-//    FDef.SARH_POH_Modifier := trckbrSARHMissile.Position / 100;
-//    {$ENDREGION}
-//
-//    {$REGION ' Guidance '}
-//    FDef.Primary_Guide_Type := cbbPrimaryLaunchGuidance.ItemIndex;
-//    FDef.Secondary_Guide_Type := cbbSecondaryLaunchGuidance.ItemIndex;
-//    FDef.Pursuit_Guide_Type := cbbPursuitLaunchGuidance.ItemIndex;
-//    FDef.Min_Range := StrToFloat(edtMinRangeGuide.Text);
-//    FDef.Max_Range := StrToFloat(edtMaxRangeGuide.Text);
-//    FDef.Fly_Out_Required := Ord(chkFlyOutRequired.Checked);
-//    FDef.Fly_Out_Range := StrToFloat(edtRangeFlyGuide.Text);
-//    FDef.Fly_Out_Altitude := StrToFloat(edtAltitudeFlyGuide.Text);
-//
-//    FDef.Terminal_Guidance_Capability := cbbCapabilityTerminalGuidance.ItemIndex;
-//
-//    case cbbCapabilityTerminalGuidance.ItemIndex of
-//      0: ; //none
-//      1: //pop-up
-//      begin
-//        FDef.Terminal_Pop_Up_Range := StrToFloat(edtStartRangeTerminalGuidance.Text);
-//        FDef.Terminal_Pop_Up_Altitude := StrToFloat(edtAltitudeTerminalGuidance.Text);
-//      end;
-//      2: //sinuation
-//      begin
-//        FDef.Terminal_Sinuation_Start_Range := StrToFloat(edtStartRangeTerminalGuidance.Text);
-//        FDef.Terminal_Sinuation_Period := StrToFloat(edtPeriodTerminalGuidance.Text);
-//        FDef.Terminal_Sinuation_Amplitude := StrToFloat(edtAmplitudeTerminalGuidance.Text);
-//      end;
-//    end;
-//
-//    FDef.Seeker_TurnOn_Range := StrToFloat(edtRangeSeekerTurnGuidance.Text);
-//    FDef.Fixed_Seeker_Turn_On_Range := Ord(chkRangeSeekerTurnGuidance.Checked);
-//    FDef.Term_Guide_Range := StrToFloat(edtRangeSeekerDetectionGuidance.Text);
-//    FDef.Term_Guide_Azimuth := StrToFloat(edtAzimuthSeekerDetectionGuidance.Text);
-//    FDef.Term_Guide_Elevation := StrToFloat(edtElevationSeekerDetectionGuidance.Text);
-//    FDef.Terminal_Altitude_Required := Ord(chkTerminalAcqGuidance.Checked);
-//    FDef.Terminal_Acquisition_Altitude := StrToFloat(edtCommandAltitudeGuidance.Text);
-//    FDef.Wpt_Capable := Ord(chkWaypointUserGuidance.Checked);
-//    FDef.Max_Num_Wpts := StrToInt(edtmaxNumWaypointGuidance.Text);
-//    FDef.Min_Final_Leg_Length := StrToFloat(edtMinFinalWaypointGuidance.Text);
-//    FDef.Max_Firing_Depth := StrToFloat(edtMaxFiringGuidance.Text);
-//    FDef.Default_Altitude := StrToFloat(edtDefaultCruiseGuidance.Text);
-//
-//    {$ENDREGION}
-//
-//    {$REGION ' Seeker Setting '}
-//    FDef.ECCM_Type := cbbPrimaryTARH.ItemIndex;
-//    FDef.Spot_Number := StrToInt(edtRangeTARH.Text);
-//    FDef.ECM_Detonation := cbbDetonationECMTARH.ItemIndex;
-//    FDef.ECM_Detection := cbbDetectionECMTARH.ItemIndex;
-//    FDef.IRCM_Detonation := cbbDetonationIRCM.ItemIndex;
-//    FDef.IRCM_Detection := cbbDetectionIRCM.ItemIndex;
-//    FDef.Transmitted_Frequency := StrToFloat(edtFreqTerminalTARH.Text);
-//    FDef.Pulse_Rep_Freq := StrToFloat(edtPulseRepTerminalTARH.Text);
-//    FDef.Pulse_Width := StrToFloat(edtPulseWidthTerminalTARH.Text);
-//    FDef.Scan_Rate := StrToFloat(edtScanRateTerminalTARH.Text);
-//    FDef.Xmit_Power := StrToFloat(edtTransmitterPowerTerminalTARH.Text);
-//    FDef.Upper_Received_Freq := StrToFloat(edtUpperLimitReceivedFreqTARH.Text);
-//    FDef.Lower_Received_Freq := StrToFloat(edtLowerLimitReceivedFreqTARH.Text);
-//    {$ENDREGION}
-//    if FDef.Missile_Index = 0 then
-//    begin
-//      if dmTTT.InsertMissileDef(FDef) then
-//      begin
-//        ShowMessage('Data has been saved');
-//      end;
-//    end
-//    else
-//    begin
-//      if dmTTT.UpdateMissileDef(FDef) then
-//      begin
-//        ShowMessage('Data has been updated');
-//      end;
-//    end;
-//
-//    with FSelectedHybrid do
-//    begin
-//      FMissile_Def.Missile_Index := FDef.Missile_Index;
-//
-//      {Insert data hybrid}
-//      if (FData.Hybrid_Index = 0) and (FTorpedo_Def.Torpedo_Index <> 0)then
-//        dmTTT.insertHybrid(FSelectedHybrid)
-//
-//      {Hapus data hybrid}
-//      else if (FData.Hybrid_Index <> 0) and (FTorpedo_Def.Torpedo_Index = 0)then
-//        dmTTT.deleteHybrid(FSelectedMissile.FDef.Missile_Index)
-//
-//      {Update data hybrid}
-//      else if (FData.Hybrid_Index <> 0) and (FTorpedo_Def.Torpedo_Index <> 0)then
-//        dmTTT.updateHybrid(FSelectedHybrid);
-//    end;
-//  end;
-//
+  with FSelectedMissile do
+  begin
+
+    if not CekInput then
+    begin
+      isOK := False;
+      Exit;
+    end;
+
+    ValidationFormatInput;
+
+    {$REGION ' General '}
+    LastName := edtClass.Text;
+    FDef.Class_Identifier := edtClass.Text;
+
+    FDef.Launch_Method := cbbMethod.ItemIndex;
+    FDef.Launch_Speed := cbbInitialCommandedSpeed.ItemIndex;
+
+    FDef.Home_On_Jam_Type_A_Capable := Ord(chkTypeA.Checked);
+    FDef.Home_On_Jam_Type_B_Capable := Ord(chkTypeB.Checked);
+    FDef.Home_On_Jam_Type_C_Capable := Ord(chkTypeC.Checked);
+
+    FDef.Anti_Air_Capable := Ord(chkAntiAir.Checked);
+    FDef.Anti_Sur_Capable := Ord(chkAntiSurface.Checked);
+    FDef.Anti_SubSur_Capable := Ord(chkAntiSubsurface.Checked);
+    FDef.Anti_Land_Capable := Ord(chkAntiLand.Checked);
+    FDef.Anti_Amphibious_Capable := Ord(chkAntiAmphibious.Checked);
+    FDef.Sea_State_Modelling_Capable := Ord(chkSeaStateModelling.Checked);
+
+    FDef.Primary_Target_Domain := GetWeaponCategory(cbbPrimaryTargetDomain.Text);
+
+    FDef.Max_Target_Altitude_Delta := StrToInt(edtMaxAltitudeDiff.Text);
+
+    FDef.Detectability_Type := cbbDetectabilityType.ItemIndex;
+    FDef.Mid_Course_Update_Mode := cbbMidCourseUpdateMode.ItemIndex;
+
+    FDef.Lethality := trckbrLethality.Position;
+    FDef.Damage_Capacity := trckbrDamageSustainability.Position;
+    FDef.Prob_of_Hit := trckbrProbabilityOfHit.Position/100;
+
+    {$ENDREGION}
+
+    {$REGION ' Physical '}
+    FDef.Length := StrToFloat(edtLengthDimensions.Text);
+    FDef.Width := StrToFloat(edtWidthDimensions.Text);
+    FDef.Height := StrToFloat(edtHeightDimensions.Text);
+    FDef.Engagement_Range := StrToFloat(edtEngagementRangeDimensions.Text);
+
+    FDef.Front_Radar_Cross := StrToFloat(edtFrontRadarPhysical.Text);
+    FDef.Side_Radar_Cross := StrToFloat(edtSideRadarPhysical.Text);
+
+    FDef.Booster_Separation_Required := Ord(chkBoosterSeparation.Checked);
+    FDef.Booster_Separation_Range := StrToFloat(edtRangeBooster.Text);
+    FDef.Booster_Separation_Box_Width := StrToFloat(edtBoxWidthBooster.Text);
+    FDef.Booster_Separation_Box_Length := StrToFloat(edtBoxHeightBooster.Text);
+
+    FDef.Front_Infrared_Cross := StrToFloat(edtFrontInfraredPhysical.Text);
+    FDef.Side_Infrared_Cross := StrToFloat(edtSideInfraredPhysical.Text);
+
+    FDef.Front_Visual_Cross := StrToFloat(edtFrontVisualPhysical.Text);
+    FDef.Side_Visual_Cross := StrToFloat(edtSideVisualPhysical.Text);
+
+    {$ENDREGION}
+
+    {$REGION ' POH modifier '}
+    FDef.AR_POH_Modifier := trckbrAntiRadiationMissile.Position / 100;
+    FDef.IR_POH_Modifier := trckbrInfraredMissile.Position / 100;
+    FDef.TARH_POH_Modifier := trckbrTARHMissile.Position / 100;
+    FDef.SARH_POH_Modifier := trckbrSARHMissile.Position / 100;
+    {$ENDREGION}
+
+    {$REGION ' Guidance '}
+    FDef.Primary_Guide_Type := cbbPrimaryLaunchGuidance.ItemIndex;
+    FDef.Secondary_Guide_Type := cbbSecondaryLaunchGuidance.ItemIndex;
+    FDef.Pursuit_Guide_Type := cbbPursuitLaunchGuidance.ItemIndex;
+    FDef.Min_Range := StrToFloat(edtMinRangeGuide.Text);
+    FDef.Max_Range := StrToFloat(edtMaxRangeGuide.Text);
+    FDef.Fly_Out_Required := Ord(chkFlyOutRequired.Checked);
+    FDef.Fly_Out_Range := StrToFloat(edtRangeFlyGuide.Text);
+    FDef.Fly_Out_Altitude := StrToFloat(edtAltitudeFlyGuide.Text);
+
+    FDef.Terminal_Guidance_Capability := cbbCapabilityTerminalGuidance.ItemIndex;
+
+    case cbbCapabilityTerminalGuidance.ItemIndex of
+      0: ; //none
+      1: //pop-up
+      begin
+        FDef.Terminal_Pop_Up_Range := StrToFloat(edtStartRangeTerminalGuidance.Text);
+        FDef.Terminal_Pop_Up_Altitude := StrToFloat(edtAltitudeTerminalGuidance.Text);
+      end;
+      2: //sinuation
+      begin
+        FDef.Terminal_Sinuation_Start_Range := StrToFloat(edtStartRangeTerminalGuidance.Text);
+        FDef.Terminal_Sinuation_Period := StrToFloat(edtPeriodTerminalGuidance.Text);
+        FDef.Terminal_Sinuation_Amplitude := StrToFloat(edtAmplitudeTerminalGuidance.Text);
+      end;
+    end;
+
+    FDef.Seeker_TurnOn_Range := StrToFloat(edtRangeSeekerTurnGuidance.Text);
+    FDef.Fixed_Seeker_Turn_On_Range := Ord(chkRangeSeekerTurnGuidance.Checked);
+    FDef.Term_Guide_Range := StrToFloat(edtRangeSeekerDetectionGuidance.Text);
+    FDef.Term_Guide_Azimuth := StrToFloat(edtAzimuthSeekerDetectionGuidance.Text);
+    FDef.Term_Guide_Elevation := StrToFloat(edtElevationSeekerDetectionGuidance.Text);
+    FDef.Terminal_Altitude_Required := Ord(chkTerminalAcqGuidance.Checked);
+    FDef.Terminal_Acquisition_Altitude := StrToFloat(edtCommandAltitudeGuidance.Text);
+    FDef.Wpt_Capable := Ord(chkWaypointUserGuidance.Checked);
+    FDef.Max_Num_Wpts := StrToInt(edtmaxNumWaypointGuidance.Text);
+    FDef.Min_Final_Leg_Length := StrToFloat(edtMinFinalWaypointGuidance.Text);
+    FDef.Max_Firing_Depth := StrToFloat(edtMaxFiringGuidance.Text);
+    FDef.Default_Altitude := StrToFloat(edtDefaultCruiseGuidance.Text);
+
+    {$ENDREGION}
+
+    {$REGION ' Seeker Setting '}
+    FDef.ECCM_Type := cbbPrimaryTARH.ItemIndex;
+    FDef.Spot_Number := StrToInt(edtRangeTARH.Text);
+    FDef.ECM_Detonation := cbbDetonationECMTARH.ItemIndex;
+    FDef.ECM_Detection := cbbDetectionECMTARH.ItemIndex;
+    FDef.IRCM_Detonation := cbbDetonationIRCM.ItemIndex;
+    FDef.IRCM_Detection := cbbDetectionIRCM.ItemIndex;
+    FDef.Transmitted_Frequency := StrToFloat(edtFreqTerminalTARH.Text);
+    FDef.Pulse_Rep_Freq := StrToFloat(edtPulseRepTerminalTARH.Text);
+    FDef.Pulse_Width := StrToFloat(edtPulseWidthTerminalTARH.Text);
+    FDef.Scan_Rate := StrToFloat(edtScanRateTerminalTARH.Text);
+    FDef.Xmit_Power := StrToFloat(edtTransmitterPowerTerminalTARH.Text);
+    FDef.Upper_Received_Freq := StrToFloat(edtUpperLimitReceivedFreqTARH.Text);
+    FDef.Lower_Received_Freq := StrToFloat(edtLowerLimitReceivedFreqTARH.Text);
+    {$ENDREGION}
+    if FDef.Missile_Index = 0 then
+    begin
+      if dmINWO.InsertMissileDef(FDef) then
+      begin
+        ShowMessage('Data has been saved');
+      end;
+    end
+    else
+    begin
+      if dmINWO.UpdateMissileDef(FDef) then
+      begin
+        ShowMessage('Data has been updated');
+      end;
+    end;
+  end;
+
 //  isOK := True;
 //  AfterClose := True;
-//  btnApply.Enabled := False;
-//  btnCancel.Enabled := False;
+  btnApply.Enabled := False;
+  btnCancel.Enabled := False;
 end;
 
 procedure TfrmSummaryMissile.btnCancelClick(Sender: TObject);
@@ -760,157 +734,151 @@ procedure TfrmSummaryMissile.UpdateMissileData;
 //  hybrid : THybrid_On_Board;
 
 begin
-//  with FSelectedMissile do
-//  begin
-//
-//    if FDef.Missile_Index = 0 then
-//        edtClass.Text := '(Unnamed)'
-//    else
-//      edtClass.Text := FDef.Class_Identifier;
-//
-//    {$REGION ' General '}
-//    LastName := edtClass.Text;
-//    cbbMethod.ItemIndex := FDef.Launch_Method;
-//    cbbInitialCommandedSpeed.ItemIndex := FDef.Launch_Speed;
-//
-//    chkTypeA.Checked := Boolean(FDef.Home_On_Jam_Type_A_Capable);
-//    chkTypeB.Checked := Boolean(FDef.Home_On_Jam_Type_B_Capable);
-//    chkTypeC.Checked := Boolean(FDef.Home_On_Jam_Type_C_Capable);
-//
-//    chkAntiAir.Checked := Boolean(FDef.Anti_Air_Capable);
-//    chkAntiSubsurface.Checked := Boolean(FDef.Anti_SubSur_Capable);
-//    chkAntiSurface.Checked := Boolean(FDef.Anti_Sur_Capable);
-//    chkAntiLand.Checked := Boolean(FDef.Anti_Land_Capable);
-//    chkSeaStateModelling.Checked := Boolean(FDef.Sea_State_Modelling_Capable);
-//    chkAntiAmphibious.Checked := Boolean(FDef.Anti_Amphibious_Capable);
-//
-//    UpdatePrimaryTargetDomainItems(nil);
-//    cbbPrimaryTargetDomain.Text := SetWeaponCategory(FDef.Primary_Target_Domain);
-//
-//    chkHybridTorpedoDefinition.Checked := dmTTT.GetHybridDef(FDef.Missile_Index, FSelectedHybrid);
-//    UpdateHybridData;
-//
-//    edtMaxAltitudeDiff.Text := FormatFloat('0', FDef.Max_Target_Altitude_Delta);
-//
-//    cbbDetectabilityType.ItemIndex := FDef.Detectability_Type;
-//    cbbMidCourseUpdateMode.ItemIndex := FDef.Mid_Course_Update_Mode;
-//
-//    trckbrLethality.Position := FDef.Lethality;
-//    trckbrDamageSustainability.Position := FDef.Damage_Capacity;
-//    trckbrProbabilityOfHit.Position := Round(FDef.Prob_of_Hit * 100);
-//
-//    {$ENDREGION}
-//
-//    {$REGION ' Physical '}
-//    UpdateMotionData;
-//
-//    edtLengthDimensions.Text := FormatFloat('0', FDef.Length);
-//    edtWidthDimensions.Text := FormatFloat('0', FDef.Width);
-//    edtHeightDimensions.Text := FormatFloat('0', FDef.Height);
-//    edtEngagementRangeDimensions.Text := FormatFloat('0', FDef.Engagement_Range);
-//
-//    edtFrontRadarPhysical.Text := FormatFloat('0.00', FDef.Front_Radar_Cross);
-//    edtSideRadarPhysical.Text := FormatFloat('0.00', FDef.Side_Radar_Cross);
-//
-//    chkBoosterSeparation.Checked := Boolean(FDef.Booster_Separation_Required);;
-//
-//    edtRangeBooster.Text := FormatFloat('0.00', FDef.Booster_Separation_Range);
-//    edtBoxWidthBooster.Text := FormatFloat('0.00', FDef.Booster_Separation_Box_Width);
-//    edtBoxHeightBooster.Text := FormatFloat('0.00', FDef.Booster_Separation_Box_Length);
-//
-//
-//    edtFrontVisualPhysical.Text := FormatFloat('0.00', FDef.Front_Visual_Cross);
-//    edtSideVisualPhysical.Text := FormatFloat('0.00', FDef.Side_Visual_Cross);
-//    edtFrontInfraredPhysical.Text := FormatFloat('0.00', FDef.Front_Infrared_Cross);
-//    edtSideInfraredPhysical.Text := FormatFloat('0.00', FDef.Side_Infrared_Cross);
-//    {$ENDREGION}
-//
-//    {$REGION ' POH Modifier '}
-//
-//    trckbrAntiRadiationMissile.Position := Round(FDef.AR_POH_Modifier * 100);
-//    trckbrInfraredMissile.Position := Round(FDef.IR_POH_Modifier * 100);
-//    trckbrTARHMissile.Position := Round(FDef.TARH_POH_Modifier * 100);
-//    trckbrSARHMissile.Position := Round(FDef.SARH_POH_Modifier * 100);
-//
-//    {$ENDREGION}
-//
-//    {$REGION ' Guidance '}
-//
-//    cbbPrimaryLaunchGuidance.ItemIndex := FDef.Primary_Guide_Type;
-//    cbbSecondaryLaunchGuidance.ItemIndex := FDef.Secondary_Guide_Type;
-//    cbbPursuitLaunchGuidance.ItemIndex := FDef.Pursuit_Guide_Type;
-//
-//    edtMinRangeGuide.Text := FormatFloat('0.00', FDef.Min_Range);
-//    edtMaxRangeGuide.Text := FormatFloat('0.00', FDef.Max_Range);
-//
-//    chkFlyOutRequired.Checked := Boolean(FDef.Fly_Out_Required);
-//    edtRangeFlyGuide.Text := FormatFloat('0.00', FDef.Fly_Out_Range);
-//    edtAltitudeFlyGuide.Text := FormatFloat('0.00', FDef.Fly_Out_Altitude);
-//
-//    cbbCapabilityTerminalGuidance.ItemIndex := FDef.Terminal_Guidance_Capability;
-//    cbbCapabilityTerminalGuidanceChange(cbbCapabilityTerminalGuidance);
-//
-//    case FDef.Terminal_Guidance_Capability of
-//      0: //none
-//      begin
-//        edtStartRangeTerminalGuidance.Text := FormatFloat('0.00', 0);
-//        edtAltitudeTerminalGuidance.Text := FormatFloat('0', FDef.Terminal_Pop_Up_Altitude);
-//        edtPeriodTerminalGuidance.Text := FormatFloat('0.00', FDef.Terminal_Sinuation_Period);
-//        edtAmplitudeTerminalGuidance.Text := FormatFloat('0.0', FDef.Terminal_Sinuation_Amplitude);
-//      end;
-//      1: //pop-up
-//      begin
-//        edtStartRangeTerminalGuidance.Text := FormatFloat('0.00', FDef.Terminal_Pop_Up_Range);
-//        edtAltitudeTerminalGuidance.Text := FormatFloat('0', FDef.Terminal_Pop_Up_Altitude);
-//      end;
-//      2: //sinuation
-//      begin
-//        edtStartRangeTerminalGuidance.Text := FormatFloat('0.00', FDef.Terminal_Sinuation_Start_Range);
-//        edtPeriodTerminalGuidance.Text := FormatFloat('0.00', FDef.Terminal_Sinuation_Period);
-//        edtAmplitudeTerminalGuidance.Text := FormatFloat('0.0', FDef.Terminal_Sinuation_Amplitude);
-//      end;
-//    end;
-//
-//    edtRangeSeekerTurnGuidance.Text := FormatFloat('0.00', FDef.Seeker_TurnOn_Range);
-//    chkRangeSeekerTurnGuidance.Checked := Boolean(FDef.Fixed_Seeker_Turn_On_Range);
-//
-//    edtRangeSeekerDetectionGuidance.Text := FormatFloat('0.00', FDef.Term_Guide_Range);
-//    edtAzimuthSeekerDetectionGuidance.Text := FormatFloat('0.0', FDef.Term_Guide_Azimuth);
-//    edtElevationSeekerDetectionGuidance.Text := FormatFloat('0.0', FDef.Term_Guide_Elevation);
-//
-//    chkTerminalAcqGuidance.Checked := Boolean(FDef.Terminal_Altitude_Required);
-//    edtCommandAltitudeGuidance.Text := FormatFloat('0', FDef.Terminal_Acquisition_Altitude);
-//
-//    chkWaypointUserGuidance.Checked := Boolean(FDef.Wpt_Capable);
-//    edtmaxNumWaypointGuidance.Text := IntToStr(FDef.Max_Num_Wpts);
-//    edtMinFinalWaypointGuidance.Text := FormatFloat('0.0', FDef.Min_Final_Leg_Length);
-//
-//    edtMaxFiringGuidance.Text := FormatFloat('0.00', FDef.Max_Firing_Depth);
-//    edtDefaultCruiseGuidance.Text := FormatFloat('0', FDef.Default_Altitude);
-//    {$ENDREGION}
-//
-//    {$REGION ' Seeker Setting '}
-//
-//    cbbPrimaryTARH.ItemIndex := FDef.ECCM_Type;
-//    edtRangeTARH.Text := IntToStr(FDef.Spot_Number);
-//
-//    cbbDetonationECMTARH.ItemIndex := FDef.ECM_Detonation;
-//    cbbDetectionECMTARH.ItemIndex := FDef.ECM_Detection;
-//
-//    cbbDetonationIRCM.ItemIndex := FDef.IRCM_Detonation;
-//    cbbDetectionIRCM.ItemIndex := FDef.IRCM_Detection;
-//
-//    edtFreqTerminalTARH.Text := FormatFloat('0.000', FDef.Transmitted_Frequency);
-//    edtPulseRepTerminalTARH.Text := FormatFloat('0.000', FDef.Pulse_Rep_Freq);
-//    edtPulseWidthTerminalTARH.Text := FormatFloat('0.00', FDef.Pulse_Width);
-//    edtScanRateTerminalTARH.Text := FormatFloat('0.00', FDef.Scan_Rate);
-//    edtTransmitterPowerTerminalTARH.Text := FormatFloat('0.00', FDef.Xmit_Power);
-//
-//    edtUpperLimitReceivedFreqTARH.Text := FormatFloat('0.000', FDef.Upper_Received_Freq);
-//    edtLowerLimitReceivedFreqTARH.Text := FormatFloat('0.000', FDef.Lower_Received_Freq);
-//
-//    {$ENDREGION}
-//  end;
+  with FSelectedMissile do
+  begin
+
+    if FDef.Missile_Index = 0 then
+        edtClass.Text := '(Unnamed)'
+    else
+      edtClass.Text := FDef.Class_Identifier;
+
+    {$REGION ' General '}
+    LastName := edtClass.Text;
+    cbbMethod.ItemIndex := FDef.Launch_Method;
+    cbbInitialCommandedSpeed.ItemIndex := FDef.Launch_Speed;
+
+    chkTypeA.Checked := Boolean(FDef.Home_On_Jam_Type_A_Capable);
+    chkTypeB.Checked := Boolean(FDef.Home_On_Jam_Type_B_Capable);
+    chkTypeC.Checked := Boolean(FDef.Home_On_Jam_Type_C_Capable);
+
+    chkAntiAir.Checked := Boolean(FDef.Anti_Air_Capable);
+    chkAntiSubsurface.Checked := Boolean(FDef.Anti_SubSur_Capable);
+    chkAntiSurface.Checked := Boolean(FDef.Anti_Sur_Capable);
+    chkAntiLand.Checked := Boolean(FDef.Anti_Land_Capable);
+    chkSeaStateModelling.Checked := Boolean(FDef.Sea_State_Modelling_Capable);
+    chkAntiAmphibious.Checked := Boolean(FDef.Anti_Amphibious_Capable);
+
+    UpdatePrimaryTargetDomainItems(nil);
+    cbbPrimaryTargetDomain.Text := SetWeaponCategory(FDef.Primary_Target_Domain);
+
+    edtMaxAltitudeDiff.Text := FormatFloat('0', FDef.Max_Target_Altitude_Delta);
+
+    cbbDetectabilityType.ItemIndex := FDef.Detectability_Type;
+    cbbMidCourseUpdateMode.ItemIndex := FDef.Mid_Course_Update_Mode;
+
+    trckbrLethality.Position := FDef.Lethality;
+    trckbrDamageSustainability.Position := FDef.Damage_Capacity;
+    trckbrProbabilityOfHit.Position := Round(FDef.Prob_of_Hit * 100);
+
+    {$ENDREGION}
+
+    {$REGION ' Physical '}
+    edtLengthDimensions.Text := FormatFloat('0', FDef.Length);
+    edtWidthDimensions.Text := FormatFloat('0', FDef.Width);
+    edtHeightDimensions.Text := FormatFloat('0', FDef.Height);
+    edtEngagementRangeDimensions.Text := FormatFloat('0', FDef.Engagement_Range);
+
+    edtFrontRadarPhysical.Text := FormatFloat('0.00', FDef.Front_Radar_Cross);
+    edtSideRadarPhysical.Text := FormatFloat('0.00', FDef.Side_Radar_Cross);
+
+    chkBoosterSeparation.Checked := Boolean(FDef.Booster_Separation_Required);;
+
+    edtRangeBooster.Text := FormatFloat('0.00', FDef.Booster_Separation_Range);
+    edtBoxWidthBooster.Text := FormatFloat('0.00', FDef.Booster_Separation_Box_Width);
+    edtBoxHeightBooster.Text := FormatFloat('0.00', FDef.Booster_Separation_Box_Length);
+
+    edtFrontVisualPhysical.Text := FormatFloat('0.00', FDef.Front_Visual_Cross);
+    edtSideVisualPhysical.Text := FormatFloat('0.00', FDef.Side_Visual_Cross);
+    edtFrontInfraredPhysical.Text := FormatFloat('0.00', FDef.Front_Infrared_Cross);
+    edtSideInfraredPhysical.Text := FormatFloat('0.00', FDef.Side_Infrared_Cross);
+    {$ENDREGION}
+
+    {$REGION ' POH Modifier '}
+
+    trckbrAntiRadiationMissile.Position := Round(FDef.AR_POH_Modifier * 100);
+    trckbrInfraredMissile.Position := Round(FDef.IR_POH_Modifier * 100);
+    trckbrTARHMissile.Position := Round(FDef.TARH_POH_Modifier * 100);
+    trckbrSARHMissile.Position := Round(FDef.SARH_POH_Modifier * 100);
+
+    {$ENDREGION}
+
+    {$REGION ' Guidance '}
+
+    cbbPrimaryLaunchGuidance.ItemIndex := FDef.Primary_Guide_Type;
+    cbbSecondaryLaunchGuidance.ItemIndex := FDef.Secondary_Guide_Type;
+    cbbPursuitLaunchGuidance.ItemIndex := FDef.Pursuit_Guide_Type;
+
+    edtMinRangeGuide.Text := FormatFloat('0.00', FDef.Min_Range);
+    edtMaxRangeGuide.Text := FormatFloat('0.00', FDef.Max_Range);
+
+    chkFlyOutRequired.Checked := Boolean(FDef.Fly_Out_Required);
+    edtRangeFlyGuide.Text := FormatFloat('0.00', FDef.Fly_Out_Range);
+    edtAltitudeFlyGuide.Text := FormatFloat('0.00', FDef.Fly_Out_Altitude);
+
+    cbbCapabilityTerminalGuidance.ItemIndex := FDef.Terminal_Guidance_Capability;
+    cbbCapabilityTerminalGuidanceChange(cbbCapabilityTerminalGuidance);
+
+    case FDef.Terminal_Guidance_Capability of
+      0: //none
+      begin
+        edtStartRangeTerminalGuidance.Text := FormatFloat('0.00', 0);
+        edtAltitudeTerminalGuidance.Text := FormatFloat('0', FDef.Terminal_Pop_Up_Altitude);
+        edtPeriodTerminalGuidance.Text := FormatFloat('0.00', FDef.Terminal_Sinuation_Period);
+        edtAmplitudeTerminalGuidance.Text := FormatFloat('0.0', FDef.Terminal_Sinuation_Amplitude);
+      end;
+      1: //pop-up
+      begin
+        edtStartRangeTerminalGuidance.Text := FormatFloat('0.00', FDef.Terminal_Pop_Up_Range);
+        edtAltitudeTerminalGuidance.Text := FormatFloat('0', FDef.Terminal_Pop_Up_Altitude);
+      end;
+      2: //sinuation
+      begin
+        edtStartRangeTerminalGuidance.Text := FormatFloat('0.00', FDef.Terminal_Sinuation_Start_Range);
+        edtPeriodTerminalGuidance.Text := FormatFloat('0.00', FDef.Terminal_Sinuation_Period);
+        edtAmplitudeTerminalGuidance.Text := FormatFloat('0.0', FDef.Terminal_Sinuation_Amplitude);
+      end;
+    end;
+
+    edtRangeSeekerTurnGuidance.Text := FormatFloat('0.00', FDef.Seeker_TurnOn_Range);
+    chkRangeSeekerTurnGuidance.Checked := Boolean(FDef.Fixed_Seeker_Turn_On_Range);
+
+    edtRangeSeekerDetectionGuidance.Text := FormatFloat('0.00', FDef.Term_Guide_Range);
+    edtAzimuthSeekerDetectionGuidance.Text := FormatFloat('0.0', FDef.Term_Guide_Azimuth);
+    edtElevationSeekerDetectionGuidance.Text := FormatFloat('0.0', FDef.Term_Guide_Elevation);
+
+    chkTerminalAcqGuidance.Checked := Boolean(FDef.Terminal_Altitude_Required);
+    edtCommandAltitudeGuidance.Text := FormatFloat('0', FDef.Terminal_Acquisition_Altitude);
+
+    chkWaypointUserGuidance.Checked := Boolean(FDef.Wpt_Capable);
+    edtmaxNumWaypointGuidance.Text := IntToStr(FDef.Max_Num_Wpts);
+    edtMinFinalWaypointGuidance.Text := FormatFloat('0.0', FDef.Min_Final_Leg_Length);
+
+    edtMaxFiringGuidance.Text := FormatFloat('0.00', FDef.Max_Firing_Depth);
+    edtDefaultCruiseGuidance.Text := FormatFloat('0', FDef.Default_Altitude);
+    {$ENDREGION}
+
+    {$REGION ' Seeker Setting '}
+
+    cbbPrimaryTARH.ItemIndex := FDef.ECCM_Type;
+    edtRangeTARH.Text := IntToStr(FDef.Spot_Number);
+
+    cbbDetonationECMTARH.ItemIndex := FDef.ECM_Detonation;
+    cbbDetectionECMTARH.ItemIndex := FDef.ECM_Detection;
+
+    cbbDetonationIRCM.ItemIndex := FDef.IRCM_Detonation;
+    cbbDetectionIRCM.ItemIndex := FDef.IRCM_Detection;
+
+    edtFreqTerminalTARH.Text := FormatFloat('0.000', FDef.Transmitted_Frequency);
+    edtPulseRepTerminalTARH.Text := FormatFloat('0.000', FDef.Pulse_Rep_Freq);
+    edtPulseWidthTerminalTARH.Text := FormatFloat('0.00', FDef.Pulse_Width);
+    edtScanRateTerminalTARH.Text := FormatFloat('0.00', FDef.Scan_Rate);
+    edtTransmitterPowerTerminalTARH.Text := FormatFloat('0.00', FDef.Xmit_Power);
+
+    edtUpperLimitReceivedFreqTARH.Text := FormatFloat('0.000', FDef.Upper_Received_Freq);
+    edtLowerLimitReceivedFreqTARH.Text := FormatFloat('0.000', FDef.Lower_Received_Freq);
+
+    {$ENDREGION}
+  end;
 end;
 
 procedure TfrmSummaryMissile.UpdateHybridData;

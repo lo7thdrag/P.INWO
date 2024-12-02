@@ -79,6 +79,8 @@ var
 implementation
 
 {$R *.dfm}
+uses
+  ufrmBombOnBoardPickList;
 
 {$REGION ' Form Handle '}
 
@@ -104,8 +106,8 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
-  if isOk then
-    Close;
+  frmBombOnBoardPickList.UpdateBombList;
+  Close;
 end;
 
 procedure TfrmSummaryBomb.btnApplyClick(Sender: TObject);

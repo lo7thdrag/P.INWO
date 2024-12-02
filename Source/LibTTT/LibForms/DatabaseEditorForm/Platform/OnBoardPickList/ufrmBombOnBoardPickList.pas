@@ -187,7 +187,8 @@ end;
 
 procedure TfrmBombOnBoardPickList.btnDeleteClick(Sender: TObject);
 var
-  warning : Integer;
+   warning : Integer;
+   tempList: TList;
 begin
   if lbAllBombDef.ItemIndex = -1 then
   begin
@@ -201,17 +202,19 @@ begin
   begin
     with FSelectedBomb.FDef do
     begin
+      tempList := TList.Create;
 
       {Pengecekan Relasi Dengan Tabel On Board}
-      if dmINWO.GetSensor_On_Board_By_Index(1, Bomb_Index) then
+      if dmINWO.GetFittedWeaponAtVehicleOnBoard(5, Bomb_Index, tempList) then
       begin
         ShowMessage('Cannot delete, because is already in used by some vehicles');
         Exit;
       end;
 
-      if dmINWO.DeleteRadarDef(Bomb_Index) then
+      if dmINWO.DeleteBombDef(Bomb_Index) then
         ShowMessage('Data has been deleted');
 
+      tempList.Free;
     end;
 
     UpdateBombList;

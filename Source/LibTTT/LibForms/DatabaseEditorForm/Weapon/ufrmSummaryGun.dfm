@@ -15,7 +15,6 @@ object frmSummaryGun: TfrmSummaryGun
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
-  OnClose = FormClose
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -14269,7 +14268,7 @@ object frmSummaryGun: TfrmSummaryGun
       Top = 0
       Width = 704
       Height = 426
-      ActivePage = tsNGS
+      ActivePage = tsGeneral
       Align = alClient
       MultiLine = True
       TabHeight = 30
@@ -14277,6 +14276,10 @@ object frmSummaryGun: TfrmSummaryGun
       TabWidth = 150
       object tsGeneral: TTabSheet
         Caption = 'General'
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object grpLethality: TGroupBox
           Left = 385
           Top = 296
@@ -14896,22 +14899,6 @@ object frmSummaryGun: TfrmSummaryGun
             OnChange = edtChange
             OnKeyPress = edtNumeralKeyPress
           end
-        end
-      end
-      object tsNotes: TTabSheet
-        BorderWidth = 10
-        Caption = 'Notes'
-        ImageIndex = 2
-        object mmoNotes: TMemo
-          Left = 0
-          Top = 0
-          Width = 676
-          Height = 366
-          Align = alClient
-          Lines.Strings = (
-            '')
-          TabOrder = 0
-          OnChange = edtChange
         end
       end
     end

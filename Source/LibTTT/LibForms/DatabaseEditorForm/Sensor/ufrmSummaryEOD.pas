@@ -37,8 +37,6 @@ type
     mmoNotes: TMemo;
     imgBackgroundForm: TImage;
     lblPlatform: TLabel;
-
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
 
     //Global
@@ -74,12 +72,10 @@ implementation
 
 {$R *.dfm}
 
-{$REGION ' Form Handle '}
+uses
+  ufrmEODOnBoardPickList;
 
-procedure TfrmSummaryEOD.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-  Action := cafree;
-end;
+{$REGION ' Form Handle '}
 
 procedure TfrmSummaryEOD.FormShow(Sender: TObject);
 begin
@@ -153,8 +149,8 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
-  if isOk then
-    Close;
+  frmEODOnBoardPickList.UpdateEODList;
+  Close;
 end;
 
 procedure TfrmSummaryEOD.UpdateEOData;

@@ -30,8 +30,6 @@ type
     mmoNotes: TMemo;
     imgBackgroundForm: TImage;
     lblPlatform: TLabel;
-
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
 
     //Global
@@ -64,13 +62,10 @@ var
 implementation
 
 {$R *.dfm}
+uses
+  ufrmMADOnBoardPickList;
 
 {$REGION ' Form Handle '}
-
-procedure TfrmSummaryMAD.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-  Action := cafree;
-end;
 
 procedure TfrmSummaryMAD.FormShow(Sender: TObject);
 begin
@@ -94,8 +89,8 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
-  if isOk then
-    Close;
+  frmMADOnBoardPickList.UpdateMADList;
+  Close;
 end;
 
 procedure TfrmSummaryMAD.btnApplyClick(Sender: TObject);
@@ -134,8 +129,8 @@ begin
 
   end;
 
-  isOK := True;
-  AfterClose := True;
+//  isOK := True;
+//  AfterClose := True;
   btnApply.Enabled := False;
   btnCancel.Enabled := False;
 end;

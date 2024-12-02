@@ -16,7 +16,6 @@ object frmSummaryMine: TfrmSummaryMine
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
-  OnClose = FormClose
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -14279,6 +14278,10 @@ object frmSummaryMine: TfrmSummaryMine
       OnChange = edtChange
       object tsGeneral: TTabSheet
         Caption = 'General'
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object lblCategory: TLabel
           Left = 20
           Top = 107
@@ -14568,7 +14571,7 @@ object frmSummaryMine: TfrmSummaryMine
         end
         object grpLethality: TGroupBox
           Left = 332
-          Top = 225
+          Top = 217
           Width = 416
           Height = 77
           Caption = ' Lethality   '
@@ -14608,20 +14611,6 @@ object frmSummaryMine: TfrmSummaryMine
             Text = '0'
             OnChange = edtGeneralChange
           end
-        end
-      end
-      object tsNotes: TTabSheet
-        BorderWidth = 10
-        Caption = 'Notes'
-        ImageIndex = 5
-        object mmoNotes: TMemo
-          Left = 0
-          Top = 0
-          Width = 745
-          Height = 298
-          Align = alClient
-          TabOrder = 0
-          OnChange = edtChange
         end
       end
     end

@@ -15,7 +15,6 @@ object frmSummaryRadar: TfrmSummaryRadar
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
-  OnClose = FormClose
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 16
@@ -14272,7 +14271,7 @@ object frmSummaryRadar: TfrmSummaryRadar
       Top = 0
       Width = 741
       Height = 305
-      ActivePage = tsAntiJamming
+      ActivePage = tsGeneral
       Align = alClient
       Font.Charset = ANSI_CHARSET
       Font.Color = clBlack
@@ -14675,13 +14674,6 @@ object frmSummaryRadar: TfrmSummaryRadar
           Height = 15
           Caption = 'deg'
         end
-        object lblSignalToNoise: TLabel
-          Left = 336
-          Top = 183
-          Width = 300
-          Height = 15
-          Caption = 'Signal-To-Noise Ration vs Probability of Detection Curve :'
-        end
         object edtFrequency: TEdit
           Tag = 1
           Left = 183
@@ -14756,68 +14748,6 @@ object frmSummaryRadar: TfrmSummaryRadar
           Text = '0'
           OnChange = edtChange
           OnKeyPress = edtNumeralKeyPress
-        end
-        object grpVerticalCoverageCurve1: TGroupBox
-          Left = 336
-          Top = 19
-          Width = 370
-          Height = 67
-          Caption = ' Vertical Coverage Curve 1   '
-          TabOrder = 7
-          object btnVerticalCoverageCurve1: TButton
-            Left = 21
-            Top = 28
-            Width = 329
-            Height = 25
-            Caption = 'Edit...'
-            TabOrder = 0
-            OnClick = btnVerticalCoverageCurve1Click
-          end
-        end
-        object grpVerticalCoverageCurve2: TGroupBox
-          Left = 336
-          Top = 100
-          Width = 370
-          Height = 67
-          Caption = ' Vertical Coverage Curve 2   '
-          TabOrder = 8
-          object chkValidVertical2: TCheckBox
-            Left = 24
-            Top = 28
-            Width = 45
-            Height = 17
-            Caption = 'Valid'
-            TabOrder = 0
-            OnClick = chkValidVertical2Click
-          end
-          object btnEditVertical2: TButton
-            Left = 84
-            Top = 24
-            Width = 261
-            Height = 25
-            Caption = 'Edit...'
-            TabOrder = 1
-            OnClick = btnEditVertical2Click
-          end
-        end
-        object edtSignalToNoise: TEdit
-          Tag = 4
-          Left = 336
-          Top = 202
-          Width = 336
-          Height = 23
-          ReadOnly = True
-          TabOrder = 9
-          Text = '(None)'
-        end
-        object btnPick: TButton
-          Left = 678
-          Top = 202
-          Width = 28
-          Height = 22
-          Caption = '...'
-          TabOrder = 10
-          OnClick = btnPickClick
         end
       end
       object tsAntiJamming: TTabSheet
@@ -15003,20 +14933,6 @@ object frmSummaryRadar: TfrmSummaryRadar
           Caption = 'Anti Jamming Capable'
           TabOrder = 2
           OnClick = chkAntiJammingCapableClick
-        end
-      end
-      object tsNotes: TTabSheet
-        BorderWidth = 10
-        Caption = 'Notes'
-        ImageIndex = 3
-        object mmoNotes: TMemo
-          Left = 0
-          Top = 0
-          Width = 713
-          Height = 245
-          Align = alClient
-          TabOrder = 0
-          OnChange = edtChange
         end
       end
     end

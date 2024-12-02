@@ -53,8 +53,6 @@ type
     mmoNotes: TMemo;
     imgBackgroundForm: TImage;
     lblPlatform: TLabel;
-
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
 
     //Global
@@ -88,13 +86,11 @@ var
 implementation
 
 {$R *.dfm}
+uses
+  ufrmChaffOnBoardPickList;
+
 
 {$REGION ' Form Handle '}
-
-procedure TfrmSummaryChaff.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-  Action := cafree;
-end;
 
 procedure TfrmSummaryChaff.FormShow(Sender: TObject);
 begin
@@ -118,8 +114,8 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
-  if isOk then
-    Close;
+  frmChaffOnBoardPickList.UpdateChaffList;
+  Close;
 end;
 
 procedure TfrmSummaryChaff.btnApplyClick(Sender: TObject);

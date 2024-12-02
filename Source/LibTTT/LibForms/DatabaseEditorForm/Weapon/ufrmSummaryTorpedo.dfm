@@ -15,7 +15,6 @@ object frmSummaryTorpedo: TfrmSummaryTorpedo
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
-  OnClose = FormClose
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -14270,7 +14269,7 @@ object frmSummaryTorpedo: TfrmSummaryTorpedo
       Top = 0
       Width = 781
       Height = 476
-      ActivePage = tsGuidance
+      ActivePage = tsGeneral
       Align = alClient
       MultiLine = True
       TabHeight = 30
@@ -14740,13 +14739,6 @@ object frmSummaryTorpedo: TfrmSummaryTorpedo
       object tsPhysical: TTabSheet
         Caption = 'Physicsal'
         ImageIndex = 1
-        object lblMotionCharacteristic: TLabel
-          Left = 18
-          Top = 20
-          Width = 116
-          Height = 15
-          Caption = 'Motion Characteristics:'
-        end
         object grpAirDropCapable: TGroupBox
           Left = 455
           Top = 86
@@ -15001,32 +14993,13 @@ object frmSummaryTorpedo: TfrmSummaryTorpedo
             OnKeyPress = edtNumeralKeyPress
           end
         end
-        object edtMotionCharacteristics: TEdit
-          Tag = 4
-          Left = 19
-          Top = 40
-          Width = 708
-          Height = 23
-          ReadOnly = True
-          TabOrder = 4
-          Text = '(None)'
-        end
-        object btnMotionCharacteristic: TButton
-          Left = 729
-          Top = 39
-          Width = 28
-          Height = 22
-          Caption = '...'
-          TabOrder = 5
-          OnClick = btnMotionCharacteristicsClick
-        end
         object grpDimensions: TGroupBox
           Left = 18
           Top = 80
           Width = 416
           Height = 113
           Caption = ' Dimensions   '
-          TabOrder = 6
+          TabOrder = 4
           object lblLength: TLabel
             Left = 15
             Top = 23
@@ -15841,23 +15814,6 @@ object frmSummaryTorpedo: TfrmSummaryTorpedo
           OnChange = edtChange
           OnKeyPress = edtNumeralKeyPress
         end
-        object grpAspectDependentPOH: TGroupBox
-          Left = 20
-          Top = 347
-          Width = 736
-          Height = 67
-          Caption = ' Aspect Dependent Probability of Hit   '
-          TabOrder = 13
-          object btnEditPOH: TButton
-            Left = 41
-            Top = 26
-            Width = 655
-            Height = 27
-            Caption = 'Edit...'
-            TabOrder = 0
-            OnClick = btnEditPOHClick
-          end
-        end
         object chkSinuationRunout: TCheckBox
           Left = 403
           Top = 116
@@ -15884,20 +15840,6 @@ object frmSummaryTorpedo: TfrmSummaryTorpedo
           Caption = 'Relative Gyro Angles Required'
           TabOrder = 9
           OnClick = chkRelativeGyroAngleClick
-        end
-      end
-      object tsNotes: TTabSheet
-        BorderWidth = 10
-        Caption = 'Notes'
-        ImageIndex = 5
-        object mmoNotes: TMemo
-          Left = 0
-          Top = 0
-          Width = 753
-          Height = 416
-          Align = alClient
-          TabOrder = 0
-          OnChange = edtChange
         end
       end
     end

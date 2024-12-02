@@ -46,8 +46,6 @@ type
     mmoNotes: TMemo;
     lblPlatform: TLabel;
     imgBackgroundForm: TImage;
-
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
 
     //Global
@@ -84,13 +82,10 @@ var
 implementation
 
 {$R *.dfm}
+uses
+  ufrmSelfDefensiveJammerOnBoardPickList;
 
 {$REGION ' Form Handle '}
-
-procedure TfrmSummarySelfDefensiveJammer.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-  Action := cafree;
-end;
 
 procedure TfrmSummarySelfDefensiveJammer.FormShow(Sender: TObject);
 begin
@@ -114,8 +109,8 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
-  if isOk then
-    Close;
+  frmSelfDefensiveJammerOnBoardPickList.UpdateDefensiveJammerList;
+  Close;
 end;
 
 procedure TfrmSummarySelfDefensiveJammer.btnApplyClick(Sender: TObject);

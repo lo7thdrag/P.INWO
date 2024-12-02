@@ -15,7 +15,6 @@ object frmSummarySonar: TfrmSummarySonar
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
-  OnClose = FormClose
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 16
@@ -14263,7 +14262,7 @@ object frmSummarySonar: TfrmSummarySonar
       Top = 0
       Width = 639
       Height = 393
-      ActivePage = tsTowedArray
+      ActivePage = tsCharacteristic
       Align = alClient
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -14277,10 +14276,6 @@ object frmSummarySonar: TfrmSummarySonar
       StyleElements = [seFont, seClient]
       object tsGeneral: TTabSheet
         Caption = 'General'
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object grpActiveDetectionCapabilities: TGroupBox
           Left = 15
           Top = 71
@@ -14681,16 +14676,13 @@ object frmSummarySonar: TfrmSummarySonar
       object tsCharacteristic: TTabSheet
         Caption = 'Characteristics'
         ImageIndex = 1
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object txtSNRvsPODCurve: TLabel
           Left = 261
           Top = 120
           Width = 300
           Height = 15
           Caption = 'Signal-To-Noise Ration vs Probability of Detection Curve :'
+          Visible = False
         end
         object lblTimeToIdentifyTarget: TLabel
           Left = 261
@@ -14826,6 +14818,7 @@ object frmSummarySonar: TfrmSummarySonar
           ReadOnly = True
           TabOrder = 1
           Text = '(None)'
+          Visible = False
           OnChange = edtChange
         end
         object btnSNRvsPODCurve: TButton
@@ -14835,6 +14828,7 @@ object frmSummarySonar: TfrmSummarySonar
           Height = 20
           Caption = '...'
           TabOrder = 2
+          Visible = False
           OnClick = btnSNRvsPODCurveClick
         end
         object grpIntegrationPeriod: TGroupBox
@@ -15146,10 +15140,6 @@ object frmSummarySonar: TfrmSummarySonar
         BorderWidth = 10
         Caption = 'Notes'
         ImageIndex = 3
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object mmoNotes: TMemo
           Left = 0
           Top = 0

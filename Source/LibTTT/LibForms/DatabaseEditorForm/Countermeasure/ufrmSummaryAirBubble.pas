@@ -34,8 +34,6 @@ type
     mmoNotes: TMemo;
     imgBackgroundForm: TImage;
     lblPlatform: TLabel;
-
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
 
     //Global
@@ -69,17 +67,11 @@ var
 implementation
 
 uses
-  uDataModule;
+  uDataModule, ufrmAirBubbleOnBoardPickList;
 
 {$R *.dfm}
 
 {$REGION ' Form Handle '}
-
-procedure TfrmSummaryAirBubble.FormClose(Sender: TObject;
-  var Action: TCloseAction);
-begin
-  Action := cafree;
-end;
 
 procedure TfrmSummaryAirBubble.FormShow(Sender: TObject);
 begin
@@ -103,8 +95,8 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
-  if isOk then
-    Close;
+  frmAirBubbleOnBoardPickList.UpdateAirBubbleList;
+  Close;
 end;
 
 procedure TfrmSummaryAirBubble.btnApplyClick(Sender: TObject);

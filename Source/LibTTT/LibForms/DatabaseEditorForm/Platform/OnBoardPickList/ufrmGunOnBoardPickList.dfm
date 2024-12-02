@@ -15257,7 +15257,7 @@ object frmGunOnBoardPickList: TfrmGunOnBoardPickList
     OnClick = btnCloseClick
   end
   object btnDelete: TImage
-    Left = 286
+    Left = 288
     Top = 559
     Width = 30
     Height = 30

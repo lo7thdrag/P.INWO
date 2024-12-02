@@ -62,8 +62,6 @@ type
     btnOK: TButton;
     imgBackgroundForm: TImage;
     lblPlatform: TLabel;
-
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
     Procedure FormShow(Sender: TObject);
 
     //Global
@@ -100,12 +98,10 @@ implementation
 
 {$R *.dfm}
 
-{$REGION ' Form Handle '}
+uses
+  ufrmESMOnBoardPickList;
 
-procedure TfrmSummaryESM.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-  Action := cafree;
-end;
+{$REGION ' Form Handle '}
 
 procedure TfrmSummaryESM.FormShow(Sender: TObject);
 begin
@@ -209,8 +205,8 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
-  if isOk then
-    Close;
+  frmESMOnBoardPickList.UpdateESMList;
+  Close;
 end;
 
 procedure TfrmSummaryESM.chkSecondFrequencyDetectionBandClick(Sender: TObject);

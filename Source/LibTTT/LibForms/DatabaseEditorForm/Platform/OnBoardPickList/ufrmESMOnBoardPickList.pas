@@ -209,7 +209,7 @@ begin
         Exit;
       end;
 
-      if dmINWO.DeleteRadarDef(ESM_Index) then
+      if dmINWO.DeleteESMDef(ESM_Index) then
         ShowMessage('Data has been deleted');
 
     end;

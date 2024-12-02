@@ -126,8 +126,6 @@ type
     btnOK: TButton;
     imgBackgroundForm: TImage;
     lblPlatform: TLabel;
-
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
 
     //Global
@@ -169,13 +167,10 @@ var
 implementation
 
 {$R *.dfm}
+uses
+  ufrmSonarOnBoardPickList;
 
 {$REGION ' Form Handle '}
-
-procedure TfrmSummarySonar.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-  Action := cafree;
-end;
 
 procedure TfrmSummarySonar.FormShow(Sender: TObject);
 begin
@@ -199,8 +194,8 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
-  if isOk then
-    Close;
+  frmSonarOnBoardPickList.UpdateSonarList;
+  Close;
 end;
 
 procedure TfrmSummarySonar.btnApplyClick(Sender: TObject);
@@ -481,12 +476,12 @@ begin
     end;
   end;
 
-  {Jika inputan SNR vs POD of Detection Curve masih kosong}
-  if FSelectedSonar.FDef.Curve_Detection_Index = 0 then
-  begin
-    ShowMessage('Select SNR vs POD of Detection Curve');
-    Exit;
-  end;
+//  {Jika inputan SNR vs POD of Detection Curve masih kosong}
+//  if FSelectedSonar.FDef.Curve_Detection_Index = 0 then
+//  begin
+//    ShowMessage('Select SNR vs POD of Detection Curve');
+//    Exit;
+//  end;
 
   Result := True;
 end;

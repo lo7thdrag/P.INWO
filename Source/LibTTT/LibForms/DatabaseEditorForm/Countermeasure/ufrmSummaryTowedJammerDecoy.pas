@@ -83,8 +83,6 @@ type
     mmoNotes: TMemo;
     lblPlatform: TLabel;
     imgBackgroundForm: TImage;
-
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
 
     //Global
@@ -125,13 +123,10 @@ var
 implementation
 
 {$R *.dfm}
+uses
+  ufrmTowedJammerDecoyOnBoardPickList;
 
 {$REGION ' Form Handle '}
-
-procedure TfrmSummaryTowedjammerDecoy.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-  Action := cafree;
-end;
 
 procedure TfrmSummaryTowedjammerDecoy.FormShow(Sender: TObject);
 begin
@@ -155,8 +150,8 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
-  if isOk then
-    Close;
+  frmTowedJammerDecoyOnBoardPickList.UpdateTowedJammerDecoyList;
+  Close;
 end;
 
 procedure TfrmSummaryTowedjammerDecoy.btnApplyClick(Sender: TObject);

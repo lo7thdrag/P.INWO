@@ -18,6 +18,8 @@ type
     txtClass: TLabel;
     edtClass: TEdit;
     pnl2ControlPage: TPanel;
+    imgBackgroundForm: TImage;
+    lblPlatform: TLabel;
     PageControl1: TPageControl;
     tsGeneral: TTabSheet;
     lblCategory: TLabel;
@@ -59,12 +61,6 @@ type
     Label10: TLabel;
     trckbrLethality: TTrackBar;
     edtLethality: TEdit;
-    tsNotes: TTabSheet;
-    mmoNotes: TMemo;
-    imgBackgroundForm: TImage;
-    lblPlatform: TLabel;
-
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
 
     //Global
@@ -104,16 +100,11 @@ var
 implementation
 
 uses
-   uDataModule{, uProbabilityGraph, ufrmMinePODGraphic};
+   uDataModule, ufrmMineOnBoardPickList{, uProbabilityGraph, ufrmMinePODGraphic};
 
  {$R *.dfm}
 
 {$REGION ' Form Handle '}
-
-procedure TfrmSummaryMine.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-  Action := cafree;
-end;
 
 procedure TfrmSummaryMine.FormShow(Sender: TObject);
 begin
@@ -137,68 +128,68 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
-  if isOk then
-    Close;
+  frmMineOnBoardPickList.UpdateMineList;
+  Close;
 end;
 
 procedure TfrmSummaryMine.btnApplyClick(Sender: TObject);
 begin
 
-//  with FSelectedMine do
-//  begin
-//    if not CekInput then
-//    begin
-//      isOK := False;
-//      Exit;
-//    end;
-//
-//    ValidationFormatInput;
-//
-//    {$REGION ' General '}
-//    LastName := edtClass.Text;
-//    FMine_Def.Mine_Identifier := edtClass.Text;
-//
-//    FMine_Def.Anti_Sur_Capable := Ord(chkAntiSurface.Checked);
-//    FMine_Def.Anti_SubSur_Capable := Ord(chkAntiSubSurface.Checked);
-//
-//    FMine_Def.Platform_Category := cbbCategory.ItemIndex;
-//    FMine_Def.Mooring_Type := cbbMooringType.ItemIndex;
-//    FMine_Def.Detectability_Type := cbbDetectabilityType.ItemIndex;
-//    FMine_Def.Max_Laying_Depth := StrToFloat(edtMaxLayingDepth.Text);
-//
-//    FMine_Def.Length := StrToFloat(edtLength.Text);
-//    FMine_Def.Width := StrToFloat(edtWidth.Text);
-//    FMine_Def.Height := StrToFloat(edtHeight.Text);
-//    FMine_Def.Engagement_Range := StrToFloat(edtEngagementRange.Text);
-//
-//    FMine_Def.Front_Acoustic_Cross := StrToFloat(edtAcousticFront.Text);
-//    FMine_Def.Side_Acoustic_Cross := StrToFloat(edtAcousticSide.Text);
-//
-//    FMine_Def.Mine_Lethality := trckbrLethality.Position;
-//    {$ENDREGION}
-//    if FMine_Def.Mine_Index = 0 then
-//    begin
-//      if dmTTT.InsertMineDef(FMine_Def) then
-//      begin
-//        ShowMessage('Data has been saved');
-//      end;
-//    end
-//    else
-//    begin
-//      if dmTTT.UpdateMineDef(FMine_Def) then
-//      begin
-//        ShowMessage('Data has been updated');
-//      end;
-//    end;
-//
-//  end;
-//
-//  UpdateMineData;
-//
+  with FSelectedMine do
+  begin
+    if not CekInput then
+    begin
+      isOK := False;
+      Exit;
+    end;
+
+    ValidationFormatInput;
+
+    {$REGION ' General '}
+    LastName := edtClass.Text;
+    FDef.Mine_Identifier := edtClass.Text;
+
+    FDef.Anti_Sur_Capable := Ord(chkAntiSurface.Checked);
+    FDef.Anti_SubSur_Capable := Ord(chkAntiSubSurface.Checked);
+
+    FDef.Platform_Category := cbbCategory.ItemIndex;
+    FDef.Mooring_Type := cbbMooringType.ItemIndex;
+    FDef.Detectability_Type := cbbDetectabilityType.ItemIndex;
+    FDef.Max_Laying_Depth := StrToFloat(edtMaxLayingDepth.Text);
+
+    FDef.Length := StrToFloat(edtLength.Text);
+    FDef.Width := StrToFloat(edtWidth.Text);
+    FDef.Height := StrToFloat(edtHeight.Text);
+    FDef.Engagement_Range := StrToFloat(edtEngagementRange.Text);
+
+    FDef.Front_Acoustic_Cross := StrToFloat(edtAcousticFront.Text);
+    FDef.Side_Acoustic_Cross := StrToFloat(edtAcousticSide.Text);
+
+    FDef.Mine_Lethality := trckbrLethality.Position;
+    {$ENDREGION}
+    if FDef.Mine_Index = 0 then
+    begin
+      if dmINWO.InsertMineDef(FDef) then
+      begin
+        ShowMessage('Data has been saved');
+      end;
+    end
+    else
+    begin
+      if dmINWO.UpdateMineDef(FDef) then
+      begin
+        ShowMessage('Data has been updated');
+      end;
+    end;
+
+  end;
+
+  UpdateMineData;
+
 //  isOK := True;
 //  AfterClose := True;
-//  btnApply.Enabled := False;
-//  btnCancel.Enabled := False;
+  btnApply.Enabled := False;
+  btnCancel.Enabled := False;
 end;
 
 procedure TfrmSummaryMine.btnCancelClick(Sender: TObject);
@@ -246,88 +237,88 @@ end;
 
 procedure TfrmSummaryMine.UpdateMineData;
 begin
-//  with FSelectedMine do
-//  begin
-//    if FMine_Def.Mine_Index = 0 then
-//      edtClass.Text := '(Unnamed)'
-//    else
-//      edtClass.Text := FMine_Def.Mine_Identifier;
-//
-//    {$REGION ' General '}
-//    LastName := edtClass.Text;
-//
-//    chkAntiSurface.Checked := Boolean(FMine_Def.Anti_Sur_Capable);
-//    chkAntiSubSurface.Checked := Boolean(FMine_Def.Anti_SubSur_Capable);
-//
-//    cbbCategory.ItemIndex := FMine_Def.Platform_Category;
-//    cbbMooringType.ItemIndex := FMine_Def.Mooring_Type;
-//    cbbDetectabilityType.ItemIndex := FMine_Def.Detectability_Type;
-//    edtMaxLayingDepth.Text := FormatFloat('0', FMine_Def.Max_Laying_Depth);
-//
-//    btnEditProbOfDetonanationCurve.Enabled := FMine_Def.Mine_Index <> 0;
-//
-//    edtLength.Text := FormatFloat('0', FMine_Def.Length);
-//    edtWidth.Text := FormatFloat('0', FMine_Def.Width);
-//    edtHeight.Text := FormatFloat('0', FMine_Def.Height);
-//    edtEngagementRange.Text := FormatFloat('0', FMine_Def.Engagement_Range);
-//
-//    edtAcousticFront.Text := FormatFloat('0.00', FMine_Def.Front_Acoustic_Cross);
-//    edtAcousticSide.Text := FormatFloat('0.00', FMine_Def.Side_Acoustic_Cross);
-//
-//    trckbrLethality.Position := FMine_Def.Mine_Lethality;
-//    {$ENDREGION}
-//  end;
+  with FSelectedMine do
+  begin
+    if FDef.Mine_Index = 0 then
+      edtClass.Text := '(Unnamed)'
+    else
+      edtClass.Text := FDef.Mine_Identifier;
+
+    {$REGION ' General '}
+    LastName := edtClass.Text;
+
+    chkAntiSurface.Checked := Boolean(FDef.Anti_Sur_Capable);
+    chkAntiSubSurface.Checked := Boolean(FDef.Anti_SubSur_Capable);
+
+    cbbCategory.ItemIndex := FDef.Platform_Category;
+    cbbMooringType.ItemIndex := FDef.Mooring_Type;
+    cbbDetectabilityType.ItemIndex := FDef.Detectability_Type;
+    edtMaxLayingDepth.Text := FormatFloat('0', FDef.Max_Laying_Depth);
+
+    btnEditProbOfDetonanationCurve.Enabled := FDef.Mine_Index <> 0;
+
+    edtLength.Text := FormatFloat('0', FDef.Length);
+    edtWidth.Text := FormatFloat('0', FDef.Width);
+    edtHeight.Text := FormatFloat('0', FDef.Height);
+    edtEngagementRange.Text := FormatFloat('0', FDef.Engagement_Range);
+
+    edtAcousticFront.Text := FormatFloat('0.00', FDef.Front_Acoustic_Cross);
+    edtAcousticSide.Text := FormatFloat('0.00', FDef.Side_Acoustic_Cross);
+
+    trckbrLethality.Position := FDef.Mine_Lethality;
+    {$ENDREGION}
+  end;
 end;
 
 function TfrmSummaryMine.CekInput: Boolean;
 var
   i, chkSpace, numSpace: Integer;
 begin
-//  Result := False;
-//
-//  {Jika inputan class name kosong}
-//  if (edtClass.Text = '')then
-//  begin
-//    ShowMessage('Please insert class name');
-//    Exit;
-//  end;
-//
-//  {Jika berisi spasi semua}
-//  if Copy(edtClass.Text, 1, 1) = ' ' then
-//  begin
-//    chkSpace := Length(edtClass.Text);
-//    numSpace := 0;
-//
-//    for i := 1 to chkSpace do
-//    begin
-//      if edtClass.Text[i] = #32 then
-//      numSpace := numSpace + 1;
-//    end;
-//
-//    if chkSpace = numSpace then
-//    begin
-//      ShowMessage('Please use another class name');
-//      Exit;
-//    end;
-//  end;
-//
-//  {Jika Class Name sudah ada}
-//  if (dmTTT.GetMineDef(edtClass.Text)>0) then
-//  begin
-//    {Jika inputan baru}
-//    if FSelectedMine.FMine_Def.Mine_Index = 0 then
-//    begin
-//      ShowMessage('Please use another class name');
-//      Exit;
-//    end
-//    else if LastName <> edtClass.Text then
-//    begin
-//      ShowMessage('Please use another class name');
-//      Exit;
-//    end;
-//  end;
-//
-//  Result := True;
+  Result := False;
+
+  {Jika inputan class name kosong}
+  if (edtClass.Text = '')then
+  begin
+    ShowMessage('Please insert class name');
+    Exit;
+  end;
+
+  {Jika berisi spasi semua}
+  if Copy(edtClass.Text, 1, 1) = ' ' then
+  begin
+    chkSpace := Length(edtClass.Text);
+    numSpace := 0;
+
+    for i := 1 to chkSpace do
+    begin
+      if edtClass.Text[i] = #32 then
+      numSpace := numSpace + 1;
+    end;
+
+    if chkSpace = numSpace then
+    begin
+      ShowMessage('Please use another class name');
+      Exit;
+    end;
+  end;
+
+  {Jika Class Name sudah ada}
+  if (dmINWO.GetMineDef(edtClass.Text)>0) then
+  begin
+    {Jika inputan baru}
+    if FSelectedMine.FDef.Mine_Index = 0 then
+    begin
+      ShowMessage('Please use another class name');
+      Exit;
+    end
+    else if LastName <> edtClass.Text then
+    begin
+      ShowMessage('Please use another class name');
+      Exit;
+    end;
+  end;
+
+  Result := True;
 end;
 
 {$ENDREGION}

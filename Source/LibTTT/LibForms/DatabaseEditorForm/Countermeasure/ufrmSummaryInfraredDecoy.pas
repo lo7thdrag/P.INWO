@@ -42,8 +42,6 @@ type
     mmoNotes: TMemo;
     imgBackgroundForm: TImage;
     lblPlatform: TLabel;
-
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
 
     //Global
@@ -77,13 +75,10 @@ var
 implementation
 
 {$R *.dfm}
+uses
+  ufrmInfraredDecoyOnBoardPickList;
 
 {$REGION ' Form Handle '}
-
-procedure TfrmSummaryInfraredDecoy.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-  Action := cafree;
-end;
 
 procedure TfrmSummaryInfraredDecoy.FormShow(Sender: TObject);
 begin
@@ -107,8 +102,8 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
-  if isOk then
-    Close;
+  frmInfraredDecoyOnBoardPickList.UpdateInfraredDecoyList;
+  Close;
 end;
 
 procedure TfrmSummaryInfraredDecoy.btnApplyClick(Sender: TObject);

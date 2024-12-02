@@ -15,7 +15,6 @@ object frmSummarySonobuoy: TfrmSummarySonobuoy
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
-  OnClose = FormClose
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -14153,8 +14152,8 @@ object frmSummarySonobuoy: TfrmSummarySonobuoy
     Left = 2
     Top = 63
     Width = 40
-    Height = 51
-    Caption = 'EOD'
+    Height = 141
+    Caption = 'SONOBUOY'
     Color = clBackground
     Font.Charset = ANSI_CHARSET
     Font.Color = 15846229

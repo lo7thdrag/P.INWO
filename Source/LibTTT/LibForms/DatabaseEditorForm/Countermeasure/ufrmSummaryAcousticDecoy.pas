@@ -33,8 +33,6 @@ type
     mmoNotes: TMemo;
     imgBackgroundForm: TImage;
     lblPlatform: TLabel;
-
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
 
     //Global
@@ -70,13 +68,10 @@ var
 implementation
 
  {$R *.dfm}
+ uses
+  ufrmAcousticDecoyOnBoardPickList;
 
 {$REGION ' Form Handle '}
-
-procedure TfrmSummaryAcousticDecoy.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-  Action := cafree;
-end;
 
 procedure TfrmSummaryAcousticDecoy.FormShow(Sender: TObject);
 begin
@@ -100,8 +95,8 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
-  if isOk then
-    Close;
+  frmAcousticDecoyOnBoardPickList.UpdateAcousticDecoyList;
+  Close;
 end;
 
 procedure TfrmSummaryAcousticDecoy.btnApplyClick(Sender: TObject);

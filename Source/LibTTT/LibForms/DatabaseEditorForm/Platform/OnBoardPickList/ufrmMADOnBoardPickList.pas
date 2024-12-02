@@ -138,7 +138,7 @@ begin
   try
     with frmSummaryMAD do
     begin
-      FSelectedMAD := TMAD_On_Board.Create;
+      SelectedMAD := TMAD_On_Board.Create;
       Show;
     end;
   finally

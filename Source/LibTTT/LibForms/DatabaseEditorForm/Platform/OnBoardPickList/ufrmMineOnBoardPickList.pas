@@ -186,7 +186,8 @@ end;
 
 procedure TfrmMineOnBoardPickList.btnDeleteClick(Sender: TObject);
 var
-  warning : Integer;
+   warning : Integer;
+   tempList: TList;
 begin
   if lbAllMineDef.ItemIndex = -1 then
   begin
@@ -200,17 +201,20 @@ begin
   begin
     with FSelectedMine.FDef do
     begin
+      tempList := TList.Create;
 
       {Pengecekan Relasi Dengan Tabel On Board}
-      if dmINWO.GetSensor_On_Board_By_Index(1, Mine_Index) then
+      if dmINWO.GetFittedWeaponAtVehicleOnBoard(5, Mine_Index, tempList) then
       begin
         ShowMessage('Cannot delete, because is already in used by some vehicles');
+        tempList.Free;
         Exit;
       end;
 
-      if dmINWO.DeleteRadarDef(Mine_Index) then
+      if dmINWO.DeleteMineDef(Mine_Index) then
         ShowMessage('Data has been deleted');
 
+      tempList.Free;
     end;
 
     UpdateMineList;

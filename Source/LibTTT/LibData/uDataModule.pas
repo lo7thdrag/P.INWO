@@ -2288,7 +2288,7 @@ begin
             Platform_Type := FieldByName('Platform_Type').AsInteger;
             Max_Range := FieldByName('Max_Range').AsSingle;
             Min_Range := FieldByName('Min_Range').AsSingle;
-            Motion_Index := FieldByName('Motion_Index').AsInteger;
+//            Motion_Index := FieldByName('Motion_Index').AsInteger;
             Seeker_TurnOn_Range := FieldByName('Seeker_TurnOn_Range').AsSingle;
             Second_Seeker_Pattern_Capable := FieldByName('Second_Seeker_Pattern_Capable').AsInteger;
             Seeker_Bias_Capable := FieldByName('Seeker_Bias_Capable').AsInteger;
@@ -2440,7 +2440,7 @@ begin
             Platform_Type := FieldByName('Platform_Type').AsInteger;
             Max_Range := FieldByName('Max_Range').AsSingle;
             Min_Range := FieldByName('Min_Range').AsSingle;
-            Motion_Index := FieldByName('Motion_Index').AsInteger;
+//            Motion_Index := FieldByName('Motion_Index').AsInteger;
             Seeker_TurnOn_Range := FieldByName('Seeker_TurnOn_Range').AsSingle;
             Second_Seeker_Pattern_Capable := FieldByName('Second_Seeker_Pattern_Capable').AsInteger;
             Seeker_Bias_Capable := FieldByName('Seeker_Bias_Capable').AsInteger;
@@ -2579,7 +2579,7 @@ begin
     SQL.Clear;
     SQL.Add('INSERT INTO Missile_Definition');
     SQL.Add('(Class_Identifier, Platform_Domain, Platform_Category,');
-    SQL.Add('Platform_Type, Max_Range, Min_Range, Motion_Index,');
+    SQL.Add('Platform_Type, Max_Range, Min_Range, ');
     SQL.Add('Seeker_TurnOn_Range, Second_Seeker_Pattern_Capable,');
     SQL.Add('Seeker_Bias_Capable, Fixed_Seeker_Turn_On_Range, Lethality,');
     SQL.Add('Prob_of_Hit, Damage_Capacity, Default_Altitude, Length, Width,');
@@ -2621,7 +2621,7 @@ begin
       SQL.Add(IntToStr(Platform_Type) + ', ');
       SQL.Add(FloatToStr(Max_Range) + ', ');
       SQL.Add(FloatToStr(Min_Range) + ', ');
-      SQL.Add(IntToStr(Motion_Index) + ', ');
+//      SQL.Add(IntToStr(Motion_Index) + ', ');
       SQL.Add(FloatToStr(Seeker_TurnOn_Range) + ', ');
       SQL.Add(IntToStr(Second_Seeker_Pattern_Capable) + ', ');
       SQL.Add(IntToStr(Seeker_Bias_Capable) + ', ');
@@ -2741,7 +2741,7 @@ begin
       SQL.Add(', Platform_Type = ' + IntToStr(Platform_Type));
       SQL.Add(', Max_Range = ' + FloatToStr(Max_Range));
       SQL.Add(', Min_Range = ' + FloatToStr(Min_Range));
-      SQL.Add(', Motion_Index = ' + IntToStr(Motion_Index));
+//      SQL.Add(', Motion_Index = ' + IntToStr(Motion_Index));
       SQL.Add(', Seeker_TurnOn_Range = ' + FloatToStr(Seeker_TurnOn_Range));
       SQL.Add(', Second_Seeker_Pattern_Capable = ' +
         IntToStr(Second_Seeker_Pattern_Capable));
@@ -2932,7 +2932,7 @@ begin
           Platform_Type := FieldByName('Platform_Type').AsInteger;
           Max_Range := FieldByName('Max_Range').AsSingle;
           Min_Range := FieldByName('Min_Range').AsSingle;
-          Motion_Index := FieldByName('Motion_Index').AsInteger;
+//          Motion_Index := FieldByName('Motion_Index').AsInteger;
           Seeker_TurnOn_Range := FieldByName('Seeker_TurnOn_Range').AsSingle;
           Lethality := FieldByName('Lethality').AsInteger;
           Damage_Capacity := FieldByName('Damage_Capacity').AsInteger;
@@ -3073,7 +3073,7 @@ begin
           Platform_Type := FieldByName('Platform_Type').AsInteger;
           Max_Range := FieldByName('Max_Range').AsSingle;
           Min_Range := FieldByName('Min_Range').AsSingle;
-          Motion_Index := FieldByName('Motion_Index').AsInteger;
+//          Motion_Index := FieldByName('Motion_Index').AsInteger;
           Seeker_TurnOn_Range := FieldByName('Seeker_TurnOn_Range').AsSingle;
           Lethality := FieldByName('Lethality').AsInteger;
           Damage_Capacity := FieldByName('Damage_Capacity').AsInteger;
@@ -3195,7 +3195,7 @@ begin
     SQL.Clear;
     SQL.Add('INSERT INTO Torpedo_Definition');
     SQL.Add('(Class_Identifier, Platform_Domain, Platform_Category,');
-    SQL.Add('Platform_Type, Max_Range, Min_Range, Motion_Index,');
+    SQL.Add('Platform_Type, Max_Range, Min_Range, ');
     SQL.Add('Seeker_TurnOn_Range, Lethality, Damage_Capacity, Default_Depth,');
     SQL.Add('Length, Width, Height, Front_Acoustic_Cross,');
     SQL.Add('Side_Acoustic_Cross, LSpeed_Acoustic_Intens,');
@@ -3229,7 +3229,7 @@ begin
       SQL.Add(IntToStr(Platform_Type) + ', ');
       SQL.Add(FloatToStr(Max_Range) + ', ');
       SQL.Add(FloatToStr(Min_Range) + ', ');
-      SQL.Add(IntToStr(Motion_Index) + ', ');
+//      SQL.Add(IntToStr(Motion_Index) + ', ');
       SQL.Add(FloatToStr(Seeker_TurnOn_Range) + ', ');
       SQL.Add(IntToStr(Lethality) + ', ');
       SQL.Add(IntToStr(Damage_Capacity) + ', ');
@@ -3327,7 +3327,7 @@ begin
       SQL.Add(', Platform_Type = ' + IntToStr(Platform_Type));
       SQL.Add(', Max_Range = ' + FloatToStr(Max_Range));
       SQL.Add(', Min_Range = ' + FloatToStr(Min_Range));
-      SQL.Add(', Motion_Index = ' + IntToStr(Motion_Index));
+//      SQL.Add(', Motion_Index = ' + IntToStr(Motion_Index));
       SQL.Add(', Seeker_TurnOn_Range = ' + FloatToStr(Seeker_TurnOn_Range));
       SQL.Add(', Lethality = ' + IntToStr(Lethality));
       SQL.Add(', Damage_Capacity = ' + IntToStr(Damage_Capacity));
@@ -4695,7 +4695,6 @@ begin
   end;
 end;
 
-
 function TdmINWO.GetFittedWeaponOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
 begin
   Result := False;
@@ -5241,44 +5240,44 @@ begin
         begin
           Radar_Index := FieldByName('Radar_Index').AsInteger;
           Radar_Identifier := FieldByName('Radar_Identifier').AsString;
-//          Radar_Emitter := FieldByName('Radar_Emitter').AsString;
-//          Radar_Type := FieldByName('Radar_Type').AsInteger;
-//          Frequency := FieldByName('Frequency').AsSingle;
-//          Scan_Rate := FieldByName('Scan_Rate').AsSingle;
-//          Pulse_Rep_Freq := FieldByName('Pulse_Rep_Freq').AsSingle;
-//          Pulse_Width := FieldByName('Pulse_Width').AsSingle;
-//          Radar_Power := FieldByName('Radar_Power').AsSingle;
-//          Detection_Range := FieldByName('Detection_Range').AsSingle;
-//          Known_Cross_Section := FieldByName('Known_Cross_Section').AsSingle;
-//          Max_Unambig_Detect_Range := FieldByName('Max_Unambig_Detect_Range').AsSingle;
-//          IFF_Capability := FieldByName('IFF_Capability').AsBoolean;
-//          Altitude_Data_Capability := FieldByName('Altitude_Data_Capability').AsBoolean;
-//          Ground_Speed_Data_Capability := FieldByName('Ground_Speed_Data_Capability').AsBoolean;
-//          Heading_Data_Capability := FieldByName('Heading_Data_Capability').AsBoolean;
-//          Plat_Type_Recog_Capability := FieldByName('Plat_Type_Recog_Capability').AsBoolean;
-//          Plat_Class_Recog_Capability := FieldByName('Plat_Class_Recog_Capability').AsBoolean;
-//          Clutter_Rejection := FieldByName('Clutter_Rejection').AsSingle;
-//          Anti_Jamming_Capable := FieldByName('Anti_Jamming_Capable').AsBoolean;
+          Radar_Emitter := FieldByName('Radar_Emitter').AsString;
+          Radar_Type := FieldByName('Radar_Type').AsInteger;
+          Frequency := FieldByName('Frequency').AsSingle;
+          Scan_Rate := FieldByName('Scan_Rate').AsSingle;
+          Pulse_Rep_Freq := FieldByName('Pulse_Rep_Freq').AsSingle;
+          Pulse_Width := FieldByName('Pulse_Width').AsSingle;
+          Radar_Power := FieldByName('Radar_Power').AsSingle;
+          Detection_Range := FieldByName('Detection_Range').AsSingle;
+          Known_Cross_Section := FieldByName('Known_Cross_Section').AsSingle;
+          Max_Unambig_Detect_Range := FieldByName('Max_Unambig_Detect_Range').AsSingle;
+          IFF_Capability := FieldByName('IFF_Capability').AsBoolean;
+          Altitude_Data_Capability := FieldByName('Altitude_Data_Capability').AsBoolean;
+          Ground_Speed_Data_Capability := FieldByName('Ground_Speed_Data_Capability').AsBoolean;
+          Heading_Data_Capability := FieldByName('Heading_Data_Capability').AsBoolean;
+          Plat_Type_Recog_Capability := FieldByName('Plat_Type_Recog_Capability').AsBoolean;
+          Plat_Class_Recog_Capability := FieldByName('Plat_Class_Recog_Capability').AsBoolean;
+          Clutter_Rejection := FieldByName('Clutter_Rejection').AsSingle;
+          Anti_Jamming_Capable := FieldByName('Anti_Jamming_Capable').AsBoolean;
 //          Curve_Definition_Index := FieldByName('Curve_Definition_Index').AsInteger;
-//          Second_Vert_Coverage := FieldByName('Second_Vert_Coverage').AsBoolean;
-//          Jamming_A_Resistant := FieldByName('Jamming_A_Resistant').AsBoolean;
-//          Jamming_B_Resistant := FieldByName('Jamming_B_Resistant').AsBoolean;
-//          Jamming_C_Resistant := FieldByName('Jamming_C_Resistant').AsBoolean;
-//          Anti_Jamming_A_Resistant := FieldByName('Anti_Jamming_A_Resistant').AsBoolean;
-//          Anti_Jamming_B_Resistant := FieldByName('Anti_Jamming_B_Resistant').AsBoolean;
-//          Anti_Jamming_C_Resistant := FieldByName('Anti_Jamming_C_Resistant').AsBoolean;
-//          Anti_Jamming_Range_Reduction := FieldByName('Anti_Jamming_Range_Reduction').AsSingle;
-//          Beam_Width := FieldByName('Beam_Width').AsSingle;
-//          Sector_Scan_Capable := FieldByName('Sector_Scan_Capable').AsBoolean;
-//          Off_Axis_Jammer_Reduction := FieldByName('Off_Axis_Jammer_Reduction').AsSingle;
-//          Num_FCR_Channels := FieldByName('Num_FCR_Channels').AsInteger;
-//          Radar_Spot_Number := FieldByName('Radar_Spot_Number').AsInteger;
-//          Radar_Horizon_Factor := FieldByName('Radar_Horizon_Factor').AsSingle;
-//          Main_Lobe_Gain := FieldByName('Main_Lobe_Gain').AsSingle;
-//          Counter_Detection_Factor := FieldByName('Counter_Detection_Factor').AsSingle;
-//          ECCM_Type := FieldByName('ECCM_Type').AsInteger;
-//          MTI_Capable := FieldByName('MTI_Capable').AsBoolean;
-//          MTI_MinTargetSpeed := FieldByName('MTI_MinTargetSpeed').AsSingle;
+          Second_Vert_Coverage := FieldByName('Second_Vert_Coverage').AsBoolean;
+          Jamming_A_Resistant := FieldByName('Jamming_A_Resistant').AsBoolean;
+          Jamming_B_Resistant := FieldByName('Jamming_B_Resistant').AsBoolean;
+          Jamming_C_Resistant := FieldByName('Jamming_C_Resistant').AsBoolean;
+          Anti_Jamming_A_Resistant := FieldByName('Anti_Jamming_A_Resistant').AsBoolean;
+          Anti_Jamming_B_Resistant := FieldByName('Anti_Jamming_B_Resistant').AsBoolean;
+          Anti_Jamming_C_Resistant := FieldByName('Anti_Jamming_C_Resistant').AsBoolean;
+          Anti_Jamming_Range_Reduction := FieldByName('Anti_Jamming_Range_Reduction').AsSingle;
+          Beam_Width := FieldByName('Beam_Width').AsSingle;
+          Sector_Scan_Capable := FieldByName('Sector_Scan_Capable').AsBoolean;
+          Off_Axis_Jammer_Reduction := FieldByName('Off_Axis_Jammer_Reduction').AsSingle;
+          Num_FCR_Channels := FieldByName('Num_FCR_Channels').AsInteger;
+          Radar_Spot_Number := FieldByName('Radar_Spot_Number').AsInteger;
+          Radar_Horizon_Factor := FieldByName('Radar_Horizon_Factor').AsSingle;
+          Main_Lobe_Gain := FieldByName('Main_Lobe_Gain').AsSingle;
+          Counter_Detection_Factor := FieldByName('Counter_Detection_Factor').AsSingle;
+          ECCM_Type := FieldByName('ECCM_Type').AsInteger;
+          MTI_Capable := FieldByName('MTI_Capable').AsBoolean;
+          MTI_MinTargetSpeed := FieldByName('MTI_MinTargetSpeed').AsSingle;
         end;
 
         aList.Add(rec);
@@ -5353,7 +5352,7 @@ begin
           Plat_Class_Recog_Capability := FieldByName('Plat_Class_Recog_Capability').AsBoolean;
           Clutter_Rejection := FieldByName('Clutter_Rejection').AsSingle;
           Anti_Jamming_Capable := FieldByName('Anti_Jamming_Capable').AsBoolean;
-          Curve_Definition_Index := FieldByName('Curve_Definition_Index').AsInteger;
+//          Curve_Definition_Index := FieldByName('Curve_Definition_Index').AsInteger;
           Second_Vert_Coverage := FieldByName('Second_Vert_Coverage').AsBoolean;
           Jamming_A_Resistant := FieldByName('Jamming_A_Resistant').AsBoolean;
           Jamming_B_Resistant := FieldByName('Jamming_B_Resistant').AsBoolean;
@@ -5420,7 +5419,7 @@ begin
     SQL.Add('IFF_Capability, Altitude_Data_Capability,');
     SQL.Add('Ground_Speed_Data_Capability, Heading_Data_Capability,');
     SQL.Add('Plat_Type_Recog_Capability, Plat_Class_Recog_Capability,');
-    SQL.Add('Clutter_Rejection, Anti_Jamming_Capable, Curve_Definition_Index,');
+    SQL.Add('Clutter_Rejection, Anti_Jamming_Capable,');
     SQL.Add('Second_Vert_Coverage, Jamming_A_Resistant, Jamming_B_Resistant,');
     SQL.Add('Jamming_C_Resistant, Anti_Jamming_A_Resistant,');
     SQL.Add('Anti_Jamming_B_Resistant, Anti_Jamming_C_Resistant,');
@@ -5451,7 +5450,7 @@ begin
       SQL.Add(BoolToStr(Plat_Class_Recog_Capability) + ', ');
       SQL.Add(FloatToStr(Clutter_Rejection) + ', ');
       SQL.Add(BoolToStr(Anti_Jamming_Capable) + ', ');
-      SQL.Add(IntToStr(Curve_Definition_Index) + ', ');
+//      SQL.Add(IntToStr(Curve_Definition_Index) + ', ');
       SQL.Add(BoolToStr(Second_Vert_Coverage) + ', ');
       SQL.Add(BoolToStr(Jamming_A_Resistant) + ', ');
       SQL.Add(BoolToStr(Jamming_B_Resistant) + ', ');
@@ -5525,7 +5524,7 @@ begin
         BoolToStr(Plat_Class_Recog_Capability));
       SQL.Add(', Clutter_Rejection = ' + FloatToStr(Clutter_Rejection));
       SQL.Add(', Anti_Jamming_Capable = ' + BoolToStr(Anti_Jamming_Capable));
-      SQL.Add(', Curve_Definition_Index = ' + IntToStr(Curve_Definition_Index));
+//      SQL.Add(', Curve_Definition_Index = ' + IntToStr(Curve_Definition_Index));
       SQL.Add(', Second_Vert_Coverage = ' + BoolToStr(Second_Vert_Coverage));
       SQL.Add(', Jamming_A_Resistant = ' + BoolToStr(Jamming_A_Resistant));
       SQL.Add(', Jamming_B_Resistant = ' + BoolToStr(Jamming_B_Resistant));
@@ -5662,8 +5661,7 @@ begin
           Target_Identification := FieldByName('Target_Identification')
             .AsBoolean;
           Time_2_Identify := FieldByName('Time_2_Identify').AsInteger;
-          Curve_Detection_Index := FieldByName('Curve_Detection_Index')
-            .AsInteger;
+//          Curve_Detection_Index := FieldByName('Curve_Detection_Index').AsInteger;
           Track_Analysis := FieldByName('Track_Analysis').AsInteger;
           Time_2_Provide_Track := FieldByName('Time_2_Provide_Track').AsInteger;
           Ownship_Increase_due_to_Active := FieldByName
@@ -5777,8 +5775,7 @@ begin
           Target_Identification := FieldByName('Target_Identification')
             .AsBoolean;
           Time_2_Identify := FieldByName('Time_2_Identify').AsInteger;
-          Curve_Detection_Index := FieldByName('Curve_Detection_Index')
-            .AsInteger;
+//          Curve_Detection_Index := FieldByName('Curve_Detection_Index').AsInteger;
           Track_Analysis := FieldByName('Track_Analysis').AsInteger;
           Time_2_Provide_Track := FieldByName('Time_2_Provide_Track').AsInteger;
           Ownship_Increase_due_to_Active := FieldByName
@@ -5855,7 +5852,7 @@ begin
     SQL.Add('Depth_per_Speed, Kinking_Processing, Turn_Rate_2_Kink,');
     SQL.Add('Time_2_Settle_Kinked, Bearing_Processing,');
     SQL.Add('Time_2_Resolve_Bearing, Passive_Processing,');
-    SQL.Add('Target_Identification, Time_2_Identify, Curve_Detection_Index,');
+    SQL.Add('Target_Identification, Time_2_Identify,');
     SQL.Add('Track_Analysis, Time_2_Provide_Track,');
     SQL.Add('Ownship_Increase_due_to_Active, Tow_Speed, Minimum_Depth,');
     SQL.Add('Maximum_Tow_Speed, Maximum_Sonar_Speed, Depth_Finding_Capable,');
@@ -5896,7 +5893,7 @@ begin
       SQL.Add(BoolToStr(Passive_Processing) + ', ');
       SQL.Add(BoolToStr(Target_Identification) + ', ');
       SQL.Add(IntToStr(Time_2_Identify) + ', ');
-      SQL.Add(IntToStr(Curve_Detection_Index) + ', ');
+//      SQL.Add(IntToStr(Curve_Detection_Index) + ', ');
       SQL.Add(IntToStr(Track_Analysis) + ', ');
       SQL.Add(IntToStr(Time_2_Provide_Track) + ', ');
       SQL.Add(FloatToStr(Ownship_Increase_due_to_Active) + ', ');
@@ -5975,7 +5972,7 @@ begin
       SQL.Add(', Passive_Processing = ' + BoolToStr(Passive_Processing));
       SQL.Add(', Target_Identification = ' + BoolToStr(Target_Identification));
       SQL.Add(', Time_2_Identify = ' + IntToStr(Time_2_Identify));
-      SQL.Add(', Curve_Detection_Index = ' + IntToStr(Curve_Detection_Index));
+//      SQL.Add(', Curve_Detection_Index = ' + IntToStr(Curve_Detection_Index));
       SQL.Add(', Track_Analysis = ' + IntToStr(Track_Analysis));
       SQL.Add(', Time_2_Provide_Track = ' + IntToStr(Time_2_Provide_Track));
       SQL.Add(', Ownship_Increase_due_to_Active = ' +
@@ -6121,8 +6118,8 @@ begin
     SQL.Clear;
     SQL.Add('SELECT *');
     SQL.Add('FROM ESM_Definition');
-    SQL.Add('WHERE a.Class_Identifier like '  + quotedStr('%' + aFilter + '%'));
-    SQL.Add('ORDER BY a.Class_Identifier');
+    SQL.Add('WHERE Class_Identifier like '  + quotedStr('%' + aFilter + '%'));
+    SQL.Add('ORDER BY Class_Identifier');
     Open;
 
     Result := RecordCount;
@@ -6191,7 +6188,7 @@ begin
     SQL.Clear;
     SQL.Add('SELECT *');
     SQL.Add('FROM ESM_Definition');
-    SQL.Add('WHERE a.Class_Identifier LIKE ' + QuotedStr(aClassName));
+    SQL.Add('WHERE Class_Identifier LIKE ' + QuotedStr(aClassName));
     Open;
 
     Result := RecordCount;
@@ -6468,7 +6465,7 @@ begin
     SQL.Clear;
     SQL.Add('SELECT *');
     SQL.Add('FROM EO_Detection_Definition');
-    SQL.Add('WHERE a.Class_Identifier LIKE ' + QuotedStr(aClassName));
+    SQL.Add('WHERE Class_Identifier LIKE ' + QuotedStr(aClassName));
     Open;
 
     Result := RecordCount;
@@ -13445,9 +13442,9 @@ begin
     SQL.Clear;
     SQL.Add('SELECT * ');
     SQL.Add('FROM Fitted_Weapon_On_Board a ');
-    SQL.Add('LEFT JOIN Vehicle_Definition b on a.Vehicle_Index = b.Vehicle_Index ');
+    SQL.Add('LEFT JOIN Vehicle_Definition b on a.Vehicle_Index = b.VehicleIndex ');
     SQL.Add('WHERE ' + indexField + ' = ' + IntToStr(id));
-    SQL.Add(' ORDER BY b.Vehicle_Identifier');
+    SQL.Add(' ORDER BY b.VehicleIdentifier');
     Open;
 
     result := RecordCount > 0;

@@ -191,6 +191,7 @@ end;
 procedure TfrmTorpedoOnBoardPickList.btnDeleteClick(Sender: TObject);
 var
   warning : Integer;
+  tempList: TList;
 begin
   if lbAllTorpedoDef.ItemIndex = -1 then
   begin
@@ -204,17 +205,20 @@ begin
   begin
     with FSelectedTorpedo.FDef do
     begin
+      tempList := TList.Create;
 
       {Pengecekan Relasi Dengan Tabel On Board}
-      if dmINWO.GetSensor_On_Board_By_Index(1, Torpedo_Index) then
+      if dmINWO.GetFittedWeaponAtVehicleOnBoard(2, Torpedo_Index, tempList) then
       begin
         ShowMessage('Cannot delete, because is already in used by some vehicles');
+        tempList.Free;
         Exit;
       end;
 
-      if dmINWO.DeleteRadarDef(Torpedo_Index) then
+      if dmINWO.DeleteTorpedoDef(Torpedo_Index) then
         ShowMessage('Data has been deleted');
 
+      tempList.Free;
     end;
 
     UpdateTorpedoList;

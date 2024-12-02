@@ -45,8 +45,6 @@ type
     mmoNotes: TMemo;
     imgBackgroundForm: TImage;
     lblPlatform: TLabel;
-
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
 
     //Global
@@ -84,12 +82,10 @@ implementation
 
 {$R *.dfm}
 
-{$REGION ' Form Handle '}
+uses
+  ufrmSonobuoyOnBoardPickList;
 
-procedure TfrmSummarySonobuoy.FormClose(Sender: TObject;var Action: TCloseAction);
-begin
-  Action := cafree;
-end;
+{$REGION ' Form Handle '}
 
 procedure TfrmSummarySonobuoy.FormShow(Sender: TObject);
 begin
@@ -113,8 +109,8 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
-  if isOk then
-    Close;
+  frmSonobuoyOnBoardPickList.UpdateSonobuoyList;
+  Close;
 end;
 
 procedure TfrmSummarySonobuoy.btnApplyClick(Sender: TObject);

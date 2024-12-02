@@ -15,7 +15,6 @@ object frmSummarySelfDefensiveJammer: TfrmSummarySelfDefensiveJammer
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
-  OnClose = FormClose
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -14467,6 +14466,10 @@ object frmSummarySelfDefensiveJammer: TfrmSummarySelfDefensiveJammer
         BorderWidth = 10
         Caption = 'Notes'
         ImageIndex = 1
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object mmoNotes: TMemo
           Left = 0
           Top = 0

@@ -50,8 +50,6 @@ type
     mmoNotes: TMemo;
     lblPlatform: TLabel;
     imgBackgroundForm: TImage;
-
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
 
     //Global
@@ -86,13 +84,10 @@ var
 implementation
 
 {$R *.dfm}
+uses
+  ufrmRadarNoiseJammerOnBoardPickList;
 
 {$REGION ' Form Handle '}
-
-procedure TfrmSummaryRadarNoiseJammer.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-  Action := cafree;
-end;
 
 procedure TfrmSummaryRadarNoiseJammer.FormShow(Sender: TObject);
 begin
@@ -116,8 +111,8 @@ begin
   if btnApply.Enabled then
     btnApply.Click;
 
-  if isOk then
-    Close;
+  frmradarnoisejammerOnBoardPickList.UpdateRadarJammerList;
+  Close;
 end;
 
 procedure TfrmSummaryRadarNoiseJammer.btnApplyClick(Sender: TObject);

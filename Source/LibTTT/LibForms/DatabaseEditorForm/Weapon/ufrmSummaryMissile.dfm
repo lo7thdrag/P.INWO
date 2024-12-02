@@ -14513,49 +14513,13 @@ object frmSummaryMissile: TfrmSummaryMissile
           OnChange = edtChange
           OnKeyPress = edtNumeralKeyPress
         end
-        object grbHybridTorpedoDefinition: TGroupBox
-          Left = 16
-          Top = 343
-          Width = 361
-          Height = 63
-          Enabled = False
-          TabOrder = 7
-          object edtHybridTorpedoDef: TEdit
-            Tag = 4
-            Left = 15
-            Top = 23
-            Width = 299
-            Height = 23
-            ReadOnly = True
-            TabOrder = 0
-            Text = '(None)'
-          end
-          object btnHybridTorpedoDef: TButton
-            Left = 320
-            Top = 23
-            Width = 28
-            Height = 22
-            Caption = '...'
-            TabOrder = 1
-            OnClick = btnHybridTorpedoDefClick
-          end
-        end
-        object chkHybridTorpedoDefinition: TCheckBox
-          Left = 24
-          Top = 333
-          Width = 160
-          Height = 17
-          Caption = 'Hybrid Torpedo Definition'
-          TabOrder = 6
-          OnClick = chkHybridTorpedoDefClick
-        end
         object grpLethality: TGroupBox
           Left = 418
           Top = 239
           Width = 351
           Height = 74
           Caption = ' Lethality   '
-          TabOrder = 8
+          TabOrder = 6
           object Label2: TLabel
             Left = 10
             Top = 54
@@ -14599,7 +14563,7 @@ object frmSummaryMissile: TfrmSummaryMissile
           Width = 351
           Height = 74
           Caption = ' Damage Sustainability   '
-          TabOrder = 9
+          TabOrder = 7
           object Label4: TLabel
             Left = 10
             Top = 54
@@ -14642,7 +14606,7 @@ object frmSummaryMissile: TfrmSummaryMissile
           Width = 351
           Height = 74
           Caption = ' Probability of Hit   '
-          TabOrder = 10
+          TabOrder = 8
           object Label6: TLabel
             Left = 10
             Top = 54
@@ -14684,13 +14648,6 @@ object frmSummaryMissile: TfrmSummaryMissile
       object tsPhysical: TTabSheet
         Caption = 'Physical'
         ImageIndex = 1
-        object lblMotionCharacteristic: TLabel
-          Left = 18
-          Top = 20
-          Width = 116
-          Height = 15
-          Caption = 'Motion Characteristics:'
-        end
         object lblCroosSection: TLabel
           Left = 18
           Top = 229
@@ -14802,32 +14759,13 @@ object frmSummaryMissile: TfrmSummaryMissile
             OnKeyPress = edtNumeralKeyPress
           end
         end
-        object edtMotionCharacteristic: TEdit
-          Tag = 4
-          Left = 19
-          Top = 40
-          Width = 687
-          Height = 23
-          ReadOnly = True
-          TabOrder = 1
-          Text = '(None)'
-        end
-        object btnMotionCharacteristic: TButton
-          Left = 712
-          Top = 40
-          Width = 28
-          Height = 22
-          Caption = '...'
-          TabOrder = 2
-          OnClick = btnMotionCharacteristicClick
-        end
         object grbBoosterSeparation: TGroupBox
           Left = 504
           Top = 80
           Width = 236
           Height = 113
           Enabled = False
-          TabOrder = 3
+          TabOrder = 1
           object lblRangeBooster: TLabel
             Left = 33
             Top = 23
@@ -14910,7 +14848,7 @@ object frmSummaryMissile: TfrmSummaryMissile
           Width = 177
           Height = 17
           Caption = 'Booster Separation Required'
-          TabOrder = 4
+          TabOrder = 2
           OnClick = chkBoosterSeparationClick
         end
         object grbRadarPhysical: TGroupBox
@@ -14919,7 +14857,7 @@ object frmSummaryMissile: TfrmSummaryMissile
           Width = 223
           Height = 84
           Caption = ' Radar   '
-          TabOrder = 5
+          TabOrder = 3
           object lblFrontRadarPhysical: TLabel
             Left = 20
             Top = 24
@@ -14981,7 +14919,7 @@ object frmSummaryMissile: TfrmSummaryMissile
           Width = 223
           Height = 84
           Caption = ' Visual/Electro-Optical   '
-          TabOrder = 6
+          TabOrder = 4
           object lblFrontVisualPhysical: TLabel
             Left = 33
             Top = 24
@@ -15039,7 +14977,7 @@ object frmSummaryMissile: TfrmSummaryMissile
           Width = 223
           Height = 84
           Caption = ' Infrared   '
-          TabOrder = 7
+          TabOrder = 5
           object lblFrontInfraredPhysical: TLabel
             Left = 33
             Top = 24
@@ -16198,20 +16136,6 @@ object frmSummaryMissile: TfrmSummaryMissile
             OnChange = edtChange
             OnKeyPress = edtNumeralKeyPress
           end
-        end
-      end
-      object tsNotes: TTabSheet
-        BorderWidth = 10
-        Caption = 'Notes'
-        ImageIndex = 5
-        object mmoNotes: TMemo
-          Left = 0
-          Top = 0
-          Width = 771
-          Height = 402
-          Align = alClient
-          TabOrder = 0
-          OnChange = edtChange
         end
       end
     end
