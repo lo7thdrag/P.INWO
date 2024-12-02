@@ -48,9 +48,8 @@ type
     cbSetScale: TComboBox;
     btnIncrease: TToolButton;
     btnPan: TToolButton;
-    btnCenterGame: TToolButton;
-    btnZoom: TToolButton;
-    btnout: TToolButton;
+    btnZoomIn: TToolButton;
+    btnZoomOut: TToolButton;
     btnGameArea: TToolButton;
     btnRuller: TToolButton;
     ImageList1: TImageList;
@@ -74,8 +73,8 @@ type
     procedure btnIncreaseClick(Sender: TObject);
     procedure btnPanClick(Sender: TObject);
     procedure btnGameCenterClick(Sender: TObject);
-    procedure btnZoomClick(Sender: TObject);
-    procedure btnoutClick(Sender: TObject);
+    procedure btnZoomInClick(Sender: TObject);
+    procedure btnZoomOutClick(Sender: TObject);
     procedure btnGameAreaClick(Sender: TObject);
     procedure btnRullerClick(Sender: TObject);
     procedure Map1DrawUserLayer(ASender: TObject; const Layer: IDispatch; hOutputDC, hAttributeDC: Integer; const RectFull, RectInvalid: IDispatch);
@@ -94,12 +93,9 @@ type
   private
     FCanvas: TCanvas;
     FLyrDraw: CMapXLayer;
-//    FConverter: TCoordConverter;
     FMapCursor: TMapCursor;
     FSelectedOverlayTab : TOverlayTab;
     FSelectedTabProperties : TTabProperties;
-
-//    Fmx, Fmy: Double;
 
     procedure RoundCornerOf(Control: TWinControl; val1, val2: Integer);
 
@@ -114,6 +110,7 @@ type
 
     procedure UpdateTab;
     procedure RefreshTab;
+    procedure RefreshButton(IdButton : Integer);
 
     property MapCursor : TMapCursor read FMapCursor write  FMapCursor;
   end;
@@ -168,36 +165,6 @@ begin
   TVarData(TheVar).vError := DISP_E_PARAMNOTFOUND;
 end;
 
-procedure TfrmSituationBoard.tabMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-var
-  pos: Winapi.Windows.TPoint;
-
-begin
-
-  if Button = mbRight then
-  begin
-    GetCursorPos(pos);
-    pmTabProperties.Popup(pos.X, pos.Y);
-    FSelectedTabProperties := SimManager.SimTabProperties.GetTapProperties(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, TSpeedButton(Sender).Tag);
-  end;
-
-//  RefreshTab;
-end;
-
-procedure TfrmSituationBoard.btnCreateTabClick(Sender: TObject);
-begin
-  if not Assigned(frmCreateTab) then
-    frmCreateTab := TfrmCreateTab.Create(Self);
-
-  try
-    with frmCreateTab do
-    begin
-      Show;
-    end;
-  finally
-  end;
-end;
-
 procedure TfrmSituationBoard.btnTabClick(Sender: TObject);
 begin
   FSelectedTabProperties := SimManager.SimTabProperties.GetTapProperties(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, TSpeedButton(Sender).Tag);
@@ -205,16 +172,19 @@ begin
   RefreshTab;
 end;
 
-procedure TfrmSituationBoard.btnZoomClick(Sender: TObject);
+procedure TfrmSituationBoard.btnZoomInClick(Sender: TObject);
 begin
-  btnZoom.Down := not btnZoom.Down;
-  btnPan.Down := false;
+  RefreshButton(2)
+end;
 
-  FMapCursor := mcSelect;
-  Map1.CurrentTool := miZoomInTool;
-  Map1.MousePointer := miZoomInCursor;
+procedure TfrmSituationBoard.btnZoomOutClick(Sender: TObject);
+begin
+  RefreshButton(3)
+end;
 
-  btnZoom.ImageIndex := 5;
+procedure TfrmSituationBoard.btnPanClick(Sender: TObject);
+begin
+  RefreshButton(1)
 end;
 
 procedure TfrmSituationBoard.Button1Click(Sender: TObject);
@@ -322,7 +292,6 @@ end;
 
 procedure TfrmSituationBoard.btnGameAreaClick(Sender: TObject);
 begin
-  btnGameArea.ImageIndex := 10;
 
   if not Assigned(frmBrowseMap) then
     frmBrowseMap := TfrmBrowseMap.Create(Self);
@@ -334,6 +303,8 @@ begin
       TabCaption := FSelectedTabProperties.CaptionTab;
       Show;
     end;
+    RefreshButton(0);
+    btnGameArea.ImageIndex := 11;
   finally
   end;
 end;
@@ -353,22 +324,6 @@ begin
   cbSetScaleChange(cbSetScale);
 end;
 
-procedure TfrmSituationBoard.btnoutClick(Sender: TObject);
-begin
-  if btnZoom.Down then
-    btnZoom.Down := False;
-
-  btnout.Down := not btnout.Down;
-  btnPan.Down := false;
-
-  FMapCursor := mcSelect;
-
-  Map1.CurrentTool := miZoomoutTool;
-  Map1.MousePointer := miZoomoutCursor;
-
-  btnout.ImageIndex := 8;
-end;
-
 procedure TfrmSituationBoard.btnOverlayToolsClick(Sender: TObject);
 begin
   with frmOverlayTools do
@@ -376,19 +331,8 @@ begin
     SelectedOverlayTab := FSelectedOverlayTab;
     Show;
   end;
-end;
-
-procedure TfrmSituationBoard.btnPanClick(Sender: TObject);
-begin
-  btnPan.Down := not btnPan.Down;
-  btnZoom.Down := false;
-
-  FMapCursor := mcSelect;
-
-  Map1.CurrentTool := miPanTool;
-  Map1.MousePointer := miPanCursor;
-
-  btnPan.ImageIndex := 6;
+  RefreshButton(0);
+  btnOverlayTools.ImageIndex := 13;
 end;
 
 procedure TfrmSituationBoard.btnRullerClick(Sender: TObject);
@@ -414,10 +358,7 @@ end;
 
 procedure TfrmSituationBoard.btnselectClick(Sender: TObject);
 begin
-  FMapCursor := mcSelect;
-
-  Map1.CurrentTool := miSelectTool;
-  Map1.MousePointer := miDefaultCursor;
+  RefreshButton(0)
 end;
 
 procedure TfrmSituationBoard.LoadMap(Geoset: String);
@@ -484,7 +425,9 @@ begin
     Exit;
   FCanvas.Handle := hOutputDC;
 
-  SimManager.SimOverlay.Draw(FCanvas, Map1, FSelectedTabProperties.IdOverlayTab);
+  if Assigned(FSelectedTabProperties) then
+    SimManager.SimOverlay.Draw(FCanvas, Map1, FSelectedTabProperties.IdOverlayTab);
+
 //  DrawOverlay.drawAll(FCanvas, Map1);
   simMgrClient.DrawFlagPoint.Draw(FCanvas);
 
@@ -562,21 +505,84 @@ begin
   Close;
 end;
 
+procedure TfrmSituationBoard.RefreshButton(IdButton : Integer);
+begin
+  btnSelect.ImageIndex := 2;
+  btnPan.ImageIndex := 4;
+  btnZoomIn.ImageIndex := 6;
+  btnZoomOut.ImageIndex := 8;
+
+  case IdButton of
+    0: {btnSelect}
+    begin
+      FMapCursor := mcSelect;
+
+      Map1.CurrentTool := miSelectTool;
+      Map1.MousePointer := miDefaultCursor;
+    end;
+    1: {btnPan}
+    begin
+      btnPan.Down := not btnPan.Down;
+      btnZoomOut.Down := false;
+      btnZoomIn.Down := False;
+
+      FMapCursor := mcSelect;
+      Map1.CurrentTool := miPanTool;
+      Map1.MousePointer := miPanCursor;
+
+      if btnPan.Down then
+        btnPan.ImageIndex := 5
+      else
+        btnPan.ImageIndex := 4;
+    end;
+    2: {btnZoomIn}
+    begin
+      btnZoomIn.Down := not btnZoomIn.Down;
+      btnPan.Down := false;
+      btnZoomOut.Down := false;
+
+      FMapCursor := mcSelect;
+      Map1.CurrentTool := miZoomInTool;
+      Map1.MousePointer := miZoomInCursor;
+
+      if btnZoomIn.Down then
+        btnZoomIn.ImageIndex := 7
+      else
+        btnZoomIn.ImageIndex := 6;
+    end;
+    3: {btnZoomOut}
+    begin
+      btnZoomOut.Down := not btnZoomOut.Down;
+      btnPan.Down := false;
+      btnZoomIn.Down := False;
+
+      FMapCursor := mcSelect;
+      Map1.CurrentTool := miZoomoutTool;
+      Map1.MousePointer := miZoomoutCursor;
+
+      if btnZoomOut.Down then
+        btnZoomOut.ImageIndex := 9
+      else
+        btnZoomOut.ImageIndex := 8;
+    end;
+  end;
+end;
+
 procedure TfrmSituationBoard.RefreshTab;
 begin
+  pnlHome.BringToFront;
+
   if Assigned(FSelectedTabProperties) then
   begin
-    case FSelectedTabProperties.TypeTab of
-      0 :
-      begin
-        LoadTabMap;
-        pnlMap.BringToFront;
-      end;
-      1 :
-      begin
-        LoadTabImage;
-        pnlImage.BringToFront;
-      end;
+    if FSelectedTabProperties.TypeTab = 0 then
+    begin
+      LoadTabMap;
+      pnlMap.BringToFront;
+    end
+    else if FSelectedTabProperties.TypeTab = 1 then
+    begin
+      LoadTabImage;
+      pnlImage.BringToFront;
     end;
   end;
 end;
@@ -587,6 +593,8 @@ var
   widthTemp : Integer;
 
 begin
+  pnlHome.BringToFront;
+
   widthTemp := Round(pnlHeaderSituationBoard.Width/13);
 
   tagTemp := 1;
@@ -602,7 +610,7 @@ begin
           if TSpeedButton(Components[i]).Tag = tagTemp then
           begin
             TSpeedButton(Components[i]).Width := widthTemp;
-            TSpeedButton(Components[i]).Caption := IntToStr(TSpeedButton(Components[i]).Tag) + SimManager.SimTabProperties.GetCaptionTab(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, tagTemp);
+            TSpeedButton(Components[i]).Caption := SimManager.SimTabProperties.GetCaptionTab(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, tagTemp);
           end;
         end;
         inc(tagTemp);
@@ -788,11 +796,59 @@ begin
 
     simMgrClient.netSend_CmdSituationBoardTabProperties(rec);
   end;
+
+  FSelectedTabProperties := nil;
+end;
+
+procedure TfrmSituationBoard.tabMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+var
+  pos: Winapi.Windows.TPoint;
+
+begin
+  if Button = mbRight then
+  begin
+    GetCursorPos(pos);
+    pmTabProperties.Popup(pos.X, pos.Y);
+    FSelectedTabProperties := SimManager.SimTabProperties.GetTapProperties(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, TSpeedButton(Sender).Tag);
+  end;
+end;
+
+procedure TfrmSituationBoard.btnCreateTabClick(Sender: TObject);
+begin
+  if not Assigned(frmCreateTab) then
+    frmCreateTab := TfrmCreateTab.Create(Self);
+
+  try
+    with frmCreateTab do
+    begin
+      OrderState := NEW_TAB;
+      edtCaption.Text := '';
+      cbbType.ItemIndex := 0;
+      cbbType.Enabled := True;
+      Show;
+    end;
+  finally
+  end;
 end;
 
 procedure TfrmSituationBoard.miRenameClick(Sender: TObject);
 begin
-//
+  if not Assigned(frmCreateTab) then
+    frmCreateTab := TfrmCreateTab.Create(Self);
+
+  try
+    with frmCreateTab do
+    begin
+      OrderState := EDIT_TAB;
+      edtCaption.Text := FSelectedTabProperties.CaptionTab;
+      cbbType.ItemIndex := FSelectedTabProperties.TypeTab;
+      cbbType.Enabled := False;
+      TabIndex := FSelectedTabProperties.IdTab;
+      TabAddress := FSelectedTabProperties.AddressTab;
+      Show;
+    end;
+  finally
+  end;
 end;
 
 end.
