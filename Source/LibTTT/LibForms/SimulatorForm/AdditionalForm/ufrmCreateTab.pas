@@ -27,7 +27,9 @@ type
     { Private declarations }
 
   public
-    { Public declarations }
+    OrderState : Byte;
+    TabIndex : Integer;
+    TabAddress : string;
   end;
 
 var
@@ -48,22 +50,33 @@ var
   rec : TRecTCPSendSituationBoardTabProperties;
 begin
 
-  for i := 1 to 13 do
-  begin
-    if not SimManager.SimTabProperties.GetActiveTab(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, i) then
-      Break;
+  case OrderState of
+    NEW_TAB :
+    begin
+      for i := 1 to 13 do
+      begin
+        if not SimManager.SimTabProperties.GetActiveTab(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, i) then
+          Break;
+      end;
+
+      rec.TabId := i;
+      rec.TabType := cbbType.ItemIndex;
+
+      if cbbType.ItemIndex = 0 then
+        rec.TabAddres := '\indonesia-Background\indonesia-Background.gst'
+      else
+        rec.TabAddres := '\DefaultImage.png';
+    end;
+    EDIT_TAB :
+    begin
+      rec.TabId := TabIndex;
+      rec.TabAddres := TabAddress;
+    end;
   end;
 
-  rec.OrderID := NEW_TAB;
-  rec.TabId := i;
+  rec.OrderID := OrderState;
   rec.UserRoleId := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
   rec.TabCaption := edtCaption.Text;
-  rec.TabType := cbbType.ItemIndex;
-
-  if cbbType.ItemIndex = 0 then
-    rec.TabAddres := '\indonesia-Background\indonesia-Background.gst'
-  else
-    rec.TabAddres := '\DefaultImage.png';
 
   simMgrClient.netSend_CmdSituationBoardTabProperties(rec);
 
@@ -78,8 +91,8 @@ end;
 
 procedure TfrmCreateTab.FormActivate(Sender: TObject);
 begin
-  edtCaption.Text := '';
-  cbbType.ItemIndex := 0;
+//  edtCaption.Text := '';
+//  cbbType.ItemIndex := 0;
 end;
 
 end.

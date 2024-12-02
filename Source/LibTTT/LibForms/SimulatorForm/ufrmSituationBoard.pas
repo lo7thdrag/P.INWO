@@ -168,36 +168,6 @@ begin
   TVarData(TheVar).vError := DISP_E_PARAMNOTFOUND;
 end;
 
-procedure TfrmSituationBoard.tabMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-var
-  pos: Winapi.Windows.TPoint;
-
-begin
-
-  if Button = mbRight then
-  begin
-    GetCursorPos(pos);
-    pmTabProperties.Popup(pos.X, pos.Y);
-    FSelectedTabProperties := SimManager.SimTabProperties.GetTapProperties(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, TSpeedButton(Sender).Tag);
-  end;
-
-//  RefreshTab;
-end;
-
-procedure TfrmSituationBoard.btnCreateTabClick(Sender: TObject);
-begin
-  if not Assigned(frmCreateTab) then
-    frmCreateTab := TfrmCreateTab.Create(Self);
-
-  try
-    with frmCreateTab do
-    begin
-      Show;
-    end;
-  finally
-  end;
-end;
-
 procedure TfrmSituationBoard.btnTabClick(Sender: TObject);
 begin
   FSelectedTabProperties := SimManager.SimTabProperties.GetTapProperties(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, TSpeedButton(Sender).Tag);
@@ -602,7 +572,7 @@ begin
           if TSpeedButton(Components[i]).Tag = tagTemp then
           begin
             TSpeedButton(Components[i]).Width := widthTemp;
-            TSpeedButton(Components[i]).Caption := IntToStr(TSpeedButton(Components[i]).Tag) + SimManager.SimTabProperties.GetCaptionTab(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, tagTemp);
+            TSpeedButton(Components[i]).Caption := SimManager.SimTabProperties.GetCaptionTab(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, tagTemp);
           end;
         end;
         inc(tagTemp);
@@ -790,9 +760,55 @@ begin
   end;
 end;
 
+procedure TfrmSituationBoard.tabMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+var
+  pos: Winapi.Windows.TPoint;
+
+begin
+  if Button = mbRight then
+  begin
+    GetCursorPos(pos);
+    pmTabProperties.Popup(pos.X, pos.Y);
+    FSelectedTabProperties := SimManager.SimTabProperties.GetTapProperties(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, TSpeedButton(Sender).Tag);
+  end;
+end;
+
+procedure TfrmSituationBoard.btnCreateTabClick(Sender: TObject);
+begin
+  if not Assigned(frmCreateTab) then
+    frmCreateTab := TfrmCreateTab.Create(Self);
+
+  try
+    with frmCreateTab do
+    begin
+      OrderState := NEW_TAB;
+      edtCaption.Text := '';
+      cbbType.ItemIndex := 0;
+      cbbType.Enabled := True;
+      Show;
+    end;
+  finally
+  end;
+end;
+
 procedure TfrmSituationBoard.miRenameClick(Sender: TObject);
 begin
-//
+  if not Assigned(frmCreateTab) then
+    frmCreateTab := TfrmCreateTab.Create(Self);
+
+  try
+    with frmCreateTab do
+    begin
+      OrderState := EDIT_TAB;
+      edtCaption.Text := FSelectedTabProperties.CaptionTab;
+      cbbType.ItemIndex := FSelectedTabProperties.TypeTab;
+      cbbType.Enabled := False;
+      TabIndex := FSelectedTabProperties.IdTab;
+      TabAddress := FSelectedTabProperties.AddressTab;
+      Show;
+    end;
+  finally
+  end;
 end;
 
 end.
