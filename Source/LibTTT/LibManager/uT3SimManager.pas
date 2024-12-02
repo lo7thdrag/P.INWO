@@ -34,6 +34,8 @@ type
     FReg       : TRegistry;
     FConverter : TCoordConverter;
 
+    function GetConsoleIdentification : Boolean;
+
   protected
     FSessionID : integer;
 
@@ -198,7 +200,8 @@ end;
 
 procedure TT3SimManager.LoadConsoleID;
 begin
-  SimConsole.LoadFromFile(vGameDataSetting.GroupSetting);
+  if GetConsoleIdentification then
+    SimConsole.LoadFromFile(vGameDataSetting.GroupSetting);
 end;
 
 procedure TT3SimManager.LoadDataAsset(const vSet: TGameDataSetting);
@@ -213,64 +216,67 @@ begin
   FMainVTime.Reset(0);
   FMainVTime.DateTimeOffset := 0;
 
-  {$REGION ' Load Role '}
-  listTemp := TList.Create;
-  dmINWO.GetAllRole(listTemp);
-
-  for i := 0 to listTemp.Count-1 do
+  if GetConsoleIdentification then
   begin
-    roleTemp := listTemp.Items[i];
 
-    if Assigned(roleTemp) then
+    {$REGION ' Load Role '}
+    listTemp := TList.Create;
+    dmINWO.GetAllRole(listTemp);
+
+    for i := 0 to listTemp.Count-1 do
     begin
-      SimRole.addRole(roleTemp);
-    end;
-  end;
-  listTemp.Clear;
-  {$ENDREGION}
-
-  {$REGION ' Load SubRole '}
-  listTemp := TList.Create;
-  dmINWO.GetAllSubRole(listTemp);
-
-  for i := 0 to listTemp.Count-1 do
-  begin
-    subRoleTemp := listTemp.Items[i];
-
-    if Assigned(subRoleTemp) then
-    begin
-      SimSubRole.addSubRole(subRoleTemp);
-    end;
-  end;
-  listTemp.Clear;
-  {$ENDREGION}
-
-  {$REGION ' Load UserRole '}
-  listTemp := TList.Create;
-  dmINWO.GetAllUserRole(listTemp);
-
-  for i := 0 to listTemp.Count-1 do
-  begin
-    userRoleTemp := listTemp.Items[i];
-
-    if Assigned(userRoleTemp) then
-    begin
-      subRoleTemp := SimSubRole.getSubRoleByID(userRoleTemp.FData.SubRoleIndex);
-
-      if Assigned(subRoleTemp) then
-        userRoleTemp.FSubRoleData := subRoleTemp.FData;
-
-      roleTemp := SimRole.getRoleByID(userRoleTemp.FData.RoleIndex);
+      roleTemp := listTemp.Items[i];
 
       if Assigned(roleTemp) then
-        userRoleTemp.FRoleData := roleTemp.FData;
-
-      SimUserRole.addUserRole(userRoleTemp);
+      begin
+        SimRole.addRole(roleTemp);
+      end;
     end;
-  end;
-  listTemp.Free;
-  {$ENDREGION}
+    listTemp.Clear;
+    {$ENDREGION}
 
+    {$REGION ' Load SubRole '}
+    listTemp := TList.Create;
+    dmINWO.GetAllSubRole(listTemp);
+
+    for i := 0 to listTemp.Count-1 do
+    begin
+      subRoleTemp := listTemp.Items[i];
+
+      if Assigned(subRoleTemp) then
+      begin
+        SimSubRole.addSubRole(subRoleTemp);
+      end;
+    end;
+    listTemp.Clear;
+    {$ENDREGION}
+
+    {$REGION ' Load UserRole '}
+    listTemp := TList.Create;
+    dmINWO.GetAllUserRole(listTemp);
+
+    for i := 0 to listTemp.Count-1 do
+    begin
+      userRoleTemp := listTemp.Items[i];
+
+      if Assigned(userRoleTemp) then
+      begin
+        subRoleTemp := SimSubRole.getSubRoleByID(userRoleTemp.FData.SubRoleIndex);
+
+        if Assigned(subRoleTemp) then
+          userRoleTemp.FSubRoleData := subRoleTemp.FData;
+
+        roleTemp := SimRole.getRoleByID(userRoleTemp.FData.RoleIndex);
+
+        if Assigned(roleTemp) then
+          userRoleTemp.FRoleData := roleTemp.FData;
+
+        SimUserRole.addUserRole(userRoleTemp);
+      end;
+    end;
+    listTemp.Free;
+    {$ENDREGION}
+  end;
 end;
 
 procedure TT3SimManager.OnOverlayShape(const rec: TRecTCPSendOverlayShape);
@@ -827,6 +833,18 @@ end;
 procedure TT3SimManager.InitNetwork;
 begin
   // some of register packet
+end;
+
+function TT3SimManager.GetConsoleIdentification: Boolean;
+var
+  snTemp      : string;
+  regTemp     : string;
+
+begin
+  snTemp :=  '';
+  regTemp := '';
+
+  Result := snTemp = regTemp;
 end;
 
 function TT3SimManager.GetGameState: Boolean;
