@@ -171,6 +171,7 @@ procedure TfrmSelfDefensiveJammerOnBoardPickList.btnDeleteClick(
   Sender: TObject);
 var
   warning : Integer;
+  tempList: TList;
 begin
   if lbAllDefensiveJammerDef.ItemIndex = -1 then
   begin
@@ -186,13 +187,13 @@ begin
     begin
 
       {Pengecekan Relasi Dengan Tabel On Board}
-      if dmINWO.GetSensor_On_Board_By_Index(1, Defensive_Jammer_Index) then
+      if dmINWO.GetCountermeasure_On_Board_By_Index(6, Defensive_Jammer_Index) then
       begin
         ShowMessage('Cannot delete, because is already in used by some vehicles');
         Exit;
       end;
 
-      if dmINWO.DeleteRadarDef(Defensive_Jammer_Index) then
+      if dmINWO.DeleteSelfDefensiveJammerDef(Defensive_Jammer_Index) then
         ShowMessage('Data has been deleted');
 
     end;

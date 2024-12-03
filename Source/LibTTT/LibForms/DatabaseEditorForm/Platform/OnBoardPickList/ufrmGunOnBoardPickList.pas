@@ -156,7 +156,7 @@ begin
     dmINWO.DeletePointEffectOnBoard(2, Point_Effect_Index);
   end;
 
-//  UpdateGunList;
+  UpdateGunList;
 end;
 
 procedure TfrmGunOnBoardPickList.btnUpdateClick(Sender: TObject);

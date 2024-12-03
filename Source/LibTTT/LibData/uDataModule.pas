@@ -364,7 +364,7 @@ type
 
     {$REGION ' Countermeasure On Board '}
 
-//    function GetCountermeasure_On_Board_By_Index(const typeOnBoard, id: Integer): Boolean; {New}
+    function GetCountermeasure_On_Board_By_Index(const typeOnBoard, id: Integer): Boolean; {New}
 
     function GetAcousticDecoyOnBoard(const aVehicleID: Integer; var aList: TList): Integer;
     function GetAirBubbleOnBoard(const aVehicleID: Integer; var aList: TList): Integer;
@@ -6507,7 +6507,7 @@ begin
       SQL.Add('WHERE Class_Identifier = ' + QuotedStr(Class_Identifier));
       Open;
 
-      EOD_Index := FieldByName('EOD_Index').AsInteger;
+      EOD_Index := FieldByName('EO_Index').AsInteger;
     end;
   end;
 end;
@@ -6628,7 +6628,7 @@ begin
           CPA_Detection_Capable := FieldByName('CPA_Detection_Capable')
             .AsInteger;
           CPA_Range_Limit := FieldByName('CPA_Range_Limit').AsSingle;
-          Sonar_Index := FieldByName('Sonar_Index').AsInteger;
+//          Sonar_Index := FieldByName('Sonar_Index').AsInteger;
         end;
 
         aList.Add(rec);
@@ -6700,7 +6700,7 @@ begin
           CPA_Detection_Capable := FieldByName('CPA_Detection_Capable')
             .AsInteger;
           CPA_Range_Limit := FieldByName('CPA_Range_Limit').AsSingle;
-          Sonar_Index := FieldByName('Sonar_Index').AsInteger;
+//          Sonar_Index := FieldByName('Sonar_Index').AsInteger;
         end;
 
         aList.Add(rec);
@@ -6723,7 +6723,7 @@ begin
     SQL.Clear;
     SQL.Add('SELECT *');
     SQL.Add('FROM Sonobuoy_Definition');
-    SQL.Add('WHERE a.Class_Identifier LIKE ' + QuotedStr(aClassName));
+    SQL.Add('WHERE Class_Identifier LIKE ' + QuotedStr(aClassName));
     Open;
 
     Result := RecordCount;
@@ -6746,7 +6746,7 @@ begin
     SQL.Add('Platform_Category, Platform_Type, Endurance_Time, Max_Depth,');
     SQL.Add('Length, Width, Height, Front_Acoustic_Cross,');
     SQL.Add('Side_Acoustic_Cross, Damage_Capacity, CPA_Detection_Capable,');
-    SQL.Add('CPA_Range_Limit, Sonar_Index)');
+    SQL.Add('CPA_Range_Limit)');
     SQL.Add('VALUES (');
 
     with aRec do
@@ -6765,8 +6765,7 @@ begin
       SQL.Add(FloatToStr(Side_Acoustic_Cross) + ', ');
       SQL.Add(IntToStr(Damage_Capacity) + ', ');
       SQL.Add(IntToStr(CPA_Detection_Capable) + ', ');
-      SQL.Add(FloatToStr(CPA_Range_Limit) + ', ');
-      SQL.Add(IntToStr(Sonar_Index) + ')');
+      SQL.Add(FloatToStr(CPA_Range_Limit) + ')');
       ExecSQL;
 
       Result := True;
@@ -6812,7 +6811,7 @@ begin
       SQL.Add(', Damage_Capacity = ' + IntToStr(Damage_Capacity));
       SQL.Add(', CPA_Detection_Capable = ' + IntToStr(CPA_Detection_Capable));
       SQL.Add(', CPA_Range_Limit = ' + FloatToStr(CPA_Range_Limit));
-      SQL.Add(', Sonar_Index = ' + IntToStr(Sonar_Index));
+//      SQL.Add(', Sonar_Index = ' + IntToStr(Sonar_Index));
       SQL.Add('WHERE Sonobuoy_Index = ' + IntToStr(Sonobuoy_Index));
     end;
 
@@ -6975,7 +6974,7 @@ begin
     SQL.Clear;
     SQL.Add('SELECT *');
     SQL.Add('FROM MAD_Definition');
-    SQL.Add('WHERE a.Class_Identifier LIKE ' + QuotedStr(aClassName));
+    SQL.Add('WHERE Class_Identifier LIKE ' + QuotedStr(aClassName));
     Open;
 
     Result := RecordCount;
@@ -10501,74 +10500,74 @@ end;
 
 {$REGION ' Countermeasure On Board '}
 
-//function TdmINWO.GetCountermeasure_On_Board_By_Index(const typeOnBoard, id: Integer): Boolean;
-//var
-//  ssql,tabel, indexField: string;
-//begin
-//  result := False;
-//  if not ZConn.Connected then
-//    exit;
-//
-//  case typeOnBoard of
-//    1:
-//    begin
-//      tabel := 'Acoustic_Decoy_On_Board';
-//      indexField := 'Decoy_Index';
-//    end;
-//    2:
-//    begin
-//      tabel := 'Air_Bubble_Mount';
-//      indexField := 'Air_Bubble_Index';
-//    end;
-//    3:
-//    begin
-//      tabel := 'Chaff_On_Board';
-//      indexField := 'Chaff_Index';
-//    end;
-//    4:
-//    begin
-//      tabel := 'Infrared_Decoy_On_Board';
-//      indexField := 'Infrared_Decoy_Index';
-//    end;
-//    5:
-//    begin
-//      tabel := 'Floating_Decoy_On_Board';
-//      indexField := 'Floating_Decoy_Index';
-//    end;
-//    6:
-//    begin
-//      tabel := 'Defensive_Jammer_On_Board';
-//      indexField := 'Defensive_Jammer_Index';
-//    end;
-//    7:
-//    begin
-//      tabel := 'Towed_Jammer_Decoy_On_Board';
-//      indexField := 'Towed_Decoy_Index';
-//    end;
-//    8:
-//    begin
-//      tabel := 'Jammer_On_Board';
-//      indexField := 'Jammer_Index';
-//    end;
-//  end;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//
-//    ssql := 'SELECT * ';
-//    ssql := ssql + 'FROM ' + tabel;
-//    ssql := ssql + ' WHERE ' + indexField + ' = ';
-//    ssql := ssql + IntToStr(id);
-//
-//    SQL.Add(ssql);
-//    Open;
-//
-//    if not IsEmpty then
-//      Result := True;
-//  end;
-//end;
+function TdmINWO.GetCountermeasure_On_Board_By_Index(const typeOnBoard, id: Integer): Boolean;
+var
+  ssql,tabel, indexField: string;
+begin
+  result := False;
+  if not ZConn.Connected then
+    exit;
+
+  case typeOnBoard of
+    1:
+    begin
+      tabel := 'Acoustic_Decoy_On_Board';
+      indexField := 'Decoy_Index';
+    end;
+    2:
+    begin
+      tabel := 'Air_Bubble_Mount';
+      indexField := 'Air_Bubble_Index';
+    end;
+    3:
+    begin
+      tabel := 'Chaff_On_Board';
+      indexField := 'Chaff_Index';
+    end;
+    4:
+    begin
+      tabel := 'Infrared_Decoy_On_Board';
+      indexField := 'Infrared_Decoy_Index';
+    end;
+    5:
+    begin
+      tabel := 'Floating_Decoy_On_Board';
+      indexField := 'Floating_Decoy_Index';
+    end;
+    6:
+    begin
+      tabel := 'Defensive_Jammer_On_Board';
+      indexField := 'Defensive_Jammer_Index';
+    end;
+    7:
+    begin
+      tabel := 'Towed_Jammer_Decoy_On_Board';
+      indexField := 'Towed_Decoy_Index';
+    end;
+    8:
+    begin
+      tabel := 'Jammer_On_Board';
+      indexField := 'Jammer_Index';
+    end;
+  end;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+
+    ssql := 'SELECT * ';
+    ssql := ssql + 'FROM ' + tabel;
+    ssql := ssql + ' WHERE ' + indexField + ' = ';
+    ssql := ssql + IntToStr(id);
+
+    SQL.Add(ssql);
+    Open;
+
+    if not IsEmpty then
+      Result := True;
+  end;
+end;
 
 function TdmINWO.GetAcousticDecoyOnBoard(const aVehicleID: Integer; var aList: TList): Integer;
 var

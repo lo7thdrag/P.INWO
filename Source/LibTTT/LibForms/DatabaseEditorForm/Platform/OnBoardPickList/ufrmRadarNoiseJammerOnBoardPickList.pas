@@ -191,6 +191,7 @@ end;
 procedure TfrmRadarNoiseJammerOnBoardPickList.btnDeleteClick(Sender: TObject);
 var
   warning : Integer;
+  tempList: TList;
 begin
   if lbAllRadarJammerDef.ItemIndex = -1 then
   begin
@@ -206,13 +207,13 @@ begin
     begin
 
       {Pengecekan Relasi Dengan Tabel On Board}
-      if dmINWO.GetSensor_On_Board_By_Index(1, Jammer_Index) then
+      if dmINWO.GetCountermeasure_On_Board_By_Index(8, Jammer_Index) then
       begin
         ShowMessage('Cannot delete, because is already in used by some vehicles');
         Exit;
       end;
 
-      if dmINWO.DeleteRadarDef(Jammer_Index) then
+      if dmINWO.DeleteRadarNoiseJammerDef(Jammer_Index) then
         ShowMessage('Data has been deleted');
 
     end;

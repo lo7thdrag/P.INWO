@@ -14267,7 +14267,7 @@ object frmSummarySonobuoy: TfrmSummarySonobuoy
       Top = 0
       Width = 351
       Height = 185
-      ActivePage = tsPhysical
+      ActivePage = tsGeneral
       Align = alClient
       TabHeight = 30
       TabOrder = 0
@@ -14294,6 +14294,7 @@ object frmSummarySonobuoy: TfrmSummarySonobuoy
           Width = 90
           Height = 15
           Caption = 'Sonar Definition :'
+          Visible = False
         end
         object txtMaxDepthUnits: TLabel
           Left = 201
@@ -14328,6 +14329,7 @@ object frmSummarySonobuoy: TfrmSummarySonobuoy
           ReadOnly = True
           TabOrder = 3
           Text = 'None'
+          Visible = False
         end
         object btnPick: TButton
           Left = 297
@@ -14336,6 +14338,7 @@ object frmSummarySonobuoy: TfrmSummarySonobuoy
           Height = 22
           Caption = '...'
           TabOrder = 2
+          Visible = False
           OnClick = btnPickClick
         end
         object medtEnduranceTime: TMaskEdit

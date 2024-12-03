@@ -129,8 +129,8 @@ begin
 
   end;
 
-//  isOK := True;
-//  AfterClose := True;
+  isOK := True;
+  AfterClose := True;
   btnApply.Enabled := False;
   btnCancel.Enabled := False;
 end;

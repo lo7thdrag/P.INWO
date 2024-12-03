@@ -188,6 +188,7 @@ end;
 procedure TfrmMADOnBoardPickList.btnDeleteClick(Sender: TObject);
 var
   warning : Integer;
+  tempList: TList;
 begin
   if lbAllMADDef.ItemIndex = -1 then
   begin
@@ -203,13 +204,13 @@ begin
     begin
 
       {Pengecekan Relasi Dengan Tabel On Board}
-      if dmINWO.GetSensor_On_Board_By_Index(1, MAD_Index) then
+      if dmINWO.GetSensor_On_Board_By_Index(2, MAD_Index) then
       begin
         ShowMessage('Cannot delete, because is already in used by some vehicles');
         Exit;
       end;
 
-      if dmINWO.DeleteRadarDef(MAD_Index) then
+      if dmINWO.DeleteMADDef(MAD_Index) then
         ShowMessage('Data has been deleted');
 
     end;

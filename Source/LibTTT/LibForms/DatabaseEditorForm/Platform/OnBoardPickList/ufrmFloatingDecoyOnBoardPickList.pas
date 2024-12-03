@@ -137,7 +137,7 @@ begin
   try
     with frmSummaryFloatingDecoy do
     begin
-      FSelectedFloatingDecoy := TFloating_Decoy_On_Board.Create;
+      SelectedFloatingDecoy := TFloating_Decoy_On_Board.Create;
       Show;
     end;
   finally
@@ -154,7 +154,7 @@ begin
     dmINWO.DeleteFloatingDecoyOnBoard(2,Floating_Decoy_Instance_Index);
   end;
 
-//  UpdateFloatingDecoyList;
+  UpdateFloatingDecoyList;
 end;
 
 procedure TfrmFloatingDecoyOnBoardPickList.btnUpdateClick(Sender: TObject);
@@ -187,6 +187,7 @@ end;
 procedure TfrmFloatingDecoyOnBoardPickList.btnDeleteClick(Sender: TObject);
 var
   warning : Integer;
+  tempList: TList;
 begin
   if lbAllFloatingDecoyDef.ItemIndex = -1 then
   begin
@@ -202,13 +203,13 @@ begin
     begin
 
       {Pengecekan Relasi Dengan Tabel On Board}
-      if dmINWO.GetSensor_On_Board_By_Index(1, Floating_Decoy_Index) then
+      if dmINWO.GetCountermeasure_On_Board_By_Index(1, Floating_Decoy_Index) then
       begin
         ShowMessage('Cannot delete, because is already in used by some vehicles');
         Exit;
       end;
 
-      if dmINWO.DeleteRadarDef(Floating_Decoy_Index) then
+      if dmINWO.DeleteFloatingDecoyDef(Floating_Decoy_Index) then
         ShowMessage('Data has been deleted');
 
     end;

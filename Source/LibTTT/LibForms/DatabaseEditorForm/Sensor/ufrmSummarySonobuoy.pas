@@ -179,21 +179,21 @@ end;
 
 procedure TfrmSummarySonobuoy.btnPickClick(Sender: TObject);
 begin
-//  frmSonarPickList := TfrmSonarPickList.Create(Self);
+//  frmSonobuoyOnBoardPickList := TfrmSonobuoyOnBoardPickList.Create(Self);
 //  try
-//    with frmSonarPickList do
+//    with frmSonobuoyOnBoardPickList do
 //    begin
-//      SelectedSonarId := FSelectedSonobuoy.FDef.Sonar_Index;
+//      SelectedSonobuoy := FSelectedSonobuoy.FDef.Sonobuoy_Index;
 //      ShowModal;
-//      FSelectedSonobuoy.FDef.Sonar_Index := SelectedSonarId;
+//      FSelectedSonobuoy.FDef.Sonobuoy_Index := SelectedSonobuoy;
 //    end;
 //
 //  finally
-//    frmSonarPickList.Free;
+//    frmSonobuoyOnBoardPickList.Free;
 //  end;
-
-  UpdateSonarData;
-  btnApply.Enabled := True;
+//
+//  UpdateSonobuoyData;
+//  btnApply.Enabled := True;
 end;
 
 procedure TfrmSummarySonobuoy.UpdateSonobuoyData;
@@ -295,11 +295,11 @@ begin
     end;
   end;
 
-  if FSelectedSonobuoy.FDef.Sonar_Index = 0 then
-  begin
-    ShowMessage('Sonar Definition not selected');
-    Exit;
-  end;
+//  if FSelectedSonobuoy.FDef.Sonar_Index = 0 then
+//  begin
+//    ShowMessage('Sonar Definition not selected');
+//    Exit;
+//  end;
 
   Result := True;
 end;

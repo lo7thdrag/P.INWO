@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, StdCtrls, ComCtrls, Vcl.Imaging.pngimage, Vcl.Mask,
-  {uDBAsset_Countermeasure,} uBaseCoordSystem;
+  {uDBAsset_Countermeasure,} uBaseCoordSystem, uDBAsset_Countermeasure;
 
 type
   TfrmSummaryFloatingDecoy = class(TForm)
@@ -72,7 +72,7 @@ type
 
 
   private
-//    FSelectedFloatingDecoy : TFloating_Decoy_On_Board;
+    FSelectedFloatingDecoy : TFloating_Decoy_On_Board;
 
     function CekInput: Boolean;
     procedure UpdateFloatingDecoyData;
@@ -82,8 +82,7 @@ type
     AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, list tdk perlu di update }
     LastName : string;
 
-//    property SelectedFloatingDecoy : TFloating_Decoy_On_Board
-//      read FSelectedFloatingDecoy write FSelectedFloatingDecoy;
+    property SelectedFloatingDecoy : TFloating_Decoy_On_Board read FSelectedFloatingDecoy write FSelectedFloatingDecoy;
   end;
 
 var
@@ -128,57 +127,57 @@ procedure TfrmSummaryFloatingDecoy.btnApplyClick(Sender: TObject);
 var
   second : Integer;
 begin
-//  with FSelectedFloatingDecoy do
-//  begin
-//    if not CekInput then
-//    begin
-//      isOK := False;
-//      Exit;
-//    end;
-//
-//    ValidationFormatInput;
-//
-//    {$REGION ' General '}
-//    LastName := edtClass.Text;
-//    FFloatingDecoy_Def.Floating_Decoy_Identifier := edtClass.Text;
-//
-//    FFloatingDecoy_Def.Length := StrToFloat(edtLengthDimensions.Text);
-//    FFloatingDecoy_Def.Width := StrToFloat(edtWidththDimensions.Text);
-//    FFloatingDecoy_Def.Height := StrToFloat(edtHeigthDimensions.Text);
-//
-//    {Catatan : Tidak ada field untuk menyimpan nilai comboboxnya}
-//    FFloatingDecoy_Def.Front_Radar_Cross := StrToFloat(edtFrontRadarCross.Text);
-//    FFloatingDecoy_Def.Side_Radar_Cross := StrToFloat(edtSideRadarCross.Text);
-//
-//    FFloatingDecoy_Def.Front_Acoustic_Cross := StrToFloat(edtFrontAcousticCross.Text);
-//    FFloatingDecoy_Def.Side_Acoustic_Cross := StrToFloat(edtSideAcousticCross.Text);
-//
-//    FFloatingDecoy_Def.Front_Visual_Cross := StrToFloat(edtFrontVisualCross.Text);
-//    FFloatingDecoy_Def.Side_Visual_Cross := StrToFloat(edtSideVisualCross.Text);
-//
-//    TimeToSecond(edtLifetimeDuration.Text, second);
-//    FFloatingDecoy_Def.Lifetime_Duration := second;
-//    {$ENDREGION}
-//    if FFloatingDecoy_Def.Floating_Decoy_Index = 0 then
-//    begin
-//      if dmTTT.InsertFloatingDecoyDef(FFloatingDecoy_Def) then
-//      begin
-//        ShowMessage('Data has been saved');
-//      end;
-//    end
-//    else
-//    begin
-//      if dmTTT.UpdateFloatingDecoyDef(FFloatingDecoy_Def) then
-//      begin
-//        ShowMessage('Data has been updated');
-//      end;
-//    end;
-//  end;
-//
-//  isOK := True;
-//  AfterClose := True;
-//  btnApply.Enabled := False;
-//  btnCancel.Enabled := False;
+  with FSelectedFloatingDecoy do
+  begin
+    if not CekInput then
+    begin
+      isOK := False;
+      Exit;
+    end;
+
+    ValidationFormatInput;
+
+    {$REGION ' General '}
+    LastName := edtClass.Text;
+    FDef.Floating_Decoy_Identifier := edtClass.Text;
+
+    FDef.Length := StrToFloat(edtLengthDimensions.Text);
+    FDef.Width := StrToFloat(edtWidththDimensions.Text);
+    FDef.Height := StrToFloat(edtHeigthDimensions.Text);
+
+    {Catatan : Tidak ada field untuk menyimpan nilai comboboxnya}
+    FDef.Front_Radar_Cross := StrToFloat(edtFrontRadarCross.Text);
+    FDef.Side_Radar_Cross := StrToFloat(edtSideRadarCross.Text);
+
+    FDef.Front_Acoustic_Cross := StrToFloat(edtFrontAcousticCross.Text);
+    FDef.Side_Acoustic_Cross := StrToFloat(edtSideAcousticCross.Text);
+
+    FDef.Front_Visual_Cross := StrToFloat(edtFrontVisualCross.Text);
+    FDef.Side_Visual_Cross := StrToFloat(edtSideVisualCross.Text);
+
+    TimeToSecond(edtLifetimeDuration.Text, second);
+    FDef.Lifetime_Duration := second;
+    {$ENDREGION}
+    if FDef.Floating_Decoy_Index = 0 then
+    begin
+      if dmINWO.InsertFloatingDecoyDef(FDef) then
+      begin
+        ShowMessage('Data has been saved');
+      end;
+    end
+    else
+    begin
+      if dmINWO.UpdateFloatingDecoyDef(FDef) then
+      begin
+        ShowMessage('Data has been updated');
+      end;
+    end;
+  end;
+
+  isOK := True;
+  AfterClose := True;
+  btnApply.Enabled := False;
+  btnCancel.Enabled := False;
 end;
 
 procedure TfrmSummaryFloatingDecoy.btnCancelClick(Sender: TObject);

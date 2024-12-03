@@ -189,6 +189,7 @@ end;
 procedure TfrmChaffOnBoardPickList.btnDeleteClick(Sender: TObject);
 var
   warning : Integer;
+  tempList: TList;
 begin
   if lbAllChaffDef.ItemIndex = -1 then
   begin
@@ -204,13 +205,13 @@ begin
     begin
 
       {Pengecekan Relasi Dengan Tabel On Board}
-      if dmINWO.GetSensor_On_Board_By_Index(1, Chaff_Index) then
+      if dmINWO.GetCountermeasure_On_Board_By_Index(3, Chaff_Index) then
       begin
         ShowMessage('Cannot delete, because is already in used by some vehicles');
         Exit;
       end;
 
-      if dmINWO.DeleteRadarDef(Chaff_Index) then
+      if dmINWO.DeleteChaffDef(Chaff_Index) then
         ShowMessage('Data has been deleted');
 
     end;

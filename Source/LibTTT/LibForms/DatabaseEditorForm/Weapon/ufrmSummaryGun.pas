@@ -151,15 +151,15 @@ uses
 
 procedure TfrmSummaryGun.FormShow(Sender: TObject);
 begin
-//  tsGeneral.Show;
-//  UpdateGunData;
-//
-//  with FSelectedGun.FData do
-//    btnApply.Enabled := Gun_Index = 0;
+  tsGeneral.Show;
+  UpdateGunData;
+
+  with FSelectedGun.FData do
+    btnApply.Enabled := Gun_Index = 0;
 //
 //  isOK := True;
 //  AfterClose := True;
-//  btnCancel.Enabled := True;
+  btnCancel.Enabled := True;
 end;
 
 {$ENDREGION}
@@ -228,7 +228,8 @@ begin
 
     FDef.NGS_DamageRating := trckbrDamageRating.Position;
     {$ENDREGION}
-    if FData.Gun_Index = 0 then
+
+    if FDef.Gun_Index = 0 then
     begin
       if dmINWO.InsertGunDef(FDef) then
       begin
@@ -336,7 +337,7 @@ procedure TfrmSummaryGun.UpdateGunData;
 begin
   with FSelectedGun do
   begin
-    if FData.Gun_Index = 0 then
+    if FDef.Gun_Index = 0 then
       edtClass.Text := '(Unnamed)'
     else
       edtClass.Text := FDef.Gun_Identifier;
@@ -422,7 +423,7 @@ begin
   if (dmINWO.GetGunDef(edtClass.Text)>0) then
   begin
     {Jika inputan baru}
-    if FSelectedGun.FData.Gun_Index = 0 then
+    if FSelectedGun.FDef.Gun_Index = 0 then
     begin
       ShowMessage('Please use another class name');
       Exit;

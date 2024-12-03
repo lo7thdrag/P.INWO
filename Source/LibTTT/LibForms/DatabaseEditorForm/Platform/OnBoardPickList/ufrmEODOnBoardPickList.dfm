@@ -15376,7 +15376,7 @@ object frmEODOnBoardPickList: TfrmEODOnBoardPickList
     OnClick = btnUpdateClick
   end
   object btnDelete: TImage
-    Left = 289
+    Left = 291
     Top = 559
     Width = 30
     Height = 30
