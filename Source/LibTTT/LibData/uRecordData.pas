@@ -270,6 +270,13 @@ type
     MaxWeightHangar       : Single;
   end;
 
+  TRecHosted_Platform =  record
+    Slave_Index            : integer;      // primary key table
+    Vehicle_Index          : integer;      // vehicle induknya
+    Hosted_Vehicle_Index   : integer;      // vehicle embarked
+    Quantity               : integer;      // jumlah embarked
+  end;
+
   TRecMissile_Definition =  record
     Missile_Index                    : integer;
     Class_Identifier                 : string[60];

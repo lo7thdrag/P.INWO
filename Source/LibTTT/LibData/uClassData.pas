@@ -234,6 +234,12 @@ type
     destructor Destroy;override;
   end;
 
+  THosted_Platform = class
+  public
+    FData: TRecHosted_Platform;
+    FVehicle: TRecVehicle_Definition
+  end;
+
   TVehicleOnBase = class
   public
     Name : string;

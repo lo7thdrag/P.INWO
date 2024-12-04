@@ -85,6 +85,13 @@ type
     function InsertVehicleDef(var aRec: TRecVehicle_Definition): Boolean;
     function UpdateVehicleDef(var aRec: TRecVehicle_Definition): Boolean;
     function DeleteVehicleDef(const aVehicleID: Integer): Boolean;
+
+    function GetHostPlatformCount(const aVehicleID: Integer): Integer;
+    function GetAllVehicleAtHostPlatform (const aVehicleID: Integer; var aList: TList): Integer;
+//    function GetHostedPlatform(const aVehicleID: Integer;var aList: TList): Integer;
+    function InsertHostedPlatform(var aRec: TRecHosted_Platform): Boolean;
+    function UpdateHostedPlatform(var aRec: TRecHosted_Platform): Boolean;
+    function DeleteHostedPlatform(const aDeleteType: Byte; aIndex: Integer): Boolean;
     {$ENDREGION}
 
     {$REGION ' Weapons Section '}
@@ -2226,6 +2233,172 @@ begin
     ExecSQL;
 
     Result := True;
+  end;
+end;
+
+function TdmINWO.GetAllVehicleAtHostPlatform(const aVehicleID: Integer; var aList: TList): Integer;
+var
+  i : Integer;
+  rec : THosted_Platform;
+begin
+  Result := -1;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT * ');
+    SQL.Add('FROM Hosted_Platform a JOIN Vehicle_Definition b ');
+    SQL.Add('ON a.Vehicle_Index = b.VehicleIndex ');
+    SQL.Add('WHERE a.Hosted_Vehicle_Index = ' + IntToStr(aVehicleID));
+    SQL.Add('ORDER BY b.VehicleIdentifier');
+    Open;
+
+    Result := RecordCount;
+
+    if Assigned(aList) then
+    begin
+      for i := 0 to aList.Count - 1 do
+      begin
+        rec := aList.Items[i];
+        rec.Free;
+      end;
+
+      aList.Clear;
+    end
+    else
+      aList := TList.Create;
+
+    if not IsEmpty then
+    begin
+      First;
+
+      while not Eof do
+      begin
+        rec := THosted_Platform.Create;
+
+        with rec.FData do
+        begin
+          FieldByName('Vehicle_Index').AsInteger;
+          Slave_Index := FieldByName('Slave_Index').AsInteger;
+          Vehicle_Index := FieldByName('Vehicle_Index').AsInteger;
+          Hosted_Vehicle_Index := FieldByName('Hosted_Vehicle_Index').AsInteger;
+          Quantity := FieldByName('Quantity').AsInteger;
+        end;
+
+        with rec.FVehicle do
+        begin
+          VehicleIndex := FieldByName('VehicleIndex').AsInteger;
+          VehicleIdentifier := FieldByName('VehicleIdentifier').AsString;
+        end;
+
+        aList.Add(rec);
+        Next;
+      end;
+    end;
+  end;
+end;
+
+function TdmINWO.GetHostPlatformCount(const aVehicleID: Integer): Integer;
+begin
+  Result := -1;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT *');
+    SQL.Add('FROM Hosted_Platform');
+    SQL.Add('WHERE Hosted_Vehicle_Index = ' + IntToStr(aVehicleID));
+    Open;
+
+    Result := RecordCount;
+  end;
+end;
+
+function TdmINWO.InsertHostedPlatform(var aRec: TRecHosted_Platform): Boolean;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('INSERT INTO Hosted_Platform');
+    SQL.Add('(Vehicle_Index, Hosted_Vehicle_Index, Quantity)');
+    SQL.Add('VALUES (');
+
+    with aRec do
+    begin
+      SQL.Add(IntToStr(Vehicle_Index) + ', ');
+      SQL.Add(IntToStr(Hosted_Vehicle_Index) + ', ');
+      SQL.Add(IntToStr(Quantity) + ')');
+      ExecSQL;
+
+      Result := True;
+
+      SQL.Clear;
+      SQL.Add('SELECT *');
+      SQL.Add('FROM Hosted_Platform');
+      SQL.Add('WHERE Vehicle_Index = ' + IntToStr(Vehicle_Index));
+      SQL.Add('AND Hosted_Vehicle_Index = ' + IntToStr(Hosted_Vehicle_Index));
+      Open;
+
+      Slave_Index := FieldByName('Slave_Index').AsInteger;
+    end;
+  end;
+end;
+
+function TdmINWO.UpdateHostedPlatform(var aRec: TRecHosted_Platform): Boolean;
+begin
+  Result := True;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('UPDATE Hosted_Platform ');
+
+    with aRec do
+    begin
+      SQL.Add('SET Vehicle_Index = ' + IntToStr(Vehicle_Index));
+      SQL.Add(', Hosted_Vehicle_Index = ' + IntToStr(Hosted_Vehicle_Index));
+      SQL.Add(', Quantity = ' + IntToStr(Quantity));
+      SQL.Add('WHERE Slave_Index = ' + IntToStr(Slave_Index));
+    end;
+
+    ExecSQL;
+  end;
+end;
+
+function TdmINWO.DeleteHostedPlatform(const aDeleteType: Byte; aIndex: Integer): Boolean;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('DELETE FROM Hosted_Platform');
+
+    case aDeleteType of
+      1: SQL.Add('WHERE Hosted_Vehicle_Index = ' + IntToStr(aIndex));
+      2: SQL.Add('WHERE Slave_Index = ' + IntToStr(aIndex));
+    end;
+
+    ExecSQL;
   end;
 end;
 
@@ -4737,87 +4910,6 @@ begin
   end;
 end;
 
-//function TdmINWO.GetFittedWeaponLauncherOnBoard(const aWeaponID: Integer;   var aList: TList): Boolean;
-//var
-//  i : Integer;
-//  rec : TFitted_Weap_Launcher_On_Board;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('SELECT *');
-//    SQL.Add('FROM Fitted_Weap_Launcher_On_Board');
-//    SQL.Add('WHERE Fitted_Weap_Index = ' + IntToStr(aWeaponID));
-//    SQL.Add('ORDER BY Launcher_Type');
-//    Open;
-//
-//    Result := RecordCount > 0;
-//
-//    if Assigned(aList) then
-//    begin
-//      for i := 0 to aList.Count - 1 do
-//      begin
-//        rec := aList.Items[i];
-//        rec.Free;
-//      end;
-//
-//      aList.Clear;
-//    end
-//    else
-//      aList := TList.Create;
-//
-//    if not IsEmpty then
-//    begin
-//      First;
-//
-//      while not Eof do
-//      begin
-//        rec := TFitted_Weap_Launcher_On_Board.Create;
-//
-//        with rec.FData do
-//        begin
-//          Fitted_Weap_Index := FieldByName('Fitted_Weap_Index').AsInteger;
-//          Launcher_Type := FieldByName('Launcher_Type').AsInteger;
-//          Launcher_Angle_Required := FieldByName('Launcher_Angle_Required')
-//            .AsInteger;
-//          Launcher_Angle := FieldByName('Launcher_Angle').AsInteger;
-//          Launcher_Max_Qty := FieldByName('Launcher_Max_Qty').AsInteger;
-//        end;
-//
-//        aList.Add(rec);
-//        Next;
-//      end;
-//    end;
-//  end;
-//end;
-//
-//function TdmINWO.GetFittedWeaponLauncherOnBoardCount(const aFittedWeapID: Integer; const aType: Integer): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('SELECT *');
-//    SQL.Add('FROM Fitted_Weap_Launcher_On_Board');
-//    SQL.Add('WHERE Fitted_Weap_Index = ' + IntToStr(aFittedWeapID));
-//    SQL.Add('AND Launcher_Type = ' + IntToStr(aType));
-//    Open;
-//
-//    Result := RecordCount > 0;
-//  end;
-//end;
-
 function TdmINWO.InsertFittedWeaponOnBoard(const aInsertType: Byte;var aRec: TRecFitted_Weapon_On_Board): Boolean;
 begin
   Result := False;
@@ -5007,35 +5099,6 @@ begin
   end;
 end;
 
-//function TdmINWO.DeleteFittedWeaponLauncherOnBoard(const aDeleteType: Byte; const aIndex: Integer): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('DELETE FROM Fitted_Weap_Launcher_On_Board');
-//
-//    case aDeleteType of
-//      1:
-//      begin
-//        SQL.Add('WHERE Fitted_Weap_Index IN ( SELECT Fitted_Weap_Index');
-//        SQL.Add('FROM Fitted_Weapon_On_Board');
-//        SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aIndex) + ')');
-//      end;
-//      2: SQL.Add('WHERE Fitted_Weap_Index = ' + IntToStr(aIndex));
-//    end;
-//
-//    ExecSQL;
-//
-//    Result := True;
-//  end;
-//end;
-
 function TdmINWO.DeleteFittedWeaponOnBoard(const aDeleteType: Byte; const aIndex: Integer): Boolean;
 begin
   Result := False;
@@ -5105,86 +5168,6 @@ begin
     Result := RecordCount = 0;
   end;
 end;
-
-//function TdmINWO.InsertFittedWeaponLauncherOnBoard(const aRec: TRecFitted_Weap_Launcher_On_Board): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('INSERT INTO Fitted_Weap_Launcher_On_Board');
-//    SQL.Add('(Fitted_Weap_Index, Launcher_Type, Launcher_Angle_Required,');
-//    SQL.Add('Launcher_Angle, Launcher_Max_Qty)');
-//    SQL.Add('VALUES( ');
-//
-//    with aRec do
-//    begin
-//      SQL.Add(IntToStr(Fitted_Weap_Index) + ', ');
-//      SQL.Add(IntToStr(Launcher_Type) + ', ');
-//      SQL.Add(IntToStr(Launcher_Angle_Required) + ', ');
-//      SQL.Add(IntToStr(Launcher_Angle) + ', ');
-//      SQL.Add(IntToStr(Launcher_Max_Qty) + ')');
-//    end;
-//
-//    ExecSQL;
-//
-//    Result := True;
-//  end;
-//end;
-
-//function TdmINWO.UpdateFittedWeaponLauncherOnBoard(const aRec: TRecFitted_Weap_Launcher_On_Board): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('UPDATE Fitted_Weap_Launcher_On_Board');
-//
-//    with aRec do
-//    begin
-//      SQL.Add('SET Launcher_Angle_Required = ' + IntToStr(Launcher_Angle_Required));
-//      SQL.Add(', Launcher_Type = ' + IntToStr(Launcher_Type));
-//      SQL.Add(', Launcher_Angle = ' + IntToStr(Launcher_Angle));
-//      SQL.Add(', Launcher_Max_Qty = ' + IntToStr(Launcher_Max_Qty));
-//      SQL.Add('WHERE Fitted_Weap_Index = ' + IntToStr(Fitted_Weap_Index));
-//      SQL.Add('AND Launcher_Type = ' + IntToStr(LastLauncher_Type));
-//    end;
-//
-//    ExecSQL;
-//
-//    Result := True;
-//  end;
-//end;
-
-//function TdmINWO.DeleteFittedWeaponLauncherOnBoard(const aWeaponID, aLauncherType: Integer): Boolean;
-//begin
-//  Result := False;
-//
-//  if not ZConn.Connected then
-//    Exit;
-//
-//  with ZQ do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('DELETE FROM Fitted_Weap_Launcher_On_Board');
-//    SQL.Add('WHERE Fitted_Weap_Index = ' + IntToStr(aWeaponID));
-//    SQL.Add('AND Launcher_Type = ' + IntToStr(aLauncherType));
-//    ExecSQL;
-//
-//    Result := True;
-//  end;
-//end;
 
 {$ENDREGION}
 

@@ -737,6 +737,7 @@ end;
 procedure TfrmDisplayArea.btnDeleteAssetClick(Sender: TObject);
 var
   warning : Integer;
+  tempList: TList;
 begin
   if lvAsset.ItemIndex <> -1 then
   begin
@@ -746,6 +747,16 @@ begin
     begin
       with FSelectedAsset.FData do
       begin
+        tempList := TList.Create;
+
+        {Pengecekan Relasi Dengan Host Sebagai Embarked}
+        if dmINWO.GetAllVehicleAtHostPlatform(VehicleIndex, tempList) > 0 then
+        begin
+          ShowMessage('Cannot delete, This vehicle used as Embarked Platform by some Vehicle');
+          FreeItemsAndFreeList(tempList);
+          Exit;
+        end;
+
         if dmINWO.DeleteVehicleDef(VehicleIndex) then
           ShowMessage('Data has been deleted');
       end;

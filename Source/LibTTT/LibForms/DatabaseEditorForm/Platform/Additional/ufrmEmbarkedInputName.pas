@@ -4,8 +4,9 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Imaging.pngimage{,
-  uDBAssetObject};
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Imaging.pngimage,
+
+  uClassData, ufrmEmbarkedOnBoardPickList;
 
 type
   TfrmEmbarkedInputName = class(TForm)
@@ -22,14 +23,12 @@ type
 
     procedure btnOkClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
 
   private
-//    FSelectedEmbarkedPlat : THosted_Platform;
+    FSelectedEmbarkedPlat : THosted_Platform;
 
   public
-    AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, btn Cancel di summary menyala}
-//    property SelectedEmbarkedPlat : THosted_Platform read FSelectedEmbarkedPlat write FSelectedEmbarkedPlat;
+    property SelectedEmbarkedPlat : THosted_Platform read FSelectedEmbarkedPlat write FSelectedEmbarkedPlat;
 
   end;
 
@@ -45,18 +44,13 @@ uses
 
 {$REGION ' Form Handle '}
 
-procedure TfrmEmbarkedInputName.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-  Action := caFree;
-end;
-
 procedure TfrmEmbarkedInputName.FormShow(Sender: TObject);
 begin
-//  with FSelectedEmbarkedPlat do
-//  begin
-//    edtClass.Text := FVehicle.Vehicle_Identifier;
-//    edtQuantity.Text := IntToStr(FData.Quantity);
-//  end;
+  with FSelectedEmbarkedPlat do
+  begin
+    edtClass.Text := FVehicle.VehicleIdentifier;
+    edtQuantity.Text := IntToStr(FData.Quantity);
+  end;
 end;
 
 {$ENDREGION}
@@ -65,23 +59,24 @@ end;
 
 procedure TfrmEmbarkedInputName.btnOkClick(Sender: TObject);
 begin
-//  with FSelectedEmbarkedPlat do
-//  begin
-//    FData.Vehicle_Index := FVehicle.Vehicle_Index;
-//    FData.Quantity := StrToInt(edtQuantity.Text);
-//
-//    if FData.Slave_Index = 0 then
-//      dmTTT.InsertHostedPlatform(FData)
-//    else
-//      dmTTT.UpdateHostedPlatform(FData);
-//  end;
-//  AfterClose := True;
-//  Close;
+  with FSelectedEmbarkedPlat do
+  begin
+    FData.Vehicle_Index := FVehicle.VehicleIndex;
+    FData.Quantity := StrToInt(edtQuantity.Text);
+
+    if FData.Slave_Index = 0 then
+      dmINWO.InsertHostedPlatform(FData)
+    else
+      dmINWO.UpdateHostedPlatform(FData);
+  end;
+
+  frmEmbarkedOnBoardPickList.UpdateVehicleList;
+  Close;
 end;
 
 procedure TfrmEmbarkedInputName.btnCancelClick(Sender: TObject);
 begin
-  AfterClose := False;
+  frmEmbarkedOnBoardPickList.UpdateVehicleList;
   Close;
 end;
 

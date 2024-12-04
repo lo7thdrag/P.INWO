@@ -181,7 +181,7 @@ type
     Label57: TLabel;
     edtOfficer: TEdit;
     GroupBox2: TGroupBox;
-    lvTacticalSymbol: TListView;
+    lvOnboard: TListView;
     GroupBox7: TGroupBox;
     chkFrontGangway: TCheckBox;
     chkRearGangway: TCheckBox;
@@ -217,6 +217,7 @@ type
     procedure btnSensorsClick(Sender: TObject);
     procedure btnWeaponClick(Sender: TObject);
     procedure btnCountermeasuresClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
 
   private
     FSelectedAsset : TAsset ;
@@ -235,6 +236,7 @@ type
     procedure UpdateSensorData;
     procedure UpdateWeaponData;
     procedure UpdateCountermeasureData;
+    procedure UpdateOnBoardData;
 
     property SelectedAsset : TAsset read FSelectedAsset write FSelectedAsset;
   end;
@@ -787,6 +789,31 @@ begin
   end;
 end;
 
+procedure TfrmAsset.Button1Click(Sender: TObject);
+begin
+  {$REGION ' Jika class belum tersimpan '}
+  if FSelectedAsset.FData.VehicleIndex = 0 then
+  begin
+    ShowMessage('Save data Class before continue  ');
+    Exit;
+  end;
+  {$ENDREGION}
+
+  if not Assigned(frmEmbarkedOnBoardPickList) then
+    frmEmbarkedOnBoardPickList := TfrmEmbarkedOnBoardPickList.Create(Self);
+
+  try
+    with frmEmbarkedOnBoardPickList do
+    begin
+      SelectedVehicle := FSelectedAsset;
+      Show;
+    end;
+  finally
+  end;
+
+  btnApply.Enabled := True;
+end;
+
 procedure TfrmAsset.btnEmbarkedPlatformsClick(Sender: TObject);
 begin
 //  {$REGION 'jika class belum tersimpan'}
@@ -1068,6 +1095,8 @@ begin
     chkRotaryCarried.Checked        := Boolean(FData.RotaryCarried);
     edtMaxCapacityHangar.Text       := IntToStr(FData.MaxCapacityHangar);
     edtMaxWeightHangar.Text         := FormatFloat('0.00', FData.MaxWeightHangar);
+
+    UpdateOnBoardData;
 
     {$ENDREGION}
 
@@ -1450,6 +1479,34 @@ begin
       end;
       {$ENDREGION}
     end;
+  end;
+
+  FAssetList.Free;
+end;
+
+procedure TfrmAsset.UpdateOnBoardData;
+var
+  i : Integer;
+  li: TListItem;
+  FAssetList : TList;
+
+  onBoardTemp : THosted_Platform;
+
+begin
+  lvOnboard.Clear;
+
+  FAssetList := TList.Create;
+
+  dmINWO.GetAllVehicleAtHostPlatform(FSelectedAsset.FData.VehicleIndex, FAssetList);
+
+  for i := 0 to FAssetList.Count - 1 do
+  begin
+    onBoardTemp := FAssetList.Items[i];
+
+    li := lvOnboard.Items.Add;
+    li.Caption := onBoardTemp.FVehicle.VehicleIdentifier;
+
+    li.Data := onBoardTemp;
   end;
 
   FAssetList.Free;
