@@ -16,7 +16,7 @@ type
     lbl14: TLabel;
     Label1: TLabel;
     Label3: TLabel;
-    imgSimbolTaktis: TImage;
+    imgSimbolTaktisRed: TImage;
     edtKeterangan: TEdit;
     cbbTipe: TComboBox;
     cbbKategori: TComboBox;
@@ -28,10 +28,18 @@ type
     btnOk: TRzBmpButton;
     btnApply: TRzBmpButton;
     btnCancel: TRzBmpButton;
-    btnUpload: TRzBmpButton;
+    btnUploadRed: TRzBmpButton;
+    imgSimbolTaktisBlue: TImage;
+    Label4: TLabel;
+    btnUploadBlue: TRzBmpButton;
+    imgSimbolTaktisBlack: TImage;
+    Label5: TLabel;
+    btnUploadBlack: TRzBmpButton;
     procedure btnOkClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
-    procedure btnUploadClick(Sender: TObject);
+    procedure btnUploadBlackClick(Sender: TObject);
+    procedure btnUploadBlueClick(Sender: TObject);
+    procedure btnUploadRedClick(Sender: TObject);
     procedure cbbTipeChange(Sender: TObject);
     procedure cbbKategoriChange(Sender: TObject);
     procedure btnApplyClick(Sender: TObject);
@@ -40,8 +48,10 @@ type
 
   private
     FSelectedTacticalSymbol : TTactical_Symbol;
-    FPathDirectory : string;
-    FAddressPath  : string;
+    FPathDirectory   : string;
+    FAddressPath     : string;
+    FAddressPathBlue : string;
+    FAddressPathRed  : string;
     function CekInput: Boolean;
 
     procedure UpdateTacticalSymbol;
@@ -80,30 +90,77 @@ end;
 {$ENDREGION}
 
 {$REGION 'Button Event'}
-
-procedure TfrmSimbolTaktis.btnUploadClick(Sender: TObject);
+procedure TfrmSimbolTaktis.btnUploadBlackClick(Sender: TObject);
 var
   saveFileTemp : TTactical_Symbol;
-
 begin
   UploadImage := TSaveDialog.Create(self);
   UploadImage.InitialDir := GetCurrentDir;
-  UploadImage.Filter := 'Image Files(*.bmp)|*.bmp';
-  UploadImage.DefaultExt := 'bmp';
+  UploadImage.Filter := 'Image Files(*.png)|*.png';
+  UploadImage.DefaultExt := 'png';
   UploadImage.FilterIndex := 1;
 
   if UploadImage.Execute then
   begin
     FAddressPath := PWideChar(UploadImage.FileName);
 
-    imgSimbolTaktis.Picture.LoadFromFile(FAddressPath);
+    imgSimbolTaktisBlack.Picture.LoadFromFile(FAddressPath);
 
     btnApply.Enabled := True;
   end
   else
-    ShowMessage('Save file was cancelled');
+  ShowMessage('Save file was cancelled');
 
-    UploadImage.Free;
+  UploadImage.Free;
+end;
+
+procedure TfrmSimbolTaktis.btnUploadBlueClick(Sender: TObject);
+var
+  saveFileTemp : TTactical_Symbol;
+begin
+  UploadImage := TSaveDialog.Create(self);
+  UploadImage.InitialDir := GetCurrentDir;
+  UploadImage.Filter := 'Image Files(*.png)|*.png';
+  UploadImage.DefaultExt := 'png';
+  UploadImage.FilterIndex := 1;
+
+  if UploadImage.Execute then
+  begin
+    FAddressPathBlue := PWideChar(UploadImage.FileName);
+
+    imgSimbolTaktisBlue.Picture.LoadFromFile(FAddressPathBlue);
+
+    btnApply.Enabled := True;
+  end
+  else
+  ShowMessage('Save file was cancelled');
+
+  UploadImage.Free;
+
+end;
+
+procedure TfrmSimbolTaktis.btnUploadRedClick(Sender: TObject);
+var
+  saveFileTemp : TTactical_Symbol;
+begin
+  UploadImage := TSaveDialog.Create(self);
+  UploadImage.InitialDir := GetCurrentDir;
+  UploadImage.Filter := 'Image Files(*.png)|*.png';
+  UploadImage.DefaultExt := 'png';
+  UploadImage.FilterIndex := 1;
+
+  if UploadImage.Execute then
+  begin
+    FAddressPathRed := PWideChar(UploadImage.FileName);
+
+    imgSimbolTaktisRed.Picture.LoadFromFile(FAddressPathRed);
+
+    btnApply.Enabled := True;
+  end
+  else
+  ShowMessage('Save file was cancelled');
+
+  UploadImage.Free;
 end;
 
 procedure TfrmSimbolTaktis.cbbKategoriChange(Sender: TObject);
@@ -153,10 +210,14 @@ begin
       end;
     end;
 
-    CopyFile(PWideChar(FAddressPath), PWideChar(vGameDataSetting.FileSimbolTaktis + '\'+ IntToStr(Id_Tactical_Symbol) + '.bmp'), False);
+    CopyFile(PWideChar(FAddressPath), PWideChar(vGameDataSetting.FileSimbolTaktis + '\'+ IntToStr(Id_Tactical_Symbol) + '.png'), False);
+    CopyFile(PWideChar(FAddressPathBlue), PWideChar(vGameDataSetting.FileSimbolTaktis + '\'+ IntToStr(Id_Tactical_Symbol) + '_Blue.png'), False);
+    CopyFile(PWideChar(FAddressPathRed), PWideChar(vGameDataSetting.FileSimbolTaktis + '\'+ IntToStr(Id_Tactical_Symbol) + '_Red.png'), False);
   end;
 
-  FAddressPath := '';
+  FAddressPath     := '';
+  FAddressPathBlue := '';
+  FAddressPathRed  := '';
   isOK := True;
   AfterClose := True;
   btnApply.Enabled := False;
@@ -219,7 +280,6 @@ begin
     ShowMessage('Data sudah ada didalam database');
     Exit;
   end;
-
   Result := True;
 end;
 
@@ -234,29 +294,57 @@ end;
 
 procedure TfrmSimbolTaktis.UpdateTacticalSymbol;
 var
-  imagepath : string;
+  imagepathBlack, imagepathBlue : string;
+  imagepathRed : string;
 begin
   if Assigned(FSelectedTacticalSymbol) then
   begin
     with FSelectedTacticalSymbol.FData do
     begin
-      cbbTipe.ItemIndex := Tipe;
+      cbbTipe.ItemIndex     := Tipe;
       cbbKategori.ItemIndex := Kategori;
-      edtKeterangan.Text := Keterangan;
+      edtKeterangan.Text    := Keterangan;
 
       if Id_Tactical_Symbol = 0 then
-        exit;
+        Exit;
 
-      imagepath := Path_Directori + '\' + IntToStr(Id_Tactical_Symbol) + '.bmp';
-      if FileExists(imagepath) then
+      imagePathBlack := Path_Directori + '\' + IntToStr(Id_Tactical_Symbol) + '.png';
+      imagepathBlue  := Path_Directori + '\' + IntToStr(Id_Tactical_Symbol) + '_Blue.png';
+      imagepathRed   := Path_Directori + '\' + IntToStr(Id_Tactical_Symbol) + '_Red.png';
+
+      if FileExists(imagePathBlack) then
       begin
-        imgSimbolTaktis.Picture.LoadFromFile(imagepath);
-        FAddressPath := imagepath;
+        imgSimbolTaktisBlack.Picture.LoadFromFile(imagePathBlack);
+        FAddressPath := imagePathBlack;
       end
       else
       begin
-          ShowMessage('File gambar tidak ditemukan' + imagepath);
+          ShowMessage('File gambar tidak ditemukan' + imagePathBlack);
       end;
+
+      if FileExists(imagepathBlue) then
+      begin
+        imgSimbolTaktisBlue.Picture.LoadFromFile(imagepathBlue);
+        FAddressPathBlue := imagepathBlue;
+      end
+      else
+      begin
+          ShowMessage('File gambar tidak ditemukan' + imagepathBlue);
+      end;
+
+      if FileExists(imagepathRed) then
+      begin
+        imgSimbolTaktisRed.Picture.LoadFromFile(imagepathRed);
+        FAddressPathRed := imagepathRed;
+      end
+      else
+      begin
+          ShowMessage('File gambar tidak ditemukan' + imagepathRed);
+      end;
+
+      FAddressPath     := imagePathBlack;
+      FAddressPathBlue := imagepathBlue;
+      FAddressPathRed  := imagepathRed;
     end;
   end;
 end;

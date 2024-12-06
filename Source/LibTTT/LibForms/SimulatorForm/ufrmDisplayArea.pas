@@ -1060,7 +1060,8 @@ begin
 
     FSelectedTacticalSymbol := TTactical_Symbol(lvTacticalSymbol.Selected.Data);
 
-    imagepath := FSelectedTacticalSymbol.FData.Path_Directori + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '.bmp';
+    imagepath := FSelectedTacticalSymbol.FData.Path_Directori + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '.png';
+
     if FileExists(imagepath) then
     begin
       imgPreview.Picture.LoadFromFile(imagepath);
@@ -1071,7 +1072,7 @@ begin
       ShowMessage('File gambar tidak ditemukan' + imagepath);
     end;
 
-    lblNamaGambar.Caption := 'Nama Gambar: ' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '.bmp';
+    lblNamaGambar.Caption := 'Nama Gambar: ' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '.png';
     lblKeterangan.Caption := 'Keterangan: ' + Item.SubItems[0];
     lblTipe.Caption       := 'Tipe: ' + Item.SubItems[1];
     lblKategori.Caption   := 'Kategori: ' + Item.SubItems[2];
@@ -1116,7 +1117,9 @@ begin
   begin
     if Assigned(FSelectedTacticalSymbol) then
     begin
-      serverDirTemp := vGameDataSetting.FileSimbolTaktis + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '.bmp';
+      serverDirTemp := vGameDataSetting.FileSimbolTaktis + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '.png';
+      serverDirTemp := vGameDataSetting.FileSimbolTaktis + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '_Blue.png';
+      serverDirTemp := vGameDataSetting.FileSimbolTaktis + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '_Red.png';
 
       with FSelectedTacticalSymbol.FData do
       begin
@@ -1153,18 +1156,34 @@ end;
 
 procedure TfrmDisplayArea.btnUnduhClick(Sender: TObject);
 var
-  localDirTemp : String;
-  serverDirTemp : String;
-  localFileTemp : String;
+  localDirTemp   : String;
+  serverDirTemp  : String;
+  localFileTemp  : String;
+
+  localDirTempBlue  : String;
+  serverDirTempBlue : String;
+  localFileTempBlue : String;
+
+  localDirTempRed  : String;
+  serverDirTempRed : String;
+  localFileTempRed : String;
 begin
   if Assigned(FSelectedTacticalSymbol) then
   begin
     SelectDirectory('Select a directory', vGameDataSetting.LocalDirectory, localDirTemp);
 
-    serverDirTemp := FSelectedTacticalSymbol.FData.Path_Directori + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '.bmp';
-    localFileTemp := localDirTemp + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '.bmp';
+    serverDirTemp := FSelectedTacticalSymbol.FData.Path_Directori + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '.png';
+    localFileTemp := localDirTemp + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '.png';
+
+    serverDirTempBlue := FSelectedTacticalSymbol.FData.Path_Directori + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '_Blue.png';
+    localFileTempBlue := localDirTemp + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '_Blue.png';
+
+    serverDirTempRed := FSelectedTacticalSymbol.FData.Path_Directori + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '_Red.png';
+    localFileTempRed := localDirTemp + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '_Red.png';
 
     CopyFile(PWideChar(serverDirTemp), PWideChar(localFileTemp), False);
+    CopyFile(PWideChar(serverDirTempBlue), PWideChar(localFileTempBlue), False);
+    CopyFile(PWideChar(serverDirTempRed), PWideChar(localFileTempRed), False);
   end;
 end;
 
