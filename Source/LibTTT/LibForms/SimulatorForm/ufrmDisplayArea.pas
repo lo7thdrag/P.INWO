@@ -1036,7 +1036,6 @@ begin
     end;
   finally
   end;
-    UpdateSimbolTaktis;
 end;
 
 procedure TfrmDisplayArea.lvTacticalSymbolleSelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);
@@ -1097,15 +1096,14 @@ begin
       finally
       end;
    end;
-
-   UpdateSimbolTaktis;
-
 end;
 
 procedure TfrmDisplayArea.btnDeleteTacticalSymbolClick(Sender: TObject);
 var
   warning: Integer;
   serverDirTemp : String;
+  serverDirTempBlue : String;
+  serverDirTempRed : String;
 begin
 
   if lvTacticalSymbol.ItemIndex < 0  then
@@ -1117,9 +1115,9 @@ begin
   begin
     if Assigned(FSelectedTacticalSymbol) then
     begin
-      serverDirTemp := vGameDataSetting.FileSimbolTaktis + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '.png';
-      serverDirTemp := vGameDataSetting.FileSimbolTaktis + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '_Blue.png';
-      serverDirTemp := vGameDataSetting.FileSimbolTaktis + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '_Red.png';
+      serverDirTemp     := vGameDataSetting.FileSimbolTaktis + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '.png';
+      serverDirTempBlue := vGameDataSetting.FileSimbolTaktis + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '_Blue.png';
+      serverDirTempRed  := vGameDataSetting.FileSimbolTaktis + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '_Red.png';
 
       with FSelectedTacticalSymbol.FData do
       begin
@@ -1129,6 +1127,8 @@ begin
     end;
 
     DeleteFile(serverDirTemp);
+    DeleteFile(serverDirTempBlue);
+    DeleteFile(serverDirTempRed);
     FSelectedTacticalSymbol := nil;
 
     UpdateSimbolTaktis;
@@ -1173,13 +1173,13 @@ begin
     SelectDirectory('Select a directory', vGameDataSetting.LocalDirectory, localDirTemp);
 
     serverDirTemp := FSelectedTacticalSymbol.FData.Path_Directori + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '.png';
-    localFileTemp := localDirTemp + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '.png';
+    localFileTemp := localDirTemp + '\' + FSelectedTacticalSymbol.FData.Keterangan + '.png';
 
     serverDirTempBlue := FSelectedTacticalSymbol.FData.Path_Directori + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '_Blue.png';
-    localFileTempBlue := localDirTemp + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '_Blue.png';
+    localFileTempBlue := localDirTemp + '\' + FSelectedTacticalSymbol.FData.Keterangan + '_Blue.png';
 
     serverDirTempRed := FSelectedTacticalSymbol.FData.Path_Directori + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '_Red.png';
-    localFileTempRed := localDirTemp + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '_Red.png';
+    localFileTempRed := localDirTemp + '\' + FSelectedTacticalSymbol.FData.Keterangan + '_Red.png';
 
     CopyFile(PWideChar(serverDirTemp), PWideChar(localFileTemp), False);
     CopyFile(PWideChar(serverDirTempBlue), PWideChar(localFileTempBlue), False);
