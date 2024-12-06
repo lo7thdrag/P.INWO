@@ -274,6 +274,18 @@ begin
     Exit;
   end;
 
+  if FAddressPathBlue = '' then
+  begin
+    ShowMessage('Inputan gambar tidak lengkap');
+    Exit;
+  end;
+
+  if FAddressPathRed = '' then
+  begin
+    ShowMessage('Inputan gambar tidak lengkap');
+    Exit;
+  end;
+
   {Data sudah ada}
   if (dmINWO.GetFilterByTactical(FSelectedTacticalSymbol.FData)>0) and (FSelectedTacticalSymbol.FData.Id_Tactical_Symbol = 0)then
   begin
