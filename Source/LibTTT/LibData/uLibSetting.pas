@@ -82,9 +82,11 @@ type
     FileReferensi : string;
     FileSimbolTaktis : string;
     LocalDirectory : string;
+    ImageModel : string;
     ImgPath : string;
     RemotePort : integer ;
     TacticalScreen : Integer;
+    ToteScreen : Integer;
     DemoMode : Boolean;
     LogData : Boolean;
     DelaySendData : Cardinal;
@@ -319,6 +321,7 @@ begin
     SessionID       := INIFReadInteger(IniF, c_gdata, 'SessionId', 1111);
     RemotePort      := INIFReadInteger(IniF, c_gdata, 'RemotePort',9000);
     TacticalScreen  := INIFReadInteger(IniF, c_gdata, 'TacticalScreen',0);
+    ToteScreen      := INIFReadInteger(IniF, c_gdata, 'ToteScreen',0);
     DemoMode        := INIFReadBool(IniF, c_gdata, 'DemoMode', False);
     DelaySendData   := INIFReadInteger(IniF, c_gdata, 'DelaySendData', 500);
     LogData         := INIFReadBool(IniF, c_gdata, 'LogData', LogData);
@@ -329,6 +332,7 @@ begin
     FileSimbolTaktis:= IniFReadstring(inif, c_gdata, 'FileSimbolTaktis' , '');
     LocalDirectory  := IniFReadstring(inif, c_gdata, 'LocalDirectory' , 'D:\');
     ImgPath         := IniFReadstring(inif, c_gdata, 'ImgPath' , '.\data\bitmap\');
+    ImageModel      := IniFReadstring(inif, c_gdata, 'ImageModel' , '\\192.168.1.50\Program Files (x24)\Bin\data\Image DBEditor\Interface\');
   end;
   inif.Free;
 

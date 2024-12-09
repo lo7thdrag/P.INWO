@@ -88,7 +88,7 @@ type
 
     function GetHostPlatformCount(const aVehicleID: Integer): Integer;
     function GetAllVehicleAtHostPlatform (const aVehicleID: Integer; var aList: TList): Integer;
-//    function GetHostedPlatform(const aVehicleID: Integer;var aList: TList): Integer;
+    function GetThisVehicleInOtherPlatform(const aVehicleID: Integer): Integer;
     function InsertHostedPlatform(var aRec: TRecHosted_Platform): Boolean;
     function UpdateHostedPlatform(var aRec: TRecHosted_Platform): Boolean;
     function DeleteHostedPlatform(const aDeleteType: Byte; aIndex: Integer): Boolean;
@@ -174,7 +174,7 @@ type
 //    function InsertFittedWeaponLauncherOnBoard(const aRec: TRecFitted_Weap_Launcher_On_Board): Boolean;
 //    function UpdateFittedWeaponLauncherOnBoard(const aRec: TRecFitted_Weap_Launcher_On_Board): Boolean;
 //    function DeleteFittedWeaponLauncherOnBoard(const aWeaponID, aLauncherType: Integer): Boolean; overload;
-//    function DeleteFittedWeaponLauncherOnBoard(const aDeleteType: Byte; const aIndex: Integer): Boolean; overload;
+    function DeleteFittedWeaponLauncherOnBoard(const aDeleteType: Byte; const aIndex: Integer): Boolean; overload;
 
     {$ENDREGION}
 
@@ -1711,8 +1711,8 @@ begin
   begin
     Close;
     SQL.Clear;
-    SQL.Add('SELECT *');
-    SQL.Add('FROM Vehicle_Definition ');
+    SQL.Add('SELECT * FROM Vehicle_Definition');
+    SQL.Add('WHERE CarriableUnit = 1');
     SQL.Add('ORDER BY VehicleIdentifier');
     Open;
 
@@ -2074,9 +2074,7 @@ begin
       SQL.Add(BoolToStr(FixWingCarried) + ', ');
       SQL.Add(BoolToStr(RotaryCarried) + ', ');
       SQL.Add(IntToStr(MaxCapacityHangar) + ', ');
-      SQL.Add(FloatToStr(MaxWeightHangar) + ', ');
-
-      SQL.Add(BoolToStr(StarBoardGangway) + ')');
+      SQL.Add(FloatToStr(MaxWeightHangar) + ')');
       ExecSQL;
 
       SQL.Clear;
@@ -2112,105 +2110,54 @@ begin
 
     with aRec do
     begin
-//      SQL.Add('SET Vehicle_Identifier = ' + QuotedStr(Vehicle_Identifier));
-//      SQL.Add(', Platform_Domain = ' + IntToStr(Platform_Domain));
-//      SQL.Add(', Platform_Category = ' + IntToStr(Platform_Category));
-//      SQL.Add(', Platform_Type = ' + IntToStr(Platform_Type));
-      SQL.Add(', Motion_Characteristics = ' + IntToStr(11));
-//      SQL.Add(', Length = ' + FloatToStr(Length));
-//      SQL.Add(', Width = ' + FloatToStr(Width));
-//      SQL.Add(', Height = ' + FloatToStr(Height));
-//      SQL.Add(', Draft = ' + FloatToStr(Draft));
-//      SQL.Add(', Front_Radar_Cross = ' + FloatToStr(Front_Radar_Cross));
-//      SQL.Add(', Side_Radar_Cross = ' + FloatToStr(Side_Radar_Cross));
-//      SQL.Add(', Front_Acoustic_Cross = ' + FloatToStr(Front_Acoustic_Cross));
-//      SQL.Add(', Side_Acoustic_Cross = ' + FloatToStr(Side_Acoustic_Cross));
-//      SQL.Add(', Magnetic_Cross = ' + FloatToStr(Magnetic_Cross));
-//      SQL.Add(', Front_Visual_EO_Cross = ' + FloatToStr(Front_Visual_EO_Cross));
-//      SQL.Add(', Side_Visual_EO_Cross = ' + FloatToStr(Side_Visual_EO_Cross));
-//      SQL.Add(', Front_Infrared_Cross = ' + FloatToStr(Front_Infrared_Cross));
-//      SQL.Add(', Side_Infrared_Cross = ' + FloatToStr(Side_Infrared_Cross));
-//      SQL.Add(', LSpeed_Acoustic_Intens = ' + FloatToStr(LSpeed_Acoustic_Intens));
-//      SQL.Add(', Below_Cav_Acoustic_Intens = ' + FloatToStr(Below_Cav_Acoustic_Intens));
-//      SQL.Add(', Above_Cav_Acoustic_Intens = ' + FloatToStr(Above_Cav_Acoustic_Intens));
-//      SQL.Add(', HSpeed_Acoustic_Intens = ' + FloatToStr(HSpeed_Acoustic_Intens));
-//      SQL.Add(', Cavitation_Speed_Switch = ' + FloatToStr(Cavitation_Speed_Switch));
-//      SQL.Add(', Time_of_Weapon_Impact = ' + IntToStr(Time_of_Weapon_Impact));
-//      SQL.Add(', Chaff_Seduction_Capable = ' + BoolToStr(Chaff_Seduction_Capable));
-//      SQL.Add(', Seduction_Mode_Prob = ' + FloatToStr(Seduction_Mode_Prob));
-//      SQL.Add(', Min_Delay_Between_Chaff_Rounds = ' + IntToStr(Min_Delay_Between_Chaff_Rounds));
-//      SQL.Add(', Max_Chaff_Salvo_Size = ' + IntToStr(Max_Chaff_Salvo_Size));
-//      SQL.Add(', SARH_POH_Modifier = ' + FloatToStr(SARH_POH_Modifier));
-//      SQL.Add(', CG_POH_Modifier = ' + FloatToStr(CG_POH_Modifier));
-//      SQL.Add(', TARH_POH_Modifier = ' + FloatToStr(TARH_POH_Modifier));
-//      SQL.Add(', IR_POH_Modifier = ' + FloatToStr(IR_POH_Modifier));
-//      SQL.Add(', AR_POH_Modifier = ' + FloatToStr(AR_POH_Modifier));
-//      SQL.Add(', Active_Acoustic_Tor_POH_Mod = ' + FloatToStr(Active_Acoustic_Tor_POH_Mod));
-//      SQL.Add(', Passive_Acoustic_Tor_POH_Mod = ' + FloatToStr(Passive_Acoustic_Tor_POH_Mod));
-//      SQL.Add(', Active_Passive_Tor_POH_Mod = ' + FloatToStr(Active_Passive_Tor_POH_Mod));
-//      SQL.Add(', Wake_Home_POH_Modifier = ' + FloatToStr(Wake_Home_POH_Modifier));
-//      SQL.Add(', Wire_Guide_POH_Modifier = ' + FloatToStr(Wire_Guide_POH_Modifier));
-//      SQL.Add(', Mag_Mine_POH_Modifier = ' + FloatToStr(Mag_Mine_POH_Modifier));
-//      SQL.Add(', Press_Mine_POH_Modifier = ' + FloatToStr(Press_Mine_POH_Modifier));
-//      SQL.Add(', Impact_Mine_POH_Modifier = ' + FloatToStr(Impact_Mine_POH_Modifier));
-//      SQL.Add(', Acoustic_Mine_POH_Modifier = ' + FloatToStr(Acoustic_Mine_POH_Modifier));
-//      SQL.Add(', Sub_Comm_Antenna_Height = ' + FloatToStr(Sub_Comm_Antenna_Height));
-//      SQL.Add(', Rel_Comm_Antenna_Height = ' + FloatToStr(Rel_Comm_Antenna_Height));
-//      SQL.Add(', Max_Comm_Operating_Depth = ' + FloatToStr(Max_Comm_Operating_Depth));
-//      SQL.Add(', HF_Link_Capable = ' + BoolToStr(HF_Link_Capable));
-//      SQL.Add(', UHF_Link_Capable = ' + BoolToStr(UHF_Link_Capable));
-//      SQL.Add(', HF_Voice_Capable = ' + BoolToStr(HF_Voice_Capable));
-//      SQL.Add(', VHF_Voice_Capable = ' + BoolToStr(VHF_Voice_Capable));
-//      SQL.Add(', UHF_Voice_Capable = ' + BoolToStr(UHF_Voice_Capable));
-//      SQL.Add(', SATCOM_Voice_Capable = ' + BoolToStr(SATCOM_Voice_Capable));
-//      SQL.Add(', UWT_Voice_Capable = ' + BoolToStr(UWT_Voice_Capable));
-//      SQL.Add(', HF_MHS_Capable = ' + BoolToStr(HF_MHS_Capable));
-//      SQL.Add(', UHF_MHS_Capable = ' + BoolToStr(UHF_MHS_Capable));
-//      SQL.Add(', SATCOM_MHS_Capable = ' + BoolToStr(SATCOM_MHS_Capable));
-//      SQL.Add(', Damage_Capacity = ' + IntToStr(Damage_Capacity));
-//      SQL.Add(', Plat_Basing_Capability = ' + BoolToStr(Plat_Basing_Capability));
-//      SQL.Add(', Chaff_Capability = ' + BoolToStr(Chaff_Capability));
-//      SQL.Add(', Readying_Time = ' + IntToStr(Readying_Time));
-//      SQL.Add(', Sonobuoy_Capable = ' + BoolToStr(Sonobuoy_Capable));
-//      SQL.Add(', Nav_Light_Capable = ' + BoolToStr(Nav_Light_Capable));
-//      SQL.Add(', Periscope_Depth = ' + FloatToStr(Periscope_Depth));
-//      SQL.Add(', Periscope_Height_Above_Water = ' + FloatToStr(Periscope_Height_Above_Water));
-//      SQL.Add(', Periscope_Front_Radar_Xsection = ' + FloatToStr(Periscope_Front_Radar_Xsection));
-//      SQL.Add(', Periscope_Side_Radar_Xsection = ' + FloatToStr(Periscope_Side_Radar_Xsection));
-//      SQL.Add(', Periscope_Front_Vis_Xsection = ' + FloatToStr(Periscope_Front_Vis_Xsection));
-//      SQL.Add(', Periscope_Side_Vis_Xsection = ' +  FloatToStr(Periscope_Side_Vis_Xsection));
-//      SQL.Add(', Periscope_Front_IR_Xsection = ' + FloatToStr(Periscope_Front_IR_Xsection));
-//      SQL.Add(', Periscope_Side_IR_Xsection = ' + FloatToStr(Periscope_Side_IR_Xsection));
-//      SQL.Add(', Engagement_Range = ' + FloatToStr(Engagement_Range));
-//      SQL.Add(', Auto_Air_Defense_Capable = ' + BoolToStr(Auto_Air_Defense_Capable));
-//      SQL.Add(', Alert_State_Time = ' + FloatToStr(Alert_State_Time));
-//      SQL.Add(', Detectability_Type = ' + IntToStr(Detectability_Type));
-//      SQL.Add(', Max_Sonobuoys_To_Monitor = ' + IntToStr(Max_Sonobuoys_To_Monitor));
-//      SQL.Add(', Sonobuoy_Deploy_Max_Altitude = ' + IntToStr(Sonobuoy_Deploy_Max_Altitude));
-//      SQL.Add(', Sonobuoy_Deploy_Min_Altitude = ' + IntToStr(Sonobuoy_Deploy_Min_Altitude));
-//      SQL.Add(', Sonobuoy_Deploy_Max_Speed = ' + IntToStr(Sonobuoy_Deploy_Max_Speed));
-//      SQL.Add(', Air_Drop_Torpedo_Max_Altitude = ' + IntToStr(Air_Drop_Torpedo_Max_Altitude));
-//      SQL.Add(', Air_Drop_Torpedo_Min_Altitude = ' + IntToStr(Air_Drop_Torpedo_Min_Altitude));
-//      SQL.Add(', Air_Drop_Torpedo_Max_Speed = ' + IntToStr(Air_Drop_Torpedo_Max_Speed));
-//      SQL.Add(', TMA_Rate_Factor = ' + FloatToStr(TMA_Rate_Factor));
-//      SQL.Add(', HMS_Noise_Reduction_Factor = ' + FloatToStr(HMS_Noise_Reduction_Factor));
-//      SQL.Add(', TAS_Noise_Reduction_Factor = ' + FloatToStr(TAS_Noise_Reduction_Factor));
-//      SQL.Add(', Infrared_Decoy_Capable = ' + BoolToStr(Infrared_Decoy_Capable));
-//      SQL.Add(', HF_Mid_Course_Update_Capable = ' + BoolToStr(HF_Mid_Course_Update_Capable));
-//      SQL.Add(', UHF_Mid_Course_Update_Capable = ' + BoolToStr(UHF_Mid_Course_Update_Capable));
-//      SQL.Add(', Platform_Capability_Index = ' + IntToStr(Platform_Capability_Index));
-//      SQL.Add(', Logistics_Index = ' + IntToStr(Logistics_Index));
-//      SQL.Add(', SATCOM_Mid_Course_Update_Capable = ' + BoolToStr(SATCOM_Mid_Course_Update_Capable));
-//      SQL.Add(', font_id = ' + IntToStr(Font_id));
-//      SQL.Add(', vbs_class_name = ' + QuotedStr(VBS_Class_Name));
-//      SQL.Add(', Quantity_Group_Personal = ' + IntToStr(Quantity_Group_Personal));
-//      SQL.Add(', GangwayPosition = ' + IntToStr(GangwayPosition));
+      SQL.Add('SET VehicleIdentifier = ' + QuotedStr(VehicleIdentifier));
+      SQL.Add(', VehicleClass = ' + QuotedStr(VehicleClass));
+      SQL.Add(', VehicleNation = ' + QuotedStr(VehicleNation));
+      SQL.Add(', PlatformDomain = ' + IntToStr(PlatformDomain));
+      SQL.Add(', PlatformCategory = ' + IntToStr(PlatformCategory));
+      SQL.Add(', HullNumber = ' + QuotedStr(HullNumber));
+      SQL.Add(', CallSign = ' + QuotedStr(CallSign));
+      SQL.Add(', LengthDimension = ' + FloatToStr(LengthDimension));
+      SQL.Add(', WidthDimension = ' + FloatToStr(WidthDimension));
+      SQL.Add(', HeightDimension = ' + FloatToStr(HeightDimension));
+      SQL.Add(', WeightDimension = ' + FloatToStr(WeightDimension));
+      SQL.Add(', DraftDimension = ' + FloatToStr(DraftDimension));
+      SQL.Add(', VbsClassName = ' + QuotedStr(VbsClassName));
+      SQL.Add(', EnduranceType = ' + IntToStr(EnduranceType));
+      SQL.Add(', LubricantsCapacity = ' + FloatToStr(LubricantsCapacity));
+      SQL.Add(', WaterCapacity = ' + FloatToStr(WaterCapacity));
+      SQL.Add(', FoodCapacity = ' + FloatToStr(FoodCapacity));
+      SQL.Add(', FuelCapacity = ' + FloatToStr(FuelCapacity));
+      SQL.Add(', MaxRange = ' + FloatToStr(MaxRange));
+      SQL.Add(', MaxTime = ' + FloatToStr(MaxTime));
+      SQL.Add(', LubricantsConsumption = ' + FloatToStr(LubricantsConsumption));
+      SQL.Add(', WaterConsumption = ' + FloatToStr(WaterConsumption));
+      SQL.Add(', FoodConsumption = ' + FloatToStr(FoodConsumption));
+      SQL.Add(', FuelConsumption = ' + FloatToStr(FuelConsumption));
+      SQL.Add(', MinFuelConsumption = ' + FloatToStr(MinFuelConsumption));
+      SQL.Add(', MaxFuelConsumption = ' + FloatToStr(MaxFuelConsumption));
+      SQL.Add(', CruiseFuelConsumption = ' + FloatToStr(CruiseFuelConsumption));
+      SQL.Add(', HighFuelConsumption = ' + FloatToStr(HighFuelConsumption));
+      SQL.Add(', Officer = ' + IntToStr(Officer));
       SQL.Add(', FrontGangway = ' + BoolToStr(FrontGangway));
       SQL.Add(', RearGangway = ' + BoolToStr(RearGangway));
       SQL.Add(', PortGangway = ' + BoolToStr(PortGangway));
       SQL.Add(', StarBoardGangway = ' + BoolToStr(StarBoardGangway));
-//      SQL.Add(', DWT = ' + FloatToStr(DWT));
-//      SQL.Add('WHERE Vehicle_Index = ' + IntToStr(Vehicle_Index));
+      SQL.Add(', CarriableUnit = ' + BoolToStr(CarriableUnit));
+      SQL.Add(', PersonelUnitCarried = ' + BoolToStr(PersonelUnitCarried));
+      SQL.Add(', MaxPersonelCapacity = ' + IntToStr(MaxPersonelCapacity));
+      SQL.Add(', DeckUnitCarried = ' + BoolToStr(DeckUnitCarried));
+      SQL.Add(', AmphibiousCarried = ' + BoolToStr(AmphibiousCarried));
+      SQL.Add(', LandCarried = ' + BoolToStr(LandCarried));
+      SQL.Add(', MaxWeightDeck = ' + FloatToStr(MaxWeightDeck));
+      SQL.Add(', WidthDeck = ' + FloatToStr(WidthDeck));
+      SQL.Add(', LengthDeck = ' + FloatToStr(LengthDeck));
+      SQL.Add(', HangarUnitCarried = ' + BoolToStr(HangarUnitCarried));
+      SQL.Add(', FixWingCarried = ' + BoolToStr(FixWingCarried));
+      SQL.Add(', RotaryCarried = ' + BoolToStr(RotaryCarried));
+      SQL.Add(', MaxCapacityHangar = ' + IntToStr(MaxCapacityHangar));
+      SQL.Add(', MaxWeightHangar = ' + FloatToStr(MaxWeightHangar));
+      SQL.Add('WHERE VehicleIndex = ' + IntToStr(VehicleIndex));
       ExecSQL;
     end;
     Result := True;
@@ -2229,7 +2176,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('DELETE FROM Vehicle_Definition');
-    SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aVehicleID));
+    SQL.Add('WHERE VehicleIndex = ' + IntToStr(aVehicleID));
     ExecSQL;
 
     Result := True;
@@ -2299,6 +2246,28 @@ begin
         Next;
       end;
     end;
+  end;
+end;
+
+function TdmINWO.GetThisVehicleInOtherPlatform(const aVehicleID: Integer): Integer;
+var
+  i : Integer;
+  rec: THosted_Platform;
+begin
+  Result := -1;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT * FROM Hosted_Platform');
+    SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aVehicleID));
+    Open;
+
+    Result := RecordCount;
   end;
 end;
 
@@ -5091,6 +5060,35 @@ begin
       end;
 
       SQL.Add('WHERE Point_Effect_Index = ' + IntToStr(Point_Effect_Index));
+    end;
+
+    ExecSQL;
+
+    Result := True;
+  end;
+end;
+
+function TdmINWO.DeleteFittedWeaponLauncherOnBoard(const aDeleteType: Byte; const aIndex: Integer): Boolean;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('DELETE FROM Fitted_Weap_Launcher_On_Board');
+
+    case aDeleteType of
+      1:
+      begin
+        SQL.Add('WHERE Fitted_Weap_Index IN ( SELECT Fitted_Weap_Index');
+        SQL.Add('FROM Fitted_Weapon_On_Board');
+        SQL.Add('WHERE Vehicle_Index = ' + IntToStr(aIndex) + ')');
+      end;
+      2: SQL.Add('WHERE Fitted_Weap_Index = ' + IntToStr(aIndex));
     end;
 
     ExecSQL;

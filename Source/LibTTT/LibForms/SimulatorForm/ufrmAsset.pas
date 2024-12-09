@@ -140,7 +140,7 @@ type
     edtHighFuelConsumption: TEdit;
     cbbEnduranceType: TComboBox;
     tsTransport: TTabSheet;
-    GroupBox10: TGroupBox;
+    grpDeckUnitCarried: TGroupBox;
     Label81: TLabel;
     Label82: TLabel;
     Label83: TLabel;
@@ -194,6 +194,7 @@ type
     lvWeapon: TListView;
     pnlCountermeasures: TPanel;
     lvCountermeasures: TListView;
+    UploadImage: TOpenDialog;
     procedure btnOKClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
     procedure btnApplyClick(Sender: TObject);
@@ -218,6 +219,10 @@ type
     procedure btnWeaponClick(Sender: TObject);
     procedure btnCountermeasuresClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
+    procedure chkPersonelUnitCarriedClick(Sender: TObject);
+    procedure chkDeckUnitCarriedClick(Sender: TObject);
+    procedure chkHangarUnitCarriedClick(Sender: TObject);
+    procedure btnDefaultModelClick(Sender: TObject);
 
   private
     FSelectedAsset : TAsset ;
@@ -229,9 +234,10 @@ type
     procedure UpdateCbbCategoryItems(const aDomain, IdCategory: Byte);
 
   public
-    isOK : Boolean;
-    afterClose : Boolean;
+
     LastName : string;
+    AddressPath : string;
+    FileImageName : string;
 
     procedure UpdateSensorData;
     procedure UpdateWeaponData;
@@ -248,7 +254,7 @@ implementation
 
 {$R *.dfm}
 uses
-  ufrmRadarOnBoardPickList, ufrmSonarOnBoardPickList, ufrmESMOnBoardPickList,
+  ufrmDisplayArea, ufrmRadarOnBoardPickList, ufrmSonarOnBoardPickList, ufrmESMOnBoardPickList,
   ufrmEODOnBoardPickList, ufrmMADOnBoardPickList, ufrmSonobuoyOnBoardPickList,
   ufrmMissileOnBoardPickList, ufrmTorpedoOnBoardPickList, ufrmMineOnBoardPickList,
   ufrmGunOnBoardPickList, ufrmBombOnBoardPickList,
@@ -265,8 +271,8 @@ begin
   with FSelectedAsset.FData do
     btnApply.Enabled := VehicleIndex = 0;
 
-  isOK := True;
-  afterClose := True;
+//  isOK := True;
+//  afterClose := True;
   btnCancel.Enabled := True;
 end;
 
@@ -276,7 +282,7 @@ begin
   begin
     if not CekInput then
     begin
-      isOK := False;
+//      isOK := False;
       Exit;
     end;
 
@@ -303,6 +309,7 @@ begin
 
     FData.PlatformDomain    := cbbDomain.ItemIndex;
     FData.PlatformCategory  := cbbCategory.ItemIndex;
+    FData.VbsClassName      := FileImageName;
     {$ENDREGION}
 
     {$REGION ' Logistic '}
@@ -333,20 +340,21 @@ begin
     FData.DeckUnitCarried       := chkDeckUnitCarried.Checked;
     FData.AmphibiousCarried     := chkAmphibiousCarried.Checked;
     FData.LandCarried           := chkLandCarried.Checked;
-    FData.MaxWeightDeck         := StrToInt(edtMaxWeightDeck.Text);
-    FData.WidthDeck             := StrToInt(edtWidthDeck.Text);
-    FData.LengthDeck            := StrToInt(edtLengthDeck.Text);
+    FData.MaxWeightDeck         := StrToFloat(edtMaxWeightDeck.Text);
+    FData.WidthDeck             := StrToFloat(edtWidthDeck.Text);
+    FData.LengthDeck            := StrToFloat(edtLengthDeck.Text);
     FData.HangarUnitCarried     := chkHangarUnitCarried.Checked;
     FData.FixWingCarried        := chkFixWingCarried.Checked;
     FData.RotaryCarried         := chkRotaryCarried.Checked;
     FData.MaxCapacityHangar     := StrToInt(edtMaxCapacityHangar.Text);
-    FData.MaxWeightHangar       := StrToInt(edtMaxWeightHangar.Text);
+    FData.MaxWeightHangar       := StrToFloat(edtMaxWeightHangar.Text);
     {$ENDREGION}
 
     if FData.VehicleIndex = 0 then
     begin
       if dmINWO.InsertVehicleDef(FSelectedAsset.FData) then
       begin
+        CopyFile(PWideChar(AddressPath), PWideChar(vGameDataSetting.ImageModel + FileImageName), False);
         ShowMessage('Data has been saved');
       end;
     end
@@ -354,13 +362,14 @@ begin
     begin
       if dmINWO.UpdateVehicleDef(FSelectedAsset.FData) then
       begin
+        CopyFile(PWideChar(AddressPath), PWideChar(vGameDataSetting.ImageModel + FileImageName), False);
         ShowMessage('Data has been updated');;
       end;
     end;
   end;
 
-  isOK := True;
-  afterClose := True;
+//  isOK := True;
+//  afterClose := True;
   btnApply.Enabled := False;
   btnCancel.Enabled := False;
 
@@ -368,20 +377,21 @@ end;
 
 procedure TfrmAsset.btnCancelClick(Sender: TObject);
 begin
-  afterClose := False;
+//  afterClose := False;
   Close;
 end;
 
 procedure TfrmAsset.btnOKClick(Sender: TObject);
 begin
-//  if btnApply.Enabled then
-//    btnApply.Click;
+  if btnApply.Enabled then
+    btnApplyClick(nil);
 
-  if isOK then
-    Close;
+  frmDisplayArea_Instance.UpdateDataAset;
+  Close;
 end;
 
-{$REGION 'General'}
+{$REGION ' General '}
+
 procedure TfrmAsset.cbbCategoryChange(Sender: TObject);
 begin
   btnApply.Enabled := True;
@@ -439,15 +449,7 @@ end;
 
 {$ENDREGION}
 
-{$REGION 'Model'}
-
-{$ENDREGION}
-
-{$REGION 'Physical'}
-
-{$ENDREGION}
-
-{$REGION 'Assets'}
+{$REGION ' Assets '}
 
 procedure TfrmAsset.btnSensorsClick(Sender: TObject);
 begin
@@ -697,6 +699,34 @@ begin
   end;
 end;
 
+procedure TfrmAsset.btnDefaultModelClick(Sender: TObject);
+var
+  saveFileTemp : TTactical_Symbol;
+
+begin
+  UploadImage := TSaveDialog.Create(self);
+  UploadImage.InitialDir := GetCurrentDir;
+  UploadImage.Filter := 'Image Files(*.png)|*.png';
+  UploadImage.DefaultExt := 'png';
+  UploadImage.FilterIndex := 1;
+
+  if UploadImage.Execute then
+  begin
+    AddressPath := PWideChar(UploadImage.FileName);
+    FileImageName := ExtractFileName(UploadImage.FileName);
+
+    Image.Picture.LoadFromFile(AddressPath);
+
+    btnApply.Enabled := True;
+  end
+  else
+  ShowMessage('Save file was cancelled');
+
+  UploadImage.Free;
+
+//  CopyFile(addressTemp, PWideChar(vGameDataSetting.ImageModel + fileDataTemp.Encripted_File_Name), False);
+end;
+
 procedure TfrmAsset.btnWeaponClick(Sender: TObject);
 begin
   if FSelectedAsset.FData.VehicleIndex = 0 then
@@ -898,6 +928,48 @@ begin
   btnApply.Enabled := True;
 end;
 
+procedure TfrmAsset.chkDeckUnitCarriedClick(Sender: TObject);
+begin
+  grpDeckUnitCarried.Enabled := chkDeckUnitCarried.Checked;
+
+  if not chkDeckUnitCarried.Checked then
+  begin
+    chkAmphibiousCarried.Checked := False;
+    chkLandCarried.Checked := False;
+
+    edtMaxWeightDeck.Text := '0.00';
+    edtWidthDeck.Text := '0.0';
+    edtLengthDeck.Text := '0.0';
+  end;
+end;
+
+procedure TfrmAsset.chkHangarUnitCarriedClick(Sender: TObject);
+begin
+  grpHangarUnitCarried.Enabled := chkHangarUnitCarried.Checked;
+
+  if not chkHangarUnitCarried.Checked then
+  begin
+    chkFixWingCarried.Checked := False;
+    chkRotaryCarried.Checked := False;
+
+    edtMaxCapacityHangar.Text := '0';
+    edtMaxWeightHangar.Text := '0.00';
+  end;
+end;
+
+procedure TfrmAsset.chkPersonelUnitCarriedClick(Sender: TObject);
+begin
+
+  grpPersonelUnitCarried.Enabled := chkPersonelUnitCarried.Checked;
+
+  if not chkPersonelUnitCarried.Checked then
+  begin
+    edtMaxPersonelCapacity.Text := '0';
+  end;
+
+  btnApply.Enabled := True;
+end;
+
 procedure TfrmAsset.edtChange(Sender: TObject);
 begin
   btnApply.Enabled := True;
@@ -1014,7 +1086,7 @@ begin
   with FSelectedAsset.FData do
   begin
     try
-      Image.Picture.LoadFromFile('data\Image DBEditor\Interface\' + VbsClassName + '.PNG');
+      Image.Picture.LoadFromFile(vGameDataSetting.ImageModel + VbsClassName);
     except
       Image.Picture.LoadFromFile('data\Image DBEditor\Interface\NoModel.bmp');
     end;
@@ -1082,19 +1154,25 @@ begin
     chkPortGangway.Checked          := Boolean(FData.PortGangway);
     chkStarBoardGangway.Checked     := Boolean(FData.StarBoardGangway);
     chkCarriableUnit.Checked        := Boolean(FData.CarriableUnit);
+
     chkPersonelUnitCarried.Checked  := Boolean(FData.PersonelUnitCarried);
     edtMaxPersonelCapacity.Text     := IntToStr(FData.MaxPersonelCapacity);
+    chkPersonelUnitCarriedClick(nil);
+
     chkDeckUnitCarried.Checked      := Boolean(FData.DeckUnitCarried);
     chkAmphibiousCarried.Checked    := Boolean(FData.AmphibiousCarried);
     chkLandCarried.Checked          := Boolean(FData.LandCarried);
     edtMaxWeightDeck.Text           := FormatFloat('0.00', FData.MaxWeightDeck);
     edtWidthDeck.Text               := FormatFloat('0.00', FData.WidthDeck);
     edtLengthDeck.Text              := FormatFloat('0.00', FData.LengthDeck);
+    chkDeckUnitCarriedClick(nil);
+
     chkHangarUnitCarried.Checked    := Boolean(FData.HangarUnitCarried);
     chkFixWingCarried.Checked       := Boolean(FData.FixWingCarried);
     chkRotaryCarried.Checked        := Boolean(FData.RotaryCarried);
     edtMaxCapacityHangar.Text       := IntToStr(FData.MaxCapacityHangar);
     edtMaxWeightHangar.Text         := FormatFloat('0.00', FData.MaxWeightHangar);
+    chkHangarUnitCarriedClick(nil);
 
     UpdateOnBoardData;
 

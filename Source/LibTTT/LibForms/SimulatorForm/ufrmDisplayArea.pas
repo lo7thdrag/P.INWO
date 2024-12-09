@@ -237,7 +237,6 @@ type
     {$REGION ' Asset Procedure '}
     procedure AssetClick(Sender: TObject);
     procedure pnlAsetManajemenShow;
-    procedure UpdateDataAset;
     {$ENDREGION}
 
     {$REGION ' Simbol Taktis Procedure '}
@@ -383,6 +382,8 @@ type
     function GetRoleIndex(id : string):Integer;
 
   public
+
+    procedure UpdateDataAset;
 
     procedure UpdateClientChatting;
     procedure UpdateClientHistoryChat(IdSender, IdReceiver : Integer);
@@ -737,7 +738,6 @@ end;
 procedure TfrmDisplayArea.btnDeleteAssetClick(Sender: TObject);
 var
   warning : Integer;
-  tempList: TList;
 begin
   if lvAsset.ItemIndex <> -1 then
   begin
@@ -747,15 +747,36 @@ begin
     begin
       with FSelectedAsset.FData do
       begin
-        tempList := TList.Create;
-
         {Pengecekan Relasi Dengan Host Sebagai Embarked}
-        if dmINWO.GetAllVehicleAtHostPlatform(VehicleIndex, tempList) > 0 then
+        if dmINWO.GetThisVehicleInOtherPlatform(VehicleIndex) > 0 then
         begin
           ShowMessage('Cannot delete, This vehicle used as Embarked Platform by some Vehicle');
-          FreeItemsAndFreeList(tempList);
           Exit;
         end;
+
+        dmINWO.DeleteFittedWeaponLauncherOnBoard(1, VehicleIndex);
+        dmINWO.DeleteChaffLauncherOnBoard(VehicleIndex);
+
+        dmINWO.DeleteRadarOnBoard(1, VehicleIndex);
+        dmINWO.DeleteESMOnBoard(1, VehicleIndex);
+        dmINWO.DeleteEODOnBoard(1, VehicleIndex);
+        dmINWO.DeleteMADOnBoard(1, VehicleIndex);
+        dmINWO.DeleteSonobuoyOnBoard(1, VehicleIndex);
+        dmINWO.DeleteSonarOnBoard(1, VehicleIndex);
+
+        dmINWO.DeleteFittedWeaponOnBoard(1, VehicleIndex);
+        dmINWO.DeletePointEffectOnBoard(1, VehicleIndex);
+
+        dmINWO.DeleteRadarNoiseJammerOnBoard(1, VehicleIndex);
+        dmINWO.DeleteAirBubbleOnBoard(1, VehicleIndex);
+        dmINWO.DeleteAcousticDecoyOnBoard(1, VehicleIndex);
+        dmINWO.DeleteSelfDefensiveJammerOnBoard(1, VehicleIndex);
+        dmINWO.DeleteTowedJammerDecoyOnBoard(1, VehicleIndex);
+        dmINWO.DeleteFloatingDecoyOnBoard(1, VehicleIndex);
+        dmINWO.DeleteChaffOnBoard(1, VehicleIndex);
+        dmINWO.DeleteInfraredDecoyOnBoard(1, VehicleIndex);
+
+        dmINWO.DeleteHostedPlatform(1, VehicleIndex);
 
         if dmINWO.DeleteVehicleDef(VehicleIndex) then
           ShowMessage('Data has been deleted');
