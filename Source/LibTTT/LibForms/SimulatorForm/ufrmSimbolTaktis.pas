@@ -82,7 +82,18 @@ begin
   if Assigned(FSelectedTacticalSymbol) then
   begin
     with FSelectedTacticalSymbol.FData do
-      btnApply.Enabled := Id_Tactical_Symbol = 0;
+    begin
+      if Id_Tactical_Symbol = 0 then
+      begin
+        btnApply.Enabled := True;
+        btnApply.Visible := True;
+      end
+      else
+      begin
+        btnApply.Enabled := True;
+        btnApply.Visible := True;
+      end;
+    end;
   end;
 
   isOK := True;
@@ -230,9 +241,8 @@ begin
   btnApply.Enabled := False;
   btnCancel.Enabled := False;
 
-  btnApply.Visible  := False;
+  btnApply.Visible := False;
   btnCancel.Visible := False;
-  btnOk.Visible     := True;
 end;
 
 procedure TfrmSimbolTaktis.btnCancelClick(Sender: TObject);
@@ -244,10 +254,6 @@ procedure TfrmSimbolTaktis.btnOkClick(Sender: TObject);
 begin
   if btnApply.Enabled then
     btnApplyClick(btnApply);
-
-    btnApply.Visible  := False;
-    btnCancel.Visible := False;
-    btnOk.Visible     := True;
 
   if isOk then
     Close;
@@ -375,7 +381,6 @@ begin
     end;
   end;
 end;
-
 {$ENDREGION}
 
 end.
