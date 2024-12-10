@@ -1,4 +1,4 @@
-object FileManager: TFileManager
+object frmFileManager: TfrmFileManager
   Left = 0
   Top = 0
   ClientHeight = 508

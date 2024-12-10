@@ -162,7 +162,7 @@ uses
   ufrmSummaryRadarNoiseJammer in '..\LibTTT\LibForms\DatabaseEditorForm\Countermeasure\ufrmSummaryRadarNoiseJammer.pas' {frmSummaryRadarNoiseJammer},
   ufrmSummarySelfDefensiveJammer in '..\LibTTT\LibForms\DatabaseEditorForm\Countermeasure\ufrmSummarySelfDefensiveJammer.pas' {frmSummarySelfDefensiveJammer},
   ufrmSummaryTowedJammerDecoy in '..\LibTTT\LibForms\DatabaseEditorForm\Countermeasure\ufrmSummaryTowedJammerDecoy.pas' {frmSummaryTowedjammerDecoy},
-  ufrmFileManager in '..\LibTTT\LibForms\SimulatorForm\ufrmFileManager.pas' {FileManager};
+  ufrmFileManager in '..\LibTTT\LibForms\SimulatorForm\ufrmFileManager.pas' {frmFileManager};
 
 {$R *.res}
 
@@ -203,7 +203,7 @@ begin
   Application.CreateForm(TfrmSummaryRadarNoiseJammer, frmSummaryRadarNoiseJammer);
   Application.CreateForm(TfrmSummarySelfDefensiveJammer, frmSummarySelfDefensiveJammer);
   Application.CreateForm(TfrmSummaryTowedjammerDecoy, frmSummaryTowedjammerDecoy);
-//  Application.CreateForm(TfrmFileManager, frmFileManager);
+  Application.CreateForm(TfrmFileManager, frmFileManager);
   frmDisplayArea := nil;
   frmSituationBoard := nil;
   Application.CreateForm(TfrmOverlayTools, frmOverlayTools);

@@ -2114,7 +2114,7 @@ begin
 //  end;
 
   if not Assigned(frmFileManager) then
-    frmFileManager := TFileManager.Create(Self);
+    frmFileManager := TfrmFileManager.Create(Self);
 
   try
     with frmFileManager do

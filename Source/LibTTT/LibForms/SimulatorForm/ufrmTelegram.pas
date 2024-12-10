@@ -255,7 +255,7 @@ var
 path : string;
 begin
   if not Assigned(frmFileManager) then
-    frmFileManager := TFileManager.Create(Self);
+    frmFileManager := TfrmFileManager.Create(Self);
 
   frmFileManager.Show;
 end;

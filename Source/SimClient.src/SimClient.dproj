@@ -534,7 +534,7 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\LibTTT\LibForms\SimulatorForm\ufrmFileManager.pas">
-            <Form>FileManager</Form>
+            <Form>frmFileManager</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Debug">

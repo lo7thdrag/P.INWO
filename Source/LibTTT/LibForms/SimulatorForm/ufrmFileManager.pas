@@ -7,7 +7,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, ImageButton, Vcl.ExtCtrls, uClassData, uT3SimManager, uSimMgr_Client;
 
 type
-  TFileManager = class(TForm)
+  TfrmFileManager = class(TForm)
     pnlMainFileManager: TPanel;
     lblFileSharing: TLabel;
     pnlTop: TPanel;
@@ -43,7 +43,7 @@ type
   end;
 
 var
-  frmFileManager: TFileManager;
+  frmFileManager: TfrmFileManager;
 
 implementation
 
@@ -51,12 +51,12 @@ implementation
 
 { TFileManager }
 
-procedure TFileManager.cbbxShareToDropDown(Sender: TObject);
+procedure TfrmFileManager.cbbxShareToDropDown(Sender: TObject);
 begin
   UpdateUserListFileSharing;
 end;
 
-procedure TFileManager.cbbxShareToSelect(Sender: TObject);
+procedure TfrmFileManager.cbbxShareToSelect(Sender: TObject);
 var
   userRoleTemp : TUserRole;
   ipTemp : string;
@@ -69,13 +69,13 @@ begin
 //  lblNamaFile.Caption := userRoleTemp.ConsoleIP;
 end;
 
-procedure TFileManager.FormShow(Sender: TObject);
+procedure TfrmFileManager.FormShow(Sender: TObject);
 begin
   cbbxShareTo.ItemIndex := -1;
   lstbxFileShareName.Clear;
 end;
 
-procedure TFileManager.imgbtnChooseFileClick(Sender: TObject);
+procedure TfrmFileManager.imgbtnChooseFileClick(Sender: TObject);
 var
   addressTemp : PWideChar;
   filNameTemp : string;
@@ -149,7 +149,7 @@ begin
 //  UpdateDataFile;
 end;
 
-procedure TFileManager.imgbtnShareClick(Sender: TObject);
+procedure TfrmFileManager.imgbtnShareClick(Sender: TObject);
 var
 i : Integer;
 addressfiletemp : PWideChar;
@@ -174,13 +174,13 @@ begin
 
 end;
 
-procedure TFileManager.UpdateFilenameComboBox;
+procedure TfrmFileManager.UpdateFilenameComboBox;
 begin
   lstbxFileShareName.Clear;
   lstbxFileShareName.Items.AddStrings(TArray<string>(fileNameArray));
 end;
 
-procedure TFileManager.UpdateUserListFileSharing;
+procedure TfrmFileManager.UpdateUserListFileSharing;
 var
   i : Integer;
   userRoleTemp : TUserRole;
