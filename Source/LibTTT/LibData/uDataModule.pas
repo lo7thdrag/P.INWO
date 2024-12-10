@@ -79,6 +79,7 @@ type
     function GetFilterVehicleDefByName(const aName: string): Integer;
     function GetFilterVehicleDefById(const aVehicleID: Integer; var aResult: TAsset): boolean;
     function GetAllVehicleDef(var aList: TList): Integer;
+    function GetAllVehicleDefCarriableUnit(var aList: TList): Integer;
 
     function GetSearchVehicleDef(var FilterIndex: Integer; SearchContent: string; aList:TList): Integer;
 
@@ -1698,6 +1699,106 @@ end;
 {$REGION ' Vehicle '}
 
 function TdmINWO.GetAllVehicleDef(var aList: TList): Integer;
+var
+  i : Integer;
+  rec : TAsset;
+begin
+  Result := -1;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT * FROM Vehicle_Definition');
+    SQL.Add('ORDER BY VehicleIdentifier');
+    Open;
+
+    Result := RecordCount;
+
+    if Assigned(aList) then
+    begin
+      for i := 0 to aList.Count - 1 do
+      begin
+        rec := aList.Items[i];
+        rec.Free;
+      end;
+
+      aList.Clear;
+    end
+    else
+      aList := TList.Create;
+
+    if not IsEmpty then
+    begin
+      First;
+
+      while not Eof do
+      begin
+        rec := TAsset.Create;
+
+        with rec.FData do
+        begin
+          VehicleIndex := FieldByName('VehicleIndex').AsInteger;
+          VehicleIdentifier := FieldByName('VehicleIdentifier').AsString;
+          VehicleClass := FieldByName('VehicleClass').AsString;
+          VehicleNation := FieldByName('VehicleNation').AsString;
+          PlatformDomain := FieldByName('PlatformDomain').AsInteger;
+          PlatformCategory := FieldByName('PlatformCategory').AsInteger;
+          HullNumber := FieldByName('HullNumber').AsString;
+          CallSign := FieldByName('CallSign').AsString;
+          LengthDimension := FieldByName('LengthDimension').AsSingle;
+          WidthDimension := FieldByName('WidthDimension').AsSingle;
+          HeightDimension := FieldByName('HeightDimension').AsSingle;
+          WeightDimension := FieldByName('WeightDimension').AsSingle;
+          DraftDimension := FieldByName('DraftDimension').AsSingle;
+          VbsClassName := FieldByName('VbsClassName').AsString;
+          EnduranceType := FieldByName('EnduranceType').AsInteger;
+          LubricantsCapacity := FieldByName('LubricantsCapacity').AsSingle;
+          WaterCapacity := FieldByName('WaterCapacity').AsSingle;
+          FoodCapacity := FieldByName('FoodCapacity').AsSingle;
+          FuelCapacity := FieldByName('FuelCapacity').AsSingle;
+          MaxRange := FieldByName('MaxRange').AsSingle;
+          MaxTime := FieldByName('MaxTime').AsSingle;
+          LubricantsConsumption := FieldByName('LubricantsConsumption').AsSingle;
+          WaterConsumption := FieldByName('WaterConsumption').AsSingle;
+          FoodConsumption := FieldByName('FoodConsumption').AsSingle;
+          FuelConsumption := FieldByName('FuelConsumption').AsSingle;
+          MinFuelConsumption := FieldByName('MinFuelConsumption').AsSingle;
+          MaxFuelConsumption := FieldByName('MaxFuelConsumption').AsSingle;
+          CruiseFuelConsumption := FieldByName('CruiseFuelConsumption').AsSingle;
+          HighFuelConsumption := FieldByName('HighFuelConsumption').AsSingle;
+          Officer := FieldByName('Officer').AsInteger;
+          FrontGangway := FieldByName('FrontGangway').AsBoolean;
+          RearGangway := FieldByName('RearGangway').AsBoolean;
+          PortGangway := FieldByName('PortGangway').AsBoolean;
+          StarBoardGangway := FieldByName('StarBoardGangway').AsBoolean;
+          CarriableUnit := FieldByName('CarriableUnit').AsBoolean;
+          PersonelUnitCarried := FieldByName('PersonelUnitCarried').AsBoolean;
+          MaxPersonelCapacity := FieldByName('MaxPersonelCapacity').AsInteger;
+          DeckUnitCarried := FieldByName('DeckUnitCarried').AsBoolean;
+          AmphibiousCarried := FieldByName('AmphibiousCarried').AsBoolean;
+          LandCarried := FieldByName('LandCarried').AsBoolean;
+          MaxWeightDeck := FieldByName('MaxWeightDeck').AsSingle;
+          WidthDeck := FieldByName('WidthDeck').AsSingle;
+          LengthDeck := FieldByName('LengthDeck').AsSingle;
+          HangarUnitCarried := FieldByName('HangarUnitCarried').AsBoolean;
+          FixWingCarried := FieldByName('FixWingCarried').AsBoolean;
+          RotaryCarried := FieldByName('RotaryCarried').AsBoolean;
+          MaxCapacityHangar := FieldByName('MaxCapacityHangar').AsInteger;
+          MaxWeightHangar := FieldByName('MaxWeightHangar').AsSingle;
+        end;
+
+        aList.Add(rec);
+        Next;
+      end;
+    end;
+  end;
+end;
+
+function TdmINWO.GetAllVehicleDefCarriableUnit(var aList: TList): Integer;
 var
   i : Integer;
   rec : TAsset;

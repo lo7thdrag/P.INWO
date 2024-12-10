@@ -153,7 +153,7 @@ begin
   lbAllVehicleDef.Items.Clear;
   lbAllVehicleOnBoard.Items.Clear;
 
-  dmINWO.GetAllVehicleDef(FAllVehicleDefList);
+  dmINWO.GetAllVehicleDefCarriableUnit(FAllVehicleDefList);
   dmINWO.GetAllVehicleAtHostPlatform(FSelectedVehicle.FData.VehicleIndex,FAllVehicleOnBoardList);
 
   for i := 0 to FAllVehicleDefList.Count - 1 do
