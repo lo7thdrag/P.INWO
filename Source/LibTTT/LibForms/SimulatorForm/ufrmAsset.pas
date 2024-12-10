@@ -1090,6 +1090,9 @@ begin
     except
       Image.Picture.LoadFromFile('data\Image DBEditor\Interface\NoModel.bmp');
     end;
+
+    FileImageName := VbsClassName;
+    AddressPath := vGameDataSetting.ImageModel + FileImageName;
   end;
 end;
 
