@@ -52,6 +52,7 @@ type
     FAddressPath     : string;
     FAddressPathBlue : string;
     FAddressPathRed  : string;
+
     function CekInput: Boolean;
 
     procedure UpdateTacticalSymbol;
@@ -81,18 +82,15 @@ begin
 
   if Assigned(FSelectedTacticalSymbol) then
   begin
-    with FSelectedTacticalSymbol.FData do
+    if FSelectedTacticalSymbol.FData.Id_Tactical_Symbol = 0 then
     begin
-      if Id_Tactical_Symbol = 0 then
-      begin
-        btnApply.Enabled := True;
-        btnApply.Visible := True;
-      end
-      else
-      begin
-        btnApply.Enabled := True;
-        btnApply.Visible := True;
-      end;
+      btnApply.Enabled := True;
+      btnApply.Visible := True;
+    end
+    else
+    begin
+      btnApply.Enabled := True;
+      btnApply.Visible := True;
     end;
   end;
 
@@ -374,10 +372,6 @@ begin
       begin
           ShowMessage('File gambar tidak ditemukan' + imagepathRed);
       end;
-
-      FAddressPath     := imagePathBlack;
-      FAddressPathBlue := imagepathBlue;
-      FAddressPathRed  := imagepathRed;
     end;
   end;
 end;
