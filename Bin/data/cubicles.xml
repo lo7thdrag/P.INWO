@@ -10,8 +10,8 @@
     <console ip="192.168.0.15" name="PROGRAMMER" ></console>    
     <console ip="192.168.0.146" name="OFFICIAL 1"></console>  
     <console ip="192.168.0.172" name="OFFICIAL 2"></console>
-    <console ip="192.168.0.147" name="OFFICIAL 3"></console>
-    <console ip="192.168.0.232" name="OFFICIAL 4"></console>
+    <console ip="192.168.0.146" name="OFFICIAL 3"></console>
+    <console ip="192.168.0.233" name="OFFICIAL 4"></console>
     <console ip="192.168.0.105" name="OFFICIAL 5"></console>
     <console ip="192.168.0.106" name="OFFICIAL 6"></console>
     <console ip="192.168.0.107" name="OFFICIAL 7"></console>
