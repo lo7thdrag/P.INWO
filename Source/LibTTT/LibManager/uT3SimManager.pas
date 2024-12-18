@@ -734,8 +734,53 @@ begin
 end;
 
 procedure TT3SimManager.OnSituationBoardTabPropertiesChange(const rec: TRecTCPSendSituationBoardTabProperties);
+var
+  IdTemp : Integer;
+  tabPropertiesTemp : TTabProperties;
+  tabOverlayTemp : TOverlayTab;
+
 begin
 
+  case rec.OrderID of
+    NEW_TAB :
+    begin
+      IdTemp := GetSerialTabSituationBoardID;
+
+      tabPropertiesTemp := TTabProperties.Create;
+      tabPropertiesTemp.IdTab := rec.TabId;
+      tabPropertiesTemp.IdUserRoleTab := rec.UserRoleId;
+      tabPropertiesTemp.IdOverlayTab := IdTemp;
+      tabPropertiesTemp.CaptionTab := rec.TabCaption;
+      tabPropertiesTemp.TypeTab := rec.TabType;
+      tabPropertiesTemp.ActiveTab := True;
+      tabPropertiesTemp.AddressTab := rec.TabAddres;
+
+      SimTabProperties.TabList.Add(tabPropertiesTemp);
+
+      tabOverlayTemp := TOverlayTab.Create;
+      tabOverlayTemp.IdOverlayTab := IdTemp;
+      tabOverlayTemp.IdUserRole := rec.UserRoleId;
+
+      SimOverlay.TabList.Add(tabOverlayTemp);
+    end;
+    EDIT_TAB :
+    begin
+      tabPropertiesTemp := SimTabProperties.GetTapProperties(rec.UserRoleId, rec.TabId);
+
+      if Assigned(tabPropertiesTemp) then
+      begin
+        tabPropertiesTemp.AddressTab := rec.TabAddres;
+        tabPropertiesTemp.CaptionTab := rec.TabCaption;
+      end;
+    end;
+    DELETE_TAB :
+    begin
+      SimTabProperties.DeleteTapProperties(rec.OverlayTab);
+
+      tabOverlayTemp := SimOverlay.GetOverlayTabByID(rec.OverlayTab);
+      SimOverlay.RemoveOverlayTab(tabOverlayTemp);
+    end;
+  end;
 end;
 
 procedure TT3SimManager.OnUserRoleChatChange(const rec: TRecTCPSendChatUserRole);
