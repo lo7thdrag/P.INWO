@@ -152,7 +152,6 @@ begin
   ShowMessage('Save file was cancelled');
 
   UploadImage.Free;
-
 end;
 
 procedure TfrmSimbolTaktis.btnUploadRedClick(Sender: TObject);
