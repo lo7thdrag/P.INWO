@@ -1093,6 +1093,7 @@ begin
 
     FileImageName := VbsClassName;
     AddressPath := vGameDataSetting.ImageModel + FileImageName;
+
   end;
 end;
 
