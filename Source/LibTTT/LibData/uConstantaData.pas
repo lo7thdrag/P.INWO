@@ -9,9 +9,10 @@ uses
 const
   /// client role play
   crpServer         = 0;
-  crpOfficial       = 1;
+  crpInstructor     = 1;
   crpWasdal         = 2;
   crpSituationBoard = 3;
+  crpOfficial       = 4;
 
   /// color group
   cgFriend       = clBlue; // TColor($33CCFF);  // light blue
@@ -234,13 +235,6 @@ const
   pciBasePOLRI               : Char = 'o';
   pciBaseRadar               : Char = ',';
 
-
-  //Non Realtime Runtime Platform type
-  nrpPoint    = 1;  nrpsPoint = 'Non real Time Point Track';
-  nrpBearing  = 2;  nrpsBearing = 'Non Real Time Bearing Track';
-  nrpArea     = 3;  nrpsArea = 'Non Real Time Area of Probability';
-  nrpSpecial  = 4;  nrpsSpecial = 'Special Point';
-
   /// vehicle misc data
   /// vehicle domain
   vhdAir        = 0;        vhdsAir         = 'Air';
@@ -253,12 +247,6 @@ const
   vhdGrpPersonel= 7;        vhdsGrpPersonel = 'GRPPersonel';
   vhdTarget     = 8;        vhdsTarget      = 'Target';
 
-
-//  { for tactical info }
-//  C_TacticalInfos : array [0..10] of String =
-//    ('Empty', 'Class', 'Track ID/Number', 'Speed', 'Course', 'Altitude',
-//      'Fuel', 'Lubricants', 'Freshwater', 'Food', 'Water');
-
   { for goto time }
   C_GotoTimeInfo : array [0..4] of String = ( '5 Minutes', '30 Minutes', '1 Hour', '2 Hour', '1 Day');
   C_GotoTimeSecond : array [0..4] of Extended = ( 60 * 5, 60 * 30, 60 * 60, 60 * 60 * 2, 60 * 60 * 24);
@@ -266,7 +254,7 @@ const
 type
   TDSiWindowsVersion  = (wvUnknown, wvWin31, wvWin95, wvWin95OSR2, wvWin98, wvWin98SE, wvWinME, wvWin9x, wvWinNT3, wvWinNT4,
                           wvWin2000, wvWinXP, wvWinNT, wvWinServer2003, wvWinVista);
-  TConsoleGroup       = (cgOfficial, cgSituationBoard);
+  TConsoleGroup       = (cgInstructor, cgSituationBoard, cgOfficial);
   TOrganisasiTugas    = (otINWO, otNTWO, otATWO, otLFWO, otALWO, otCDWO, otSUWO, otLAIN);
   TSubOrganisasiTugas = (sotKPL, sotSTAFLAT, sotWASDAL, sotKOGAB, sotKOGASGABLA, sotKOGASGABFIB, sotPASRAT, sotKOGASRATMIN, sotKOGASHANTAI, sotSATGASDUK, sotLAIN);
 
@@ -280,34 +268,9 @@ type
 
   TMapCursor          = (mcSelect, mcAdd, mcEdit, mcRulerStart, mcRulerEnd);
 
-//  TWeapoonCategory = (
-//      wcMissileAirToSurfaceSubsurface,
-//      wcMissileSurfaceSubsurfaceToSurfaceSubsurface,
-//      wcMissileSurfaceSubsurfaceToAir,
-//      wcMissileAirToAir,
-//      wcMissileLandAttack,
-//      wcTorpedoStraigth,
-//      wcTorpedoActiveAcoustic,
-//      wcTorpedoPassiveAcoustic,
-//      wcTorpedoWireGuided,
-//      wcTorpedoWakeHoming,
-//      wcTorpedoActivePassive,
-//      wcTorpedoAirDropped,
-//      wcMine,
-//      wcGunCIWS, wcGunGun, wcGunRocket,
-//      wcBomb, wcVectac,
-//      wcHybrid);
-
-
-  /// Event
-//  TOnSensorDetect = procedure (aSensor : TObject; aTrack : TObject; aValue : boolean; aIFF : Boolean) of object;
-
-
   TSingleArray = array of Single;
   TIntegerArray = array of Integer;
   TString      = array of String;
-
-//  TSonarTIOWRange = (strShort,strMedium,strLong);
 
   function SetOrganisasiTugasToString(aValue : TOrganisasiTugas) : String;
   function SetOrganisasiTugasAkronimToString(aValue : TOrganisasiTugas) : String;

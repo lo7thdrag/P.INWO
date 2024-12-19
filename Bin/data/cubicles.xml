@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <ppkmgroups>
 
-  <SituationBoard id="Controller" name="SituationBoard Group">
+  <instructor id="Instructor" name="Instructor Group">
+    <console ip="192.168.1.10" name="INSTRUKTUR 1"></console>
+    <console ip="192.168.1.20" name="INSTRUKTUR 2"></console>     
+  </instructor>
+
+  <situationBoard id="SituationBoard" name="SituationBoard Group">
     <console ip="192.168.1.10" name="SITUATION BOARD 1"></console>
-    <console ip="192.168.1.20" name="SITUATION BOARD 2"></console>       
-  </controllers>
+    <console ip="192.168.1.20" name="SITUATION BOARD 2"></console>
+    <console ip="192.168.1.30" name="SITUATION BOARD 3"></console>
+    <console ip="192.168.1.40" name="SITUATION BOARD 4"></console>       
+  </situationBoard>
 
   <officer id="Officer" name="Officer Group"> 
     <console ip="192.168.0.15" name="PROGRAMMER" ></console>    

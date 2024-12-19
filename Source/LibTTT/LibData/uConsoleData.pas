@@ -46,6 +46,7 @@ type
     FXML    : TGmXML;
     FLoaded : Boolean;
 
+    FNodeInstructor : TGmXmlNode;
     FNodeSituationBoard : TGmXmlNode;
     FNodeOfficer : TGmXmlNode;
 
@@ -73,6 +74,7 @@ type
 implementation
 
 const
+  cTag_instructor  = 'instructor';
   cTag_situationboard  = 'situationboard';
   cTag_officer     = 'officer';
 
@@ -116,6 +118,7 @@ end;
 
 constructor TConsoleContainer.Create;
 begin
+  FNodeInstructor := nil;
   FNodeSituationBoard  := nil;
   FNodeOfficer     := nil;
 
@@ -138,6 +141,7 @@ begin
   RoleGroupList.Clear;
   RoleGroupList.Free;
 
+  FNodeInstructor := nil;
   FNodeSituationBoard := nil;
   FNodeOfficer := nil;
 
@@ -165,6 +169,33 @@ begin
 
   groupNodeTemp  := TNodeGroup.Create;
   consoleNodeTemp  := TNodeConsole.Create;
+
+  {$REGION ' Instructor '}
+  FNodeInstructor := FXML.Nodes.Node[0].Children.NodeByName[cTag_instructor];
+  groupNodeTemp.Assign(FNodeInstructor);
+
+  groupRoleTemp := TRoleInfo.Create;
+  groupRoleTemp.RoleID   := groupNodeTemp.RoleID;
+  groupRoleTemp.RoleName := groupNodeTemp.RoleName;
+
+  if Assigned(FNodeInstructor) then
+  begin
+    for i := 0 to FNodeInstructor.Children.Count-1 do
+    begin
+      consoleNodeTemp.Assign(FNodeInstructor.Children.Node[i]);
+
+      con :=  TConsoleInfo.Create;
+      con.IPAddress   := consoleNodeTemp.IPAddress;
+      con.ConsoleName := consoleNodeTemp.ConsoleName;
+      con.RoleName := groupNodeTemp.RoleName;
+
+      ConsoleList.AddObject(con.IPAddress, con);
+      groupRoleTemp.ConsoleIPs.Add(con.IPAddress);
+    end;
+    RoleGroupList.AddObject(groupRoleTemp.RoleName, groupRoleTemp);
+
+  end;
+  {$ENDREGION}
 
   {$REGION ' Situation Board '}
   FNodeSituationBoard := FXML.Nodes.Node[0].Children.NodeByName[cTag_situationboard];
@@ -231,6 +262,7 @@ begin
   FXML.Free;
   FXML := nil;
 
+  FNodeInstructor := nil;
   FNodeSituationBoard  := nil;
   FNodeOfficer     := nil;
 
