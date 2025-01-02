@@ -2507,7 +2507,7 @@ begin
 
         if ptToArea(rect1, ptPos) then
         begin
-          FShapeType := ovLogistic;
+          FShapeType := ovRadar;
           FShapeId := RadarTemp.ShapeId;
           FAction := caEdit;
           edtLongRadar.Text := formatDMS_long(RadarTemp.postCenter.X);

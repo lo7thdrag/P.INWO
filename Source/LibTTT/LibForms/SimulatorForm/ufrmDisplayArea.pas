@@ -817,22 +817,26 @@ begin
       editSearch.Clear;
       flagTable := False;
       UpdateDataAset;
-      editSearch.BringToFront;
+      editSearch.Visible := False;
+      cbbSearch.Visible := False;
     end;
     1 : {Class}
     begin
       editSearch.Clear;
-      editSearch.BringToFront;
+      cbbSearch.Visible := False;
+      editSearch.Visible := True;
     end;
     2 : {Nation}
     begin
       editSearch.Clear;
-      editSearch.BringToFront;
+      cbbSearch.Visible := False;
+      editSearch.Visible := True;
     end;
     3 : {Domain}
     begin
       AddSearchAssetItems;
-      cbbSearch.BringToFront;
+      editSearch.Visible := False;
+      cbbSearch.Visible := True;
       cbbSearch.ItemIndex := 0;
     end;
   end;

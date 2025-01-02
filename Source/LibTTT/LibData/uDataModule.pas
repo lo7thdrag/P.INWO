@@ -1916,9 +1916,9 @@ begin
     SQL.Add('SELECT * FROM Vehicle_Definition');
 
     if FilterIndex = 1 then
-      SQL.Add('WHERE VehicleClass = '  + QuotedStr(SearchContent))
+      SQL.Add('WHERE VehicleClass like '  + QuotedStr('%' +SearchContent+ '%'))
     else if FilterIndex = 2 then
-      SQL.Add('WHERE VehicleNation = '  + QuotedStr(SearchContent))
+      SQL.Add('WHERE VehicleNation like '  + QuotedStr('%' +SearchContent+ '%'))
     else if FilterIndex = 3 then
       SQL.Add('WHERE PlatformDomain = '  + IntToStr(StrToIntDef(SearchContent, 0)));
 
@@ -2119,13 +2119,14 @@ begin
     SQL.Clear;
     SQL.Add('INSERT INTO Vehicle_Definition');
     SQL.Add('(VehicleIdentifier, VehicleClass, VehicleNation, PlatformDomain, PlatformCategory, HullNumber, CallSign, ');
-    SQL.Add('LengthDimension, WidthDimensionm, HeightDimension, WeightDimension, DraftDimension, VbsClassName, ');
+    SQL.Add('LengthDimension, WidthDimension, HeightDimension, WeightDimension, DraftDimension, VbsClassName, ');
     SQL.Add('EnduranceType, LubricantsCapacity, WaterCapacity, FoodCapacity, FuelCapacity, MaxRange, MaxTime, ');
     SQL.Add('LubricantsConsumption, WaterConsumption, FoodConsumption, FuelConsumption, MinFuelConsumption, MaxFuelConsumption, ');
     SQL.Add('CruiseFuelConsumption, HighFuelConsumption, ');
     SQL.Add('Officer, FrontGangway, RearGangway, PortGangway, StarBoardGangway, CarriableUnit, PersonelUnitCarried, ');
     SQL.Add('MaxPersonelCapacity, DeckUnitCarried, AmphibiousCarried, LandCarried, MaxWeightDeck, WidthDeck, LengthDeck, ');
-    SQL.Add('HangarUnitCarried, FixWingCarried, RotaryCarried, MaxCapacityHangar, MaxWeightHangar');
+    SQL.Add('HangarUnitCarried, FixWingCarried, RotaryCarried, MaxCapacityHangar, MaxWeightHangar)');
+    SQL.Add('VALUES (');
 
     with aRec do
     begin
