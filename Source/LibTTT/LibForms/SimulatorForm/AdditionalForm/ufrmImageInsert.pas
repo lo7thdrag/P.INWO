@@ -65,6 +65,7 @@ begin
   rec.TabId := TabId;
   rec.UserRoleId := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
   rec.TabAddres := fileAddressTemp;
+  rec.TabCaption := TabCaption;
 
   simMgrClient.netSend_CmdSituationBoardTabProperties(rec);
 
