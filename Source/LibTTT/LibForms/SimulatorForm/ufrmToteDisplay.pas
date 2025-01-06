@@ -42,6 +42,7 @@ type
     procedure CbbConsoleDestination(Sender: TObject);
     procedure btnSendClick(Sender: TObject);
     procedure FileTransferClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
     {$ENDREGION}
   private
     FConsoleList  : TList;
@@ -129,14 +130,42 @@ begin
  pnlFileTransferManajemenShow;
 end;
 
+procedure TfrmToteDisplay.FormCreate(Sender: TObject);
+var
+  i: Integer;
+
+begin
+  if Screen.MonitorCount > 1 then
+    i := 1
+  else
+    i := 0;
+
+  DefaultMonitor := dmDesktop;
+
+  Width := Screen.Monitors[vGameDataSetting.ToteScreen].Width;
+  Height := Screen.Monitors[vGameDataSetting.ToteScreen].Height;
+  Left := Screen.Monitors[vGameDataSetting.ToteScreen].Left;
+  Top := Screen.Monitors[vGameDataSetting.ToteScreen].Top;
+end;
+
 procedure TfrmToteDisplay.Initialize;
 var
   i : Integer;
 begin
-  width := Screen.Monitors[vGameDataSetting.ToteScreen].width;
-  height := Screen.Monitors[vGameDataSetting.ToteScreen].height;
-  left := Screen.Monitors[vGameDataSetting.ToteScreen].left;
-  top := Screen.Monitors[vGameDataSetting.ToteScreen].top;
+  if Screen.MonitorCount > 1 then
+  begin
+    Width := Screen.Monitors[vGameDataSetting.ToteScreen].Width;
+    Height := Screen.Monitors[vGameDataSetting.ToteScreen].Height;
+    Left := Screen.Monitors[vGameDataSetting.ToteScreen].Left;
+    Top := Screen.Monitors[vGameDataSetting.ToteScreen].Top;
+  end
+  else
+  begin
+    Width := Screen.Monitors[0].Width;
+    Height := Screen.Monitors[0].Height;
+    Left := Screen.Monitors[0].Left;
+    Top := Screen.Monitors[0].Top;
+  end;
 end;
 
 procedure TfrmToteDisplay.pnlFileTransferManajemenShow;

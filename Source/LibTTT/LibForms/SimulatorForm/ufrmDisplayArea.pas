@@ -11,7 +11,7 @@ uses
   {Project Uses}
   uRecordData, uConstantaData, uSimMgr_Client, uT3SimManager, uClassData, ufrmVideoConference, ufrmSituationBoard,
   ufrmTelegram, uLibSetting, uSimContainers, ufrmSummaryUserRole, ufrmAvailableUserRole , UfrmMapEditor, ufrmSimbolTaktis,
-  ufrmAsset, ufrmFileManager, ufrmReferensi, ufrmMapPreview, RzBmpBtn;
+  ufrmAsset, ufrmFileManager, ufrmReferensi, ufrmMapPreview, RzBmpBtn, ufrmToteDisplay;
 
 type
   TfrmDisplayArea = class(TForm)
@@ -214,6 +214,9 @@ type
     ilClientStateColor: TImageList;
     lblNamaChat: TLabel;
     Panel2: TPanel;
+    pnlToteDisplay: TPanel;
+    SpeedButton2: TSpeedButton;
+    lblToteDisplay: TLabel;
 
     procedure btnAOTCClick(Sender: TObject);
 
@@ -329,11 +332,14 @@ type
     procedure VideoConferenceClick(Sender: TObject);
     {$ENDREGION}
 
+    {$REGION ' Tote Display Procedure '}
+    procedure ToteDisplayClick(Sender: TObject);
+    {$ENDREGION}
+
     procedure LogOutClick(Sender: TObject);
 
     procedure btnSendChatClick(Sender: TObject);
-    procedure lvReferensiSelectItem(Sender: TObject; Item: TListItem;
-      Selected: Boolean);
+    procedure lvReferensiSelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);
     procedure btnRemoveReferensiClick(Sender: TObject);
     procedure btnAddAssetClick(Sender: TObject);
     procedure btnDeleteAssetClick(Sender: TObject);
@@ -341,9 +347,7 @@ type
     procedure cbbFilterSelect(Sender: TObject);
     procedure editSearchKeyPressAsset(Sender: TObject; var Key: Char);
     procedure cbbSearchSelect(Sender: TObject);
-    procedure lvAssetSelectItem(Sender: TObject; Item: TListItem;
-      Selected: Boolean);
-//    procedure LlvFileDataSelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);
+    procedure lvAssetSelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);
 
   private
     iconName : string;
@@ -387,6 +391,9 @@ type
 
     procedure UpdateClientChatting;
     procedure UpdateClientHistoryChat(IdSender, IdReceiver : Integer);
+
+    procedure SetPanelInstruktur;
+    procedure SetPanelOfficial;
 
 
   end;
@@ -499,6 +506,15 @@ begin
       imgMainBackground.Picture.LoadFromFile('C:\Program Files (x24)\Bin\data\Image Background\wallpaperATWODisplayArea.png')
     else
       imgMainBackground.Picture.LoadFromFile('C:\Program Files (x24)\Bin\data\Image Background\wallpaperINWODisplayArea.png');
+  end;
+
+  if simMgrClient.MyConsoleData.Group = cgInstructor then
+  begin
+    SetPanelInstruktur;
+  end
+  else
+  begin
+    SetPanelOfficial;
   end;
 
   pnlBerandaManajemenShow;
@@ -2100,6 +2116,20 @@ begin
 end;
 
 
+procedure TfrmDisplayArea.ToteDisplayClick(Sender: TObject);
+begin
+  if not Assigned(frmToteDisplay) then
+    frmToteDisplay := TfrmToteDisplay.Create(Self);
+
+  try
+    with frmToteDisplay do
+    begin
+      Show;
+    end;
+  finally
+  end;
+end;
+
 {$ENDREGION}
 
 {$REGION ' Video Conference Procedure '}
@@ -2130,6 +2160,24 @@ begin
 end;
 
 {$ENDREGION}
+
+procedure TfrmDisplayArea.SetPanelInstruktur;
+begin
+  pnlUserRole.Height := 35;
+  pnlResources.Height := 250;
+
+  pnlToteDisplay.Height := 35;
+  pnlServices.Height := 250;
+end;
+
+procedure TfrmDisplayArea.SetPanelOfficial;
+begin
+  pnlUserRole.Height := 0;
+  pnlResources.Height := 215;
+
+  pnlToteDisplay.Height := 0;
+  pnlServices.Height := 215;
+end;
 
 procedure TfrmDisplayArea.LogOutClick(Sender: TObject);
 var

@@ -51,12 +51,6 @@ begin
   end
   else
   begin
-    if simMgrClient.MyConsoleData.Group = cgInstructor then
-    begin
-      frmToteDisplay.Initialize;
-      frmToteDisplay.Show;
-    end;
-
     frmTacticalDisplay.pnlHome.BringToFront;
     frmTacticalDisplay.pnlLogin.BringToFront;
   end;
