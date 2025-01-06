@@ -11,7 +11,7 @@ implementation
 uses
    SysUtils, Controls, Forms,
    uScriptCommon, uLibSetting, uSimMgr_Client, uNetHandle_Client, uMapXHandler,
-   ufrmTacticalDisplay, uCoordConvertor, uConstantaData, uT3Listener, ufrmSituationBoard{, {uGameSetting};
+   ufrmTacticalDisplay, uCoordConvertor, uConstantaData, uT3Listener, ufrmSituationBoard, ufrmToteDisplay{, {uGameSetting};
 
 procedure BeginGame;
 begin
@@ -51,6 +51,12 @@ begin
   end
   else
   begin
+    if simMgrClient.MyConsoleData.Group = cgInstructor then
+    begin
+      frmToteDisplay.Initialize;
+      frmToteDisplay.Show;
+    end;
+
     frmTacticalDisplay.pnlHome.BringToFront;
     frmTacticalDisplay.pnlLogin.BringToFront;
   end;

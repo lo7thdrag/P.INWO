@@ -84,6 +84,7 @@ type
     LocalDirectory : string;
     ImageModel : string;
     ImgPath : string;
+    FileTransfer : string;
     RemotePort : integer ;
     TacticalScreen : Integer;
     ToteScreen : Integer;
@@ -333,6 +334,7 @@ begin
     LocalDirectory  := IniFReadstring(inif, c_gdata, 'LocalDirectory' , 'D:\');
     ImgPath         := IniFReadstring(inif, c_gdata, 'ImgPath' , '.\data\bitmap\');
     ImageModel      := IniFReadstring(inif, c_gdata, 'ImageModel' , '\\192.168.1.50\Program Files (x24)\Bin\data\Image DBEditor\Interface\');
+    FileTransfer    := IniFReadstring(inif, c_gdata, 'FileTransfer' , '\\192.168.1.50\Program Files (x24)\Docs\File Transfer\');
   end;
   inif.Free;
 

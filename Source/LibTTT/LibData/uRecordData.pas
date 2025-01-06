@@ -969,11 +969,11 @@ type
   end;
 
   TRecTactical_Symbol = record
-    Id_Tactical_Symbol    : Integer;
-    Tipe                  : Integer;
-    Kategori              : Integer;
-    Keterangan            : string[80];
-    Path_Directori        : string[80];
+    Id_Tactical_Symbol         : Integer;
+    Tipe                       : Integer;
+    Kategori                   : Integer;
+    Keterangan                 : string[80];
+    Path_Directori             : string[80];
   end;
 
   TRecFontTaktis = record

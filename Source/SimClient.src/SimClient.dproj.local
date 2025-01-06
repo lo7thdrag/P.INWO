@@ -139,7 +139,7 @@
     <Transaction>2024-07-30 12:40:38.000.482,D:\EPPKM\Simulator\Source\LibTTT\libObjects\uMainStrategi.pas=</Transaction>
     <Transaction>2024-07-30 12:43:19.000.530,D:\EPPKM\Simulator\Source\LibTTT\libDBScenario\newClassASTT.pas=</Transaction>
     <Transaction>2024-07-30 12:43:26.000.011,D:\EPPKM\Simulator\Source\LibTTT\libDBScenario\tttData.pas=</Transaction>
-    <Transaction>2024-07-30 12:43:50.000.772,D:\EPPKM\Simulator\Source\LibTTT\libDBScenario\uDBAsset_GameEnvironment.pas=</Transaction>
+    <Transaction>2024-07-30 12:43:50.000.761,D:\EPPKM\Simulator\Source\LibTTT\libDBScenario\uDBAsset_Fitted.pas=</Transaction>
     <Transaction>2024-07-30 12:43:50.000.895,D:\EPPKM\Simulator\Source\LibTTT\libDBScenario\uDBFormation.pas=</Transaction>
     <Transaction>2024-07-30 12:43:50.000.915,D:\EPPKM\Simulator\Source\LibTTT\libDBScenario\uDBNote_Storage.pas=</Transaction>
     <Transaction>2024-07-30 12:43:50.000.805,D:\EPPKM\Simulator\Source\LibTTT\libDBScenario\uDBAsset_Radar.pas=</Transaction>
@@ -147,7 +147,7 @@
     <Transaction>2024-07-30 12:43:50.000.876,D:\EPPKM\Simulator\Source\LibTTT\libDBScenario\uDBCloud_Effect.pas=</Transaction>
     <Transaction>2024-07-30 12:43:50.000.736,D:\EPPKM\Simulator\Source\LibTTT\libDBScenario\uDBAsset_Countermeasure.pas=</Transaction>
     <Transaction>2024-07-30 12:43:50.000.908,D:\EPPKM\Simulator\Source\LibTTT\libDBScenario\uDBLink.pas=</Transaction>
-    <Transaction>2024-07-30 12:43:50.000.761,D:\EPPKM\Simulator\Source\LibTTT\libDBScenario\uDBAsset_Fitted.pas=</Transaction>
+    <Transaction>2024-07-30 12:43:50.000.772,D:\EPPKM\Simulator\Source\LibTTT\libDBScenario\uDBAsset_GameEnvironment.pas=</Transaction>
     <Transaction>2024-07-30 12:43:50.000.921,D:\EPPKM\Simulator\Source\LibTTT\libDBScenario\uDBPattern.pas=</Transaction>
     <Transaction>2024-07-30 12:43:50.000.724,D:\EPPKM\Simulator\Source\LibTTT\libDBScenario\uDBAsset_Bomb.pas=</Transaction>
     <Transaction>2024-07-30 12:43:50.000.755,D:\EPPKM\Simulator\Source\LibTTT\libDBScenario\uDBAsset_Embark_Library.pas=</Transaction>
@@ -169,8 +169,8 @@
     <Transaction>2024-07-30 12:43:50.000.730,D:\EPPKM\Simulator\Source\LibTTT\libDBScenario\uDBAsset_Capability.pas=</Transaction>
     <Transaction>2024-07-30 12:43:50.000.784,D:\EPPKM\Simulator\Source\LibTTT\libDBScenario\uDBAsset_Gun.pas=</Transaction>
     <Transaction>2024-07-30 12:43:50.000.799,D:\EPPKM\Simulator\Source\LibTTT\libDBScenario\uDBAsset_MotionCharacteristics.pas=</Transaction>
-    <Transaction>2024-07-30 12:43:50.000.841,D:\EPPKM\Simulator\Source\LibTTT\libDBScenario\uDBAsset_Sonar.pas=</Transaction>
     <Transaction>2024-07-30 12:43:50.000.863,D:\EPPKM\Simulator\Source\LibTTT\libDBScenario\uDBAsset_Weapon.pas=</Transaction>
+    <Transaction>2024-07-30 12:43:50.000.841,D:\EPPKM\Simulator\Source\LibTTT\libDBScenario\uDBAsset_Sonar.pas=</Transaction>
     <Transaction>2024-07-30 12:43:50.000.927,D:\EPPKM\Simulator\Source\LibTTT\libDBScenario\uDBRainfall.pas=</Transaction>
     <Transaction>2024-07-30 12:43:50.000.766,D:\EPPKM\Simulator\Source\LibTTT\libDBScenario\uDBAsset_FontTaktis.pas=</Transaction>
     <Transaction>2024-07-30 12:43:50.000.852,D:\EPPKM\Simulator\Source\LibTTT\libDBScenario\uDBAsset_Vehicle.pas=</Transaction>

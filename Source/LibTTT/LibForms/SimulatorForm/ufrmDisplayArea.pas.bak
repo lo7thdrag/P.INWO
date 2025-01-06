@@ -376,7 +376,7 @@ type
   public
 
     procedure UpdateClientChatting;
-    procedure UpdateClientHistoryChat(IdSender : Integer);
+    procedure UpdateClientHistoryChat(IdSender, IdReceiver : Integer);
 
 
   end;
@@ -635,7 +635,7 @@ end;
 
 procedure TfrmDisplayArea.AssetClick(Sender: TObject);
 begin
-  pnlMenejemenAsset.BringToFront;
+  pnlAsetManajemenShow;
 end;
 
 procedure TfrmDisplayArea.pnlAsetManajemenShow;
@@ -1574,7 +1574,7 @@ end;
 
 procedure TfrmDisplayArea.ReferensiClick(Sender: TObject);
 begin
-  pnlReferensiShow
+  pnlReferensiShow;
 end;
 
 procedure TfrmDisplayArea.pnlReferensiShow;
@@ -1595,11 +1595,8 @@ begin
   begin
     SelectDirectory('Select a directory', vGameDataSetting.LocalDirectory, localDirTemp);
 
-//    serverDirTemp := vGameDataSetting.FileReferensi + FSelectedFileReferensi.FData.Encripted_File_Name;
-//    localFileTemp := localDirTemp + '\' + FSelectedFileReferensi.FData.Nama_File;
-
-    serverDirTemp := vGameDataSetting.FileReferensi + '\' + IntToStr(FSelectedFileReferensi.FData.ID_File) + '.docx, .pptx, .pdf';
-    localFileTemp := localDirTemp + '\' + IntToStr(FSelectedFileReferensi.FData.ID_File) + '.docx, .pptx, .pdf';
+    serverDirTemp := vGameDataSetting.FileReferensi + '\' + IntToStr(FSelectedFileReferensi.FData.ID_File) + '.docx';
+    localFileTemp := localDirTemp + '\' + IntToStr(FSelectedFileReferensi.FData.ID_File) + '.docx';
 
     CopyFile(PWideChar(serverDirTemp), PWideChar(localFileTemp), False);
   end;
@@ -1615,7 +1612,7 @@ begin
       ShowModal;
     end;
   finally
-    frmSimbolTaktis.Free;
+    frmReferensi.Free;
   end;
 
   UpdateDataReferensi;
@@ -1633,8 +1630,7 @@ begin
   begin
     if Assigned(FSelectedFileReferensi) then
     begin
-//      serverDirTemp := vGameDataSetting.FileDirectory + FSelectedFileReferensi.FData.Encripted_File_Name;
-      serverDirTemp := vGameDataSetting.FileReferensi + '\' + IntToStr(FSelectedFileReferensi.FData.ID_File) + '.docx, .pptx, .pdf';
+      serverDirTemp := vGameDataSetting.FileReferensi + '\' + IntToStr(FSelectedFileReferensi.FData.ID_File) + '.docx';
 
       with FSelectedFileReferensi.FData do
       begin
@@ -1690,6 +1686,7 @@ begin
     li.SubItems.Add(fileDataTemp.FData.Directory_Path);
     li.SubItems.Add(fileDataTemp.FData.Modified_Date);
     li.SubItems.Add(fileDataTemp.FData.Modified_By);
+
     li.Data := fileDataTemp;
   end;
 end;
@@ -1824,6 +1821,11 @@ end;
 procedure TfrmDisplayArea.btnCloseChatClick(Sender: TObject);
 begin
   pnlRight.Width := 0;
+  lstUserChat.BringToFront;
+  mmoChat.Clear;
+  edtChatBox.Clear;
+  pnlBottomChat.Visible := False;
+
 end;
 
 procedure TfrmDisplayArea.btnMessageChatClick(Sender: TObject);
@@ -1833,6 +1835,9 @@ end;
 
 procedure TfrmDisplayArea.btnUserChatClick(Sender: TObject);
 begin
+  edtChatBox.Clear;
+  pnlBottomChat.Visible := False;
+  mmoChat.Clear;
   lstUserChat.BringToFront;
   UpdateClientChatting;
 end;
@@ -1863,10 +1868,11 @@ begin
 
   FSelectedUserChat := TUserRole(lstUserChat.Items.Objects[lstUserChat.ItemIndex]);
   mmoChat.BringToFront;
-  UpdateClientHistoryChat(FSelectedUserChat.FData.UserRoleIndex);
+  pnlBottomChat.Visible := True;
+  UpdateClientHistoryChat(FSelectedUserChat.FData.UserRoleIndex, simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex);
 end;
 
-procedure TfrmDisplayArea.UpdateClientHistoryChat(IdSender: Integer);
+procedure TfrmDisplayArea.UpdateClientHistoryChat(IdSender, IdReceiver: Integer);
 var
 tempList : TList;
 i : Integer;
@@ -1876,33 +1882,40 @@ namaRole : string;
 begin
   tempList := TList.Create;
   try
-//  if Assigned(IdSender) then
-//  begin
-    SimManager.SimChatting.GetChattingBySending(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, IdSender, tempList);
+  if ((Assigned(FSelectedUserChat)) and ((IdSender = simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex) and
+     (IdReceiver = FSelectedUserChat.FData.UserRoleIndex))) or ((Assigned(FSelectedUserChat)) and ((IdReceiver = simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex) and
+     (IdSender = FSelectedUserChat.FData.UserRoleIndex)))then
+  begin
+    SimManager.SimChatting.GetChattingBySending(IdReceiver, IdSender, tempList);
 //
     mmoChat.Clear;
     for i := 0 to tempList.Count - 1 do
     begin
       chattingTemp := tempList.Items[i];
+//      if (IdSender = simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex) and (IdReceiver =  then
+//      begin
+        if chattingTemp.IdUserRoleSending = simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex then
+        begin
+          mmoChat.Font.Color := clBlack;
+          mmoChat.Lines.Add('You :');
+  //        mmoChat.Lines.Add('/n');
+          mmoChat.Lines.Add(chattingTemp.ChatMessage);
+          mmoChat.Lines.Add('');
+  //        mmoChat.Lines.Add('/n');
+        end;
 
-      if chattingTemp.IdUserRoleSending = simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex then
-      begin
-        mmoChat.Font.Color := clBlack;
-        mmoChat.Lines.Add('You :');
-//        mmoChat.Lines.Add('/n');
-        mmoChat.Lines.Add(chattingTemp.ChatMessage);
-//        mmoChat.Lines.Add('/n');
-      end;
-
-      if (chattingTemp.IdUserRoleReceive = IdSender) then
-      begin
-        mmoChat.Font.Color := clBlue;
-//        mmoChat.Lines.Add(FSelectedUserChat.FData.UserRoleIdentifier + ' :');
-        mmoChat.Lines.Add(IntToStr(IdSender) + ' :');
-//        mmoChat.Lines.Add('/n');
-        mmoChat.Lines.Add(chattingTemp.ChatMessage);
-//        mmoChat.Lines.Add('/n');
-      end;
+        if (chattingTemp.IdUserRoleSending = FSelectedUserChat.FData.UserRoleIndex) then
+        begin
+          mmoChat.Font.Color := clBlue;
+  //        mmoChat.Lines.Add(FSelectedUserChat.FData.UserRoleIdentifier + ' :');
+//          mmoChat.Lines.Add(IntToStr(FSelectedUserChat.FData.UserRoleIndex) + ' :');
+            mmoChat.Lines.Add(FSelectedUserChat.FData.UserRoleIdentifier + ' :');
+  //        mmoChat.Lines.Add('/n');
+          mmoChat.Lines.Add(chattingTemp.ChatMessage);
+          mmoChat.Lines.Add('');
+  //        mmoChat.Lines.Add('/n');
+        end;
+//      end;
 
 
   //    userRoleTemp := SimUserRole.getUserRoleByID(rec.UserRoleId);
@@ -1910,7 +1923,7 @@ begin
   //    mmoChat.Lines.Add(IntToStr(chattingTemp.IdUserRoleSending));
   //    mmoChat.Lines.Add(IntToStr(chattingTemp.IdUserRoleReceive));
   //    mmoChat.Lines.Add(chattingTemp.ChatMessage);
-//    end;
+    end;
   end;
   finally
     tempList.Free;
@@ -1931,6 +1944,7 @@ begin
    rec.ChatMessage := edtChatBox.Text;
 
    simMgrClient.netSend_CmdSendMessage(rec);
+   edtChatBox.Clear;
 end;
 
 procedure TfrmDisplayArea.UpdateClientChatting;

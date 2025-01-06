@@ -6,12 +6,10 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Imaging.pngimage,
 
-  uClassData, uDataModule, uConstantaData;
+  uClassData, uDataModule, uConstantaData, RzBmpBtn;
 
 type
   TfrmSubRole = class(TForm)
-    btnCancel: TImage;
-    btnOk: TImage;
     ImgBackgroundForm: TImage;
     lblPlatform: TLabel;
     pnlSubRole: TPanel;
@@ -35,6 +33,8 @@ type
     Label6: TLabel;
     Label7: TLabel;
     Label9: TLabel;
+    btnOk: TRzBmpButton;
+    btnCancel: TRzBmpButton;
     procedure FormShow(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
     procedure btnNewClick(Sender: TObject);
@@ -420,7 +420,6 @@ begin
 //  btnDelete.Visible := True;
   btnClose.Visible := True;
   lstSubRole.Visible := True;
-
 
   pnlSubRole.Visible := False;
   btnCancel.Visible := False;

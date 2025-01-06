@@ -208,6 +208,8 @@ begin
 
       if (SimConsole.GetConsoleRoleName(ip)= 'SituationBoard Group') then
         FConsoleData.Group := cgSituationBoard
+      else if (SimConsole.GetConsoleRoleName(ip)= 'Instructor Group') then
+        FConsoleData.Group := cgInstructor
       else
         FConsoleData.Group := cgOfficial;
     end;
