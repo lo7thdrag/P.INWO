@@ -72,6 +72,7 @@ type
   public
     { Public declarations }
     procedure UpdateClientTelegramList;
+    procedure OpenApplicationFileFolder(FullPath: String);
 
   end;
 
@@ -354,6 +355,7 @@ begin
 //  openDialog.Options := openDialog.Options + [ofAllowMultiSelect];
 //  openDialog.Filter := 'Word file|*.docx|Excel file|*.xlsx|Power Point file|*.pptx';
   openDialog.Filter := 'All Files (*.*)|*.*';
+
 //  saveDialog.DefaultExt := 'docx';
 
 //  openDialog.FilterIndex := 1;
@@ -397,6 +399,14 @@ begin
   openDialog.Free;
 
 //  UpdateDataFile;
+end;
+
+procedure TfrmTelegram.OpenApplicationFileFolder(FullPath: String);
+begin
+     ShellExecute(Application.Handle, PChar('open'), PChar(FullPath), nil, nil, SW_SHOWNORMAL);
+     //references
+     //https://learn.microsoft.com/en-us/windows/win32/api/shellapi/nf-shellapi-shellexecutea
+     //https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-showwindow
 end;
 
 procedure TfrmTelegram.pnlTelegramMasukClick(Sender: TObject);

@@ -34,7 +34,7 @@ type
     SelectedUserRoleIP : string;
     fileNameTempFileSharing : string;
     fileNameArray : array of string;
-    pathFileArray : array of PWideChar;
+    pathFileArray : array of string;
     addressTempFileFileSharing : PWideChar;
 
 
@@ -77,7 +77,7 @@ end;
 
 procedure TfrmFileManager.imgbtnChooseFileClick(Sender: TObject);
 var
-  addressTemp : PWideChar;
+  addressTemp : string;
   filNameTemp : string;
   openDialog : TOpenDialog;
   saveFileTemp : TFile_Data;
@@ -103,7 +103,7 @@ begin
 
     for i := 0 to openDialog.Files.Count - 1 do
     begin
-      addressTemp := PWideChar(openDialog.Files[i]);
+      addressTemp := openDialog.Files[i];
       filNameTemp := ExtractFileName(openDialog.Files[i]);
 //      filNameTemp := openDialog.Files[i];
       fileNameArray[i] := filNameTemp;
@@ -111,8 +111,8 @@ begin
 
 //      lstbxFileShareName.Items.AddStrings(filNameTemp);
   //    lblNamaFile.Caption
-      addressTempFileFileSharing := addressTemp;
-      fileNameTempFileSharing := filNameTemp;
+//      addressTempFileFileSharing := addressTemp;
+//      fileNameTempFileSharing := filNameTemp;
 
 //      lblNamaFile.Caption := fileNameTempFileSharing;
     end;
@@ -152,7 +152,7 @@ end;
 procedure TfrmFileManager.imgbtnShareClick(Sender: TObject);
 var
 i : Integer;
-addressfiletemp : PWideChar;
+addressfiletemp : string;
 filenametemp : string;
 begin
 
@@ -167,7 +167,9 @@ begin
   begin
     addressfiletemp := pathFileArray[i];
     filenametemp := fileNameArray[i];
-    CopyFile(addressfiletemp, PWideChar('\\' + SelectedUserRoleIP + '\\File Sharing' + '\\' + filenametemp), False);
+//    CopyFile(addressfiletemp, PWideChar('\\' + SelectedUserRoleIP + '\\File Sharing' + '\\' + filenametemp), False);
+
+    TFile.Copy(addressfiletemp, '\\' + SelectedUserRoleIP + '\\File Sharing' + '\\' + filenametemp);
   end;
 
   Close;
