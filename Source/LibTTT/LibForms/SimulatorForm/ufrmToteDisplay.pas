@@ -83,6 +83,9 @@ var
 
 implementation
 
+uses
+  ufrmDisplayArea, ufrmTacticalDisplay;
+
 {$R *.dfm}
 
 procedure TfrmToteDisplay.FormShow(Sender: TObject);
@@ -199,6 +202,15 @@ begin
     simMgrClient.netSend_CmdUserState(rec);
   end;
 
+  if Assigned(frmDisplayArea) then
+  frmDisplayArea.Close;
+
+  if Assigned(frmTacticalDisplay) then
+  begin
+    frmTacticalDisplay.UpdateClientLogout(nil);
+    frmTacticalDisplay.Show;
+  end;
+
   Close;
 end;
 
@@ -264,47 +276,6 @@ begin
 
   openDialog.Free;
   UpdateFile;
-end;
-
-procedure TfrmToteDisplay.btnSendClick(Sender: TObject);
-var
-  SelectedConsoleName: string;
-  ConsoleInfo  : TConsoleInfo;
-
-  Item : TListItem;
-  SelectedItem : string;
-
-  openDialog   : TOpenDialog;
-  fileDataTemp : TRecFile_Data;
-  fileTemp     : TFile_Data;
-
-  i: Integer;
-begin
-  openDialog := TOpenDialog.Create(Self);
-  fileTemp := TFile_Data.Create;
-
-  if cbbConsole.ItemIndex = -1 then
-  begin
-    ShowMessage('Select console name');
-    Exit;
-  end;
-
-  if FSelectedFileTransfer = nil then
-  begin
-    ShowMessage('Select a file to send.');
-    Exit;
-  end;
-
-  SelectedConsoleName := cbbConsole.Text;
-  ConsoleInfo := TConsoleInfo(simMgrClient.SimConsole.ConsoleList.Objects[cbbConsole.ItemIndex]);
-
-  fileNameTemp := FSelectedFileTransfer.FData.Nama_File;
-  AddressPath := FSelectedFileTransfer.FData.Directory_Path;
-
-  if CopyFile(addressTemp, PWideChar(vGameDataSetting.FileTransfer + '\' + fileNameTemp), False) then
-    ShowMessage('File "' + fileNameTemp + '" successfully shared')
-  else
-    ShowMessage('Failed to share file "' + fileNameTemp + '".');
 end;
 
 procedure TfrmToteDisplay.btnDeleteClick(Sender: TObject);
@@ -385,6 +356,47 @@ begin
   end
 end;
 
+procedure TfrmToteDisplay.btnSendClick(Sender: TObject);
+var
+  SelectedConsoleName: string;
+  ConsoleInfo  : TConsoleInfo;
+
+  Item : TListItem;
+  SelectedItem : string;
+
+  openDialog   : TOpenDialog;
+  fileDataTemp : TRecFile_Data;
+  fileTemp     : TFile_Data;
+
+  i: Integer;
+begin
+  openDialog := TOpenDialog.Create(Self);
+  fileTemp := TFile_Data.Create;
+
+  if cbbConsole.ItemIndex = -1 then
+  begin
+    ShowMessage('Select console name');
+    Exit;
+  end;
+
+  if FSelectedFileTransfer = nil then
+  begin
+    ShowMessage('Select a file to send.');
+    Exit;
+  end;
+
+  SelectedConsoleName := cbbConsole.Text;
+  ConsoleInfo := TConsoleInfo(simMgrClient.SimConsole.ConsoleList.Objects[cbbConsole.ItemIndex]);
+
+  fileNameTemp := FSelectedFileTransfer.FData.Nama_File;
+  AddressPath := FSelectedFileTransfer.FData.Directory_Path;
+
+  if CopyFile(addressTemp, PWideChar(vGameDataSetting.FileTransfer + '\' + fileNameTemp), False) then
+    ShowMessage('File "' + fileNameTemp + '" successfully shared')
+  else
+    ShowMessage('Failed to share file "' + fileNameTemp + '".');
+end;
+
 procedure TfrmToteDisplay.UpdateFile;
 var
   i: Integer;
@@ -393,7 +405,7 @@ var
 begin
   lvFileTransfer.Items.Clear;
 
-  for i := 0 to FFileTransfer.Count-1 do
+  for i := 0 to FFileTransfer.Count -1 do
   begin
     fileTemp := TFile_Data(FFileTransfer.Items[i]);
 
