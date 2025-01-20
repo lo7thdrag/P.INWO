@@ -422,6 +422,7 @@ var
   i : Integer;
   consoleInfoTemp : TConsoleInfo;
   userRoleTemp : TUserRole;
+  subRoleTemp : TSubRole;
 begin
   cbbConsole.Items.Clear;
 
@@ -436,6 +437,10 @@ begin
       if userRoleTemp.isInUse then
       begin
         cbbConsole.Items.Add(consoleInfoTemp.ConsoleName);
+        cbbConsole.Items.Add(userRoleTemp.FData.UserRoleAcronim);
+
+        subRoleTemp := SimManager.SimSubRole.getSubRoleByID(userRoleTemp.FData.SubRoleIndex);
+        cbbConsole.Items.Add(subRoleTemp.FData.SubRoleAcronim);
       end
     end;
   end;

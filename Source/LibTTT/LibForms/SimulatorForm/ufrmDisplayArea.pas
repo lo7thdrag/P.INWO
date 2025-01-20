@@ -215,7 +215,7 @@ type
     lblNamaChat: TLabel;
     Panel2: TPanel;
     pnlToteDisplay: TPanel;
-    SpeedButton2: TSpeedButton;
+    btnToteDisplay: TSpeedButton;
     lblToteDisplay: TLabel;
 
     procedure btnAOTCClick(Sender: TObject);
