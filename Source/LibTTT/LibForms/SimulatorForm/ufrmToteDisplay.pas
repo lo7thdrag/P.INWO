@@ -68,6 +68,8 @@ type
     AddressPath     : string;
     fileNameTemp    : string;
 
+    consolenameTemp : string;
+
     FSelectedFileTransfer : TFile_Data;
     FSelectedConsole      : TUserRole;
   public
@@ -92,7 +94,6 @@ procedure TfrmToteDisplay.FormShow(Sender: TObject);
 begin
   cbbConsole.ItemIndex := -1;
 
-  btnSend.Enabled := True;
 end;
 
 procedure TfrmToteDisplay.FormCreate(Sender: TObject);
@@ -161,24 +162,28 @@ begin
       end;
     end;
     li.Data := consoleInfoTemp;
+    li.Data := consoleListTemp;
   end;
 end;
 
 procedure TfrmToteDisplay.lvConsoleListSelectItem(Sender: TObject;
   Item: TListItem; Selected: Boolean);
 begin
+   FSelectedConsole := nil;
+
    if Selected then
    begin
-     if (Item = nil) or (Item.Data = nil) then
-     begin
+      if (Item = nil) or (item.Data = nil) then
+      begin
+        MessageDlg('User cannot be selected', mtInformation, [mbOK], 0);
+        Exit;
+      end;
+
+      FSelectedConsole := TUserRole(Item.Data);
+      consolenameTemp  := FSelectedConsole.FData.UserRoleAcronim;
+
       btnLogout.Visible := True;
       btnLogout.Enabled := True;
-      Exit;
-     end;
-
-     FSelectedConsole  := TUserRole(lvConsoleList.Selected.Data);
-     btnLogout.Visible := True;
-     btnLogout.Enabled := True;
    end
    else
    begin
@@ -190,14 +195,26 @@ end;
 procedure TfrmToteDisplay.btnLogoutClick(Sender: TObject);
 var
   rec : TRecTCP_UserState;
-
+  selectedItem: TListItem;
+  consolenameTemp: string;
 begin
+
+  if FSelectedConsole = nil then
+  begin
+    ShowMessage('Select console to logout');
+    Exit;
+  end;
+
+  consolenameTemp := FSelectedConsole.FData.UserRoleAcronim;
+
   if Assigned(simMgrClient.MyConsoleData) then
   begin
     rec.OrderID := CORD_ID_LOGOUT;
     rec.UserRoleId := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
     rec.ConsoleIP := simMgrClient.MyConsoleData.IpAdrres;
     rec.UserRoleInUse := False;
+
+    ShowMessage('User "' + consolenameTemp + '"Logout');
 
     simMgrClient.netSend_CmdUserState(rec);
   end;
@@ -436,11 +453,8 @@ begin
     begin
       if userRoleTemp.isInUse then
       begin
-        cbbConsole.Items.Add(consoleInfoTemp.ConsoleName);
+//        cbbConsole.Items.Add(consoleInfoTemp.ConsoleName);
         cbbConsole.Items.Add(userRoleTemp.FData.UserRoleAcronim);
-
-        subRoleTemp := SimManager.SimSubRole.getSubRoleByID(userRoleTemp.FData.SubRoleIndex);
-        cbbConsole.Items.Add(subRoleTemp.FData.SubRoleAcronim);
       end
     end;
   end;
