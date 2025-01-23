@@ -27,6 +27,106 @@ object frmToteDisplay: TfrmToteDisplay
     Height = 969
     Align = alClient
     TabOrder = 0
+    object pnlConsole: TPanel
+      Left = 1
+      Top = 1
+      Width = 1420
+      Height = 967
+      Align = alClient
+      TabOrder = 0
+      object pnlLogout: TPanel
+        Left = 1
+        Top = 912
+        Width = 1418
+        Height = 54
+        Align = alBottom
+        TabOrder = 0
+        object btnLogout: TButton
+          Left = 1
+          Top = 6
+          Width = 153
+          Height = 39
+          Cursor = crHandPoint
+          Caption = 'Logout'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -15
+          Font.Name = 'Jefferies'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 0
+          Visible = False
+          OnClick = btnLogoutClick
+        end
+      end
+      object pnlHeaderConsole: TPanel
+        Left = 1
+        Top = 1
+        Width = 1418
+        Height = 80
+        Align = alTop
+        BevelOuter = bvNone
+        TabOrder = 1
+        object Label2: TLabel
+          Left = 8
+          Top = 16
+          Width = 218
+          Height = 35
+          Caption = 'USER ROLE AKTIF'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -32
+          Font.Name = 'Jefferies'
+          Font.Style = []
+          ParentFont = False
+        end
+      end
+      object pnllvConsoleList: TPanel
+        Left = 1
+        Top = 81
+        Width = 1418
+        Height = 831
+        Align = alClient
+        BevelOuter = bvNone
+        TabOrder = 2
+        object lvConsoleList: TListView
+          Left = 0
+          Top = 0
+          Width = 1418
+          Height = 831
+          Align = alClient
+          Color = clWhite
+          Columns = <
+            item
+              Caption = 'Name'
+              Width = 500
+            end
+            item
+              Alignment = taCenter
+              Caption = 'User Role'
+              Width = 500
+            end
+            item
+              Alignment = taCenter
+              Caption = 'Operation'
+              Width = 350
+            end>
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          GridLines = True
+          HideSelection = False
+          ReadOnly = True
+          RowSelect = True
+          ParentFont = False
+          TabOrder = 0
+          ViewStyle = vsReport
+          OnSelectItem = lvConsoleListSelectItem
+        end
+      end
+    end
     object pnlFileTransfer: TPanel
       Left = 1
       Top = 1
@@ -68,6 +168,7 @@ object frmToteDisplay: TfrmToteDisplay
           ParentFont = False
           TabOrder = 0
           OnDropDown = CbbConsoleDestination
+          OnSelect = cbbConsoleSelect
         end
         object btnUpload: TRzBmpButton
           Left = 368
@@ -1532,112 +1633,13 @@ object frmToteDisplay: TfrmToteDisplay
           Font.Style = []
           GridLines = True
           HideSelection = False
+          MultiSelect = True
           ReadOnly = True
           RowSelect = True
           ParentFont = False
           TabOrder = 0
           ViewStyle = vsReport
           OnSelectItem = lvFileTransferSelectItem
-        end
-      end
-    end
-    object pnlConsole: TPanel
-      Left = 1
-      Top = 1
-      Width = 1420
-      Height = 967
-      Align = alClient
-      TabOrder = 0
-      object pnlLogout: TPanel
-        Left = 1
-        Top = 912
-        Width = 1418
-        Height = 54
-        Align = alBottom
-        TabOrder = 0
-        object btnLogout: TButton
-          Left = 1
-          Top = 6
-          Width = 153
-          Height = 39
-          Cursor = crHandPoint
-          Caption = 'Logout'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -15
-          Font.Name = 'Jefferies'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 0
-          Visible = False
-          OnClick = btnLogoutClick
-        end
-      end
-      object pnlHeaderConsole: TPanel
-        Left = 1
-        Top = 1
-        Width = 1418
-        Height = 80
-        Align = alTop
-        BevelOuter = bvNone
-        TabOrder = 1
-        object Label2: TLabel
-          Left = 8
-          Top = 16
-          Width = 218
-          Height = 35
-          Caption = 'USER ROLE AKTIF'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clBlack
-          Font.Height = -32
-          Font.Name = 'Jefferies'
-          Font.Style = []
-          ParentFont = False
-        end
-      end
-      object pnllvConsoleList: TPanel
-        Left = 1
-        Top = 81
-        Width = 1418
-        Height = 831
-        Align = alClient
-        BevelOuter = bvNone
-        TabOrder = 2
-        object lvConsoleList: TListView
-          Left = 0
-          Top = 0
-          Width = 1418
-          Height = 831
-          Align = alClient
-          Color = clWhite
-          Columns = <
-            item
-              Caption = 'Name'
-              Width = 500
-            end
-            item
-              Alignment = taCenter
-              Caption = 'User Role'
-              Width = 500
-            end
-            item
-              Alignment = taCenter
-              Caption = 'Operation'
-              Width = 350
-            end>
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -13
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          GridLines = True
-          HideSelection = False
-          ReadOnly = True
-          RowSelect = True
-          ParentFont = False
-          TabOrder = 0
-          ViewStyle = vsReport
-          OnSelectItem = lvConsoleListSelectItem
         end
       end
     end
