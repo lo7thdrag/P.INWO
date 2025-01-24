@@ -487,6 +487,9 @@ begin
   if Assigned(frmTelegram) then
     frmTelegram.Close;
 
+  if Assigned(frmDisplayArea) then
+    frmDisplayArea.Close;
+
   pnlLogin.BringToFront;
   {$ENDREGION}
 end;

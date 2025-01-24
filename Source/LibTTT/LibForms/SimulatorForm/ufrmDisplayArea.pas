@@ -2194,7 +2194,7 @@ begin
     simMgrClient.netSend_CmdUserState(rec);
   end;
 
-  Close;
+//  Close;
 end;
 
 end.
