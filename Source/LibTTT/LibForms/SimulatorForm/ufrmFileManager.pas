@@ -168,9 +168,9 @@ begin
     addressfiletemp := pathFileArray[i];
     filenametemp := fileNameArray[i];
 
-    CopyFile(addressfiletemp, PWideChar('\\' + SelectedUserRoleIP + '\\File Sharing' + '\\' + filenametemp), False);
+//    CopyFile(addressfiletemp, PWideChar('\\' + SelectedUserRoleIP + '\\File Sharing' + '\\' + filenametemp), False);
 
-//    TFile.Copy(addressfiletemp, '\\' + SelectedUserRoleIP + '\\File Sharing' + '\\' + filenametemp);
+    TFile.Copy(addressfiletemp, '\\' + SelectedUserRoleIP + '\\File Sharing' + '\\' + filenametemp);
   end;
 
   Close;
