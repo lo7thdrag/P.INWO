@@ -445,6 +445,8 @@ begin
     cbbUserRole.Items.Add('DAN UT KAWAL');
     cbbUserRole.Items.Add('DAN UT BANTU');
     cbbUserRole.Items.Add('PASET');
+    cbbUserRole.Items.Add('INSTRUKTUR ATWO');
+    cbbUserRole.Items.Add('INSTRUKTUR NTWO');
     {$ENDREGION}
   end
   else if cbbSubRole.Text = 'KOGASGABFIB' then
@@ -469,6 +471,8 @@ begin
     cbbUserRole.Items.Add('DAN UT ANGKT');
     cbbUserRole.Items.Add('DAN UT INTAI');
     cbbUserRole.Items.Add('PASET');
+    cbbUserRole.Items.Add('INSTRUKTUR ATWO');
+    cbbUserRole.Items.Add('INSTRUKTUR NTWO');
     {$ENDREGION}
   end
   else if cbbSubRole.Text = 'PASRAT' then
