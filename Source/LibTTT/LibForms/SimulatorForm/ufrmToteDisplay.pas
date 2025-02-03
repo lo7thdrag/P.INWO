@@ -8,7 +8,7 @@ uses
 
   ufrmFileManager, uClassData, uRecordData, uSimMgr_Client, uDataModule, uLibSetting,
   ufrmSummaryUserRole, uT3SimManager, uConsoleData,
-  Vcl.Imaging.pngimage, RzBmpBtn, Vcl.Buttons;
+  Vcl.Imaging.pngimage, RzBmpBtn, Vcl.Buttons, Vcl.CheckLst;
 
 type
   TfrmToteDisplay = class(TForm)
@@ -36,6 +36,10 @@ type
     RzBmpButton2: TRzBmpButton;
     btnConsoleList: TSpeedButton;
     btnMyDesktop: TSpeedButton;
+    pnlDestination: TPanel;
+    lstUserSend: TCheckListBox;
+    lblClose: TLabel;
+    btnClose: TSpeedButton;
 
     {$REGION 'Console List'}
     procedure pnlConsoleListManajemenShow;
@@ -43,6 +47,7 @@ type
     procedure UpdateConsoleList;
     procedure btnLogoutClick(Sender: TObject);
     procedure ConsoleListClick(Sender: TObject);
+    procedure cbbConsoleSelect(Sender: TObject);
     {$ENDREGION}
 
     {$REGION 'File Transfer'}
@@ -57,15 +62,15 @@ type
     procedure btnClearClick(Sender: TObject);
 
     procedure UpdateFile;
+    procedure UpdateUserList;
     {$ENDREGION}
 
     procedure FormShow(Sender: TObject);
-    procedure cbbConsoleSelect(Sender: TObject);
+    procedure CloseClick(Sender: TObject);
   private
     FConsoleList  : TList;
     FFileTransfer : TList;
 
-//    addressTemp     : PWideChar;
     addressTemp     : string;
     AddressPath     : string;
     fileNameTemp    : string;
@@ -123,6 +128,11 @@ begin
 end;
 
 {$REGION 'Console List'}
+procedure TfrmToteDisplay.CloseClick(Sender: TObject);
+begin
+  Close;
+end;
+
 procedure TfrmToteDisplay.ConsoleListClick(Sender: TObject);
 begin
   pnlConsoleListManajemenShow;
@@ -209,28 +219,13 @@ begin
 
   consolenameTemp := FSelectedConsole.FData.UserRoleAcronim;
 
-  if Assigned(simMgrClient.MyConsoleData) then
-  begin
-    rec.OrderID := CORD_ID_LOGOUT;
-    rec.UserRoleId := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
-    rec.ConsoleIP := simMgrClient.MyConsoleData.IpAdrres;
-    rec.UserRoleInUse := False;
+  rec.OrderID := CORD_ID_LOGOUT;
+  rec.UserRoleId := FSelectedConsole.FData.UserRoleIndex;
+  rec.ConsoleIP := FSelectedConsole.ConsoleIP;
+  rec.UserRoleInUse := False;
 
-    ShowMessage('User "' + consolenameTemp + '"Logout');
-
-    simMgrClient.netSend_CmdUserState(rec);
-  end;
-
-  if Assigned(frmDisplayArea) then
-  frmDisplayArea.Close;
-
-  if Assigned(frmTacticalDisplay) then
-  begin
-    frmTacticalDisplay.UpdateClientLogout(nil);
-    frmTacticalDisplay.Show;
-  end;
-
-  Close;
+  simMgrClient.netSend_CmdUserState(rec);
+  ShowMessage('User "' + consolenameTemp + '" has been logged out.');
 end;
 
 {$ENDREGION}
@@ -343,7 +338,7 @@ end;
 
 procedure TfrmToteDisplay.btnClearClick(Sender: TObject);
 var
-  warning       : Integer;
+  warning : Integer;
 begin
   if MessageDlg('Are you sure you want to clear all items?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
   begin
@@ -384,14 +379,13 @@ var
   SelectedConsoleName: string;
   ConsoleInfo  : TConsoleInfo;
 
-  Item : TListItem;
-  SelectedItem : string;
-
   openDialog   : TOpenDialog;
-  fileDataTemp : TRecFile_Data;
   fileTemp     : TFile_Data;
 
-  i: Integer;
+  targetPath, targetFile, userIP : string;
+  userRoleTemp: TUserRole;
+
+  i, j: Integer;
 begin
   openDialog := TOpenDialog.Create(Self);
   fileTemp := TFile_Data.Create;
@@ -399,6 +393,12 @@ begin
   if cbbConsole.ItemIndex = -1 then
   begin
     ShowMessage('Select console name');
+    Exit;
+  end;
+
+  if lstUserSend.Items.Count = 0 then
+  begin
+    ShowMessage('No user selected for file transfer.');
     Exit;
   end;
 
@@ -414,23 +414,45 @@ begin
   fileNameTemp := FSelectedFileTransfer.FData.Nama_File;
   AddressPath := FSelectedFileTransfer.FData.Directory_Path;
 
-  for i := 0 to FFileTransfer.Count -1 do
+  for j := 0 to lstUserSend.Items.Count - 1 do
   begin
-    fileTemp := FFileTransfer[i];
-
-    if not (TDirectory.Exists(vGameDataSetting.FileTransfer + '\' +  simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + ' - ' + simMgrClient.MyConsoleData.UserRoleData.FSubRoleData.SubRoleIdentifier + '\' + 'SEND')) then
+    if lstUserSend.Checked[j] then
     begin
-      TDirectory.CreateDirectory(vGameDataSetting.FileTransfer + '\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + ' - ' + simMgrClient.MyConsoleData.UserRoleData.FSubRoleData.SubRoleIdentifier + '\' + 'SEND');
-    end;
+      userRoleTemp := nil;
 
-    if CopyFile(PWideChar(addressTemp), PWideChar('\\' + SelectedUserRoleIP + '\' + vGameDataSetting.FileTransfer + '\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + ' - ' + simMgrClient.MyConsoleData.UserRoleData.FSubRoleData.SubRoleIdentifier + '\' + 'SEND' + '\' + fileNameTemp), False) then
-    begin
-      ShowMessage('File "' + fileNameTemp + '" successfully shared');
-    end
+      for i := 0 to cbbConsole.Items.Count - 1  do
+      begin
+         if Assigned(TUserRole(cbbConsole.Items.Objects[i])) and
+             (TUserRole(cbbConsole.Items.Objects[i]).FData.UserRoleAcronim = lstUserSend.Items[j]) then
+         begin
+            userRoleTemp := TUserRole(cbbConsole.Items.Objects[i]);
+            Break;
+          end;
+      end;
 
-    else
-    begin
-      ShowMessage('Failed to share file "' + fileNameTemp + '"');
+      if Assigned(userRoleTemp) then
+      begin
+        userIP := userRoleTemp.ConsoleIP;
+        targetPath := '\\' + userIP + '\' + vGameDataSetting.FileTransfer + '\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim;
+
+        if not TDirectory.Exists(targetPath) then
+          TDirectory.CreateDirectory(targetPath);
+
+        for i := 0 to FFileTransfer.Count - 1 do
+        begin
+          fileTemp := TFile_Data(FFileTransfer.Items[i]);
+          targetFile := targetPath + '\' + ExtractFileName(fileTemp.FData.Directory_Path);
+
+          if CopyFile(PWideChar(WideString(fileTemp.FData.Directory_Path)), PWideChar(targetFile), False) then
+            ShowMessage('File "' + fileTemp.FData.Nama_File + '" successfully transferred to "' + targetPath + '"')
+          else
+            ShowMessage('Failed to transfer file "' + fileTemp.FData.Nama_File + '".');
+        end;
+      end
+      else
+      begin
+          ShowMessage('Failed to find user role for: ' + lstUserSend.Items[j]);
+      end;
     end;
   end;
 end;
@@ -470,13 +492,9 @@ begin
 
     userRoleTemp := SimManager.SimUserRole.getUserRoleByIPAddress(consoleInfoTemp.IPAddress);
 
-    if Assigned(userRoleTemp) then
+    if Assigned(userRoleTemp) and userRoleTemp.isInUse then
     begin
-      if userRoleTemp.isInUse then
-      begin
-//        cbbConsole.Items.Add(consoleInfoTemp.ConsoleName);
-        cbbConsole.Items.Add(userRoleTemp.FData.UserRoleAcronim);
-      end
+      cbbConsole.Items.AddObject(userRoleTemp.FData.UserRoleAcronim, TObject(userRoleTemp));
     end;
   end;
 end;
@@ -484,14 +502,37 @@ end;
 procedure TfrmToteDisplay.cbbConsoleSelect(Sender: TObject);
 var
   userRoleTemp : TUserRole;
-  ipTemp : string;
+  i : Integer;
 begin
-  if cbbconsole.ItemIndex = -1 then
+  if cbbConsole.ItemIndex = -1 then
     Exit;
 
-  userRoleTemp := TUserRole(cbbconsole.Items.Objects[cbbconsole.ItemIndex]);
-  SelectedUserRoleIP := userRoleTemp.ConsoleIP;
-//  lblNamaFile.Caption := userRoleTemp.ConsoleIP;
+  userRoleTemp := TUserRole(cbbConsole.Items.Objects[cbbConsole.ItemIndex]);
+  if Assigned(userRoleTemp) then
+  begin
+    SelectedUserRoleIP := userRoleTemp.ConsoleIP;
+  end;
+
+  UpdateUserList;
+end;
+
+procedure TfrmToteDisplay.UpdateUserList;
+var
+  userRoleTemp: TUserRole;
+  i : Integer;
+begin
+  for i := 0 to cbbConsole.Items.Count - 1 do
+  begin
+    userRoleTemp := TUserRole(cbbConsole.Items.Objects[cbbConsole.ItemIndex]);
+
+    if Assigned(userRoleTemp) then
+    begin
+      if lstUserSend.Items.IndexOf(userRoleTemp.FData.UserRoleAcronim) = -1 then
+      begin
+         lstUserSend.Items.Add(userRoleTemp.FData.UserRoleAcronim);
+      end;
+    end;
+  end;
 end;
 
 {$ENDREGION}

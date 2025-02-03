@@ -2122,10 +2122,10 @@ begin
     frmToteDisplay := TfrmToteDisplay.Create(Self);
 
   try
-    with frmToteDisplay do
-    begin
-      Show;
-    end;
+    if frmToteDisplay.Showing then
+      frmToteDisplay.Close
+    else
+      frmToteDisplay.Show;
   finally
   end;
 end;
@@ -2163,11 +2163,17 @@ end;
 
 procedure TfrmDisplayArea.SetPanelInstruktur;
 begin
+  {ini untuk user role}
   pnlUserRole.Height := 35;
+
+  {ini untuk resurce}
   pnlResources.Height := 250;
 
   pnlToteDisplay.Height := 35;
   pnlServices.Height := 250;
+
+  btnUploadReferensi.Width := 121;
+  btnDeleteReferensi.Width := 121;
 end;
 
 procedure TfrmDisplayArea.SetPanelOfficial;
@@ -2177,6 +2183,9 @@ begin
 
   pnlToteDisplay.Height := 0;
   pnlServices.Height := 215;
+
+  btnUploadReferensi.Width := 0;
+  btnDeleteReferensi.Width := 0;
 end;
 
 procedure TfrmDisplayArea.LogOutClick(Sender: TObject);
