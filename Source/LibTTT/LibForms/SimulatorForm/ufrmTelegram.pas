@@ -217,6 +217,7 @@ begin
 //  fileNameTempTelegram := '';
   ipTelegramSentTo := '';
   pnlSendTelegram.Visible := False;
+  cbbxTo.ItemIndex := -1;
   SetLength(fileNameArray,0);
   SetLength(pathFileArray,0);
   lstbxTelegramFileName.Clear;
@@ -299,12 +300,12 @@ begin
       end;
 
       if not (TDirectory.Exists('\\' + ipTelegramSentTo + '\\' + 'Telegram' + '\\' + 'INBOX' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim
-              + '\\' + System.SysUtils.FormatDateTime('dd-mm-yy_hh;nn;ss', Now))) then
+              + ' - ' + simMgrClient.MyConsoleData.UserRoleData.FSubRoleData.SubRoleIdentifier + '\\' + System.SysUtils.FormatDateTime('dd-mm-yy_hh;nn;ss', Now))) then
       begin
         datetimenowtemp := System.SysUtils.FormatDateTime('dd-mm-yy_hh;nn;ss', Now);
 
         TDirectory.CreateDirectory('\\' + ipTelegramSentTo + '\\' + 'Telegram' + '\\' + 'INBOX' + '\\' +
-         simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + '\\' + datetimenowtemp);
+         simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + ' - ' + simMgrClient.MyConsoleData.UserRoleData.FSubRoleData.SubRoleIdentifier + '\\' + datetimenowtemp);
 
   //      CopyFile(addressTempFileTelegram, PWideChar('\\' + ipTelegramSentTo + '\\' + 'TELEGRAM' + '\\' + 'INBOX' + '\\'
   //       + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + '\\' + datetimenowtemp + '\\' + fileNameTempTelegram), False);
@@ -342,7 +343,7 @@ begin
         fileNameTempTelegram := fileNameArray[i];
 
         TFile.Copy(addressTempFileTelegram, '\\' + ipTelegramSentTo + '\\' + 'Telegram' + '\\' + 'INBOX' + '\\'
-         + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + '\\' + datetimenowtemp + '\\' + fileNameTempTelegram);
+         + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + ' - ' + simMgrClient.MyConsoleData.UserRoleData.FSubRoleData.SubRoleIdentifier + '\\' + datetimenowtemp + '\\' + fileNameTempTelegram);
 
         TFile.Copy(addressTempFileTelegram, 'D:' + '\\' + 'Telegram' + '\\' +  'SENT' + '\\' + cbbxTo.Text
          + '\\' + datetimenowtemp + '\\' + fileNameTempTelegram);
@@ -358,14 +359,16 @@ begin
 
     else
     ShowMessage('Please choose Telegram File first!');
+    Exit;
 //  end
 //  else
 //    ShowMessage('Save file was cancelled');
 //
 //  saveDialog.Free;
-    ShowMessage('Telegram has been Successfully Sent!');
     btnClosePanelSendTelegramClick(sender);
-//
+
+    ShowMessage('Telegram has been Successfully Sent!');
+
 ////  UpdateDataFile;
 end;
 
@@ -408,6 +411,7 @@ end;
 procedure TfrmTelegram.FormShow(Sender: TObject);
 begin
   pnlSendTelegram.Visible := False;
+
   lstbxTelegramFileName.Clear;
   frmTelegram.Width := 230;
 end;
@@ -419,6 +423,7 @@ begin
 //  addressTempFileTelegram := '';
 //  fileNameTempTelegram := '';
 //  lblNamaFile.Caption := '...';
+  cbbxTo.ItemIndex := -1;
   ipTelegramSentTo := '';
   frmTelegram.Width := 696;
 end;
