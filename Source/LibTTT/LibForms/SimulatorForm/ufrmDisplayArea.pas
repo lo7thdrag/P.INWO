@@ -215,7 +215,7 @@ type
     lblNamaChat: TLabel;
     Panel2: TPanel;
     pnlToteDisplay: TPanel;
-    SpeedButton2: TSpeedButton;
+    btnToteDisplay: TSpeedButton;
     lblToteDisplay: TLabel;
 
     procedure btnAOTCClick(Sender: TObject);
@@ -2194,7 +2194,7 @@ begin
     simMgrClient.netSend_CmdUserState(rec);
   end;
 
-  Close;
+//  Close;
 end;
 
 end.
