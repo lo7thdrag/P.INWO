@@ -447,6 +447,8 @@ begin
     cbbUserRole.Items.Add('PASET');
     cbbUserRole.Items.Add('INSTRUKTUR ATWO');
     cbbUserRole.Items.Add('INSTRUKTUR NTWO');
+    cbbUserRole.Items.Add('WASDAL ATWO');
+    cbbUserRole.Items.Add('WASDAL NTWO');
     {$ENDREGION}
   end
   else if cbbSubRole.Text = 'KOGASGABFIB' then
@@ -473,6 +475,8 @@ begin
     cbbUserRole.Items.Add('PASET');
     cbbUserRole.Items.Add('INSTRUKTUR ATWO');
     cbbUserRole.Items.Add('INSTRUKTUR NTWO');
+    cbbUserRole.Items.Add('WASDAL ATWO');
+    cbbUserRole.Items.Add('WASDAL NTWO');
     {$ENDREGION}
   end
   else if cbbSubRole.Text = 'PASRAT' then

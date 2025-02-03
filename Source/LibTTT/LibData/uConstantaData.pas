@@ -254,7 +254,7 @@ const
 type
   TDSiWindowsVersion  = (wvUnknown, wvWin31, wvWin95, wvWin95OSR2, wvWin98, wvWin98SE, wvWinME, wvWin9x, wvWinNT3, wvWinNT4,
                           wvWin2000, wvWinXP, wvWinNT, wvWinServer2003, wvWinVista);
-  TConsoleGroup       = (cgInstructor, cgSituationBoard, cgOfficial);
+  TConsoleGroup       = (cgInstructor, cgSituationBoard, cgOfficial, cgWasdal);
   TOrganisasiTugas    = (otINWO, otNTWO, otATWO, otLFWO, otALWO, otCDWO, otSUWO, otLAIN);
   TSubOrganisasiTugas = (sotKPL, sotSTAFLAT, sotWASDAL, sotKOGAB, sotKOGASGABLA, sotKOGASGABFIB, sotPASRAT, sotKOGASRATMIN, sotKOGASHANTAI, sotSATGASDUK, sotLAIN);
 

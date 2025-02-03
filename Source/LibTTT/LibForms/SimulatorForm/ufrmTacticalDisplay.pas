@@ -10,7 +10,7 @@ uses
 
   {Project Uses}
   uClassData, uRecordData, uConstantaData, uConsoleData,uBaseCoordSystem, uCoordConvertor, uLibSetting, uSimObjects,
-  uSimMgr_Client, uT3SimManager, ufrmDisplayArea, ufrmSituationBoard, ufrmTelegram ;
+  uSimMgr_Client, uT3SimManager, ufrmDisplayArea, ufrmSituationBoard, ufrmTelegram, ufrmToteDisplay ;
 
 type
 
@@ -454,6 +454,19 @@ begin
 
     if (FselectedUserRole.FData.SubRoleIndex = 5) or (FselectedUserRole.FData.SubRoleIndex = 6) then
     begin
+
+      {$REGION ' pengecekan khusus console instruktur '}
+      if simMgrClient.MyConsoleData.Group = cgInstructor then
+      begin
+        if not ((FselectedUserRole.FData.UserRoleIdentifier = 'instruktur atwo') or (FselectedUserRole.FData.UserRoleIdentifier = 'instruktur ntwo')
+        or (FselectedUserRole.FData.UserRoleIdentifier = 'INSTRUKTUR ATWO') or (FselectedUserRole.FData.UserRoleIdentifier = 'INSTRUKTUR NTWO')) then
+        begin
+          ShowMessage('User Role ini hanya bisa digunakan di console instruktur');
+          Exit;
+        end;
+      end;
+      {$ENDREGION}
+
       lblUserIdentifier.Caption := FselectedUserRole.FData.UserRoleIdentifier + ' - ' + FselectedUserRole.FSubRoleData.SubRoleAcronim;
 
       if FselectedUserRole.FData.SubRoleIndex = 5 then
@@ -489,6 +502,10 @@ begin
 
   if Assigned(frmDisplayArea) then
     frmDisplayArea.Close;
+
+  if Assigned(frmToteDisplay) then
+    frmToteDisplay.Close;
+
 
   pnlLogin.BringToFront;
   {$ENDREGION}

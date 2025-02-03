@@ -5,7 +5,7 @@ object frmToteDisplay: TfrmToteDisplay
   BorderStyle = bsNone
   Caption = 'ToteDisplay'
   ClientHeight = 969
-  ClientWidth = 1623
+  ClientWidth = 843
   Color = clBtnFace
   DragMode = dmAutomatic
   Font.Charset = DEFAULT_CHARSET
@@ -23,24 +23,27 @@ object frmToteDisplay: TfrmToteDisplay
   object pnlMain: TPanel
     Left = 201
     Top = 0
-    Width = 1422
+    Width = 642
     Height = 969
     Align = alClient
     TabOrder = 0
+    ExplicitWidth = 1422
     object pnlConsole: TPanel
       Left = 1
       Top = 1
-      Width = 1420
+      Width = 640
       Height = 967
       Align = alClient
       TabOrder = 0
+      ExplicitWidth = 1420
       object pnlLogout: TPanel
         Left = 1
         Top = 912
-        Width = 1418
+        Width = 638
         Height = 54
         Align = alBottom
         TabOrder = 0
+        ExplicitWidth = 1418
         object btnLogout: TButton
           Left = 1
           Top = 6
@@ -62,11 +65,12 @@ object frmToteDisplay: TfrmToteDisplay
       object pnlHeaderConsole: TPanel
         Left = 1
         Top = 1
-        Width = 1418
+        Width = 638
         Height = 80
         Align = alTop
         BevelOuter = bvNone
         TabOrder = 1
+        ExplicitWidth = 1418
         object Label2: TLabel
           Left = 8
           Top = 16
@@ -84,15 +88,16 @@ object frmToteDisplay: TfrmToteDisplay
       object pnllvConsoleList: TPanel
         Left = 1
         Top = 81
-        Width = 1418
+        Width = 638
         Height = 831
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 2
+        ExplicitWidth = 1418
         object lvConsoleList: TListView
           Left = 0
           Top = 0
-          Width = 1418
+          Width = 638
           Height = 831
           Align = alClient
           Color = clWhite
@@ -124,24 +129,30 @@ object frmToteDisplay: TfrmToteDisplay
           TabOrder = 0
           ViewStyle = vsReport
           OnSelectItem = lvConsoleListSelectItem
+          ExplicitWidth = 1418
         end
       end
     end
     object pnlFileTransfer: TPanel
       Left = 1
       Top = 1
-      Width = 1420
+      Width = 640
       Height = 967
       Align = alClient
       TabOrder = 1
+      ExplicitWidth = 1420
       object pnlHeader: TPanel
         Left = 1
         Top = 1
-        Width = 1418
-        Height = 80
+        Width = 638
+        Height = 72
         Align = alTop
         BevelOuter = bvNone
         TabOrder = 0
+        ExplicitWidth = 1418
+        DesignSize = (
+          638
+          72)
         object Label1: TLabel
           Left = 8
           Top = 16
@@ -156,9 +167,9 @@ object frmToteDisplay: TfrmToteDisplay
           ParentFont = False
         end
         object cbbConsole: TComboBox
-          Left = 6
+          Left = 2
           Top = 42
-          Width = 145
+          Width = 171
           Height = 26
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
@@ -171,8 +182,8 @@ object frmToteDisplay: TfrmToteDisplay
           OnSelect = cbbConsoleSelect
         end
         object btnUpload: TRzBmpButton
-          Left = 368
-          Top = 40
+          Left = 264
+          Top = 38
           Width = 120
           Cursor = crHandPoint
           Bitmaps.Hot.Data = {
@@ -859,12 +870,13 @@ object frmToteDisplay: TfrmToteDisplay
             F3D395F3D395F3D395F3D395F3D395F3D395F3D395F3D395F3D395F3D395F3D3
             95F3D395F3D395F3D395}
           Color = clBtnFace
+          Anchors = [akTop, akRight]
           TabOrder = 1
           OnClick = btnAddClick
         end
         object RzBmpButton1: TRzBmpButton
-          Left = 508
-          Top = 40
+          Left = 389
+          Top = 38
           Width = 120
           Cursor = crHandPoint
           Bitmaps.Hot.Data = {
@@ -1551,17 +1563,19 @@ object frmToteDisplay: TfrmToteDisplay
             F3D395F3D395F3D395F3D395F3D395F3D395F3D395F3D395F3D395F3D395F3D3
             95F3D395F3D395F3D395}
           Color = clBtnFace
+          Anchors = [akTop, akRight]
           TabOrder = 2
           OnClick = btnDeleteClick
         end
         object RzBmpButton2: TRzBmpButton
-          Left = 648
-          Top = 40
+          Left = 514
+          Top = 38
           Width = 121
           Cursor = crHandPoint
           Bitmaps.TransparentColor = clOlive
           Color = 16744448
           ButtonBorder = bbSingle
+          Anchors = [akTop, akRight]
           Caption = 'CLEAR'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -1576,15 +1590,16 @@ object frmToteDisplay: TfrmToteDisplay
       object pnlSend: TPanel
         Left = 1
         Top = 912
-        Width = 1418
+        Width = 638
         Height = 54
         Align = alBottom
         TabOrder = 1
+        ExplicitWidth = 1418
         DesignSize = (
-          1418
+          638
           54)
         object btnSend: TButton
-          Left = 1277
+          Left = 497
           Top = 10
           Width = 131
           Height = 33
@@ -1599,21 +1614,27 @@ object frmToteDisplay: TfrmToteDisplay
           ParentFont = False
           TabOrder = 0
           OnClick = btnSendClick
+          ExplicitLeft = 1277
         end
       end
       object pnllvTransfer: TPanel
-        Left = 1
-        Top = 81
-        Width = 1418
-        Height = 831
+        Left = 177
+        Top = 73
+        Width = 462
+        Height = 839
         Align = alClient
         BevelOuter = bvNone
+        BorderWidth = 2
         TabOrder = 2
+        ExplicitLeft = 1
+        ExplicitTop = 249
+        ExplicitWidth = 1418
+        ExplicitHeight = 663
         object lvFileTransfer: TListView
-          Left = 0
-          Top = 0
-          Width = 1418
-          Height = 831
+          Left = 2
+          Top = 2
+          Width = 458
+          Height = 835
           Align = alClient
           Color = clWhite
           Columns = <
@@ -1640,6 +1661,41 @@ object frmToteDisplay: TfrmToteDisplay
           TabOrder = 0
           ViewStyle = vsReport
           OnSelectItem = lvFileTransferSelectItem
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 1418
+          ExplicitHeight = 663
+        end
+      end
+      object pnlDestination: TPanel
+        Left = 1
+        Top = 73
+        Width = 176
+        Height = 839
+        Align = alLeft
+        BevelOuter = bvNone
+        BorderWidth = 2
+        TabOrder = 3
+        ExplicitTop = 249
+        ExplicitHeight = 663
+        object lstUserSend: TCheckListBox
+          Left = 2
+          Top = 2
+          Width = 172
+          Height = 835
+          Align = alClient
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = 'Berlin Sans FB'
+          Font.Style = []
+          ItemHeight = 18
+          ParentFont = False
+          TabOrder = 0
+          ExplicitLeft = -43
+          ExplicitTop = 73
+          ExplicitWidth = 219
+          ExplicitHeight = 154
         end
       end
     end
@@ -1831,6 +1887,88 @@ object frmToteDisplay: TfrmToteDisplay
         593A07593A07593A07593A07593A07593A07593A07593A07593A07593A07593A
         07593A07593A07593A07593A07593A07593A07593A07593A07593A07593A0759
         3A07593A07593A07593A07593A07593A07593A07593A07593A07}
+    end
+    object lblClose: TLabel
+      Tag = 9
+      Left = 35
+      Top = 94
+      Width = 34
+      Height = 16
+      Cursor = crHandPoint
+      Caption = 'Close'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Jefferies'
+      Font.Style = []
+      ParentFont = False
+      OnClick = CloseClick
+    end
+    object btnClose: TSpeedButton
+      Tag = 9
+      Left = 5
+      Top = 93
+      Width = 24
+      Height = 24
+      Cursor = crHandPoint
+      Flat = True
+      Glyph.Data = {
+        F6060000424DF606000000000000360000002800000018000000180000000100
+        180000000000C0060000232E0000232E00000000000000000000593A07593A07
+        593A07593A07593A075E3F0CB09257E1C385E9CB8CE9CB8CE9CB8CE9CB8CE9CB
+        8CE9CB8CE9CB8CE9CB8CE9CB8CE9CB8CE9CB8CF0D292EDCF8F9A7C43593A0759
+        3A07593A07593A07593A07593A07593A07BA9C61F2D494C4A66AB5975CB5975C
+        B5975CB5975CB5975CB5975CB5975CBEA065EED091F3D595F3D595EACC8DF2D4
+        94F1D39361420E593A07593A07593A07593A07593A075E3F0CF1D393B4965B59
+        3A07593A07593A07593A07593A07593A076D4E19B4955BECCE8EF3D595D2B477
+        91733B5D3E0BB6985DF3D5956B4C18593A07593A07593A07593A07593A076B4C
+        18F3D595987A41593A07593A07593A07593A07593A07684915EACC8DEFD191BB
+        9D627A5B25593A07593A07593A07987A41F3D5956B4C18593A07593A07593A07
+        593A07593A076B4C18F3D595987A41593A07593A07593A07593A07593A078566
+        30F3D595876831593A07593A07593A07593A07593A07987A41F3D5956B4C1859
+        3A07593A07593A07593A07593A076B4C18F3D595987A41593A07593A07593A07
+        593A07593A07866831F3D5957D5E28593A07593A07593A07593A07593A07987A
+        41F3D5956B4C18593A07593A07593A07593A07593A075F400DDFC18381632C59
+        3A07593A07593A07593A07593A07866831F3D5957D5E28593A07593A07593A07
+        593A07593A07987A41F3D5956B4C18593A07593A07593A07593A07593A07593A
+        07593A075A3B08593A07593A07593A07593A07593A07866831F3D5957D5E2859
+        3A07593A07593A07593A07593A07987A41F3D5956B4C18593A07593A07593A07
+        593A07593A07593A077B5C26E8C98A91723A593A07593A07593A07593A078668
+        31F3D5957D5E28593A07593A07593A07593A07593A07987A41F3D5956B4C1859
+        3A07593A07593A07593A07593A077B5D27EACC8DE0C2846A4B17593A07593A07
+        593A07593A07866831F3D5957D5E28593A07593A07593A07593A07593A07987A
+        41F3D5956B4C18593A07593A07593A07593A077B5C26EACC8DDFC1836C4D1859
+        3A07593A07593A07593A07593A07866831F3D5957D5E28593A07593A07593A07
+        593A07593A07987A41F3D5956B4C18593A07593A07593A0770511CEACC8DF3D5
+        95D0B275C0A166C0A166C0A166C0A1668E6F38593A07866831F3D5957D5E2889
+        6A33B7985D593A07593A07593A07987A41F3D5956B4C18593A07593A07593A07
+        765722EED091F3D595E6C889DEC082DEC082DEC082DDBF819F8148593A078668
+        31F3D5957D5E28B4955BEACC8D593A07593A07593A07987A41F3D5956B4C1859
+        3A07593A07593A07593A0784662FEED091DBBD7F674814593A07593A07593A07
+        593A07593A07866831F3D5957D5E28B4955BEACC8D593A07593A07593A07987A
+        41F3D5956B4C18593A07593A07593A07593A07593A0784662FEED091DABB7E66
+        4713593A07593A07593A07593A07866831F3D5957D5E288C6D36BB9D62593A07
+        593A07593A07987A41F3D5956B4C18593A07593A07593A07593A07593A07593A
+        0784662FEED09194763E593A07593A07593A07593A07866831F3D5957D5E2859
+        3A07593A07593A07593A07593A07987A41F3D5956B4C18593A07593A07593A07
+        593A07593A07593A07593A076445115A3B08593A07593A07593A07593A078668
+        31F3D5957D5E28593A07593A07593A07593A07593A07987A41F3D5956B4C1859
+        3A07593A07593A07593A07593A075B3C09AC8D536E4F1A593A07593A07593A07
+        593A07593A07866831F3D5957D5E28593A07593A07593A07593A07593A07987A
+        41F3D5956B4C18593A07593A07593A07593A07593A076B4C17F3D595987A4159
+        3A07593A07593A07593A07593A07866831F3D5957D5E28593A07593A07593A07
+        593A07593A07987A41F3D5956B4C18593A07593A07593A07593A07593A076B4C
+        18F3D595987A41593A07593A07593A07593A07593A07866831F3D5957D5E2859
+        3A07593A07593A07593A07593A07987A41F3D5956B4C18593A07593A07593A07
+        593A07593A076A4B17F3D595987A41593A07593A07593A07593A07593A078668
+        31F3D5957D5E28593A07593A07593A07593A07593A07987A41F3D5956B4C1859
+        3A07593A07593A07593A07593A075E3F0BF1D393B29359593A07593A07593A07
+        593A07593A07866831F3D5957D5E28593A07593A07593A07593A07593A07B495
+        5BF3D5956B4C18593A07593A07593A07593A07593A07593A07BFA165F1D393BE
+        A064AB8D53AB8D53AB8D53AB8D53C2A468F3D595C3A468AB8D53AB8D53AB8D53
+        AB8D53BD9E63F2D494F1D3935F400D593A07593A07593A07593A07593A07593A
+        0762430FBB9C61EBCD8EF3D595F3D595F3D595F3D595F3D595F3D595F3D595F3
+        D595F3D595F3D595F3D595F3D595EBCD8E9D7F46593A07593A07}
     end
   end
 end
