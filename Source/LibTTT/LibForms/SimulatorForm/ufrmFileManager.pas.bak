@@ -86,7 +86,7 @@ var
 
 begin
   openDialog := TOpenDialog.Create(self);
-  openDialog.InitialDir := 'D:\';
+  openDialog.InitialDir := 'D:\Telegram\';
   openDialog.Options := openDialog.Options + [ofAllowMultiSelect];
 //  openDialog.Filter := 'Word file|*.docx|Excel file|*.xlsx|Power Point file|*.pptx';
   openDialog.Filter := 'All Files (*.*)|*.*';
@@ -142,7 +142,7 @@ begin
 //    end;
   end
   else
-    ShowMessage('Choose file was cancelled');
+    ShowMessage('Save file was cancelled');
 
   openDialog.Free;
   UpdateFilenameComboBox;
@@ -157,26 +157,17 @@ filenametemp : string;
 begin
 
   if cbbxShareTo.ItemIndex = -1 then
-  begin
-    ShowMessage('Choose who you want to share file to!');
-    exit;
-  end
+    ShowMessage('Choose who you want to share file to!')
   else if Length(fileNameArray) = 0 then
-  begin
-    ShowMessage('Choose which file you want to share!');
-    exit;
-  end
+    ShowMessage('Choose which file you want to share!')
   else if not (TDirectory.Exists('\\' + SelectedUserRoleIP + '\\File Sharing')) then
-  begin
     ShowMessage('Share folder doesn''t exist');
-    exit;
-  end;
-
 
   for i := 0 to Length(pathFileArray) - 1 do
   begin
     addressfiletemp := pathFileArray[i];
     filenametemp := fileNameArray[i];
+
 //    CopyFile(addressfiletemp, PWideChar('\\' + SelectedUserRoleIP + '\\File Sharing' + '\\' + filenametemp), False);
 
     TFile.Copy(addressfiletemp, '\\' + SelectedUserRoleIP + '\\File Sharing' + '\\' + filenametemp);
