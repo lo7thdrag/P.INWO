@@ -4,7 +4,7 @@ object frmTelegram: TfrmTelegram
   HorzScrollBar.Visible = False
   BorderStyle = bsNone
   Caption = 'Telegram'
-  ClientHeight = 546
+  ClientHeight = 510
   ClientWidth = 681
   Color = clBtnFace
   DragMode = dmAutomatic
@@ -23,7 +23,7 @@ object frmTelegram: TfrmTelegram
     Left = -301
     Top = 0
     Width = 982
-    Height = 546
+    Height = 510
     Align = alRight
     BevelEdges = []
     BevelOuter = bvNone
@@ -1164,7 +1164,7 @@ object frmTelegram: TfrmTelegram
     Left = 0
     Top = 0
     Width = 214
-    Height = 546
+    Height = 510
     Align = alLeft
     BevelOuter = bvNone
     Caption = ' '
