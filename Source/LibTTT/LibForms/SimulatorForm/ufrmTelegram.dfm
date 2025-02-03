@@ -24,8 +24,6 @@ object frmTelegram: TfrmTelegram
     Color = 3023637
     ParentBackground = False
     TabOrder = 0
-    ExplicitLeft = -7
-    ExplicitHeight = 574
     object lblSendTelegram: TLabel
       Tag = 3
       Left = 673
@@ -1165,7 +1163,6 @@ object frmTelegram: TfrmTelegram
     Color = 5981737
     ParentBackground = False
     TabOrder = 1
-    ExplicitHeight = 574
     object lblTelegram: TLabel
       Tag = 3
       Left = 42

@@ -363,6 +363,8 @@ begin
 //    ShowMessage('Save file was cancelled');
 //
 //  saveDialog.Free;
+    ShowMessage('Telegram has been Successfully Sent!');
+    btnClosePanelSendTelegramClick(sender);
 //
 ////  UpdateDataFile;
 end;
