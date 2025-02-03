@@ -296,7 +296,7 @@ begin
       if not (TDirectory.Exists('\\' + ipTelegramSentTo + '\\' + 'Telegram' + '\\' + 'INBOX' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim)) then
       begin
         TDirectory.CreateDirectory('\\' + ipTelegramSentTo + '\\' + 'Telegram' + '\\' + 'INBOX' + '\\'
-         + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim);
+         + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + ' - ' + simMgrClient.MyConsoleData.UserRoleData.FSubRoleData.SubRoleIdentifier);
       end;
 
       if not (TDirectory.Exists('\\' + ipTelegramSentTo + '\\' + 'Telegram' + '\\' + 'INBOX' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim
@@ -356,10 +356,11 @@ begin
       datetimenowtemp := '';
       pnlSendTelegram.Visible := False;
     end
-
     else
-    ShowMessage('Please choose Telegram File first!');
-    Exit;
+    begin
+      ShowMessage('Please choose Telegram File first!');
+      Exit;
+    end;
 //  end
 //  else
 //    ShowMessage('Save file was cancelled');
