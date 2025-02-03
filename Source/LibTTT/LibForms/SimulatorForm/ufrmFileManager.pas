@@ -188,6 +188,20 @@ begin
 //         + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + '\\' + datetimenowtemp + '\\' + fileNameTempTelegram);
   end;
 
+  if not (TDirectory.Exists('D:' + '\\' + 'File Sharing' + '\\' + 'SENT TO' + '\\' + cbbxShareTo.Text
+              + '\\' + datetimenowtemp)) then
+  begin
+//    datetimenowtemp := System.SysUtils.FormatDateTime('dd-mm-yy_hh;nn;ss', Now);
+
+    TDirectory.CreateDirectory('D:' + '\\' + 'File Sharing' + '\\' + 'SENT TO' + '\\' +
+     cbbxShareTo.Text + '\\' + datetimenowtemp);
+
+//      CopyFile(addressTempFileTelegram, PWideChar('\\' + ipTelegramSentTo + '\\' + 'TELEGRAM' + '\\' + 'INBOX' + '\\'
+//       + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + '\\' + datetimenowtemp + '\\' + fileNameTempTelegram), False);
+
+//        TFile.Copy(addressTempFileTelegram, '\\' + ipTelegramSentTo + '\\' + 'Telegram' + '\\' + 'INBOX' + '\\'
+//         + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + '\\' + datetimenowtemp + '\\' + fileNameTempTelegram);
+  end;
 
   for i := 0 to Length(pathFileArray) - 1 do
   begin
@@ -196,7 +210,11 @@ begin
 //    CopyFile(addressfiletemp, PWideChar('\\' + SelectedUserRoleIP + '\\File Sharing' + '\\' + filenametemp), False);
 
     TFile.Copy(addressfiletemp, '\\' + SelectedUserRoleIP + '\\' + 'File Sharing' + '\\' + 'FROM' + '\\' +
-     simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + ' - ' + simMgrClient.MyConsoleData.UserRoleData.FSubRoleData.SubRoleIdentifier + '\\' + datetimenowtemp + '\\' + filenametemp);
+     simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + ' - ' + simMgrClient.MyConsoleData.UserRoleData.FSubRoleData.SubRoleIdentifier
+     + '\\' + datetimenowtemp + '\\' + filenametemp);
+
+    TFile.Copy(addressfiletemp, 'D:' + '\\' + 'File Sharing' + '\\' + 'SENT TO' + '\\' +
+     cbbxShareTo.Text + '\\' + datetimenowtemp + '\\' + filenametemp);
   end;
 
   Close;

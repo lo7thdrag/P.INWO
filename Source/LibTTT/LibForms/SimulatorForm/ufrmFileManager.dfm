@@ -2,7 +2,7 @@ object frmFileManager: TfrmFileManager
   Left = 0
   Top = 0
   BorderStyle = bsNone
-  ClientHeight = 523
+  ClientHeight = 508
   ClientWidth = 370
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -19,7 +19,7 @@ object frmFileManager: TfrmFileManager
     Left = 0
     Top = 0
     Width = 370
-    Height = 523
+    Height = 508
     Align = alClient
     BevelOuter = bvNone
     Color = 5981737
@@ -27,7 +27,6 @@ object frmFileManager: TfrmFileManager
     ShowCaption = False
     TabOrder = 0
     ExplicitWidth = 371
-    ExplicitHeight = 508
     object pnlTop: TPanel
       Left = 0
       Top = 0
@@ -61,7 +60,7 @@ object frmFileManager: TfrmFileManager
       Left = 0
       Top = 48
       Width = 370
-      Height = 475
+      Height = 460
       Align = alClient
       BevelOuter = bvNone
       Color = 3023637
@@ -69,7 +68,6 @@ object frmFileManager: TfrmFileManager
       ShowCaption = False
       TabOrder = 1
       ExplicitWidth = 371
-      ExplicitHeight = 460
       object lblShareTo: TLabel
         Left = 16
         Top = 32
