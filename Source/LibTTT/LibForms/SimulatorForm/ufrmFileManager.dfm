@@ -1,8 +1,9 @@
 object frmFileManager: TfrmFileManager
   Left = 0
   Top = 0
-  ClientHeight = 508
-  ClientWidth = 371
+  BorderStyle = bsNone
+  ClientHeight = 523
+  ClientWidth = 370
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -10,34 +11,38 @@ object frmFileManager: TfrmFileManager
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Position = poDesktopCenter
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object pnlMainFileManager: TPanel
     Left = 0
     Top = 0
-    Width = 371
-    Height = 508
+    Width = 370
+    Height = 523
     Align = alClient
     BevelOuter = bvNone
     Color = 5981737
     ParentBackground = False
     ShowCaption = False
     TabOrder = 0
+    ExplicitWidth = 371
+    ExplicitHeight = 508
     object pnlTop: TPanel
       Left = 0
       Top = 0
-      Width = 371
+      Width = 370
       Height = 48
       Align = alTop
       BevelOuter = bvNone
       Caption = ' '
       ShowCaption = False
       TabOrder = 0
+      ExplicitWidth = 371
       object lblFileSharing: TLabel
         Left = 0
         Top = 0
-        Width = 371
+        Width = 370
         Height = 48
         Align = alClient
         Alignment = taCenter
@@ -55,14 +60,16 @@ object frmFileManager: TfrmFileManager
     object pnlBottom: TPanel
       Left = 0
       Top = 48
-      Width = 371
-      Height = 460
+      Width = 370
+      Height = 475
       Align = alClient
       BevelOuter = bvNone
       Color = 3023637
       ParentBackground = False
       ShowCaption = False
       TabOrder = 1
+      ExplicitWidth = 371
+      ExplicitHeight = 460
       object lblShareTo: TLabel
         Left = 16
         Top = 32

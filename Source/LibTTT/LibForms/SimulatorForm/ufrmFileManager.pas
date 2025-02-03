@@ -154,6 +154,7 @@ var
 i : Integer;
 addressfiletemp : string;
 filenametemp : string;
+datetimenowtemp : string;
 begin
 
   if cbbxShareTo.ItemIndex = -1 then
@@ -172,6 +173,21 @@ begin
     exit;
   end;
 
+  if not (TDirectory.Exists('\\' + SelectedUserRoleIP + '\\' + 'File Sharing' + '\\' + 'FROM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim
+              + ' - ' + simMgrClient.MyConsoleData.UserRoleData.FSubRoleData.SubRoleIdentifier + '\\' + System.SysUtils.FormatDateTime('dd-mm-yy_hh;nn;ss', Now))) then
+  begin
+    datetimenowtemp := System.SysUtils.FormatDateTime('dd-mm-yy_hh;nn;ss', Now);
+
+    TDirectory.CreateDirectory('\\' + SelectedUserRoleIP + '\\' + 'File Sharing' + '\\' + 'FROM' + '\\' +
+     simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + ' - ' + simMgrClient.MyConsoleData.UserRoleData.FSubRoleData.SubRoleIdentifier + '\\' + datetimenowtemp);
+
+//      CopyFile(addressTempFileTelegram, PWideChar('\\' + ipTelegramSentTo + '\\' + 'TELEGRAM' + '\\' + 'INBOX' + '\\'
+//       + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + '\\' + datetimenowtemp + '\\' + fileNameTempTelegram), False);
+
+//        TFile.Copy(addressTempFileTelegram, '\\' + ipTelegramSentTo + '\\' + 'Telegram' + '\\' + 'INBOX' + '\\'
+//         + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + '\\' + datetimenowtemp + '\\' + fileNameTempTelegram);
+  end;
+
 
   for i := 0 to Length(pathFileArray) - 1 do
   begin
@@ -179,11 +195,13 @@ begin
     filenametemp := fileNameArray[i];
 //    CopyFile(addressfiletemp, PWideChar('\\' + SelectedUserRoleIP + '\\File Sharing' + '\\' + filenametemp), False);
 
-    TFile.Copy(addressfiletemp, '\\' + SelectedUserRoleIP + '\\File Sharing' + '\\' + filenametemp);
+    TFile.Copy(addressfiletemp, '\\' + SelectedUserRoleIP + '\\' + 'File Sharing' + '\\' + 'FROM' + '\\' +
+     simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + ' - ' + simMgrClient.MyConsoleData.UserRoleData.FSubRoleData.SubRoleIdentifier + '\\' + datetimenowtemp + '\\' + filenametemp);
   end;
 
   Close;
 
+  ShowMessage('File has been Successfully Sent!');
 end;
 
 procedure TfrmFileManager.UpdateFilenameComboBox;

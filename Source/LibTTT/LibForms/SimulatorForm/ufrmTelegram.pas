@@ -221,7 +221,8 @@ begin
   SetLength(fileNameArray,0);
   SetLength(pathFileArray,0);
   lstbxTelegramFileName.Clear;
-  frmTelegram.Width := 230;
+  frmTelegram.Width := 214;
+//  frmTelegram.Position := poScreenCenter;
 end;
 
 procedure TfrmTelegram.btnKirimClick(Sender: TObject);
@@ -414,7 +415,8 @@ begin
   pnlSendTelegram.Visible := False;
 
   lstbxTelegramFileName.Clear;
-  frmTelegram.Width := 230;
+  frmTelegram.Width := 214;
+//  frmTelegram.Position := poScreenCenter;
 end;
 
 procedure TfrmTelegram.imgBtnKirimTelegramClick(Sender: TObject);
@@ -426,7 +428,8 @@ begin
 //  lblNamaFile.Caption := '...';
   cbbxTo.ItemIndex := -1;
   ipTelegramSentTo := '';
-  frmTelegram.Width := 696;
+  frmTelegram.Width := 681;
+//  frmTelegram.Position := poScreenCenter;
 end;
 
 procedure TfrmTelegram.Label1Click(Sender: TObject);

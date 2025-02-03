@@ -2112,7 +2112,13 @@ begin
   if not Assigned(frmTelegram) then
     frmTelegram := TfrmTelegram.Create(Self);
 
-  frmTelegram.Show;
+  try
+    if frmTelegram.Showing then
+      frmTelegram.Close
+    else
+      frmTelegram.Show;
+  finally
+  end;
 end;
 
 
@@ -2150,11 +2156,19 @@ begin
   if not Assigned(frmFileManager) then
     frmFileManager := TfrmFileManager.Create(Self);
 
+//  try
+//    with frmFileManager do
+//    begin
+//      Show;
+//    end;
+//  finally
+//  end;
+
   try
-    with frmFileManager do
-    begin
-      Show;
-    end;
+    if frmFileManager.Showing then
+      frmFileManager.Close
+    else
+      frmFileManager.Show;
   finally
   end;
 end;

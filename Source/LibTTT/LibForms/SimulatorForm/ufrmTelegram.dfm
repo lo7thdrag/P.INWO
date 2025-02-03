@@ -1,29 +1,37 @@
 object frmTelegram: TfrmTelegram
-  Left = 0
-  Top = 0
-  ClientHeight = 507
-  ClientWidth = 680
+  Left = 617
+  Top = 154
+  HorzScrollBar.Visible = False
+  BorderStyle = bsNone
+  Caption = 'Telegram'
+  ClientHeight = 546
+  ClientWidth = 681
   Color = clBtnFace
+  DragMode = dmAutomatic
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Position = poDesktopCenter
+  ShowHint = True
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object pnlRight: TPanel
-    Left = -302
+    Left = -301
     Top = 0
     Width = 982
-    Height = 507
+    Height = 546
     Align = alRight
     BevelEdges = []
     BevelOuter = bvNone
     Color = 3023637
     ParentBackground = False
     TabOrder = 0
+    ExplicitLeft = -302
+    ExplicitHeight = 507
     object lblSendTelegram: TLabel
       Tag = 3
       Left = 673
@@ -1156,13 +1164,14 @@ object frmTelegram: TfrmTelegram
     Left = 0
     Top = 0
     Width = 214
-    Height = 507
+    Height = 546
     Align = alLeft
     BevelOuter = bvNone
     Caption = ' '
     Color = 5981737
     ParentBackground = False
     TabOrder = 1
+    ExplicitHeight = 507
     object lblTelegram: TLabel
       Tag = 3
       Left = 42
