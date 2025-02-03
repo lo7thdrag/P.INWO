@@ -21,10 +21,7 @@ type
     pnlTelegramTerkirim: TPanel;
     lblTo: TLabel;
     cbbxTo: TComboBox;
-    LstBxTelegram: TListBox;
     lblTelegram: TLabel;
-    lblTelegramMasuk: TLabel;
-    lblTelegramTerkirim: TLabel;
     pnlSendTelegram: TPanel;
     ImgBtnTelegramMasuk: TImageButton;
     ImgBtnTelegramTerkirim: TImageButton;
@@ -43,13 +40,13 @@ type
     lblKirimTelegram: TLabel;
     btnClosePanelSendTelegram: TImageButton;
     lblFile: TLabel;
-    lblNamaFile: TLabel;
-    imgBtnKirim: TImageButton;
+    pnlBase: TPanel;
+    lstbxTelegramFileName: TListBox;
+    AdvGroupBox2: TAdvGroupBox;
+    lblSendTelegram: TLabel;
     pnlSend: TPanel;
+    imgbtnSend: TImageButton;
     lblSend: TLabel;
-    imgbtnOpenTelegram: TImageButton;
-    pnlOpenTelegram: TPanel;
-    lblOpenTelegram: TLabel;
     procedure btnBuatTelegramTerbatasClick(Sender: TObject);
     procedure btnBuatTelegramRahasiaClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
@@ -67,12 +64,16 @@ type
     procedure cbbxToSelect(Sender: TObject);
   private
     { Private declarations }
-    addressTempFileTelegram : PWideChar;
-    fileNameTempTelegram : string;
+
+    ipTelegramSentTo : string;
   public
     { Public declarations }
+    fileNameArray : array of string;
+    pathFileArray : array of string;
+
     procedure UpdateClientTelegramList;
     procedure OpenApplicationFileFolder(FullPath: String);
+    procedure UpdateFilenameComboBox;
 
   end;
 
@@ -111,25 +112,38 @@ begin
     begin
       TDirectory.CreateDirectory('D:\\Telegram');
     end;
-    WordFileName := 'D:\\Telegram\\TelegramRahasia_'+System.SysUtils.FormatDateTime('dd-mm-yy_hh;nn;ss', Now)+'.docx';
+
+    if not (TDirectory.Exists('D:\\Telegram\\DRAFT')) then
+    begin
+      TDirectory.CreateDirectory('D:\\Telegram\\DRAFT');
+    end;
+
+    if not (TDirectory.Exists('D:\\Telegram\\DRAFT\\Template')) then
+    begin
+      TDirectory.CreateDirectory('D:\\Telegram\\DRAFT\\Template');
+    end;
+
+    WordFileName := 'D:\\Telegram\\DRAFT\\Template\\TelegramRahasia_'+System.SysUtils.FormatDateTime('dd-mm-yy_hh;nn;ss', Now)+'.docx';
     pw := PWideChar(WordFileName);
     CopyFile(PWideChar(WordFileNameTemplateRahasia), pw, False);
-     try
-        WordApplication.Visible := True; //set to False if you do not want to see the activity in the background
-        WordApplication.DisplayAlerts := True; //ensures message dialogs do not interrupt the flow of your automation process. May be helpful to set to True during testing and debugging.
-        //Open Word File
-        try
-           WordFile := WordApplication.Documents.Open(WordFileName);
-           //reference
-           //https://docs.microsoft.com/en-us/office/vba/api/word.documents.open
-        except
-              WordFile := Null;
-              //add error/exception handling code as desired
-        end;
+//     try
+//        WordApplication.Visible := True; //set to False if you do not want to see the activity in the background
+//        WordApplication.DisplayAlerts := True; //ensures message dialogs do not interrupt the flow of your automation process. May be helpful to set to True during testing and debugging.
+//        //Open Word File
+//        try
+//           WordFile := WordApplication.Documents.Open(WordFileName);
+//           //reference
+//           //https://docs.microsoft.com/en-us/office/vba/api/word.documents.open
+//        except
+//              WordFile := Null;
+//              //add error/exception handling code as desired
+//        end;
+//
+//     finally
+//
+//     end;
 
-     finally
-
-     end;
+    ShellExecute(0, 'open', (pw), nil, nil, SW_SHOW);
   end;
 end;
 
@@ -161,87 +175,189 @@ begin
     begin
       TDirectory.CreateDirectory('D:\\Telegram');
     end;
-    WordFileName := 'D:\\Telegram\\TelegramTerbatas_'+System.SysUtils.FormatDateTime('dd-mm-yy_hh;nn;ss', Now)+'.docx';
+
+    if not (TDirectory.Exists('D:\\Telegram\\DRAFT')) then
+    begin
+      TDirectory.CreateDirectory('D:\\Telegram\\DRAFT');
+    end;
+
+    if not (TDirectory.Exists('D:\\Telegram\\DRAFT\\Template')) then
+    begin
+      TDirectory.CreateDirectory('D:\\Telegram\\DRAFT\\Template');
+    end;
+
+    WordFileName := 'D:\\Telegram\\DRAFT\\Template\\TelegramTerbatas_'+ System.SysUtils.FormatDateTime('dd-mm-yy_hh;nn;ss', Now) + '.docx';
     pw := PWideChar(WordFileName);
     CopyFile(PWideChar(WordFileNameTemplateTerbatas), pw, False);
-     try
-        WordApplication.Visible := True; //set to False if you do not want to see the activity in the background
-        WordApplication.DisplayAlerts := True; //ensures message dialogs do not interrupt the flow of your automation process. May be helpful to set to True during testing and debugging.
+//     try
+//        WordApplication.Visible := True; //set to False if you do not want to see the activity in the background
+//        WordApplication.DisplayAlerts := True; //ensures message dialogs do not interrupt the flow of your automation process. May be helpful to set to True during testing and debugging.
+//
+//        //Open Word File
+//        try
+//           WordFile := WordApplication.Documents.Open(WordFileName);
+//           //reference
+//           //https://docs.microsoft.com/en-us/office/vba/api/word.documents.open
+//        except
+//              WordFile := Null;
+//              //add error/exception handling code as desired
+//        end;
+//
+//     finally
+//
+//     end;
 
-        //Open Word File
-        try
-           WordFile := WordApplication.Documents.Open(WordFileName);
-           //reference
-           //https://docs.microsoft.com/en-us/office/vba/api/word.documents.open
-        except
-              WordFile := Null;
-              //add error/exception handling code as desired
-        end;
-
-     finally
-
-     end;
+    ShellExecute(0, 'open', (pw), nil, nil, SW_SHOW);
   end;
 end;
 
 procedure TfrmTelegram.btnClosePanelSendTelegramClick(Sender: TObject);
 begin
-  addressTempFileTelegram := '';
-  fileNameTempTelegram := '';
+//  addressTempFileTelegram := '';
+//  fileNameTempTelegram := '';
+  ipTelegramSentTo := '';
   pnlSendTelegram.Visible := False;
+  SetLength(fileNameArray,0);
+  SetLength(pathFileArray,0);
+  lstbxTelegramFileName.Clear;
+  frmTelegram.Width := 230;
 end;
 
 procedure TfrmTelegram.btnKirimClick(Sender: TObject);
-//var
+var
 //  addressTemp : PWideChar;
-//  filNameTemp : string;
+  datetimenowtemp : string;
+  addressfiletemp : string;
+  filenametemp : string;
+  i : Integer;
+  addressTempFileTelegram : string;
+  fileNameTempTelegram : string;
 //  saveDialog : TSaveDialog;
 //  saveFileTemp : TFile_Data;
 //  fileDataTemp : TRecTCPSendTelegramUserRole;
 //
 begin
-//  saveDialog := TSaveDialog.Create(self);
-//  saveDialog.InitialDir := GetCurrentDir;
-//  saveDialog.Filter := 'Word file|*.docx|Excel file|*.xlsx|Power Point file|*.pptx';
-//  saveDialog.DefaultExt := 'docx';
-//  saveDialog.FilterIndex := 1;
-//
-//  if saveDialog.Execute then
-//  begin
-//    addressTemp := PWideChar(saveDialog.FileName);
-//    filNameTemp := ExtractFileName(saveDialog.FileName);
-//    addressTempFileTelegram := addressTemp;
-//    fileNameTempTelegram := filNameTemp;
 
+    {$REGION 'Code copy lama'}
     // SAVE FILE KE INBOX FOLDER ROLE TUJUAN
-  if (addressTempFileTelegram <> '') and (fileNameTempTelegram <> '') then
-  begin
-    if not (TDirectory.Exists(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' +  cbbxTo.Text + '\\' + 'INBOX')) then
-    begin
-      TDirectory.CreateDirectory(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + cbbxTo.Text + '\\' + 'INBOX');
-      CopyFile(addressTempFileTelegram, PWideChar(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + cbbxTo.Text + '\\' + 'INBOX' + '\\' + fileNameTempTelegram), False);
-//      TDirectory.de
-    end
-    else
-    begin
-    CopyFile(addressTempFileTelegram, PWideChar(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + cbbxTo.Text + '\\' + 'INBOX' + '\\' + fileNameTempTelegram), False);
-    end;
+//  if (addressTempFileTelegram <> '') and (fileNameTempTelegram <> '') then
+//  begin
+//    if not (TDirectory.Exists(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' +  cbbxTo.Text + '\\' + 'INBOX')) then
+//    begin
+//      TDirectory.CreateDirectory(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + cbbxTo.Text + '\\' + 'INBOX');
+//      CopyFile(addressTempFileTelegram, PWideChar(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + cbbxTo.Text + '\\' + 'INBOX' + '\\' + fileNameTempTelegram), False);
+////      TDirectory.de
+//    end
+//    else
+//    begin
+//    CopyFile(addressTempFileTelegram, PWideChar(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + cbbxTo.Text + '\\' + 'INBOX' + '\\' + fileNameTempTelegram), False);
+//    end;
+//
+//    // SAVE FILE KE SENT BOX FOLDER ROLE PENGIRIM
+//    if not (TDirectory.Exists(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' +  simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + ' - ' + simMgrClient.MyConsoleData.UserRoleData.FSubRoleData.SubRoleIdentifier + '\\' + 'SENT')) then
+//    begin
+//      TDirectory.CreateDirectory(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + ' - ' + simMgrClient.MyConsoleData.UserRoleData.FSubRoleData.SubRoleIdentifier + '\\' + 'SENT');
+//      CopyFile(addressTempFileTelegram, PWideChar(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + ' - ' + simMgrClient.MyConsoleData.UserRoleData.FSubRoleData.SubRoleIdentifier + '\\' + 'SENT' + '\\' + fileNameTempTelegram), False);
+//    end
+//    else
+//    begin
+//    CopyFile(addressTempFileTelegram, PWideChar(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + '\\' + 'SENT' + '\\' + fileNameTempTelegram), False);
+//    end;
+//
+//    pnlSendTelegram.Visible := False;
+//  end;
+    {$ENDREGION}
 
-    // SAVE FILE KE SENT BOX FOLDER ROLE PENGIRIM
-    if not (TDirectory.Exists(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' +  simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + ' - ' + simMgrClient.MyConsoleData.UserRoleData.FSubRoleData.SubRoleIdentifier + '\\' + 'SENT')) then
+    if cbbxTo.ItemIndex = -1 then
     begin
-      TDirectory.CreateDirectory(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + ' - ' + simMgrClient.MyConsoleData.UserRoleData.FSubRoleData.SubRoleIdentifier + '\\' + 'SENT');
-      CopyFile(addressTempFileTelegram, PWideChar(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + ' - ' + simMgrClient.MyConsoleData.UserRoleData.FSubRoleData.SubRoleIdentifier + '\\' + 'SENT' + '\\' + fileNameTempTelegram), False);
+      ShowMessage('Choose who you want to share file to!');
+      exit;
     end
-    else
+    else if Length(fileNameArray) = 0 then
     begin
-    CopyFile(addressTempFileTelegram, PWideChar(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + '\\' + 'SENT' + '\\' + fileNameTempTelegram), False);
+      ShowMessage('Choose which file you want to share!');
+      exit;
     end;
+  //  else if not (TDirectory.Exists('\\' + SelectedUserRoleIP + '\\File Sharing')) then
+  //  begin
+  //    ShowMessage('Share folder doesn''t exist');
+  //    exit;
+  //  end;
 
-    pnlSendTelegram.Visible := False;
-  end
-  else
-  ShowMessage('Please choose Telegram File first!');
+    if ipTelegramSentTo <> '' then
+    begin
+      // SAVE FILE KE INBOX FOLDER ROLE TUJUAN
+      if not (TDirectory.Exists('\\' + ipTelegramSentTo + '\\' + 'Telegram' + '\\' + 'INBOX')) then
+      begin
+        TDirectory.CreateDirectory('\\' + ipTelegramSentTo + '\\' + 'Telegram' + '\\' + 'INBOX');
+      end;
+
+      if not (TDirectory.Exists('\\' + ipTelegramSentTo + '\\' + 'Telegram' + '\\' + 'INBOX' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim)) then
+      begin
+        TDirectory.CreateDirectory('\\' + ipTelegramSentTo + '\\' + 'Telegram' + '\\' + 'INBOX' + '\\'
+         + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim);
+      end;
+
+      if not (TDirectory.Exists('\\' + ipTelegramSentTo + '\\' + 'Telegram' + '\\' + 'INBOX' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim
+              + '\\' + System.SysUtils.FormatDateTime('dd-mm-yy_hh;nn;ss', Now))) then
+      begin
+        datetimenowtemp := System.SysUtils.FormatDateTime('dd-mm-yy_hh;nn;ss', Now);
+
+        TDirectory.CreateDirectory('\\' + ipTelegramSentTo + '\\' + 'Telegram' + '\\' + 'INBOX' + '\\' +
+         simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + '\\' + datetimenowtemp);
+
+  //      CopyFile(addressTempFileTelegram, PWideChar('\\' + ipTelegramSentTo + '\\' + 'TELEGRAM' + '\\' + 'INBOX' + '\\'
+  //       + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + '\\' + datetimenowtemp + '\\' + fileNameTempTelegram), False);
+
+//        TFile.Copy(addressTempFileTelegram, '\\' + ipTelegramSentTo + '\\' + 'Telegram' + '\\' + 'INBOX' + '\\'
+//         + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + '\\' + datetimenowtemp + '\\' + fileNameTempTelegram);
+      end;
+
+//      TFile.Copy(addressTempFileTelegram, '\\' + ipTelegramSentTo + '\\' + 'Telegram' + '\\' + 'INBOX' + '\\'
+//         + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + '\\' + datetimenowtemp + '\\' + fileNameTempTelegram);
+
+
+      // SAVE FILE KE SENT BOX FOLDER ROLE PENGIRIM
+      if not (TDirectory.Exists('D:' + '\\' + 'Telegram' + '\\' +  'SENT')) then
+      begin
+        TDirectory.CreateDirectory('D:' + '\\' + 'Telegram' + '\\' +  'SENT');
+      end;
+
+      if not (TDirectory.Exists('D:' + '\\' + 'Telegram' + '\\' +  'SENT' + '\\' + cbbxTo.Text)) then
+      begin
+        TDirectory.CreateDirectory('D:' + '\\' + 'Telegram' + '\\' +  'SENT' + '\\' + cbbxTo.Text);
+      end;
+
+      if not (TDirectory.Exists('D:' + '\\' + 'Telegram' + '\\' +  'SENT' + '\\' + cbbxTo.Text + '\\' + datetimenowtemp)) then
+      begin
+        TDirectory.CreateDirectory('D:' + '\\' + 'Telegram' + '\\' +  'SENT' + '\\' + cbbxTo.Text + '\\' + datetimenowtemp);
+      end;
+
+//      TFile.Copy(addressTempFileTelegram, 'D:' + '\\' + 'Telegram' + '\\' +  'SENT' + '\\' + cbbxTo.Text
+//                                                    + '\\' + datetimenowtemp + '\\' + fileNameTempTelegram);
+
+      for i := 0 to Length(pathFileArray) - 1 do
+      begin
+        addressTempFileTelegram := pathFileArray[i];
+        fileNameTempTelegram := fileNameArray[i];
+
+        TFile.Copy(addressTempFileTelegram, '\\' + ipTelegramSentTo + '\\' + 'Telegram' + '\\' + 'INBOX' + '\\'
+         + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + '\\' + datetimenowtemp + '\\' + fileNameTempTelegram);
+
+        TFile.Copy(addressTempFileTelegram, 'D:' + '\\' + 'Telegram' + '\\' +  'SENT' + '\\' + cbbxTo.Text
+         + '\\' + datetimenowtemp + '\\' + fileNameTempTelegram);
+
+    //    CopyFile(addressfiletemp, PWideChar('\\' + SelectedUserRoleIP + '\\File Sharing' + '\\' + filenametemp), False);
+
+//        TFile.Copy(addressfiletemp, '\\' + SelectedUserRoleIP + '\\File Sharing' + '\\' + filenametemp);
+      end;
+
+      datetimenowtemp := '';
+      pnlSendTelegram.Visible := False;
+    end
+
+    else
+    ShowMessage('Please choose Telegram File first!');
 //  end
 //  else
 //    ShowMessage('Save file was cancelled');
@@ -265,39 +381,7 @@ procedure TfrmTelegram.btnOpenTelegramClick(Sender: TObject);
 var
 WordApplication, WordFile: Variant;
 begin
-  WordApplication := null;
-  WordFile := null;
-
-//  LstBxTelegram.Items.Strings[LstBxTelegram.ItemIndex];
-
-  try
-    //create Word OLE
-    WordApplication := CreateOleObject('Word.Application');
-  except
-    WordApplication := Null;
-    //add error/exception handling code as desired
-  end;
-
-  If (VarIsNull(WordApplication) = False) then
-  begin
-    if LstBxTelegram.ItemIndex <> -1 then
-    begin
-     try
-        WordApplication.Visible := True; //set to False if you do not want to see the activity in the background
-        WordApplication.DisplayAlerts := False; //ensures message dialogs do not interrupt the flow of your automation process. May be helpful to set to True during testing and debugging.
-
-        try
-           WordFile := WordApplication.Documents.Open(LstBxTelegram.Items.Strings[LstBxTelegram.ItemIndex]);
-        except
-              WordFile := Null;
-        end;
-     finally
-
-
-     end;
-    end;
-  end;
-
+//
 end;
 
 procedure TfrmTelegram.cbbxToDropDown(Sender: TObject);
@@ -315,21 +399,26 @@ begin
     Exit;
 
   userRoleTemp := TUserRole(cbbxTo.Items.Objects[cbbxTo.ItemIndex]);
-  lblNamaFile.Caption := userRoleTemp.ConsoleIP;
+//  lblNamaFile.Caption := userRoleTemp.ConsoleIP;
+  ipTelegramSentTo := userRoleTemp.ConsoleIP;
 end;
 
 procedure TfrmTelegram.FormShow(Sender: TObject);
 begin
   pnlSendTelegram.Visible := False;
+  lstbxTelegramFileName.Clear;
+  frmTelegram.Width := 230;
 end;
 
 procedure TfrmTelegram.imgBtnKirimTelegramClick(Sender: TObject);
 begin
   pnlSendTelegram.Visible := True;
   pnlSendTelegram.BringToFront;
-  addressTempFileTelegram := '';
-  fileNameTempTelegram := '';
-  lblNamaFile.Caption := '...';
+//  addressTempFileTelegram := '';
+//  fileNameTempTelegram := '';
+//  lblNamaFile.Caption := '...';
+  ipTelegramSentTo := '';
+  frmTelegram.Width := 696;
 end;
 
 procedure TfrmTelegram.Label1Click(Sender: TObject);
@@ -343,32 +432,56 @@ end;
 
 procedure TfrmTelegram.lblPilihFileClick(Sender: TObject);
 var
-  addressTemp : PWideChar;
+  addressTemp : string;
   filNameTemp : string;
   openDialog : TOpenDialog;
   saveFileTemp : TFile_Data;
   fileDataTemp : TRecTCPSendTelegramUserRole;
+  i : Integer;
 
 begin
   openDialog := TOpenDialog.Create(self);
-  openDialog.InitialDir := 'D:\Telegram\';
-//  openDialog.Options := openDialog.Options + [ofAllowMultiSelect];
+  openDialog.InitialDir := 'D:\Telegram';
+  openDialog.Options := openDialog.Options + [ofAllowMultiSelect];
 //  openDialog.Filter := 'Word file|*.docx|Excel file|*.xlsx|Power Point file|*.pptx';
   openDialog.Filter := 'All Files (*.*)|*.*';
 
 //  saveDialog.DefaultExt := 'docx';
 
+    SetLength(fileNameArray,0);
+    SetLength(pathFileArray,0);
+
 //  openDialog.FilterIndex := 1;
 
   if openDialog.Execute then
   begin
+
+    SetLength(pathFileArray, openDialog.Files.Count);
+    SetLength(fileNameArray, openDialog.Files.Count);
+
     addressTemp := PWideChar(openDialog.FileName);
     filNameTemp := ExtractFileName(openDialog.FileName);
 //    lblNamaFile.Caption
-    addressTempFileTelegram := addressTemp;
-    fileNameTempTelegram := filNameTemp;
+//    addressTempFileTelegram := addressTemp;
+//    fileNameTempTelegram := filNameTemp;
 
-    lblNamaFile.Caption := fileNameTempTelegram;
+    for i := 0 to openDialog.Files.Count - 1 do
+    begin
+      addressTemp := openDialog.Files[i];
+      filNameTemp := ExtractFileName(openDialog.Files[i]);
+//      filNameTemp := openDialog.Files[i];
+      fileNameArray[i] := filNameTemp;
+      pathFileArray[i] := addressTemp;
+
+//      lstbxFileShareName.Items.AddStrings(filNameTemp);
+  //    lblNamaFile.Caption
+//      addressTempFileFileSharing := addressTemp;
+//      fileNameTempFileSharing := filNameTemp;
+
+//      lblNamaFile.Caption := fileNameTempFileSharing;
+    end;
+
+//    lblNamaFile.Caption := fileNameTempTelegram;
 
     // SAVE FILE KE INBOX FOLDER ROLE TUJUAN
 //    if not (TDirectory.Exists(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' +  cbbxTo.Text + '\\' + 'INBOX')) then
@@ -394,11 +507,18 @@ begin
 //    end;
   end
   else
-    ShowMessage('Save file was cancelled');
+    ShowMessage('Choose file was cancelled');
 
   openDialog.Free;
 
 //  UpdateDataFile;
+  UpdateFilenameComboBox;
+end;
+
+procedure TfrmTelegram.UpdateFilenameComboBox;
+begin
+  lstbxTelegramFileName.Clear;
+  lstbxTelegramFileName.Items.AddStrings(TArray<string>(fileNameArray));
 end;
 
 procedure TfrmTelegram.OpenApplicationFileFolder(FullPath: String);
@@ -413,56 +533,82 @@ procedure TfrmTelegram.pnlTelegramMasukClick(Sender: TObject);
 var
 path : string;
 begin
-  path := vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + ' - ' + simMgrClient.MyConsoleData.UserRoleData.FSubRoleData.SubRoleIdentifier + '\\' + 'INBOX';
-  lblTelegramMasuk.Visible := True;
-  lblTelegramTerkirim.Visible := False;
-  LstBxTelegram.Items.Clear;
+//  path := vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + ' - ' + simMgrClient.MyConsoleData.UserRoleData.FSubRoleData.SubRoleIdentifier + '\\' + 'INBOX';
+//  lblTelegramMasuk.Visible := True;
+//  lblTelegramTerkirim.Visible := False;
+//  LstBxTelegram.Items.Clear;
+//
+//  if not TDirectory.Exists(path) then
+//  begin
+//  ShowMessage('Inbox still empty');
+//  Exit
+//  end
+//  else
+//  LstBxTelegram.Items.AddStrings(TDirectory.GetFiles(path));
 
-  if not TDirectory.Exists(path) then
-  begin
-  ShowMessage('Inbox still empty');
-  Exit
-  end
-  else
-  LstBxTelegram.Items.AddStrings(TDirectory.GetFiles(path));
+//    if not (TDirectory.Exists('D:\\Telegram')) then
+//    begin
+//      TDirectory.CreateDirectory('D:\\Telegram');
+//    end;
+
+    if not (TDirectory.Exists('D:\\Telegram\\INBOX')) then
+    begin
+      TDirectory.CreateDirectory('D:\\Telegram\\INBOX');
+    end;
+
+    ShellExecute(0, 'open', ('D:\\Telegram\\INBOX'), nil, nil, SW_SHOW);
 end;
 
 procedure TfrmTelegram.imgbtnDraftClick(Sender: TObject);
 var
 path : string;
 begin
-  path := 'D:\Telegram\';
-  lblTelegramMasuk.Visible := True;
-  lblTelegramMasuk.Caption := 'Draft';
+//  path := 'D:\Telegram\';
+//  lblTelegramMasuk.Visible := True;
+//  lblTelegramMasuk.Caption := 'Draft';
+//
+//  lblTelegramTerkirim.Visible := False;
+//  LstBxTelegram.Items.Clear;
+//
+//  if not TDirectory.Exists(path) then
+//  begin
+//  ShowMessage('Inbox still empty');
+//  Exit
+//  end
+//  else
+//  LstBxTelegram.Items.AddStrings(TDirectory.GetFiles(path));
 
-  lblTelegramTerkirim.Visible := False;
-  LstBxTelegram.Items.Clear;
+    if not (TDirectory.Exists('D:\\Telegram\\DRAFT')) then
+    begin
+      TDirectory.CreateDirectory('D:\\Telegram\\DRAFT');
+    end;
 
-  if not TDirectory.Exists(path) then
-  begin
-  ShowMessage('Inbox still empty');
-  Exit
-  end
-  else
-  LstBxTelegram.Items.AddStrings(TDirectory.GetFiles(path));
+    ShellExecute(0, 'open', ('D:\\Telegram\\DRAFT'), nil, nil, SW_SHOW);
 end;
 
 procedure TfrmTelegram.pnlTelegramTerkirimClick(Sender: TObject);
 var
 path : string;
 begin
-  path := vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + ' - ' + simMgrClient.MyConsoleData.UserRoleData.FSubRoleData.SubRoleIdentifier + '\\' + 'SENT';
-  lblTelegramMasuk.Visible := False;
-  lblTelegramTerkirim.Visible := True;
-  LstBxTelegram.Items.Clear;
+//  path := vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM' + '\\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + ' - ' + simMgrClient.MyConsoleData.UserRoleData.FSubRoleData.SubRoleIdentifier + '\\' + 'SENT';
+//  lblTelegramMasuk.Visible := False;
+//  lblTelegramTerkirim.Visible := True;
+//  LstBxTelegram.Items.Clear;
+//
+//  if not TDirectory.Exists(path) then
+//  begin
+//  ShowMessage('Sentbox still empty');
+//  Exit
+//  end
+//  else
+//  LstBxTelegram.Items.AddStrings(TDirectory.GetFiles(path));
 
-  if not TDirectory.Exists(path) then
-  begin
-  ShowMessage('Sentbox still empty');
-  Exit
-  end
-  else
-  LstBxTelegram.Items.AddStrings(TDirectory.GetFiles(path));
+    if not (TDirectory.Exists('D:\\Telegram\\SENT')) then
+    begin
+      TDirectory.CreateDirectory('D:\\Telegram\\SENT');
+    end;
+
+    ShellExecute(0, 'open', ('D:\\Telegram\\SENT'), nil, nil, SW_SHOW);
 end;
 
 procedure TfrmTelegram.UpdateClientTelegramList;

@@ -677,7 +677,13 @@ object frmFileManager: TfrmFileManager
         Top = 132
         Width = 337
         Height = 255
-        ItemHeight = 13
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ItemHeight = 19
+        ParentFont = False
         TabOrder = 2
       end
       object pnlShare: TPanel
