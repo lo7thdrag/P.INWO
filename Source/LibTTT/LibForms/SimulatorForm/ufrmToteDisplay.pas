@@ -225,7 +225,9 @@ begin
   rec.UserRoleInUse := False;
 
   simMgrClient.netSend_CmdUserState(rec);
-  ShowMessage('User "' + consolenameTemp + '" has been logged out.');
+  ShowMessage('User "' + consolenameTemp + '" has been logged out');
+
+  frmTacticalDisplay.UpdateClientLogout(Self);
 end;
 
 {$ENDREGION}

@@ -1845,8 +1845,15 @@ end;
 
 procedure TfrmDisplayArea.OfficeEditorClick(Sender: TObject);
 begin
-  pnlRight.Width := 130;
-  pnlMainOfficeEditor.BringToFront;
+  if pnlRight.Width = 130 then
+  begin
+    pnlRight.Width := 0;
+  end
+  else
+  begin
+    pnlRight.Width := 130;
+    pnlMainOfficeEditor.BringToFront;
+  end;
 end;
 
 procedure TfrmDisplayArea.IconLoad;
@@ -2112,13 +2119,7 @@ begin
   if not Assigned(frmTelegram) then
     frmTelegram := TfrmTelegram.Create(Self);
 
-  try
-    if frmTelegram.Showing then
-      frmTelegram.Close
-    else
-      frmTelegram.Show;
-  finally
-  end;
+  frmTelegram.Show;
 end;
 
 
@@ -2180,14 +2181,14 @@ begin
   {ini untuk user role}
   pnlUserRole.Height := 35;
 
-  {ini untuk resurce}
+  {ini untuk resource}
   pnlResources.Height := 250;
 
   pnlToteDisplay.Height := 35;
   pnlServices.Height := 250;
 
-  btnUploadReferensi.Width := 121;
-  btnDeleteReferensi.Width := 121;
+  btnUploadReferensi.Visible := True;
+  btnDeleteReferensi.Visible := True;
 end;
 
 procedure TfrmDisplayArea.SetPanelOfficial;
@@ -2198,8 +2199,8 @@ begin
   pnlToteDisplay.Height := 0;
   pnlServices.Height := 215;
 
-  btnUploadReferensi.Width := 0;
-  btnDeleteReferensi.Width := 0;
+  btnUploadReferensi.Visible := False;
+  btnDeleteReferensi.Visible := False;
 end;
 
 procedure TfrmDisplayArea.LogOutClick(Sender: TObject);

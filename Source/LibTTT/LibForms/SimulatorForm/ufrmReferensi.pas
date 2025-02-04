@@ -189,19 +189,19 @@ begin
 
   if (edtNameDocument.Text = '') or (edtKategori.Text = '') then
   begin
-    ShowMessage('Inputan data tidak lengkap');
+    ShowMessage('Incomplete data input');
     Exit;
   end;
 
   if FAddressPath = '' then
   begin
-    ShowMessage('Inputan dokumen tidak lengkap');
+    ShowMessage('Incomplete document input');
     Exit;
   end;
 
   if (dmINWO.GetFilterByReferensi(FSelectedReferensi.FData)>0) and (FSelectedReferensi.FData.ID_File = 0)then
   begin
-    ShowMessage('Data sudah ada didalam database');
+    ShowMessage('Data already exists in the database');
     Exit;
   end;
 

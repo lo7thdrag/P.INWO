@@ -269,13 +269,13 @@ begin
 
   if cbbTipe.ItemIndex = -1 then
   begin
-    ShowMessage('Cek ulang tipe anda');
+    ShowMessage('Double check your type');
     Exit;
   end;
 
   if cbbKategori.ItemIndex = -1 then
   begin
-    ShowMessage('Cek ulang tipe anda');
+    ShowMessage('Double check your type');
     Exit;
   end;
 
@@ -288,26 +288,26 @@ begin
 
   if FAddressPath = '' then
   begin
-    ShowMessage('Inputan gambar tidak lengkap');
+    ShowMessage('Incomplete data input');
     Exit;
   end;
 
   if FAddressPathBlue = '' then
   begin
-    ShowMessage('Inputan gambar tidak lengkap');
+    ShowMessage('Incomplete data input');
     Exit;
   end;
 
   if FAddressPathRed = '' then
   begin
-    ShowMessage('Inputan gambar tidak lengkap');
+    ShowMessage('Incomplete image input');
     Exit;
   end;
 
   {Data sudah ada}
   if (dmINWO.GetFilterByTactical(FSelectedTacticalSymbol.FData)>0) and (FSelectedTacticalSymbol.FData.Id_Tactical_Symbol = 0)then
   begin
-    ShowMessage('Data sudah ada didalam database');
+    ShowMessage('Data already exists in the database');
     Exit;
   end;
   Result := True;
@@ -349,7 +349,7 @@ begin
       end
       else
       begin
-          ShowMessage('File gambar tidak ditemukan' + imagePathBlack);
+          ShowMessage('Image file not found' + imagePathBlack);
       end;
 
       if FileExists(imagepathBlue) then
@@ -359,7 +359,7 @@ begin
       end
       else
       begin
-          ShowMessage('File gambar tidak ditemukan' + imagepathBlue);
+          ShowMessage('Image file not found' + imagepathBlue);
       end;
 
       if FileExists(imagepathRed) then
@@ -369,7 +369,7 @@ begin
       end
       else
       begin
-          ShowMessage('File gambar tidak ditemukan' + imagepathRed);
+          ShowMessage('Image file not found' + imagepathRed);
       end;
     end;
   end;

@@ -192,7 +192,7 @@ var
 begin
   if (cbbConsoleName.ItemIndex = -1) or (cbbConsoleName.Text = '') then
   begin
-    ShowMessage('Console yang dipilih sedang tidak digunakan');
+    ShowMessage('The selected console is not currently in use');
     Exit;
   end;
 
@@ -336,7 +336,7 @@ begin
   end
   else
   begin
-    ShowMessage('Role tidak ditemukan, silahkan cek kembali username dan password');
+    ShowMessage('Role not found, please check username and password again');
   end;
 
 end;
@@ -461,7 +461,16 @@ begin
         if not ((FselectedUserRole.FData.UserRoleIdentifier = 'instruktur atwo') or (FselectedUserRole.FData.UserRoleIdentifier = 'instruktur ntwo')
         or (FselectedUserRole.FData.UserRoleIdentifier = 'INSTRUKTUR ATWO') or (FselectedUserRole.FData.UserRoleIdentifier = 'INSTRUKTUR NTWO')) then
         begin
-          ShowMessage('User Role ini hanya bisa digunakan di console instruktur');
+          ShowMessage('This User Role can only be used in the instructor console');
+          Exit;
+        end;
+      end
+      else
+      begin
+        if ((FselectedUserRole.FData.UserRoleIdentifier = 'instruktur atwo') or (FselectedUserRole.FData.UserRoleIdentifier = 'instruktur ntwo')
+        or (FselectedUserRole.FData.UserRoleIdentifier = 'INSTRUKTUR ATWO') or (FselectedUserRole.FData.UserRoleIdentifier = 'INSTRUKTUR NTWO')) then
+        begin
+          ShowMessage('This User Role can only be used in the instructor console');
           Exit;
         end;
       end;
@@ -478,7 +487,7 @@ begin
     end
     else
     begin
-      ShowMessage('System yang tersedia hanya Kogasgabfib dan Kogasgabla');
+      ShowMessage('The only systems available are Kogasgabfib and Kogasgabla');
       Exit;
     end;
   end;
@@ -492,20 +501,19 @@ begin
 end;
 
 procedure TfrmTacticalDisplay.UpdateClientLogout(Sender: TObject);
+var
+  i : Integer;
 begin
   {$REGION ' User Logout '}
   edtUsername.Text := '';
   edtPassword.Text := '';
 
-  if Assigned(frmTelegram) then
-    frmTelegram.Close;
-
-  if Assigned(frmDisplayArea) then
-    frmDisplayArea.Close;
-
-  if Assigned(frmToteDisplay) then
-    frmToteDisplay.Close;
-
+   for i := Screen.FormCount - 1 downto 0 do
+   begin
+     if True then
+      if (Screen.Forms[I] <> Self) then
+      Screen.Forms[I].Close;
+   end;
 
   pnlLogin.BringToFront;
   {$ENDREGION}
