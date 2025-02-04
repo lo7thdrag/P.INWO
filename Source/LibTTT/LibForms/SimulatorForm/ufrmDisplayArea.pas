@@ -2119,7 +2119,15 @@ begin
   if not Assigned(frmTelegram) then
     frmTelegram := TfrmTelegram.Create(Self);
 
-  frmTelegram.Show;
+//  frmTelegram.Show;
+
+  try
+    if frmTelegram.Showing then
+      frmTelegram.Close
+    else
+      frmTelegram.Show;
+  finally
+  end;
 end;
 
 
