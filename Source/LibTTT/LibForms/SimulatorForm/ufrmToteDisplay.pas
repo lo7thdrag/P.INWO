@@ -32,14 +32,15 @@ type
     Label2: TLabel;
     pnllvTransfer: TPanel;
     lvFileTransfer: TListView;
-    RzBmpButton1: TRzBmpButton;
-    RzBmpButton2: TRzBmpButton;
+    btnDelete: TRzBmpButton;
+    btnClear: TRzBmpButton;
     btnConsoleList: TSpeedButton;
     btnMyDesktop: TSpeedButton;
     pnlDestination: TPanel;
     lstUserSend: TCheckListBox;
     lblClose: TLabel;
     btnClose: TSpeedButton;
+    btnRefresh: TRzBmpButton;
 
     {$REGION 'Console List'}
     procedure pnlConsoleListManajemenShow;
@@ -60,7 +61,7 @@ type
     procedure btnAddClick(Sender: TObject);
     procedure btnDeleteClick(Sender: TObject);
     procedure btnClearClick(Sender: TObject);
-
+    procedure btnRefreshUserListClick(Sender: TObject);
     procedure UpdateFile;
     procedure UpdateUserList;
     {$ENDREGION}
@@ -79,6 +80,7 @@ type
 
     FSelectedFileTransfer : TFile_Data;
     FSelectedConsole      : TUserRole;
+    SaveUserList          : TStringList;
   public
     FileListName : string;
     SelectedUserRoleIP : string;
@@ -386,6 +388,7 @@ var
 
   targetPath, targetFile, userIP : string;
   userRoleTemp: TUserRole;
+  transferSuccess : Boolean;
 
   i, j: Integer;
 begin
@@ -416,6 +419,13 @@ begin
   fileNameTemp := FSelectedFileTransfer.FData.Nama_File;
   AddressPath := FSelectedFileTransfer.FData.Directory_Path;
 
+  if SaveUserList = nil then
+    SaveUserList := TStringList.Create;
+
+  SaveUserList.Clear;
+  for j := 0 to lstUserSend.Items.Count - 1 do
+    SaveUserList.Add(lstUserSend.Items[j]);
+
   for j := 0 to lstUserSend.Items.Count - 1 do
   begin
     if lstUserSend.Checked[j] then
@@ -445,15 +455,16 @@ begin
           fileTemp := TFile_Data(FFileTransfer.Items[i]);
           targetFile := targetPath + '\' + ExtractFileName(fileTemp.FData.Directory_Path);
 
-          if CopyFile(PWideChar(WideString(fileTemp.FData.Directory_Path)), PWideChar(targetFile), False) then
-            ShowMessage('File "' + fileTemp.FData.Nama_File + '" successfully transferred to "' + targetPath + '"')
-          else
-            ShowMessage('Failed to transfer file "' + fileTemp.FData.Nama_File + '".');
+          CopyFile(PWideChar(WideString(fileTemp.FData.Directory_Path)), PWideChar(targetFile), False)
         end;
+          ShowMessage('File successfully transferred');
+          lstUserSend.Items[j] := lstUserSend.Items[j] + ' - Success';
       end
       else
       begin
+          ShowMessage('File failed to transfer');
           ShowMessage('Failed to find user role for: ' + lstUserSend.Items[j]);
+          lstUserSend.Items[j] := lstUserSend.Items[j] + ' - Failed';
       end;
     end;
   end;
@@ -476,6 +487,23 @@ begin
     li.SubItems.Add(fileTemp.FData.Directory_Path);
 
     li.Data := fileTemp;
+  end;
+end;
+
+procedure TfrmToteDisplay.btnRefreshUserListClick(Sender: TObject);
+var
+  i : Integer;
+  PosStatus: Integer;
+begin
+  if SaveUserList = nil then
+  Exit;
+
+  for i := 0 to lstUserSend.Items.Count - 1 do
+  begin
+    PosStatus := Pos(' - ', lstUserSend.Items[i]);
+
+    if PosStatus > 0 then
+      lstUserSend.Items[i] := Copy(lstUserSend.Items[i], 1, PosStatus - 1);
   end;
 end;
 
