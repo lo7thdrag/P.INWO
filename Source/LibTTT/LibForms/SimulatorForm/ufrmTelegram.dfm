@@ -14,8 +14,9 @@ object frmTelegram: TfrmTelegram
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
-  Position = poDesktopCenter
+  Position = poScreenCenter
   ShowHint = True
+  OnCreate = FormCreate
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -30,8 +31,6 @@ object frmTelegram: TfrmTelegram
     Color = 3023637
     ParentBackground = False
     TabOrder = 0
-    ExplicitLeft = -302
-    ExplicitHeight = 507
     object lblSendTelegram: TLabel
       Tag = 3
       Left = 673
@@ -1171,7 +1170,6 @@ object frmTelegram: TfrmTelegram
     Color = 5981737
     ParentBackground = False
     TabOrder = 1
-    ExplicitHeight = 507
     object lblTelegram: TLabel
       Tag = 3
       Left = 42

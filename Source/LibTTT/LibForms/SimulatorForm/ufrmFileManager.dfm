@@ -11,7 +11,7 @@ object frmFileManager: TfrmFileManager
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
-  Position = poDesktopCenter
+  Position = poScreenCenter
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -26,7 +26,6 @@ object frmFileManager: TfrmFileManager
     ParentBackground = False
     ShowCaption = False
     TabOrder = 0
-    ExplicitWidth = 371
     object pnlTop: TPanel
       Left = 0
       Top = 0
@@ -37,7 +36,6 @@ object frmFileManager: TfrmFileManager
       Caption = ' '
       ShowCaption = False
       TabOrder = 0
-      ExplicitWidth = 371
       object lblFileSharing: TLabel
         Left = 0
         Top = 0
@@ -67,7 +65,6 @@ object frmFileManager: TfrmFileManager
       ParentBackground = False
       ShowCaption = False
       TabOrder = 1
-      ExplicitWidth = 371
       object lblShareTo: TLabel
         Left = 16
         Top = 32

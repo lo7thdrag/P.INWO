@@ -62,6 +62,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure imgbtnDraftClick(Sender: TObject);
     procedure cbbxToSelect(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
 
@@ -408,6 +409,11 @@ begin
   userRoleTemp := TUserRole(cbbxTo.Items.Objects[cbbxTo.ItemIndex]);
 //  lblNamaFile.Caption := userRoleTemp.ConsoleIP;
   ipTelegramSentTo := userRoleTemp.ConsoleIP;
+end;
+
+procedure TfrmTelegram.FormCreate(Sender: TObject);
+begin
+//  frmTelegram.Position := Screen.Monitors[vGameDataSetting.ToteScreen].
 end;
 
 procedure TfrmTelegram.FormShow(Sender: TObject);
