@@ -470,7 +470,7 @@ begin
         if ((FselectedUserRole.FData.UserRoleIdentifier = 'instruktur atwo') or (FselectedUserRole.FData.UserRoleIdentifier = 'instruktur ntwo')
         or (FselectedUserRole.FData.UserRoleIdentifier = 'INSTRUKTUR ATWO') or (FselectedUserRole.FData.UserRoleIdentifier = 'INSTRUKTUR NTWO')) then
         begin
-          ShowMessage('This User Role can only be used in the instructor console');
+          ShowMessage('This User Role can only be used in the official console');
           Exit;
         end;
       end;
@@ -479,11 +479,11 @@ begin
       lblUserIdentifier.Caption := FselectedUserRole.FData.UserRoleIdentifier + ' - ' + FselectedUserRole.FSubRoleData.SubRoleAcronim;
 
       if FselectedUserRole.FData.SubRoleIndex = 5 then
-        imgBackgroundLogin.Picture.LoadFromFile('C:\Program Files (x24)\Bin\data\Image Background\wallpaperNTWOLogin.png')
+        imgBackgroundLogin.Picture.LoadFromFile(vGameDataSetting.ImageBackgroundLogin + 'wallpaperNTWOLogin.png')
       else if FselectedUserRole.FData.SubRoleIndex = 6 then
-        imgBackgroundLogin.Picture.LoadFromFile('C:\Program Files (x24)\Bin\data\Image Background\wallpaperATWOLogin.png')
+        imgBackgroundLogin.Picture.LoadFromFile(vGameDataSetting.ImageBackgroundLogin + 'wallpaperATWOLogin.png')
       else
-        imgBackgroundLogin.Picture.LoadFromFile('C:\Program Files (x24)\Bin\data\Image Background\wallpaperINWOLogin.png');
+        imgBackgroundLogin.Picture.LoadFromFile(vGameDataSetting.ImageBackgroundLogin + 'wallpaperINWOLogin.png')
     end
     else
     begin

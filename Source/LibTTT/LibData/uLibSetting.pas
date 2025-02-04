@@ -83,6 +83,7 @@ type
     FileSimbolTaktis : string;
     LocalDirectory : string;
     ImageModel : string;
+    ImageBackgroundLogin : string;
     ImgPath : string;
     FileTransfer : string;
     RemotePort : integer ;
@@ -317,24 +318,25 @@ begin
 
   with gdSet do
   begin
-    DataPath        := IncludeTrailingBackslash(s + IniFReadstring(inif, c_gdata, 'DataPath', '.\data\'));
-    GroupSetting    := DataPath + IniFReadstring(inif, c_gdata, 'GroupSetting' , 'cubicles.xml');
-    SessionID       := INIFReadInteger(IniF, c_gdata, 'SessionId', 1111);
-    RemotePort      := INIFReadInteger(IniF, c_gdata, 'RemotePort',9000);
-    TacticalScreen  := INIFReadInteger(IniF, c_gdata, 'TacticalScreen',0);
-    ToteScreen      := INIFReadInteger(IniF, c_gdata, 'ToteScreen',0);
-    DemoMode        := INIFReadBool(IniF, c_gdata, 'DemoMode', False);
-    DelaySendData   := INIFReadInteger(IniF, c_gdata, 'DelaySendData', 500);
-    LogData         := INIFReadBool(IniF, c_gdata, 'LogData', LogData);
-    FormOfficer     := INIFReadBool(inif, c_map, 'FormOfficer', True );
-    FormSituationBoard := INIFReadBool(inif, c_map, 'FormSituationBoard', True );
-    FileDirectory   := IniFReadstring(inif, c_gdata, 'FileDirectory' , '');
-    FileReferensi   := IniFReadstring(inif, c_gdata, 'FileReferensi' , '');
-    FileSimbolTaktis:= IniFReadstring(inif, c_gdata, 'FileSimbolTaktis' , '');
-    LocalDirectory  := IniFReadstring(inif, c_gdata, 'LocalDirectory' , 'D:\');
-    ImgPath         := IniFReadstring(inif, c_gdata, 'ImgPath' , '.\data\bitmap\');
-    ImageModel      := IniFReadstring(inif, c_gdata, 'ImageModel' , '\\192.168.1.50\Program Files (x24)\Bin\data\Image DBEditor\Interface\');
-    FileTransfer    := IniFReadstring(inif, c_gdata, 'FileTransfer' , '');
+    DataPath             := IncludeTrailingBackslash(s + IniFReadstring(inif, c_gdata, 'DataPath', '.\data\'));
+    GroupSetting         := DataPath + IniFReadstring(inif, c_gdata, 'GroupSetting' , 'cubicles.xml');
+    SessionID            := INIFReadInteger(IniF, c_gdata, 'SessionId', 1111);
+    RemotePort           := INIFReadInteger(IniF, c_gdata, 'RemotePort',9000);
+    TacticalScreen       := INIFReadInteger(IniF, c_gdata, 'TacticalScreen',0);
+    ToteScreen           := INIFReadInteger(IniF, c_gdata, 'ToteScreen',0);
+    DemoMode             := INIFReadBool(IniF, c_gdata, 'DemoMode', False);
+    DelaySendData        := INIFReadInteger(IniF, c_gdata, 'DelaySendData', 500);
+    LogData              := INIFReadBool(IniF, c_gdata, 'LogData', LogData);
+    FormOfficer          := INIFReadBool(inif, c_map, 'FormOfficer', True );
+    FormSituationBoard   := INIFReadBool(inif, c_map, 'FormSituationBoard', True );
+    FileDirectory        := IniFReadstring(inif, c_gdata, 'FileDirectory' , '');
+    FileReferensi        := IniFReadstring(inif, c_gdata, 'FileReferensi' , '');
+    FileSimbolTaktis     := IniFReadstring(inif, c_gdata, 'FileSimbolTaktis' , '');
+    LocalDirectory       := IniFReadstring(inif, c_gdata, 'LocalDirectory' , 'D:\');
+    ImgPath              := IniFReadstring(inif, c_gdata, 'ImgPath' , '.\data\bitmap\');
+    ImageModel           := IniFReadstring(inif, c_gdata, 'ImageModel' , '\\192.168.1.50\Program Files (x24)\Bin\data\Image DBEditor\Interface\');
+    FileTransfer         := IniFReadstring(inif, c_gdata, 'FileTransfer' , '');
+    ImageBackgroundLogin := IniFReadstring(inif, c_gdata, 'ImageBackgroundLogin' , '');
   end;
   inif.Free;
 
