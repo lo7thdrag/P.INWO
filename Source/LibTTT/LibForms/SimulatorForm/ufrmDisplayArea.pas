@@ -1213,13 +1213,13 @@ begin
   begin
     SelectDirectory('Select a directory', vGameDataSetting.LocalDirectory, localDirTemp);
 
-    serverDirTemp := FSelectedTacticalSymbol.FData.Path_Directori + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '.png';
+    serverDirTemp := vGameDataSetting.FileSimbolTaktis + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '.png';
     localFileTemp := localDirTemp + '\' + FSelectedTacticalSymbol.FData.Keterangan + '.png';
 
-    serverDirTempBlue := FSelectedTacticalSymbol.FData.Path_Directori + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '_Blue.png';
+    serverDirTempBlue := vGameDataSetting.FileSimbolTaktis + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '_Blue.png';
     localFileTempBlue := localDirTemp + '\' + FSelectedTacticalSymbol.FData.Keterangan + '_Blue.png';
 
-    serverDirTempRed := FSelectedTacticalSymbol.FData.Path_Directori + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '_Red.png';
+    serverDirTempRed := vGameDataSetting.FileSimbolTaktis + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '_Red.png';
     localFileTempRed := localDirTemp + '\' + FSelectedTacticalSymbol.FData.Keterangan + '_Red.png';
 
     CopyFile(PWideChar(serverDirTemp), PWideChar(localFileTemp), False);
@@ -1694,7 +1694,7 @@ begin
   begin
     SelectDirectory('Select a directory', vGameDataSetting.LocalDirectory, localDirTemp);
 
-    serverDirTemp :=  FSelectedFileReferensi.FData.Directory_Path + '\' + IntToStr(FSelectedFileReferensi.FData.ID_File) +
+    serverDirTemp :=  vGameDataSetting.FileReferensi + '\' + IntToStr(FSelectedFileReferensi.FData.ID_File) +
                       FSelectedFileReferensi.FData.Tipe_File;
 
     localFileTemp := localDirTemp + '\' + FSelectedFileReferensi.FData.Encripted_File_Name + FSelectedFileReferensi.FData.Tipe_File;
