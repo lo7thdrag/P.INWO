@@ -169,7 +169,7 @@ object frmToteDisplay: TfrmToteDisplay
         object cbbConsole: TComboBox
           Left = 2
           Top = 42
-          Width = 171
+          Width = 235
           Height = 26
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
@@ -1590,7 +1590,7 @@ object frmToteDisplay: TfrmToteDisplay
           ExplicitLeft = 514
         end
         object btnRefresh: TRzBmpButton
-          Left = 199
+          Left = 240
           Top = 40
           Width = 30
           Cursor = crHandPoint
