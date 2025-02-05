@@ -1100,7 +1100,7 @@ begin
 
     FSelectedTacticalSymbol := TTactical_Symbol(lvTacticalSymbol.Selected.Data);
 
-    imagepath := FSelectedTacticalSymbol.FData.Path_Directori + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '.png';
+    imagepath := vGameDataSetting.FileSimbolTaktis + '\' + IntToStr(FSelectedTacticalSymbol.FData.Id_Tactical_Symbol) + '.png';
 
     if FileExists(imagepath) then
     begin
