@@ -26,24 +26,32 @@ object frmToteDisplay: TfrmToteDisplay
     Width = 898
     Height = 969
     Align = alClient
+    BevelOuter = bvNone
+    Color = 5981737
+    ParentBackground = False
     TabOrder = 0
-    ExplicitWidth = 776
     object pnlConsole: TPanel
-      Left = 1
-      Top = 1
-      Width = 896
-      Height = 967
+      Left = 0
+      Top = 0
+      Width = 898
+      Height = 969
       Align = alClient
+      Color = 5981737
+      ParentBackground = False
       TabOrder = 0
-      ExplicitWidth = 640
+      ExplicitLeft = 1
+      ExplicitTop = 1
+      ExplicitWidth = 896
+      ExplicitHeight = 967
       object pnlLogout: TPanel
         Left = 1
-        Top = 912
-        Width = 894
+        Top = 914
+        Width = 896
         Height = 54
         Align = alBottom
         TabOrder = 0
-        ExplicitWidth = 638
+        ExplicitTop = 912
+        ExplicitWidth = 894
         object btnLogout: TButton
           Left = 1
           Top = 6
@@ -65,12 +73,12 @@ object frmToteDisplay: TfrmToteDisplay
       object pnlHeaderConsole: TPanel
         Left = 1
         Top = 1
-        Width = 894
+        Width = 896
         Height = 80
         Align = alTop
         BevelOuter = bvNone
         TabOrder = 1
-        ExplicitWidth = 638
+        ExplicitWidth = 894
         object Label2: TLabel
           Left = 8
           Top = 16
@@ -78,7 +86,7 @@ object frmToteDisplay: TfrmToteDisplay
           Height = 35
           Caption = 'USER ROLE AKTIF'
           Font.Charset = ANSI_CHARSET
-          Font.Color = clBlack
+          Font.Color = clWhite
           Font.Height = -32
           Font.Name = 'Jefferies'
           Font.Style = []
@@ -88,17 +96,18 @@ object frmToteDisplay: TfrmToteDisplay
       object pnllvConsoleList: TPanel
         Left = 1
         Top = 81
-        Width = 894
-        Height = 831
+        Width = 896
+        Height = 833
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 2
-        ExplicitWidth = 638
+        ExplicitWidth = 894
+        ExplicitHeight = 831
         object lvConsoleList: TListView
           Left = 0
           Top = 0
-          Width = 894
-          Height = 831
+          Width = 896
+          Height = 833
           Align = alClient
           Color = clWhite
           Columns = <
@@ -129,29 +138,37 @@ object frmToteDisplay: TfrmToteDisplay
           TabOrder = 0
           ViewStyle = vsReport
           OnSelectItem = lvConsoleListSelectItem
-          ExplicitWidth = 638
+          ExplicitWidth = 894
+          ExplicitHeight = 831
         end
       end
     end
     object pnlFileTransfer: TPanel
-      Left = 1
-      Top = 1
-      Width = 896
-      Height = 967
+      Left = 0
+      Top = 0
+      Width = 898
+      Height = 969
       Align = alClient
+      Color = 5981737
+      ParentBackground = False
       TabOrder = 1
-      ExplicitWidth = 872
+      ExplicitLeft = 1
+      ExplicitTop = 1
+      ExplicitWidth = 896
+      ExplicitHeight = 967
       object pnlHeader: TPanel
         Left = 1
         Top = 1
-        Width = 894
+        Width = 896
         Height = 72
         Align = alTop
         BevelOuter = bvNone
+        Color = 5981737
+        ParentBackground = False
         TabOrder = 0
-        ExplicitWidth = 638
+        ExplicitWidth = 894
         DesignSize = (
-          894
+          896
           72)
         object Label1: TLabel
           Left = 8
@@ -160,7 +177,7 @@ object frmToteDisplay: TfrmToteDisplay
           Height = 16
           Caption = 'Console Destination'
           Font.Charset = ANSI_CHARSET
-          Font.Color = clBlack
+          Font.Color = clWhite
           Font.Height = -15
           Font.Name = 'Jefferies'
           Font.Style = []
@@ -182,7 +199,7 @@ object frmToteDisplay: TfrmToteDisplay
           OnSelect = cbbConsoleSelect
         end
         object btnUpload: TRzBmpButton
-          Left = 520
+          Left = 522
           Top = 38
           Width = 120
           Cursor = crHandPoint
@@ -873,10 +890,10 @@ object frmToteDisplay: TfrmToteDisplay
           Anchors = [akTop, akRight]
           TabOrder = 1
           OnClick = btnAddClick
-          ExplicitLeft = 264
+          ExplicitLeft = 520
         end
         object btnDelete: TRzBmpButton
-          Left = 645
+          Left = 647
           Top = 38
           Width = 120
           Cursor = crHandPoint
@@ -1567,14 +1584,15 @@ object frmToteDisplay: TfrmToteDisplay
           Anchors = [akTop, akRight]
           TabOrder = 2
           OnClick = btnDeleteClick
-          ExplicitLeft = 389
+          ExplicitLeft = 645
         end
         object btnClear: TRzBmpButton
-          Left = 770
+          Left = 772
           Top = 38
-          Width = 121
+          Width = 122
+          Height = 32
           Cursor = crHandPoint
-          Bitmaps.TransparentColor = clOlive
+          Bitmaps.TransparentColor = clAqua
           Color = 16744448
           ButtonBorder = bbSingle
           Anchors = [akTop, akRight]
@@ -1587,7 +1605,6 @@ object frmToteDisplay: TfrmToteDisplay
           ParentFont = False
           TabOrder = 3
           OnClick = btnClearClick
-          ExplicitLeft = 514
         end
         object btnRefresh: TRzBmpButton
           Left = 240
@@ -1718,17 +1735,20 @@ object frmToteDisplay: TfrmToteDisplay
       end
       object pnlSend: TPanel
         Left = 1
-        Top = 912
-        Width = 894
+        Top = 914
+        Width = 896
         Height = 54
         Align = alBottom
+        Color = 5981737
+        ParentBackground = False
         TabOrder = 1
-        ExplicitWidth = 638
+        ExplicitTop = 912
+        ExplicitWidth = 894
         DesignSize = (
-          894
+          896
           54)
         object btnSend: TButton
-          Left = 753
+          Left = 755
           Top = 10
           Width = 131
           Height = 33
@@ -1743,25 +1763,27 @@ object frmToteDisplay: TfrmToteDisplay
           ParentFont = False
           TabOrder = 0
           OnClick = btnSendClick
-          ExplicitLeft = 497
+          ExplicitLeft = 753
         end
       end
       object pnllvTransfer: TPanel
         Left = 273
         Top = 73
-        Width = 622
-        Height = 839
+        Width = 624
+        Height = 841
         Align = alClient
         BevelOuter = bvNone
         BorderWidth = 2
+        Color = 5981737
+        ParentBackground = False
         TabOrder = 2
-        ExplicitLeft = 177
-        ExplicitWidth = 512
+        ExplicitWidth = 622
+        ExplicitHeight = 839
         object lvFileTransfer: TListView
           Left = 2
           Top = 2
-          Width = 618
-          Height = 835
+          Width = 620
+          Height = 837
           Align = alClient
           Color = clWhite
           Columns = <
@@ -1788,23 +1810,27 @@ object frmToteDisplay: TfrmToteDisplay
           TabOrder = 0
           ViewStyle = vsReport
           OnSelectItem = lvFileTransferSelectItem
-          ExplicitWidth = 545
+          ExplicitWidth = 618
+          ExplicitHeight = 835
         end
       end
       object pnlDestination: TPanel
         Left = 1
         Top = 73
         Width = 272
-        Height = 839
+        Height = 841
         Align = alLeft
         BevelOuter = bvNone
         BorderWidth = 2
+        Color = 5981737
+        ParentBackground = False
         TabOrder = 3
+        ExplicitHeight = 839
         object lstUserSend: TCheckListBox
           Left = 2
           Top = 2
           Width = 268
-          Height = 835
+          Height = 837
           Align = alClient
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
@@ -1814,7 +1840,7 @@ object frmToteDisplay: TfrmToteDisplay
           ItemHeight = 18
           ParentFont = False
           TabOrder = 0
-          ExplicitWidth = 223
+          ExplicitHeight = 835
         end
       end
     end
@@ -1825,6 +1851,8 @@ object frmToteDisplay: TfrmToteDisplay
     Width = 201
     Height = 969
     Align = alLeft
+    Color = 5981737
+    ParentBackground = False
     TabOrder = 1
     object lblFileTransfer: TLabel
       Left = 37
@@ -1834,7 +1862,7 @@ object frmToteDisplay: TfrmToteDisplay
       Cursor = crHandPoint
       Caption = 'File Transfer'
       Font.Charset = ANSI_CHARSET
-      Font.Color = clBlack
+      Font.Color = clWhite
       Font.Height = -15
       Font.Name = 'Jefferies'
       Font.Style = []
@@ -1849,7 +1877,7 @@ object frmToteDisplay: TfrmToteDisplay
       Cursor = crHandPoint
       Caption = 'Concole List'
       Font.Charset = ANSI_CHARSET
-      Font.Color = clBlack
+      Font.Color = clWhite
       Font.Height = -15
       Font.Name = 'Jefferies'
       Font.Style = []
@@ -2016,7 +2044,7 @@ object frmToteDisplay: TfrmToteDisplay
       Cursor = crHandPoint
       Caption = 'Close'
       Font.Charset = ANSI_CHARSET
-      Font.Color = clBlack
+      Font.Color = clWhite
       Font.Height = -15
       Font.Name = 'Jefferies'
       Font.Style = []

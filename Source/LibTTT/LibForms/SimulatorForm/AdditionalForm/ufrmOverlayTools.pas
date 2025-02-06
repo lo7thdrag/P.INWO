@@ -385,6 +385,10 @@ type
     edtLattPlatform: TEdit;
     lblTacticalSymbolPlatform: TLabel;
     Button1: TButton;
+    Label50: TLabel;
+    Bevel15: TBevel;
+    edtPlatformIdentifier: TEdit;
+    Label51: TLabel;
     procedure btnHandleShape(Sender: TObject);
     procedure cbbTypeToolsChange(Sender: TObject);
     procedure btnOutlineClick(Sender: TObject);
@@ -1568,6 +1572,7 @@ begin
   recShape.IdUserRole   := FSelectedOverlayTab.IdUserRole;
   recShape.TemplateId   := FSelectedOverlayTab.IdOverlayTab;
   recShape.ShapeType    := ovPlatform;
+  recShape.OverlayName  := edtPlatformIdentifier.Text;
   recShape.PostStart.X  := dmsToLong(edtLongPlatform.Text);
   recShape.PostStart.Y  := dmsToLatt(edtLattPlatform.Text);
   recShape.IdSelectShape:= FShapeId;
@@ -2446,6 +2451,18 @@ begin
           edtLattIntel.Text := formatDMS_latt(IntelijenTemp.postCenter.Y);
           pnlOutline.Color := IntelijenTemp.ShapeOutline;
 
+          if IntelijenTemp.ShapeOutline = clBlue  then
+          begin
+            rbBlue.Checked := True;
+            rbRed.Checked := False;
+          end
+          else
+          begin
+            rbBlue.Checked := False;
+            rbRed.Checked := True;
+          end;
+
+          mmoInfo.Clear;
           for k := 0 to IntelijenTemp.InfoList.Count - 1 do
           begin
             intelDataTemp := IntelijenTemp.InfoList[k];
@@ -2477,6 +2494,17 @@ begin
           edtLongLog.Text := formatDMS_long(LogisticTemp.postCenter.X);
           edtLattLog.Text := formatDMS_latt(LogisticTemp.postCenter.Y);
           pnlOutline.Color := LogisticTemp.ShapeOutline;
+
+          if LogisticTemp.ShapeOutline = clBlue  then
+          begin
+            rbBlue.Checked := True;
+            rbRed.Checked := False;
+          end
+          else
+          begin
+            rbBlue.Checked := False;
+            rbRed.Checked := True;
+          end;
 
           for k := 0 to LogisticTemp.LogisticList.Count - 1 do
           begin
@@ -2515,6 +2543,17 @@ begin
           edtRadius.Text := FloatToStr(RadarTemp.Radius);
           pnlOutline.Color := RadarTemp.ShapeOutline;
 
+          if RadarTemp.ShapeOutline = clBlue  then
+          begin
+            rbBlue.Checked := True;
+            rbRed.Checked := False;
+          end
+          else
+          begin
+            rbBlue.Checked := False;
+            rbRed.Checked := True;
+          end;
+
           RadarTemp.isSelected := true;
           LoadPanelRadar;
           pnlObject.BringToFront;
@@ -2540,6 +2579,17 @@ begin
           edtLongBase.Text := formatDMS_long(BaseTemp.postCenter.X);
           edtLattBase.Text := formatDMS_latt(BaseTemp.postCenter.Y);
           pnlOutline.Color := BaseTemp.ShapeOutline;
+
+          if BaseTemp.ShapeOutline = clBlue  then
+          begin
+            rbBlue.Checked := True;
+            rbRed.Checked := False;
+          end
+          else
+          begin
+            rbBlue.Checked := False;
+            rbRed.Checked := True;
+          end;
 
           for k := 0 to BaseTemp.VehiclesList.Count - 1 do
           begin
@@ -2579,6 +2629,17 @@ begin
           edtEndLatt.Text := formatDMS_latt(ArrowTemp.postCenter.Y);
           pnlOutline.Color := ArrowTemp.ShapeOutline;
 
+          if ArrowTemp.ShapeOutline = clBlue  then
+          begin
+            rbBlue.Checked := True;
+            rbRed.Checked := False;
+          end
+          else
+          begin
+            rbBlue.Checked := False;
+            rbRed.Checked := True;
+          end;
+
           ArrowTemp.isSelected := true;
           LoadPanelPanah;
           pnlObject.BringToFront;
@@ -2606,6 +2667,17 @@ begin
           lblTacticalSymbolPlatform.Caption := PlatformTemp.simbol;
 
           pnlOutline.Color := PlatformTemp.ShapeOutline;
+
+          if PlatformTemp.ShapeOutline = clBlue  then
+          begin
+            rbBlue.Checked := True;
+            rbRed.Checked := False;
+          end
+          else
+          begin
+            rbBlue.Checked := False;
+            rbRed.Checked := True;
+          end;
 
           PlatformTemp.isSelected := true;
           LoadPanelPlatform;

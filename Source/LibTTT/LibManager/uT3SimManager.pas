@@ -560,7 +560,7 @@ begin
             else
               IntelijenShape := overlayTabTemp.GetShapeById(rec.IdSelectShape) as TIntelijenShape;
 
-            IntelijenShape.Identifier := rec.OverlayName;
+            IntelijenShape.Identifier := '';
             IntelijenShape.postCenter := rec.PostStart;
             IntelijenShape.TableProp := rec.PostStart;
             IntelijenShape.ShapeOutline := rec.color;
@@ -630,7 +630,7 @@ begin
             else
               RadarShape := overlayTabTemp.GetShapeById(rec.IdSelectShape) as TRadarShape;
 
-            RadarShape.Identifier := rec.OverlayName;
+            RadarShape.Identifier := '';
             RadarShape.postCenter := rec.PostStart;
             RadarShape.TableProp := rec.PostStart;
             RadarShape.Radius := rec.Radius1;
@@ -690,7 +690,7 @@ begin
             else
               ArrowShape := overlayTabTemp.GetShapeById(rec.IdSelectShape) as TPanahShape;
 
-            ArrowShape.Identifier := rec.OverlayName;
+            ArrowShape.Identifier := '';
             ArrowShape.postCenter := rec.PostStart;
             ArrowShape.postEnd := rec.PostEnd;
             ArrowShape.ShapeOutline := rec.color;

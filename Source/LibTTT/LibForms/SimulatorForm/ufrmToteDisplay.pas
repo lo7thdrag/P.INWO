@@ -219,6 +219,8 @@ begin
     Exit;
   end;
 
+  lstUserSend.Items.Clear;
+
   consolenameTemp := FSelectedConsole.FData.UserRoleAcronim;
 
   rec.OrderID := CORD_ID_LOGOUT;
@@ -394,6 +396,7 @@ var
 begin
   openDialog := TOpenDialog.Create(Self);
   fileTemp := TFile_Data.Create;
+  transferSuccess := False;
 
   if cbbConsole.ItemIndex = -1 then
   begin
@@ -457,16 +460,24 @@ begin
 
           CopyFile(PWideChar(WideString(fileTemp.FData.Directory_Path)), PWideChar(targetFile), False)
         end;
-          ShowMessage('File successfully transferred');
           lstUserSend.Items[j] := lstUserSend.Items[j] + ' - Success';
+          transferSuccess := True;
       end
       else
       begin
-          ShowMessage('File failed to transfer');
           ShowMessage('Failed to find user role for: ' + lstUserSend.Items[j]);
           lstUserSend.Items[j] := lstUserSend.Items[j] + ' - Failed';
       end;
     end;
+  end;
+
+  if transferSuccess then
+  begin
+    ShowMessage('File successfully transferred');
+  end
+  else
+  begin
+    ShowMessage('File failed to transfer');
   end;
 end;
 
