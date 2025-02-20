@@ -365,6 +365,7 @@ begin
     cbbUserRole.Items.Add('DEMINLOG');
     cbbUserRole.Items.Add('DELITBANG');
     cbbUserRole.Items.Add('SETLAT');
+    cbbUserRole.Items.Add('INSTRUKTUR');
     {$ENDREGION}
   end
   else if cbbSubRole.Text = 'STAF LAT' then
@@ -384,6 +385,7 @@ begin
     cbbUserRole.Items.Add('SETLAT');
     cbbUserRole.Items.Add('DENMALAT');
     cbbUserRole.Items.Add('DENHUBLAT');
+    cbbUserRole.Items.Add('INSTRUKTUR');
     {$ENDREGION}
   end
   else if cbbSubRole.Text = 'WASDAL' then
@@ -409,6 +411,8 @@ begin
   else if cbbSubRole.Text = 'KOGAB' then
   begin
     {$REGION ' KOGAB '}
+    cbbUserRole.Items.Add('PIMPINAN');
+    cbbUserRole.Items.Add('WAKIL');
     cbbUserRole.Items.Add('PANGLIMA');
     cbbUserRole.Items.Add('KASUM');
     cbbUserRole.Items.Add('AS INTEL');
@@ -424,6 +428,7 @@ begin
     cbbUserRole.Items.Add('LO AL');
     cbbUserRole.Items.Add('LO AU');
     cbbUserRole.Items.Add('KASETUM');
+    cbbUserRole.Items.Add('INSTRUKTUR');
     {$ENDREGION}
   end
   else if cbbSubRole.Text = 'KOGASGABLA' then

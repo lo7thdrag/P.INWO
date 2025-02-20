@@ -389,6 +389,10 @@ type
     Bevel15: TBevel;
     edtPlatformIdentifier: TEdit;
     Label51: TLabel;
+    Label66: TLabel;
+    Bevel24: TBevel;
+    edtRadarIdentifier: TEdit;
+    Label76: TLabel;
     procedure btnHandleShape(Sender: TObject);
     procedure cbbTypeToolsChange(Sender: TObject);
     procedure btnOutlineClick(Sender: TObject);
@@ -416,7 +420,6 @@ type
     FSelectedOverlayTab : TOverlayTab;
     FAction : Byte;
     FIdSelectedLogistic, FIdSelectedEmbark : Integer;
-
   protected
     procedure CreateParams(var Params : TCreateParams); override;
   public
@@ -1605,6 +1608,7 @@ begin
   recShape.IdUserRole   := FSelectedOverlayTab.IdUserRole;
   recShape.TemplateId   := FSelectedOverlayTab.IdOverlayTab;
   recShape.ShapeType    := ovRadar;
+  recShape.OverlayName  := edtRadarIdentifier.Text;
   recShape.PostStart.X  := dmsToLong(edtLongRadar.Text);
   recShape.PostStart.Y  := dmsToLatt(edtLattRadar.Text);
   recShape.IdSelectShape:= FShapeId;
@@ -1989,8 +1993,8 @@ var
 
   rect1, rect2, rect3, rect4 : TRect;
 
-  mainShapeTemp : TMainShape;
-  textTemp : TTextShape;
+  mainShapeTemp  : TMainShape;
+  textTemp       : TTextShape;
   lineTemp       : TLineShape;
   rectangleTemp  : TRectangleShape;
   circleTemp     : TCircleShape;
@@ -2009,26 +2013,19 @@ var
 
   intelDataTemp : TIntelijenInfo;
   shipDataTemp  : TVehicleOnBase;
-  logDataTemp : TLogisticOnBase;
+  logDataTemp   : TLogisticOnBase;
 
   polyPoint : Array of TPoint;
   point : TDotShape;
 
   countList : Integer;
   pos: TPoint;
-
 begin
   if Assigned(SelectedOverlayTab) then
   begin
-    for i := 0 to SelectedOverlayTab.MemberList.Count - 1 do
+    for i := SelectedOverlayTab.MemberList.Count - 1 downto 0 do
     begin
       mainShapeTemp := SelectedOverlayTab.MemberList[i];
-      mainShapeTemp.isSelected := False;
-    end;
-
-    for countList := SelectedOverlayTab.MemberList.Count-1 downto 0 do
-    begin
-      mainShapeTemp := SelectedOverlayTab.MemberList[countList];
 
       simMgrClient.Converter.ConvertToScreen(mx, my, pos.X, pos.Y);
       ptPos := SelectedOverlayTab.Formula.PointTo2D(pos.X, pos.Y);
@@ -2439,42 +2436,43 @@ begin
         {$REGION ' Intelijen Section '}
         IntelijenTemp := TIntelijenShape(mainShapeTemp);
 
-        simMgrClient.Converter.ConvertToScreen(IntelijenTemp.postCenter.X, IntelijenTemp.postCenter.Y, x1, y1);
-        rect1 := SelectedOverlayTab.Formula.assignRect(x1, y1);
+        simMgrClient.Converter.ConvertToScreen(IntelijenTemp.postCenter.X, IntelijenTemp.postCenter.Y, pos.X, pos.Y);
+        rect1 := SelectedOverlayTab.Formula.assignRect(pos.X, pos.Y);
 
         if ptToArea(rect1, ptPos) then
         begin
-          FShapeType := ovIntelijen;
-          FShapeId := IntelijenTemp.ShapeId;
-          FAction := caEdit;
-          edtLongIntel.Text := formatDMS_long(IntelijenTemp.postCenter.X);
-          edtLattIntel.Text := formatDMS_latt(IntelijenTemp.postCenter.Y);
-          pnlOutline.Color := IntelijenTemp.ShapeOutline;
+           IntelijenTemp.isSelected := not IntelijenTemp.isSelected;
 
-          if IntelijenTemp.ShapeOutline = clBlue  then
-          begin
-            rbBlue.Checked := True;
-            rbRed.Checked := False;
-          end
-          else
-          begin
-            rbBlue.Checked := False;
-            rbRed.Checked := True;
-          end;
+           if IntelijenTemp.isSelected then
+           begin
+              FShapeType := ovIntelijen;
+              FShapeId := IntelijenTemp.ShapeId;
+              FAction := caEdit;
+              edtLongIntel.Text := formatDMS_long(IntelijenTemp.postCenter.X);
+              edtLattIntel.Text := formatDMS_latt(IntelijenTemp.postCenter.Y);
+              pnlOutline.Color  := IntelijenTemp.ShapeOutline;
 
-          mmoInfo.Clear;
-          for k := 0 to IntelijenTemp.InfoList.Count - 1 do
-          begin
-            intelDataTemp := IntelijenTemp.InfoList[k];
-            mmoInfo.Lines.Add(intelDataTemp.Info)
-          end;
+              rbBlue.Checked := IntelijenTemp.ShapeOutline = clBlue;
+              rbRed.Checked  := not rbBlue.Checked;
 
-          IntelijenTemp.isSelected := true;
-          LoadPanelIntelijen;
-          pnlObject.BringToFront;
+              mmoInfo.Clear;
+              for k := 0 to IntelijenTemp.InfoList.Count - 1 do
+              begin
+                 intelDataTemp := IntelijenTemp.InfoList[k];
+                 mmoInfo.Lines.Add(intelDataTemp.Info)
+              end;
 
-          break;
+              LoadPanelIntelijen;
+              pnlObject.BringToFront;
+           end
+           else
+           begin
+              FAction := caAdd;
+              grpNone.BringToFront;
+              pnlObject.SendToBack;
+           end;
         end;
+
         {$ENDREGION}
       end
       else if mainShapeTemp is TLogisticShape then
@@ -2482,47 +2480,49 @@ begin
         {$REGION ' Logistic Section '}
         LogisticTemp := TLogisticShape(mainShapeTemp);
 
-        simMgrClient.Converter.ConvertToScreen(LogisticTemp.postCenter.X, LogisticTemp.postCenter.Y, x1, y1);
-        rect1 := SelectedOverlayTab.Formula.assignRect(x1, y1);
+        simMgrClient.Converter.ConvertToScreen(LogisticTemp.postCenter.X, LogisticTemp.postCenter.Y, pos.X, pos.Y);
+        rect1 := SelectedOverlayTab.Formula.assignRect(pos.X, pos.Y);
 
         if ptToArea(rect1, ptPos) then
         begin
-          FShapeType := ovLogistic;
-          FShapeId := LogisticTemp.ShapeId;
-          FAction := caEdit;
-          edtLogIdentifier.Text := LogisticTemp.Identifier;
-          edtLongLog.Text := formatDMS_long(LogisticTemp.postCenter.X);
-          edtLattLog.Text := formatDMS_latt(LogisticTemp.postCenter.Y);
-          pnlOutline.Color := LogisticTemp.ShapeOutline;
+          LogisticTemp.isSelected := not LogisticTemp.isSelected;
 
-          if LogisticTemp.ShapeOutline = clBlue  then
+          if LogisticTemp.isSelected then
           begin
-            rbBlue.Checked := True;
-            rbRed.Checked := False;
+            FShapeType := ovLogistic;
+            FShapeId := LogisticTemp.ShapeId;
+            FAction := caEdit;
+            edtLogIdentifier.Text := LogisticTemp.Identifier;
+            edtLongLog.Text := formatDMS_long(LogisticTemp.postCenter.X);
+            edtLattLog.Text := formatDMS_latt(LogisticTemp.postCenter.Y);
+            pnlOutline.Color := LogisticTemp.ShapeOutline;
+
+            rbBlue.Checked := LogisticTemp.ShapeOutline = clBlue;
+            rbRed.Checked := not rbBlue.Checked;
+
+            lvLogistic.Clear;
+            for k := 0 to LogisticTemp.LogisticList.Count - 1 do
+            begin
+              logDataTemp := LogisticTemp.LogisticList[k];
+
+              with lvLogistic.Items.Add do
+              begin
+                Caption := logDataTemp.Name;
+                SubItems.Add(logDataTemp.Status);
+              end;
+            end;
+            LoadPanelLogistic;
+            pnlObject.BringToFront;
+
           end
           else
           begin
-            rbBlue.Checked := False;
-            rbRed.Checked := True;
+            FAction := caAdd;
+            grpNone.BringToFront;
+            pnlObject.SendToBack;
           end;
-
-          for k := 0 to LogisticTemp.LogisticList.Count - 1 do
-          begin
-            logDataTemp := LogisticTemp.LogisticList[k];
-
-            with lvLogistic.Items.Add do
-            begin
-              SubItems.Add(logDataTemp.Name);
-              SubItems.Add(logDataTemp.Status);
-            end;
-          end;
-
-          LogisticTemp.isSelected := true;
-          LoadPanelLogistic;
-          pnlObject.BringToFront;
-
-          break;
         end;
+
         {$ENDREGION}
       end
       else if mainShapeTemp is TRadarShape then
@@ -2567,47 +2567,65 @@ begin
         {$REGION ' Base Section '}
         BaseTemp := TPangkalanShape(mainShapeTemp);
 
-        simMgrClient.Converter.ConvertToScreen(BaseTemp.postCenter.X, BaseTemp.postCenter.Y, x1, y1);
-        rect1 := SelectedOverlayTab.Formula.assignRect(x1, y1);
+        simMgrClient.Converter.ConvertToScreen(BaseTemp.postCenter.X, BaseTemp.postCenter.Y, pos.X, pos.Y);
+        rect1 := SelectedOverlayTab.Formula.assignRect(pos.X, pos.Y);
 
         if ptToArea(rect1, ptPos) then
         begin
-          FShapeType := ovPangkalan;
-          FShapeId := BaseTemp.ShapeId;
-          FAction := caEdit;
-          edtBaseIdentifier.Text := BaseTemp.Identifier;
-          edtLongBase.Text := formatDMS_long(BaseTemp.postCenter.X);
-          edtLattBase.Text := formatDMS_latt(BaseTemp.postCenter.Y);
-          pnlOutline.Color := BaseTemp.ShapeOutline;
+          BaseTemp.isSelected := not BaseTemp.isSelected;
 
-          if BaseTemp.ShapeOutline = clBlue  then
+          if BaseTemp.isSelected then
           begin
-            rbBlue.Checked := True;
-            rbRed.Checked := False;
+            FShapeType := ovPangkalan;
+            FShapeId := BaseTemp.ShapeId;
+            FAction := caEdit;
+            edtBaseIdentifier.Text := BaseTemp.Identifier;
+            edtLongBase.Text := formatDMS_long(BaseTemp.postCenter.X);
+            edtLattBase.Text := formatDMS_latt(BaseTemp.postCenter.Y);
+            pnlOutline.Color := BaseTemp.ShapeOutline;
+
+            rbBlue.Checked := BaseTemp.ShapeOutline = clBlue;
+            rbRed.Checked := not rbBlue.Checked;
+
+            lvEmbark.Clear;
+            for k := 0 to BaseTemp.VehiclesList.Count - 1 do
+            begin
+              shipDataTemp := BaseTemp.VehiclesList[k];
+
+              if (FIdSelectedEmbark >= 0) and (FIdSelectedEmbark < lvEmbark.Items.Count) then
+              begin
+                with lvEmbark.Items[FIdSelectedEmbark] do
+                begin
+                  Caption := shipDataTemp.Name;
+                  SubItems[0] := IntToStr(shipDataTemp.Quantity);
+                  SubItems[1] := shipDataTemp.Simbol;
+                end;
+              end
+              else
+              begin
+                while lvEmbark.Items.Count <= FIdSelectedEmbark do
+                lvEmbark.Items.Add;
+
+                with lvEmbark.Items[FIdSelectedEmbark] do
+                begin
+                  Caption := shipDataTemp.Name;
+                  SubItems.Add(IntToStr(shipDataTemp.Quantity));
+                  SubItems.Add(shipDataTemp.Simbol);
+                end;
+              end;
+            end;
+
+            LoadPanelPangkalan;
+            pnlObject.BringToFront;
           end
           else
           begin
-            rbBlue.Checked := False;
-            rbRed.Checked := True;
+            FAction := caAdd;
+            grpNone.BringToFront;
+            pnlObject.SendToBack;
           end;
-
-          for k := 0 to BaseTemp.VehiclesList.Count - 1 do
-          begin
-            shipDataTemp := BaseTemp.VehiclesList[k];
-
-            with lvEmbark.Items.Add do
-            begin
-              SubItems.Add(shipDataTemp.Name);
-              SubItems.Add(IntToStr(shipDataTemp.Quantity));
-            end;
-          end;
-
-          BaseTemp.isSelected := true;
-          LoadPanelPangkalan;
-          pnlObject.BringToFront;
-
-          break;
         end;
+
         {$ENDREGION}
       end
       else if mainShapeTemp is TPanahShape then

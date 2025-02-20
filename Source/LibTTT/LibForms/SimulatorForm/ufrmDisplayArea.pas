@@ -501,11 +501,13 @@ begin
     lblUserRoleIdentifier.Caption := UserRoleData.FData.UserRoleAcronim;
 
     if UserRoleData.FData.SubRoleIndex = 5 then
-      imgMainBackground.Picture.LoadFromFile('C:\Program Files (x24)\Bin\data\Image Background\wallpaperNTWODisplayArea.png')
+      imgMainBackground.Picture.LoadFromFile(vGameDataSetting.ImageBackgroundLogin + 'wallpaperNTWODisplayArea.png')
     else if UserRoleData.FData.SubRoleIndex = 6 then
-      imgMainBackground.Picture.LoadFromFile('C:\Program Files (x24)\Bin\data\Image Background\wallpaperATWODisplayArea.png')
-    else
-      imgMainBackground.Picture.LoadFromFile('C:\Program Files (x24)\Bin\data\Image Background\wallpaperINWODisplayArea.png');
+      imgMainBackground.Picture.LoadFromFile(vGameDataSetting.ImageBackgroundLogin + 'wallpaperATWODisplayArea.png')
+    else if UserRoleData.FData.SubRoleIndex = 1 then
+      imgMainBackground.Picture.LoadFromFile(vGameDataSetting.ImageBackgroundLogin + 'wallpaperINWODisplayArea.png')
+    else if UserRoleData.FData.SubRoleIndex = 2 then
+      imgMainBackground.Picture.LoadFromFile(vGameDataSetting.ImageBackgroundLogin + 'wallpaperINWODisplayArea.png')
   end;
 
   if simMgrClient.MyConsoleData.Group = cgInstructor then

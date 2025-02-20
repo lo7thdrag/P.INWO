@@ -452,14 +452,12 @@ begin
   if Assigned(FselectedUserRole) then
   begin
 
-    if (FselectedUserRole.FData.SubRoleIndex = 5) or (FselectedUserRole.FData.SubRoleIndex = 6) then
-    begin
-
       {$REGION ' pengecekan khusus console instruktur '}
       if simMgrClient.MyConsoleData.Group = cgInstructor then
       begin
         if not ((FselectedUserRole.FData.UserRoleIdentifier = 'instruktur atwo') or (FselectedUserRole.FData.UserRoleIdentifier = 'instruktur ntwo')
-        or (FselectedUserRole.FData.UserRoleIdentifier = 'INSTRUKTUR ATWO') or (FselectedUserRole.FData.UserRoleIdentifier = 'INSTRUKTUR NTWO')) then
+            or (FselectedUserRole.FData.UserRoleIdentifier = 'INSTRUKTUR ATWO') or (FselectedUserRole.FData.UserRoleIdentifier = 'INSTRUKTUR NTWO') or
+               (FselectedUserRole.FData.UserRoleIdentifier = 'instruktur') or (FselectedUserRole.FData.UserRoleIdentifier = 'instruktur')) then
         begin
           ShowMessage('This User Role can only be used in the instructor console');
           Exit;
@@ -468,7 +466,8 @@ begin
       else
       begin
         if ((FselectedUserRole.FData.UserRoleIdentifier = 'instruktur atwo') or (FselectedUserRole.FData.UserRoleIdentifier = 'instruktur ntwo')
-        or (FselectedUserRole.FData.UserRoleIdentifier = 'INSTRUKTUR ATWO') or (FselectedUserRole.FData.UserRoleIdentifier = 'INSTRUKTUR NTWO')) then
+            or (FselectedUserRole.FData.UserRoleIdentifier = 'INSTRUKTUR ATWO') or (FselectedUserRole.FData.UserRoleIdentifier = 'INSTRUKTUR NTWO') or
+               (FselectedUserRole.FData.UserRoleIdentifier = 'instruktur') or (FselectedUserRole.FData.UserRoleIdentifier = 'instruktur')) then
         begin
           ShowMessage('This User Role can only be used in the official console');
           Exit;
@@ -482,14 +481,10 @@ begin
         imgBackgroundLogin.Picture.LoadFromFile(vGameDataSetting.ImageBackgroundLogin + 'wallpaperNTWOLogin.png')
       else if FselectedUserRole.FData.SubRoleIndex = 6 then
         imgBackgroundLogin.Picture.LoadFromFile(vGameDataSetting.ImageBackgroundLogin + 'wallpaperATWOLogin.png')
-      else
+      else if FselectedUserRole.FData.SubRoleIndex = 1 then
         imgBackgroundLogin.Picture.LoadFromFile(vGameDataSetting.ImageBackgroundLogin + 'wallpaperINWOLogin.png')
-    end
-    else
-    begin
-      ShowMessage('The only systems available are Kogasgabfib and Kogasgabla');
-      Exit;
-    end;
+      else if FselectedUserRole.FData.SubRoleIndex = 2 then
+        imgBackgroundLogin.Picture.LoadFromFile(vGameDataSetting.ImageBackgroundLogin + 'wallpaperINWOLogin.png');
   end;
 
   pnlBackgroundLogin.BringToFront;
