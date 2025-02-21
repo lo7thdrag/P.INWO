@@ -14192,11 +14192,11 @@ object frmReferensi: TfrmReferensi
         Stretch = True
       end
       object Label2: TLabel
-        Left = 122
-        Top = 232
-        Width = 269
+        Left = 138
+        Top = 224
+        Width = 218
         Height = 15
-        Caption = 'File dalam bentuk dokumen (word, ppt, excel & pdf)'
+        Caption = 'Files in the form of documents and images'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWhite
         Font.Height = -13
@@ -14207,9 +14207,9 @@ object frmReferensi: TfrmReferensi
       object Label3: TLabel
         Left = 22
         Top = 14
-        Width = 64
+        Width = 68
         Height = 18
-        Caption = 'Kategori :'
+        Caption = 'Category :'
         Color = 5186054
         Font.Charset = ANSI_CHARSET
         Font.Color = clWhite
@@ -14222,9 +14222,9 @@ object frmReferensi: TfrmReferensi
       object Label5: TLabel
         Left = 22
         Top = 83
-        Width = 119
+        Width = 120
         Height = 18
-        Caption = 'Nama Dokumen :'
+        Caption = 'Document Name :'
         Color = 5186054
         Font.Charset = ANSI_CHARSET
         Font.Color = clWhite

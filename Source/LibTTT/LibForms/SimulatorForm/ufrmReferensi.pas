@@ -86,7 +86,11 @@ var
 begin
   saveDialog := TSaveDialog.Create(self);
   saveDialog.InitialDir := GetCurrentDir;
-  saveDialog.Filter := 'Word file|*.docx; *.doc|Excel file|*.xls; *.xlsx|Power Point file|*.pptx; *.ppt|Pdf file|*.pdf';
+  saveDialog.Filter :=  'Word file (*.docx; *.doc)|*.docx;*.doc|' +
+                        'Excel file (*.xls; *.xlsx)|*.xls;*.xlsx|' +
+                        'Power Point file (*.pptx; *.ppt)|*.pptx;*.ppt|' +
+                        'PDF file (*.pdf)|*.pdf|' +
+                        'Image Files (*.png; *.jpeg; *.jpg)|*.png;*.jpeg;*.jpg';
   saveDialog.DefaultExt := 'docx';
   saveDialog.FilterIndex := 1;
 

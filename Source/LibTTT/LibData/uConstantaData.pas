@@ -258,7 +258,7 @@ type
   TOrganisasiTugas    = (otINWO, otNTWO, otATWO, otLFWO, otALWO, otCDWO, otSUWO, otLAIN);
   TSubOrganisasiTugas = (sotKPL, sotSTAFLAT, sotWASDAL, sotKOGAB, sotKOGASGABLA, sotKOGASGABFIB, sotPASRAT, sotKOGASRATMIN, sotKOGASHANTAI, sotSATGASDUK, sotLAIN);
 
-  TFileExtention      = (feWord, feExcel, fePPT, fePaint, feEdge, feChrome, fePdf);
+  TFileExtention      = (feWord, feExcel, fePPT, fePaint, feEdge, feChrome, fePdf, feImage);
 
   TStorageType        = (stVehicle, stMissile, stTorpedo, stGun, stBomb, stMine, stRadar, stSonar, stEsm, stMad, stEod, stSonobuoy,
                          stChaff, stAirBubble, stAcousticDecoy, stInfraredDecoy, stFloatingDecoy, stTowedDecoy, stDefensiveJammer,
@@ -411,13 +411,14 @@ end;
 function SetFileExtentionToString(aValue : TFileExtention) : String;
 begin
   case aValue of
-    feWord : result := '.docx';
-    feExcel : result := '.xlsx';
-    fePPT : result := '.pptx';
-    fePaint : result := '.png';
-    feEdge : result := '.html';
+    feWord   : result := '.docx';
+    feExcel  : result := '.xlsx';
+    fePPT    : result := '.pptx';
+    fePaint  : result := '.png';
+    feEdge   : result := '.html';
     feChrome : result := '.html';
-    fePdf : result := '.pdf';
+    fePdf    : result := '.pdf';
+    feImage  : result := '.jpeg, .jpg, .png';
   end;
 end;
 
@@ -450,7 +451,19 @@ begin
   else if aValue = '.pdf' then
   begin
     result := fePdf;
-  end;;
+  end
+  else if aValue = '.jpeg' then
+  begin
+    result := feImage;
+  end
+  else if aValue = '.jpg' then
+  begin
+    result := feImage;
+  end
+  else if aValue = '.png' then
+  begin
+    result := feImage;
+  end;
 end;
 
 function SetTipeTahapanToString(aValue : TTipeTahapan) : String;

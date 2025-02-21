@@ -14600,9 +14600,9 @@ object frmSimbolTaktis: TfrmSimbolTaktis
       object Label1: TLabel
         Left = 14
         Top = 30
-        Width = 36
+        Width = 41
         Height = 18
-        Caption = 'Tipe :'
+        Caption = 'Type :'
         Color = 5186054
         Font.Charset = ANSI_CHARSET
         Font.Color = clWhite
@@ -14615,9 +14615,9 @@ object frmSimbolTaktis: TfrmSimbolTaktis
       object Label2: TLabel
         Left = 496
         Top = 294
-        Width = 119
+        Width = 113
         Height = 15
-        Caption = 'File gambar red (.png)'
+        Caption = 'Red Image File (.png)'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWhite
         Font.Height = -13
@@ -14628,9 +14628,9 @@ object frmSimbolTaktis: TfrmSimbolTaktis
       object Label3: TLabel
         Left = 365
         Top = 30
-        Width = 64
+        Width = 68
         Height = 18
-        Caption = 'Kategori :'
+        Caption = 'Category :'
         Color = 5186054
         Font.Charset = ANSI_CHARSET
         Font.Color = clWhite
@@ -14643,9 +14643,9 @@ object frmSimbolTaktis: TfrmSimbolTaktis
       object lbl14: TLabel
         Left = 14
         Top = 70
-        Width = 94
+        Width = 91
         Height = 18
-        Caption = 'Keterangan   :'
+        Caption = 'Information   :'
         Color = 5186054
         Font.Charset = ANSI_CHARSET
         Font.Color = clWhite
@@ -15073,9 +15073,9 @@ object frmSimbolTaktis: TfrmSimbolTaktis
       object Label4: TLabel
         Left = 301
         Top = 294
-        Width = 124
+        Width = 115
         Height = 15
-        Caption = 'File gambar blue (.png)'
+        Caption = 'Blue Image File (.png)'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWhite
         Font.Height = -13
@@ -15501,9 +15501,9 @@ object frmSimbolTaktis: TfrmSimbolTaktis
       object Label5: TLabel
         Left = 106
         Top = 294
-        Width = 130
+        Width = 121
         Height = 15
-        Caption = 'File gambar black (.png)'
+        Caption = 'Black Image File (.png)'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWhite
         Font.Height = -13
