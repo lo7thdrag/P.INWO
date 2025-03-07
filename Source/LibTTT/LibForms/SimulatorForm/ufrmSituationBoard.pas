@@ -97,14 +97,8 @@ type
     FSelectedOverlayTab : TOverlayTab;
     FSelectedTabProperties : TTabProperties;
 
-    FDragIntel: Boolean;
-    FDragBase: Boolean;
-    FDragLogistic: Boolean;
-    isDraggingTable : Boolean;
-    FShapeIntelijenX, FShapeIntelijenY: Double;
-    FShapeLogisticX, FShapeLogisticY: Double;
-    FShapeBaseX, FShapeBaseY: Double;
 
+    isDraggingTable : Boolean;
     FDragging : Boolean;
     FOffsetX  : Double;
     FOffsetY  : Double;
