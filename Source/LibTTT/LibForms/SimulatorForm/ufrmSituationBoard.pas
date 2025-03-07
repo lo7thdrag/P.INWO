@@ -10,7 +10,7 @@ uses
 
   {Project Uses}
   MapXLib_TLB, uCoordConvertor, uLibSetting, uT3SimManager, uSimMgr_Client, uRecordData, uNetBaseSocket, uClassData, ufrmCreateTab,
-  ufrmImageInsert, ufrmOverlayTools, uConstantaData, ufrmBrowseMap, uBaseCoordSystem,
+  ufrmImageInsert, ufrmOverlayTools, uConstantaData, ufrmBrowseMap, uBaseCoordSystem, uDataTypes,
   Vcl.Menus;
 
 type
@@ -97,10 +97,23 @@ type
     FSelectedOverlayTab : TOverlayTab;
     FSelectedTabProperties : TTabProperties;
 
+    FDragIntel: Boolean;
+    FDragBase: Boolean;
+    FDragLogistic: Boolean;
+    isDraggingTable : Boolean;
+    FShapeIntelijenX, FShapeIntelijenY: Double;
+    FShapeLogisticX, FShapeLogisticY: Double;
+    FShapeBaseX, FShapeBaseY: Double;
+
+    FDragging : Boolean;
+    FOffsetX  : Double;
+    FOffsetY  : Double;
+
     procedure RoundCornerOf(Control: TWinControl; val1, val2: Integer);
 
   public
     centLong, centLatt: Double;
+    FActiveShape: string;
 
     procedure LoadTabMap;
     procedure LoadTabImage;
@@ -412,7 +425,10 @@ begin
 
   LoadMap(vMapSetting.MapGSTGame + FSelectedTabProperties.AddressTab);
   LoadOverlay(FSelectedTabProperties.IdOverlayTab);
-  FSelectedOverlayTab := SimManager.SimOverlay.GetOverlayTabByID(FSelectedTabProperties.IdOverlayTab)
+  FSelectedOverlayTab := SimManager.SimOverlay.GetOverlayTabByID(FSelectedTabProperties.IdOverlayTab);
+
+  Map1.Refresh;
+  Map1.Repaint;
 end;
 
 procedure TfrmSituationBoard.Map1DrawUserLayer(ASender: TObject;
@@ -624,7 +640,6 @@ var
   pos: TPoint;
   xTemp, yTemp : Double;
   posXTemp, posYTemp : Integer;
-
 begin
   simMgrClient.Converter.ConvertToMap(X, Y, xTemp, yTemp);
 
@@ -635,6 +650,31 @@ begin
     if FMapCursor = mcEdit then
     begin
       frmOverlayTools.SelectShape(xTemp, yTemp);
+
+      if Assigned(frmOverlayTools.FSelectShape) then
+      begin
+        isDraggingTable := True;
+
+        FDragging := True;
+        FOffsetX  := xTemp;
+        FOffsetY  := yTemp;
+      end
+      else if Assigned(frmOverlayTools.FSelectLogisticShape) then
+      begin
+        isDraggingTable := True;
+
+        FDragging := True;
+        FOffsetX  := xTemp;
+        FOffsetY  := yTemp;
+      end
+      else if Assigned(frmOverlayTools.FSelectBaseShape) then
+      begin
+        isDraggingTable := True;
+
+        FDragging := True;
+        FOffsetX  := xTemp;
+        FOffsetY  := yTemp;
+      end;
     end
     else if FMapCursor = mcAdd then
     begin
@@ -727,9 +767,9 @@ end;
 
 procedure TfrmSituationBoard.Map1MouseMove(Sender: TObject; Shift: TShiftState;
   X, Y: Integer);
-// var
-// xx: Double;
-// yy: Double;
+ var
+  xx: Double;
+  yy: Double;
 begin
 //  FConverter.ConvertToMap(X, Y, xx, yy);
 //
@@ -738,6 +778,18 @@ begin
 //  lblDistance.Caption := FormatFloat('0.00',
 //    FConverter.Distance_nmi(Map1.CenterX, Map1.CenterY, xx, yy));
 //  getGridCursorPos;
+
+  if FDragging then
+  begin
+    simMgrClient.Converter.ConvertToMap(X, Y, xx, yy);
+
+    frmOverlayTools.MoveTableShape(FOffsetX, FOffsetY, xx, yy);
+
+    FOffsetX := xx;
+    FOffsetY := yy;
+
+    Map1.Repaint;
+  end;
 
 end;
 
@@ -776,6 +828,11 @@ begin
 //    end;
 //  end;
 //  Map1.Repaint; // dimatikan dl, msh coba polygon nya
+  if Button = mbLeft then
+  begin
+    FDragging := False;
+    isDraggingTable := False;
+  end;
 end;
 
 procedure TfrmSituationBoard.miDeleteClick(Sender: TObject);

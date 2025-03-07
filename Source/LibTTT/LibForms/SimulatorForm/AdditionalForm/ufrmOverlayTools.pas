@@ -409,10 +409,9 @@ type
     procedure lvLogisticSelectItem(Sender: TObject; Item: TListItem;
       Selected: Boolean);
     procedure btnplatformClick(Sender: TObject);
-
+    procedure MoveTableShape(OldX, OldY, NewX, NewY: Double);
   private
     FShapeType : Integer;
-    FShapeId : Integer;
     FisInputProblem : Boolean;
     FTagTombolPosition : Integer;
     FShapeColor : E_ShapeColor;
@@ -426,6 +425,11 @@ type
     IsEditObject : Boolean;
     isNoFill : Boolean;
     IdAction: Byte; { 1: add; 2: Edit; 3: Delete }
+
+    FShapeId : Integer;
+    FSelectShape        : TIntelijenShape;
+    FSelectLogisticShape: TLogisticShape;
+    FSelectBaseShape    : TPangkalanShape;
 
     procedure Apply;
     procedure Deleted;
@@ -1093,7 +1097,19 @@ begin
     for I := 0 to FSelectedOverlayTab.MemberList.Count - 1 do
     begin
       mainShapeTemp := FSelectedOverlayTab.MemberList[i];
-      if mainShapeTemp.isSelected = True then
+      if (mainShapeTemp.isSelected) or (mainShapeTemp = FSelectShape) then
+      begin
+        FShapeId := i;
+        Result := True;
+        break;
+      end;
+      if (mainShapeTemp.isSelected) or (mainShapeTemp = FSelectLogisticShape) then
+      begin
+        FShapeId := i;
+        Result := True;
+        break;
+      end;
+      if (mainShapeTemp.isSelected) or (mainShapeTemp = FSelectBaseShape) then
       begin
         FShapeId := i;
         Result := True;
@@ -2020,12 +2036,19 @@ var
 
   countList : Integer;
   pos: TPoint;
+  TempShapeId: Integer;
 begin
   if Assigned(SelectedOverlayTab) then
   begin
-    for i := SelectedOverlayTab.MemberList.Count - 1 downto 0 do
+    for i := 0 to SelectedOverlayTab.MemberList.Count - 1 do
     begin
       mainShapeTemp := SelectedOverlayTab.MemberList[i];
+      mainShapeTemp.isSelected := False;
+    end;
+
+    for countList := SelectedOverlayTab.MemberList.Count-1 downto 0 do
+    begin
+      mainShapeTemp := SelectedOverlayTab.MemberList[countList];
 
       simMgrClient.Converter.ConvertToScreen(mx, my, pos.X, pos.Y);
       ptPos := SelectedOverlayTab.Formula.PointTo2D(pos.X, pos.Y);
@@ -2436,15 +2459,20 @@ begin
         {$REGION ' Intelijen Section '}
         IntelijenTemp := TIntelijenShape(mainShapeTemp);
 
-        simMgrClient.Converter.ConvertToScreen(IntelijenTemp.postCenter.X, IntelijenTemp.postCenter.Y, pos.X, pos.Y);
-        rect1 := SelectedOverlayTab.Formula.assignRect(pos.X, pos.Y);
+        simMgrClient.Converter.ConvertToScreen(IntelijenTemp.postCenter.X, IntelijenTemp.postCenter.Y, x1, y1);
+        rect1 := SelectedOverlayTab.Formula.assignRect(x1, y1);
 
         if ptToArea(rect1, ptPos) then
         begin
-           IntelijenTemp.isSelected := not IntelijenTemp.isSelected;
+           IntelijenTemp.isSelected := True;
 
            if IntelijenTemp.isSelected then
            begin
+              FSelectShape := IntelijenTemp;
+              FSelectLogisticShape := nil;
+              FSelectBaseShape := nil;
+
+              FSelectShape := IntelijenTemp;
               FShapeType := ovIntelijen;
               FShapeId := IntelijenTemp.ShapeId;
               FAction := caEdit;
@@ -2452,8 +2480,16 @@ begin
               edtLattIntel.Text := formatDMS_latt(IntelijenTemp.postCenter.Y);
               pnlOutline.Color  := IntelijenTemp.ShapeOutline;
 
-              rbBlue.Checked := IntelijenTemp.ShapeOutline = clBlue;
-              rbRed.Checked  := not rbBlue.Checked;
+              if IntelijenTemp.ShapeOutline = clBlue  then
+              begin
+                rbBlue.Checked := True;
+                rbRed.Checked := False;
+              end
+              else
+              begin
+                rbBlue.Checked := False;
+                rbRed.Checked := True;
+              end;
 
               mmoInfo.Clear;
               for k := 0 to IntelijenTemp.InfoList.Count - 1 do
@@ -2471,6 +2507,7 @@ begin
               grpNone.BringToFront;
               pnlObject.SendToBack;
            end;
+
         end;
 
         {$ENDREGION}
@@ -2480,15 +2517,19 @@ begin
         {$REGION ' Logistic Section '}
         LogisticTemp := TLogisticShape(mainShapeTemp);
 
-        simMgrClient.Converter.ConvertToScreen(LogisticTemp.postCenter.X, LogisticTemp.postCenter.Y, pos.X, pos.Y);
-        rect1 := SelectedOverlayTab.Formula.assignRect(pos.X, pos.Y);
+        simMgrClient.Converter.ConvertToScreen(LogisticTemp.postCenter.X, LogisticTemp.postCenter.Y, x1, y1);
+        rect1 := SelectedOverlayTab.Formula.assignRect(x1, y1);
 
         if ptToArea(rect1, ptPos) then
         begin
-          LogisticTemp.isSelected := not LogisticTemp.isSelected;
+          LogisticTemp.isSelected := True;
 
           if LogisticTemp.isSelected then
           begin
+            FSelectLogisticShape := LogisticTemp;
+            FSelectShape := nil;
+            FSelectBaseShape := nil;
+
             FShapeType := ovLogistic;
             FShapeId := LogisticTemp.ShapeId;
             FAction := caEdit;
@@ -2497,8 +2538,16 @@ begin
             edtLattLog.Text := formatDMS_latt(LogisticTemp.postCenter.Y);
             pnlOutline.Color := LogisticTemp.ShapeOutline;
 
-            rbBlue.Checked := LogisticTemp.ShapeOutline = clBlue;
-            rbRed.Checked := not rbBlue.Checked;
+            if LogisticTemp.ShapeOutline = clBlue  then
+            begin
+              rbBlue.Checked := True;
+              rbRed.Checked := False;
+            end
+            else
+            begin
+              rbBlue.Checked := False;
+              rbRed.Checked := True;
+            end;
 
             lvLogistic.Clear;
             for k := 0 to LogisticTemp.LogisticList.Count - 1 do
@@ -2513,7 +2562,6 @@ begin
             end;
             LoadPanelLogistic;
             pnlObject.BringToFront;
-
           end
           else
           begin
@@ -2567,15 +2615,19 @@ begin
         {$REGION ' Base Section '}
         BaseTemp := TPangkalanShape(mainShapeTemp);
 
-        simMgrClient.Converter.ConvertToScreen(BaseTemp.postCenter.X, BaseTemp.postCenter.Y, pos.X, pos.Y);
-        rect1 := SelectedOverlayTab.Formula.assignRect(pos.X, pos.Y);
+        simMgrClient.Converter.ConvertToScreen(BaseTemp.postCenter.X, BaseTemp.postCenter.Y, x1, y1);
+        rect1 := SelectedOverlayTab.Formula.assignRect(x1, y1);
 
         if ptToArea(rect1, ptPos) then
         begin
-          BaseTemp.isSelected := not BaseTemp.isSelected;
+          BaseTemp.isSelected := True;
 
           if BaseTemp.isSelected then
           begin
+            FSelectBaseShape := BaseTemp;
+            FSelectLogisticShape := nil;
+            FSelectShape := nil;
+
             FShapeType := ovPangkalan;
             FShapeId := BaseTemp.ShapeId;
             FAction := caEdit;
@@ -2584,8 +2636,16 @@ begin
             edtLattBase.Text := formatDMS_latt(BaseTemp.postCenter.Y);
             pnlOutline.Color := BaseTemp.ShapeOutline;
 
-            rbBlue.Checked := BaseTemp.ShapeOutline = clBlue;
-            rbRed.Checked := not rbBlue.Checked;
+            if BaseTemp.ShapeOutline = clBlue  then
+            begin
+              rbBlue.Checked := True;
+              rbRed.Checked := False;
+            end
+            else
+            begin
+              rbBlue.Checked := False;
+              rbRed.Checked := True;
+            end;
 
             lvEmbark.Clear;
             for k := 0 to BaseTemp.VehiclesList.Count - 1 do
@@ -2714,6 +2774,27 @@ begin
     IsEditObject := False;
   end;
   Show;
+end;
+
+procedure TfrmOverlayTools.MoveTableShape(OldX, OldY, NewX, NewY: Double);
+begin
+  if Assigned(FSelectShape) then
+  begin
+    FSelectShape.TableProp.X := FSelectShape.TableProp.X + (NewX - OldX);
+    FSelectShape.TableProp.Y := FSelectShape.TableProp.Y + (NewY - OldY);
+  end
+  else if Assigned(FSelectLogisticShape) then
+  begin
+    FSelectLogisticShape.TableProp.X := FSelectLogisticShape.TableProp.X + (NewX - OldX);
+    FSelectLogisticShape.TableProp.Y := FSelectLogisticShape.TableProp.Y + (NewY - OldY);
+  end
+  else if Assigned(FSelectBaseShape) then
+  begin
+    FSelectBaseShape.TableProp.X := FSelectBaseShape.TableProp.X + (NewX - OldX);
+    FSelectBaseShape.TableProp.Y := FSelectBaseShape.TableProp.Y + (NewY - OldY);
+  end;
+
+  frmSituationBoard.Map1.Repaint;
 end;
 
 procedure TfrmOverlayTools.SetNoFill(val: Boolean);
