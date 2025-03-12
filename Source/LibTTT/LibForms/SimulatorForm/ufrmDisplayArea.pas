@@ -2197,6 +2197,8 @@ begin
   pnlToteDisplay.Height := 35;
   pnlServices.Height := 250;
 
+  pnlVideoConference.Height := 0;
+
   btnUploadReferensi.Visible := True;
   btnDeleteReferensi.Visible := True;
 end;
@@ -2208,6 +2210,8 @@ begin
 
   pnlToteDisplay.Height := 0;
   pnlServices.Height := 215;
+
+  pnlVideoConference.Height := 35;
 
   btnUploadReferensi.Visible := False;
   btnDeleteReferensi.Visible := False;
