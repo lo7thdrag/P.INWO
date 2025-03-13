@@ -1,10 +1,11 @@
 object frmMainGameServer: TfrmMainGameServer
   Left = 390
   Top = 165
+  Align = alRight
   BorderIcons = []
   BorderStyle = bsDialog
   ClientHeight = 739
-  ClientWidth = 583
+  ClientWidth = 752
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -19,18 +20,18 @@ object frmMainGameServer: TfrmMainGameServer
   object pnlHeader: TPanel
     Left = 0
     Top = 0
-    Width = 583
+    Width = 752
     Height = 87
     Align = alTop
     BevelOuter = bvNone
     Caption = 'pnlHeader'
     ShowCaption = False
     TabOrder = 0
-    ExplicitWidth = 516
+    ExplicitWidth = 583
     object imgHeaderBackground: TImage
       Left = 0
       Top = 0
-      Width = 583
+      Width = 752
       Height = 87
       Align = alClient
       Picture.Data = {
@@ -1193,7 +1194,7 @@ object frmMainGameServer: TfrmMainGameServer
       ParentFont = False
     end
     object btnLock: TImage
-      Left = 534
+      Left = 718
       Top = 20
       Width = 25
       Height = 25
@@ -1261,7 +1262,7 @@ object frmMainGameServer: TfrmMainGameServer
       OnClick = btnLockClick
     end
     object btnUnlock: TImage
-      Left = 503
+      Left = 687
       Top = 20
       Width = 25
       Height = 25
@@ -1372,7 +1373,7 @@ object frmMainGameServer: TfrmMainGameServer
   object lvConsole: TListView
     Left = 0
     Top = 87
-    Width = 583
+    Width = 752
     Height = 652
     Align = alClient
     BevelInner = bvNone
@@ -1396,12 +1397,12 @@ object frmMainGameServer: TfrmMainGameServer
       item
         Alignment = taCenter
         Caption = 'User Role'
-        Width = 120
+        Width = 250
       end
       item
         Alignment = taCenter
         Caption = 'Operation'
-        Width = 160
+        Width = 200
       end>
     Font.Charset = ANSI_CHARSET
     Font.Color = clWhite
@@ -1415,7 +1416,7 @@ object frmMainGameServer: TfrmMainGameServer
     StateImages = ilClientStateColor
     TabOrder = 1
     ViewStyle = vsReport
-    ExplicitWidth = 516
+    ExplicitWidth = 583
   end
   object ilClientStateColor: TImageList
     ShareImages = True

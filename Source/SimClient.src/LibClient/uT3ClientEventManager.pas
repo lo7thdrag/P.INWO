@@ -18,6 +18,7 @@ type
 
     procedure OnUpdateUserStateChange(state : Integer); override;
     procedure OnUpdateSituationBoardTabPropertiesChange; override;
+    procedure OnUpdateSituationBoardOverlayChange; override;
     procedure OnUpdateUserRoleChatChange(IdSender, IdReceiver : integer); override;
 
   end;
@@ -28,6 +29,13 @@ uses
   ufrmTacticalDisplay ;
 
 { TT3ClientEventManager }
+
+procedure TT3ClientEventManager.OnUpdateSituationBoardOverlayChange;
+begin
+  inherited;
+  frmSituationBoard.Map1.Refresh;
+  frmSituationBoard.Map1.Repaint;
+end;
 
 procedure TT3ClientEventManager.OnUpdateSituationBoardTabPropertiesChange;
 begin

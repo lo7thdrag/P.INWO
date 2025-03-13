@@ -581,7 +581,6 @@ begin
 
             if rec.IdAction = caAdd then
               overlayTabTemp.MemberList.Add(IntelijenShape);
-
             {$ENDREGION}
           end;
           ovLogistic:
@@ -630,7 +629,7 @@ begin
             else
               RadarShape := overlayTabTemp.GetShapeById(rec.IdSelectShape) as TRadarShape;
 
-            RadarShape.Identifier := '';
+            RadarShape.Identifier := rec.OverlayName;
             RadarShape.postCenter := rec.PostStart;
             RadarShape.TableProp := rec.PostStart;
             RadarShape.Radius := rec.Radius1;

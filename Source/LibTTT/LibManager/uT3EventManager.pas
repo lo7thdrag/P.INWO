@@ -17,6 +17,7 @@ type
     procedure OnUpdateConsoleConnect; virtual;
     procedure OnUpdateUserStateChange(state : Integer); virtual;
     procedure OnUpdateSituationBoardTabPropertiesChange; virtual;
+    procedure OnUpdateSituationBoardOverlayChange; virtual;
     procedure OnUpdateUserRoleChatChange(IdSender, IdReceiver : integer); virtual;
 
   end;
@@ -28,6 +29,11 @@ uses
 
 
 { TT3EventManager }
+
+procedure TT3EventManager.OnUpdateSituationBoardOverlayChange;
+begin
+
+end;
 
 procedure TT3EventManager.OnUpdateSituationBoardTabPropertiesChange;
 begin

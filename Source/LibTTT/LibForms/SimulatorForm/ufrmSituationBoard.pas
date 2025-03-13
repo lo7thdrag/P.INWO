@@ -235,6 +235,7 @@ begin
     try
       z := StrToFloat(s);
       Map1.ZoomTo(z, Map1.CenterX, Map1.CenterY);
+
     finally
 
     end;
@@ -244,6 +245,7 @@ begin
 
   Map1.OnMapViewChanged := Map1MapViewChanged;
 end;
+
 procedure TfrmSituationBoard.FormCreate(Sender: TObject);
 begin
   EnableComposited(pnlHome);
@@ -320,6 +322,8 @@ procedure TfrmSituationBoard.btnGameCenterClick(Sender: TObject);
 begin
   Map1.CenterX := centLong;
   Map1.CenterY := centLatt;
+
+  Map1.Repaint;
 end;
 
 procedure TfrmSituationBoard.btnIncreaseClick(Sender: TObject);
@@ -414,11 +418,14 @@ begin
 end;
 
 procedure TfrmSituationBoard.LoadTabMap;
+var
+  val : Double;
+
 begin
   pnlAlignToolBar.Width := round((pnlToolBar.Width - 433) / 2);
 
   LoadMap(vMapSetting.MapGSTGame + FSelectedTabProperties.AddressTab);
-  LoadOverlay(FSelectedTabProperties.IdOverlayTab);
+//  LoadOverlay(FSelectedTabProperties.IdOverlayTab);
   FSelectedOverlayTab := SimManager.SimOverlay.GetOverlayTabByID(FSelectedTabProperties.IdOverlayTab);
 
   Map1.Refresh;
@@ -441,44 +448,13 @@ begin
 //  DrawOverlay.drawAll(FCanvas, Map1);
   simMgrClient.DrawFlagPoint.Draw(FCanvas);
 
-//  if Assigned(DrawOverlay.FSelectedDraw) then
-//  begin
-//    DrawOverlay.FSelectedDraw.isSelected := True;
-//    DrawOverlay.FSelectedDraw.Draw(FCanvas, Map1);
-//  end;
-
-//  {$REGION ' Menggambar Ruler '}
-//  if frmRuler.isShow  then
-//  begin
-//    DrawFlagPoint.Draw(FCanvas);
-//
-//    if DrawFlagPoint.FList.Count = 2 then
-//    begin
-//      itemStart := DrawFlagPoint.FList[0];
-//      itemEnd := DrawFlagPoint.FList[1];
-//
-//      FConverter.ConvertToScreen(itemStart.Post.X, itemStart.Post.Y, sx, sy);
-//      FConverter.ConvertToScreen(itemEnd.Post.X, itemEnd.Post.Y, ex, ey);
-//
-//      with FCanvas do
-//      begin
-//        Brush.Style := bsClear;
-//        Pen.Color := clRed;
-//        Pen.Width := 2;
-//
-//        MoveTo(sx, sy);
-//        LineTo(ex, ey);
-//      end;
-//    end;
-//  end;
-//  {$ENDREGION}
 end;
 
 procedure TfrmSituationBoard.Map1MapViewChanged(Sender: TObject);
 var
   tempZoom: Double;
 begin
-  if Map1.CurrentTool = miZoomInTool then
+  if (Map1.CurrentTool = miZoomInTool) or (Map1.CurrentTool = miZoomoutTool)then
   begin
     if Map1.Zoom <= 0.125 then
       tempZoom := 0.125;
@@ -492,20 +468,21 @@ begin
     Map1.OnMapViewChanged := nil;
     Map1.ZoomTo(tempZoom, Map1.CenterX, Map1.CenterY);
 
-    // if (Map1.Zoom > 0.125) AND (Map1.Zoom < 0.25) then
-    // begin
-    // cbSetScale.text := FormatFloat('0.000', tempZoom);
-    // end
-    // else if (Map1.Zoom >= 0.25) AND (Map1.Zoom < 0.5) then
-    // begin
-    // cbSetScale.text := FormatFloat('0.00', tempZoom);
-    // end
-    // else if (Map1.Zoom >= 0.5) AND (Map1.Zoom < 1) then
-    // begin
-    // cbSetScale.text := FormatFloat('0.0', tempZoom);
-    // end
-    // else
-    // cbSetScale.text := floattostr(tempZoom);
+     if (Map1.Zoom > 0.125) AND (Map1.Zoom < 0.25) then
+     begin
+     cbSetScale.text := FormatFloat('0.000', tempZoom);
+     end
+     else if (Map1.Zoom >= 0.25) AND (Map1.Zoom < 0.5) then
+     begin
+     cbSetScale.text := FormatFloat('0.00', tempZoom);
+     end
+     else if (Map1.Zoom >= 0.5) AND (Map1.Zoom < 1) then
+     begin
+     cbSetScale.text := FormatFloat('0.0', tempZoom);
+     end
+     else
+     cbSetScale.text := floattostr(tempZoom);
+
     Map1.OnMapViewChanged := Map1MapViewChanged;
   end;
 end;
@@ -580,7 +557,7 @@ end;
 
 procedure TfrmSituationBoard.RefreshTab;
 begin
-  pnlHome.BringToFront;
+//  pnlHome.BringToFront;
 
   if Assigned(FSelectedTabProperties) then
   begin
@@ -636,6 +613,9 @@ var
   posXTemp, posYTemp : Integer;
 begin
   simMgrClient.Converter.ConvertToMap(X, Y, xTemp, yTemp);
+
+//  centLong := xTemp;
+//  centLatt := yTemp;
 
   {$REGION ' Klik Kiri '}
   if Button = mbLeft then

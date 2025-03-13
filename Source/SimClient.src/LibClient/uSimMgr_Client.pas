@@ -548,7 +548,7 @@ begin
   {$REGION ' Khusus Console yg bersangkutan '}
   if MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.IdUserRole then
   begin
-    TT3ClientEventManager(EventManager).OnUpdateSituationBoardTabPropertiesChange;
+    TT3ClientEventManager(EventManager).OnUpdateSituationBoardOverlayChange;
   end;
   {$ENDREGION}
 end;
