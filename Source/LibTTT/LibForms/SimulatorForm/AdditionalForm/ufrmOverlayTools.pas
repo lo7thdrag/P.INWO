@@ -1026,6 +1026,7 @@ begin
   {$ENDREGION}
 
   {$REGION ' Platform '}
+  edtPlatformIdentifier.Text := '';
   edtLattPlatform.Text := '';
   edtLongPlatform.Text := '';
   lblTacticalSymbolPlatform.Caption := '';
@@ -1039,6 +1040,7 @@ procedure TfrmOverlayTools.ClearFlagPoint;
 begin
   simMgrClient.DrawFlagPoint.FlagList.Clear;
   frmSituationBoard.Map1.Refresh;
+  frmSituationBoard.Map1.Repaint;
 end;
 
 procedure TfrmOverlayTools.colorChooseChange(Sender: TObject);
@@ -2037,7 +2039,11 @@ var
   countList : Integer;
   pos: TPoint;
   TempShapeId: Integer;
+  isSelectShape : Boolean;
+
 begin
+  isSelectShape := False;
+
   if Assigned(SelectedOverlayTab) then
   begin
     for i := 0 to SelectedOverlayTab.MemberList.Count - 1 do
@@ -2064,6 +2070,8 @@ begin
 
         if ptToArea(rect1, ptPos) then
         begin
+          isSelectShape := True;
+
           FShapeType := ovText;
           FShapeId := textTemp.ShapeId;
           FAction := caEdit;
@@ -2093,6 +2101,8 @@ begin
 
         if ptToLine(IptS,IptE,ptPos) then
         begin
+          isSelectShape := True;
+
           FShapeType:= ovLine;
           FShapeId := lineTemp.ShapeId;
           FAction := caEdit;
@@ -2128,6 +2138,8 @@ begin
 
         if ptToArea(rect2, ptPos) then
         begin
+          isSelectShape := True;
+
           FShapeType := ovRectangle;
           FShapeId := rectangleTemp.ShapeId;
           FAction := caEdit;
@@ -2166,6 +2178,8 @@ begin
 
         if ptToCircle(circleTemp.postCenter, ptPos, circleTemp.radius) then
         begin
+          isSelectShape := True;
+
           FShapeType := ovCircle;
           FShapeId := circleTemp.ShapeId;
           FAction := caEdit;
@@ -2217,6 +2231,8 @@ begin
 
         if ptToArea(rect2, ptPos) then
         begin
+          isSelectShape := True;
+
           FShapeType := ovEllipse;
           FShapeId := ellipseTemp.ShapeId;
           FAction := caEdit;
@@ -2256,6 +2272,8 @@ begin
 
         if ptToArc(arcTemp.postCenter, ptPos, arcTemp.radius, arcTemp.radius, arcTemp.StartAngle, arcTemp.EndAngle, 1) then
         begin
+          isSelectShape := True;
+
           FShapeType := ovArc;
           FShapeId := arcTemp.ShapeId;
           FAction := caEdit;
@@ -2285,6 +2303,8 @@ begin
 
         if ptToArc(sectorTemp.postCenter, ptPos, sectorTemp.Iradius, sectorTemp.Oradius, sectorTemp.StartAngle, sectorTemp.EndAngle, 2) then
         begin
+          isSelectShape := True;
+
           FShapeType := ovSector;
           FShapeId := sectorTemp.ShapeId;
           FAction := caEdit;
@@ -2362,6 +2382,8 @@ begin
 
         if ptToArea(rect2, ptPos) then
         begin
+          isSelectShape := True;
+
           FShapeType := ovGrid;
           FShapeId := gridTemp.ShapeId;
           FAction := caEdit;
@@ -2465,6 +2487,7 @@ begin
         if ptToArea(rect1, ptPos) then
         begin
            IntelijenTemp.isSelected := True;
+           isSelectShape := True;
 
            if IntelijenTemp.isSelected then
            begin
@@ -2523,6 +2546,8 @@ begin
         if ptToArea(rect1, ptPos) then
         begin
           LogisticTemp.isSelected := True;
+
+          isSelectShape := True;
 
           if LogisticTemp.isSelected then
           begin
@@ -2583,6 +2608,8 @@ begin
 
         if ptToArea(rect1, ptPos) then
         begin
+          isSelectShape := True;
+
           FShapeType := ovRadar;
           FShapeId := RadarTemp.ShapeId;
           FAction := caEdit;
@@ -2621,6 +2648,7 @@ begin
         if ptToArea(rect1, ptPos) then
         begin
           BaseTemp.isSelected := True;
+          isSelectShape := True;
 
           if BaseTemp.isSelected then
           begin
@@ -2698,6 +2726,8 @@ begin
 
         if ptToArea(rect1, ptPos) then
         begin
+          isSelectShape := True;
+
           FShapeType := ovPanah;
           FShapeId := ArrowTemp.ShapeId;
           FAction := caEdit;
@@ -2736,9 +2766,12 @@ begin
 
         if ptToArea(rect1, ptPos) then
         begin
+          isSelectShape := True;
+
           FShapeType := ovPlatform;
           FShapeId := PlatformTemp.ShapeId;
           FAction := caEdit;
+          edtPlatformIdentifier.Text := PlatformTemp.Identifier;
           edtLongPlatform.Text := formatDMS_long(PlatformTemp.postCenter.X);
           edtLattPlatform.Text := formatDMS_latt(PlatformTemp.postCenter.Y);
 
@@ -2773,7 +2806,10 @@ begin
   begin
     IsEditObject := False;
   end;
-  Show;
+
+  if isSelectShape then
+    Show;
+
 end;
 
 procedure TfrmOverlayTools.MoveTableShape(OldX, OldY, NewX, NewY: Double);
