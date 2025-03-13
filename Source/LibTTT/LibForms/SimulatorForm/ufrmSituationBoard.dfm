@@ -44853,8 +44853,8 @@ object frmSituationBoard: TfrmSituationBoard
           0000000000000000000000000000000000000000000000000000000000000000
           0000000000000000000000000000000000000000000000000000000000000000
           0000000000000000000000000000000000000000000000000000000000000000
-          00000000000000000000000000000000000000000000000000EBC2F9766FC240
-          0074007A007200650073002E0064006C006C002C002D00350000000000000000
+          00000000000000000000000000000000000000000000000000B0EB97005C2509
+          09880C0A1620000000B410030060E9970076436676880C0A1600000000000000
           0000000088B3400000000000408F400001000001}
       end
       object pnlToolBar: TPanel
@@ -44902,7 +44902,7 @@ object frmSituationBoard: TfrmSituationBoard
           end
           object cbSetScale: TComboBox
             Left = 42
-            Top = 0
+            Top = 7
             Width = 95
             Height = 21
             Cursor = crHandPoint
@@ -44972,19 +44972,8 @@ object frmSituationBoard: TfrmSituationBoard
             ShowHint = True
             OnClick = btnZoomInClick
           end
-          object btnZoomOut: TToolButton
-            Left = 305
-            Top = 0
-            Cursor = crHandPoint
-            Hint = 'Zoom out'
-            Caption = 'btnZoomOut'
-            ImageIndex = 8
-            ParentShowHint = False
-            ShowHint = True
-            OnClick = btnZoomOutClick
-          end
           object btnGameArea: TToolButton
-            Left = 347
+            Left = 305
             Top = 0
             Cursor = crHandPoint
             Hint = 'Game Area'
@@ -44993,7 +44982,7 @@ object frmSituationBoard: TfrmSituationBoard
             OnClick = btnGameAreaClick
           end
           object btnOverlayTools: TToolButton
-            Left = 389
+            Left = 347
             Top = 0
             Cursor = crHandPoint
             Caption = 'btnOverlayTools'
@@ -45001,7 +44990,7 @@ object frmSituationBoard: TfrmSituationBoard
             OnClick = btnOverlayToolsClick
           end
           object btnRuller: TToolButton
-            Left = 431
+            Left = 389
             Top = 0
             Cursor = crHandPoint
             Hint = 'Ruler'
@@ -45010,6 +44999,18 @@ object frmSituationBoard: TfrmSituationBoard
             ShowHint = True
             Visible = False
             OnClick = btnRullerClick
+          end
+          object btnZoomOut: TToolButton
+            Left = 431
+            Top = 0
+            Cursor = crHandPoint
+            Hint = 'Zoom out'
+            Caption = 'btnZoomOut'
+            ImageIndex = 8
+            ParentShowHint = False
+            ShowHint = True
+            Visible = False
+            OnClick = btnZoomOutClick
           end
         end
       end

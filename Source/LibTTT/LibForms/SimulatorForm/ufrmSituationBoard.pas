@@ -614,9 +614,6 @@ var
 begin
   simMgrClient.Converter.ConvertToMap(X, Y, xTemp, yTemp);
 
-//  centLong := xTemp;
-//  centLatt := yTemp;
-
   {$REGION ' Klik Kiri '}
   if Button = mbLeft then
   begin
@@ -642,6 +639,14 @@ begin
         FOffsetY  := yTemp;
       end
       else if Assigned(frmOverlayTools.FSelectBaseShape) then
+      begin
+        isDraggingTable := True;
+
+        FDragging := True;
+        FOffsetX  := xTemp;
+        FOffsetY  := yTemp;
+      end
+      else if Assigned(frmOverlayTools.FSelectPlatformShape) then
       begin
         isDraggingTable := True;
 

@@ -427,9 +427,10 @@ type
     IdAction: Byte; { 1: add; 2: Edit; 3: Delete }
 
     FShapeId : Integer;
-    FSelectShape        : TIntelijenShape;
-    FSelectLogisticShape: TLogisticShape;
-    FSelectBaseShape    : TPangkalanShape;
+    FSelectShape         : TIntelijenShape;
+    FSelectLogisticShape : TLogisticShape;
+    FSelectBaseShape     : TPangkalanShape;
+    FSelectPlatformShape : TPlatformShape;
 
     procedure Apply;
     procedure Deleted;
@@ -2759,14 +2760,20 @@ begin
       else if mainShapeTemp is TPlatformShape then
       begin
         {$REGION ' Platform Section '}
-         PlatformTemp := TPlatformShape(mainShapeTemp);
+        PlatformTemp := TPlatformShape(mainShapeTemp);
 
         simMgrClient.Converter.ConvertToScreen(PlatformTemp.postCenter.X, PlatformTemp.postCenter.Y, x1, y1);
         rect1 := SelectedOverlayTab.Formula.checkText(x1, y1, 14, PlatformTemp.simbol);
 
         if ptToArea(rect1, ptPos) then
         begin
+          PlatformTemp.isSelected := True;
           isSelectShape := True;
+
+          FSelectPlatformShape := PlatformTemp;
+          FSelectShape := nil;
+          FSelectBaseShape := nil;
+          FSelectLogisticShape := nil;
 
           FShapeType := ovPlatform;
           FShapeId := PlatformTemp.ShapeId;
@@ -2828,6 +2835,11 @@ begin
   begin
     FSelectBaseShape.TableProp.X := FSelectBaseShape.TableProp.X + (NewX - OldX);
     FSelectBaseShape.TableProp.Y := FSelectBaseShape.TableProp.Y + (NewY - OldY);
+  end
+  else if Assigned(FSelectPlatformShape) then
+  begin
+    FSelectPlatformShape.postCenter.X := FSelectPlatformShape.postCenter.X + (NewX - OldX);
+    FSelectPlatformShape.postCenter.Y := FSelectPlatformShape.postCenter.Y + (NewY - OldY);
   end;
 
   frmSituationBoard.Map1.Repaint;
