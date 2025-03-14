@@ -903,7 +903,7 @@ begin
     end;
     ovPlatform:
     begin
-      {$REGION ' Panah '}
+      {$REGION ' Platform'}
       if (edtLattPlatform.Text = '') or (edtLongPlatform.Text = '') or (lblTacticalSymbolPlatform.Caption = '') then
       begin
         ShowMessage ('Data yang dimasukan tidak lengkap');
@@ -2840,6 +2840,9 @@ begin
   begin
     FSelectPlatformShape.postCenter.X := FSelectPlatformShape.postCenter.X + (NewX - OldX);
     FSelectPlatformShape.postCenter.Y := FSelectPlatformShape.postCenter.Y + (NewY - OldY);
+
+    edtLattPlatform.Text := formatDMS_latt(FSelectPlatformShape.postCenter.Y);
+    edtLongPlatform.Text := formatDMS_long(FSelectPlatformShape.postCenter.X);
   end;
 
   frmSituationBoard.Map1.Repaint;
