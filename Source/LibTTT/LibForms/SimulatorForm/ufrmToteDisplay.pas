@@ -100,16 +100,12 @@ uses
 {$R *.dfm}
 
 procedure TfrmToteDisplay.FormShow(Sender: TObject);
+var
+  i : Integer;
+
 begin
   cbbConsole.ItemIndex := -1;
 
-end;
-
-procedure TfrmToteDisplay.FormCreate(Sender: TObject);
-var
-  i: Integer;
-
-begin
   if Screen.MonitorCount > 1 then
     i := 1
   else
@@ -122,6 +118,10 @@ begin
   Left := Screen.Monitors[vGameDataSetting.ToteScreen].Left;
   Top := Screen.Monitors[vGameDataSetting.ToteScreen].Top;
 
+end;
+
+procedure TfrmToteDisplay.FormCreate(Sender: TObject);
+begin
   FConsoleList  := TList.Create;
   FFileTransfer := TList.Create;
 
