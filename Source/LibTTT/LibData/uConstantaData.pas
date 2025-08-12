@@ -268,9 +268,9 @@ type
 
   TMapCursor          = (mcSelect, mcAdd, mcEdit, mcRulerStart, mcRulerEnd);
 
-  TSingleArray = array of Single;
+  TSingleArray  = array of Single;
   TIntegerArray = array of Integer;
-  TString      = array of String;
+  TString       = array of String;
 
   function SetOrganisasiTugasToString(aValue : TOrganisasiTugas) : String;
   function SetOrganisasiTugasAkronimToString(aValue : TOrganisasiTugas) : String;
@@ -470,7 +470,7 @@ function SetTipeTahapanToString(aValue : TTipeTahapan) : String;
 begin
   case aValue of
     ttPerencanaan : result := 'Perencanaan';
-    ttPersiapan : result := 'Persiapan';
+    ttPersiapan   : result := 'Persiapan';
     ttPelaksanaan : result := 'Pelaksanaan';
     ttPengakhiran : result := 'Pengakhiran';
   end;

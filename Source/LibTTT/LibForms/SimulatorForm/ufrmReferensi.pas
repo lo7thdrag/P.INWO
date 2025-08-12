@@ -83,6 +83,9 @@ var
   saveFileTemp : TFile_Data;
   fileDataTemp : TRecFile_Data;
 
+  fileExt: string;
+  fileType: TFileExtention;
+
 begin
   saveDialog := TSaveDialog.Create(self);
   saveDialog.InitialDir := GetCurrentDir;
@@ -108,8 +111,8 @@ end;
 
 procedure TfrmReferensi.btnApplyClick(Sender: TObject);
 var
-  addressTemp : PWideChar;
-  saveDialog : TSaveDialog;
+  addressTemp  : PWideChar;
+  saveDialog   : TSaveDialog;
   saveFileTemp : TFile_Data;
   fileDataTemp : TRecFile_Data;
 

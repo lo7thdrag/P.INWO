@@ -24,6 +24,7 @@ type
     function GetAllFile(var aList: TList): Integer;
     function GetAllFileByUserRoleId(userRoleId : Integer;  aList: TList): Integer;
     function GetSearchFile(var rec: TRecFile_Data): Integer;
+    function GetFilterSearchDataFile(var aList: TList; aFilter: String): Integer;
 
     function InsertFile(var rec : TRecFile_Data) : Boolean;
     function UpdateFile(var rec : TRecFile_Data): Boolean;
@@ -678,6 +679,67 @@ begin
     Open;
 
     Result := RecordCount;
+  end;
+end;
+
+function TdmINWO.GetFilterSearchDataFile(var aList: TList; aFilter: String): Integer;
+var
+  i : Integer;
+  rec : TFile_Data;
+begin
+  Result := -1;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT * FROM File_Directory');
+    SQL.Add('WHERE Nama_File like '  + quotedStr('%' + aFilter + '%'));
+    SQL.Add('ORDER BY Nama_File');
+    Open;
+
+    Result := RecordCount;
+
+    if Assigned(aList) then
+    begin
+      for i := 0 to aList.Count - 1 do
+      begin
+        rec := aList.Items[i];
+        rec.Free;
+      end;
+
+      aList.Clear;
+    end
+    else
+      aList := TList.Create;
+
+    if not IsEmpty then
+    begin
+      First;
+
+      while not Eof do
+      begin
+        rec := TFile_Data.Create;
+
+        with rec.FData do
+        begin
+          ID_File := FieldByName('ID_File').AsInteger;
+          Nama_File := FieldByName('Nama_File').AsString;
+          Directory_Path := FieldByName('Directory_Path').AsString;
+          Encripted_File_Name := FieldByName('Encripted_File_Name').AsString;
+          Tipe_File := FieldByName('Tipe_File').AsString;
+          Modified_Date := FieldByName('Modified_Date').AsString;
+          Modified_By := FieldByName('Modified_By').AsString;
+          id_User := FieldByName('id_User').AsInteger;
+        end;
+
+        aList.Add(rec);
+        Next;
+      end;
+    end;
   end;
 end;
 

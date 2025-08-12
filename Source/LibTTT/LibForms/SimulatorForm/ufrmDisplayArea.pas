@@ -348,6 +348,7 @@ type
     procedure editSearchKeyPressAsset(Sender: TObject; var Key: Char);
     procedure cbbSearchSelect(Sender: TObject);
     procedure lvAssetSelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);
+    procedure edtCariKeyPress(Sender: TObject; var Key: Char);
 
   private
     iconName : string;
@@ -659,6 +660,14 @@ begin
   end
 end;
 
+procedure TfrmDisplayArea.edtCariKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    UpdateDataFile;
+  end;
+end;
+
 procedure TfrmDisplayArea.UpdateDataFile;
 var
   i : Integer;
@@ -668,7 +677,16 @@ var
 begin
   lvFileData.Items.Clear;
 
-  dmINWO.GetAllFileByUserRoleId(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, FFileDataList);
+  if edtCari.Text <> '' then
+  begin
+    dmINWO.GetFilterSearchDataFile(FFileDataList, edtCari.Text)
+  end
+  else if edtCari.Text = '' then
+  begin
+    dmINWO.GetAllFile(FFileDataList);
+  end;
+
+//  dmINWO.GetAllFileByUserRoleId(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, FFileDataList);
 
   for i := 0 to FFileDataList.Count - 1 do
   begin
@@ -1457,7 +1475,6 @@ begin
     edtSearch.BringToFront;
   end;
 end;
-
 
 procedure TfrmDisplayArea.edtSearchKeyPress(Sender: TObject; var Key: Char);
 begin

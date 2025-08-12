@@ -24,6 +24,7 @@ type
   TRoleContainer = class
   private
     FRoleList : TList;
+    FConsoleIP : string;
 
   public
     constructor Create;
@@ -420,13 +421,17 @@ type
   end;
 
   TIntelijenShape = class (TMainShape)
+  private
+    FisSelected: Boolean;
   public
     InfoList   : TList;
+    PosX, PosY : Double;
 
     constructor Create(cvt : TCoordConverter);
     destructor Destroy; override;
 
     procedure Draw(FCanvas: TCanvas); override;
+    property IsSelected: Boolean read FisSelected write FisSelected;
   end;
 
   TLogisticShape = class (TMainShape)
@@ -1293,7 +1298,6 @@ begin
         bmp.LoadFromFile(vGameDataSetting.ImgPath + pctLogisticPoint + '.bmp');
       end;
       ovRadar: bmp.LoadFromFile(vGameDataSetting.ImgPath + pctBaseRadar + '.bmp');
-//      ovPangkalan: bmp.LoadFromFile(vGameDataSetting.ImgPath + pctBaseAL + '.bmp');
       ovPanah:
       begin
         bmp.Transparent := true;
@@ -2735,6 +2739,7 @@ end;
 procedure TPlatformShape.Draw(FCanvas: TCanvas);
 var
   cx, cy: Integer;
+  lengthName : Integer;
 begin
   inherited;
 
@@ -2754,6 +2759,10 @@ begin
 
     SetStyleHuruf(FCanvas, fsBold, 20, ShapeOutline, 'TAKTIS_AL');
     TextOut(cx, cy,simbol);
+
+    lengthName := (length(Identifier) div 2) * 8;
+    SetStyleHuruf(FCanvas, fsBold, 10, ShapeOutline, 'Maiandra GD');
+    TextOut(round(cx), round(cy + 23), Identifier);
 
     Font := SetTempHuruf(Font, 1);
   end;
